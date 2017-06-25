@@ -2,27 +2,27 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html><head>
 <title>Framework behaviour</title>
-<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<link href="../../../../stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style type="text/css" media="screen"><!--
-.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+.ButtonBox { background-image: url(../../../../stock/gradient.jpg); }
 --></style>
 </head>
 <body><a name="_top"></a><a name="OpenFontSystem%2eguide%2eFrameworkBehaviour"></a>
 <table width="100%" border="0" cellspacing="0"
 cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
-src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
-height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+src="../../../../stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../stock/mainheading.gif"
 alt=" Developer Library" height="46" width="183"></td></tr><tr><td
 class="DocSetBox" width="33%">
 <p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
 </td><td class="ButtonBox" align="right" width="67%">
 <p><a href="../../../../_index/index.html"><img
-src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
-height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
-alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
-alt="" width="60" height="22"> <a href="index.html"><img src="../../../../_stock/btn_prev.gif"
-alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToUseAnOFSfont.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+src="../../../../stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../../stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToUseAnOFSfont.guide.html"><img src="../../../../stock/btn_next.gif" alt="[Next]"
 border="0" width="58" height="22"></a></p>
 </td></tr></table>
 <hr noshade size="1">
@@ -48,7 +48,7 @@ Framework&nbsp;behaviour</p>
 <li><p>The Font and bitmap server calls the factory function for all  rasterizer DLLs found in <code class="filename">\system\fonts</code> on all drives.  This will include the rasterizer DLL for TrueType fonts, <code class="filename">freetype.dll</code>,  if it is present.</p>
 </li><li><p>Files found in <code class="filename">\system\fonts</code> on all drives are offered to all Open Font System rasterizers, one at a time, by calling the rasterizer's <code>NewFontFileL()</code> function. </p><p>The first rasterizer that recognises and  accepts the file returns  a non-null <code>COpenFontFile</code> object. The <code>COpenFontFile</code> object is then added to a list of Open Font files. Fonts not accepted by any rasterizer are assumed to be Symbian-format bitmap files.</p></li>
 </ul><a name="1.4"></a></div><div class="Head2">
-<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
 <h2>When a client requests a <code>CFont*</code></h2>
 </div><div class="Bodytext"><p>Clients request a <code>CFont*</code> matching a particular font specification using <code>CBitmapDevice::GetNearestFontInPixels()</code>.</p><p>The framework then:</p><ul>
 <li><p>Modifies the font specification by reducing the size of the font if superscript or subscript is specified.</p>
@@ -56,7 +56,7 @@ Framework&nbsp;behaviour</p>
 </p></li><li><p>Finds the best matching Bitmap font.</p></li><li><p>Selects the best matching font (from between the best Open Font System font and the best Bitmap font) and returns it to the client.</p><p>If there is no Open Font System font  the Bitmap font is selected, and vice versa. If both candidates exist, the best match of the two is used. If they are both perfect matches then the Bitmap font is used.</p></li>
 </ul><p>Note that there is no  way for the user to request a particular type of font format, e.g. It is not possible to specifically request a  TrueType font or an Adobe Type 1 font etc.
 </p><a name="1.5"></a></div><div class="Head2">
-<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
 <h2>When a glyph is required</h2>
 </div><div class="Bodytext"><p>The Font and Bitmap Server  gets the glyph for each character, using this <code>CFont</code>, as required.  Glyphs that have already been created are taken from a glyph cache.</p><p>New  glyphs are created by implementations of the virtual function <code>COpenFont::RasterizeL()</code>, and are then added to a per-font cache.</p>
 
@@ -67,7 +67,7 @@ Framework&nbsp;behaviour</p>
 <td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
 </p></td>
 <td align="right"><p><a href="#_top"><img
-alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+alt="[Top]" src="../../../../stock/arrow_up.gif" border="0"
 align="bottom"></a></p></td>
 </table>
 </div>

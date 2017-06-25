@@ -2,27 +2,27 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html><head>
 <title>Pointers to the start and end of contiguous regions</title>
-<link href="../../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<link href="../../../../../../stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style type="text/css" media="screen"><!--
-.ButtonBox { background-image: url(../../../../../../_stock/gradient.jpg); }
+.ButtonBox { background-image: url(../../../../../../stock/gradient.jpg); }
 --></style>
 </head>
 <body><a name="_top"></a><a name="DynamicArraysGuide2%2eptrcontig"></a>
 <table width="100%" border="0" cellspacing="0"
 cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
-src="../../../../../../_stock/symbian.gif" alt="Symbian" width="121"
-height="46" border="0"></a><img src="../../../../../../_stock/mainheading.gif"
+src="../../../../../../stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../../stock/mainheading.gif"
 alt=" Developer Library" height="46" width="183"></td></tr><tr><td
 class="DocSetBox" width="33%">
 <p><a href="../../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
 </td><td class="ButtonBox" align="right" width="67%">
 <p><a href="../../../../../../_index/index.html"><img
-src="../../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
-height="22" border="0"></a> <a href="../../../../../GlobalGlossary/index.html"><img src="../../../../../../_stock/btn_glossary.gif"
-alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../../_stock/btn_spacer.gif"
-alt="" width="60" height="22"> <a href="HowToCreateGenericArray.guide.html"><img src="../../../../../../_stock/btn_prev.gif"
-alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../../../../_stock/btn_next.gif" alt="[Next]"
+src="../../../../../../stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../../GlobalGlossary/index.html"><img src="../../../../../../stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../../stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToCreateGenericArray.guide.html"><img src="../../../../../../stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../../../../stock/btn_next.gif" alt="[Next]"
 border="0" width="58" height="22"></a></p>
 </td></tr></table>
 <hr noshade size="1">
@@ -50,7 +50,7 @@ Pointers&nbsp;to&nbsp;the&nbsp;start&nbsp;and&nbsp;end&nbsp;of&nbsp;contiguous&n
 </div><div class="Bodytext">
 <p>An array of same length elements uses the <code>End()</code> function to fetch the end pointer and the <code>Back()</code> function to fetch the back pointer. The implementation of these two functions differs between a fixed flat array and a fixed segmented array.</p>
 <a name="1.6"></a></div><div class="Head2">
-<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../../stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
 <h2>Flat array</h2>
 </div><div class="Bodytext">
 <p>For a flat array&#0160;&#8212;  i.e. an array whose buffer is implemented using a flat buffer&#0160;&#8212;  the end pointer simply points to the first byte following the single region of memory containing the array buffer. The back pointer simply points to the first byte of the single region of memory (as illustrated below); <code>End()</code> always returns a pointer to the first byte following the end of the buffer, while <code>Back()</code> always returns a pointer to the beginning of the buffer.</p>
@@ -59,7 +59,7 @@ Pointers&nbsp;to&nbsp;the&nbsp;start&nbsp;and&nbsp;end&nbsp;of&nbsp;contiguous&n
 <p class="Caption">End() and Back() in fixed flat arrays</p>
 </div>
 <a name="1.7"></a></div><div class="Head2">
-<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../../stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
 <h2>Segmented array</h2>
 </div><div class="Bodytext">
 <p>For a segmented array, the situation is different (as illustrated below). Looking at the segment containing elements <code>n</code> and <code>n+1</code>, <code>End()</code> returns a pointer to the first byte following the end of that segment. In fact, <code>End()</code> returns the same pointer value for all elements in that segment. <code>Back()</code> returns a pointer to the beginning of that segment for element <code>n+1</code> and for all <i>subsequent</i> elements in that segment. However, for the <i>first</i> element in that segment, <code>Back()</code> returns a pointer to the beginning of the <i>previous</i> segment. For the very first element in the array, <code>Back()</code> returns a pointer with a NULL value.</p>
@@ -68,7 +68,7 @@ Pointers&nbsp;to&nbsp;the&nbsp;start&nbsp;and&nbsp;end&nbsp;of&nbsp;contiguous&n
 <p class="Caption">End() and Back() in fixed segmented arrays</p>
 </div>
 <a name="1.8"></a></div><div class="Head2">
-<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../../stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
 <h2>See also</h2>
 </div><div class="Bodytext">
 <p><a href="../../../BuffersAndStrings/DynamicBuffers/index.html#DynamicBuffersGuide%2etoc">Dynamic Buffers Guide</a>.</p>
@@ -80,7 +80,7 @@ Pointers&nbsp;to&nbsp;the&nbsp;start&nbsp;and&nbsp;end&nbsp;of&nbsp;contiguous&n
 <td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
 </p></td>
 <td align="right"><p><a href="#_top"><img
-alt="[Top]" src="../../../../../../_stock/arrow_up.gif" border="0"
+alt="[Top]" src="../../../../../../stock/arrow_up.gif" border="0"
 align="bottom"></a></p></td>
 </table>
 </div>

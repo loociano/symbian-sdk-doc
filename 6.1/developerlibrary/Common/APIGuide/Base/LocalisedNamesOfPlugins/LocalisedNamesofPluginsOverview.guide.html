@@ -2,27 +2,27 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html><head>
 <title>Localised Names of Plug-ins Overview</title>
-<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<link href="../../../../stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style type="text/css" media="screen"><!--
-.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+.ButtonBox { background-image: url(../../../../stock/gradient.jpg); }
 --></style>
 </head>
 <body><a name="_top"></a><a name="localisednamesofpluginsoverview%2emain"></a>
 <table width="100%" border="0" cellspacing="0"
 cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
-src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
-height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+src="../../../../stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../stock/mainheading.gif"
 alt=" Developer Library" height="46" width="183"></td></tr><tr><td
 class="DocSetBox" width="33%">
 <p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
 </td><td class="ButtonBox" align="right" width="67%">
 <p><a href="../../../../_index/index.html"><img
-src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
-height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
-alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
-alt="" width="60" height="22"> <a href="index.html"><img src="../../../../_stock/btn_prev.gif"
-alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+src="../../../../stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../../stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../../stock/btn_next.gif" alt="[Next]"
 border="0" width="58" height="22"></a></p>
 </td></tr></table>
 <hr noshade size="1">
@@ -49,20 +49,20 @@ Localised&nbsp;Names&nbsp;of&nbsp;Plug-ins&nbsp;Overview</p>
 <p>This API should be used by applications that display names of plug-ins to users. Some devices allow users to switch between different languages. On such a device,  lists of plug-in names displayed to users need to be localised. Localising a list of plug-in names involves:</p><ul><li><p>translating plug-in names into the device's new language. The plug-in names need to be read from resource files. The list cannot simply use filenames.</p></li><li><p>sorting the list contents according to the new locale's collation rules — different locales have different rules for sorting text.</p></li><li><p>filtering the list. The user will not necessarily need to be shown the names of all plug-ins for a given framework in all locales. Some plug-ins may not be applicable to all locales, so that their names may need to be removed from the list. For this to happen, the localised name of the plug-in should be an empty string.</p></li></ul>
 <a name="1.4"></a>
 </div><div class="Head2">
-<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
 <h2>Architectural relationships</h2>
 </div><div class="Bodytext">
 <p>This API consists of a single class, <a href="../../../APIReference/LocalisedNamesOfPlugins/CBaNamedPluginsClass.html#%3a%3aCBaNamedPlugins" title="A localised list of the names of the plug-ins available on the device for a particular plug-in framework"><code class="ApiItem">CBaNamedPlugins</code></a>. This is a descriptor array which implements the <code>MDesCArray</code> interface. </p><p>It uses the following APIs:</p><p>Interface to Resource Files. Localised plug-in names are provided in resource files.</p><p>File Server Client Side and Application Utilities. A <code>CBaNamedPlugins</code> object populates its named plug-in list by searching the file sytem for  localised  versions of resource files, then opens them for reading. It  requires a connected session with the file server to do this. <a href="../../../APIReference/ApplicationUtilities/BaflUtilsClass.html#%3a%3aBaflUtils%3a%3aNearestLanguageFile%28%29" title="Searches for the file with the correct language extension for the language of the current locale, or failing this, the best matching file"><code class="ApiItem">BaflUtils::NearestLanguageFile()</code></a> is used internally to create the correct language extension for each resource file.</p><p>Descriptors. The list can be sorted using a default algorithm, (<code>TDesC::CompareC()</code>). It  also allows  you to define and use a custom algorithm instead.</p><p>This API is used by the Character Conversion API's <code>CCnvCharacterSetNames</code> class  to generate a localised list of character set conversion plug-ins.</p>
 <a name="1.5"></a>
 </div><div class="Head2">
-<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
 <h2>Description</h2>
 </div><div class="Bodytext">
 <p>The API is used as follows. </p>
 <p>The parameters  for the named plug-in list are packaged together into an object of type <code>CBaNamedPlugins::CParameters</code>, which is passed to <code>CBaNamedPlugins::NewL()</code> or <code>NewLC()</code>.</p><p>Minimally, two parameters  must be provided in this object — a list of <code>CBaNamedPlugins::TResourceFile</code>s, and a connected session with the file server. Each <code>TResourceFile</code> object contains the language-independent name of a  resource file and a unique identifier for the plug-in it names. One resource file should be specified for each plug-in.</p><p> Other parameters are optional. They  include: </p><ul><li><p>An object that generates a fallback name for  plug-ins, if no resource file could be found with the correct  language extension.</p></li><li><p>A function that compares two plug-in names for collation. </p></li></ul><p>Default implementations for both of these functions  are  provided: see the documentation of class <code>CBaNamedPlugins</code> for details.</p><p>When the list has been populated, it is sorted using the second function, then items in the list can be retrieved using the implementation of the <code>MDesCArray</code> interface —  <code>MdcaCount()</code> and <code>MdcaPoint()</code>.</p>
 <a name="1.6"></a>
 </div><div class="Head2">
-<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
 <h2>See also</h2>
 </div><div class="Bodytext">
 <p><a href="../InterfaceToResourceFiles/index.html#InterfaceToResourceFilesGuide%2etoc">Interface to Resource Files</a></p>
@@ -75,7 +75,7 @@ Localised&nbsp;Names&nbsp;of&nbsp;Plug-ins&nbsp;Overview</p>
 <td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
 </p></td>
 <td align="right"><p><a href="#_top"><img
-alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+alt="[Top]" src="../../../../stock/arrow_up.gif" border="0"
 align="bottom"></a></p></td>
 </table>
 </div>

@@ -2,27 +2,27 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html><head>
 <title>How to use CCnvCharacterSetConverter</title>
-<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<link href="../../../../stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style type="text/css" media="screen"><!--
-.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+.ButtonBox { background-image: url(../../../../stock/gradient.jpg); }
 --></style>
 </head>
 <body><a name="_top"></a><a name="CharconvGuide%2eUsingCCnvCharacterSetConverter"></a>
 <table width="100%" border="0" cellspacing="0"
 cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
-src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
-height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+src="../../../../stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../stock/mainheading.gif"
 alt=" Developer Library" height="46" width="183"></td></tr><tr><td
 class="DocSetBox" width="33%">
 <p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
 </td><td class="ButtonBox" align="right" width="67%">
 <p><a href="../../../../_index/index.html"><img
-src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
-height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
-alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
-alt="" width="60" height="22"> <a href="UnicodeTransformationFormats.guide.html"><img src="../../../../_stock/btn_prev.gif"
-alt="[Previous]" border="0" width="85" height="22"></a> <a href="UsingCnvUtfConverterClass.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+src="../../../../stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="UnicodeTransformationFormats.guide.html"><img src="../../../../stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="UsingCnvUtfConverterClass.guide.html"><img src="../../../../stock/btn_next.gif" alt="[Next]"
 border="0" width="58" height="22"></a></p>
 </td></tr></table>
 <hr noshade size="1">
@@ -56,7 +56,7 @@ and from a character set to Unicode when the text is arriving in fragments.
 code fragment form, the use of the other variant.</p>
 <a name="1.4"></a>
 </div><div class="Head2">
-<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
 <h2>Converting text from Unicode to a non-Unicode character
 set</h2>
 </div><div class="Bodytext">
@@ -89,7 +89,7 @@ corrupted characters.</p>
 <p class="CodeBlock"><code>    for(;;) // conversion loop<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Start conversion. When the output buffer is full, return the <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// number of characters that were not converted<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const TInt returnValue=aCharacterSetConverter.ConvertFromUnicode(outputBuffer,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;remainderOfUnicodeText);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// check to see that the descriptor isn’t corrupt - leave if it is<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (returnValue==CCnvCharacterSetConverter::EErrorIllFormedInput)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;User::Leave(KErrCorrupt);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else if (returnValue&lt;0) // future-proof against &quot;TError&quot; expanding<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;User::Leave(KErrGeneral);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Do something here to store the contents of the output buffer. <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Finish conversion if there are no unconverted characters in the remainder buffer<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (returnValue==0)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Remove the converted source text from the remainder buffer. <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// The remainder buffer is then fed back into loop<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;remainderOfUnicodeText.Set(remainderOfUnicodeText.Right(returnValue));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
 <a name="1.5"></a>
 </div><div class="Head2">
-<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
 <h2>Converting text from a non-Unicode character set to
 Unicode</h2>
 </div><div class="Bodytext">
@@ -125,7 +125,7 @@ also includes code to check for corrupted characters.</p>
 <p class="CodeBlock"><code>    for(;;)  // conversion loop<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Start conversion. When the output buffer is full, return the number<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// of characters that were not converted<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const TInt returnValue=aCharacterSetConverter.ConvertToUnicode(outputBuffer, remainderOfForeignText, state);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// check to see that the descriptor isn’t corrupt - leave if it is<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (returnValue==CCnvCharacterSetConverter::EErrorIllFormedInput)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;User::Leave(KErrCorrupt);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else if (returnValue&lt;0) // future-proof against &quot;TError&quot; expanding<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;User::Leave(KErrGeneral);<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Do something here to store the contents of the output buffer.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Finish conversion if there are no unconverted <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// characters in the remainder buffer<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (returnValue==0)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Remove converted source text from the remainder buffer.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// The remainder buffer is then fed back into loop<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;remainderOfForeignText.Set(remainderOfForeignText.Right(returnValue));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
 <a name="1.6"></a>
 </div><div class="Head2">
-<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
 <h2>Converting fragmented text from a non-Unicode character set to
 Unicode</h2>
 </div><div class="Bodytext">
@@ -180,7 +180,7 @@ characters.</p>
 <p class="CodeBlock"><code>// The conversion loop. This loop takes chunks of text prepared by the previous loop and converts them<br>for(;;)  // conversion loop<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;const TInt lengthOfRemainderOfForeignText=remainderOfForeignText.Length();<br>&nbsp;&nbsp;&nbsp;&nbsp;if (isLastChunkOfForeignText)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (lengthOfRemainderOfForeignText==0)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return; // the single point of exit of this function<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;else<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// As this isn't the last chunk, ConvertToUnicode should not return<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// CCnvCharacterSetConverter::EErrorIllFormedInput if the input descriptor ends<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// with an incomplete sequence - but it will only do this if *none* of the input<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// descriptor can be consumed. Therefore if the input descriptor is long enough<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// (20 elements or longer is plenty adequate) there is no danger of this error<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// being returned for this reason. If it's shorter than that, simply put it<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// at the start of the buffer so that it gets converted with the next chunk.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (lengthOfRemainderOfForeignText&lt;20)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// put any remaining foreign text at the start of bufferForForeignText<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lengthOfBufferForForeignText=lengthOfRemainderOfForeignText;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mem::Copy(bufferForForeignText, remainderOfForeignText.Ptr(), lengthOfBufferForForeignText);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>&nbsp;&nbsp;&nbsp;&nbsp;const TInt returnValue=aCharacterSetConverter.ConvertToUnicode(outputBuffer,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;remainderOfForeignText, state);<br>&nbsp;&nbsp;&nbsp;&nbsp;if (returnValue==CCnvCharacterSetConverter::EErrorIllFormedInput)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;User::Leave(KErrCorrupt);<br>&nbsp;&nbsp;&nbsp;&nbsp;else if (returnValue&lt;0) // future-proof against &quot;TError&quot; expanding<br>&nbsp;&nbsp;&nbsp;&nbsp;User::Leave(KErrGeneral);<br>&nbsp;&nbsp;&nbsp;&nbsp;// Do something here to store the contents of the output buffer.<br>remainderOfForeignText.Set(remainderOfForeignText.Right(returnValue));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
 <a name="1.7"></a>
 </div><div class="Head2">
-<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
 <h2>Using the faster variant of <code>PrepareToConvertL()</code></h2>
 </div><div class="Bodytext">
 <p>The faster variant of <code>PrepareToConvertL()</code> is suitable if the
@@ -212,7 +212,7 @@ the thread.</p>
 <td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
 </p></td>
 <td align="right"><p><a href="#_top"><img
-alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+alt="[Top]" src="../../../../stock/arrow_up.gif" border="0"
 align="bottom"></a></p></td>
 </table>
 </div>

@@ -2,27 +2,27 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html><head>
 <title>How to process window-group related events</title>
-<link href="../../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<link href="../../../../../../stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style type="text/css" media="screen"><!--
-.ButtonBox { background-image: url(../../../../../../_stock/gradient.jpg); }
+.ButtonBox { background-image: url(../../../../../../stock/gradient.jpg); }
 --></style>
 </head>
 <body><a name="_top"></a><a name="WindowServeGuide%2eHowToGetKeyEvents"></a>
 <table width="100%" border="0" cellspacing="0"
 cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
-src="../../../../../../_stock/symbian.gif" alt="Symbian" width="121"
-height="46" border="0"></a><img src="../../../../../../_stock/mainheading.gif"
+src="../../../../../../stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../../stock/mainheading.gif"
 alt=" Developer Library" height="46" width="183"></td></tr><tr><td
 class="DocSetBox" width="33%">
 <p><a href="../../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
 </td><td class="ButtonBox" align="right" width="67%">
 <p><a href="../../../../../../_index/index.html"><img
-src="../../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
-height="22" border="0"></a> <a href="../../../../../GlobalGlossary/index.html"><img src="../../../../../../_stock/btn_glossary.gif"
-alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../../_stock/btn_spacer.gif"
-alt="" width="60" height="22"> <a href="HowToHandleGeneralEvents.html"><img src="../../../../../../_stock/btn_prev.gif"
-alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToWindowRelatedEvents.html"><img src="../../../../../../_stock/btn_next.gif" alt="[Next]"
+src="../../../../../../stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../../GlobalGlossary/index.html"><img src="../../../../../../stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../../stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToHandleGeneralEvents.html"><img src="../../../../../../stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToWindowRelatedEvents.html"><img src="../../../../../../stock/btn_next.gif" alt="[Next]"
 border="0" width="58" height="22"></a></p>
 </td></tr></table>
 <hr noshade size="1">
@@ -46,14 +46,14 @@ How&nbsp;to&nbsp;process&nbsp;window-group&nbsp;related&nbsp;events</p>
 <hr size="2" noshade>
 <h2>Key events</h2>
 </div><div class="Bodytext"><p>To detect if a  key event has occured, use the  <code>EEventKey</code>, <code>EEventKeyUp</code> or <code>EEventKeyDown</code>  event types.  </p><p>You can get get key event information by calling the <a href="../../../../../APIReference/WindowServerClientSide/TWsEventClass.html#%3a%3aTWsEvent%3a%3aKey%28%29" title="Gets the key event"><code class="ApiItem">TWsEvent::Key()</code></a> function.</p><p class="CodeBlock"><code>// Key events - get the key code<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case EEventKey:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case EEventKeyUp:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case EEventKeyDown:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Get the key event<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TKeyEvent&amp; keyEvent=*iWsEvent.Key();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Get the key code: values are defined in TKeyEvent<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TUint code = keyEvent.iCode;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</code></p><a name="1.5"></a></div><div class="Head2">
-<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../../stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
 <h2>Modifier changed events</h2>
 </div><div class="Bodytext"><p>To detect if a key modifer (the state of SHIFT, CTRL, etc. keys) changed event has occured, use  the <code>EEventModifiersChanged</code> event type.</p><p>You can get  key event information by calling the <a href="../../../../../APIReference/WindowServerClientSide/TWsEventClass.html#%3a%3aTWsEvent%3a%3aModifiersChanged%28%29" title="Gets modifier changed event"><code class="ApiItem">TWsEvent::ModifiersChanged()</code></a> function.</p><p class="CodeBlock"><code>// A key modifier (e.g. SHIFT) changed<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case EEventModifiersChanged:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Get the state of the modifier keys<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TKeyEvent&amp; keyEvent=*iWsEvent.ModifiersChanged();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Get the key modifers: values are defined in TEventModifier<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TUint modifiers = keyEvent.iModifiers;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</code></p><p>
 This event type is not reported unless explicitly requested by a window. Use <a href="../../../../../APIReference/WindowServerClientSide/RWindowTreeNodeClass.html#%3a%3aRWindowTreeNode%3a%3aEnableModifierChangedEvents%28%29" title="Requests notification of modifier changed events"><code class="ApiItem">RWindowTreeNode::EnableModifierChangedEvents()</code></a> to request this event type.</p><a name="1.6"></a></div><div class="Head2">
-<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../../stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
 <h2>Window focus lost and gained events</h2>
 </div><div class="Bodytext"><p>To detect if the window focus has been lost or gained, use the  <code>EEventFocusLost</code> and <code>EEventFocusGained</code> event types. </p><p>You can get the handle to the  window group whose focus has changed by calling <a href="../../../../../APIReference/WindowServerClientSide/TWsEventClass.html#%3a%3aTWsEvent%3a%3aHandle%28%29" title="Gets the window handle"><code class="ApiItem">TWsEvent::Handle()</code></a>.</p><p class="CodeBlock"><code>// Window focus lost and gained events<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case EEventFocusLost:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case EEventFocusGained:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Get handle (typically a pointer) to the window group whose focus has changed<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TUint handle = iWsEvent.Handle();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</code></p><a name="1.7"></a></div><div class="Head2">
-<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../../stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
 <h2>User-defined event received from another window</h2>
 </div><div class="Bodytext"><p>To detect if user-defined events have been received from another window, use <code>EEventUser</code>. </p><p>You can get information about the event by calling <a href="../../../../../APIReference/WindowServerClientSide/TWsEventClass.html#%3a%3aTWsEvent%3a%3aEventData%28%29" title="Gets information about the event"><code class="ApiItem">TWsEvent::EventData()</code></a>.</p><p class="CodeBlock"><code>         // User-defined event received from another window<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case EEventUser:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Get a pointer to the event data<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TAny* data = iWsEvent.EventData();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
 
@@ -64,7 +64,7 @@ This event type is not reported unless explicitly requested by a window. Use <a 
 <td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
 </p></td>
 <td align="right"><p><a href="#_top"><img
-alt="[Top]" src="../../../../../../_stock/arrow_up.gif" border="0"
+alt="[Top]" src="../../../../../../stock/arrow_up.gif" border="0"
 align="bottom"></a></p></td>
 </table>
 </div>

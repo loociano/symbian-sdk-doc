@@ -2,27 +2,27 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html><head>
 <title>How to write a rasterizer DLL</title>
-<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<link href="../../../../stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style type="text/css" media="screen"><!--
-.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+.ButtonBox { background-image: url(../../../../stock/gradient.jpg); }
 --></style>
 </head>
 <body><a name="_top"></a><a name="OpenFontSystem%2eHowtoWriteRasterizerDLL"></a>
 <table width="100%" border="0" cellspacing="0"
 cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
-src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
-height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+src="../../../../stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../stock/mainheading.gif"
 alt=" Developer Library" height="46" width="183"></td></tr><tr><td
 class="DocSetBox" width="33%">
 <p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
 </td><td class="ButtonBox" align="right" width="67%">
 <p><a href="../../../../_index/index.html"><img
-src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
-height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
-alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
-alt="" width="60" height="22"> <a href="HowToInstallFontFile.guide.html"><img src="../../../../_stock/btn_prev.gif"
-alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToDeriveFromCOpenFontRasterizer.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+src="../../../../stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToInstallFontFile.guide.html"><img src="../../../../stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToDeriveFromCOpenFontRasterizer.guide.html"><img src="../../../../stock/btn_next.gif" alt="[Next]"
 border="0" width="58" height="22"></a></p>
 </td></tr></table>
 <hr noshade size="1">
@@ -52,19 +52,19 @@ How&nbsp;to&nbsp;write&nbsp;a&nbsp;rasterizer&nbsp;DLL</p>
 <h3>See also</h3>
 </div><div class="Bodytext"><p><a href="HowToDeriveFromCOpenFontRasterizer.guide.html#OpenFontSystem%2eHowtoCOpenFontRasterizer">How to derive from COpenFontRasterizer</a></p><p><a href="HowToDeriveFromCOpenFontFile.guide.html#OpenFontSystem%2eHowtoCOpenFontFile">How to derive from COpenFontFile</a></p><p><a href="HowToDeriveFromCOpenFont.guide.html#OpenFontSystem%2eHowtoCOpenFont">How to derive from COpenFont</a></p><p><a href="HowToDeriveFromCOpenFontRasterizerContext.guide.html#OpenFontSystem%2eHowtoCOpenFontRasterizerContext">How to derive from COpenFontRasterizerContext</a></p>
 <a name="1.4"></a></div><div class="Head2">
-<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
 <h2>The DLL</h2>
 </div><div class="Bodytext"><p>A rasterizer DLL is an ordinary Symbian polymorphic  DLL. It exports just one function and has no unusual behaviour.</p><p>In particular, it must have no writable static data. This is an important constraint on the use of code from outside sources.</p><a name="1.4.4"></a></div><div class="Head3">
 <hr size="1" noshade>
 <h3>See also</h3>
 </div><div class="Bodytext"><p><a href="../../../DeveloperGuide/EssentialIdioms/StaticData.html#idioms%2estaticdata">Static data</a></p><a name="OpenFontSystem%2eRasterizerDLL%2dexportedfunc"></a></div><div class="Head2">
-<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
 <h2>The exported function</h2>
 </div><div class="Bodytext"><p>The exported function is a factory function that creates objects of a class derived from <code>COpenFontRasterizer</code>. It will be called just once — when the Font and Bitmap Server loads the DLL. </p><p>Although the name of the function does not matter because it is loaded by ordinal, implementers should follow the practice of making it a static member of the rasterizer class, called <code>NewL()</code>. Thus, if the rasterizer class is <code>CExampleRasterizer</code> (derived from <code>COpenFontRasterizer</code>), the exported function is:</p><p class="CodeBlock"><code>static COpenFontRasterizer* CExampleRasterizer::NewL()</code></p><p>The function must take no arguments. It must create a <code>COpenFontRasterizer</code> derived object on the heap, returning it to the caller. The caller is responsible for deleting the object. As the name of the example function suggests, it is allowed to leave.</p><a name="1.5.7"></a></div><div class="Head3">
 <hr size="1" noshade>
 <h3>Example</h3>
 </div><div class="Bodytext"><p>The exported function used in the FreeType rasterizer is given below:</p><p class="CodeBlock"><code>EXPORT_C COpenFontRasterizer* CFreeTypeRasterizer::NewL()<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;CFreeTypeRasterizer* r = new(ELeave) CFreeTypeRasterizer;<br>&nbsp;&nbsp;&nbsp;&nbsp;CleanupStack::PushL(r);<br>&nbsp;&nbsp;&nbsp;&nbsp;r-&gt;iContext = CFreeTypeContext::NewL();<br>&nbsp;&nbsp;&nbsp;&nbsp;CleanupStack::Pop();<br>&nbsp;&nbsp;&nbsp;&nbsp;return r;<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p><a name="1.6"></a></div><div class="Head2">
-<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
 <h2>Project file</h2>
 </div><div class="Bodytext"><p>The name of the rasterizer DLL, its type, and its UIDs are all specified in the makmake project file. Note that: </p><ul>
 <li><p>The <em>target</em> output file extension must be <code class="filename">.dll</code>.  Only rasterizer DLLs with this extenstion are loaded during Font and Bitmap Server startup.</p>
@@ -75,7 +75,7 @@ and <code>KUidAdobeType1RasterizerValue</code> (0x100012A9) for the Adobe Type 1
 <hr size="1" noshade>
 <h3>Example</h3>
 </div><div class="Bodytext"><p>A fragment of the  project file for the freetype DLL is given below.</p><p class="CodeBlock"><code>target freetype.dll<br>targetpath \system\fonts<br>targettype dll<br>UID 0x10003B1F 0x100012A7</code></p><a name="1.7"></a></div><div class="Head2">
-<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
 <h2>Header files</h2>
 </div><div class="Bodytext"><p>Rasterizer DLLs   must <code>#include</code> the following header files, which are located in the standard include directory <code class="filename">\epoc32\include\</code>:</p><ul>
 <li><p>
@@ -91,7 +91,7 @@ and <code>KUidAdobeType1RasterizerValue</code> (0x100012A9) for the Adobe Type 1
 <td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
 </p></td>
 <td align="right"><p><a href="#_top"><img
-alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+alt="[Top]" src="../../../../stock/arrow_up.gif" border="0"
 align="bottom"></a></p></td>
 </table>
 </div>

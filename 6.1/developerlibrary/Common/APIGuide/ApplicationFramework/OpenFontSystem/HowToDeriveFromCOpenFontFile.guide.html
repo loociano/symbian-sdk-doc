@@ -2,27 +2,27 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html><head>
 <title>How to derive from COpenFontFile</title>
-<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<link href="../../../../stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style type="text/css" media="screen"><!--
-.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+.ButtonBox { background-image: url(../../../../stock/gradient.jpg); }
 --></style>
 </head>
 <body><a name="_top"></a><a name="OpenFontSystem%2eHowtoCOpenFontFile"></a>
 <table width="100%" border="0" cellspacing="0"
 cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
-src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
-height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+src="../../../../stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../stock/mainheading.gif"
 alt=" Developer Library" height="46" width="183"></td></tr><tr><td
 class="DocSetBox" width="33%">
 <p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
 </td><td class="ButtonBox" align="right" width="67%">
 <p><a href="../../../../_index/index.html"><img
-src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
-height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
-alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
-alt="" width="60" height="22"> <a href="HowToDeriveFromCOpenFontRasterizer.guide.html"><img src="../../../../_stock/btn_prev.gif"
-alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToDeriveFromCOpenFont.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+src="../../../../stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToDeriveFromCOpenFontRasterizer.guide.html"><img src="../../../../stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToDeriveFromCOpenFont.guide.html"><img src="../../../../stock/btn_next.gif" alt="[Next]"
 border="0" width="58" height="22"></a></p>
 </td></tr></table>
 <hr noshade size="1">
@@ -49,7 +49,7 @@ How&nbsp;to&nbsp;derive&nbsp;from&nbsp;COpenFontFile</p>
 </li><li><p>During construction call the base class constructor, passing it the  arguments <code>aUid</code> and <code>aFileName</code> supplied to <code>COpenFontRasterizer::NewFontFileL()</code>. </p></li><li><p>During construction, extract the  attributes of each  font in the font file into a <code>TOpenFontFaceAttrib</code>. Then add the attributes for each typeface to the  typeface array — using <code>COpenFontFile::AddFaceL()</code>.  </p></li>
 </ul>
 <a name="1.4"></a></div><div class="Head2">
-<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
 <h2>Implementing <code>GetNearestFontInPixelsL()</code></h2>
 </div><div class="Bodytext"><p>This function is called by the Font and Bitmap server to retrieve the font (from the font file) which most closely matches a given font specification. The freetype implementation is given below:</p><p class="CodeBlock"><code>void CFreeTypeFontFile::GetNearestFontInPixelsL(RHeap* aHeap,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COpenFontSessionCacheList* aSessionCacheList,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const TOpenFontSpec&amp; aFontSpec,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TInt aPixelWidth,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TInt aPixelHeight, COpenFont*&amp; aFont,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TOpenFontSpec&amp; aActualFontSpec)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;// Use the standard matcher.<br>&nbsp;&nbsp;&nbsp;&nbsp;TInt face_index = 0;<br>&nbsp;&nbsp;&nbsp;&nbsp;if (GetNearestFontHelper(aFontSpec,aPixelWidth,aPixelHeight,face_index,aActualFontSpec))<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aFont = CFreeTypeFont::NewL(aHeap,aSessionCacheList,this,face_index,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aActualFontSpec.Height(),<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aActualFontSpec.WidthFactor(),<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aActualFontSpec.SlantFactor());<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p><p>To implement this function:</p><ul>
 <li><p>Call the helper function <a href="../../../APIReference/OpenFontSystem/COpenFontFileClass.html#%3a%3aCOpenFontFile%3a%3aGetNearestFontHelper%28%29" title="Gets the nearest font — helper function"><code class="ApiItem">COpenFontFile::GetNearestFontHelper()</code></a>, passing it <code>aDesiredFontSpec</code>, <code>aPixelWidth</code>, <code>aPixelHeight</code>, <code>aActualFontSpec</code>, and the index of the typeface to search for a match. Note that a font file may contain serveral typefaces, which are accessed by this index.  </p><p>This helper function searches the typeface array for the closest matching font and returns <code>ETrue</code> if a match is found. It also  retrieves the matching font's specification into <code>aActualFontSpec</code>.</p><p>Note that the  typeface array must be populated from the font file during construction of the <code>COpenFontFile</code> derived object.</p>
@@ -58,7 +58,7 @@ How&nbsp;to&nbsp;derive&nbsp;from&nbsp;COpenFontFile</p>
 <hr size="1" noshade>
 <h3>Implementing <code>HasUnicodeCharacterL()</code></h3>
 </div><div class="Bodytext"><p><code>HasUnicodeCharacterL()</code> is called by the Font and Bitmap Server to test whether a font contains a particular Unicode character. The prototype is:</p><p class="CodeBlock"><code>virtual TBool HasUnicodeCharacterL(TInt aFaceIndex,TInt aCode) const = 0; </code></p><p>Implementations must return <code>ETrue</code> if the character <code>aCode</code>, which is always a Unicode value, exists in the typeface. There are no other constraints on the way this function is implemented.</p><a name="1.5"></a></div><div class="Head2">
-<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
 <h2>See also</h2>
 </div><div class="Bodytext"><p><a href="HowToDeriveFromCOpenFontRasterizer.guide.html#OpenFontSystem%2eHowtoCOpenFontRasterizer">How to derive from COpenFontRasterizer</a></p><p><a href="HowToDeriveFromCOpenFont.guide.html#OpenFontSystem%2eHowtoCOpenFont">How to derive from COpenFont</a></p><p><a href="HowToDeriveFromCOpenFontRasterizerContext.guide.html#OpenFontSystem%2eHowtoCOpenFontRasterizerContext">How to derive from COpenFontRasterizerContext</a></p>
 
@@ -69,7 +69,7 @@ How&nbsp;to&nbsp;derive&nbsp;from&nbsp;COpenFontFile</p>
 <td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
 </p></td>
 <td align="right"><p><a href="#_top"><img
-alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+alt="[Top]" src="../../../../stock/arrow_up.gif" border="0"
 align="bottom"></a></p></td>
 </table>
 </div>

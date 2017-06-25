@@ -2,27 +2,27 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html><head>
 <title>How to create a .pdl file</title>
-<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<link href="../../../stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style type="text/css" media="screen"><!--
-.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+.ButtonBox { background-image: url(../../../stock/gradient.jpg); }
 --></style>
 </head>
 <body><a name="_top"></a><a name="printerdrivergeneration%2ehowto%2dpdl"></a>
 <table width="100%" border="0" cellspacing="0"
 cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
-src="../../../_stock/symbian.gif" alt="Symbian" width="121"
-height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+src="../../../stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../stock/mainheading.gif"
 alt=" Developer Library" height="46" width="183"></td></tr><tr><td
 class="DocSetBox" width="33%">
 <p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
 </td><td class="ButtonBox" align="right" width="67%">
 <p><a href="../../../_index/index.html"><img
-src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
-height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
-alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
-alt="" width="60" height="22"> <a href="HowToCreatePDR.guide.html"><img src="../../../_stock/btn_prev.gif"
-alt="[Previous]" border="0" width="85" height="22"></a> <a href="PdrFileCommandLineSyntax.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+src="../../../stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToCreatePDR.guide.html"><img src="../../../stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="PdrFileCommandLineSyntax.guide.html"><img src="../../../stock/btn_next.gif" alt="[Next]"
 border="0" width="58" height="22"></a></p>
 </td></tr></table>
 <hr noshade size="1">
@@ -50,7 +50,7 @@ the GDI to draw to the printer. This is similar to the way that the screen graph
 of pages. The  argument passed to this function is the printer port on which the printer should be found.</p><p>For example, the EPSON printer driver implements this as:</p><p class="CodeBlock"><code>void CEpsonDevice::CreateControlL(CPrinterPort* aPrinterPort)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;__ASSERT_ALWAYS(aPrinterPort,Panic(EEpsonRequiresPrinterPort));<br>&nbsp;&nbsp;&nbsp;&nbsp;__ASSERT_ALWAYS(!iControl,Panic(EEpsonControlAlreadyExists));<br>&nbsp;&nbsp;&nbsp;&nbsp;__ASSERT_DEBUG(iCurrentPageSpecInTwips.iPortraitPageSize.iWidth &amp;&amp; iCurrentPageSpecInTwips.iPortraitPageSize.iHeight,Panic(EEpsonPageSpecNotSet));<br>&nbsp;&nbsp;&nbsp;&nbsp;iControl = CEpsonControl::NewL(this,aPrinterPort,*iStore,iModelInfo-&gt;iResourcesStreamId);<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p></li></ul><p>Consideration should be given to the following points:</p><ul><li>
 <p>The <code>KPixelSizeInTwips()</code> member function implemented by <code>CPdrDevice</code>  returns the pixel size of the printer device; this depends on the orientation, i.e. whether it is in landscape or portrait mode. For most devices this is acceptable. Where this assumption is not true, for example, for devices which do not support landscape mode, this function needs to be overridden in the derived class.</p>
 <p>The default implementation is:</p><p class="CodeBlock"><code>{<br>TSize size; <br>if (iCurrentPageSpecInTwips.iOrientation == TPageSpec::EPortrait)<br>&nbsp;&nbsp;&nbsp;&nbsp;size = TSize(iModelInfo-&gt;iKPixelWidthInTwips, iModelInfo-&gt;iKPixelHeightInTwips);<br>else if (iCurrentPageSpecInTwips.iOrientation == TPageSpec::ELandscape)<br>&nbsp;&nbsp;&nbsp;&nbsp;size = TSize(iModelInfo-&gt;iKPixelHeightInTwips, iModelInfo-&gt;iKPixelWidthInTwips);<br>return size;<br>}</code></p></li><li><p>A constructor and a destructor may be required, depending on the needs of the printer driver class.</p></li></ul><a name="1.6"></a></div><div class="Head2">
-<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
 <h2>The <code>CPdrControl</code>-derived class</h2>
 </div><div class="Bodytext"><p>This class  defines the printer control.</p><p><code>CPdrControl</code> is derived from <a href="../../APIReference/Printing/CPrinterControlClass.html#%3a%3aCPrinterControl" title="Printer control interface"><code class="ApiItem">CPrinterControl</code></a> and implements functionality for a printer control.</p><p><code>CPdrControl</code> is an internal class that simply provides an implementation for functions defined in its base classes.</p><p>The printing process prints each page as a number of bands as the following drawing shows:</p><div class="Figure">
 <p class="Image"><img src="pdgen-pagebands.gif" alt=""  border="0"></p>
@@ -62,7 +62,7 @@ postscript printers, or is put into a buffer ready for when it is needed later i
 the band - this is used when there is no graphics drawing to do until that point. </p><p>The <code>SetPageSizeL()</code> function should specify the area of the page which the printer can physically print, i.e. the print
 margins.</p><p>Typically, a derived class will define a static <code>NewL()</code> function to create an instance of the class. This will take  the set of parameters of type <code>CPdrDevice*</code>, <code>CPrinterPort*</code>, <code>CStreamStore&amp;</code>, <code>TStreamId</code>. For example, for the Epson driver:</p><p class="CodeBlock"><code>CEpsonControl* CEpsonControl::NewL(CPdrDevice* aPdrDevice,CPrinterPort* aPrinterPort,CStreamStore&amp; aStore,TStreamId aResourcesStreamId)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;CEpsonControl* control=new(ELeave) CEpsonControl(aPdrDevice,aPrinterPort);<br>&nbsp;&nbsp;&nbsp;&nbsp;CleanupStack::PushL(control);<br>&nbsp;&nbsp;&nbsp;&nbsp;control-&gt;ConstructL(aStore,aResourcesStreamId);<br>&nbsp;&nbsp;&nbsp;&nbsp;CleanupStack::Pop();<br>&nbsp;&nbsp;&nbsp;&nbsp;return control;<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
 <a name="2"></a></div><div class="Head1">
-<table cellpadding="0" cellspacing="0" border="0" width="100%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="3" noshade>
+<table cellpadding="0" cellspacing="0" border="0" width="100%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="3" noshade>
 <h1>The EPSON class definitions</h1>
 </div><div class="Bodytext"><p>The following class definitions are for the EPSON driver:</p><p class="CodeBlock"><code>class CEpsonDevice : public CPdrDevice<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>public:<br>&nbsp;&nbsp;&nbsp;&nbsp;CEpsonDevice();<br>&nbsp;&nbsp;&nbsp;&nbsp;~CEpsonDevice();<br>&nbsp;&nbsp;&nbsp;&nbsp;TInt CreateContext(CGraphicsContext*&amp; aGC);<br>&nbsp;&nbsp;&nbsp;&nbsp;void CreateControlL(CPrinterPort* aPrinterPort);<br>protected:<br>&nbsp;&nbsp;&nbsp;&nbsp;TSize KPixelSizeInTwips() const;<br>&nbsp;&nbsp;&nbsp;&nbsp;};</code></p><p class="CodeBlock"><code>class CEpsonControl : public CPdrControl<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>public:<br>&nbsp;&nbsp;&nbsp;&nbsp;static CEpsonControl* NewL(CPdrDevice* aPdrDevice,<br>&nbsp;&nbsp;&nbsp;&nbsp;CPrinterPort* aPrinterPort,CStreamStore&amp; aStore,<br>&nbsp;&nbsp;&nbsp;&nbsp;TStreamId aResourcesStreamId);<br>&nbsp;&nbsp;&nbsp;&nbsp;~CEpsonControl();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// print control functions<br>&nbsp;&nbsp;protected:<br>&nbsp;&nbsp;&nbsp;&nbsp;CEpsonControl(CPdrDevice* aPdrDevice,CPrinterPort* aPrinterPort);<br>&nbsp;&nbsp;&nbsp;&nbsp;void ConstructL(CStreamStore&amp; aStore,TStreamId aResourcesStreamId);<br>&nbsp;&nbsp;&nbsp;&nbsp;void OutputBandL();<br>&nbsp;&nbsp;&nbsp;&nbsp;void MoveToL(const TPoint&amp; aPoint); <br>&nbsp;&nbsp;&nbsp;&nbsp;TBool TransformBuffer();<br>&nbsp;&nbsp;&nbsp;&nbsp;void SetPageSizeL(); <br>&nbsp;&nbsp;&nbsp;&nbsp;protected:<br>&nbsp;&nbsp;&nbsp;&nbsp;TBuf8&lt;KEpsonNumScanLinesPerBand&gt;&gt;3&gt; iScanLine;<br>&nbsp;&nbsp;&nbsp;&nbsp;};</code></p>
 </div><div class="Footer">
@@ -72,7 +72,7 @@ margins.</p><p>Typically, a derived class will define a static <code>NewL()</cod
 <td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
 </p></td>
 <td align="right"><p><a href="#_top"><img
-alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+alt="[Top]" src="../../../stock/arrow_up.gif" border="0"
 align="bottom"></a></p></td>
 </table>
 </div>

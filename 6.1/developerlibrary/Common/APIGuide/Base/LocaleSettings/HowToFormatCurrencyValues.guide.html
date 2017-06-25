@@ -2,27 +2,27 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html><head>
 <title>How to format currency values</title>
-<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<link href="../../../../stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style type="text/css" media="screen"><!--
-.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+.ButtonBox { background-image: url(../../../../stock/gradient.jpg); }
 --></style>
 </head>
 <body><a name="_top"></a><a name="LocaleSettingsGuide%2eHowToFormatCurrencyValues"></a>
 <table width="100%" border="0" cellspacing="0"
 cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
-src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
-height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+src="../../../../stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../stock/mainheading.gif"
 alt=" Developer Library" height="46" width="183"></td></tr><tr><td
 class="DocSetBox" width="33%">
 <p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
 </td><td class="ButtonBox" align="right" width="67%">
 <p><a href="../../../../_index/index.html"><img
-src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
-height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
-alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
-alt="" width="60" height="22"> <a href="HowToUniversalLocalHome.guide.html"><img src="../../../../_stock/btn_prev.gif"
-alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+src="../../../../stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToUniversalLocalHome.guide.html"><img src="../../../../stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../../stock/btn_next.gif" alt="[Next]"
 border="0" width="58" height="22"></a></p>
 </td></tr></table>
 <hr noshade size="1">
@@ -45,7 +45,7 @@ How&nbsp;to&nbsp;format&nbsp;currency&nbsp;values</p>
 <hr size="2" noshade>
 <h2>From 6.1 onward</h2>
 </div><div class="Bodytext"><p>From 6.1, the <a href="../../../APIReference/LocaleSettings/TLocaleClass.html#%3a%3aTLocale" title="Sets and gets the system's locale settings"><code class="ApiItem">TLocale</code></a> class provides the <code>FormatCurrency()</code> functions that can format  currency values into a descriptor. The functions can handle both small and large  values. They render the currency amount as text, using the current locale's formatting requirements. These include  items such as:</p><ul><li><p> the appropriate currency symbol</p></li><li><p>	whether the currency symbol is placed before or after the currency amount</p></li><li><p>whether there is space between the currency amount and the currency symbol</p></li><li><p>the number of decimal places</p></li><li><p>the way a negative currency value is rendered.</p></li></ul><p>There are four overloaded variants of <code>FormatCurrency()</code>, two of which are suitable for rendering currency values  that fit into a <a href="../../../APIReference/BasicTypes/TIntTypedef.html#%3a%3aTInt" title="Signed integer type of the natural machine word length"><code class="ApiItem">TInt</code></a> type, and the other two of which are suitable for rendering very large currency values that fit into a <a href="../../../APIReference/BasicTypes/TInt64Class.html#%3a%3aTInt64" title="A 64-bit integer"><code class="ApiItem">TInt64</code></a> type.</p><p>Both pairs of functions behave in the same way, and the following code fragments will also apply  to the <code>TInt64</code> variants.</p><p>The first code fragment uses the <code>void FormatCurrency(TDes&amp;,TInt);</code> variant.</p><p class="CodeBlock"><code>...<br>TLocale locale;<br><br>TInt amount;<br>TBuf&lt;64&gt; buffer;<br><br>locale.set();<br>locale.FormatCurrency(buffer,amount);<br>...</code></p><p>On return, the descriptor buffer contains the currency value formatted as text using the currency symbol and formatting appropriate to the current locale. Note, however, that the caller is responsible for ensuring that the descriptor buffer is large enough. Too small a buffer results in a USER 11 panic.</p><p>The second code fragment uses the <code>void FormatCurrency(TDes&amp;,TDesOverflow&amp;,TInt);</code> variant.</p><p class="CodeBlock"><code>class TestOverflow : public TDesOverflow<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;void Overflow(TDes&amp; aBufferThatOverflowed);<br>&nbsp;&nbsp;&nbsp;&nbsp;};<br><br>void TestOverflow::Overflow(TDes&amp; aBufferThatOverflowed)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;_LIT(KTextOverflow,&quot;Overflowed&quot;);<br>&nbsp;&nbsp;&nbsp;&nbsp;aBufferThatOverflowed = KTextOverflow;<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>...<br>TLocale locale;<br>TestOverflow ovfl;<br><br>TInt amount;<br>HBufC* bufPtr;<br><br>bufPtr = HBufC::NewL(10);<br><br>locale.set();<br>locale.FormatCurrency(*bufPtr,ovfl,amount);<br>...</code></p><p>In this fragment, if the formatted text cannot fit into the buffer, <code>*bufPtr</code>, then <code>TestOverflow::Overflow()</code> is called which simply sets the text &quot;Overflowed&quot;  into the buffer. In practice, application code would probably perform more sophisticated  recovery which might include re-allocating the buffer and re-trying the <code>FormatCurrency()</code> operation.</p><a name="1.4"></a></div><div class="Head2">
-<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
 <h2>Before 6.1</h2>
 </div><div class="Bodytext"><p>Before 6.1, the <code>FormatCurrency()</code> function is not available and the procedure for formatting a currency value needs more  code and explicitly uses more of the functionality of the <code>TLocale</code> class.</p><p>In the following example code fragments,  the formatting is done by  a function called <code>foo()</code>. This function takes a descriptor that, on return, holds the formatted currency  value. The function assumes that the descriptor is big enough to hold the formatted text. The example holds the currency value as a <a href="../../../APIReference/BasicTypes/TRealTypedef.html#%3a%3aTReal" title="64-bit floating point number -- identical to TReal64"><code class="ApiItem">TReal</code></a> value.</p><p><code>foo()</code>  uses the <code>AppendNum()</code> and <code>Append()</code> descriptor functions to
 format and append the currency value and symbol to <code>aBuffer</code> using
@@ -93,7 +93,7 @@ Use <a href="../../../APIReference/SystemStaticFunctions/UserClass.html#%3a%3aUs
 <td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
 </p></td>
 <td align="right"><p><a href="#_top"><img
-alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+alt="[Top]" src="../../../../stock/arrow_up.gif" border="0"
 align="bottom"></a></p></td>
 </table>
 </div>

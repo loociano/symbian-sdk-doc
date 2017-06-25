@@ -2,27 +2,27 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html><head>
 <title>Using TTime</title>
-<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<link href="../../../stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style type="text/css" media="screen"><!--
-.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+.ButtonBox { background-image: url(../../../stock/gradient.jpg); }
 --></style>
 </head>
 <body><a name="_top"></a><a name="DateTimeHandling%2eusing%2eTTime"></a>
 <table width="100%" border="0" cellspacing="0"
 cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
-src="../../../_stock/symbian.gif" alt="Symbian" width="121"
-height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+src="../../../stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../stock/mainheading.gif"
 alt=" Developer Library" height="46" width="183"></td></tr><tr><td
 class="DocSetBox" width="33%">
 <p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
 </td><td class="ButtonBox" align="right" width="67%">
 <p><a href="../../../_index/index.html"><img
-src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
-height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
-alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
-alt="" width="60" height="22"> <a href="UsingTDateTime.guide.html"><img src="../../../_stock/btn_prev.gif"
-alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+src="../../../stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="UsingTDateTime.guide.html"><img src="../../../stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../stock/btn_next.gif" alt="[Next]"
 border="0" width="58" height="22"></a></p>
 </td></tr></table>
 <hr noshade size="1">
@@ -54,7 +54,7 @@ February 1994.</p>
 <p class="CodeBlock"><code>_LIT(KDateCorrect1,&quot;19940102:&quot;); <br>TBuf &lt;24&gt; theDate=KDateCorrect1; // theDate = 3rd February 1994 00:00:00 am<br>TInt err=time.Set(theDate); // No error<br>_LIT(KDateCorrect2,&quot;19940102:.000001&quot;);<br>theDate=KDateCorrect2; // theDate = 3rd February 1994 00:00:00.000001<br>err=time.Set(theDate); // No error<br>_LIT(KDateWrongColonPos,&quot;1994012:100000.000001&quot;);<br>theDate=KDateWrongColonPos;<br>err=time.Set(theDate); // KErrGeneral error - time is unchanged<br>&nbsp;&nbsp;&nbsp;&nbsp;// Error&nbsp;&#8212; colon in wrong position (position 7). If present, must<br>&nbsp;&nbsp;&nbsp;&nbsp;// be either at position zero or position eight<br>_LIT(KDateWrongDotPos,&quot;19940102.000001&quot;);<br>theDate=KDateWrongDotPos;<br>err=time.Set(theDate); // KErrGeneral error - time is unchanged<br>&nbsp;&nbsp;&nbsp;&nbsp;// Error&nbsp;&#8212; dot in wrong position. If no colon present, dot must be<br>&nbsp;&nbsp;&nbsp;&nbsp;// at position zero (indicating that both YYYYMMDD and HHMMSS     <br>&nbsp;&nbsp;&nbsp;&nbsp;// omitted), or position six (indicating that YYYYMMDD omitted)<br>_LIT(KDateNoDotOrColon,&quot;19940102&quot;);<br>theDate=KDateNoDotOrColon;<br>err=time.Set(theDate);    // Error&nbsp;&#8212; either or both dot and colon must be present</code></p>
 <a name="1.4"></a>
 </div><div class="Head2">
-<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
 <h2><code>MonthsFrom()</code></h2>
 </div><div class="Bodytext">
 <p>This function is used to calculate the number of months between two
@@ -71,7 +71,7 @@ reached.</p>
 <p class="CodeBlock"><code>_LIT(KMiddleDateTime,&quot;19970930:100000.000000&quot;);<br>TTime time(KMiddleDateTime);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// time=31/10/1997 10:00:00:000000<br>_LIT(KEarlierDateTime,&quot;19970829:235959.999999&quot;);<br>TTime earlierTime(KEarlierDateTime);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// earlierTime=30/09/1997 23:59:59:999999<br>_LIT(KLaterDateTime,&quot;19971029:100000.000000&quot;);<br>TTime laterTime(KLaterDateTime);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// laterTime=30/11/1997 10:00:00:000000<br>TTimeIntervalMonths result=time.MonthsFrom(earlierTime);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// result == +1<br>result=time.MonthsFrom(laterTime); // result == -1<br>TTimeIntervalMicroSeconds interval(1);<br>earlierTime+=interval; // earlierTime=01/10/1997 00:00:00:000000<br>laterTime-=interval; // laterTime=30/11/1997 09:59:59:999999<br>result=time.MonthsFrom(earlierTime); // result == zero<br>result=time.MonthsFrom(laterTime);    // result == zero</code></p>
 <a name="1.5"></a>
 </div><div class="Head2">
-<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
 <h2><code>YearsFrom()</code></h2>
 </div><div class="Bodytext">
 <p>This function is used to calculate the number of years between two
@@ -82,7 +82,7 @@ February 1996. It demonstrates that from 10:00:00 29th February 1996 to
 <p class="CodeBlock"><code>TTimeIntervalYears result;<br>TDateTime dateTime(1996,EFebruary,28,10,00,00,000000);<br>TTime leapYear(dateTime); // leapYear==29/02/1996 10:00:00:000000 <br>TTime nextYear(dateTime);<br>TTimeIntervalYears intervalInYears(1);<br>nextYear+=intervalInYears; // nextYear==28/02/1997 10:00:00:000000<br>result=leapYear.YearsFrom(nextYear); // as expected, result==&#8211;1</code></p>
 <a name="1.6"></a>
 </div><div class="Head2">
-<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
 <h2><code>WeekNoInYear()</code></h2>
 </div><div class="Bodytext">
 <p>These functions are used to find the number of the current week in
@@ -114,7 +114,7 @@ Wednesday 1st to Saturday 4th.</p>
 </ul>
 <a name="1.7"></a>
 </div><div class="Head2">
-<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
 <h2><code>FormatL()</code></h2>
 </div><div class="Bodytext">
 <p>The examples below demonstrate how to format a descriptor which
@@ -144,7 +144,7 @@ ordering of the date components is determined by the ordering of the
 <p class="CodeBlock"><code>_LIT(KDateString11,&quot;%F%/0%M%/1%Y%/2%D%/3&quot;);<br>time.FormatL(dateString,KDateString11);<br>// dateString contains 01/1997/02</code></p>
 <a name="1.8"></a>
 </div><div class="Head2">
-<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
 <h2><code>Parse()</code></h2>
 </div><div class="Bodytext">
 <p>This function is used to parse a descriptor containing either or
@@ -183,7 +183,7 @@ character.</p>
 <td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
 </p></td>
 <td align="right"><p><a href="#_top"><img
-alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+alt="[Top]" src="../../../stock/arrow_up.gif" border="0"
 align="bottom"></a></p></td>
 </table>
 </div>
