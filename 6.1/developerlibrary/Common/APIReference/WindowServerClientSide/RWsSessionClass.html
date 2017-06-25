@@ -1,0 +1,2377 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>RWsSession</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="RWsPointerCursorClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="RWsSpriteBaseClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Window&nbsp;Server</a>&nbsp;<span class="separator">&#187;</span>
+RWsSession</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>w32std.h</code>
+<br>Link against: <code>ws32.lib</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aRWsSession"></a>
+
+<h1>Class <code>RWsSession</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>RWsSession</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Window server session.</p>
+<p>The session between the client and the window server can be used to
+mediate asynchronous events, and for client interface control and system
+control. A description of each of these capabilities is given below.</p>
+<p>This class is not intended for user derivation.</p>
+<p>Mediating asynchronous events:</p>
+<p>Primarily, the session mediates asynchronous events to the user.
+Three event streams are available: the standard event stream which all
+applications must use; the redraw event stream which must be used by all
+applications except those which exclusively use backed-up windows; and the
+priority key event stream which may be used for abort keys and the like for
+specialist applications.</p>
+<p>All these events are mediated as standard asynchronous services.
+Typical window server client programs encapsulate each service they require in
+an active object whose <code>RunL()</code> identifies the event and calls the
+appropriate member function of a class associated with an application
+framework, or a window.</p>
+<p>Client interface control:</p>
+<p>The client's interface with the window server has several aspects,
+each of which is controlled through the window server session.</p>
+<ul>
+<li>
+<p>Flushing defines how requests to the window server are
+handled.</p>
+</li>
+</ul>
+<p>System control:</p>
+<p>Many system-wide settings may be controlled by any application
+through its window server session. Typically, these functions are only used by
+the system shell and its associated sessions/applications.</p>
+<ul>
+<li>
+<p>Auto-repeat and double-click.</p>
+</li>
+<li>
+<p>Query all window groups in the system.</p>
+</li>
+<li>
+<p>Setting the default shadow vector</p>
+</li>
+<li>
+<p>Setting the system pointer cursors</p>
+</li>
+<li>
+<p>Counting resources used by the window server. This is only useful for debugging checks.</p>
+</li>
+<li>
+<p>Getting and checking the state of the modifier keys (SHIFT,
+CTRL AND FN)</p>
+</li>
+<li>
+<p>Setting the window server background colour</p>
+</li>
+</ul><h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code><a href="MWsClientClassClass.html#%3a%3aMWsClientClass">MWsClientClass</a></code></td><td class="Cell">Base class for all classes whose objects are clients of the window server engine</td>
+</tr>
+<tr><td class="Cell"><code><a href="../Handles/RHandleBaseClass.html#%3a%3aRHandleBase">RHandleBase</a></code></td><td class="Cell">Handle to an object</td>
+</tr>
+<tr><td class="Cell"><code><a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase">RSessionBase</a></code></td><td class="Cell">Client-side handle to a session with a server</td>
+</tr>
+<tr><td class="Cell"><code>RWsSession</code></td><td class="Cell">Window server session</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>RWsSession</code>:
+<br><code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aClaimSystemPointerCursorList%28%29" title="Claims the system pointer cursor list">ClaimSystemPointerCursorList()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aClearDefaultSystemPointerCursor%28%29" title="Clears the default system pointer cursor">ClearDefaultSystemPointerCursor()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aClearHotKeys%28%29" title="Clears all mappings for the specified hotkey, including the default mapping">ClearHotKeys()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aClearSystemPointerCursor%28%29" title="Clears a system pointer cursor from the list">ClearSystemPointerCursor()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aClose%28%29" title="Closes the window server session">Close()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aComputeMode%28%29" title="Sets the mode used to control process priorities">ComputeMode()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aConnect%28%29" title="Connects the client session to the window server">Connect()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aEPriorityControlComputeOff" title="Client process's priority is set to EPriorityForeground when the window group takes focus, and set to EPriorityBackground when it loses focus">EPriorityControlComputeOff</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aEPriorityControlComputeOn" title="Client process's priority is always set to EPriorityBackground">EPriorityControlComputeOn</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aEPriorityControlDisabled" title="Client priority is permanently set to its current level — it is not altered or set by the windowing system if the focus changes">EPriorityControlDisabled</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aEventReady%28%29" title="Requests standard events from the window server">EventReady()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aEventReadyCancel%28%29" title="Cancels a request for standard events from the window server">EventReadyCancel()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aFindWindowGroupIdentifier%28%29" title="Gets the identifiers of window groups belonging to a client which is owned by a thread with the specified thread ID">FindWindowGroupIdentifier()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aFlush%28%29" title="Sends all pending commands in the buffer to the window server">Flush()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aFreeSystemPointerCursorList%28%29" title="Releases the system pointer cursor list and deletes all the entries in it">FreeSystemPointerCursorList()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aGetBackgroundColor%28%29" title="Gets the window server background colour">GetBackgroundColor()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aGetColorModeList%28%29" title="Gets the list of available colour modes">GetColorModeList()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aGetDefModeMaxNumColors%28%29" title="Gets the number of colours available in richest supported colour mode, the number of greys available in the richest grey mode, and returns the default display mode">GetDefModeMaxNumColors()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aGetDefaultOwningWindow%28%29" title="Gets the identifier of the current default owning window group">GetDefaultOwningWindow()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aGetDoubleClickSettings%28%29" title="Gets the current system-wide settings for pointer double clicks">GetDoubleClickSettings()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aGetEvent%28%29" title="Gets a standard event from the session for processing">GetEvent()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aGetFocusWindowGroup%28%29" title="Gets the identifier of the window group that currently has the keyboard focus">GetFocusWindowGroup()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aGetKeyboardRepeatRate%28%29" title="Gets the current system-wide settings for the keyboard repeat rate">GetKeyboardRepeatRate()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aGetModifierState%28%29" title="Get the state of modifier keys">GetModifierState()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aGetPriorityKey%28%29" title="Gets the completed priority key event from the window server session">GetPriorityKey()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aGetRedraw%28%29" title="Gets the redraw event from the session">GetRedraw()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aGetWindowGroupClientThreadId%28%29" title="Gets the thread ID of the client that owns the window group specified by the window group identifier">GetWindowGroupClientThreadId()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aGetWindowGroupHandle%28%29" title="Gets the handle of the window specified by the window group identifier">GetWindowGroupHandle()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aGetWindowGroupNameFromIdentifier%28%29" title="Gets the name of a window group from its identifier">GetWindowGroupNameFromIdentifier()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aGetWindowGroupOrdinalPriority%28%29" title="Gets a window group's priority">GetWindowGroupOrdinalPriority()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aHeapCount%28%29" title="Gets the heap count">HeapCount()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aHeapSetFail%28%29" title="Sets the heap failure mode in the window server">HeapSetFail()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aLogMessage%28%29" title="Adds a message to the window server debug log if one is currently in operation">LogMessage()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aNumWindowGroups%28%29" title="Gets the number of window groups of a given window group priority running in all sessions in the window server">NumWindowGroups()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aPasswordEntered%28%29" title="Disables window server password mode">PasswordEntered()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aPointerCursorArea%28%29" title="Gets the pointer cursor area for the specified screen display mode">PointerCursorArea()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aPointerCursorMode%28%29" title="Gets the current mode for the pointer cursor">PointerCursorMode()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aPointerCursorPosition%28%29" title="Gets the pointer cursor position">PointerCursorPosition()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aPriorityKeyReady%28%29" title="Requests priority key events from the window server">PriorityKeyReady()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aPriorityKeyReadyCancel%28%29" title="Cancels a priority key event request">PriorityKeyReadyCancel()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aPurgePointerEvents%28%29" title="Removes all pointer events waiting to be delivered to this session">PurgePointerEvents()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aRWsSession%28%29" title="Default C++ constructor">RWsSession()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aRedrawReady%28%29" title="Requests redraw events from the window server">RedrawReady()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aRedrawReadyCancel%28%29" title="Cancels a redraw event request">RedrawReadyCancel()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aRequestOffEvents%28%29" title="Requests the window server to send OFF events to a window">RequestOffEvents()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aResourceCount%28%29" title="Gets the number of objects that the server has allocated for that client">ResourceCount()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aRestoreDefaultHotKey%28%29" title="Restores the default mapping for a hot key">RestoreDefaultHotKey()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aSendEventToAllWindowGroups%28%29" title="Sends the specified event to all window groups with the specified priority">SendEventToAllWindowGroups()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aSendEventToWindowGroup%28%29" title="Sends an event to a window group">SendEventToWindowGroup()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aSendMessageToAllWindowGroups%28%29" title="Sends a message to all window groups with the specified priority">SendMessageToAllWindowGroups()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aSendMessageToWindowGroup%28%29" title="Sends a message to a window group">SendMessageToWindowGroup()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aSendOffEventsToShellWindow%28%29" title="Requests the window server to send OFF events to the shell window">SendOffEventsToShellWindow()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aSetAutoFlush%28%29" title="Sets a session's auto-flush state">SetAutoFlush()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aSetBackgroundColor%28%29" title="Sets the background colour for the window server">SetBackgroundColor()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aSetDefaultFadingParameters%28%29" title="Sets the default fading parameters">SetDefaultFadingParameters()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aSetDefaultSystemPointerCursor%28%29" title="Sets the default system pointer cursor">SetDefaultSystemPointerCursor()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aSetDoubleClick%28%29" title="Sets the system-wide double click settings">SetDoubleClick()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aSetHotKey%28%29" title="Sets hot keys">SetHotKey()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aSetKeyboardRepeatRate%28%29" title="Sets the system-wide keyboard repeat rate">SetKeyboardRepeatRate()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aSetModifierState%28%29" title="Sets the state of the modifier keys">SetModifierState()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aSetPointerCursorArea%28%29" title="Sets the area of the screen in which the virtual cursor can be used while in relative mouse mode, for a specified screen display mode">SetPointerCursorArea()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aSetPointerCursorMode%28%29" title="Sets the current mode for the pointer cursor">SetPointerCursorMode()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aSetPointerCursorPosition%28%29" title="Sets the pointer cursor position">SetPointerCursorPosition()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aSetRemoveKeyCode%28%29" title="Sets whether to remove top 16 bits of keypress code — WINS only">SetRemoveKeyCode()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aSetShadowVector%28%29" title="Sets the shadow vector">SetShadowVector()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aSetSystemPointerCursor%28%29" title="Sets a cursor in the system pointer cursor list">SetSystemPointerCursor()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aSetWindowGroupOrdinalPosition%28%29" title="Sets the ordinal position of a window group">SetWindowGroupOrdinalPosition()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aShadowVector%28%29" title="Gets the current value of the shadow vector">ShadowVector()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aSimulateKeyEvent%28%29" title="Sends a simulated key event to the window server">SimulateKeyEvent()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aSimulateRawEvent%28%29" title="Simulates raw events as though they come from the kernel">SimulateRawEvent()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aTComputeMode" title="Compute mode flags">TComputeMode</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aVersion%28%29" title="Gets the window server version">Version()</a></code>, <code class="ApiItem"><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aWindowGroupList%28%29" title="Lists the number of window groups of a given window group priority running in all window server sessions">WindowGroupList()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="MWsClientClassClass.html#%3a%3aMWsClientClass" title="Base class for all classes whose objects are clients of the window server engine">MWsClientClass</a></code>:
+<br><code class="ApiItem"><a href="MWsClientClassClass.html#%3a%3aMWsClientClass%3a%3aWsHandle%28%29" title="Gets the server side handle for the object">WsHandle()</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="../Handles/RHandleBaseClass.html#%3a%3aRHandleBase" title="Handle to an object">RHandleBase</a></code>:
+<br><code class="ApiItem"><a href="../Handles/RHandleBaseClass.html#%3a%3aRHandleBase%3a%3aDuplicate%28%29" title="Creates a valid handle to the Kernel object to which the specified thread already has a handle">Duplicate()</a></code>,
+<code class="ApiItem"><a href="../Handles/RHandleBaseClass.html#%3a%3aRHandleBase%3a%3aHandle%28%29" title="Retrieves the handle-number of the object associated with this handle">Handle()</a></code>,
+<code class="ApiItem"><a href="../Handles/RHandleBaseClass.html#%3a%3aRHandleBase%3a%3aSetHandle%28%29" title="Use this function to set the handle-number of this handle to the specified value">SetHandle()</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase" title="Client-side handle to a session with a server">RSessionBase</a></code>:
+<br><code class="ApiItem"><a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase%3a%3aAttach%28%29" title="Explicitly attaches a thread to the session">Attach()</a></code>,
+<code class="ApiItem"><a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase%3a%3aCreateSession%28%29" title="Creates a session with a server">CreateSession()</a></code>,
+<code class="ApiItem"><a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase%3a%3aEAutoAttach" title="Client threads are auto-attached to the session">EAutoAttach</a></code>,
+<code class="ApiItem"><a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase%3a%3aEExplicitAttach" title="Client threads explicitly attach to the session">EExplicitAttach</a></code>,
+<code class="ApiItem"><a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase%3a%3aSend%28%29" title="Sends a blind message to the server -- no reply is expected">Send()</a></code>,
+<code class="ApiItem"><a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase%3a%3aSendReceive%28%29" title="Sends a message to the server and waits synchronously for the reply">SendReceive()</a></code>,
+<code class="ApiItem"><a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase%3a%3aSetRetry%28%29" title="Changes the retry parameters used to resend a message if the server is busy">SetRetry()</a></code>,
+<code class="ApiItem"><a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase%3a%3aShare%28%29" title="Makes the session shared among all threads in the process">Share()</a></code>,
+<code class="ApiItem"><a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase%3a%3aTAttachMode" title="Indicates whether threads in the process are automatically attached to the session when passed as a parameter to the Share() function">TAttachMode</a></code></p>
+<a name="2.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction and destruction</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aRWsSession%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RWsSession()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>RWsSession();</code></p><h4 class="subheading">Description</h4>
+<p>Default C++ constructor.</p>
+<p>Constructs an uninitialised window server session. Note that it
+does not establish a connection to the window server — this must be done
+explicitly by calling the session's <code>Connect()</code> function. Before
+<code>Connect()</code> is called, no corresponding session object exists in the
+server, and the <code>RWsSession</code> contains no meaningful handle.</p>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aConnect%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Connect()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Connect();</code></p><h4 class="subheading">Description</h4>
+<p>Connects the client session to the window server.</p>
+<p><code>Connect()</code> should be the first function called on
+an <code>RWsSession</code> object after it is created. The
+function establishes a connection to the window server,
+creating a corresponding session object in the server. Each session has one and
+only one connection to the server — attempting to call
+<code>Connect()</code> when a connection has already been made will cause a
+panic.</p>
+<p>After a connection has been successfully established, all
+events are delivered to the client application through the
+<code>RWsSession</code> object.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.4"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aClose%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Close()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Close();</code></p><h4 class="subheading">Description</h4>
+<p>Closes the window server session. </p>
+<p>This function cleans up all resources in the
+<code>RWsSession</code> and disconnects it from the server. Prior to
+disconnecting from the window server the client-side window server buffer is
+destroyed without being flushed. This function should be called when the
+<code>RWsSession</code> is no longer needed — normally just before it is
+destroyed.</p>
+<a name="2.6.5"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aVersion%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Version()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TVersion Version();</code></p><h4 class="subheading">Description</h4>
+<p>Gets the window server version.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TVersion</code></td>
+<td class="Cell"><p class="ValueDesc"> Window server version containing major and minor version
+numbers, and build version.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Member functions</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aClaimSystemPointerCursorList%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ClaimSystemPointerCursorList()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt ClaimSystemPointerCursorList();</code></p><h4 class="subheading">Description</h4>
+<p>Claims the system pointer cursor list. A client must call this
+function before it can call <code>SetSystemPointerCursor()</code> or
+<code>ClearSystemPointerCursor()</code>.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code> if successful, <code>KErrInUse</code> if
+another client is already using the system pointer cursor list, otherwise
+another of the system-wide error codes. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aFreeSystemPointerCursorList%28%29" title="Releases the system pointer cursor list and deletes all the entries in it"><code class="ApiItem">FreeSystemPointerCursorList()</code></a></li>
+</ul>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aClearDefaultSystemPointerCursor%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ClearDefaultSystemPointerCursor()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ClearDefaultSystemPointerCursor();</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Clears the default system pointer cursor.</p>
+<p>This sets the pointer to the current default system pointer
+cursor to NULL. </p>
+<h4 class="subheading">Panic codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">42</code></td>
+<td class="Cell"><p class="ValueDesc">If this function is called by a client other than the owner of the system pointer cursor list.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.4"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aClearHotKeys%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ClearHotKeys()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt ClearHotKeys(THotKey aType);</code></p><h4 class="subheading">Description</h4>
+<p>Clears all mappings for the specified hotkey, including the default mapping.</p>
+<p>Hotkeys allow standard functions to be performed by
+application-defined key combinations. </p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> THotKey aType</code></td>
+<td class="Cell"><p class="ValueDesc"> The hot key to be cleared </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code> if successful, otherwise one of the
+system-wide error codes. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aSetHotKey%28%29" title="Sets hot keys"><code class="ApiItem">SetHotKey()</code></a></li>
+<li><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aRestoreDefaultHotKey%28%29" title="Restores the default mapping for a hot key"><code class="ApiItem">RestoreDefaultHotKey()</code></a></li>
+</ul>
+<a name="2.7.5"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aClearSystemPointerCursor%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ClearSystemPointerCursor()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ClearSystemPointerCursor(TInt aCursorNumber);</code></p><h4 class="subheading">Description</h4>
+<p>Clears a system pointer cursor from the list. </p><p>Before calling
+this function, the client must first gain access to the list by calling
+<code>ClaimSystemPointerCursorList()</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aCursorNumber</code></td>
+<td class="Cell"><p class="ValueDesc"> Cursor number to clear </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.6"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aComputeMode%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ComputeMode()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ComputeMode(TComputeMode aMode);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the mode used to control process priorities.</p>
+<p>The default window server behaviour is that the application
+that owns the window with keyboard focus gets foreground process priority
+(<code>EPriorityForeground</code>) while all other clients get background
+priority (<code>EPriorityBackground</code>). This function can be used to
+over-ride this default behaviour, as discussed in
+<code>TComputeMode</code>.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>Unlike real Symbian devices, the Emulator runs on a single
+process. As a result, on the Emulator this function sets the priority of
+individual threads rather than of processes. The values used for thread
+priorities are <code>EPriorityLess</code> instead of
+<code>EPriorityBackground</code>, and <code>EPriorityNormal</code> instead of
+<code>EPriorityForeground</code>.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TComputeMode aMode</code></td>
+<td class="Cell"><p class="ValueDesc"> The compute mode. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.7"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aEventReady%28%29"></a>
+<hr size="1" noshade>
+<h3><code>EventReady()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void EventReady(TRequestStatus* aStat);</code></p><h4 class="subheading">Description</h4>
+<p>Requests standard events from the window server. </p>
+<p>Standard events include all events except redraws and priority
+key events.</p>
+<p>The client application will typically handle the completed
+request using the <code>RunL()</code> function of an active object, and in this case the
+request status <code>aStat</code> should be the <code>iStatus</code>
+member of that <code>CActive</code> object.</p><p>Note:</p>
+<ul><li><p>The active object runs when an event is waiting — you should call <code>GetEvent()</code> in the <code>RunL()</code> function to get the event.</p></li><li><p>You should not call this function again until you've either called <code>GetEvent()</code> or <code>EventReadyCancel()</code></p></li></ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TRequestStatus* aStat</code></td>
+<td class="Cell"><p class="ValueDesc"> Request status. On successful completion contains
+<code>KErrNone</code>, otherwise another of the system-wide error codes.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive" title="The core class of the active object abstraction"><code class="ApiItem">CActive</code></a></li>
+<li><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aGetEvent%28%29" title="Gets a standard event from the session for processing"><code class="ApiItem">GetEvent()</code></a></li>
+</ul>
+<a name="2.7.8"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aEventReadyCancel%28%29"></a>
+<hr size="1" noshade>
+<h3><code>EventReadyCancel()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void EventReadyCancel();</code></p><h4 class="subheading">Description</h4>
+<p>Cancels a request for standard events from the window server.
+This request was made using <code>EventReady()</code>.</p>
+<p>The client application will typically use an active object to
+handle standard events, and this function should be called from the active
+object's <code>DoCancel()</code> function.</p>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aEventReady%28%29" title="Requests standard events from the window server"><code class="ApiItem">EventReady()</code></a></li>
+</ul>
+<a name="2.7.9"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aFindWindowGroupIdentifier%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FindWindowGroupIdentifier()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt FindWindowGroupIdentifier(TInt aPreviousIdentifier,const TDesC&amp; aMatch,TInt aOffset=0);</code></p><h4 class="subheading">Description</h4>
+<p>Gets all window groups whose names match a given string —
+which can contain wildcards.</p>
+<p>An example use of this function might be in order to find all
+the currently running copies of a particular application, assuming that the
+window group name contained the application name. An optional argument,
+<code>aOffset</code>, specifies the number of characters to be ignored at the
+beginning of the window group name. As several window group names may match the
+given string, and the function can return only one at a time, there is an
+argument, <code>aPreviousIdentifier</code>, which gives the identifier for the
+previous match that was returned. In other words, it means, &quot;get me the next
+match after this one.&quot; The first time the function is called, give 0 as the
+previous identifier.</p>
+<p>Matching is done using <code>TDesC::MatchF()</code>, which does
+a folded match. Wildcards '*' and '?' can be used to denote one or more
+characters and exactly one character, respectively. Windows are searched in
+front to back order.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPreviousIdentifier</code></td>
+<td class="Cell"><p class="ValueDesc"> Identifier of the last window group returned. If the value
+passed is not a valid identifier, the function returns
+<code>KErrNotFound</code>. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TDesC&amp; aMatch</code></td>
+<td class="Cell"><p class="ValueDesc"> String to match window group name against: may contain
+wildcards </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aOffset=0</code></td>
+<td class="Cell"><p class="ValueDesc">The first <code>aOffset</code> characters of the window group name are ignored when doing the match.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt</code></td>
+<td class="Cell"><p class="ValueDesc"> The next window group, after the one identified by
+<code>aPreviousIdentifier</code>, whose name matches <code>aMatch</code>.
+<code>KErrNotFound</code> if no window group matched or
+<code>aPreviousIdentifier</code> was not a valid identifier. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.10"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aFindWindowGroupIdentifier%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FindWindowGroupIdentifier()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt FindWindowGroupIdentifier(TInt aPreviousIdentifier, TThreadId aThreadId);</code></p><h4 class="subheading">Description</h4>
+<p>Gets the identifiers of window groups belonging to a client which is owned by a thread
+with the specified thread ID.</p>
+<p>The thread may own more than one window group, so the
+identifier returned is the one after <code>aPreviousIdentifier</code>. The
+first time the function is called, use 0 for the previous identifier.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPreviousIdentifier</code></td>
+<td class="Cell"><p class="ValueDesc"> Identifier returned by previous call </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TThreadId aThreadId</code></td>
+<td class="Cell"><p class="ValueDesc"> Thread owning the window group or groups. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt</code></td>
+<td class="Cell"><p class="ValueDesc"> Next window group identifier after the one identified by
+<code>aPreviousIdentifier</code>
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.11"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aFlush%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Flush()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Flush();</code></p><h4 class="subheading">Description</h4>
+<p>Sends all pending commands in the buffer to
+the window server. </p><p> Delivering a command to the window server requires a context switch, and so it is more efficient to deliver several commands in one go. Hence all client commands are normally  first placed into a buffer for delivery to the window server. </p><p>The buffer is delivered  when:</p><ul><li><p>It gets full.</p></li><li><p>A command that returns a value is called (there are a few exceptions to this).</p></li><li><p>This function is called.</p></li></ul>
+<p>Note:</p><ul><li><p>This function is called when a prompt response is required from the window server, e.g. after doing some drawing.</p></li></ul>
+<a name="2.7.12"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aFreeSystemPointerCursorList%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FreeSystemPointerCursorList()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void FreeSystemPointerCursorList();</code></p><h4 class="subheading">Description</h4>
+<p>Releases the system pointer cursor list and deletes all the
+entries in it. </p><p>A client should call this function when it no longer needs the
+system pointer cursor list.</p>
+<a name="2.7.13"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aGetBackgroundColor%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetBackgroundColor()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TRgb GetBackgroundColor() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the window server background colour.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TRgb</code></td>
+<td class="Cell"><p class="ValueDesc"> Background colour </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.14"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aGetColorModeList%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetColorModeList()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt GetColorModeList(CArrayFixFlat&lt;TInt&gt; *aModeList) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the list of available colour modes.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>This function should usually be called within
+<code>User::LeaveIfError()</code>. </p>
+</li>
+<li>
+<p>The only time that an error can be generated is when the
+array gets resized to the number of display modes. Thus if you make the size of
+your array equal to the maximum number of display modes over all hardware then
+this function will never leave. Currently there can only ever be 11 as that is
+the number of different values in <code>TDisplayMode</code>.</p>
+</li>
+<li>
+<p>This function was not <code>const</code>
+prior to version 6.0.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CArrayFixFlat&lt;TInt&gt; *aModeList</code></td>
+<td class="Cell"><p class="ValueDesc"> On return, contains a <code>TDisplayMode</code> entry for each
+of the available display modes. Note that the array's contents are deleted
+prior to filling with display mode information. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code> if successful. <code>KErrNoMemory</code>
+if <code>aModeList</code> must be re-sized to hold all the display modes and
+this results in an OOM error. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.15"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aGetDefaultOwningWindow%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetDefaultOwningWindow()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt GetDefaultOwningWindow();</code></p><h4 class="subheading">Description</h4>
+<p>Gets the identifier of the current default owning window
+group.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt</code></td>
+<td class="Cell"><p class="ValueDesc"> Identifier of current default owning window group. Returns 0
+if there isn't one. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.16"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aGetDefModeMaxNumColors%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetDefModeMaxNumColors()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TDisplayMode GetDefModeMaxNumColors(TInt&amp; aColor,TInt&amp; aGray) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the number of colours available in richest supported
+colour mode, the number of greys available in the richest grey mode, and
+returns the default display mode.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>This function was not <code>const</code>
+prior to version 6.0.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aColor</code></td>
+<td class="Cell"><p class="ValueDesc"> The number of colours in the richest supported colour mode.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aGray</code></td>
+<td class="Cell"><p class="ValueDesc"> The number of greys in the richest supported grey mode.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TDisplayMode</code></td>
+<td class="Cell"><p class="ValueDesc"> The default display mode. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.17"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aGetDoubleClickSettings%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetDoubleClickSettings()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void GetDoubleClickSettings(TTimeIntervalMicroSeconds32 &amp;aInterval, TInt &amp;aDistance);</code></p><h4 class="subheading">Description</h4>
+<p>Gets the current system-wide settings for pointer double
+clicks.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>Double click distances are measured in pixels as the sum of
+the X distance moved and the Y distance moved between clicks. For example: a
+first click at 10, 20 and a second click at 13,19 gives a distance of
+(13-10)+(21-20) = 4.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TTimeIntervalMicroSeconds32&amp; aInterval</code></td>
+<td class="Cell"><p class="ValueDesc"> Maximum interval between clicks that constitutes a double
+click </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt &amp;aDistance</code></td>
+<td class="Cell"><p class="ValueDesc"> Maximum distance between clicks that constitutes a double
+click </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aSetDoubleClick%28%29" title="Sets the system-wide double click settings"><code class="ApiItem">SetDoubleClick()</code></a></li>
+</ul>
+<a name="2.7.18"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aGetEvent%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetEvent()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void GetEvent(TWsEvent&amp; aEvent);</code></p><h4 class="subheading">Description</h4>
+<p>Gets a standard event from the session for processing.</p>
+<p>The type of event returned by <code>GetEvent()</code> may be
+any of those listed in <code>TEventCode</code>. To access the data within an
+event, the event should be converted to the appropriate type, using functions
+provided by the <code>TWsEvent</code> class — <code>TWsEvent</code> also
+provides a function to find out the type of the event.</p><p>Note:</p>
+<ul><li><p>It is possible that the returned event is of type <code>EEventNull</code>. Clients should normally ignore these events.</p></li><li><p>This function should only be called in response to notification that an event has occurred — otherwise the client will be panicked.</p><p>This function would normally be called in the <code>RunL()</code> function of an active object which completes with the <code>EventReady()</code> function's request status.</p></li></ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TWsEvent&amp; aEvent</code></td>
+<td class="Cell"><p class="ValueDesc"> On return, contains the event that occurred </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="TEventCodeEnum.html#%3a%3aTEventCode" title="Types of standard events"><code class="ApiItem">TEventCode</code></a></li>
+<li><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aEventReady%28%29" title="Requests standard events from the window server"><code class="ApiItem">EventReady()</code></a></li>
+</ul>
+<a name="2.7.19"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aGetFocusWindowGroup%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetFocusWindowGroup()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt GetFocusWindowGroup();</code></p><h4 class="subheading">Description</h4>
+<p>Gets the identifier of the window group that currently has the
+keyboard focus.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>This might not necessarily be the front-most window group, as window groups can disabled keyboard focus.</p>
+</li>
+</ul><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt</code></td>
+<td class="Cell"><p class="ValueDesc"> Identifier of window group with keyboard focus. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.20"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aGetKeyboardRepeatRate%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetKeyboardRepeatRate()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void GetKeyboardRepeatRate(TTimeIntervalMicroSeconds32&amp; aInitialTime, TTimeIntervalMicroSeconds32&amp; aTime);</code></p><h4 class="subheading">Description</h4>
+<p>Gets the current system-wide settings for the keyboard repeat
+rate.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TTimeIntervalMicroSeconds32&amp; aInitialTime</code></td>
+<td class="Cell"><p class="ValueDesc"> Time before first repeat key event </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TTimeIntervalMicroSeconds32&amp; aTime</code></td>
+<td class="Cell"><p class="ValueDesc"> Time between subsequent repeat key events </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aSetKeyboardRepeatRate%28%29" title="Sets the system-wide keyboard repeat rate"><code class="ApiItem">SetKeyboardRepeatRate()</code></a></li>
+</ul>
+<a name="2.7.21"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aGetModifierState%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetModifierState()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt GetModifierState() const;</code></p><h4 class="subheading">Description</h4>
+<p>Get the state of modifier keys.</p>
+<p>The state of each modifier key (defined in <code>TEventModifier</code>) is returned in a
+bitmask.</p><p>The modifier keys are: <code>EModifierLeftAlt</code>, <code>EModifierRightAlt</code>, <code>EModifierAlt</code>, <code>EModifierLeftCtrl</code>, <code>EModifierRightCtrl</code>, <code>EModifierCtrl</code>, <code>EModifierLeftShift</code>, <code>EModifierRightShift</code>, <code>EModifierShift</code>, <code>EModifierLeftFunc</code>, <code>EModifierRightFunc</code>, <code>EModifierFunc</code>, <code>EModifierCapsLock</code>, <code>EModifierNumLock</code>, <code>EModifierScrollLock</code>, , , ,  </p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt</code></td>
+<td class="Cell"><p class="ValueDesc"> Modifier state </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aSetModifierState%28%29" title="Sets the state of the modifier keys"><code class="ApiItem">SetModifierState()</code></a></li>
+</ul>
+<a name="2.7.22"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aGetPriorityKey%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetPriorityKey()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void GetPriorityKey(TWsPriorityKeyEvent&amp; aEvent);</code></p><h4 class="subheading">Description</h4>
+<p>Gets the completed priority key event from the window server
+session.</p><p>Priority key events are typically used for providing &quot;Abort&quot; or
+&quot;Escape&quot; keys for an application.</p>
+<p>This function is similar to <code>GetEvent()</code>, except
+that it returns a <code>TWsPriorityKeyEvent</code> instead of a
+<code>TWsEvent</code>.</p><p>Note:</p>
+<ul><li><p>This should only be called after notification that a priority key event has occurred.</p></li></ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TWsPriorityKeyEvent&amp; aEvent</code></td>
+<td class="Cell"><p class="ValueDesc"> On return, contains the priority key event that occurred.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aPriorityKeyReady%28%29" title="Requests priority key events from the window server"><code class="ApiItem">PriorityKeyReady()</code></a></li>
+<li><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aPriorityKeyReadyCancel%28%29" title="Cancels a priority key event request"><code class="ApiItem">PriorityKeyReadyCancel()</code></a></li>
+</ul>
+<a name="2.7.23"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aGetRedraw%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetRedraw()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void GetRedraw(TWsRedrawEvent&amp; aEvent);</code></p><h4 class="subheading">Description</h4>
+<p>Gets the redraw event from the session.</p>
+<p>This function is similar to <code>GetEvent()</code>, except that the event is returned as a <code>TWsRedrawEvent</code>, and
+hence there is no need to convert it from a <code>TWsEvent</code>.</p>
+<p>The function should only be called after notification that a redraw is waiting.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TWsRedrawEvent&amp; aEvent</code></td>
+<td class="Cell"><p class="ValueDesc"> On return, contains the redraw event that occurred </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aRedrawReady%28%29" title="Requests redraw events from the window server"><code class="ApiItem">RedrawReady()</code></a></li>
+<li><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aGetEvent%28%29" title="Gets a standard event from the session for processing"><code class="ApiItem">GetEvent()</code></a></li>
+<li><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive" title="The core class of the active object abstraction"><code class="ApiItem">CActive</code></a></li>
+</ul>
+<a name="2.7.24"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aGetWindowGroupClientThreadId%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetWindowGroupClientThreadId()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt GetWindowGroupClientThreadId(TInt aIdentifier, TThreadId &amp;aThreadId);</code></p><h4 class="subheading">Description</h4>
+<p>Gets the thread ID of the client that owns the window group
+specified by the window group identifier.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aIdentifier</code></td>
+<td class="Cell"><p class="ValueDesc"> The window group identifier </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TThreadId &amp;aThreadId</code></td>
+<td class="Cell"><p class="ValueDesc"> On return, contains the thread ID </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.25"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aGetWindowGroupHandle%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetWindowGroupHandle()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt GetWindowGroupHandle(TInt aIdentifier);</code></p><h4 class="subheading">Description</h4>
+<p>Gets the handle of the window specified by the window group
+identifier. </p>
+<p>This is the handle that was passed as an argument to
+<code>RWindowGroup::Construct()</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aIdentifier</code></td>
+<td class="Cell"><p class="ValueDesc"> The window group identifier </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt</code></td>
+<td class="Cell"><p class="ValueDesc"> Handle of the window group </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.26"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aGetWindowGroupNameFromIdentifier%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetWindowGroupNameFromIdentifier()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt GetWindowGroupNameFromIdentifier(TInt aIdentifier, TDes&amp; aWindowName);</code></p><h4 class="subheading">Description</h4>
+<p>Gets the name of a window group from its identifier. </p>
+<p>Using the list of identifiers returned by
+<code>WindowGroupList()</code>, it is possible to get the names of all window
+groups in the system. Note that window names are a zero length string by default.</p><p>Note:</p>
+<ul><li><p>Note that the window group name must have been previously set using
+<code>RWindowGroup::SetName()</code> to contain a meaningful value.</p></li></ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aIdentifier</code></td>
+<td class="Cell"><p class="ValueDesc"> The identifier of the window group whose name is to be
+inquired </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TDes&amp; aWindowName</code></td>
+<td class="Cell"><p class="ValueDesc"> On return, contains the window group name </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.27"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aGetWindowGroupOrdinalPriority%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetWindowGroupOrdinalPriority()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt GetWindowGroupOrdinalPriority(TInt aIdentifier);</code></p><h4 class="subheading">Description</h4>
+<p>Gets a window group's priority.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aIdentifier</code></td>
+<td class="Cell"><p class="ValueDesc"> The window group identifier </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt</code></td>
+<td class="Cell"><p class="ValueDesc"> The window group priority </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.28"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aHeapCount%28%29"></a>
+<hr size="1" noshade>
+<h3><code>HeapCount()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt HeapCount() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the heap count.</p>
+<p>This function calls <code>RHeap::Count()</code> on the window
+server's heap, after throwing away all the temporary objects allocated
+for each window.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt</code></td>
+<td class="Cell"><p class="ValueDesc"> The window server's heap count. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.29"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aHeapSetFail%28%29"></a>
+<hr size="1" noshade>
+<h3><code>HeapSetFail()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void HeapSetFail(RHeap::TAllocFail aType,TInt aValue);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the heap failure mode in the window server.</p>
+<p>The release version of the base does not support simulated
+heap failure functionality, and the result of this function is additional error
+messages. In the debug version the clients are notified of the simulated
+failure and handle it. See <code>RHeap::</code><code>__DbgSetAllocFail()</code> for more
+information.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>It is unlikely, but possible to create a ROM with a mixture
+of Release and Debug versions of the E32 and WSERV DLLs, which results in
+different behaviour to that described above. If you run a debug WSERV with a
+release version of E32 then calling this function will result in neither extra
+error messages (e.g. see <code>EDrawingRegion</code>) or simulated heap failures. However if you have a release WSERV
+with a debug E32 then you will get both simulated heap failures and the extra
+error messages.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> RHeap::TAllocFail aType</code></td>
+<td class="Cell"><p class="ValueDesc"> An enumeration which indicates how to simulate heap allocation
+failure. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aValue</code></td>
+<td class="Cell"><p class="ValueDesc"> The rate of failure; when <code>aType</code> is
+<code>RHeap::EDeterministic</code>, heap allocation fails every
+<code>aRate</code> attempt </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../MemoryAllocation/RHeapClass.html#%3a%3aRHeap%3a%3a__DbgSetAllocFail%28%29" title="Simulates a heap allocation failure for this heap"><code class="ApiItem">RHeap::__DbgSetAllocFail()</code></a></li>
+</ul>
+<a name="2.7.30"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aLogMessage%28%29"></a>
+<hr size="1" noshade>
+<h3><code>LogMessage()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void LogMessage(const TLogMessageText &amp;aMessage);</code></p><h4 class="subheading">Description</h4>
+<p>Adds a message to the window server debug log if one is currently in operation.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TLogMessageText&amp; aMessage</code></td>
+<td class="Cell"><p class="ValueDesc"> The text added to the message log. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.31"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aNumWindowGroups%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NumWindowGroups()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt NumWindowGroups() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the total number of window groups currently running in the
+window server. </p><p>This includes all the groups running in all sessions.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt</code></td>
+<td class="Cell"><p class="ValueDesc"> Total number of window groups running in the server </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.32"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aNumWindowGroups%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NumWindowGroups()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt NumWindowGroups(TInt aPriority) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the number of window groups of a given window group
+priority running in all sessions in the window server.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPriority</code></td>
+<td class="Cell"><p class="ValueDesc"> Window group priority </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt</code></td>
+<td class="Cell"><p class="ValueDesc"> Number of window groups of priority <code>aPriority</code>
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.33"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aPasswordEntered%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PasswordEntered()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void PasswordEntered();</code></p><h4 class="subheading">Description</h4>
+<p>Disables window server password mode.</p>
+<p>This function must be called by the session which owns the
+password window when the correct machine password has been entered.</p>
+<a name="2.7.34"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aPointerCursorArea%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PointerCursorArea()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TRect PointerCursorArea() const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Gets the pointer cursor area for the first screen display mode.</p>
+<p>This is the area of the screen in which the virtual cursor can
+be used while in relative mouse mode.  While in pen or mouse mode the event co-ordinates are forced to be within this area unless you click outside the drawable area (e.g.  on the button bar on the facia in WINS).</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TRect</code></td>
+<td class="Cell"><p class="ValueDesc"> The pointer cursor area for the first screen display mode.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aSetPointerCursorArea%28%29" title="Sets the area of the screen in which the virtual cursor can be used while in relative mouse mode, for a specified screen display mode"><code class="ApiItem">SetPointerCursorArea()</code></a></li>
+</ul>
+<a name="2.7.35"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aPointerCursorArea%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PointerCursorArea()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TRect PointerCursorArea(TInt aScreenSizeMode) const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Gets the pointer cursor area for the specified screen display
+mode. </p>
+<p>This is the area of the screen in which the virtual cursor can
+be used while in relative mouse mode. While in pen or mouse mode the event co-ordinates are forced to be within this area unless you click outside the drawable area (e.g.  on the button bar on the facia in WINS).</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aScreenSizeMode</code></td>
+<td class="Cell"><p class="ValueDesc"> The screen mode for which the pointer cursor area is required.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TRect</code></td>
+<td class="Cell"><p class="ValueDesc"> The pointer cursor area for the specified screen display mode.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aSetPointerCursorArea%28%29" title="Sets the area of the screen in which the virtual cursor can be used while in relative mouse mode, for a specified screen display mode"><code class="ApiItem">SetPointerCursorArea()</code></a></li>
+</ul>
+<a name="2.7.36"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aPointerCursorMode%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PointerCursorMode()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TPointerCursorMode PointerCursorMode() const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Gets the current mode for the pointer cursor.</p>
+<p>The mode determines which sprite is used for the pointer cursor
+at any point.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TPointerCursorMode</code></td>
+<td class="Cell"><p class="ValueDesc"> The current mode for the pointer cursor. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.37"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aPointerCursorPosition%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PointerCursorPosition()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TPoint PointerCursorPosition() const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Gets the pointer cursor position.</p>
+<p>This function allows an application to determine the position
+of the virtual cursor.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TPoint</code></td>
+<td class="Cell"><p class="ValueDesc"> The position of the virtual cursor. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.38"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aPurgePointerEvents%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PurgePointerEvents()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void PurgePointerEvents();</code></p><h4 class="subheading">Description</h4>
+<p>Removes all pointer events waiting to be delivered to this session.  </p><p>The events are removed from the event queue without
+being processed. This might occur, for example, at application startup.</p>
+<a name="2.7.39"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aPriorityKeyReady%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PriorityKeyReady()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void PriorityKeyReady(TRequestStatus *aStat);</code></p><h4 class="subheading">Description</h4>
+<p>Requests priority key events from the window server. </p>
+<p>Typically, an client will create an active object for
+priority key events with a higher priority than the active objects for standard
+events. The client will then normally handle completed priority key
+requests in the active object's <code>RunL()</code> function.</p>
+<p>As in <code>EventReady()</code>, the request status argument
+should be the set to the <code>iStatus</code> member of
+<code>CActive</code>. When priority key events occur, they are  obtained
+using <code>GetPriorityKey()</code>.</p><p>Note:</p>
+<ul><li><p>You should not call this function again until you've either called <code>GetPriorityKey()</code> or <code>PriorityKeyReadyCancel()</code>.</p></li></ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TRequestStatus* aStat</code></td>
+<td class="Cell"><p class="ValueDesc"> Request status. On successful completion contains
+<code>KErrNone</code>, otherwise another of the system-wide error codes.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aPriorityKeyReadyCancel%28%29" title="Cancels a priority key event request"><code class="ApiItem">PriorityKeyReadyCancel()</code></a></li>
+<li><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aGetPriorityKey%28%29" title="Gets the completed priority key event from the window server session"><code class="ApiItem">GetPriorityKey()</code></a></li>
+<li><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive" title="The core class of the active object abstraction"><code class="ApiItem">CActive</code></a></li>
+</ul>
+<a name="2.7.40"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aPriorityKeyReadyCancel%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PriorityKeyReadyCancel()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void PriorityKeyReadyCancel();</code></p><h4 class="subheading">Description</h4>
+<p>Cancels a priority key event request.</p>
+<p>If active objects are used, this function should be called from
+the active object's <code>DoCancel()</code> function.</p>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aPriorityKeyReady%28%29" title="Requests priority key events from the window server"><code class="ApiItem">PriorityKeyReady()</code></a></li>
+<li><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive" title="The core class of the active object abstraction"><code class="ApiItem">CActive</code></a></li>
+</ul>
+<a name="2.7.41"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aRedrawReady%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RedrawReady()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void RedrawReady(TRequestStatus* aStat);</code></p><h4 class="subheading">Description</h4>
+<p>Requests redraw events from the window server.</p>
+<p>Typically, a client will create an active object for
+redraw events with a lower priority than the active objects for standard
+events. The client will then typically handle completed redraw requests in
+the active object's <code>RunL()</code> function.</p>
+<p>As in <code>EventReady()</code>, the request status <code>aStat</code> should be used as the <code>iStatus</code> member of an active object. When
+a redraw event occurs the active object's  <code>RunL()</code> function is called — the redraw event can be obtained by calling <code>GetRedraw()</code> in the <code>RunL()</code>.</p><p>Note:</p><ul><li><p>You should not call this function again until you've either called <code>GetRedraw()</code> or <code>RedrawReadyCancel()</code>.</p></li></ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TRequestStatus* aStat</code></td>
+<td class="Cell"><p class="ValueDesc"> The request status. On successful completion contains
+<code>KErrNone</code>, otherwise another of the system-wide error codes.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aRedrawReadyCancel%28%29" title="Cancels a redraw event request"><code class="ApiItem">RedrawReadyCancel()</code></a></li>
+<li><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aGetRedraw%28%29" title="Gets the redraw event from the session"><code class="ApiItem">GetRedraw()</code></a></li>
+<li><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive" title="The core class of the active object abstraction"><code class="ApiItem">CActive</code></a></li>
+</ul>
+<a name="2.7.42"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aRedrawReadyCancel%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RedrawReadyCancel()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void RedrawReadyCancel();</code></p><h4 class="subheading">Description</h4>
+<p>Cancels a redraw event request. </p>
+<p>If active objects are used, this function should be called from
+the active object's <code>DoCancel()</code> function.</p>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aRedrawReady%28%29" title="Requests redraw events from the window server"><code class="ApiItem">RedrawReady()</code></a></li>
+</ul>
+<a name="2.7.43"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aRequestOffEvents%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RequestOffEvents()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt RequestOffEvents(TBool aOn,RWindowTreeNode* aWin=NULL);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Requests the window server to send OFF events to a
+window. </p><p>This replaces <code>SendOffEventsToShellWindow()</code> in versions
+prior to 6.0.</p>
+<p>This function is called by a client to command the window
+server to send it OFF events. The window server then sends the window OFF events
+when an action occurs which requires power down, rather than handling powering
+down itself.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>Any client can ask for OFF events, but only one window in the system can be set to receive them.  If this function is called when another window is set to receive OFF events then the client will be panicked. The exception is the shell, which  is allowed to take receipt of OFF events from other clients.</p>
+</li><li>
+<p>The window server identifies the shell client by comparing the process name of the client with the process name of the shell. Only the first client created by the shell is guaranteed to have the extra shell client privileges.</p>
+</li><li>
+<p>Prior to ER4, the window server handled all
+powering down. However since powering down is policy dependent it can be
+handled by the shell.</p>
+</li>
+<li>
+<p>This function does not automatically flush the client side
+buffer, and hence does not become active until the buffer is flushed. The shell
+should arrange for a function that does flush the buffer to be called soon
+afterwards. See <code>Flush()</code>.</p>
+</li>
+<li>
+<p>If the shell dies or terminates just before the action
+requiring power down happens then the window server will handle it rather than
+passing it on to the shell.</p>
+</li>
+<li>
+<p>The window server has a queue of messages that it is
+waiting to send to clients. If the shell's client's queue is full and the
+window server cannot make room for the OFF message then it will power down the
+machine itself.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool aOn</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue</code> to get the window server to send
+<code>EEventShellSwitchOff</code> messages to the shell (rather than powering
+down). <code>EFalse</code> makes the window server switch back to powering down
+the machine itself. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> RWindowTreeNode *aWin=NULL </code></td>
+<td class="Cell"><p class="ValueDesc"> The handle to the window or window group of the shell&#0160;&#8212;
+to which the message is to be sent. This may be NULL only if
+<code>aOn=EFalse</code>, i.e. the window server is handling power down itself.
+If <code>aOn=ETrue</code> then this must not be NULL, or the Window Server will
+panic the shell. Note that as far as the window server is concerned the handle
+must exist when this function is called.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Panic codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">51</code></td>
+<td class="Cell"><p class="ValueDesc">If this function is called when a window has already been set to receive OFF events. The exception is the shell, which may take the receipt of OFF events away from other windows.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.44"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aResourceCount%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ResourceCount()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt ResourceCount();</code></p><h4 class="subheading">Description</h4>
+<p>Gets the number of objects that the server has allocated for
+that client.</p><p>This function can be used to check that the client has correctly cleaned up all of its objects.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt</code></td>
+<td class="Cell"><p class="ValueDesc"> The number of resources allocated to the client. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.45"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aRestoreDefaultHotKey%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RestoreDefaultHotKey()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt RestoreDefaultHotKey(THotKey aType);</code></p><h4 class="subheading">Description</h4>
+<p>Restores the default mapping for a hot key.</p>
+<p>The function clears current mappings for a hot key and restores
+the default mapping — see <code>THotKey</code> for the default.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> THotKey aType</code></td>
+<td class="Cell"><p class="ValueDesc"> The hot key to restore to its default value </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aClearHotKeys%28%29" title="Clears all mappings for the specified hotkey, including the default mapping"><code class="ApiItem">ClearHotKeys()</code></a></li>
+</ul>
+<a name="2.7.46"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aSendEventToAllWindowGroups%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SendEventToAllWindowGroups()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt SendEventToAllWindowGroups(const TWsEvent&amp; aEvent);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Sends the specified event to all existing window groups.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TWsEvent&amp; aEvent</code></td>
+<td class="Cell"><p class="ValueDesc"> The event to be sent to all window groups. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.47"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aSendEventToAllWindowGroups%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SendEventToAllWindowGroups()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt SendEventToAllWindowGroups(TInt aPriority, const TWsEvent&amp; aEvent);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Sends the specified event to all window groups with the
+specified priority.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPriority</code></td>
+<td class="Cell"><p class="ValueDesc"> The priority which window groups must have to be sent the
+message. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TWsEvent&amp; aEvent</code></td>
+<td class="Cell"><p class="ValueDesc"> The event to be sent to the specified window groups. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.48"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aSendEventToWindowGroup%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SendEventToWindowGroup()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt SendEventToWindowGroup(TInt aIdentifier, const TWsEvent&amp; aEvent);</code></p><h4 class="subheading">Description</h4>
+<p>Sends an event to a window group.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aIdentifier</code></td>
+<td class="Cell"><p class="ValueDesc"> Window group identifier </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TWsEvent&amp; aEvent</code></td>
+<td class="Cell"><p class="ValueDesc"> Event to send to window group </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.49"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aSendMessageToAllWindowGroups%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SendMessageToAllWindowGroups()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt SendMessageToAllWindowGroups(TUid aUid, const TDesC8&amp; aParams);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Sends a message to all window groups.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>In order to receive messages sent using this function you
+will need to implement the <code>MCoeMessageObserver</code> interface which is
+defined in the UI Control Framework API.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUid aUid</code></td>
+<td class="Cell"><p class="ValueDesc"> A UID which uniquely identifies the session sending the
+message. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TDesC8&amp; aParams</code></td>
+<td class="Cell"><p class="ValueDesc"> The message data. An unlimited amount of data can be passed in
+this argument. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.50"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aSendMessageToAllWindowGroups%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SendMessageToAllWindowGroups()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt SendMessageToAllWindowGroups(TInt aPriority, TUid aUid, const TDesC8&amp; aParams);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Sends a message to all window groups with the specified
+priority.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>In order to receive messages sent using this function you
+will need to implement the <code>MCoeMessageObserver</code> interface which is
+defined in the UI Control Framework API.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPriority</code></td>
+<td class="Cell"><p class="ValueDesc"> The priority which window groups must have to be sent the
+message. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUid aUid</code></td>
+<td class="Cell"><p class="ValueDesc"> A UID which uniquely identifies the session sending the
+message. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TDesC8&amp; aParams</code></td>
+<td class="Cell"><p class="ValueDesc"> The message data. An unlimited amount of data can be passed in
+this argument. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.51"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aSendMessageToWindowGroup%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SendMessageToWindowGroup()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt SendMessageToWindowGroup(TInt aIdentifier, TUid aUid, const TDesC8&amp; aParams);</code></p><h4 class="subheading">Description</h4>
+<p>Sends a message to a window group. </p><p>The window group will then receive an event of type
+<code>EEventMessageReady</code> notifying it that a message has been received.  The window group can belong
+to this or another session.</p>
+<p>Pre version 6.0:</p>
+<p>Prior to version 6.0
+the message can then be retrieved using
+<code>RWindowGroup::FetchMessage()</code>.</p>
+<p>An application must ensure that it calls
+<code>RWindowGroup::FetchMessage()</code> whenever it receives an
+<code>EEventMessageReady</code> event. It will receive no further
+<code>EEventMessageReady</code> events until it does so. However application
+developers using the standard GUI framework should note that
+<code>CEikAppUi</code> calls <code>RWindowGroup::FetchMessage()</code>
+automatically.</p>
+<p>Version 6.0 and onward:</p>
+<p>From version 6.0 <code>RWindowGroup::FetchMessage()</code> has been
+removed. In order to receive messages sent using this function you will need to
+implement the <code>MCoeMessageObserver</code> interface which is defined in
+the UI Control Framework API. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aIdentifier</code></td>
+<td class="Cell"><p class="ValueDesc"> The identifier of the window group to receive the message.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUid aUid</code></td>
+<td class="Cell"><p class="ValueDesc"> A UID which uniquely identifies the session sending the
+message. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TDesC8&amp; aParams</code></td>
+<td class="Cell"><p class="ValueDesc"> The message data. An unlimited amount of data can be passed in
+this argument. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../UIControlFramework/MCoeMessageObserverClass.html#%3a%3aMCoeMessageObserver" title="Interface for handling incoming window server messages"><code class="ApiItem">MCoeMessageObserver</code></a></li>
+</ul>
+<a name="2.7.52"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aSendOffEventsToShellWindow%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SendOffEventsToShellWindow()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SendOffEventsToShellWindow(TBool aOn,RWindowTreeNode *aWin=NULL);</code></p><h4 class="subheading">Support</h4>
+<p>Withdrawn in 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Requests the window server to send OFF events to the shell
+window.</p>
+<p>This function is called by the shell to command the window
+server to send it OFF events. The window server then sends the shell OFF events
+when an action occurs which requires power down, rather than handling powering
+down itself.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>Prior to ER4, the window server handled all
+powering down. However since powering down is policy dependent it can be
+handled by the shell.</p>
+</li>
+<li>
+<p>The window server identifies the shell client by comparing the process name of the client with the process name of the shell. Only the first client created by the shell is guaranteed to have the extra shell client privileges.</p>
+</li>
+<li>
+<p>This function does not automatically flush the client side
+buffer, and hence does not become active until the buffer is flushed. The shell
+should arrange for a function that does flush the buffer to be called soon
+afterwards. See <code>Flush()</code>.</p>
+</li>
+<li>
+<p>If the shell dies or terminates just before the action
+requiring power down happens then the window server will handle it rather than
+passing it on to the shell.</p>
+</li>
+<li>
+<p>The window server has a queue of messages that it is
+waiting to send to clients. If the shell's client's queue is full and the
+window server cannot make room for the OFF message then it will power down the
+machine itself.</p>
+</li>
+<li>
+<p>In version 6.0 this function is replaced by:</p><p>
+<code>TInt
+RequestOffEvents(TBool aOn,RWindowTreeNode *aWin=NULL);</code></p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool aOn</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue</code> to get the window server to send
+<code>EEventShellSwitchOff</code> messages to the shell (rather than powering
+down). <code>EFalse</code> makes the window server switch back to powering down
+the machine itself. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> RWindowTreeNode *aWin=NULL</code></td>
+<td class="Cell"><p class="ValueDesc"> The handle to the window or window group of the shell&#0160;&#8212;
+to which the message is to be sent. This may be NULL only if
+<code>aOn=EFalse</code>, i.e. the window server is handling power down itself.
+If <code>aOn=ETrue</code> then this must not be NULL, or the Window Server will
+panic the shell. Note that as far as the window server is concerned the handle
+must exist when this function is called.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.53"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aSetAutoFlush%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetAutoFlush()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool SetAutoFlush(TBool aState);</code></p><h4 class="subheading">Description</h4>
+<p>Sets a session's auto-flush state. </p>
+<p>If auto-flush is set to <code>ETrue</code>, the window server
+buffer is flushed immediately anything is put into it, instead of waiting until
+it becomes full. This setting is normally used only in a debugging environment.
+</p>
+<p>If the auto-flush state is <code>EFalse</code>, the window
+server buffer is flushed normally.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool aState</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue</code> to set auto-flushing on,
+<code>EFalse</code> to disable auto-flushing. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool</code></td>
+<td class="Cell"><p class="ValueDesc"> Previous auto-flush state </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.54"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aSetBackgroundColor%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetBackgroundColor()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetBackgroundColor(TRgb aColor);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the background colour for the window server. </p>
+<p>This background can only be seen in areas of the display that
+have no windows on them: so for many applications it will never be seen —
+it affects no other windows.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TRgb aColor</code></td>
+<td class="Cell"><p class="ValueDesc"> Background colour </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.55"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aSetDefaultFadingParameters%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetDefaultFadingParameters()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetDefaultFadingParameters(TUint8 aBlackMap,TUint8 aWhiteMap);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Sets the default fading parameters.</p>
+<p>Fading is used to change the colour of a window to make other
+windows stand out. For example, you would fade all other windows when
+displaying a dialogue. This function sets whether, and the amount by which,
+fading makes a faded window closer to white or closer to black.</p><p>Fading re-maps colours in the faded window to fall between the specified black and white map values. If <code>aBlackMap=0</code> and <code>aWhiteMap=255</code> then the colours are mapped unchanged. As the values converge the colours are mapped to a smaller range — so the differences between colours in the faded window decrease. If the values are reversed then the colours are inverted (i.e. where the unfade window would be black, it is now white). </p>
+<p>Changing the default will automatically apply to current
+graphic contexts but will not have any affect on windows that are already
+faded. </p>
+<p>Note:</p>
+<ul>
+<li>
+<p><code>RWindowTreeNode::SetFaded()</code> and <code>
+CWindowGc::SetFaded()</code> use these fading parameters, and allow
+control over the exact colour mapping used when fading. In addition, the <code>RWindowTreeNode</code>
+functions have variants which allow these default parameters to be over-ridden
+when they are called.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUint8 aBlackMap</code></td>
+<td class="Cell"><p class="ValueDesc"> Black map fading parameter.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUint8 aWhiteMap</code></td>
+<td class="Cell"><p class="ValueDesc"> White map fading parameter. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="RWindowTreeNodeClass.html#%3a%3aRWindowTreeNode%3a%3aSetFaded%28%29" title="Sets one or more windows as faded or unfaded, specifying a fading map"><code class="ApiItem">RWindowTreeNode::SetFaded()</code></a></li>
+<li><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aSetFadingParameters%28%29" title="Set fading parameters"><code class="ApiItem">CWindowGc::SetFadingParameters()</code></a></li>
+</ul>
+<a name="2.7.56"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aSetDefaultSystemPointerCursor%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetDefaultSystemPointerCursor()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetDefaultSystemPointerCursor(TInt aCursorNumber);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Sets the default system pointer cursor.</p>
+<p>This function can only be called by the owner of the system
+pointer cursor list. By default the 0th entry in the pointer cursor list is
+assigned as the system pointer. The function allows any cursor from the list or
+even no cursor to be set as the system pointer cursor.</p>
+<p>Notes</p>
+<ul>
+<li>
+<p>Ownership of the system pointer cursor list can be obtained
+by calling <code>ClaimSystemPointerCursorList()</code> when no-one else has
+ownership.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aCursorNumber</code></td>
+<td class="Cell"><p class="ValueDesc"> The index of the new default system pointer cursor within the
+system cursor list. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Panic codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">If this function is called when this
+session is not the owner of the system pointer cursor list. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.57"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aSetDoubleClick%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetDoubleClick()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetDoubleClick(const TTimeIntervalMicroSeconds32 &amp;aInterval, TInt aDistance);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the system-wide double click settings.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>Double click distance is measured, in pixels, as the sum of
+the X distance moved and the Y distance moved between clicks. For example: a
+first click at 10, 20 and a second click at 13,19 gives a distance of
+(13-10)+(21-20) = 4.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TTimeIntervalMicroSeconds32&amp; aInterval</code></td>
+<td class="Cell"><p class="ValueDesc"> Maximum interval between clicks that constitutes a double
+click </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aDistance</code></td>
+<td class="Cell"><p class="ValueDesc"> Maximum distance between clicks that constitutes a double
+click </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aGetDoubleClickSettings%28%29" title="Gets the current system-wide settings for pointer double clicks"><code class="ApiItem">GetDoubleClickSettings()</code></a></li>
+</ul>
+<a name="2.7.58"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aSetHotKey%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetHotKey()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt SetHotKey(THotKey aType, TUint aKeyCode, TUint aModifierMask, TUint aModifier);</code></p><h4 class="subheading">Description</h4>
+<p>Sets hot keys.</p><p>Hotkeys allow standard functions to be performed by
+application-defined key combinations. </p>
+<p>This function maps any key press (with optional modifiers) to
+one of the hot keys defined in <code>THotKey</code>. More than one key
+combination may be mapped to each hot key: a new mapping is added each time the
+function is called.</p>
+<p>Modifier key states are defined in <code>TEventModifier</code>.
+The modifiers that you want to be in a particular state should be specified in <code>aModifierMask</code> and the ones of these you want to be set should be specified in <code>aModifiers</code>. For example, if you want to capture FN-A and you want the SHIFT modifier unset, but you don't care about the state of the other modifiers then set both the flags for SHIFT and FN in <code>aModiferMask</code> and only set FN in <code>aModifiers</code>.</p><p>Note:</p><ul><li><p>Default hotkey settings exist, but this function can be used for customisation. Typically it might be be  used by a
+shell application or other application that controls system-wide
+settings.</p></li></ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> THotKey aType</code></td>
+<td class="Cell"><p class="ValueDesc"> The hot key to be mapped</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUint aKeyCode</code></td>
+<td class="Cell"><p class="ValueDesc"> The keycode to be mapped to the hot key</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUint aModifierMask</code></td>
+<td class="Cell"><p class="ValueDesc"> Modifier keys to test for a match</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUint aModifier</code></td>
+<td class="Cell"><p class="ValueDesc"> Modifier keys to be tested for "on" state </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code> value if successful, otherwise another of the
+system-wide error codes. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.59"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aSetKeyboardRepeatRate%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetKeyboardRepeatRate()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetKeyboardRepeatRate(const TTimeIntervalMicroSeconds32&amp; aInitialTime, const TTimeIntervalMicroSeconds32&amp; aTime);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the system-wide keyboard repeat rate. </p>
+<p>This is the rate at which keyboard events are generated when a
+key is held down.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>The default settings for the keyboard repeat rate are 0.3
+seconds for the initial delay, and 0.1 seconds for the interval between
+subsequent repeats. However, since the settings are system-wide, these will not
+necessarily be the current settings when an application is launched: the
+settings may have been over-ridden by another module.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TTimeIntervalMicroSeconds32&amp; aInitialTime</code></td>
+<td class="Cell"><p class="ValueDesc"> Time before first repeat key event </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TTimeIntervalMicroSeconds32&amp; aTime</code></td>
+<td class="Cell"><p class="ValueDesc"> Time between subsequent repeat key events </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aGetKeyboardRepeatRate%28%29" title="Gets the current system-wide settings for the keyboard repeat rate"><code class="ApiItem">GetKeyboardRepeatRate()</code></a></li>
+</ul>
+<a name="2.7.60"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aSetModifierState%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetModifierState()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetModifierState(TEventModifier aModifier,TModifierState aState);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the state of the modifier keys. </p>
+<p>This function is typically used for permanent modifier states
+such as Caps Lock or Num Lock, but other possible uses include on-screen
+function key simulation, or the implementation of a Shift Lock key.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TEventModifier aModifier</code></td>
+<td class="Cell"><p class="ValueDesc"> Modifier to set. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TModifierState aState</code></td>
+<td class="Cell"><p class="ValueDesc"> Modifier state. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aGetModifierState%28%29" title="Get the state of modifier keys"><code class="ApiItem">GetModifierState()</code></a></li>
+</ul>
+<a name="2.7.61"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aSetPointerCursorArea%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetPointerCursorArea()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetPointerCursorArea(const TRect&amp; aArea);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Sets the area of the screen in which the virtual cursor can be
+used while in relative mouse mode, for the first screen display mode. </p>
+<p>This function sets the area for the first screen mode —
+the one with index 0 — which in most devices will be the only screen
+mode. The following function overload can be used to set the screen area for
+other modes. The area is set and stored independently on each screen mode, so
+that it is not necessary to call this function again when switching back to the
+first screen mode.</p>
+<p>The default area is the full digitiser area. When you set the
+area it will come into immediate affect, i.e., if necessary the current pointer
+position will be updated to be within the new area. </p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>Relative mouse mode is where the events received from the
+base by window server are deltas from the last position of the pointer, as
+opposed to absolute co-ordinates.</p>
+</li>
+<li>
+<p>This function is honoured even if there is a mouse or pen
+(e.g. on WINS), by mapping the co-ordinates of where you click into the area
+set using this function. However the function does not restrict clicks outside
+of the 'drawing area' on the Emulator, to allow you to select items on the
+fascia.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRect&amp; aArea</code></td>
+<td class="Cell"><p class="ValueDesc"> The area of the screen in which the virtual cursor can be
+used. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.62"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aSetPointerCursorArea%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetPointerCursorArea()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetPointerCursorArea(TInt aScreenSizeMode,const TRect&amp; aArea);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Sets the area of the screen in which the virtual cursor can be
+used while in relative mouse mode, for a specified screen display mode. </p>
+<p>The default area is the full digitiser area for the given mode.
+When you set the area it will come into immediate affect, i.e., if necessary
+the current pointer position will be updated to be within the new area. </p>
+<p>The area is set and stored independently on each screen mode,
+so that it is not necessary to call this function again when switching back to
+a mode. </p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>Relative mouse mode is where the events received from the
+base by window server are deltas from the last position of the pointer, as
+opposed to absolute co-ordinates.</p>
+</li>
+<li>
+<p>The previous function overload may be used to set the
+screen area for only the first mode.</p>
+</li>
+<li>
+<p>This function is honoured even if there is a mouse or pen
+(e.g. on WINS), by mapping the co-ordinates of where you click into the area
+set using this function. However the function does not restrict clicks outside
+of the 'drawing area' on the Emulator, to allow you to select items on the
+fascia.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aScreenSizeMode</code></td>
+<td class="Cell"><p class="ValueDesc"> The screen mode to which the new area applies. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRect&amp; aArea</code></td>
+<td class="Cell"><p class="ValueDesc"> The area of the screen, in the <code>aScreenSizeMode</code>
+screen mode, within which the virtual cursor can be used. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.63"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aSetPointerCursorMode%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetPointerCursorMode()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetPointerCursorMode(TPointerCursorMode aMode);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Sets the current mode for the pointer cursor.</p>
+<p>The mode determines which sprite is used for the pointer cursor
+at any point. See <code>TPointerCursorMode</code> for more information.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TPointerCursorMode aMode</code></td>
+<td class="Cell"><p class="ValueDesc"> The new mode for the pointer cursor. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="TPointerCursorModeEnum.html#%3a%3aTPointerCursorMode" title="Pointer cursor mode flags"><code class="ApiItem">TPointerCursorMode</code></a></li>
+</ul>
+<a name="2.7.64"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aSetPointerCursorPosition%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetPointerCursorPosition()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetPointerCursorPosition(const TPoint&amp; aPosition);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Sets the pointer cursor position.</p>
+<p>This function allows an application to move the virtual cursor.
+It works in all modes — not just relative mouse mode.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>The function works in screen co-ordinates and honours the
+pointer cursor area exactly as pen presses do — i.e. only when they are
+in the drawing area on the Emulator.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TPoint&amp; aPosition</code></td>
+<td class="Cell"><p class="ValueDesc"> The new pointer cursor position. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.65"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aSetRemoveKeyCode%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetRemoveKeyCode()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetRemoveKeyCode(TBool aRemove); </code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Sets whether to remove top 16 bits of keypress code —
+WINS only.</p>
+<p>This function allows the Emulator to use Windows to translate
+keypresses into the correct key code for each locale, rather than having to do
+the translation for each international keyboard itself. </p>
+<p>The top 16 bits of a keypress code contains the keycode that
+Windows would produce if the key had been pressed in a typical Windows program.
+If <code>aRemove</code> is <code>EFalse</code> the client can get these top 16
+bits — if the value is non-zero the <code>CKeyTranslator</code> uses it
+rather than calculating it's own value. If <code>aRemove</code> is
+<code>ETrue</code> the window server strips the top 16 bits of the scan code
+before passing the value on to the client. </p>
+<p>Note:</p>
+<ul>
+<li>
+<p>This function is intended for JAVA but it will be useful to
+any client who creates their own <code>CKeyTranslator</code> and processes
+keyups and downs.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool aRemove</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue</code> to remove the code (default),
+<code>EFalse</code> to pass it to the client. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.66"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aSetShadowVector%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetShadowVector()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetShadowVector(const TPoint&amp; aVector);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the shadow vector.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TPoint&amp; aVector</code></td>
+<td class="Cell"><p class="ValueDesc"> New shadow vector </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.67"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aSetSystemPointerCursor%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetSystemPointerCursor()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt SetSystemPointerCursor(const RWsPointerCursor&amp; aPointerCursor,TInt aCursorNumber);</code></p><h4 class="subheading">Description</h4>
+<p>Sets a cursor in the system pointer cursor list. </p>
+<p>To gain access to the list, the client must first call
+<code>ClaimSystemPointerCursorList()</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const RWsPointerCursor&amp; aPointerCursor</code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer cursor to set in the list </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aCursorNumber</code></td>
+<td class="Cell"><p class="ValueDesc"> Cursor number in the list </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.68"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aSetWindowGroupOrdinalPosition%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetWindowGroupOrdinalPosition()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt SetWindowGroupOrdinalPosition(TInt aIdentifier, TInt aPosition);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the ordinal position of a window group.</p><p>  This function allows the caller to change the ordinal position of an existing window group. It would
+typically be used by a shell application.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aIdentifier</code></td>
+<td class="Cell"><p class="ValueDesc"> The window group </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPosition</code></td>
+<td class="Cell"><p class="ValueDesc"> Ordinal position for the window group </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.69"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aShadowVector%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ShadowVector()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TPoint ShadowVector() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the current value of the shadow vector.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TPoint</code></td>
+<td class="Cell"><p class="ValueDesc"> Current shadow vector </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.70"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aSimulateKeyEvent%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SimulateKeyEvent()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SimulateKeyEvent(TRawEvent aEvent);</code></p><h4 class="subheading">Support</h4>
+<p>Withdrawn in 6.0
+<br>Supported from 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Sends a simulated raw key event to the window server.</p><p>The function is only used for testing purposes.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>This function differs from
+<code>RWsSession::SimulateRawEvent()</code> in that the keys will not be
+processed by the translator table thus allowing you more control over the key
+that gets through. It is particular useful for sending key presses that change
+or toggle the backlight or contrast.</p>
+</li>
+<li>
+<p>The function is replaced by an overload with the same name,
+but taking a <code>TKeyEvent</code>, in version 6.0</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TRawEvent aEvent</code></td>
+<td class="Cell"><p class="ValueDesc"> The raw key event to be sent.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.71"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aSimulateKeyEvent%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SimulateKeyEvent()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SimulateKeyEvent(TKeyEvent aEvent);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Sends a simulated key event to the window server.</p>
+<p>The function is only used for testing purposes.</p><p>Note:</p>
+<ul>
+<li>
+<p>All the members of <code>TKeyEvent</code> are honoured
+except the <code>iRepeat</code> which is ignored and set to 0 by the key
+handling code.</p>
+</li>
+<li>
+<p>This function replaces an overload taking a
+<code>TRawEvent</code>.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TKeyEvent aEvent</code></td>
+<td class="Cell"><p class="ValueDesc"> The key event to be sent. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.72"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aSimulateRawEvent%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SimulateRawEvent()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SimulateRawEvent(TRawEvent aEvent);</code></p><h4 class="subheading">Description</h4>
+<p>Simulates raw events as though they come from the
+kernel.</p>
+<p>Currently this function is used only for testing purposes. It
+is possible that it may in future be used by applications.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TRawEvent aEvent</code></td>
+<td class="Cell"><p class="ValueDesc"> The raw event. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.73"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aWindowGroupList%28%29"></a>
+<hr size="1" noshade>
+<h3><code>WindowGroupList()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt WindowGroupList(CArrayFixFlat&lt;TInt&gt;* aWindowList);</code></p><h4 class="subheading">Description</h4>
+<p>Gets a list of identifiers of all window groups in all window
+server sessions.</p><p> An array buffer must be created to store the resultant
+list.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CArrayFixFlat&lt;TInt&gt;* aWindowList</code></td>
+<td class="Cell"><p class="ValueDesc"> List of identifiers of all window groups in server </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.74"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aWindowGroupList%28%29"></a>
+<hr size="1" noshade>
+<h3><code>WindowGroupList()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt WindowGroupList(TInt aPriority, CArrayFixFlat&lt;TInt&gt; *aWindowList);</code></p><h4 class="subheading">Description</h4>
+<p>Lists the number of window groups of a given window group
+priority running in all window server sessions.</p>
+<p>This function is the same as <code>WindowGroupList()</code>
+described above, but allows the application to restrict the list of window
+groups to those of a particular window group priority.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPriority</code></td>
+<td class="Cell"><p class="ValueDesc"> Window group priority </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CArrayFixFlat&lt;TInt&gt; *aWindowList</code></td>
+<td class="Cell"><p class="ValueDesc"> List of identifiers of all window groups in server of priority
+<code>aPriority</code>
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Enumerations</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aRWsSession%3a%3aTComputeMode"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TComputeMode</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TComputeMode</code></p><h4 class="subheading">Description</h4>
+<p>Compute mode flags.</p>
+<p>When a window group takes focus or loses it, the window server
+can boost its client's thread or process priority to provide a better response
+to the user. How it alters the priority is determined by the current compute
+mode of the client. </p><h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aComputeMode%28%29" title="Sets the mode used to control process priorities"><code class="ApiItem">ComputeMode()</code></a></li>
+</ul><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aRWsSession%3a%3aEPriorityControlDisabled"><code class="Value">EPriorityControlDisabled</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Client priority is permanently set to its current level
+&#8212; it is not altered or set by the windowing system if the focus changes.
+</para>
+<para>Thus if <code>ComputeMode()</code> is called with this flag
+when a client is in the foreground, it will subsequently have foreground
+priority even if it is in the background.</para>
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aRWsSession%3a%3aEPriorityControlComputeOn"><code class="Value">EPriorityControlComputeOn</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Client process's priority is always set to
+<code>EPriorityBackground</code>.</para>
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aRWsSession%3a%3aEPriorityControlComputeOff"><code class="Value">EPriorityControlComputeOff</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Client process's priority is set to
+<code>EPriorityForeground</code> when the window group takes focus, and set to
+<code>EPriorityBackground</code> when it loses focus.</para>
+<para>This is the default behaviour.</para>
+</p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

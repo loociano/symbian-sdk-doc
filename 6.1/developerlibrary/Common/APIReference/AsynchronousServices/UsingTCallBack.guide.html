@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Using TCallBack</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="AsynchronousServices%2eUsing%2dTCallBack"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="UsingCIdle.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="UsingTRequestStatus.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Asynchronous&nbsp;Services</a>&nbsp;<span class="separator">&#187;</span>
+Using&nbsp;TCallBack</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Using <code>TCallBack</code></h1>
+</div><div class="Bodytext">
+<p>The class encapsulates a pointer to a function which takes an
+argument of type <code>TAny*</code> and returns a <code>TInt</code>. The class
+is generally useful but, in particular, simplifies the programming interface of
+the <code>CIdle</code> and <code>CPeriodic</code> classes.</p>
+<p>Given a suitable function and a pointer to an object, a callback is
+constructed simply. The function must be a non-member function or a static
+member of a class. For example:</p>
+<p class="CodeBlock"><code>TInt Foo(TAny *);  // a non-member function<br>X* pX=new X;       // a class X object</code></p>
+<p>or, as a static member of class <code>X</code>:</p>
+<p class="CodeBlock"><code>TInt X::Foo(TAny *); // a static function of class X<br>X* pX=new X;         // a class X object</code></p>
+<p>A callback function returns a true value to indicate whether it
+should be called again. This is important when used with the <code>CIdle</code>
+and <code>CPeriodic</code> classes. The following code fragment shows the
+programming paradigm:</p>
+<p class="CodeBlock"><code>TCallBack cb(Foo,pX);  // construction of the callback</code></p>
+<p class="CodeBlock"><code>for (;;)<br>&nbsp;{<br>&nbsp;if (!cb.CallBack()) // invoke callback until it returns<br>&nbsp;&nbsp;{    // a false value<br>&nbsp;&nbsp;break;<br>&nbsp;&nbsp;}<br>&nbsp;}</code></p>
+<p>Calling <code>cb.CallBack()</code> results in a call to the callback
+function <code>Foo()</code> passing it the pointer <code>pX</code>.</p>
+<p>A common requirement is for the callback function to be a non-static
+member of a class. This can be implemented by passing, to the callback
+function, a pointer to an instance of the class of which it is a static member.
+For example:</p>
+<p class="CodeBlock"><code>class X<br>&nbsp;{<br>&nbsp;static X* NewL();<br>&nbsp;static TInt Foo(TAny* pX);<br>private:<br>&nbsp;TInt DoFoo();<br>&nbsp;...<br>&nbsp;}</code></p>
+<p>where the static function <code>Foo()</code> is implemented
+as:</p>
+<p class="CodeBlock"><code>static TInt X::Foo(TAny* pX)<br>&nbsp;{<br>&nbsp;return ((X*)pX)-&gt;DoFoo();<br>&nbsp;}</code></p>
+<p>Typically, create an instance of class <code>X</code> and, at some
+later stage, create the callback:</p>
+<p class="CodeBlock"><code>...<br>X* pX = X::NewL();<br>...<br>TCallBack cb(Foo,pX);<br>...</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

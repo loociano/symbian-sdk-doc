@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to restore a compound object</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="StoresStreamsGuide2%2ehow%2dto%2erestore%2dcompound"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToStoreCompound.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="Copying.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Store&nbsp;Streams</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Storing&nbsp;and&nbsp;restoring</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;restore&nbsp;a&nbsp;compound&nbsp;object</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to restore a compound object</h1>
+</div><div class="Bodytext">
+<p>The protocol for restoring a compound object is the
+<code>RestoreL()</code> function. This is true whether the object has been
+stored in-line or out-of-line, and should be prototyped as:</p>
+<p class="CodeBlock"><code>void RestoreL(CStreamStore&amp; aStore,TStreamId anId);</code></p>
+<p>The function takes a reference to the store in which streams are
+stored and a stream ID. In some cases, the design of a class may be such that
+it maintains a pointer or reference to the store. In this event, the
+<code>CStreamStore</code> argument would be redundant.</p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Restoring components stored in-line</h2>
+</div><div class="Bodytext">
+<p>If an object's components have been stored in-line, then all of
+these components have been written to the same single stream.</p>
+<p>For the example class <code>CCompound</code>, defined as:</p>
+<p class="CodeBlock"><code>CCompound class : public CBase<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;TInt         iDdata;<br>&nbsp;&nbsp;&nbsp;&nbsp;CComponentA* iCompA;<br>&nbsp;&nbsp;&nbsp;&nbsp;CComponentB* iCompB;<br>&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>RestoreL() is implemented as: </p>
+<p class="CodeBlock"><code>void CCompound::RestoreL(CStreamStore&amp; aStore,TStreamId anId)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;RStoreReadStream instream;<br>&nbsp;&nbsp;&nbsp;&nbsp;instream.OpenLC(aStore,anId);<br>&nbsp;&nbsp;&nbsp;&nbsp;InternalizeL(instream);<br>&nbsp;&nbsp;&nbsp;&nbsp;CleanupStack::PopAndDestroy();<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>where the stream ID passed to the function is the ID of the single
+stream containing the data.</p>
+<a name="1.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Restoring components stored out-of-line</h2>
+</div><div class="Bodytext">
+<p>If an object's components have been stored out-of-line, then all of
+these components have been written to separate streams.</p>
+<p>For the example class <code>CCompound</code>, defined as:</p>
+<p class="CodeBlock"><code>CCompound class : public CBase<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;TInt                  iDdata;<br>&nbsp;&nbsp;&nbsp;&nbsp;TSwizzle&lt;CComponentA&gt; iCompA;<br>&nbsp;&nbsp;&nbsp;&nbsp;TSwizzle&lt;CComponentB&gt; iCompB;<br>&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>RestoreL() is implemented as:</p>
+<p class="CodeBlock"><code>void CCompound::RestoreL(CStreamStore&amp; aStore,TStreamId anId)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;RStoreReadStream stream;      // Construct a read stream.<br>&nbsp;&nbsp;&nbsp;&nbsp;stream.OpenLC(aStore,anId);   // Open the head stream.<br>&nbsp;&nbsp;&nbsp;&nbsp;InternalizeL(stream);         // Internalise top level stream containing CCompound<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// and the IDs of its components. <br>&nbsp;&nbsp;&nbsp;&nbsp;RestoreComponentsL(aStore);   // Restore components.<br>&nbsp;&nbsp;&nbsp;&nbsp;CleanupStack::PopAndDestroy();<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>where the stream ID passed to the function is the ID of the head
+stream.</p>
+<p>InternalizeL() internalises CCompound's data members and the stream IDs
+of its components:</p>
+<p class="CodeBlock"><code>void CCompound::InternalizeL(RReadStream&amp; aStream)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;aStream &gt;&gt; iDataA;<br>&nbsp;&nbsp;&nbsp;&nbsp;aStream &gt;&gt; iCompA;  <br>&nbsp;&nbsp;&nbsp;&nbsp;aStream &gt;&gt; iCompB;<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p><code>RestoreComponentsL()</code> constructs each component object and
+restores them from their respective stream networks. </p>
+<p class="CodeBlock"><code>void CCompound::RestoreComponentsL(CStreamStore&amp; aStore)<br>&nbsp;&nbsp;&nbsp;&nbsp;{ <br>&nbsp;&nbsp;&nbsp;&nbsp;CComponentA* ptrA = new (ELeave) CComponentA;<br>&nbsp;&nbsp;&nbsp;&nbsp;CleanupStack::PushL(ptrA);<br>&nbsp;&nbsp;&nbsp;&nbsp;ptrA-&gt;RestoreL(aStore,iCompA.AsId());<br>&nbsp;&nbsp;&nbsp;&nbsp;iCompA = ptrA;<br>&nbsp;&nbsp;&nbsp;&nbsp;CleanupStack::Pop();<br>&nbsp;&nbsp;&nbsp;&nbsp;CComponentB* ptrB = new (ELeave) CComponentB;<br>&nbsp;&nbsp;&nbsp;&nbsp;CleanupStack::PushL(ptrB);<br>&nbsp;&nbsp;&nbsp;&nbsp;ptrB-&gt;RestoreL(aStore,iCompB.AsId());<br>&nbsp;&nbsp;&nbsp;&nbsp;iCompB = ptrB CleanupStack::Pop();<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>In general, an application might want to defer the loading of some
+components. This would mean either changing the implementation of
+<code>RestoreComponents()</code> or adding new functionality to the class. The
+use of Swizzles is important here as they simplify the handling of the dual
+representation of an object as a pointer to an in-memory object or as an ID of
+a stream.</p>
+<p>Typically, an application might use code such as:</p>
+<p class="CodeBlock"><code>if (iCompA.IsId())<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;iCompA = CComponentA::NewL(iStore,iCompA.AsId());<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>to test whether the component is currently represented by a stream ID
+or by a pointer to an in-memory object. If a stream ID, then the component
+would be restored. In this small code fragment, an overloaded
+<code>NewL()</code> function is used both to construct and to restore the
+component object. Once this code has executed, the component is represented by
+a pointer.</p>
+<a name="1.7.16"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>See also</h3>
+</div><div class="Bodytext">
+<p><a href="../StoreStreamsGuide4/index.html#StoreStreamsGuide4%2etoc">Store map</a></p>
+<p><a href="../StoreStreamsGuide3/index.html#StoreStreamsGuide3%2etoc">Swizzles and deferred loading</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

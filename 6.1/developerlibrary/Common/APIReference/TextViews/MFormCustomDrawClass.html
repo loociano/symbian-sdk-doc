@@ -1,0 +1,292 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>MFormCustomDraw</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CTextViewClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="MFormParamClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Text&nbsp;Views</a>&nbsp;<span class="separator">&#187;</span>
+MFormCustomDraw</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code> frmtlay.h </code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aMFormCustomDraw"></a>
+
+<h1>Class <code>MFormCustomDraw</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>MFormCustomDraw</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>An abstract class which specifies the protocol for customising the
+way the text and its background are drawn.</p><p>Common uses for this are to
+implement custom highlighting or to draw a background bitmap. You must create
+an object of a class derived from this class and call
+<code>CTextLayout::SetCustomDraw()</code>, passing a pointer to the object. All
+of these functions have default implementations. Your class can override any of
+the virtual functions listed below.</p>
+<p>Defined in <code>MFormCustomDraw</code>:
+<br><code class="ApiItem"><a href="MFormCustomDrawClass.html#%3a%3aMFormCustomDraw%3a%3aDrawBackground%28%29" title="This function is called whenever part of the background of a CTextLayout or CTextView object needs to be drawn">DrawBackground()</a></code>, <code class="ApiItem"><a href="MFormCustomDrawClass.html#%3a%3aMFormCustomDraw%3a%3aDrawLineGraphics%28%29" title="This function is called after the background has been drawn by DrawBackground(), and before drawing the text">DrawLineGraphics()</a></code>, <code class="ApiItem"><a href="MFormCustomDrawClass.html#%3a%3aMFormCustomDraw%3a%3aDrawText%28%29" title="This function is called to draw the text and its highlighted background, if any, after bidirectional reordering and other character mappings have taken place">DrawText()</a></code>, <code class="ApiItem"><a href="MFormCustomDrawClass.html#%3a%3aMFormCustomDraw%3a%3aTLineInfo" title="Contains the line metrics">TLineInfo</a></code>, <code class="ApiItem"><a href="MFormCustomDrawClass.html#%3a%3aMFormCustomDraw%3a%3aTParam" title="Contains the drawing parameters used by all custom draw functions">TParam</a></code>
+</p>
+<a name="2.5"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Virtual draw functions</h2>
+</div><div class="Bodytext">
+<a name="2.5.2"></a></div><div class="Head3">
+<a name="%3a%3aMFormCustomDraw%3a%3aDrawBackground%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DrawBackground()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void DrawBackground(const TParam&amp; aParam,const TRgb&amp; aBackground,TRect&amp; aDrawn) const;</code></p><h4 class="subheading">Description</h4>
+<p>This function is called whenever part of the background of a
+<code>CTextLayout</code> or <code>CTextView</code> object needs to be drawn.
+The default implementation fills <code>aParam.iDrawRect</code> with the colour
+specified in <code>aBackground</code>.</p>
+<p>The default background colour is contained in
+<code>aBackground</code>. This is the background colour of the paragraph if
+drawing text, or the background colour specified in the
+<code>TDrawTextLayoutContext</code> object passed to
+<code>CTextLayout::DrawL()</code> if drawing outside the text area. </p>
+<p>The rectangle which is drawn by this function, (this may not be
+the whole of <code>aParam.iDrawRect</code>) must be returned in
+<code>aDrawn</code>; areas not drawn by you are automatically filled using the
+colour <code>aBackground</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TParam&amp; aParam </code></td>
+<td class="Cell"><p class="ValueDesc"> Contains the drawing parameters: <code>aParam.iGc</code> is
+the graphics context to use. <code>aParam.iMap</code> is the graphics device
+map, which allows you to convert between pixels and twips and create fonts.
+<code>aParam.iTextLayoutTopLeft</code> is the origin of the text; bitmaps and
+other graphics must be drawn relative to this position.
+<code>aParam.iDrawRect</code> is the area to be drawn; do not draw outside this
+rectangle.
+<!--<list><listitem style="list bullet"><code>aParam.iGc</code> is the graphics context to use</listitem>
+<listitem style="list bullet"><code>aParam.iMap</code> is the graphics device map, which allows you to convert between pixels and twips and create fonts</listitem>
+<listitem style="list bullet"><code>aParam.iTextLayoutTopLeft</code> is the origin of the text; bitmaps and other graphics must be drawn relative to this position </listitem>
+<listitem style="list bullet"><code>aParam.iDrawRect</code> is the area to be drawn; do not draw outside this rectangle</listitem>
+</list>--></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRgb&amp; aBackground </code></td>
+<td class="Cell"><p class="ValueDesc"> The default background colour. This is the background colour
+of the paragraph if drawing text, or the background colour specified in the
+<code>TDrawTextLayoutContext</code> object passed to
+<code>CTextLayout::DrawL()</code> if drawing outside the text area. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TRect&amp; aDrawn </code></td>
+<td class="Cell"><p class="ValueDesc"> Must return the rectangle you actually draw. This may not be
+the whole of <code>aParam.iDrawRect</code> (for instance, if you are drawing a
+non-tiled bitmap that occupies only part of <code>aRect</code>). </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.5.3"></a></div><div class="Head3">
+<a name="%3a%3aMFormCustomDraw%3a%3aDrawLineGraphics%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DrawLineGraphics()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void DrawLineGraphics(const TParam&amp; aParam,const TLineInfo&amp; aLineInfo) const;</code></p><h4 class="subheading">Description</h4>
+<p>This function is called after the background has been drawn by
+<code>DrawBackground()</code>, and before drawing the text. This function might
+be used to draw a ruled line under each line of text.</p>
+<p>The default implementation of this function does nothing.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TParam&amp; aParam </code></td>
+<td class="Cell"><p class="ValueDesc"> Contains the drawing parameters. You should only draw to
+<code>aParam.iDrawRect</code>. There is no need to fill
+<code>aParam.iDrawRect</code> or to indicate the rectangle drawn. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TLineInfo&amp; aLineInfo </code></td>
+<td class="Cell"><p class="ValueDesc"> Contains the line metrics: <code>aLineInfo.iOuterLineRect</code>
+specifies the bounding rectangle of the line, including margins, indents and
+automatic space above and below paragraphs,
+<code>aLineInfo.iInnerLineRect</code> specifies the bounds of the text only,
+<code>aLineInfo.iBaseline</code> specifies the baseline of the text.
+<!--<list><listitem style="list bullet"><code>aLineInfo.iOuterLineRect</code> specifies the bounding rectangle of the line, including margins, indents and automatic space above and below paragraphs, </listitem>
+<listitem style="list bullet"><code>aLineInfo.iInnerLineRect</code> specifies the bounds of the text only, </listitem>
+<listitem style="list bullet"><code>aLineInfo.iBaseline</code> specifies the baseline of the text.</listitem>
+</list>--></p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.5.4"></a></div><div class="Head3">
+<a name="%3a%3aMFormCustomDraw%3a%3aDrawText%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DrawText()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void DrawText(const TParam&amp; aParam,const TLineInfo&amp; aLineInfo,const TCharFormat&amp; aFormat, const TDesC&amp; aText,const TPoint&amp; aTextOrigin,TInt aExtraPixels) const;</code></p><h4 class="subheading">Description</h4>
+<p>This function is called to draw the text and its highlighted
+background, if any, after bidirectional reordering and other character mappings
+have taken place.</p>
+<p>The default implementation of this function draws the text with no
+special effects and supports standard, round-cornered and shadowed highlighting
+only. The text is drawn with the left end of its baseline located at
+<code>aTextOrigin</code> after drawing the background, if any, in
+<code>aParam.iDrawRect</code>. </p>
+<p>The main reason to override this function is to apply custom text
+highlighting, (for this, <code>aFormat.iFontPresentation.iHighlightStyle</code>
+should be in the range <code>EFontHighlightFirstCustomStyle</code> to
+<code>EFontHighlightLastCustomStyle</code>). </p>
+<p>The horizontal spacing between the characters in the text string is
+increased by the number of pixels specified in <code>aExtraPixels</code>. The
+standard way to do this is by calling
+<code>CGraphicsContext::SetCharJustification()</code>.</p>
+<p>The font and other graphics parameters (e.g. pen colour, font
+style), are specified in <code>aParam.iGc</code> but a character format
+container (<code>aFormat</code>) is supplied so that a different font can be
+used. Note that any graphics drawn cannot exceed the bounds of
+<code>aParam.iDrawRect</code>, so changes are usually restricted to drawing
+shadows, outlines, etc. if custom highlighting is in use.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TParam&amp; aParam </code></td>
+<td class="Cell"><p class="ValueDesc"> Contains the drawing parameters. Drawing can only occur within
+<code>aParam.iDrawRect</code>. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TLineInfo&amp; aLineInfo </code></td>
+<td class="Cell"><p class="ValueDesc"> Contains the line metrics. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TCharFormat&amp; aFormat </code></td>
+<td class="Cell"><p class="ValueDesc"> Specifies the character formatting to apply to the text, including
+the type of text highlighting. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TDesC&amp; aText </code></td>
+<td class="Cell"><p class="ValueDesc"> The text string to be drawn. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TPoint&amp; aTextOrigin </code></td>
+<td class="Cell"><p class="ValueDesc"> The point at which the left end of the baseline of the text should
+be drawn. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aExtraPixels </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of additional pixels to insert between the characters
+in the text string, in order to increase its length. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="3"></a></div><div class="Head1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><a name="%3a%3aMFormCustomDraw%3a%3aTParam"></a>
+<hr size="3" noshade>
+<h1>Class <code>MFormCustomDraw::TParam</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>MFormCustomDraw::TParam</code></p><h4 class="subheading">Description</h4>
+<p>Contains the drawing parameters used by all custom draw
+functions.</p><p>Defined in <code>MFormCustomDraw::TParam</code>:
+<br><code class="ApiItem"><a href="MFormCustomDrawClass.html#%3a%3aMFormCustomDraw%3a%3aTParam%3a%3aiDrawRect" title="The area to be drawn">iDrawRect</a></code>, <code class="ApiItem"><a href="MFormCustomDrawClass.html#%3a%3aMFormCustomDraw%3a%3aTParam%3a%3aiGc" title="The graphics context to use">iGc</a></code>, <code class="ApiItem"><a href="MFormCustomDrawClass.html#%3a%3aMFormCustomDraw%3a%3aTParam%3a%3aiMap" title="The graphics device map, which allows you to convert between pixels and twips and create fonts">iMap</a></code>, <code class="ApiItem"><a href="MFormCustomDrawClass.html#%3a%3aMFormCustomDraw%3a%3aTParam%3a%3aiTextLayoutTopLeft" title="The origin for the coordinates at which the text, bitmaps and other graphics are drawn">iTextLayoutTopLeft</a></code>
+</p>
+<a name="3.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Member data</h2>
+</div><div class="Bodytext">
+<a name="3.4.2"></a></div><div class="Head3">
+<a name="%3a%3aMFormCustomDraw%3a%3aTParam%3a%3aiGc"></a>
+<hr size="1" noshade>
+<h3><code>iGc</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CGraphicsContext&amp; iGc</code></p><h4 class="subheading">Description</h4>
+<p>The graphics context to use.</p>
+<a name="3.4.3"></a></div><div class="Head3">
+<a name="%3a%3aMFormCustomDraw%3a%3aTParam%3a%3aiMap"></a>
+<hr size="1" noshade>
+<h3><code>iMap</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>MGraphicsDeviceMap&amp; iMap</code></p><h4 class="subheading">Description</h4>
+<p>The graphics device map, which allows you to convert between pixels and
+twips and create fonts.</p>
+<a name="3.4.4"></a></div><div class="Head3">
+<a name="%3a%3aMFormCustomDraw%3a%3aTParam%3a%3aiTextLayoutTopLeft"></a>
+<hr size="1" noshade>
+<h3><code>iTextLayoutTopLeft</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const TPoint&amp; iTextLayoutTopLeft</code></p><h4 class="subheading">Description</h4>
+<p>The origin for the coordinates at which the text, bitmaps and other
+graphics are drawn.</p>
+<a name="3.4.5"></a></div><div class="Head3">
+<a name="%3a%3aMFormCustomDraw%3a%3aTParam%3a%3aiDrawRect"></a>
+<hr size="1" noshade>
+<h3><code>iDrawRect</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const TRect&amp; iDrawRect</code></p><h4 class="subheading">Description</h4>
+<p>The area to be drawn. Do not draw outside this rectangle.</p>
+<a name="4"></a></div><div class="Head1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><a name="%3a%3aMFormCustomDraw%3a%3aTLineInfo"></a>
+<hr size="3" noshade>
+<h1>Class <code>MFormCustomDraw::TLineInfo</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>MFormCustomDraw::TLineInfo</code></p><h4 class="subheading">Description</h4>
+<p>Contains the line metrics.</p>
+<p>Defined in <code>MFormCustomDraw::TLineInfo</code>:
+<br><code class="ApiItem"><a href="MFormCustomDrawClass.html#%3a%3aMFormCustomDraw%3a%3aTLineInfo%3a%3aiBaseline" title="The baseline of the text">iBaseline</a></code>, <code class="ApiItem"><a href="MFormCustomDrawClass.html#%3a%3aMFormCustomDraw%3a%3aTLineInfo%3a%3aiInnerRect" title="The bounds of the text only">iInnerRect</a></code>, <code class="ApiItem"><a href="MFormCustomDrawClass.html#%3a%3aMFormCustomDraw%3a%3aTLineInfo%3a%3aiOuterRect" title="The bounding rectangle of the line, including margins, indents and automatic space above and below paragraphs">iOuterRect</a></code>
+</p>
+<a name="4.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Member data</h2>
+</div><div class="Bodytext">
+<a name="4.4.2"></a></div><div class="Head3">
+<a name="%3a%3aMFormCustomDraw%3a%3aTLineInfo%3a%3aiOuterRect"></a>
+<hr size="1" noshade>
+<h3><code>iOuterRect</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const TRect&amp; iOuterRect</code></p><h4 class="subheading">Description</h4>
+<p>The bounding rectangle of the line, including margins, indents and
+automatic space above and below paragraphs.</p>
+<a name="4.4.3"></a></div><div class="Head3">
+<a name="%3a%3aMFormCustomDraw%3a%3aTLineInfo%3a%3aiInnerRect"></a>
+<hr size="1" noshade>
+<h3><code>iInnerRect</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const TRect&amp; iInnerRect</code></p><h4 class="subheading">Description</h4>
+<p>The bounds of the text only.</p>
+<a name="4.4.4"></a></div><div class="Head3">
+<a name="%3a%3aMFormCustomDraw%3a%3aTLineInfo%3a%3aiBaseline"></a>
+<hr size="1" noshade>
+<h3><code>iBaseline</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt iBaseline</code></p><h4 class="subheading">Description</h4>
+<p>The baseline of the text.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

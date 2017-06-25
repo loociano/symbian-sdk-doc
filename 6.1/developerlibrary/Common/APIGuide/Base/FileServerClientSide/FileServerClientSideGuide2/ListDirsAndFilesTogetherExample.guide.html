@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to list directories and files</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="FileServerClientSideGuide2%2ehow%2dto%2elist%2dfiles%2ddirectories"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="MinimisingClientServerInteraction.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToCreateADirectory.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">File&nbsp;Server&nbsp;Client&nbsp;Side</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">How&nbsp;to&nbsp;use&nbsp;sessions,&nbsp;files,&nbsp;and&nbsp;directories</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;list&nbsp;directories&nbsp;and&nbsp;files</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to list directories and files</h1>
+</div><div class="Bodytext">
+<p>The list of a directory's contents can obtained by using two variants
+of the function <code>RFs::GetDir()</code>. Both variants provide a filtered
+list of files and directories; the second additionally provides a separate list
+containing directories only. Both variants use an attribute mask to filter the
+entry types. </p>
+<p>The following sections assume that some directories and a file have
+been created in a directory <code class="filename">FileserverExample</code>, and then lists them
+in alphabetical order.</p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Listing directories and files together</h2>
+</div><div class="Bodytext">
+<ol>
+<li>
+<p>Declare a <code>CDir</code> pointer. This type holds an array
+of directory entries.</p>
+</li>
+<li>
+<p>Use <code>GetDir()</code> to get a single list, in the
+<code>CDir</code> object, which can contain both file and directory
+entries.</p>
+<p>Use <code>KEntryAttMaskSupported</code> to indicate all five
+file attributes, and the directory attribute.</p>
+<p>Use <code>ESortByName</code> to order the entries
+alphabetically.</p>
+</li>
+<li>
+<p><code>CDir::operator[]()</code> can be used to get the
+attributes, name, size and modification date and time of the
+<code>TEntry</code> at the specified index within the array. </p>
+</li>
+<li>
+<p>Delete the <code>CDir</code> object after use.</p>
+</li>
+</ol>
+<p class="CodeBlock"><code>_LIT(KDir,&quot;\\FileserverExample\\*&quot;);<br>CDir* dirList;<br>User::LeaveIfError(fsSession.GetDir(KDir,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KEntryAttMaskSupported,ESortByName,dirList));<br>_LIT(KString,&quot;%S&quot;);<br>for (TInt i=0;i&lt;dirList-&gt;Count();i++)<br>&nbsp;&nbsp;&nbsp;&nbsp;console-&gt;Printf(KString,&amp;(*dirList)[i].iName);<br>delete dirList;</code></p>
+<a name="1.5.4"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Notes</h3>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p><code>GetDir()</code> supports the use of the two
+<em>wildcard</em> characters:&nbsp;<code class="filename">*</code>
+(meaning any sequence of characters within any part of a component), and
+<code class="filename">?</code> (meaning any single character).</p>
+</li>
+</ul>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Listing directories and files separately</h2>
+</div><div class="Bodytext">
+<p>If you want files and directories to be listed separately, another
+variant of <code>GetDir()</code> should be used. On return, the first list
+contains only files, the second directories.</p>
+<ol>
+<li>
+<p>Use <code>GetDir() </code>to provide a list of directories and
+files and additionally a separate list of directories only.</p>
+</li>
+<li>
+<p>If the attribute mask <code>KEntryAttNormal</code> is used, no
+system or hidden files or directories are included in the file list.</p>
+</li>
+</ol>
+<p class="CodeBlock"><code>CDir* fileList;<br>User::LeaveIfError(fsSession.GetDir(KDir,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KEntryAttNormal,ESortByName,fileList,dirList));</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

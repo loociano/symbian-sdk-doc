@@ -1,0 +1,204 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to use multiple active objects</title>
+<link href="../../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="AsynchronousServicesGuide4%2ehow%2dto%2euse%2dmultiple"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../../_index/index.html"><img
+src="../../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../../GlobalGlossary/index.html"><img src="../../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToRenewRequestFromActiveSched.guide.html"><img src="../../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="LongRunningServices.guide.html"><img src="../../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Inter&nbsp;Process&nbsp;Communciation</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Asynchronous&nbsp;Services</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">High&nbsp;Level&nbsp;Asynchronous&nbsp;Service&nbsp;Handling</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;use&nbsp;multiple&nbsp;active&nbsp;objects</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to use multiple active objects</h1>
+</div><div class="Bodytext">
+<p>The following example code fragments show how to construct a program
+with two active objects, where one controls the initiation and cancellation of
+the other.</p>
+<p>In these examples:</p>
+<p><code>CActiveConsole</code> is an active object and contains a
+pointer to a <code>CConsoleBase</code> object which is a service provider.
+Through this service provider, the active object provides the facility to
+request a character from the keyboard.</p>
+<p><code>RunL()</code> delegates the handling of completed requests to
+the pure virtual function <code>ProcessKeyPress()</code>, which must be
+provided by a derived class.</p>
+<p><code>CMessageKeyProcessor</code> is further derived from
+<code>CActiveConsole</code> and contains a pointer to another active object
+<code>CExampleActiveObject</code>, which requires input from the
+keyboard.</p>
+<p>Depending on the input character, the
+<code>CMessageKeyProcessor</code> active object does one of the
+following:</p>
+<ul>
+<li>
+<p>issues a request to the <code>CExampleActiveObject</code> active
+object</p>
+</li>
+<li>
+<p>cancels any outstanding request to the
+<code>CExampleActiveObject</code> active object</p>
+</li>
+<li>
+<p>does nothing</p>
+</li>
+</ul>
+<p>The implementation of the <code>CExampleActiveObject</code> active
+object is not relevant to the example and is not shown.</p>
+<p>The following diagram shows the relationship between the
+classes.</p>
+<div class="Figure">
+<p class="Image"><img src="HowToMultipleClass.gif" alt=""  border="0"></p>
+</div>
+<a name="1.13"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Encapsulating the service provider</h2>
+</div><div class="Bodytext">
+<p>The class <code>CActiveConsole</code> encapsulates the provision of
+basic keyboard services. Its <code>iConsole</code> data member is a pointer to
+the service provider, the <code>CConsoleBase</code> object.</p>
+<p>The active object class is defined as:</p>
+<p class="CodeBlock"><code>class CActiveConsole : public CActive<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>public:<br>&nbsp;&nbsp;&nbsp;&nbsp;CActiveConsole(CConsoleBase* aConsole);<br>&nbsp;&nbsp;&nbsp;&nbsp;void ConstructL();<br>&nbsp;&nbsp;&nbsp;&nbsp;~CActiveConsole();<br>&nbsp;&nbsp;&nbsp;&nbsp;void RequestCharacter();<br>&nbsp;&nbsp;&nbsp;&nbsp;void RunL();<br>&nbsp;&nbsp;&nbsp;&nbsp;void DoCancel();<br>&nbsp;&nbsp;&nbsp;&nbsp;virtual void ProcessKeyPress(TChar aChar)=0;<br>protected:<br>&nbsp;&nbsp;&nbsp;&nbsp;CConsoleBase* iConsole; <br>&nbsp;&nbsp;&nbsp;&nbsp;};</code></p>
+<p>The class constructor takes a pointer to a
+<code>CConsoleBase</code> object as its single argument and initialises its
+<code>iConsole</code> data member to this value:</p>
+<p class="CodeBlock"><code>CActiveConsole::CActiveConsole(CConsoleBase* aConsole)<br>&nbsp;&nbsp;&nbsp;&nbsp;: iConsole(aConsole)<br>&nbsp;&nbsp;&nbsp;&nbsp;{}</code></p>
+<p>The <code>ConstructL()</code> function adds the active object to
+the active scheduler:</p>
+<p class="CodeBlock"><code>void CActiveConsole::ConstructL()<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;CActiveScheduler::Add(this);<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>The destructor cancels any outstanding request before destroying
+the active object:</p>
+<p class="CodeBlock"><code>CActiveConsole::~CActiveConsole()<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;Cancel();<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p><code>DoCancel()</code> is implemented to cancel the request to
+<code>iConsole</code>.</p>
+<p>The <code>RequestCharacter()</code> function makes a request for a
+key press to the service provider by calling
+<code>iConsole-&gt;Read(iStatus)</code> and setting the active request
+flag:</p>
+<p class="CodeBlock"><code>void CActiveConsole::RequestCharacter()<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;iConsole-&gt;Read(iStatus);<br>&nbsp;&nbsp;&nbsp;&nbsp;SetActive();<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>The <code>RunL()</code> funcion makes a call to the
+<code>ProcessKeyPress()</code> function. This is a pure virtual function that
+derived classes must implement to handle the key press and to reissue the
+request:</p>
+<p class="CodeBlock"><code>void CActiveConsole::RunL()<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;ProcessKeyPress(TChar(iConsole-&gt;KeyCode()));<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<a name="1.14"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Further deriving from the active object</h2>
+</div><div class="Bodytext">
+<p>The class <code>CMessageKeyProcessor</code> is a concrete class, derived
+from <code>CActiveConsole</code>. It provides an implementation for the
+<code>ProcessKeyPress()</code> function and can issue or cancel requests to a
+<code>CExampleActiveObject</code> active object.</p>
+<p>This active object class is defined as:</p>
+<p class="CodeBlock"><code>class CMessageKeyProcessor : public CActiveConsole<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>public:<br>&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;CMessageKeyProcessor(CConsoleBase* aConsole, CExampleActiveObject* iExampleObject);<br>&nbsp;&nbsp;&nbsp;&nbsp;void ProcessKeyPress(TChar aChar);<br>private:<br>&nbsp;&nbsp;&nbsp;&nbsp;CExampleActiveObject* iExampleObject;<br>&nbsp;&nbsp;&nbsp;&nbsp;};</code></p>
+<a name="1.14.5"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Notes</h3>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>The first constructor parameter specifies a <code>CConsoleBase</code>
+which will be used to provide asynchronous keyboard input.</p>
+</li>
+<li>
+<p>the second constructor parameter specifies a
+<code>CExampleActiveObject</code> which will be controlled by this
+<code>CMessageKeyProcessor</code>.</p>
+</li>
+</ul>
+<p>The behaviour of the <code>ProcessKeyPress()</code> function depends on
+the key code value:</p>
+<p class="CodeBlock"><code>void CMessageKeyProcessor::ProcessKeyPress(TChar aChar)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;if (aChar == 'm' || aChar == 'M')<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iExampleObject-&gt;Cancel();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iExampleObject-&gt;IssueRequest();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;if (aChar == 'c' || aChar == 'C')<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iExampleObject-&gt;Cancel();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;if (aChar != EKeyEscape)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RequestCharacter();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;else<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iExampleObject-&gt;Cancel();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CActiveScheduler::Stop();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<a name="1.15"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Enhanced framework</h2>
+</div><div class="Bodytext">
+<p>In the code fragment below, an active scheduler is created to which both
+a <code>CMessageKeyProcessor</code> active object and a
+<code>CExampleActiveObject</code> active object are added:</p>
+<p class="CodeBlock"><code>LOCAL_C void doExampleL()<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;CActiveScheduler* exampleScheduler=new (ELeave) CActiveScheduler;<br>&nbsp;&nbsp;&nbsp;&nbsp;CleanupStack::PushL(exampleScheduler);<br>&nbsp;&nbsp;&nbsp;&nbsp;CActiveScheduler::Install(exampleScheduler);<br><br>&nbsp;&nbsp;&nbsp;&nbsp;CExampleActiveObject* iExampleObject =<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CExampleActiveObject::NewLC();<br>&nbsp;&nbsp;&nbsp;&nbsp;CMessageKeyProcessor* keyProcessor=<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CMessageKeyProcessor::NewLC(console, iExampleObject);<br><br>&nbsp;&nbsp;&nbsp;&nbsp;keyProcessor-&gt;RequestCharacter();<br>&nbsp;&nbsp;&nbsp;&nbsp;CActiveScheduler::Start();<br>&nbsp;&nbsp;&nbsp;&nbsp;CleanupStack::PopAndDestroy(3);<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<a name="1.15.4"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Notes</h3>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>An instance of the active scheduler, <code>exampleScheduler</code> is
+pushed onto the cleanup stack and installed as the current active
+scheduler.</p>
+</li>
+<li>
+<p>An instance of the <code>CExampleActiveObject</code> active object is
+creatred.</p>
+</li>
+<li>
+<p>An instance of the <code>CMessageKeyProcessor</code> active object is
+created and this is in control.</p>
+</li>
+<li>
+<p><code>keyProcessor-&gt;RequestCharacter()</code> issues a request for
+keyboard input.</p>
+</li>
+<li>
+<p><code>CActiveScheduler::Start()</code> starts the active scheduler. At
+least one outstanding request is necessary before the wait loop is started,
+otherwise the thread hangs. All further request issuing and servicing occurs
+within this function. The wait loop continues until one of the active
+objects&#8217; <code>RunL()</code> calls
+<code>CActiveScheduler::Stop()</code>.</p>
+</li>
+<li>
+<p>The active objects and the active scheduler are popped from the cleanup
+stack and destroyed.</p>
+</li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

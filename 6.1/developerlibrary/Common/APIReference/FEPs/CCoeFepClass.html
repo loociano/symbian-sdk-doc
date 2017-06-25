@@ -1,0 +1,686 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CCoeFep</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="CFepGenericGlobalSettingsClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Front&nbsp;End&nbsp;Processors</a>&nbsp;<span class="separator">&#187;</span>
+CCoeFep</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>fepbase.h</code>
+<br>Link against: <code>fepbase.lib</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aCCoeFep"></a>
+
+<h1>Class <code>CCoeFep</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CCoeFep</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Abstract base class for all FEPs.</p><p>FEP authors must derive a
+class from <code>CCoeFep</code>. The <code>CCoeFep</code>-derived class  should implement all of its pure virtual
+functions including the ones which <code>CCoeFep</code> inherits from its
+base classes. For information on these functions,  see the documentation of the base classes. The global <code>NewFepL()</code> function
+is used to create a fully
+initialised object of the derived class. </p>
+<p> FEPs should own a
+<code>CCoeControl</code>-derived object — this object is referred to as the FEP
+control. The FEP control can be
+placed on the control stack so that it   receives key events from the window server. It should run at high priority, so that it receives first refusal of key events.</p>
+<p>FEPs do not take focus — focus is retained by the underlying application. This has the advantage that the user can see where the output produced by the FEP will be inserted (e.g. the cursor will still be displayed). When focus is switched between controls, the FEP must be notified in case the input capability of the newly focussed control is different. For instance, the  FEP needs to avoid the situation where the user composes a large amount of text only for it to be passed  to a newly focussed control
+that cannot accept text input. <code>CCoeFep</code> derives from
+<code>MCoeFocusObserver</code>, which enables FEPs to receive notification
+when the focus for the underlying control changes. The implementation of
+<code>MCoeFocusObserver</code>'s functions can call the enquiry
+functions of class <code>TCoeInputCapabilities</code> to find out what input
+capabilities are supported by the new target control (you need to get the
+<code>TCoeInputCapabilities</code> object from the application UI first: see
+<code>CCoeAppUi::InputCapabilities()</code>).</p><p>Note that there can be more than one underlying target control at a
+time. For instance in an application displaying a dialog, the dialog itself is
+a focussed control, as is the captioned control, the edit window and other
+intermediary controls. If a FEP enquires about the input capabilities of such
+an application (i.e. the merged input capabilities of all its focused
+controls), it would be returned a <code>TCoeInputCapabilities</code> object
+whose <code>FepAwareTextEditor()</code> and
+<code>CaptionRetrieverForFep()</code> member functions return non-NULL, even
+though these interfaces are implemented by 2 different focused controls.</p>
+<h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase">CBase</a></code></td><td class="Cell">Base class for all classes to be instantiated on the heap</td>
+</tr>
+<tr><td class="Cell"><code>CCoeFep</code></td><td class="Cell">Abstract base class for all FEPs</td>
+</tr>
+<tr><td class="Cell"><code><a href="../UIControlFramework/MCoeFocusObserverClass.html#%3a%3aMCoeFocusObserver">MCoeFocusObserver</a></code></td><td class="Cell">Interface providing notification if any control gains or loses focus or is destroyed</td>
+</tr>
+<tr><td class="Cell"><code><a href="../UIControlFramework/MCoeForegroundObserverClass.html#%3a%3aMCoeForegroundObserver">MCoeForegroundObserver</a></code></td><td class="Cell">Interface providing notification of foreground/background changes</td>
+</tr>
+<tr><td class="Cell"><code><a href="../UIControlFramework/MCoeMessageObserverClass.html#%3a%3aMCoeMessageObserver">MCoeMessageObserver</a></code></td><td class="Cell">Interface for handling incoming window server messages</td>
+</tr>
+<tr><td class="Cell"><code><a href="MFepAttributeStorerClass.html#%3a%3aMFepAttributeStorer">MFepAttributeStorer</a></code></td><td class="Cell">Protocol for storing, restoring and synchronising FEP attributes</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>CCoeFep</code>:
+<br><code class="ApiItem"><a href="CCoeFepClass.html#%3a%3aCCoeFep%3a%3aBaseConstructL%28%29" title="Initialises the FEP's generic settings (whether the FEP is on or off and what key events should turn it on or off)">BaseConstructL()</a></code>, <code class="ApiItem"><a href="CCoeFepClass.html#%3a%3aCCoeFep%3a%3aCCoeFep%28%29" title="Protected C++ constructor">CCoeFep()</a></code>, <code class="ApiItem"><a href="CCoeFepClass.html#%3a%3aCCoeFep%3a%3aCancelTransaction%28%29" title="Cancels the FEP transaction">CancelTransaction()</a></code>, <code class="ApiItem"><a href="CCoeFepClass.html#%3a%3aCCoeFep%3a%3aEEventWasConsumed" title="Indicates that the FEP did process the event">EEventWasConsumed</a></code>, <code class="ApiItem"><a href="CCoeFepClass.html#%3a%3aCCoeFep%3a%3aEEventWasNotConsumed" title="Indicates that the FEP did not process the event">EEventWasNotConsumed</a></code>, <code class="ApiItem"><a href="CCoeFepClass.html#%3a%3aCCoeFep%3a%3aIsOn%28%29" title="Tests whether the FEP is on or off">IsOn()</a></code>, <code class="ApiItem"><a href="CCoeFepClass.html#%3a%3aCCoeFep%3a%3aIsOnHasChangedState%28%29" title="Called to notify the FEP that it has either just been turned on or just been turned off (it can find out which by calling CCoeFep::IsOn())">IsOnHasChangedState()</a></code>, <code class="ApiItem"><a href="CCoeFepClass.html#%3a%3aCCoeFep%3a%3aIsSimulatingKeyEvent%28%29" title="Tests whether or not the FEP is simulating key events">IsSimulatingKeyEvent()</a></code>, <code class="ApiItem"><a href="CCoeFepClass.html#%3a%3aCCoeFep%3a%3aIsTurnedOffByL%28%29" title="If the FEP is currently on and is turned off by the key event specified, the function turns all running instances of the FEP off (and returns ETrue)">IsTurnedOffByL()</a></code>, <code class="ApiItem"><a href="CCoeFepClass.html#%3a%3aCCoeFep%3a%3aIsTurnedOnByL%28%29" title="If the FEP is currently off and is turned on by the key event specified, the function turns all running instances of the FEP on (and returns ETrue)">IsTurnedOnByL()</a></code>, <code class="ApiItem"><a href="CCoeFepClass.html#%3a%3aCCoeFep%3a%3aMDeferredFunctionCall" title="Enables FEPs to have some code called but not in the context of the current call stack -- hence the name "deferred"">MDeferredFunctionCall</a></code>, <code class="ApiItem"><a href="CCoeFepClass.html#%3a%3aCCoeFep%3a%3aMModifiedCharacter" title="FEPs send character codes to the application underneath them using SimulateKeyEventsL()">MModifiedCharacter</a></code>, <code class="ApiItem"><a href="CCoeFepClass.html#%3a%3aCCoeFep%3a%3aMakeDeferredFunctionCall%28%29" title="Uses a high-priority active object to call the specified object's ExecuteFunctionL()">MakeDeferredFunctionCall()</a></code>, <code class="ApiItem"><a href="CCoeFepClass.html#%3a%3aCCoeFep%3a%3aOfferKeyEventL%28%29" title="This function is provided to support FEPs in OPL">OfferKeyEventL()</a></code>, <code class="ApiItem"><a href="CCoeFepClass.html#%3a%3aCCoeFep%3a%3aOfferPointerBufferReadyEventL%28%29" title="This function is provided to support FEPs in OPL">OfferPointerBufferReadyEventL()</a></code>, <code class="ApiItem"><a href="CCoeFepClass.html#%3a%3aCCoeFep%3a%3aOfferPointerEventL%28%29" title="This function is provided to support FEPs in OPL">OfferPointerEventL()</a></code>, <code class="ApiItem"><a href="CCoeFepClass.html#%3a%3aCCoeFep%3a%3aReadAllAttributesL%28%29" title="Sets this FEP's attributes with values from the global settings">ReadAllAttributesL()</a></code>, <code class="ApiItem"><a href="CCoeFepClass.html#%3a%3aCCoeFep%3a%3aSimulateKeyEventsL%28%29" title="Simulates a key event for each of the character codes in the array passed to it">SimulateKeyEventsL()</a></code>, <code class="ApiItem"><a href="CCoeFepClass.html#%3a%3aCCoeFep%3a%3aTEventResponse" title="Response to key or pointer event">TEventResponse</a></code>, <code class="ApiItem"><a href="CCoeFepClass.html#%3a%3aCCoeFep%3a%3aWriteAttributeDataAndBroadcastL%28%29" title="After changing the value of multiple FEP attributes that need to be synchronised, call this function to synchronise other running instances of the FEP">WriteAttributeDataAndBroadcastL()</a></code>, <code class="ApiItem"><a href="CCoeFepClass.html#%3a%3aCCoeFep%3a%3a%7eCCoeFep%28%29" title="Note:">~CCoeFep()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap">CBase</a></code>:
+<br><code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase%3a%3aoperator%20new%28%29" title="Allocates the object from the heap and then initialises its contents to binary zeroes">operator new()</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="../UIControlFramework/MCoeFocusObserverClass.html#%3a%3aMCoeFocusObserver" title="Interface providing notification if any control gains or loses focus or is destroyed">MCoeFocusObserver</a></code>:
+<br><code class="ApiItem"><a href="../UIControlFramework/MCoeFocusObserverClass.html#%3a%3aMCoeFocusObserver%3a%3aHandleChangeInFocus%28%29" title="Handles changes in focus">HandleChangeInFocus()</a></code>,
+<code class="ApiItem"><a href="../UIControlFramework/MCoeFocusObserverClass.html#%3a%3aMCoeFocusObserver%3a%3aHandleDestructionOfFocusedItem%28%29" title="Handles the destruction of any control">HandleDestructionOfFocusedItem()</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="../UIControlFramework/MCoeForegroundObserverClass.html#%3a%3aMCoeForegroundObserver" title="Interface providing notification of foreground/background changes">MCoeForegroundObserver</a></code>:
+<br><code class="ApiItem"><a href="../UIControlFramework/MCoeForegroundObserverClass.html#%3a%3aMCoeForegroundObserver%3a%3aHandleGainingForeground%28%29" title="Handles the application coming to the foreground">HandleGainingForeground()</a></code>,
+<code class="ApiItem"><a href="../UIControlFramework/MCoeForegroundObserverClass.html#%3a%3aMCoeForegroundObserver%3a%3aHandleLosingForeground%28%29" title="Handles the application going into the background">HandleLosingForeground()</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="../UIControlFramework/MCoeMessageObserverClass.html#%3a%3aMCoeMessageObserver" title="Interface for handling incoming window server messages">MCoeMessageObserver</a></code>:
+<br><code class="ApiItem"><a href="../UIControlFramework/MCoeMessageObserverClass.html#%3a%3aMCoeMessageObserver%3a%3aEMessageHandled" title="Message handled">EMessageHandled</a></code>,
+<code class="ApiItem"><a href="../UIControlFramework/MCoeMessageObserverClass.html#%3a%3aMCoeMessageObserver%3a%3aEMessageNotHandled" title="Message not handled">EMessageNotHandled</a></code>,
+<code class="ApiItem"><a href="../UIControlFramework/MCoeMessageObserverClass.html#%3a%3aMCoeMessageObserver%3a%3aHandleMessageL%28%29" title="Handles window server messages">HandleMessageL()</a></code>,
+<code class="ApiItem"><a href="../UIControlFramework/MCoeMessageObserverClass.html#%3a%3aMCoeMessageObserver%3a%3aTMessageResponse" title="Message response flags">TMessageResponse</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="MFepAttributeStorerClass.html#%3a%3aMFepAttributeStorer" title="Protocol for storing, restoring and synchronising FEP attributes">MFepAttributeStorer</a></code>:
+<br><code class="ApiItem"><a href="MFepAttributeStorerClass.html#%3a%3aMFepAttributeStorer%3a%3aAttributeAtIndex%28%29" title="Returns the UID of the FEP attribute at the index specified">AttributeAtIndex()</a></code>,
+<code class="ApiItem"><a href="MFepAttributeStorerClass.html#%3a%3aMFepAttributeStorer%3a%3aNumberOfAttributes%28%29" title="Returns the total number of FEP attributes">NumberOfAttributes()</a></code>,
+<code class="ApiItem"><a href="MFepAttributeStorerClass.html#%3a%3aMFepAttributeStorer%3a%3aReadAttributeDataFromStreamL%28%29" title="Reads the value of the attribute identified by the UID specified in aAttributeUid from the specified read stream">ReadAttributeDataFromStreamL()</a></code>,
+<code class="ApiItem"><a href="MFepAttributeStorerClass.html#%3a%3aMFepAttributeStorer%3a%3aWriteAttributeDataToStreamL%28%29" title="Writes the value of the attribute specified to the specified write stream">WriteAttributeDataToStreamL()</a></code></p>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../UIControlFramework/NewFepLFunction.html#%3a%3aNewFepL%28%29" title="FEP factory function -- must be exported by every FEP"><code class="ApiItem">NewFepL()</code></a></li>
+</ul>
+<a name="2.7"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction and destruction</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aCCoeFep%3a%3aCCoeFep%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CCoeFep()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: CCoeFep(CCoeEnv&amp; aConeEnvironment);</code></p><h4 class="subheading">Description</h4>
+<p>Protected C++ constructor. This function should be called from
+within the FEP's constructor.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CCoeEnv&amp; aConeEnvironment</code></td>
+<td class="Cell"><p class="ValueDesc">Cone environment. Provides an interface to the window server,
+so that the FEP control can receive pointer and key events.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aCCoeFep%3a%3aBaseConstructL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>BaseConstructL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: void BaseConstructL(const CCoeFepParameters&amp; aFepParameters);</code></p><h4 class="subheading">Description</h4>
+<p>Initialises the FEP's generic settings (whether the FEP is on
+or off and what key events should turn it on or off). During construction, all FEPs must call this
+member function. Also
+initialises the FEP as an observer so that it receives notification of changes
+from the cone environment. Examples of such changes are the target control
+gaining or losing focus or changes to the generic FEP settings made by another running instance of the same FEP.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CCoeFepParameters&amp; aFepParameters</code></td>
+<td class="Cell"><p class="ValueDesc">Contains the default values for the FEP's generic
+settings.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.4"></a></div><div class="Head3">
+<a name="%3a%3aCCoeFep%3a%3a%7eCCoeFep%28%29"></a>
+<hr size="1" noshade>
+<h3><code>~CCoeFep()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual ~CCoeFep();</code></p><h4 class="subheading">Description</h4>
+<p>Note:</p>
+<p>The destructor removes the FEP from the cone environment's
+message observer list prior to its destruction.</p>
+<a name="2.7.5"></a></div><div class="Head3">
+<a name="%3a%3aCCoeFep%3a%3aCancelTransaction%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CancelTransaction()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void CancelTransaction()=0;</code></p><h4 class="subheading">Description</h4>
+<p>Cancels the FEP transaction. Pure virtual function.</p>
+<p>A FEP transaction begins when an event is first intercepted by
+the FEP and ends either when the processed text is committed to the application
+underneath, or if it is cancelled.</p>
+<a name="2.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Synchronise attributes</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aCCoeFep%3a%3aReadAllAttributesL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ReadAllAttributesL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: void ReadAllAttributesL();</code></p><h4 class="subheading">Description</h4>
+<p>Sets this FEP's attributes with values from the global
+settings.</p>
+<p>Calls the FEP's implementation of
+<code>MFepAttributeStorer::ReadAttributeDataFromStreamL()</code> for each FEP
+attribute which needs to be synchronised.</p>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aCCoeFep%3a%3aWriteAttributeDataAndBroadcastL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>WriteAttributeDataAndBroadcastL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: void WriteAttributeDataAndBroadcastL(TUid aAttributeUid);</code></p><h4 class="subheading">Description</h4>
+<p>After changing the value of a single FEP attribute that needs
+to be synchronised, call this function to synchronise other running instances
+of the FEP.</p>
+<p>It first calls
+<code>MFepAttributeStorer::WriteAttributeDataToStreamL()</code> which writes
+the attribute's new value to the stream and then it causes all other running
+instances of the FEP to be notified of the change.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUid aAttributeUid</code></td>
+<td class="Cell"><p class="ValueDesc">The UID of the attribute that has changed.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.4"></a></div><div class="Head3">
+<a name="%3a%3aCCoeFep%3a%3aWriteAttributeDataAndBroadcastL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>WriteAttributeDataAndBroadcastL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: void WriteAttributeDataAndBroadcastL(const TArray&lt;TUid&gt;&amp; aAttributeUids);</code></p><h4 class="subheading">Description</h4>
+<p>After changing the value of multiple FEP attributes that need
+to be synchronised, call this function to synchronise other running instances
+of the FEP.</p>
+<p>It first
+calls <code>MFepAttributeStorer::WriteAttributeDataToStreamL()</code> which
+writes the attributes' new values to the stream and then it causes all other
+running instances of the FEP to be notified of the
+changes.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TArray&lt;TUid&gt;&amp; aAttributeUids</code></td>
+<td class="Cell"><p class="ValueDesc">Array of UIDs for the attribute that have changed.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Key events</h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aCCoeFep%3a%3aSimulateKeyEventsL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SimulateKeyEventsL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: void SimulateKeyEventsL(const TArray&lt;TUint&gt;&amp; aArrayOfCharacters);</code></p><h4 class="subheading">Description</h4>
+<p>Simulates a key event for each of the character codes in the
+array passed to it.</p>
+<p>Notes:</p>
+<p>This function should be called in order to send key events to
+the application underneath the FEP (unless inline editing is taking place, in
+which case a different mechanism is used). FEPs should not
+use <code>CCoeEnv::SimulateKeyEventL()</code> to simulate key
+events.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TArray&lt;TUint&gt;&amp; aArrayOfCharacters</code></td>
+<td class="Cell"><p class="ValueDesc">An array of characters.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.3"></a></div><div class="Head3">
+<a name="%3a%3aCCoeFep%3a%3aIsSimulatingKeyEvent%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IsSimulatingKeyEvent()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool IsSimulatingKeyEvent() const;</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether or not the FEP is simulating key events.</p>
+<p>This function should be called early in the FEP's
+implementation of <code>OfferKeyEventL()</code>. If it
+returns <code>ETrue</code>, <code>OfferKeyEventL()</code> should immediately
+return <code>EKeyWasNotConsumed</code> so that the application gets the key
+event as intended. </p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> if the FEP is simulating key
+events, <code>EFalse</code> if not.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Notes:</h4>
+<ul>
+<li><note>This function was protected in v6.0.</note></li>
+<li><note>It is called by the <code>FEP_START_KEY_EVENT_HANDLER_L</code> and <code>FEP_START_KEY_EVENT_HANDLER_NO_DOWN_UP_FILTER_L</code> macros.</note></li>
+</ul>
+<a name="2.9.4"></a></div><div class="Head3">
+<a name="%3a%3aCCoeFep%3a%3aOfferKeyEventL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>OfferKeyEventL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>private: virtual void OfferKeyEventL(TEventResponse&amp; aEventResponse, const TKeyEvent&amp; aKeyEvent, TEventCode aEventCode)=0;</code></p><h4 class="subheading">Description</h4>
+<p>This function is provided to support FEPs in OPL. It is called
+when a FEP running over an OPL application receives key events. This function
+is completely independent from <code>CCoeControl</code>&#8217;s virtual
+function of the same name but should be implemented in exactly the same
+way.</p>
+<p>A number of things should be done in the implementation of this
+function:</p>
+<ul>
+<li>
+<p>If the type of key event received is a key up or key down,
+(<code>EEventKeyUp</code> or <code>EEventKeyDown</code>), then
+<code>aEventResponse</code> should return the same value as it does for the
+corresponding <code>EEventKey</code> event.</p>
+</li>
+<li>
+<p>return <code>EEventWasNotConsumed</code> if
+the <code>CCoeFep</code> member function <code>IsSimulatingKeyEvent()</code>
+returns true</p>
+</li>
+<li>
+<p>return <code>EEventWasNotConsumed</code> if
+the <code>CCoeFep</code> member function <code>IsOn()</code> returns false</p>
+</li>
+<li>
+<p>return <code>EEventWasConsumed</code> to indicate that it
+did process the key event if either of <code>CCoeFep</code>&#8217;s member
+functions <code>IsTurnedOnByL()</code> or <code>IsTurnedOffByL()</code> return
+true</p>
+</li>
+</ul>
+<p>After this has been done, the FEP can do its own processing of
+the key event. In general, it is recommended that the implementation
+of <code>OfferKeyEventL()</code> should be generous in what gets passed on to
+the application when not inside a FEP transaction, and should block all key
+events from getting through to the application when it is inside a FEP
+transaction.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TEventResponse&amp; aEventResponse</code></td>
+<td class="Cell"><p class="ValueDesc">On return, should be set by the function
+overriding <code>CCoeFep::OfferKeyEventL()</code> to indicate whether the key
+event was consumed or not. Must be set to
+either <code>EEventWasNotConsumed</code> or <code>EEventWasConsumed</code> and
+this must be done before any function that can leave is
+called. <code>EEventWasNotConsumed</code> allows the event to be passed on to
+the application and returning <code>EEventWasConsumed</code> prevents the event
+from being passed on to the application.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TKeyEvent&amp; aKeyEvent</code></td>
+<td class="Cell"><p class="ValueDesc">The key event.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TEventCode aEventCode</code></td>
+<td class="Cell"><p class="ValueDesc">The type of the event: <code>EEventKey</code>,
+<code>EEventKeyUp</code>, or <code>EEventKeyDown</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../UIControlFramework/CCoeControlClass.html#%3a%3aCCoeControl%3a%3aOfferKeyEventL%28%29" title="Handles key events"><code class="ApiItem">CCoeControl::OfferKeyEventL()</code></a></li>
+</ul>
+<a name="2.9.5"></a></div><div class="Head3">
+<a name="%3a%3aCCoeFep%3a%3aMakeDeferredFunctionCall%28%29"></a>
+<hr size="1" noshade>
+<h3><code>MakeDeferredFunctionCall()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: void MakeDeferredFunctionCall(MDeferredFunctionCall&amp; aDeferredFunctionCall);</code></p><h4 class="subheading">Description</h4>
+<p>Uses a high-priority active object to call the specified
+object's <code>ExecuteFunctionL()</code>.</p>
+<p>This function must be used to handle an event if that event
+starts a transaction and if the handling of that event is dependent on the
+target control's input capabilities. In such a
+case, <code>MakeDeferredFunctionCall()</code> should be called by the FEP,
+(passing in the relevant <code>MDeferredFunctionCall</code>-derived object)
+before calling <code>HandleStartOfTransactionL()</code>.</p>
+<p>Note:</p>
+<p>The reason why key event handling must be done inside a high
+priority active object is as follows:</p>
+<p>In some UI situations, pressing a key should move focus to a
+previously non-focused or non-existent text editor control, and should insert
+the character corresponding to that key event into the newly focused
+control.</p>
+<p>When text entry is via a FEP, for this focus-shift to occur at
+the right time, when the FEP receives its first key event, it should
+call <code>MCoeFepObserver::HandleStartOfTransactionL()</code>. The
+implementation of this function should do whatever focus shift is required
+(e.g. launch the dialog).</p>
+<p>However, if it is a waiting dialog, text cannot now be entered
+into the FEP until the
+dialog&#8217;s <code>RunLD()</code> or <code>ExecuteLD()</code> returns (this
+occurs when the dialog is either cancelled or committed).
+Therefore, <code>HandleStartOfTransactionL()</code> will block. The solution is
+for the FEP to handle the key event from within a high priority active
+object.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">MDeferredFunctionCall&amp; aDeferredFunctionCall</code></td>
+<td class="Cell"><p class="ValueDesc">Implements key event handling in
+its <code>ExecuteFunctionL()</code> function. This is deferred in that it is
+executed when the active object's <code>RunL()</code> is called.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>On or off</h2>
+</div><div class="Bodytext">
+<a name="2.10.2"></a></div><div class="Head3">
+<a name="%3a%3aCCoeFep%3a%3aIsTurnedOnByL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IsTurnedOnByL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool IsTurnedOnByL(const TKeyEvent&amp; aKeyEvent) const;</code></p><h4 class="subheading">Description</h4>
+<p>If the FEP is currently off and is turned on by the key event
+specified, the function turns all running instances of the FEP on (and
+returns <code>ETrue</code>). Otherwise, it
+returns <code>EFalse</code>.</p><p>Note:</p><p>This function was protected in v6.0.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TKeyEvent&amp; aKeyEvent</code></td>
+<td class="Cell"><p class="ValueDesc">The key event of interest.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc">Non-zero if the key event specified is used to turn the FEP
+on.<code>EFalse</code> if not, or if the FEP is already on.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.3"></a></div><div class="Head3">
+<a name="%3a%3aCCoeFep%3a%3aIsTurnedOffByL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IsTurnedOffByL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool IsTurnedOffByL(const TKeyEvent&amp; aKeyEvent) const;</code></p><h4 class="subheading">Description</h4>
+<p>If the FEP is currently on and is turned off by the key event
+specified, the function turns all running instances of the FEP off (and
+returns <code>ETrue</code>). Otherwise, it
+returns <code>EFalse</code>.</p><p>Note:</p><p>This function was protected in v6.0.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TKeyEvent&amp; aKeyEvent</code></td>
+<td class="Cell"><p class="ValueDesc">The key event of interest.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc">Non-zero if the key event specified is used to turn the FEP
+off. <code>EFalse</code> if not, or if the FEP is already off.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.4"></a></div><div class="Head3">
+<a name="%3a%3aCCoeFep%3a%3aIsOn%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IsOn()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: TBool IsOn() const;</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether the FEP is on or off.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc">Non-zero if the FEP is on, <code>EFalse</code> if the FEP is
+off.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.5"></a></div><div class="Head3">
+<a name="%3a%3aCCoeFep%3a%3aIsOnHasChangedState%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IsOnHasChangedState()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>private: virtual void IsOnHasChangedState()=0;</code></p><h4 class="subheading">Description</h4>
+<p>Called to notify the FEP that it has either just been turned on
+or just been turned off (it can find out which by
+calling <code>CCoeFep::IsOn()</code>). If FEPs want to change their visual
+appearance when they are off (e.g. make themselves invisible), then they should
+implement this function accordingly.</p>
+<a name="2.11"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Pointer events</h2>
+</div><div class="Bodytext">
+<a name="2.11.2"></a></div><div class="Head3">
+<a name="%3a%3aCCoeFep%3a%3aOfferPointerEventL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>OfferPointerEventL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>private: virtual void OfferPointerEventL(TEventResponse&amp; aEventResponse, const TPointerEvent&amp; aPointerEvent, const CCoeControl* aWindowOwningControl)=0;</code></p><h4 class="subheading">Description</h4>
+<p>This function is provided to support FEPs in OPL. It is called
+when a FEP running over an OPL application receives pointer events. It should
+behave in the same way as the FEP
+control's <code>HandlePointerEventL()</code>.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TEventResponse&amp; aEventResponse</code></td>
+<td class="Cell"><p class="ValueDesc">On return, should be set by the function
+overriding <code>CCoeFep::OfferPointerEventL()</code> to indicate whether the
+pointer event was consumed or not. Must be set to
+either <code>EEventWasConsumed</code>(if <code>aWindowOwningControl</code> is
+the target control for the pointer event),
+otherwise <code>EEventWasNotConsumed</code> and this must be done BEFORE any
+function that can leave is called. The reason for this is that the FEP
+framework needs to know whether the pointer event that occurred belonged to the
+FEP or not, and it needs to know this even if a leave occurs.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TPointerEvent&amp; aPointerEvent</code></td>
+<td class="Cell"><p class="ValueDesc">The pointer event.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CCoeControl* aWindowOwningControl</code></td>
+<td class="Cell"><p class="ValueDesc">The target control for the pointer event.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../UIControlFramework/CCoeControlClass.html#%3a%3aCCoeControl%3a%3aHandlePointerEventL%28%29" title="Handles pointer events"><code class="ApiItem">CCoeControl::HandlePointerEventL()</code></a></li>
+</ul>
+<a name="2.11.3"></a></div><div class="Head3">
+<a name="%3a%3aCCoeFep%3a%3aOfferPointerBufferReadyEventL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>OfferPointerBufferReadyEventL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>private: virtual void OfferPointerBufferReadyEventL(TEventResponse&amp; aEventResponse, const CCoeControl* aWindowOwningControl)=0;</code></p><h4 class="subheading">Description</h4>
+<p>This function is provided to support FEPs in OPL. It is called
+when a FEP running over an OPL application receives buffered drag events (where
+multiple mouse/pen positions are received in a single event). Buffered drag
+events are typically used when the application requires a continuous stream of
+pointer events, such as in handwriting recognition software.</p>
+<p>This function should behave in the same way as the FEP
+control's <code>HandlePointerBufferReadyL()</code>. If buffered drag events are
+not supported, or if <code>aWindowOwningControl</code> is not the target
+control for the drag events, this function should
+set <code>aEventResponse</code> to <code>CCoeFep::EEventWasNotConsumed</code>.
+Otherwise, set it
+to <code>CCoeFep::EEventWasConsumed</code>.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TEventResponse&amp; aEventResponse</code></td>
+<td class="Cell"><p class="ValueDesc">On return, should be set by the function
+overriding <code>CCoeFep::OfferPointerBufferReadyEventL()</code> to indicate
+whether the pointer events were consumed or not. Must be set to
+either <code>EEventWasConsumed</code> (if <code>aWindowOwningControl</code> is
+the target control), otherwise <code>EEventWasNotConsumed</code> and this must
+be done BEFORE any function that can leave is called. The reason for this is
+that the FEP framework needs to know whether the pointer events that occurred
+belonged to the FEP or not, and it needs to know this even if a leave
+occurs.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CCoeControl* aWindowOwningControl</code></td>
+<td class="Cell"><p class="ValueDesc">The target control for the drag events.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../UIControlFramework/CCoeControlClass.html#%3a%3aCCoeControl%3a%3aHandlePointerBufferReadyL%28%29" title="Handle events in pointer buffer"><code class="ApiItem">CCoeControl::HandlePointerBufferReadyL()</code></a></li>
+</ul>
+<a name="2.12"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Enumerations</h2>
+</div><div class="Bodytext">
+<a name="2.12.2"></a></div><div class="Head3">
+<a name="%3a%3aCCoeFep%3a%3aTEventResponse"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TEventResponse</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TEventResponse</code></p><h4 class="subheading">Description</h4>
+<p>Response to key or pointer event</p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCCoeFep%3a%3aEEventWasNotConsumed"><code class="Value">EEventWasNotConsumed</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Indicates that the FEP did not process the
+event.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCCoeFep%3a%3aEEventWasConsumed"><code class="Value">EEventWasConsumed</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Indicates that the FEP did process the
+event.</para></p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><a name="%3a%3aCCoeFep%3a%3aMDeferredFunctionCall"></a>
+<hr size="2" noshade>
+<h2>Class <code>MDeferredFunctionCall</code></h2>
+</div><div class="Bodytext"><p class="Prototype"><code>MDeferredFunctionCall</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Enables FEPs to have some code called but not in the
+context of the current call stack&nbsp;&#8212; hence the name
+&quot;deferred&quot;.</p>
+<p>For an explanation of the intended use of this class, see the
+documentation of
+<code>CCoeFep::MakeDeferredFunctionCall()</code>.</p><p>Defined in <code>CCoeFep::MDeferredFunctionCall</code>:
+<br><code class="ApiItem"><a href="CCoeFepClass.html#%3a%3aCCoeFep%3a%3aMDeferredFunctionCall%3a%3aExecuteFunctionL%28%29" title="This function is called from within a high-priority active object's RunL() shortly after the active object has been queued by calling CCoeFep::MakeDeferredFunctionCall()">ExecuteFunctionL()</a></code>
+</p>
+<a name="2.13.5"></a></div><div class="Head3">
+<a name="%3a%3aCCoeFep%3a%3aMDeferredFunctionCall%3a%3aExecuteFunctionL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ExecuteFunctionL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void ExecuteFunctionL()=0;</code></p><h4 class="subheading">Description</h4>
+<p>This function is called from within a high-priority active
+object's <code>RunL()</code> shortly after the active object has been queued by
+calling <code>CCoeFep::MakeDeferredFunctionCall()</code>.</p>
+<a name="2.14"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><a name="%3a%3aCCoeFep%3a%3aMModifiedCharacter"></a>
+<hr size="2" noshade>
+<h2>Class <code>MModifiedCharacter</code></h2>
+</div><div class="Bodytext"><p class="Prototype"><code>MModifiedCharacter</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>FEPs send character codes to the application underneath them
+using <code>SimulateKeyEventsL()</code>. Occasionally a FEP may wish to also
+specify the modifiers (e.g. Fn, ctrl, shift) to be sent with that character
+code. In this case, they should use the overload
+of <code>CCoeFep::SimulateKeyEventsL()</code> which takes an array
+of <code>MModifiedCharacter</code>s.</p><p>Defined in <code>CCoeFep::MModifiedCharacter</code>:
+<br><code class="ApiItem"><a href="CCoeFepClass.html#%3a%3aCCoeFep%3a%3aMModifiedCharacter%3a%3aCharacterCode%28%29" title="Returns the character code of the key combination">CharacterCode()</a></code>, <code class="ApiItem"><a href="CCoeFepClass.html#%3a%3aCCoeFep%3a%3aMModifiedCharacter%3a%3aModifierMask%28%29" title="Returns a TUint which indicates which modifiers to override, rather than using the current state of the keyboard's modifiers">ModifierMask()</a></code>, <code class="ApiItem"><a href="CCoeFepClass.html#%3a%3aCCoeFep%3a%3aMModifiedCharacter%3a%3aModifierValues%28%29" title="Returns a TUint which indicates which of the modifiers specified in the mask (returned by ModifierMask()) must be on and which must be off">ModifierValues()</a></code>
+</p>
+<a name="2.14.5"></a></div><div class="Head3">
+<a name="%3a%3aCCoeFep%3a%3aMModifiedCharacter%3a%3aCharacterCode%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CharacterCode()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TUint CharacterCode() const=0;</code></p><h4 class="subheading">Description</h4>
+<p>Returns the character code of the key
+combination.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint</code></td>
+<td class="Cell"><p class="ValueDesc">The character code of the key combination.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.6"></a></div><div class="Head3">
+<a name="%3a%3aCCoeFep%3a%3aMModifiedCharacter%3a%3aModifierMask%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ModifierMask()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TUint ModifierMask() const=0;</code></p><h4 class="subheading">Description</h4>
+<p>Returns a <code>TUint</code> which indicates which modifiers to
+override, rather than using the current state of the keyboard's
+modifiers.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint</code></td>
+<td class="Cell"><p class="ValueDesc">The modifiers to override in the key combination.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.7"></a></div><div class="Head3">
+<a name="%3a%3aCCoeFep%3a%3aMModifiedCharacter%3a%3aModifierValues%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ModifierValues()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TUint ModifierValues() const=0;</code></p><h4 class="subheading">Description</h4>
+<p>Returns a <code>TUint</code> which indicates which of the
+modifiers specified in the mask (returned by <code>ModifierMask()</code>) must
+be on and which must be off.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint</code></td>
+<td class="Cell"><p class="ValueDesc">Indicates which of the modifiers specified in the mask (returned
+by <code>ModifierMask()</code>) must be on and which must be off.</p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

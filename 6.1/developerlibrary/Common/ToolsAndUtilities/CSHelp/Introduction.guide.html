@@ -1,0 +1,247 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Context sensitive help and the CS Help compiler</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="cshelp%2eintro"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="IntroductionAlp2csh.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">CS&nbsp;Help&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+Context&nbsp;sensitive&nbsp;help&nbsp;and&nbsp;the&nbsp;CS&nbsp;Help&nbsp;compiler</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Context sensitive help and the CS Help compiler</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Overview</h2>
+</div><div class="Bodytext">
+<p>Context Sensitive Help (CS Help) provides users with the specific
+help topic for the context in which they have a problem. CS Help files are
+generated using the CS Help compiler, which replaces the Aleppo help authoring
+tool used in releases prior to and including ER5. </p>
+<p>The CS Help compiler builds help files from the command line, using
+information defined in a project file, <code class="filename">rtf</code> source file or files,
+and an optional customisation file. The compiler also generates a C++ header
+file containing literal descriptors for each context—which can
+be used to provide a link to the appropriate help topic from an
+application.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Differences between CS Help and the superseded Help
+system</h2>
+</div><div class="Bodytext">
+<p>CS Help provides significant improvements on the Help system which
+was present in EPOC R5. The main differences are
+that:</p>
+<ul>
+<li>
+<p>Help is now context-sensitive, so the user is given information
+on the exact topic they are interested in.</p>
+</li>
+<li>
+<p>a new custom help engine (<code class="filename">hlpmodel.dll</code>) replaces
+the EPOC Data engine, (<code class="filename">damodl.dll</code>).</p>
+</li>
+<li>
+<p>third party developers can integrate their help files into the
+help files used by the ROM-based applications. Pressing the help key in any
+application, whether ROM-based, or a third party application in RAM, will
+present the user with the relevant help topic. </p>
+</li>
+<li>
+<p>Help may also be invoked using an application's help menu
+option, if one is provided.</p>
+</li>
+</ul>
+<p>Despite these changes, the process of creating context sensitive
+help files is very similar to the process used by Aleppo. The main differences
+between the CS Help compiler and Aleppo are that:</p>
+<ul>
+<li>
+<p>the project and customisation files are now written in XML
+rather than plain text.</p>
+</li>
+<li>
+<p>the project file must specify the UID of the help file to
+generate.</p>
+</li>
+<li>
+<p>the CS Help compiler provides XSL style sheets that allows a
+representation of the help file to be viewed in a XML enabled browser.</p>
+</li>
+<li>
+<p>the help files produced are wide character (Unicode)
+only.</p>
+</li>
+</ul>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>CS Help compiler source files</h2>
+</div><div class="Bodytext">
+<p>This section provides a brief introduction to the purpose of each
+of the CS Help compiler source files. For a canonical reference to the
+structure of each of these files go to the appropriate topic in the
+“See also” section.</p>
+<a name="1.5.3"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Project file</h3>
+</div><div class="Bodytext">
+<p>The CS Help compiler is invoked using a project file, which
+defines the locations of all other files used by the project. These files
+include source <code class="filename">rtf</code> files, customisation files, graphics files
+etc.</p>
+<a name="1.5.4"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Customisation file</h3>
+</div><div class="Bodytext">
+<p>The CS Help compiler supports various customisation options that
+can be used to change the appearance of the final help topics. These options
+are defined in a customisation file, which is specified in the project file. If
+no file is defined a default set of customisation options is used.</p>
+<a name="1.5.5"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Help topic information source <code class="filename">rtf</code> files</h3>
+</div><div class="Bodytext">
+<p>Source <code class="filename">rtf</code> files contain all the help information
+for a single application. Style marked paragraphs are used to identify the
+following information:</p>
+<ul>
+<li>
+<p>category name — the name of the category, or
+application, as it appears in the contents view of CS Help.</p>
+</li>
+<li>
+<p>category UID — the UID of the help file to be
+generated. This is unique for the help file, and allows EPOC to merge help
+files with the same name.</p>
+</li>
+<li>
+<p>topics — the individual help subjects, marked by topic
+titles, that make up the help file</p>
+</li>
+</ul>
+<p>In addition to the title and information, topics also have a
+number of fields to provide context sensitivity and searching. These
+include:</p>
+<ul>
+<li>
+<p>context—a short unique context phrase which
+is used to create the link between an application context and the specific help
+topic. </p>
+</li>
+<li>
+<p>synonyms—alternative search words for the
+topic. Typically words with similar meanings or common miss-spellings. </p>
+</li>
+<li>
+<p>indexes—An index is a string associated with
+a topic. Index phrase may relate to more than one topic, and hence need not be
+unique within a help project.</p>
+</li>
+</ul>
+<a name="1.5.6"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>See also</h3>
+</div><div class="Bodytext">
+<p><a href="../CSHelp-ref/ProjectFileReference.guide.html#cshelp%2dref%2eproject%2dfiles">Project file—.cshlp</a></p>
+<p><a href="../CSHelp-ref/CustomisationFileReference.guide.html#cshelp%2dref%2ecustomise">Customisation file—.xml</a></p>
+<p><a href="../CSHelp-ref/EditingSourceRtfReference.guide.html#cshelp%2dref%2esource">Rich-text source file—.rtf</a></p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>The help authoring process</h2>
+</div><div class="Bodytext">
+<p>The process of CS Help authoring is illustrated in the following
+diagram:</p>
+<div class="Figure">
+<p class="Image"><img src="CSHelpIntroProcess.gif" alt="Operation of CS-Help"  border="0"></p>
+<p class="Caption">Operation of CS-Help</p>
+</div>
+<p>The CS Help compiler is invoked with a single command, that
+specifies the name of a project file and whether the output is to be a CS Help
+file or proofing XML. The project file defines the location of all other
+resources needed, including customisation and source rtf files.</p>
+<p>The process of help authoring is thus:</p>
+<ol>
+<li>
+<p>Edit rich-text source files using a word processor that can
+generate the styles used by CS Help e.g. Microsoft Word for Windows documents
+based on the<code class="filename"> cshelp.dot</code> template.</p>
+</li>
+<li>
+<p>Create project and customisation files.</p>
+</li>
+<li>
+<p>Invoke the CS Help compiler to produce proofing XML. </p>
+</li>
+<li>
+<p>Check the XML proofing copy on a web browser. The style-sheet
+<code class="filename">/epoc32/tools/cshlpcmp/xsl/csptml.xsl</code> allows the output to be
+viewed as though produced using the default customisation options.</p>
+</li>
+<li>
+<p>If changes are required, make them in the word processor and
+re-run the compiler<code class="filename">.</code></p>
+</li>
+<li>
+<p>Invoke the CS Help compiler to produce a compiled Help file.
+</p>
+</li>
+<li>
+<p>Check the generated help file on the emulator.</p>
+</li>
+<li>
+<p>If changes are required, make them in the word processor and
+re-run the compiler<code class="filename">.</code></p>
+</li>
+</ol>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Java/OPL issues</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="DevTools%2eResourceTool_JavaOPLissues"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToBuildAnAifFile.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="Tool_Guide_Resource_Compiler.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Application&nbsp;Resource&nbsp;Tools&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+Java/OPL&nbsp;issues</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Java/OPL issues</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Overview</h2>
+</div><div class="Bodytext">
+<p>The resource compiler and Aiftool were originally developed as part of the EIKON framework&nbsp;&#8212; which was developed in C++.  Consequently, while the tools are nominally programming language neutral, they are actually more useful for C++ developers than Java or OPL developers. </p>
+<p>The issues related to using these tools in OPL and Java are detailed in the following sections.</p>
+<a name="1.4"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Aiftool</h2>
+</div><div class="Bodytext">
+<a name="1.4.2"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>OPL</h3>
+</div><div class="Bodytext">
+<p>OPL developers should not use Aiftool.</p>
+<p>This is because the OPL translator will automatically create the <code class="filename">aif</code> for an OPL program which uses the <code>APP</code> keyword. The use of the keyword is described in the OPL SDK.</p>
+<a name="1.4.3"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Java</h3>
+</div><div class="Bodytext">
+<p>Java developers can use Aiftool to provide a customised icon and caption for their applications. </p>
+<p>However Java applications either cannot, or should not, be made to implement the other system level capabilities and MIME type priorities which may also be specified in the <code class="filename">aif</code> file: see <a href="Tool_Guide_aiftool.guide.html#DevTools%2eaif%2dcapabilities" title="Application information files / Application capabilities">Application capabilities</a> and <a href="Tool_Guide_aiftool.guide.html#DevTools%2eaif%2dmime%2dtype" title="Application information files / MIME support">MIME support</a>.  Consequently, it is not necessary to specify them in a Java <code class="filename">aif</code> resource file.</p>
+<a name="1.5"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Resource compiler</h2>
+</div><div class="Bodytext">
+<a name="1.5.2"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>OPL</h3>
+</div><div class="Bodytext">
+<p>OPL developers have full access to the functionality of the resource language and resource compiler. They are recommended to use the <code class="filename">epocrc</code> tool to compile resources: for details, see <a href="../DevTools-ref/Tool_Ref_epocrc.guide.html#DevTools%2dref%2eepocrc">Resource compiler with preprocessing epocrc.bat</a>.</p>
+<p>However, unlike in C++ development, resource files in OPL do not allow direct access to the Uikon framework.  Consequently, while OPL developers can use resource files to localise toolbars/menus, they cannot use them to automatically generate the user interface.</p>
+<a name="1.5.3"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Java</h3>
+</div><div class="Bodytext">
+<p>Java developers do not need to use the resource compiler.</p>
+<p>While it is theoretically possible for Java developers to access the information stored in resource files, there is little benefit. In C++ and OPL resource files are used to localise applications, however Java provides classes for this purpose.</p>
+<p>In addition, Java applications cannot use resource files to automatically build the user interface&nbsp;&#8212; which is a key advantage of using resource files in C++.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

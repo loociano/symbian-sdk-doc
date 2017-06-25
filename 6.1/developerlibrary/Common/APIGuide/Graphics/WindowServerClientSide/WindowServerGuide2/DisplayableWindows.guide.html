@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Displayable windows</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="WindowServerGuide2%2eDisplayableWindows"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="WindowGroups.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="BackUpBehind.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Graphics</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Window&nbsp;Server</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Window&nbsp;types</a>&nbsp;<span class="separator">&#187;</span>
+Displayable&nbsp;windows</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Displayable windows</h1>
+</div><div class="Bodytext">
+<p>The <a href="../../../../APIReference/WindowServerClientSide/RWindowBaseClass.html#%3a%3aRWindowBase" title="Client-side handle to a server-side window"><code class="ApiItem">RWindowBase</code></a> class is the abstract base class for all windows which may be displayed.  These windows further subdivide into two types: windows that may be drawn (<a href="../../../../APIReference/WindowServerClientSide/RDrawableWindowClass.html#%3a%3aRDrawableWindow" title="Handle to a drawable window"><code class="ApiItem">RDrawableWindow</code></a> abstract class), and blank windows (<a href="../../../../APIReference/WindowServerClientSide/RBlankWindowClass.html#%3a%3aRBlankWindow" title="Blank window"><code class="ApiItem">RBlankWindow</code></a> class).</p>
+<p>Displayable windows introduce several new attributes and associated functions:</p>
+<ul><li><p>All windows have a rectangle which defines the area that they are contained in.  Most windows will fill all of this area, but
+you can set rounded corners or even specify any arbitrary region for the windows area</p></li>
+<li><p>Whether the window is visible or not, controlled by the <a href="../../../../APIReference/WindowServerClientSide/RWindowBaseClass.html#%3a%3aRWindowBase%3a%3aSetVisible%28%29" title="Sets the window's visibility"><code class="ApiItem">RWindowBase::SetVisible()</code></a> function.</p></li>
+<li><p>Whether the window backs up the contents of the screen behind it, so that the screen may be redrawn when the window is destroyed or moved: this facility is designed for transient windows such as dialog boxes or menu panes, and such windows are referred to as overlay windows. </p></li>
+<li><p>Anything to do with pointer event control, see <a href="../WindowServerGuide1/WindowServerEvents/PointerHandling.guide.html#WindowServerGuide6%2ePointerHandling">Pointer handling</a>.</p></li>
+</ul><p>The window server maintains the screen display taking into account the region, ordinal position, visibility and shadow requirements of all displayable windows. </p>
+<a name="1.7"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Standard windows</h2>
+</div><div class="Bodytext">
+<p>The <a href="../../../../APIReference/WindowServerClientSide/RWindowClass.html#%3a%3aRWindow" title="Handle to a standard window"><code class="ApiItem">RWindow</code></a> class is derived from <code>RDrawableWindow</code> and implements a window whose invalid areas must be redrawn by the client application.  Such windows require very little RAM.  Therefore, they are the most common type of window used by Symbian applications.</p>
+<a name="1.8"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Backed-up windows</h2>
+</div><div class="Bodytext">
+<p> A backed up window, provided by the <a href="../../../../APIReference/WindowServerClientSide/RBackedUpWindowClass.html#%3a%3aRBackedUpWindow" title="Client-side handle to a drawable window with a back buffer"><code class="ApiItem">RBackedUpWindow</code></a> class, maintains its content on a backup bitmap, so that the window may be redrawn by the window server when it becomes invalid, without generating a redraw event to the application.</p><p>
+The direct bitmap access functions allow the application to directly access the bitmap used by the window server for backing up the window.
+By default, areas of a backed-up window that are currently visible on the screen are not backed up. When a region of the window is covered by another window, that region's contents are copied to the bitmap before being covered over on the screen.
+</p><p>An alternative approach to this is provided by the <a href="../../../../APIReference/WindowServerClientSide/RBackedUpWindowClass.html#%3a%3aRBackedUpWindow%3a%3aMaintainBackup%28%29" title="Tells the window server to start maintaining a backup bitmap with the entire window contents"><code class="ApiItem">RBackedUpWindow::MaintainBackup()</code></a> function. If a window calls <code>MaintainBackup()</code>, its backup window will thereafter be permanently maintained to contain a copy of the entire window contents at all times. This ensures a rapid response when a region of the window becomes covered by another window, as the contents of that region do not need to be copied to the backup bitmap. It is also useful if an application wishes to draw to or read from the backup bitmap directly, as it ensures that the backup bitmap always contains an up-to-date copy of the window contents.
+However, note that calling <code>MaintainBackup()</code> may produce a reduction in performance, as the window server must subsequently carry out all drawing commands on both the screen and the bitmap. The more drawing-intensive an application, the more severe this degradation in performance will be.
+</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

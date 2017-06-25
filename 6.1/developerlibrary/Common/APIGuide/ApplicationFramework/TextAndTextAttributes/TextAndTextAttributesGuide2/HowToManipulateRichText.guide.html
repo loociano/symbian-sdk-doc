@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to manipulate rich text</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="TextAndTextAttributesGuide3%2eHowToManipulateRichText"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToManipulateGlobal.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToTextPersistent.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Application&nbsp;Framework</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Text&nbsp;and&nbsp;Text&nbsp;Attributes</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Formatting</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;manipulate&nbsp;rich&nbsp;text</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to manipulate rich text</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Creating a rich text object</h2>
+</div><div class="Bodytext">
+<p>Like global text, when a rich text object is constructed, the
+character and paragraph format layers upon which the rich text object's
+formatting is based (the &quot;global&quot; layers) must be specified. Here, their
+formatting is taken from the system-provided default settings. Other variants
+of <code>CRichText::NewL()</code> exist for creating rich text objects
+supporting paragraph styles, fields and pictures.</p>
+<p class="CodeBlock"><code>CRichText* iRichText; // rich text document<br>CParaFormatLayer* iParaFormatLayer;// global paragraph format layer<br>CCharFormatLayer* iCharFormatLayer;// global character format layer<br>iParaFormatLayer=CParaFormatLayer::NewL(); // required para format<br>iCharFormatLayer=CCharFormatLayer::NewL(); // required char format<br>iRichText=CRichText::NewL(iParaFormatLayer, iCharFormatLayer);</code></p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Inserting formatted text</h2>
+</div><div class="Bodytext">
+<p>In the following example, some text is inserted into the text object
+using the default character and paragraph formatting. Then an italicised text
+string is inserted at the <em>document position</em>
+between the fifth and sixth characters. In rich text, character formatting may
+be applied to any portion of the rich text object, from a single character to
+the entire document.</p>
+<p>After the text has been inserted, call
+<code>CancelInsertCharFormat()</code> to cancel the character formatting
+insertion command. If this is not done and text is subsequently inserted at any
+document position other than <code>pos</code>, a panic will occur.</p>
+<p class="CodeBlock"><code>TInt pos=0; // will be insertion position<br>// insert some rich text<br>iRichText-&gt;InsertL(pos,_L(&quot;Hello world!&quot;));<br>// insert text with different formatting from rest of paragraph<br>charFormatMask.SetAttrib(EAttFontPosture); // interested in posture<br>charFormat.iFontSpec.iFontStyle.SetPosture(EPostureItalic); <br>pos=5; <br>iRichText-&gt;SetInsertCharFormatL(charFormat, charFormatMask,pos);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// set formatting, when inserting at this position<br>iRichText-&gt;InsertL(pos,_L(&quot; all the&quot;));<br>iRichText-&gt;CancelInsertCharFormat();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// cancel is necessary before inserting anywhere else</code></p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Rich text character formatting</h2>
+</div><div class="Bodytext">
+<p>The following code applies character formatting to existing text,
+preserving its format attributes.</p>
+<p class="CodeBlock"><code>charFormatMask.SetAttrib(EAttFontUnderline); <br>&nbsp;&nbsp;&nbsp;&nbsp;// interested in underline<br>charFormat.iFontPresentation.iUnderline=EUnderlineOn; // set it on<br>iRichText-&gt;ApplyCharFormatL(charFormat, charFormatMask,10,9);<br>&nbsp;&nbsp;&nbsp;&nbsp;// apply this character formatting, from position 10,9 characters</code></p>
+<a name="1.5.4"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Notes</h3>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>The above code applies underlining to the substring &quot;the world&quot;
+whose existing formatting is a mixture of italics and normal. The string's
+existing formatting is preserved, with underline added as an additional format
+layer. </p>
+</li>
+<li>
+<p>Rich text is formatted in exactly the same way as global text,
+except that the length and position arguments now are relevant and must specify
+a valid range of characters. Only characters in the range specified are
+affected.</p>
+</li>
+</ul>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Rich text paragraph formatting</h2>
+</div><div class="Bodytext">
+<p>The following code demonstrates paragraph formatting in rich text by
+applying right alignment to a single paragraph.</p>
+<p>Use <code>CRichText::CharPosOfParagraph()</code> to find the document
+position of the first character in the second paragraph. The second argument to
+this function is the offset number of the paragraph so that. paragraph number 1
+indicates the second paragraph. Note that when applying paragraph formatting,
+any character position within the paragraph is equally valid.</p>
+<p><code>ApplyParaFormatL()</code> applies formatting to all paragraphs
+containing one or more characters in the range covered by the third and fourth
+arguments. In this case, a single character is specified and this is sufficient
+to apply paragraph formatting to the entire second paragraph.</p>
+<p class="CodeBlock"><code>// Insert two new paragraphs <br>...<br>...<br>// make second para right-aligned (para numbering starts at 0)<br>paraFormatMask.SetAttrib(EAttAlignment); // interested in alignment<br>paraFormat-&gt;iHorizontalAlignment=CParaFormat::ERightAlign; <br>&nbsp;&nbsp;&nbsp;&nbsp;// right-align<br>pos=iRichText-&gt;CharPosOfParagraph(1,1); // get start of second para<br>iRichText-&gt;ApplyParaFormatL(paraFormat,paraFormatMask,pos,1);<br>&nbsp;&nbsp;&nbsp;&nbsp;// apply format to entire para - even length = 1 char will do</code></p>
+<a name="1.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Deleting rich text</h2>
+</div><div class="Bodytext">
+<p>The following code demonstrates the differences between the two functions
+available to delete rich text. <code>CRichText::DeleteL()</code> deletes a
+range of characters and all formatting within the
+range.<code>CRichText::DelSetInsertCharFormatL()</code> deletes text, but
+retains any inserted formatting. </p>
+<p>This code deletes all text between document position 10 and the end of
+document using <code>DelSetInsertCharFormatL()</code>. The underline attribute
+which was previously set at document position 10 is retained, so that the new
+text inserted at position 10 is italicized and underlined.</p>
+<p>Following the use of <code>DelSetInsertCharFormatL()</code> a panic will
+occur if text is inserted at any position other than position 10. This
+restriction persists until it is cancelled
+using<code>CancelInsertCharFormat()</code>.</p>
+<p class="CodeBlock"><code>iRichText-&gt;DelSetInsertCharFormatL<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(10,(iRichText-&gt;DocumentLength()-10));<br>iRichText-&gt;InsertL(10,_L(&quot;Text deleted, formatting preserved&quot;));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// ... and then insert text with same format<br>iRichText-&gt;CancelInsertCharFormat(); <br>&nbsp;&nbsp;&nbsp;&nbsp;// must cancel before inserting elsewhere</code></p>
+<p>To demonstrate how <code>DeleteL()</code> differs from
+<code>DelSetInsertCharFormatL()</code>, <code>DeleteL()</code> is used below to
+delete both the text commencing at document position 10 and the formatting
+inserted at that position. Only format attributes which apply to position 9 are
+inherited by the text subsequently inserted at position 10, so the inserted
+text is italicised but not underlined.</p>
+<p class="CodeBlock"><code>iRichText-&gt;DeleteL(10,(iRichText-&gt;DocumentLength()-10));<br>// ... then insert new text at that point<br>iRichText-&gt;InsertL(10,_L(&quot;Text and its formatting deleted&quot;));<br>&nbsp;&nbsp;&nbsp;&nbsp;// insert, inheriting current formatting from char before 10<br>&nbsp;&nbsp;&nbsp;&nbsp;// (no need to cancel anything!)</code></p>
+<a name="1.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Resetting the text object</h2>
+</div><div class="Bodytext">
+<p>Resetting an editable text object deletes all text and formatting,
+leaving the end of text paragraph delimiter.</p>
+<p class="CodeBlock"><code>iRichText-&gt;CancelInsertCharFormat();<br>//reset document<br>iRichText-&gt;Reset();</code></p>
+<p>Before resetting a rich text object, it is advisable to clear any
+outstanding format insertion commands
+using<code>CancelInsertCharFormat()</code>.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

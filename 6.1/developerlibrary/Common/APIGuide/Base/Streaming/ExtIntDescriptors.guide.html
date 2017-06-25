@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Externalising and internalising descriptors</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="StreamingGuide%2eext%2dint%2ddescriptors"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="TemplatedStreamOperators.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToExtInt.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Streaming</a>&nbsp;<span class="separator">&#187;</span>
+Externalising&nbsp;and&nbsp;internalising&nbsp;descriptors</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Externalising and internalising descriptors</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Externalising</h2>
+</div><div class="Bodytext">
+<p>Descriptors can be externalised in one of two ways:</p>
+<ul>
+<li>
+<p>using the <code>WriteL()</code> member functions of the
+<code>RWriteStream</code> class.</p>
+</li>
+<li>
+<p>using the templated stream <code>operator&lt;&lt;</code></p>
+</li>
+</ul>
+<p>The <code>WriteL()</code> member functions of
+<code>RWriteStream</code> write only the <em>content</em> of a descriptor
+to the stream; they do not write any length information.</p>
+<p>The <code>operator&lt;&lt;</code> is implemented by the Store
+framework to write <em>both</em> the length of the descriptor content and
+the content itself to the stream.</p>
+<p>Use of the <code>operator&lt;&lt;</code> is preferred because
+descriptors can then be internalised using either the corresponding
+<code>operator&gt;&gt;</code> or the variants of <code>HBufC::NewL()</code> or
+<code>HBufC::NewLC()</code> that take a read stream.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Internalising</h2>
+</div><div class="Bodytext">
+<p>Descriptors can be internalised in one of three ways:</p>
+<ul>
+<li>
+<p>using the <code>ReadL()</code> member functions of the
+<code>RReadStream</code> class.</p>
+</li>
+<li>
+<p>using the templated stream <code>operator&gt;&gt;</code></p>
+</li>
+<li>
+<p>using the variants of <code>HBufC::NewL()</code> or
+<code>HBufC::NewLC()</code> that take a read stream.</p>
+</li>
+</ul>
+<p>The <code>ReadL()</code> member functions of
+<code>RReadStream</code> assume that the stream contains only the content of a
+descriptor.</p>
+<p>Note that the specific variant, <code>ReadL(TDes&amp; aDes)</code>,
+assumes that the length of data to be read from the stream is the same as the
+maximum length of the target descriptor.</p>
+<p>The templated stream <code>operator&gt;&gt;</code> is implemented
+by the Store framework to read both the length of the descriptor content and
+the content itself and assumes that the descriptor was originally externalised
+using the templated <code>operator&lt;&lt;</code>.</p>
+<p>The <code>NewLC()</code> and <code>NewL()</code> member functions
+of <code>HBufC</code> heap descriptors allocate the heap descriptor before
+internalising from the stream and also assume that the descriptor was
+originally externalised using the <code>operator&lt;&lt;</code>.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

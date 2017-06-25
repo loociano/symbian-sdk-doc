@@ -1,0 +1,594 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>RDbIncremental</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="AboutDBMSDatabaseIncrementalOperations.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="RDbUpdateClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">DBMS&nbsp;Database&nbsp;Incremental&nbsp;Operations</a>&nbsp;<span class="separator">&#187;</span>
+RDbIncremental</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>d32dbms.h</code>
+<br>Link against: <code>edbms.lib</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aRDbIncremental"></a>
+
+<h1>Class <code>RDbIncremental</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>RDbIncremental</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Provides the interface for performing long-running database
+operations in incremental steps, allowing application programs to remain
+responsive to other events.</p>
+<p>After an operation has begun, a standard interface is used to
+continue and complete all incremental operations. On successful return from one
+of the initiating functions, a step value is also returned. This gives the
+progress indication and is, initially, positive. This value should be passed
+into subsequent steps in the operation, each of which may decrement the value
+by some amount, although they are allowed to leave it unchanged. The value
+reaches zero, if, and only if the operation completes.</p>
+<p>While an incremental operation is in progress, the database cannot
+be used for any other operations such as opening tables or preparing views.
+</p>
+<p>Starting an incremental operation also requires that no rowsets are
+open on the database and that no commit is pending for data manipulation
+transactions.</p>
+<p>If no explicit transaction has been started by the database, then
+an automatic transaction is begun when any incremental operation is started and
+is committed when complete or rolled back if the operation either fails or is
+abandoned prior to completion.</p><p>Defined in <code>RDbIncremental</code>:
+<br><code class="ApiItem"><a href="RDbIncrementalClass.html#%3a%3aRDbIncremental%3a%3aAlterTable%28%29" title="Initiates a table alteration operation on a database">AlterTable()</a></code>, <code class="ApiItem"><a href="RDbIncrementalClass.html#%3a%3aRDbIncremental%3a%3aClose%28%29" title="Releases the resources used by the incremental operations object">Close()</a></code>, <code class="ApiItem"><a href="RDbIncrementalClass.html#%3a%3aRDbIncremental%3a%3aCompact%28%29" title="Initiates the operation of compacting a database">Compact()</a></code>, <code class="ApiItem"><a href="RDbIncrementalClass.html#%3a%3aRDbIncremental%3a%3aCreateIndex%28%29" title="Initiates an index creation operation on a database">CreateIndex()</a></code>, <code class="ApiItem"><a href="RDbIncrementalClass.html#%3a%3aRDbIncremental%3a%3aDropIndex%28%29" title="Initiates an index discard operation on the database">DropIndex()</a></code>, <code class="ApiItem"><a href="RDbIncrementalClass.html#%3a%3aRDbIncremental%3a%3aDropTable%28%29" title="Initiates a table discard operation on a database">DropTable()</a></code>, <code class="ApiItem"><a href="RDbIncrementalClass.html#%3a%3aRDbIncremental%3a%3aExecute%28%29" title="Initiates the execution of a DDL (SQL schema update) statement on the database, specifing additional comparison operations for some SQL statements">Execute()</a></code>, <code class="ApiItem"><a href="RDbIncrementalClass.html#%3a%3aRDbIncremental%3a%3aNext%28%29" title="Performs the next step in the incremental operation, returning immediately and signalling the request status when the step is complete">Next()</a></code>, <code class="ApiItem"><a href="RDbIncrementalClass.html#%3a%3aRDbIncremental%3a%3aRecover%28%29" title="Initiates a database recovery operation">Recover()</a></code>, <code class="ApiItem"><a href="RDbIncrementalClass.html#%3a%3aRDbIncremental%3a%3aUpdateStats%28%29" title="Initiates the operation of calculating and updating database statistics">UpdateStats()</a></code>
+</p>
+<a name="2.5"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Release resources</h2>
+</div><div class="Bodytext">
+<a name="2.5.2"></a></div><div class="Head3">
+<a name="%3a%3aRDbIncremental%3a%3aClose%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Close()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Close();</code></p><h4 class="subheading">Description</h4>
+<p>Releases the resources used by the incremental operations
+object. If the operation is not yet complete, then the operation is abandoned
+and the database is rolled back to its state before the operation
+started.</p>
+<a name="2.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Starting incremental operations</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aRDbIncremental%3a%3aAlterTable%28%29"></a>
+<hr size="1" noshade>
+<h3><code>AlterTable()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt AlterTable(RDbDatabase&amp; aDatabase,const TDesC&amp; aTable,const CDbColSet&amp; aNewDef,TInt&amp; aStep);</code></p><h4 class="subheading">Description</h4>
+<p>Initiates a table alteration operation on a database. This is the
+incremental form of
+<code>RDbDatabase::AlterTable()</code>.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RDbDatabase&amp; aDatabase</code></td>
+<td class="Cell"><p class="ValueDesc">The database which has the table to be altered.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aTable</code></td>
+<td class="Cell"><p class="ValueDesc">The name of the table which is to be altered.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CDbColSet&amp; aNewDef</code></td>
+<td class="Cell"><p class="ValueDesc">A column set describing the new definition for the table.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aStep</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the initial step count for the incremental
+operation. This value should be passed in to subsequent calls to
+<code>NextL()</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, or one of the DBMS database
+error codes. Specifically, the function returns:<code>KErrNotFound</code>, if
+the table does not exist in the database.<code>KErrBadName</code> if a column
+name is invalid.<code>KErrArgument</code> if the new column set is empty, or
+there are duplicate column names, or if a column's maximum length is
+non-positive but not <code>KDbUndefinedLength</code>, or a non-numeric column
+has the auto-increment attribute, or an indexed column has been dropped, or a
+column has changed its type or attributes, or a not-null or auto-increment
+column has been added to a table which is not
+empty.<code>KErrNotSupported</code> if a column type is out of the recognised
+range, or an unknown attribute bit is set, or the maximum length for a Text8,
+Text16 or Binary column is more than 255.<code>KErrTooBig</code> if the
+resulting record size can be larger than 8200 bytes.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../InterfaceToDBMSDatabases/RDbDatabaseClass.html#%3a%3aRDbDatabase%3a%3aAlterTable%28%29" title="Changes the structure of a specified table in the database to the new column set"><code class="ApiItem">RDbDatabase::AlterTable()</code></a></li>
+<li><a href="DBMSErrorCodes.guide.html#DBMSDatabaseIncrementalOperations%2eDBMS%2derror%2dcodes">Additional DBMS error codes</a></li>
+</ul>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aRDbIncremental%3a%3aCompact%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Compact()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Compact(RDbDatabase&amp; aDatabase,TInt&amp; aStep);</code></p><h4 class="subheading">Description</h4>
+<p>Initiates the operation of compacting a database. This is the
+incremental form of <code>RDbDatabase::Compact</code>.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RDbDatabase&amp; aDatabase</code></td>
+<td class="Cell"><p class="ValueDesc">The database to compact.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aStep</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the initial step count for the incremental
+operation. This value should be passed in to subsequent calls to
+<code>Next()</code>to continue the operation.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../InterfaceToDBMSDatabases/RDbDatabaseClass.html#%3a%3aRDbDatabase%3a%3aCompact%28%29" title="Compacts the database and returns when the operation is complete"><code class="ApiItem">RDbDatabase::Compact()</code></a></li>
+</ul>
+<a name="2.6.4"></a></div><div class="Head3">
+<a name="%3a%3aRDbIncremental%3a%3aCreateIndex%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CreateIndex()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt CreateIndex(RDbDatabase&amp; aDatabase,const TDesC&amp; aName,const TDesC&amp; aTable,const CDbKey&amp; aKey,TInt&amp; aStep);</code></p><h4 class="subheading">Description</h4>
+<p>Initiates an index creation operation on a database. This is the
+incremental form of
+<code>RDbDatabase::CreateIndex()</code>.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RDbDatabase&amp; aDatabase</code></td>
+<td class="Cell"><p class="ValueDesc">The database on which to create the index.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aName</code></td>
+<td class="Cell"><p class="ValueDesc">A name for the created index.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aTable</code></td>
+<td class="Cell"><p class="ValueDesc">The name of the table on which to create the index.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CDbKey&amp; aKey</code></td>
+<td class="Cell"><p class="ValueDesc">The key for the new index.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aStep</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the initial step count for the incremental
+operation. This value should be passed in to subsequent calls to
+<code>NextL()</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, or one of the DBMS database
+error codes. Specifically, the function returns:<code>KErrNotFound</code> if
+the table does not exist in the database or a key column is not found in the
+table.<code>KErrAlreadyExists</code> if an index of the same name already
+exists on table or a duplicate key is present when building an index. Note that
+it is not possible to tell the difference between the possible causes of this
+error if index creation is not carried out
+incrementally.<code>KErrBadName</code> if an index or column name is
+invalid.<code>KErrArgument</code> if the key has no key columns or a fixed
+width column has a truncation length specified, or an invalid truncation length
+has been specified for a key column, or a <code>LongText8</code> or
+<code>LongText16</code> key column has no truncation length specified, or the
+key contains a <code>Binary</code> or <code>LongBinary</code>
+column.<code>KErrNotSupported</code> if a truncated key column is not the last
+one.<code>KErrTooBig</code> if the resulting key size is too big.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../InterfaceToDBMSDatabases/RDbDatabaseClass.html#%3a%3aRDbDatabase%3a%3aCreateIndex%28%29" title="Creates a new index with the provided key on the specified table in the database"><code class="ApiItem">RDbDatabase::CreateIndex()</code></a></li>
+<li><a href="DBMSErrorCodes.guide.html#DBMSDatabaseIncrementalOperations%2eDBMS%2derror%2dcodes">Additional DBMS error codes</a></li>
+</ul>
+<a name="2.6.5"></a></div><div class="Head3">
+<a name="%3a%3aRDbIncremental%3a%3aDropIndex%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DropIndex()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt DropIndex(RDbDatabase&amp; aDatabase,const TDesC&amp; aName,const TDesC&amp; aTable,TInt&amp; aStep);</code></p><h4 class="subheading">Description</h4>
+<p>Initiates an index discard operation on the database. This is the
+incremental form of.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RDbDatabase&amp; aDatabase</code></td>
+<td class="Cell"><p class="ValueDesc">The database from which to drop the index.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aName</code></td>
+<td class="Cell"><p class="ValueDesc">The name of the index to drop.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aTable</code></td>
+<td class="Cell"><p class="ValueDesc">The name of the table which has the index.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aStep</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the initial step count for the incremental
+operation. This value should be passed in to subsequent calls to
+<code>NextL()</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, or one of the DBMS database error
+codes. Specifically, the function returns:<code>KErrNotFound</code> if the
+table or index does not exist</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../InterfaceToDBMSDatabases/RDbDatabaseClass.html#%3a%3aRDbDatabase%3a%3aDropIndex%28%29" title="Removes an index from the database"><code class="ApiItem">RDbDatabase::DropIndex()</code></a></li>
+<li><a href="DBMSErrorCodes.guide.html#DBMSDatabaseIncrementalOperations%2eDBMS%2derror%2dcodes">Additional DBMS error codes</a></li>
+</ul>
+<a name="2.6.6"></a></div><div class="Head3">
+<a name="%3a%3aRDbIncremental%3a%3aDropTable%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DropTable()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt DropTable(RDbDatabase&amp; aDatabase,const TDesC&amp; aTable,TInt&amp; aStep);</code></p><h4 class="subheading">Description</h4>
+<p>Initiates a table discard operation on a database. All indexes belonging
+to the table are also discarded as part of this operation.</p>
+<p>This is the incremental version of
+<code>RDbDatabase::DropTable()</code>.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RDbDatabase&amp; aDatabase</code></td>
+<td class="Cell"><p class="ValueDesc">The database from which to drop the table.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aTable</code></td>
+<td class="Cell"><p class="ValueDesc">The name of the table to drop.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aStep</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the initial step count for the incremental operation.
+This value should be passed in to subsequent calls to
+<code>NextL()</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, or one of the DBMS database error
+codes. The Store database always returns <code>KErrNotSupported</code> for this
+function.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../InterfaceToDBMSDatabases/RDbDatabaseClass.html#%3a%3aRDbDatabase%3a%3aDropTable%28%29" title="Removes a specified table from the database"><code class="ApiItem">RDbDatabase::DropTable()</code></a></li>
+<li><a href="DBMSErrorCodes.guide.html#DBMSDatabaseIncrementalOperations%2eDBMS%2derror%2dcodes">Additional DBMS error codes</a></li>
+</ul>
+<a name="2.6.7"></a></div><div class="Head3">
+<a name="%3a%3aRDbIncremental%3a%3aExecute%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Execute()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Execute(RDbDatabase&amp; aDatabase,const TDesC&amp; aSql,TInt&amp; aStep);</code></p><h4 class="subheading">Description</h4>
+<p>Initiates the execution of a DDL (SQL schema update) statement on the
+database.</p>
+<p>This is the incremental form of
+<code>RDbDatabase::Execute()</code>.</p>
+<p>Note that to begin executing a DML (SQL data update) statement
+incrementally, use the <code>RDbUpdate</code> class.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RDbDatabase&amp; aDatabase</code></td>
+<td class="Cell"><p class="ValueDesc">The database on which the DDL (SQL schema update) statement is to
+execute.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aSql</code></td>
+<td class="Cell"><p class="ValueDesc">The DDL SQL statement to be executed on the database.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aStep</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the initial step count for the incremental operation.
+This value should be passed in to subsequent calls to <code>Next()</code>to
+continue the operation.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the system-wide
+error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../InterfaceToDBMSDatabases/RDbDatabaseClass.html#%3a%3aRDbDatabase%3a%3aExecute%28%29" title="Executes a DDL (SQL schema update) statement or a DML (SQL data update) statement on the database and returns when complete"><code class="ApiItem">RDbDatabase::Execute()</code></a></li>
+<li><a href="RDbUpdateClass.html#%3a%3aRDbUpdate" title="Provides an interface to allow incremental execution of a DML (SQL data update) statement"><code class="ApiItem">RDbUpdate</code></a></li>
+</ul>
+<a name="2.6.8"></a></div><div class="Head3">
+<a name="%3a%3aRDbIncremental%3a%3aExecute%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Execute()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Execute(RDbDatabase&amp; aDatabase,const TDesC&amp; aSql,TDbTextComparison aComparison,TInt&amp; aStep);</code></p><h4 class="subheading">Description</h4>
+<p>Initiates the execution of a DDL (SQL schema update) statement on the
+database, specifing additional comparison operations for some SQL
+statements.</p>
+<p>This is the incremental form of
+<code>RDbDatabase::Execute()</code>.</p>
+<p>Note that to begin executing a DML (SQL data update) statement
+incrementally, use the <code>RDbUpdate</code> class.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RDbDatabase&amp; aDatabase</code></td>
+<td class="Cell"><p class="ValueDesc">The database on which the DDL (SQL schema update) statement is to
+execute.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aSql</code></td>
+<td class="Cell"><p class="ValueDesc">The DDL SQL statement to be executed on the database.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDbTextComparison aComparison</code></td>
+<td class="Cell"><p class="ValueDesc">This argument is used in the execution of some SQL statements, and is
+ignored in all other SQL statements. Specifically: in CREATE INDEX statements,
+it specifies the comparison operation used for text columns in the index key.
+in UPDATE and DELETE statements, it specifies the comparison operation used to
+evaluate the WHERE clause. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aStep</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the initial step count for the incremental operation.
+This value should be passed in to subsequent calls to <code>Next()</code>to
+continue the operation.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the system-wide
+error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../InterfaceToDBMSDatabases/RDbDatabaseClass.html#%3a%3aRDbDatabase%3a%3aExecute%28%29" title="Executes a DDL (SQL schema update) statement or a DML (SQL data update) statement on the database and returns when complete"><code class="ApiItem">RDbDatabase::Execute()</code></a></li>
+<li><a href="RDbUpdateClass.html#%3a%3aRDbUpdate" title="Provides an interface to allow incremental execution of a DML (SQL data update) statement"><code class="ApiItem">RDbUpdate</code></a></li>
+</ul>
+<a name="2.6.9"></a></div><div class="Head3">
+<a name="%3a%3aRDbIncremental%3a%3aRecover%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Recover()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Recover(RDbDatabase&amp; aDatabase,TInt&amp; aStep);</code></p><h4 class="subheading">Description</h4>
+<p>Initiates a database recovery operation.</p>
+<p>This is the incremental version of
+<code>RDbDatabase::Recover()</code>.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RDbDatabase&amp; aDatabase</code></td>
+<td class="Cell"><p class="ValueDesc">The database to recover.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aStep</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the initial step count for the incremental operation.
+This value should be passed in to subsequent calls to
+<code>NextL()</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, or one of the DBMS database error
+codes. If recovery fails with either <code>KErrNoMemory</code> or
+<code>KErrDiskFull</code>, then recovery may be attempted again when more
+memory or disk space is available.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../InterfaceToDBMSDatabases/RDbDatabaseClass.html#%3a%3aRDbDatabase%3a%3aRecover%28%29" title="Recovers a damaged database"><code class="ApiItem">RDbDatabase::Recover()</code></a></li>
+<li><a href="DBMSErrorCodes.guide.html#DBMSDatabaseIncrementalOperations%2eDBMS%2derror%2dcodes">Additional DBMS error codes</a></li>
+</ul>
+<a name="2.6.10"></a></div><div class="Head3">
+<a name="%3a%3aRDbIncremental%3a%3aUpdateStats%28%29"></a>
+<hr size="1" noshade>
+<h3><code>UpdateStats()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt UpdateStats(RDbDatabase&amp; aDatabase,TInt&amp; aStep);</code></p><h4 class="subheading">Description</h4>
+<p>Initiates the operation of calculating and updating database
+statistics.</p>
+<p>This is the incremental form of
+<code>RDbDatabase::UpdateStats()</code></p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RDbDatabase&amp; aDatabase</code></td>
+<td class="Cell"><p class="ValueDesc">The database whose statistics are to be updated.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aStep</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the initial step count for the incremental operation.
+This value should be passed in to subsequent calls to <code>Next()</code> to
+continue the operation.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the system-wide
+error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../InterfaceToDBMSDatabases/RDbDatabaseClass.html#%3a%3aRDbDatabase%3a%3aUpdateStats%28%29" title="Updates any calculated statistics for the database and returns when the update operation is complete"><code class="ApiItem">RDbDatabase::UpdateStats()</code></a></li>
+</ul>
+<a name="2.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Continuing the operation</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aRDbIncremental%3a%3aNext%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Next()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Next(TInt&amp; aStep);</code></p><h4 class="subheading">Description</h4>
+<p>Performs the next step in the incremental operation, returning when the
+step is complete.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aStep</code></td>
+<td class="Cell"><p class="ValueDesc">Initially, contains the value returned from any of the initiating
+functions or the last call to perform an operational step. On return, contains
+a value which is less than or equal to the initial value. If it equals
+<code>0</code>, then the operation has completed successfully and the
+incremental object should be closed.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, or one of the DBMS database error
+codes. If this indicates an error, then the incremental object should be closed
+and the operation aborted.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="DBMSErrorCodes.guide.html#DBMSDatabaseIncrementalOperations%2eDBMS%2derror%2dcodes">Additional DBMS error codes</a></li>
+</ul>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aRDbIncremental%3a%3aNext%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Next()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Next(TPckgBuf&lt;TInt&gt;&amp; aStep,TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Performs the next step in the incremental operation, returning
+immediately and signalling the request status when the step is complete.
+</p>
+<p>This function is most effectively used when the incremental operation is
+packaged as an active object.</p>
+<p>Note that the step parameter is packaged to enable this API to work for
+asynchronous calls in client/server implementations of
+DBMS.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TPckgBuf&lt;TInt&gt;&amp; aStep</code></td>
+<td class="Cell"><p class="ValueDesc">Initially, contains the value returned from any of the initiating
+functions or the last call to perform an operational step. On return, contains
+a value which is less than or equal to the initial value. If it equals
+<code>0</code>, then the operation has completed successfully and the
+incremental object should be closed.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStatus</code></td>
+<td class="Cell"><p class="ValueDesc">The request status used to contain completion information for the
+function. On completion, contains the completion status or one of the DBMS
+database error codes. If this indicates an error, then the incremental object
+should be closed and the operation aborted.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../PackageBuffers/TPckgBufClass.html#%3a%3aTPckgBuf" title="Packages an object into a modifiable buffer descriptor"><code class="ApiItem">TPckgBuf</code></a></li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Hands On</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="HandsOn%2estart"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="../../../Product/Generic/DeveloperGuide/index.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="../Subsystems/SubsystemsAndAPIs.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/DeveloperGuide/index.html">Developer's&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+Hands&nbsp;On</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Hands On</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Development basics</h2>
+</div><div class="Bodytext">
+<p>Developing for any Symbian OS phone follows a standard pattern.</p>
+<p>Development is PC hosted, based on an emulator which provides a
+Microsoft Windows-based implementation of the  actual phone. At
+versions 6.0 and 6.1,  for C++ development, the edit/compile/build cycle is based on
+Microsoft's Visual C++ 6.0 Windows development toolset. However, instead of
+linking and building against Win32 or MFC, developers link and build against
+the Symbian headers and libraries installed by the SDK. The resulting binary
+is then run against the emulator implementation of the appropriate version of the OS.</p>
+<p>The tools supplied with the SDK make this a simple process.
+Symbian's environment neutral <code class="filename">mmp</code> project file can be used to
+generate toolchain specific project files for the VC++ IDE and the GCC
+toolchain. During development, the VC++ project file manages all linking and
+building details. It also ensures that all outputs from the build, and any
+required resources including application resource files, icons, bitmaps, sound
+files, etc., are built into the appropriate location for debugging on the
+emulator.</p>
+<p>There is little difference for developers who prefer the command
+line. An essentially identical process is used to specify project information
+from which a makefile is created, which in turn manages the compile and linking
+steps.</p>
+<a name="1.3.6"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Reference hardware</h3>
+</div><div class="Bodytext">
+<p>For most developers the appropriate reference hardware will be a real phone from a Symbian licensee, bought over the counter. However, the substantial part of the
+development cycle is independent of real hardware being available. Real
+hardware is essentially a test and verification requirement, and at most levels
+of development, for most of the time, it is not a necessity.</p>
+<p>Substantially, the emulator based process accurately mimics the
+operation of a final application on a real phone.</p>
+<a name="1.3.7"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Issues to be aware of</h3>
+</div><div class="Bodytext">
+<p>Builds can be specified to turn debugging information on or off.
+Specifying debug or non-debug builds is an option when the build toolchain is
+invoked.</p>
+<p>If debugging is required, then for Versions 6.0 and 6.1  the MS VC++ IDE
+debugger is recommended. System level header files are supplied to make
+debugging and tracing easier, allowing the thread of execution to be followed
+down into system level.</p>
+<p>Emulation necessarily differs in some respects from true phone
+targeted implementations. For example the Windows processes and threads model
+is not the same as the Symbian model. This shows up in differences between
+<i>app</i> and <i>exe</i> type projects targeting the
+emulator which don't arise on real hardware. Also, different underlying CPUs
+mean that there are potentially subtle differences between emulator and
+non-emulator targeted builds, for example, related to word size and
+endianess.</p>
+<p>In most cases and for most developers, such differences remain
+largely invisible.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Hello World</h2>
+</div><div class="Bodytext">
+<p><code class="filename">HelloWorld</code> is a very simple UI application. It
+displays a simple message in the centre of the screen, and carries a menu bar.
+It consists of a single view which displays the &quot;Hello World&quot; text, drawn using
+the default title font supplied by the UI. The example project can be found in
+<code class="filename">&lt;path&gt;\epoc32ex\HelloWorld</code>, where <code class="filename">&lt;path&gt;</code>  is the location in which the SDK was installed.</p>
+<p>Key ideas this project shows off include:</p>
+<ul>
+<li>
+<p>application resources, which define all text shown by
+applications, as well as all menus, dialogs, and other customisable &quot;screen
+furniture&quot;, are managed outside the application source code in separate
+resource files which can be independently compiled, in this case in
+<code class="filename">HelloWorld.rss</code></p>
+</li>
+<li>
+<p>commands to be interpreted by an application are likewise
+defined outside the main source but are #included into both it and its resource
+files</p>
+</li>
+<li>
+<p>applications can be divided naturally into engine, UI, and view
+components, which are dependent but logically separate from each other</p>
+</li>
+<li>
+<p>all applications have a three value UID which uniquely
+identifies it to the system</p>
+</li>
+</ul>
+<p>As importantly, the project demonstrates basic build requirements
+— what files the system needs to build an application successfully
+— and the basic build process — what commands are needed to invoke
+what tools, to perform what functions. </p>
+<a name="1.4.6"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Build files</h3>
+</div><div class="Bodytext">
+<p>The Hello World project supplies both a Symbian <code class="filename">.mmp</code>
+project file and a <code class="filename">bldmake</code> component description file
+<code class="filename">bld.inf</code>.</p>
+<p>The <code class="filename">bld.inf</code> file simply specifies the name of the
+<code class="filename">.mmp</code> project file to be built, as shown below:</p>
+<p class="CodeBlock"><code>PRJ_MMPFILES<br>HelloWorld.mmp</code></p>
+<p>The <code class="filename">HelloWorld.mmp</code> file is as follows:</p>
+<p class="CodeBlock"><code>TARGET        HelloWorld.app<br>TARGETTYPE    app<br>UID           0x100039CE 0x10004299<br>TARGETPATH    \system\apps\HelloWorld<br>SOURCEPATH    .<br>SOURCE        HelloWorld_Main.cpp<br>SOURCE        HelloWorld_Application.cpp<br>SOURCE        HelloWorld_Document.cpp<br>SOURCE        HelloWorld_AppUi.cpp<br>SOURCE        HelloWorld_AppView.cpp<br>USERINCLUDE   .<br>SYSTEMINCLUDE \epoc32\include<br>RESOURCE      HelloWorld.rss<br>LIBRARY       euser.lib apparc.lib cone.lib eikcore.lib</code></p>
+<p>Note that the target type is <code class="filename">app</code>, meaning a GUI
+application, and that the <code>LIBRARY</code> statement lists the application
+framework and graphics libraries required for a GUI application. The UID line
+specifies the unique system identifier for a GUI application
+(<code>0x100039CE</code>) and the unique identifier for <em>this</em>
+application (<code>0x10004299</code>).</p>
+<a name="1.4.7"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Building the application</h3>
+</div><div class="Bodytext">
+<p>All classes are defined in a single header file. Each class
+implementation is contained in its own <code class="filename">.cpp</code> file.</p>
+<p>From a command prompt, do the following:</p>
+<ul>
+<li>
+<p>Change to the SDK directory
+<code class="filename">&lt;path&gt;\epoc32ex\HelloWorld</code>.</p>
+</li>
+<li>
+<p>Type <code>bldmake bldfiles</code>.</p>
+</li>
+<li>
+<p>Type <code>abld makefile vc6</code>.</p>
+</li>
+</ul>
+<p>This creates the VC++ workspace <code class="filename">HelloWorld.dsw</code> in the
+directory:
+<code class="filename">&lt;path&gt;\epoc32\build\&lt;path&gt;\epoc32ex\HelloWorld\HelloWorld\wins</code>. This file can then be opened in VC++ and built by pressing
+<code class="ProgramName">F7</code>, or by selecting the
+<code class="ProgramName">Build | Build HELLOWORLD.APP</code> from the IDE menu.</p>
+<p>For a command line debug emulator build, change the abld command
+to:</p>
+<ul>
+<li>
+<p>Type <code>abld build wins udeb</code></p>
+</li>
+</ul>
+<p>The application is now built into the emulator's
+<code class="filename">z:\system\apps\HelloWorld</code> directory, and can be run from the
+emulator's UI.</p>
+<p>For a command line release build to a real phone, change the abld
+command to:</p>
+<ul>
+<li>
+<p>Type <code>abld build armi urel</code></p>
+</li>
+</ul>
+<p>The application's files are now built into the <code class="filename">&lt;path&gt;\epoc32\release\armi\urel</code> directory, and can be downloaded to a
+real phone.</p>
+<a name="1.4.8"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Up and running</h3>
+</div><div class="Bodytext">
+<p>To run the Hello World application from the IDE, first press
+<code class="ProgramName">Ctrl F5</code>, or select the
+<code class="ProgramName">Build | Execute</code> menu option. The first time you do
+this the IDE prompts for the location of the executable to be run (the
+emulator) — you'll need to supply the complete path for the debug
+emulator <code class="filename">&lt;path&gt;\epoc32\release\wins\udeb\epoc.exe</code>. Note that
+you only have to do this once — next time the emulator location will be
+saved in the workspace.</p>
+<p>After loading the emulator, which may take some time, the Hello World application can be launched.</p>
+<a name="1.4.9"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Debugging</h3>
+</div><div class="Bodytext">
+<p>Debugging a Symbian application is the same as debugging a Windows
+application. First load the VC++ project file and then press the
+<code class="ProgramName">F7</code> key to build the application. Any build errors will
+appear in the &quot;Build&quot; tab. You can use the
+<code class="ProgramName">F4</code> key to scroll each error in the tab and display the
+location of the error in source code. You can also add breakpoints and step
+through code as normal.</p>
+<p>Note that the Hello World application should build without errors,
+and hence will probably not require debugging.</p>
+<a name="1.4.10"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Uploading</h3>
+</div><div class="Bodytext">
+<p>The final stage in the development process is to upload the
+application to a real phone. The binary format of a real phone is different
+from the emulator so you will first have to recompile the application for ARMI,
+using <code>abld build armi urel</code> on the command line. You may then use
+Symbian Connect to copy the application and resource files from
+<code class="filename">&lt;path&gt;\epoc32\release\armi\urel</code> on the PC to the
+<code class="filename">\System\Apps\HelloWorld</code> folder on the real phone.</p>
+<p>Symbian provides a tool for packaging applications for delivery to
+users — <code class="filename">makesis</code>. If you intend to do a lot of re-building
+and testing on a real phone it may be more practical to upload using this
+mechanism, rather than copying the files directly.</p>
+<p><b>See also:</b></p>
+<p><a href="../../ToolsAndUtilities/Installing/index.html#Installing%2eToplevel%2etoc">Application installation guide</a></p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Going deeper</h2>
+</div><div class="Bodytext">
+<p>Other topics in this guide describe the major subsystem building blocks
+which make up the OS, and the programming idioms which are specific to it
+and which are designed to ensure software robustness and reliability.</p>
+<p>Other specialist topics and areas of special interest are covered in
+the techical papers available to registered developers at the
+DevNet site. In addition, a number of programming books are now available for Symbian OS aimed at both C++ and Java developers. For details visit  Symbian DevNet.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

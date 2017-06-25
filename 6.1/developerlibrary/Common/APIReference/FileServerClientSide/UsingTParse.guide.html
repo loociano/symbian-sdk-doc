@@ -1,0 +1,256 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Using TParse </title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="FileServerClientSide%2eusing%2dTParse"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="UsingTFindFile.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">File&nbsp;Server&nbsp;Client&nbsp;Side</a>&nbsp;<span class="separator">&#187;</span>
+Using&nbsp;TParse&nbsp;</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Using <code>TParse</code>
+</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Retrieving individual components</h2>
+</div><div class="Bodytext">
+<p>The following code fragment shows how the individual components are extracted using the <code>TParseBase</code> functions:</p>
+<p class="CodeBlock"><code>_LIT(KPath,&quot;c:\\wrd\\meeting.wrd&quot;);<br>...<br>TParse p;<br>p.Set(KPath,NULL,NULL);<br>p.Name();       // gives &quot;meeting&quot;<br>p.NameAndExt(); // gives &quot;meeting.wrd&quot;<br>...</code></p>
+<a name="1.4"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Component masking</h2>
+</div><div class="Bodytext">
+<p><code>TParse</code> can be used to select components from different file and path specifications.  The <code>Set()</code> function takes three arguments.  They are each parsed into four components: drive, path, filename and extension.</p>
+<p>The example below sets up the <code>TParse</code> object so that it can be used to yield useful information.</p>
+<p class="CodeBlock"><code>_LIT(KSpec,&quot;A:file1&quot;);<br>_LIT(KRelated,&quot;C:\\path1\\related.xxx&quot;);<br>TParse fp;<br>fp.Set(KSpec,&amp;KRelated,NULL);</code></p>
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+</td>
+<td class="Cell">
+<p>drive</p>
+</td>
+<td class="Cell">
+<p>path</p>
+</td>
+<td class="Cell">
+<p>filename</p>
+</td>
+<td class="Cell">
+<p>extension</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>file specification</p>
+</td>
+<td class="Cell">
+<p><code class="filename">A:</code></p>
+</td>
+<td class="Cell">
+</td>
+<td class="Cell">
+<p><code class="filename">file1</code></p>
+</td>
+<td class="Cell">
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>related name</p>
+</td>
+<td class="Cell">
+<p><code class="filename">C:</code></p>
+</td>
+<td class="Cell">
+<p><code class="filename">\path1\</code></p>
+</td>
+<td class="Cell">
+<p><code class="filename">related</code></p>
+</td>
+<td class="Cell">
+<p><code class="filename">.xxx</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>default name</p>
+</td>
+<td class="Cell">
+</td>
+<td class="Cell">
+</td>
+<td class="Cell">
+</td>
+<td class="Cell">
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>result</p>
+</td>
+<td class="Cell">
+<p><code class="filename">A:</code></p>
+</td>
+<td class="Cell">
+<p><code class="filename">\path1\</code></p>
+</td>
+<td class="Cell">
+<p><code class="filename">file1</code></p>
+</td>
+<td class="Cell">
+<p><code class="filename">.xxx</code></p>
+</td>
+</tr>
+</table></td></tr></table><p>The resulting <code>fp.fullname</code> will be <code>A:\path1\file1.xxx.</code>  All the components that are specified in the file specification (drive and filename) are put into the result; any missing components (path and extension) are taken from the related file specification which has next order of precedence; nothing is specified in the default.</p>
+<p>The second example shows how wildcards are allowed in the filename and extension.</p>
+<p class="CodeBlock"><code>    TParse fp;<br>&nbsp;&nbsp;&nbsp;&nbsp;_LIT(KSpec,&quot;A:file1&quot;);<br>&nbsp;&nbsp;&nbsp;&nbsp;_LIT(KDefault,&quot;C:\\path1\\*.*&quot;);<br>&nbsp;&nbsp;&nbsp;&nbsp;fp.Set(KSpec,NULL,&amp;KDefault);</code></p>
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+<p>
+</p>
+</td>
+<td class="Cell">
+<p>drive</p>
+</td>
+<td class="Cell">
+<p>path</p>
+</td>
+<td class="Cell">
+<p>filename</p>
+</td>
+<td class="Cell">
+<p>extension</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>file specification</p>
+</td>
+<td class="Cell">
+<p><code class="filename">A:</code></p>
+</td>
+<td class="Cell">
+</td>
+<td class="Cell">
+<p><code class="filename">file1</code></p>
+</td>
+<td class="Cell">
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>related filename</p>
+</td>
+<td class="Cell">
+</td>
+<td class="Cell">
+</td>
+<td class="Cell">
+</td>
+<td class="Cell">
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>default filename</p>
+</td>
+<td class="Cell">
+<p><code class="filename">C:</code></p>
+</td>
+<td class="Cell">
+<p><code class="filename">\path1\</code></p>
+</td>
+<td class="Cell">
+<p><code class="filename">*</code></p>
+</td>
+<td class="Cell">
+<p><code class="filename">.*</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>result</p>
+</td>
+<td class="Cell">
+<p><code class="filename">A:</code></p>
+</td>
+<td class="Cell">
+<p><code class="filename">\path1\</code></p>
+</td>
+<td class="Cell">
+<p><code class="filename">file1</code></p>
+</td>
+<td class="Cell">
+<p><code class="filename">.*</code></p>
+</td>
+</tr>
+</table></td></tr></table><p>The resulting <code>fp.fullname</code> will be <code>A:\path1\file1.*</code></p>
+<a name="1.4.11"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Parsing with reference to the session default directory</h3>
+</div><div class="Bodytext">
+<p><code>TParse</code> operations occur without reference to the file server.  Two <code>RFs::Parse()</code> functions perform a <code>TParse::Set()</code> using the session path as the <code>aDefault</code> argument&nbsp;&#8212; one of these variants specifies an <code>aRelated</code>, the other does not. Use these <code>RFs::Parse()</code> functions to parse filenames with reference to the session path.</p>
+<a name="1.5"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Wildcard characters</h2>
+</div><div class="Bodytext">
+<p>The <code>?</code> and <code>*</code> wildcard characters are supported to indicate a single character, and any sequence of characters.  Both wildcard characters can be used any number of times in any part of any component of the file specification, except the drive. Although there is no intention that these will ever change, they are defined as the constants <code>KMatchOne</code> and <code>KMatchAny</code>.</p>
+<a name="1.6"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Illegal paths</h2>
+</div><div class="Bodytext">
+<p>The following restrictions apply to path components. If any are violated, <code>TParse</code> will return <code>KErrBadName</code>: </p>
+<ul><li><p>a path component which is followed by a trailing backslash must also be preceded by a backslash. For example, the following code will return an error because <code class="filename">DIR\</code> is neither a directory nor a file.</p></li>
+</ul><p class="CodeBlock"><code>_LIT(KText,&quot;DIR\\&quot;);<br>...<br>TInt r=parse.Set(KText,NULL,NULL);</code></p>
+<ul><li><p>the length of any component (and the total path length) must not exceed 256 characters</p></li>
+<li><p>spaces between the drive and the first directory in the path are illegal, although there may be spaces between other path components, for instance between the path or drive and filename, or within path components. The following code will return an error:</p></li>
+</ul><p class="CodeBlock"><code>_LIT(KBadText,&quot;C: \\DIR\\&quot;);<br>...<br>r=parse.Set(KBadText,NULL,NULL);</code></p>
+<ul><li><p>when using <code>TParse::SetNoWild()</code> no wildcard character may be present in the filename or extension.</p></li>
+</ul>
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

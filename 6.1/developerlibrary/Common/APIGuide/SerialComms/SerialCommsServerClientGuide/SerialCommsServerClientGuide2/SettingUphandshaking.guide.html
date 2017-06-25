@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Setting up handshaking</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="SerialCommsServerClientGuide1%2ehandshaking"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToSpeedDataFormat.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="ConfiguringParityErrorControl.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Serial&nbsp;Comms</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Serial&nbsp;Communications&nbsp;Server&nbsp;Client-Side</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Configuring&nbsp;Ports</a>&nbsp;<span class="separator">&#187;</span>
+Setting&nbsp;up&nbsp;handshaking</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Setting up handshaking</h1>
+</div><div class="Bodytext">
+<p>In general, the speed at which data is transmitted is deliberately set to be faster than the speed with which it can be processed by the receiver. This results in a highly efficient utilisation of the available bandwidth&nbsp;&#8212; data transfers complete faster&#0160;&#8212;  and when data is being transmitted over phone lines, this translates into a direct saving of connect time and therefore of money.</p>
+<p>Consequently, input buffers linked to reliable flow control mechanisms are essential for effective communications, as the receiver needs a mechanism for throttling back the transmitter and telling it to stop sending data. The <code>TCommConfig</code> package enables flow control to be configured at the driver level, relieving application software of the burden of handling this chore. Since multiple handshaking mechanisms may be active simultaneously, the various possibilities are implemented via a bitmapped integer (<code>iHandshake</code>) and various sets of individually enumerated bitmasks.</p>
+<a name="1.5"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Flow control when sending</h2>
+</div><div class="Bodytext">
+<p>The first four of  the handshaking bitmasks control what type of flow control is obeyed when we are sending data. We can set up any combination of hardware flow control (where we stop transmitting when any specified permutation of the modem input line <em>CTS</em>, <em>DSR</em> or <em>DCD</em> are low and we then wait for the relevant lines to go high before resuming) and software flow control (where we suspend transmission when we receive a configurable <em>XOFF</em> character and don&#8217;t resume until we receive a corresponding <em>XON</em> character). </p>
+<ul><li><p>The most common form of flow control for transmitted data is CTS handshaking (we don&#8217;t send any data when the CTS input is low).</p></li>
+</ul><a name="1.6"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Flow control when receiving </h2>
+</div><div class="Bodytext">
+<p>The next three of  the handshaking bitmasks controls the type of flow control we implement when receiving data, in the expectation that the transmitter will stop sending when told to. Again, we can set up any combination of hardware flow control (where we drop the signal levels on one or both of the modem outputs <em>DTR</em> and <em>RTS</em> to stop the incoming data and then raise the signals again to restart) or software flow control (where we transmit our XOFF character to stop the incoming data and then transmit XON when we are ready to resume). Software flow control is enforced by setting the <code>KConfigSendXoff</code> bit of <code>iHandshake</code>, while hardware flow control is enabled by setting either one or both of the <code>KConfigFreeRTS</code> and <code>KConfigFreeDTR</code> bits, which indicate whether or not the RTS and DTR outputs are under driver control or follow the user-defined settings &nbsp;&#8212;  see <code>SetSignals()</code> for more information.</p>
+<ul><li><p>The most common form of flow control when receiving data is RTS handshaking (we lower our RTS output when we aren&#8217;t able to receive anything and then raise it when we are once again in a position to handle incoming data).</p></li>
+</ul><a name="1.7"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Flow control thresholds</h2>
+</div><div class="Bodytext">
+<p>Since the rate at which data is being placed in the input buffer can exceed the rate at which it is being taken out, it is probable that the buffer will gradually fill up. When a particular point (the <em>high water mark</em>), is reached and a suitable handshaking mode is enabled, a flow control event is triggered. This could be the transmission of an XOFF character or the lowering of either the RTS or DTR output signals, or any combination of these events. Whatever action is taken will be taken as a signal by the transmitter, which will stop sending. The inward flow of data will then stop, and the buffer will begin to empty. When a particular point (the <em>low water mark</em>) is reached, a matching flow control event is triggered, which could be the transmission of an XON character or the raising of the RTS or DTR signals, or any combination of these events.</p>
+<ul><li><p>If hardware flow control is the only kind enabled for reception, the high water mark is normally set at the 75% full level, at which point one or both of the output signal will be lowered.</p></li>
+<li><p>If XON/XOFF software flow control is enabled for reception (even if hardware handshaking is also enabled), the high water mark is set to be 5 bytes below the 50% full level, at which point an XOFF character is transmitted for every other character received. This more stringent level is deemed necessary because it normally takes longer for a transmitter to respond when software handshaking is being used</p></li>
+<li><p>It is possible to force the serial drivers to use this more stringent high water mark when using hardware flow control.</p></li>
+<li><p>In all cases, the low water mark is set at the 25% full level. Depending on the type of flow control enabled, any combination of sending an XON character or raising one or both of the output signals will occur at this point.</p></li>
+</ul><a name="1.8"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Handshaking latency and buffer sizes</h2>
+</div><div class="Bodytext">
+<p>It takes a finite amount of time to respond to flow control and other handshaking events. The term <em>latency</em> is generally used in this context to refer to the time taken between the occurrence of a particular event and the response to it. The maximum handshaking latency in ultimately depends on the frequency of the system clock. </p>
+<p>However, the high and low watermarks for inward flow control need to allow for the response times of the systems with which our serial port is communicating rather than the latency associated with our own responses. Suppose it takes one second for a system to which we are connected to respond to a request to stop sending data, and supposed our serial port is running at 38400 bps. This means that we should have at least 3840 bytes free in our buffer when the high water mark. is reached, otherwise we may lose incoming data if our buffer overflows.</p>
+<p>The input buffer levels at which these flow control events occur are not something that can be altered. Instead, the recommended way of adjusting the precise times at which flow control events will occur is to alter the size of the receive buffer using the member function <code>SetReceiveBufferLength()</code>. In the situation just described, we would need to set a receive buffer size of around 16K to guarantee no data loss .</p>
+<p>(In practise, it may well be possible to get away with a smaller buffer than this even when the sending system takes one second to respond, as we will almost certainly be removing data from the buffer during the latency period.  However, the precise calculations would clearly depend on the processing requirements of the receiving application.)</p>
+<a name="1.9"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Internal FIFO buffer control</h2>
+</div><div class="Bodytext">
+<p>As well as the buffers in the serial port drivers, the components used to implement many RS232 ports include a small internal <em>FIFO</em> buffer which can be switched on or off.  The presence of such an internal buffer is signified by the <code>iFifo</code> byte in <code>TCommCaps</code> being set, and the FIFO can be enabled or disabled by setting or clearing the <code>iFifo</code> byte in <code>TCommConfig</code> as appropriate.  The default state is for any FIFOs to be automatically enabled, as even a 16 byte FIFO (the usual size) significantly reduces the load on the processor during serial i/o operations, and applications should not disable this without good reason.</p>
+<a name="1.10"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Software flow control and data transparency</h2>
+</div><div class="Bodytext">
+<p>Software flow control presents particular problems of data transparency, since the characters used to suspend and resume the data flow may also occur as valid data bytes. There is no ideal method of handling this situation. For this reason, hardware flow control is the preferred handshaking method whenever there is a requirement for the transfer of binary data in either direction.</p>
+<p>Different policies are adopted for solving data transparency issues, depending on the direction in which the handshaking operates. </p>
+<ul><li><p>Enabling software flow control when sending (setting the <code>KConfigObeyXoff</code> bit in <code>iHandshake</code>) doesn&#8217;t affect the data we are transmitting but it can affect the data we are receiving. In this respect, it is non-transparent. When either of the flow control characters are received, they are acted on by the serial drivers as required and are not passed through to the controlling application. This presents no problem if the serial port is being used to send data to a printer which implements XON/XOFF handshaking, but will most certainly cause difficulty if we are trying to receive binary data using a modem.</p></li>
+<li><p>In contrast, enabling software flow control only when receiving (setting just the <code>KConfigSendXoff</code> bit in <code>iHandshake</code>) has no effect at all on data transferred in either direction. While it doesn&#8217;t prevent an application either receiving or transmitting XON or XOFF, you should note that the meaning of flow control characters embedded in binary data being sent is not going to be clear.</p></li>
+</ul><a name="1.11"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Changing software flow control characters</h2>
+</div><div class="Bodytext">
+<p>It is possible to change the characters that are used for software flow control with the <code>TCommConfig</code> package simply by changing the values in <code>iXonChar</code> and <code>iXoffChar</code>. However, you would normally need compelling reasons to change the defaults of the ASCII DC1 (decimal 17) for XON and DC3 (decimal 19) for XOFF respectively.  In particular, you should note that disabling flow control must be done through <code>iHandshake</code>. Setting <code>iXonChar</code> and <code>iXoffChar</code> to zero is neither necessary nor desirable, and is liable to have extremely unpredictable effects.</p>
+<a name="1.12"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Cancellation of reads and writes</h2>
+</div><div class="Bodytext">
+<p>The next three of the handshaking bitmasks are all of the form <code>KConfigFailxxx</code>, and can be used to set up the conditions under which pending data transfers are automatically cancelled. Examples of the sort of situation this is designed to handle would be attempts to send data over a cable that had been pulled out, or disconnection of a modem during a file download. </p>
+<p>An <code>RComm</code> i/o request can be set to terminate early with a <code>KErrCommsLineFail</code> error if any specified combination of the control lines fail. All you need to do is set the appropriate handshaking bits defined as <code>KConfigFailCTS</code>, <code>KConfigFailDSR</code>, and <code>KConfigFailDCD</code>.  If multiple failure conditions are enabled, it may be necessary for an application to use the <code>Signals()</code> function to ascertain what the exact reason for the comms line failure might have been.</p>
+<a name="1.13"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Handshaking capability checks</h2>
+</div><div class="Bodytext">
+<p>As with the speed and data format, it is possible to use <code>Caps()</code> to find out whether a specified handshaking mode is supported or not. A matching set of enumerated bitmasks can be used with the <code>iHandshake</code> byte in <code>TCommCaps</code> to isolate specific capabilities of the port.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

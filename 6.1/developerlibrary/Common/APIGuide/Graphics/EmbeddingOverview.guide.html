@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Embedding Overview</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="GraphicsOverview%2eEmbeddingOverview%2emain"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="BitmapsOverview.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="FontsOverview.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Graphics</a>&nbsp;<span class="separator">&#187;</span>
+Embedding&nbsp;Overview</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Embedding Overview</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Purpose</h2>
+</div><div class="Bodytext">
+<p>Provides a concept of a picture object, independent of whether it
+is a bitmap or drawing, and support for storing and restoring pictures.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Architectural relationships</h2>
+</div><div class="Bodytext">
+<p>There are two important uses of pictures:</p>
+<ul>
+<li>
+<p>in device families that support document embedding, as defined
+in the Application Architecture Framework API, a picture is used to draw a
+representation of the embedded document's content (called a glass door)</p>
+</li>
+<li>
+<p>rich text, as defined in the Text And Text Attributes API, can
+contain pictures</p>
+</li>
+</ul>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Description</h2>
+</div><div class="Bodytext">
+<p>The API has three key concepts: picture, picture header, and
+picture factory. </p>
+<a name="1.5.3"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Picture</h3>
+</div><div class="Bodytext">
+<p>The picture interface defines a drawable item, that can be stored
+and restored, and possibly cropped and scaled. Derived classes implement the
+interface for particular types of picture. </p>
+<p>The interface is provided by <code>CPicture</code>. The
+capabilities class, <code>TPictureCapability</code>, encapsulates whether the
+picture supports cropping and scaling. </p>
+<a name="1.5.4"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Picture header</h3>
+</div><div class="Bodytext">
+<p>When a picture is stored, a picture header must be as well. The
+header identifies which concrete picture class that should be used to restore
+the picture's data (through a UID), and how to access the picture's data
+(through a swizzle).</p>
+<p>The picture header is provided by
+<code>TPictureHeader</code>.</p>
+<a name="1.5.5"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Picture factory</h3>
+</div><div class="Bodytext">
+<p>The picture factory is an abstract interface for instantiating
+and restoring new <code>CPicture</code>-derived objects. A concrete derived
+class will create pictures of one or more specific types. Supplied with
+information from a picture header, a picture factory creates an instance of the
+appropriate picture class, and tells the instance to internalise the picture
+data from the store. </p>
+<p>The interface is provided by <code>MPictureFactory</code>.</p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="../ApplicationFramework/TextAndTextAttributesOverview.guide.html#ApplicationFrameworkOverview%2eTextAndTextAttributesOverview%2emain">Text and Text Attributes Overview</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

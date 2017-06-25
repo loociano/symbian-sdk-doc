@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Direct file store</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="FileStoresGuide%2efile%2dstores%2edirect"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="FileStoresIntroduction.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="PermanentFileStore.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">File&nbsp;Stores</a>&nbsp;<span class="separator">&#187;</span>
+Direct&nbsp;file&nbsp;store</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Direct file store</h1>
+</div><div class="Bodytext">
+<p>The main characteristic of a direct file store is that streams can be
+created and objects externalised to them but, once the streams have been
+committed and closed, they cannot subsequently be changed, i.e. streams cannot
+be replaced, deleted, extended or changed in any way.</p>
+<p>A direct file store is useful for the type of application which
+treats the in-memory copy of its data as its prime copy, such as a word
+processor which implements the classic load/save paradigm. In this
+paradigm:</p>
+<ul>
+<li>
+<p>application data is first created, in an internal,
+non-persistent, form&nbsp;&#8212; i.e., in RAM</p>
+</li>
+<li>
+<p>when the file is first saved, the data is externalised to the
+file store. When saving its data, an application writes the whole object
+network forming the data to a new direct file store, replacing any existing
+file of the same name. The last stream written is always the root
+stream.</p>
+</li>
+<li>
+<p>the application can exit</p>
+</li>
+<li>
+<p>when the application is started again, it can open the file store
+and read in the persistent data. It need not load the whole object network into
+memory; the loading of objects can be deferred by using Swizzles. </p>
+</li>
+<li>
+<p>the data is edited in its internal, non-persistent form</p>
+</li>
+<li>
+<p>when data is saved again, the old file is erased (or renamed for
+safety!) and completely rewritten</p>
+</li>
+</ul>
+<p>With a direct file store, a stream may not be appended once it has
+been written and closed. Writing to different streams may not be interleaved.
+The root stream must be the last stream to be written. The direct file store is
+very efficient as the allocation of new streams, and finding existing streams,
+are trivially mapped onto the most efficient operations of the underlying file
+system.</p>
+<p>For this type of application, the most efficient file format is
+obtained when all the data is written in sequence to the file. Any references
+within the file are to data which was written earlier. When reading the file
+back, it is read in several sections starting with a section that is at the
+<em>end</em> of the file.</p>
+<p>A typical relationship between a direct file store and its contained
+streams is shown below. In this stream network
+streams&nbsp;<i>I</i> and&nbsp;<i>J</i> must be
+written before stream&nbsp;<i>A</i>;
+stream&nbsp;<i>K</i> must be written before
+stream&nbsp;<i>C</i>;
+streams&nbsp;<i>A</i>,<i>B</i>
+and&nbsp;<i>C</i> must be written before the root stream.</p>
+<div class="Figure">
+<p class="Image"><img src="StreamsInDirect.gif" alt=""  border="0"></p>
+<p class="Caption"></p>
+</div>
+<p>Direct file stores are encapsulated by the
+<code>CDirectFileStore</code> class. </p>
+<a name="1.11"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="../StoreStreams/index.html#StoreStreamsOverview%2etoc">Store streams</a></p>
+<p><a href="../Stores/StoresIntroduction.guide.html#StoresGuide1%2eintroduction">Introduction to stores</a></p>
+<p><a href="../StoreStreams/StoreStreamsGuide3/index.html#StoreStreamsGuide3%2etoc">Swizzles and deferred loading</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to create a private key and self signed certificate</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="Installing%2ehowto%2dcertificate"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToEmbeddedSis.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToMakekeysReq.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Installation&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;create&nbsp;a&nbsp;private&nbsp;key&nbsp;and&nbsp;self&nbsp;signed&nbsp;certificate</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>How to create a private key and self signed certificate</h1>
+</div><div class="Bodytext">
+<p>The Certificate Generator may be used to create a private key, and a public key in the form of a self-signed certificate.  The private key can then be used by the Installation File Generator to digitally sign an installation file.  The self signed certificate can be used by the Certificate Generator to create a certificate request. </p>
+<p>The process is:</p>
+<ol><li><p>Invoke the Certificate Generator on the command line, specifying the name of the private key and certificate to be generated, and the given distinguished name string.</p></li>
+<li><p>Generate the private key, when prompted, by inputting random data to the window using the mouse. The <code class="filename">MSDOS</code> property <code class="ProgramOutput">QuickEdit</code>
+<b>must</b> be turned off for this mouse mechanism to work.</p></li>
+</ol><a name="1.6"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="HowToPackageSignature.guide.html#Installing%2ehowto%2dpackagesignature">How to digitally sign an installation file</a>, <a href="HowToMakekeysReq.guide.html#Installing%2ehowto%2dcertificatereq">How to create a secure digital certificate</a>, </p>
+<a name="1.7"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Example</h2>
+</div><div class="Bodytext">
+<p>The following command line creates a private key and a public key in the form of a self-signed certificate:</p>
+<p class="CodeBlock"><code>makekeys -cert -dname &quot;CN=Symbian OR=Symbian LTD CO=GB&quot; HelloWorld.key HelloWorld.cer</code></p>
+<p>The <code>-dname</code> command passes a simple distinguished name string to Certification Generator. The <code>HelloWorld.key</code> file is the private key file that belongs to the creator and must be kept secret. The <code>HelloWorld.cer</code> file is the self signed public key certificate that can be used to verify the digital signature. </p>
+<p>The self signed certificate <code class="filename">Helloworld.cer</code> can be found in <code class="filename">epoc32ex\ToolsAndUtilities\</code>.</p>
+<a name="1.8"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Notes</h2>
+</div><div class="Bodytext">
+<ul><li><p>The private key may be specified to the Installation File Generator to digitally sign an installation file.</p></li>
+<li><p>For testing purposes, the self-signed certificate may be included in installation files, and used to verify that the digital signature was created using the matching private key. However secure installation requires that the certificate containing the public key be digitally signed by a trusted third party — this certificate may be obtained from a Certification Authority using a Certificate request.</p></li>
+<li><p>The private key and self-signed certificate created here may be used by the Certificate Generator to create a certificate request.</p></li>
+</ul>
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

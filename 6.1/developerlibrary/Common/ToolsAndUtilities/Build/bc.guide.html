@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Controlling binary compatibility</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="tools%2ebc"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="UsingWINSplatform.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="UsingUids.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Build&nbsp;Tools&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+Controlling&nbsp;binary&nbsp;compatibility</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Controlling binary compatibility</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Overview</h2>
+</div><div class="Bodytext">
+<p>It is important for users that the software they buy and use should continue to run on new releases of the Symbian software platform, and that it should be transferable to new devices containing the latest releases of the operating system.</p>
+<p>Ensuring that a current software release does not break existing software is known as maintaining binary compatibility (BC). There is a related compatibility issue for data — ensuring that new software versions remain data compatible with previous versions. Data incompatibilities can be just as galling for software users, making existing documents obsolete, but don't intrinsically affect the software itself.</p>
+<p>BC is most obviously a concern for the systems developers responsible for the evolution of the operating system. However, it is relevant for any developer whose software provides services to client software. Developers whose software uses such services should understand a problem that potentially they may encounter.</p>
+<p>A related concern is where a program is <i>first</i> developed using a version of some system component or a third part service. Developers may need to know whether their programs will also work with <i>older</i> versions of that system component or third part service. This form of compatibility is an added bonus but, generally, backward compatibility is the overriding requirement.</p>
+<a name="1.4"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>The interface as contract</h2>
+</div><div class="Bodytext">
+<p>When a software component is changed, the changes impact all dependent software components — including the ones which have not yet been written. This means that rather than relying on testing, the safety of changes must somehow be guaranteed.</p>
+<p>A component which defines an interface through which it may be used should be regarded as making a contract with the rest of the world. Its interface is its contact. Other components which build against its interface must be guaranteed that when they later run against its interface, nothing will have changed. The BC requirement is that guarantee.</p>
+<p>Although in principle there are many different mechanisms through which software can offer an interface to clients, in the Symbian software platform, BC is a DLL related problem.</p>
+<a name="1.5"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Source compatibility, link compatibility, binary compatibility</h2>
+</div><div class="Bodytext">
+<p>BC is stronger than both link and source compatibility. Maintaining BC also implies that both link and source compatibility are maintained.</p>
+<p>Source compatibility describes the situation where an interface we are using has changed between building against it and running against it, in such a way that we can only recover by rebuilding against the changed interface. Our source need not change, but we must rebuild.</p><p>Because source level interfaces are defined in the published header <code>#include</code> files, it is easy to see whether changes are compatible — examine the changes to the header file.</p>
+<p>Link compatibility describes the situation where to recover from an interface change we must relink our component against a component we originally built against. Our source need not be rebuilt, but we must relink.</p><p>Link level interfaces are defined by the published <em>import</em> library. Again it is not too hard to see whether a change is compatible — ensure that all <em>exported</em> functions are unchanged.</p>
+<p>Binary compatibility guarantees a constant interface between our building and running against another component.</p><p>The BC level interface is not so easy to define and may include quite general behaviour of the changed component. Because it is hard to define it is hard to check for changes which potentially break it. Potential BC breaking changes include:</p>
+<ul><li><p>Virtual member functions are for life — you can't add or remove virtual member functions</p></li>
+<li><p>or change the virtuality of a function</p></li>
+<li><p>or change their declaration order</p></li>
+<li><p>or  override an existing function that was previously inherited</p></li>
+<li><p>You cannot add a UID if was originally omitted from the DLL</p></li>
+</ul><p>Safe changes which preserve <i>backward</i> binary compatibility include:</p>
+<ul><li><p>Any name can be changed <b>but</b> — this requires clear documentation because dependent components must change source code, and usually also requires editing the frozen <code class="filename">.def</code> files</p></li>
+<li><p>Adding services — classes, global functions, static and <i>non-virtual</i> member functions can all be added to a shared library</p></li>
+<li><p>Changing access specification — any member can be made more widely accessible. The reverse is <b>not</b> allowed. Similarly, friendship can be bestowed but not withdrawn</p></li>
+<li><p>You can do what you like with private data and non-virtual function members <b>except</b> — when it would change the class size, or when effectively public data would move in the class</p></li>
+<li><p>Parameters and return values — valid inputs must retain their interpretation and existing output values must retain their meaning</p></li>
+<li><p>Inputs can be widened: e.g. less derived pointer, extended enum, adding a const qualifier or outputs can be narrowed: e.g. more derived pointer, fewer error code values, removing a const qualifier</p></li>
+<li><p>Pointer and reference types can be exchanged</p></li>
+</ul><p> To help maintain BC only release what you need to release — you don't have to support what you don't release </p>
+<a name="1.6"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Controlling binary compatibility with build time tools</h2>
+</div><div class="Bodytext">
+<p>Some potentially BC breaking changes are introduced not by developers but by the build system. The Symbian software platform provides tools which help to control BC by blocking accidental build-time changes.</p>
+<p>When a DLL is loaded it supplies a table of addresses, one for each exported symbol and one for the entry point of each exported function. This is the DLL's public interface. To preserve BC the index of each export must remain constant from one release to another.</p>
+<p>The Symbian software platform uses export definitions (<code class="filename">.def</code>) files to manage this requirement. Each exported symbol is listed in the exports section of the file with its ordinal, which is calculated as index + ordinal base. The Symbian platform uses an ordinal base of 1. By the definition of source compatibility implied by BC, every export defined in an earlier release will be defined in the new release. Exports introduced in a new release must come after those defined in earlier releases.</p>
+<p>For DLL builds,<code>makmake</code> makefiles automatically create the <code class="filename">.def</code> file within the build tree for the specified target. Once these have been generated for a build, they can be archived with the project source and used in future builds to <em>freeze</em> the exports against change. </p>
+<p>This is done by copying the <code class="filename">.def</code> files into a default location and including the directive</p>
+<p><code>DEFFILE projectname.def</code></p>
+<p>in the project <code class="filename">.mmp</code> file.</p>
+<p>In any subsequent <b>command-line</b> build of the project the exports will be guaranteed compatible with the current version. If new exports are added, the new def files should once again be copied from the build directory and archived with the new release. Only command-line builds should be released.</p>
+<p>The creation and translation of <code class="filename">.def</code> files is managed by the Symbian build process, see <a href="HowtoBuildProcess.guide.html#PracticalGuide%2eHowtoBuildProcess">How to use the Symbian build process</a>.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

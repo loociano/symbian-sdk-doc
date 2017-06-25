@@ -1,0 +1,205 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>IAS queries</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="IrDAGuide3%2eIAS%2dqueries"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToIoctlRequests.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToIrDaOptions.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Infrared</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;IrDA&nbsp;Sockets</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Advanced&nbsp;IrDA&nbsp;Sockets&nbsp;API</a>&nbsp;<span class="separator">&#187;</span>
+IAS&nbsp;queries</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>IAS queries</h1>
+</div><div class="Bodytext">
+<p>IrDA Information Acces Service (IAS) database queries are handled on the client side through the <code>RNetDatabase</code> class. </p>
+<p>After instantiating and opening an <code>RNetDatabase</code> object, an IAS query is constructed from a <code>TIASQuery</code> object. The constructor of a <code>TIASQuery</code> requires two descriptors containing the IAS query class name and attribute name. The <code>TIASQuery</code> constructor also takes the remote device address of a discovered machine because when a query is made, the underlying IrLAP connection may not have been established.</p>
+<p>At the protocol level, the IAS query code has been designed to kick up IrLAP and IrLMP layer connections if they are not present.  An <code>RNetDatabase::Query()</code> call is invoked using a <code>TIASResponse</code> instance and the previously constructed <code>TIASQuery</code> object. This is an asynchronous call which completes with:</p>
+<ul><li><p><code>KErrNone</code>, if the query is successfully completed.</p></li>
+<li><p><code>KErrBadName</code>, if no such class has been found on the remote device&#8217;s IAS.</p></li>
+<li><p><code>KErrUnknown</code> ,if the class is present but not the queried attribute.</p></li>
+</ul><p>The application writer is assumed to have some knowledge of the format of IAS queries and responses even though comprehensive IAS response parsing functions are exported from the <code>TIASResponse</code> class. IAS response strings have the following valid formats:</p>
+<div class="Figure">
+<p class="Image"><img src="irapi-table.gif" alt=""  border="0"></p>
+</div>
+<p>Examples of key valid IAS queries and response types are given below with the Class and Attribute Names taking exactly the format they must pass on to a <code>TIASQuery</code> constructor.</p>
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+<p><b>IAS Class Name</b></p>
+</td>
+<td class="Cell">
+<p><b>IAS Attribute Name</b></p>
+</td>
+<td class="Cell">
+<p><b>Description of response</b></p>
+</td>
+<td class="Cell">
+<p><b>Response Type and Offset</b></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>Device</code></p>
+</td>
+<td class="Cell">
+<p><code>DeviceName*</code></p>
+</td>
+<td class="Cell">
+<p>Remote machine&#8217;s device nickname.</p>
+</td>
+<td class="Cell">
+<p>Type 3.
+User string.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>Device</code></p>
+</td>
+<td class="Cell">
+<p><code>IrLMPSupport*</code></p>
+</td>
+<td class="Cell">
+<p>Level of IrMUX and IAS supported by remote station.</p>
+</td>
+<td class="Cell">
+<p>Type 2.
+Octet sequence.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>IrDA:IrCOMM</code></p>
+</td>
+<td class="Cell">
+<p><code>Parameters</code></p>
+</td>
+<td class="Cell">
+<p>Collection of one or more parameters indicating the level of IrCOMM support</p>
+</td>
+<td class="Cell">
+<p>Type 2.
+Octet sequence.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>IrDA:IrCOMM</code></p>
+</td>
+<td class="Cell">
+<p><code>IrDA:IrLMP:LsapSel</code></p>
+</td>
+<td class="Cell">
+<p>Range of remote IrMUX port numbers for IrCOMM service.</p>
+</td>
+<td class="Cell">
+<p>Type 1.
+Integer.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>IrDA:IrCOMM</code></p>
+</td>
+<td class="Cell">
+<p><code>IrDA:TinyTP:LsapSel</code></p>
+</td>
+<td class="Cell">
+<p>Range of remote IrMUX port numbers for TinyTP service.</p>
+</td>
+<td class="Cell">
+<p>Type 1.
+Integer.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>IrDA:IrCOMM</code></p>
+</td>
+<td class="Cell">
+<p><code>IrDA:InstanceName</code></p>
+</td>
+<td class="Cell">
+<p>Used to distinguish between otherwise identical IAS objects on remote station.</p>
+</td>
+<td class="Cell">
+<p>Type 3.
+User string.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>IrDA:IrOBEX</code></p>
+</td>
+<td class="Cell">
+<p><code>IrDA:TinyTP:LsapSel</code></p>
+</td>
+<td class="Cell">
+<p>Range of IrMUX port numbers for IrOBEX service</p>
+</td>
+<td class="Cell">
+<p>Type 1. Integer.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>IrLPT</code></p>
+</td>
+<td class="Cell">
+<p><code>IrDA:IrLMP:LsapSel</code></p>
+</td>
+<td class="Cell">
+<p>Range of remote IrMUX port numbers for remote station IrLPT (applies to IrDA printers only).</p>
+</td>
+<td class="Cell">
+<p>Type 1.
+Integer.</p>
+</td>
+</tr>
+</table></td></tr></table><p>* Note that these two &#8220;Device&#8221; class attributes must be supported by an IrDA-compliant remote station.</p>
+<p>The classes <code>RNetDatabase</code>, <code>TIASQuery</code> and <code>TIASResponse</code> are used for querying a remote station&#8217;s IAS server.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

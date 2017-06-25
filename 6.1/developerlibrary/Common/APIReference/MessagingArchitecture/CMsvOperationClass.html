@@ -1,0 +1,349 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CMsvOperation</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CMsvEntrySelectionClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="CMsvServerEntryClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Messaging&nbsp;Architecture</a>&nbsp;<span class="separator">&#187;</span>
+CMsvOperation</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+<p>Location: <code>
+msvapi.h
+</code><br>Link against: <code>
+msgs.lib
+</code></p>
+</div><div class="Head1">
+<a name="%3a%3aCMsvOperation"></a>
+
+<h1>Class <code>CMsvOperation</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CMsvOperation</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Defines an interface for use by objects which control asynchronous commands in the messaging system. </p><p>Such objects are returned by <code>CMsvEntry</code> and User Interface MTM functions that complete asynchronously. The interface allows clients to:</p>
+<ul><li><p>get progress information about the operation</p></li>
+<li><p>cancel the operation</p></li>
+<li><p>be signalled asynchronously when the operation completes; a client passes in a <code>TRequestStatus</code> of a suitable active object for this purpose</p></li>
+</ul><p>The client only needs to understand the <code>CMsvOperation</code> interface, not the concrete implementation used. </p>
+<p>In pre-Unicode versions this class had the import library mcld.lib.</p>
+<p>Writing derived classes:</p>
+<p>As the base class interface for User Interface MTMs, <code>CBaseUiMtm</code>, defines functions that return <code>CMsvOperation</code> objects for control of asynchronous operations, implementers of these MTM components are required to provide suitable derived classes. For example, if <code>CBaseUiMtm::EditL()</code> is implemented to provide message editing, a <code>CMsvOperation</code> -derived class would be provided that completes when the editing operation is complete.</p>
+<p>Concrete derived classes must provide implementations of the pure virtual <code>DoCancel()</code> and <code>RunL()</code> functions defined by <code>CActive</code>. <code>DoCancel()</code> should be provided in the normal way to cancel the operation. <code>RunL()</code> should, in addition to any other required functionality, always end by signalling the client that the operation is complete with a suitable completion code. </p>
+<p>In pre-Unicode versions this class had the import library mcld.lib.</p>
+<h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive">CActive</a></code></td><td class="Cell">The core class of the active object abstraction</td>
+</tr>
+<tr><td class="Cell"><code><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase">CBase</a></code></td><td class="Cell">Base class for all classes to be instantiated on the heap</td>
+</tr>
+<tr><td class="Cell"><code>CMsvOperation</code></td><td class="Cell">Defines an interface for use by objects which control asynchronous commands in the messaging system</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>CMsvOperation</code>:
+<br><code class="ApiItem"><a href="CMsvOperationClass.html#%3a%3aCMsvOperation%3a%3aCMsvOperation%28%29" title="Called by MTM implementers from the derived class constructor">CMsvOperation()</a></code>, <code class="ApiItem"><a href="CMsvOperationClass.html#%3a%3aCMsvOperation%3a%3aFinalProgress%28%29" title="Gets information about a completed operation">FinalProgress()</a></code>, <code class="ApiItem"><a href="CMsvOperationClass.html#%3a%3aCMsvOperation%3a%3aId%28%29" title="Gets the operation ID">Id()</a></code>, <code class="ApiItem"><a href="CMsvOperationClass.html#%3a%3aCMsvOperation%3a%3aMtm%28%29" title="Gets the UID of the MTM associated with the operation">Mtm()</a></code>, <code class="ApiItem"><a href="CMsvOperationClass.html#%3a%3aCMsvOperation%3a%3aProgressL%28%29" title="Gets information on the progress of the operation">ProgressL()</a></code>, <code class="ApiItem"><a href="CMsvOperationClass.html#%3a%3aCMsvOperation%3a%3aService%28%29" title="Gets the ID of the service that is associated with this operation">Service()</a></code>, <code class="ApiItem"><a href="CMsvOperationClass.html#%3a%3aCMsvOperation%3a%3aiMsvSession" title="Message Server session used by object">iMsvSession</a></code>, <code class="ApiItem"><a href="CMsvOperationClass.html#%3a%3aCMsvOperation%3a%3aiMtm" title="The UID of the MTM associated with the operation">iMtm</a></code>, <code class="ApiItem"><a href="CMsvOperationClass.html#%3a%3aCMsvOperation%3a%3aiObserverRequestStatus" title="Request status of the operation observer">iObserverRequestStatus</a></code>, <code class="ApiItem"><a href="CMsvOperationClass.html#%3a%3aCMsvOperation%3a%3aiService" title="The ID of the service that is associated with this operation">iService</a></code>, <code class="ApiItem"><a href="CMsvOperationClass.html#%3a%3aCMsvOperation%3a%3a%7eCMsvOperation%28%29" title="Destructor">~CMsvOperation()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive" title="The core class of the active object abstraction">CActive</a></code>:
+<br><code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aCancel%28%29" title="Cancels the wait for completion of an outstanding request">Cancel()</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aDeque%28%29" title="Removes the active object from the active scheduler's list of active objects">Deque()</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aDoCancel%28%29" title="Implements cancellation of an outstanding request">DoCancel()</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aEPriorityHigh" title="A priority higher than EPriorityUserInput">EPriorityHigh</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aEPriorityIdle" title="A low priority, useful for active objects representing background processing">EPriorityIdle</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aEPriorityLow" title="A priority higher than EPriorityIdle but lower thanEPriorityStandard">EPriorityLow</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aEPriorityStandard" title="Most active objects will have this priority">EPriorityStandard</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aEPriorityUserInput" title="A priority higher than EPriorityStandard; useful for active objects handling user input">EPriorityUserInput</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aIsActive%28%29" title="Determines whether the active object has a request outstanding">IsActive()</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aIsAdded%28%29" title="Determines whether the active object has been added to the active scheduler's list of active objects">IsAdded()</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aPriority%28%29" title="Returns the priority of the active object">Priority()</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aRunError%28%29" title="Handles a leave occurring in the request completion event handlerRunL()">RunError()</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aRunL%28%29" title="Handles an active object's request completion event">RunL()</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aSetActive%28%29" title="Indicates that the active object has issued a request and that it is now outstanding">SetActive()</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aSetPriority%28%29" title="Sets the priority of the active object">SetPriority()</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aTPriority" title="Defines standard priorities for active objects">TPriority</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aiStatus" title="The request status associated with an asynchronous request">iStatus</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap">CBase</a></code>:
+<br><code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase%3a%3aoperator%20new%28%29" title="Allocates the object from the heap and then initialises its contents to binary zeroes">operator new()</a></code></p>
+<a name="2.6"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Constructor &amp; destructor</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aCMsvOperation%3a%3aCMsvOperation%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CMsvOperation()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CMsvOperation(CMsvSession&amp; aSession, TInt aPriority, TRequestStatus&amp; aObserverRequestStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Called by MTM implementers from the derived class constructor. <code>CMsvOperation</code>-derived objects are not created by message client applications. </p>
+<p>The constructor uses the <code>CMsvSession</code> object to obtain a ID for the operation. This ID can be accessed by clients through <code>Id()</code>. </p>
+<p><code>aPriority</code> is the priority used by the active object. Typically, this is <code>EPriorityStandard</code>.</p>
+<p><code>aObserverRequestStatus</code> is the asynchronous status object of an active object provided by the caller. The derived class is required to signal the caller  through this when the operation completes. It is stored by the constructor in the <code>iObserverRequestStatus</code> member.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvSession&amp; aSession
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Session object
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt aPriority
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Active object priority
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aObserverRequestStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Request status of operation observer
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aCMsvOperation%3a%3a%7eCMsvOperation%28%29"></a>
+<hr size="1" noshade>
+<h3><code>~CMsvOperation()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>~CMsvOperation();</code></p><h4 class="subheading">Description</h4>
+<p>Destructor.</p><p>This base class function takes no action. Derived classes should implement a destructor to do the clean up tasks that they require. Minimally, they should call <code>Cancel()</code> to cancel any outstanding request.</p>
+<a name="2.7"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Progress reporting</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aCMsvOperation%3a%3aProgressL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ProgressL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual const TDesC8&amp; ProgressL()=0;</code></p><h4 class="subheading">Description</h4>
+<p>Gets information on the progress of the operation. </p>
+<p>All operations on local entries share the same progress information format, which defined by <code>TMsvLocalOperationProgress</code>. </p>
+<p>For MTM-specific operations, progress information can be extracted by calling <code>CBaseUiMtm::GetProgress()</code> or displayed by <code>CBaseUiMtm::DisplayProgressSummary()</code> on the appropriate User Interface MTM.</p>
+<p>Requirements:</p>
+<p>Derived classes should implement this function so that the client can check on the progress of the operation. The function should share an understanding of the format of the buffer with the implementations of <code>CBaseUiMtm::GetProgress()</code> and <code>CBaseUiMtm::DisplayProgressSummary()</code> in the User Interface MTM. The arguments of <code>CBaseUiMtm::GetProgress()</code> show some information that should be included where appropriate.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TDesC8&amp;
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Descriptor  holding progress information. The maximum buffer size should be <code>KMsvProgressBufferLength</code> (defined in msvipc.h).</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotReady
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The operation has not yet been started: it has been queued for execution in the Message Server
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aCMsvOperation%3a%3aFinalProgress%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FinalProgress()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual const TDesC8&amp; FinalProgress();</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Gets information about a completed operation. </p><p>Unlike <code>ProgressL()</code>, this is guaranteed to provide status information reflecting the outcome of a completed operation.</p>
+<p>Requirements:</p>
+<p>The default implementation of this function returns the result from <code>ProgressL()</code>. If the operation is active or <code>ProgressL()</code> leaves, a panic occurs. </p>
+<p>A derived class should implement the function to meet the requirement to provide appropriate final status information. Typically, on active object completion, it will store progress information in a private member, and return that stored information from this function.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TDesC8&amp;
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Descriptor holding progress information
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Accessors</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aCMsvOperation%3a%3aId%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Id()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TMsvOp Id() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the operation ID. </p><p>This ID is unique within a Message Server session. The ID allows the client to keep track of different operations. </p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvOp
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The ID of the operation
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aCMsvOperation%3a%3aMtm%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Mtm()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TUid Mtm() const;</code></p><h4 class="subheading">Support</h4>
+<p>Withdrawn in 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Gets the UID of the MTM associated with the operation.</p>
+<p>This UID can be used to determine the appropriate method of getting information from a progress descriptor. </p>
+<p>If the operation is not associated with a service, it returns <code>KUidMsvLocalServiceMtm</code>.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TUid
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The UID of the MTM associated with the operation
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CMsvOperationClass.html#%3a%3aCMsvOperation%3a%3aProgressL%28%29" title="Gets information on the progress of the operation"><code class="ApiItem">ProgressL()</code></a></li>
+</ul>
+<a name="2.8.4"></a></div><div class="Head3">
+<a name="%3a%3aCMsvOperation%3a%3aMtm%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Mtm()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TUid Mtm() const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Gets the UID of the MTM associated with the operation.</p>
+<p>This UID can be used to determine the appropriate method of getting information from a progress descriptor. </p><p>The default implementation returns <code>iMtm</code>.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TUid
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The UID of the MTM associated with the operation
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CMsvOperationClass.html#%3a%3aCMsvOperation%3a%3aProgressL%28%29" title="Gets information on the progress of the operation"><code class="ApiItem">ProgressL()</code></a></li>
+</ul>
+<a name="2.8.5"></a></div><div class="Head3">
+<a name="%3a%3aCMsvOperation%3a%3aService%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Service()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TMsvId Service() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the ID of the service that is associated with this operation.</p>
+<p>If the operation is not associated with a service, the function returns <code>KMsvLocalServiceIndexEntryId</code>.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+ID of the service associated with the operation
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Protected member data</h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aCMsvOperation%3a%3aiService"></a>
+<hr size="1" noshade>
+<h3><code>iService</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: TMsvId iService</code></p><h4 class="subheading">Description</h4>
+<p>The ID of the service that is associated with this operation. </p><p>Usually, the derived class constructor  will contain a suitable argument to allow the caller to set this.</p>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CMsvOperationClass.html#%3a%3aCMsvOperation%3a%3aService%28%29" title="Gets the ID of the service that is associated with this operation"><code class="ApiItem">Service()</code></a></li>
+</ul>
+<a name="2.9.3"></a></div><div class="Head3">
+<a name="%3a%3aCMsvOperation%3a%3aiMtm"></a>
+<hr size="1" noshade>
+<h3><code>iMtm</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: TUid iMtm</code></p><h4 class="subheading">Description</h4>
+<p>The UID of the MTM associated with the operation. </p><p>The appropriate value should be set by the derived class constructor.</p>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CMsvOperationClass.html#%3a%3aCMsvOperation%3a%3aMtm%28%29" title="Gets the UID of the MTM associated with the operation"><code class="ApiItem">Mtm()</code></a></li>
+</ul>
+<a name="2.9.4"></a></div><div class="Head3">
+<a name="%3a%3aCMsvOperation%3a%3aiObserverRequestStatus"></a>
+<hr size="1" noshade>
+<h3><code>iObserverRequestStatus</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: TRequestStatus&amp; iObserverRequestStatus</code></p><h4 class="subheading">Description</h4>
+<p>Request status of the operation observer. </p><p>This is the <code>aObserverRequestStatus</code> passed in the constructor.</p>
+<a name="2.9.5"></a></div><div class="Head3">
+<a name="%3a%3aCMsvOperation%3a%3aiMsvSession"></a>
+<hr size="1" noshade>
+<h3><code>iMsvSession</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: CMsvSession&amp; iMsvSession</code></p><h4 class="subheading">Description</h4>
+<p>Message Server session used by object. This is set by the constructor.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

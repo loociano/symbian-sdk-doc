@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Handle numbers</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="handles%2ehandle%2dnumbers"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HandlesOverview.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HandlesKernelSideObjectContainers.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Handles</a>&nbsp;<span class="separator">&#187;</span>
+Handle&nbsp;numbers</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Handle-numbers</h1>
+</div><div class="Bodytext">
+<p>A handle is a way in which a thread or process can identify an object that is owned or managed by another thread or
+process. Such objects are  Kernel side objects.</p><p>A handle uses a number, the handle-number, to identify the associated Kernel side object. The handle, an instance of a <code>RHandleBase</code> derived class,
+encapsulates the handle-number.</p><p>
+The objects referred to by handles are always instances of <code>CObject</code> derived classes, i.e. they are reference counting
+objects. The handle-number is created when the object is created (or opened, if the object already exists) and added to an object
+index.
+</p><p>Typically, calling <code>Open()</code> or <code>Create()</code> or a similarly named function on an <code>RHandleBase</code>
+<em>derived</em> class causes the
+associated object to be created or opened and added to an object index, owned either by the thread or the process. Adding the
+object to the object index creates a handle-number and this is returned to, and encapsulated by, the  handle.</p><p>For example,  <code>RMutex</code>  is the handle for a mutex; all
+user side interaction with a specific mutex is directed through an instance of <code>RMutex</code>. The <code>RMutex</code> object exists on the
+user side; the corresponding mutex (a DMutex object) exists on the Kernel side.</p><div class="Figure">
+<p class="Image"><img src="HandlesNumber.gif" alt=""  border="0"></p>
+</div><p>Here, code running on the user side constructs an <code>RMutex</code> and calls its <code>Create()</code> member function. This causes the
+Kernel to:</p><ul><li><p>construct the corresponding Kernel object, a <code>DMutex</code></p></li><li><p>add the <code>DMutex</code> to the current thread's object index (a <code>CObjectIx</code>)</p></li><li><p>return the handle-number to the RMutex.</p></li></ul><p class="CodeBlock"><code>...<br>RMutex m;<br>m.Create();<br>...</code></p>
+<p>See also:</p>
+<ul><li><p><a href="../ReferenceCountingObjects/ObjectIndex.guide.html#ReferenceCountingObjects%2eobject%2dindex">The object index</a></p>
+<p><a href="../ReferenceCountingObjects/HandleNumberAndObjectIndex.guide.html#ReferenceCountingObjects%2ehandle%2dnumber%2dand%2dobject%2dindex">The handle-number and the object index</a></p>
+<p><a href="../ReferenceCountingObjects/index.html#ReferenceCountingObjectsOverview%2etoc">Reference counting objects</a></p></li></ul>
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

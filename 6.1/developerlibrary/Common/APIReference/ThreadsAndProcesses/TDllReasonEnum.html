@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>TDllReason</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="TCommandTypedef.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="TExceptionHandlerTypedef.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Threads&nbsp;and&nbsp;Processes</a>&nbsp;<span class="separator">&#187;</span>
+TDllReason</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>e32std.h</code>
+<br>Link against: <code></code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aTDllReason"></a>
+
+<h1>Enum <code>TDllReason</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>TDllReason</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Defines the context in which the DLL is entered. The meaning of the
+enumerator values depends on the target implementation, i.e. ARM or WINS. This
+enumeration is used as an argument to the function <code>E32Dll()</code>, the
+main DLL entry point.</p>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aEDllProcessAttach"><code class="Value">EDllProcessAttach</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>WINS implementation:</para>
+<para>Indicates that a DLL is attaching to the current process as a
+result of the process starting up or as a result of the first load of this DLL
+in the current process. A DLL can allocate thread-local storage for the primary
+thread here.</para>
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aEDllThreadAttach"><code class="Value">EDllThreadAttach</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>ARM implementations:</para>
+<para>Indicates that the DLL is being attached to a thread either as a
+result of a static link or as a result of a call to the <code>Load()</code>
+member function of <code>RLibrary</code>. A DLL can set up thread-local storage
+here.</para>
+<para>
+</para>
+<para>Indicates that the DLL is being attached to a thread as a result
+of a static link. The entry point is called when attaching to all threads in
+the process</para>
+<para>Do not set thread-local storage when attaching to the primary
+thread (the first call to the entry point with this reason). Thread-local
+storage can be set when attaching to secondary threads (the second and
+subsequent calls to the entry point with this reason).</para>
+<para>Note, the entry point is not called with this reason when
+attaching to a thread as a result of a call to the <code>Load()</code> member
+function of <code>RLibrary</code>.</para>
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aEDllThreadDetach"><code class="Value">EDllThreadDetach</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>ARM Implementations:</para>
+<para>Indicates that the DLL is being detached from a thread. A DLL can
+reset thread-local storage here.</para>
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aEDllProcessDetach"><code class="Value">EDllProcessDetach</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>WINS implementation : </para>
+<para>Indicates that the DLL is detaching from the calling process as a
+result of a process exit.</para>
+</p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

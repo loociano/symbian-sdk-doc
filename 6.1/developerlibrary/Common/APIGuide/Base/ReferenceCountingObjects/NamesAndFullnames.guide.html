@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Names and fullnames</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="ReferenceCountingObjects%2enames%2dfullnames"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="FindHandleNumber.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="AccessingObjects.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Reference&nbsp;Counting&nbsp;Objects</a>&nbsp;<span class="separator">&#187;</span>
+Names&nbsp;and&nbsp;fullnames</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Names and fullnames</h1>
+</div><div class="Bodytext">
+<p>A reference counting object can be identified by a <em>name</em>. A name consists of a string of characters whose length must not be greater than <code>KMaxName</code>, a symbol defined in e32std.h.</p><p>
+A name can contain any character except: *, ? and :, i.e. the characters asterisk, question mark and single colon. The system static function <code>User::ValidateName()</code> is available to do this.</p><p>A reference counting object can also be identified by its <em>full name</em>. This is descriptive of the reference counting object's ownership hierarchy, i.e.  it is a name that identifies the reference counting object in the context of its owning reference counting object.</p><p>The full name is a concatenation of:</p><ul><li><p>the <em>name</em> of the owning reference counting object</p></li><li><p>a double colon <i>::</i></p></li><li><p>the name of the reference counting object</p></li></ul><p>The length of a full name must not be greater than <code>KMaxFullName</code>, a symbol defined in e32std.h.</p><p>For example, given the three <code>CObject</code> derived objects: <code>x</code>, <code>y</code> and <code>z</code> with names: <code>one</code>, <code>two</code> and <code>three</code> respectively, where <code>x</code> is owned by <code>y</code> and <code>y</code>, in turn, is owned by <code>z</code>:</p><p class="CodeBlock"><code>_LIT(KTxtOne,&quot;one&quot;);<br>_LIT(KTxtTwo,&quot;two&quot;);<br>_LIT(KTxtThree,&quot;three&quot;);<br><br>class CSomeClass : public CObject<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;};<br><br>...<br>CSomeClass* x;<br>CSomeClass* y;<br>CSomeClass* z;<br>...<br>x = new(ELeave) CSomeClass;<br>y = new(ELeave) CSomeClass;<br>z = new(ELeave) CSomeClass;<br>...<br>x-&gt; SetName(KTxtOne);<br>y-&gt; SetName(KTxtTwo);<br>z-&gt; SetName(KTxtThree);<br>...<br>x-&gt;SetOwner(y);<br>y-&gt;SetOwner(z);<br>...</code></p><ul><li><p>the full name of <code>x</code> is <code>three::two::one</code></p></li><li><p>the full name of <code>y</code> is <code>three::two</code></p></li><li><p>the full name of <code>z</code> is <code>three</code>, the same as its name.</p></li></ul><p>Names give reference counting objects an identity and are used when searching for a specific object or a group of related objects.</p><p>Global Kernel objects have names; this is how global Kernel objects such as semaphores, mutexes etc. can be found.</p><p>See also:</p><ul><li><p><a href="../../../APIReference/SystemStaticFunctions/UserClass.html#%3a%3aUser%3a%3aValidateName%28%29" title="Checks whether a specified name is a valid CObject name"><code class="ApiItem">User::ValidateName()</code></a></p></li><li><p><a href="../../../APIReference/Handles/TFindHandleBaseClass.html#%3a%3aTFindHandleBase" title="Base class for searching for global Kernel objects"><code class="ApiItem">TFindHandleBase</code></a></p></li></ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

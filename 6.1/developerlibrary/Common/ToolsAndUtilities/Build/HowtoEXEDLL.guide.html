@@ -1,0 +1,280 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to build for a DLL target</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="PracticalGuide%2eHowtoDLLtarget"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowtoGUIApplication.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowtoEXEtarget.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Build&nbsp;Tools&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;build&nbsp;for&nbsp;a&nbsp;DLL&nbsp;target</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to build for a DLL target</h1>
+</div><div class="Bodytext">
+<p>There are fundamentally two types of DLL target&#8212;static
+interface DLLs and polymorphic interface DLLs. Building either type of DLL
+target generates two files, the compiled DLL with a <code class="filename">.dll</code> extension
+and an import library with a <code class="filename">.lib</code> extension. To use the functions
+provided by a DLL, a client program compiles with the <code class="filename">.h</code> file
+<code>#included</code> and links against the <code class="filename">.lib</code> file. The
+<code class="filename">.dll</code> file contains the executable code that is called at run-time.
+The <code class="filename">.lib</code> import library for polymorphic DLLs is never used for
+reasons discussed in the DLL guide. </p>
+<p>In EPOC a special case also exists, the <code>epocexe</code> target
+type which is necessary in rare cases because of the single process nature of
+the WINS implementation of EPOC.</p>
+<p>The toolchains used to deliver DLL project in WINS and ARM are shown
+below:</p>
+<div class="Figure">
+<p class="Image"><img src="dll-wins-arm.gif" alt=""  border="0"></p>
+</div>
+<p>Under WINS, the C++ source is compiled to object files in the build
+directory; these are then linked into the release directory. You must run an
+executable program to invoke this DLL. Other programs may be built to use the
+DLL, by linking against the <code class="filename">.lib</code> which was built with the
+DLL.</p>
+<p>Under ARM, the C++ source is compiled using GNU C++, and then linked
+into the release directory. The tools ensure that all DLLs for ARM are linked
+by ordinal, so as to minimise their size. You may transfer the DLL to a target
+machine, along with suitable programs to allow it to be executed. Leave the
+<code class="filename">.lib</code> in the release directory, so you can build other programs
+which use this DLL.</p>
+<p>The build process hides much of this complexity, and is the similar
+for all types of DLL&#8212;see the linked topic below. The following sections
+discuss the special configuration issues associated with building for DLL
+targets.</p>
+<h4 class="subheading">See also</h4>
+<p><a href="HowtoBuildProcess.guide.html#PracticalGuide%2eHowtoBuildProcess">How to use the Symbian build process</a></p>
+<p><a href="../../APIGuide/Base/DynamicallyLoadingLinkLibraries/DynamicallyLoadingLinkLibrariesOverview.guide.html#DynamicallyLoadingLinkLibrariesOverview%2emain">Dynamically Loading Link Libraries API</a></p>
+<p><a href="../../DeveloperGuide/EssentialIdioms/FrameworksLibsDlls.html#idioms%2eframeworks">Frameworks, libraries and DLLs</a></p>
+<a name="1.14"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Static interface DLL projects</h2>
+</div><div class="Bodytext">
+<p>A static interface DLL represents an interface which is defined to
+its clients by one or more headers for use at compile time, and an import
+library (<code class="filename">.lib</code>) for use at link time. Then, when a client
+executable is loaded at run-time, the loader notes that it requires the static
+interface DLL to be available. </p>
+<p>The loader either loads the DLL or, if it is loaded already,
+attaches the new client to it. Conventionally, the DLL is identified by name
+only. </p>
+<p>In EPOC, all static interface DLLs must have a <code>uid2</code> of
+<code>0x1000008d</code>. </p>
+<p>The particular static interface DLL is then identified by name and
+by <code>uid3</code>. </p>
+<p>If a DLL called <code class="filename">helloview.dll</code> is built with
+<code>uid3</code>=<code>0x10000252</code>, then the name used in the import
+library for non-Win32 builds of EPOC is <code class="filename">helloview[10000252]</code>.
+</p>
+<p>The EPOC loader loads the <code class="filename">helloview.dll</code>, and checks
+that its UID is <code>0x10000252</code>. If the <code>uid3</code> in the DLL
+does not match, then the load fails.</p>
+<a name="1.14.8"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>mmp project specification</h3>
+</div><div class="Bodytext">
+<p>A static interface DLL project file must specify the correct
+target type and UID:</p>
+<ul>
+<li>
+<p>Specify the <code>TARGETTYPE</code> line as: </p>
+<p><code> TARGETTYPE dll</code></p>
+<p>This implicitly specifies <code>UID1</code>. </p>
+</li>
+<li>
+<p>Specify the UID for the DLL in a <code>UID</code> line:
+</p>
+<p><code>UID 0x1000008d</code>
+<em class="metasyntactic">UID3</em>. </p>
+</li>
+</ul>
+<a name="1.14.9"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Example mmp file</h3>
+</div><div class="Bodytext">
+<p>An example of the <code class="filename">mmp</code> project file for a static DLL
+is given below&#0160;&#8212; <code class="filename">CreateStaticDLL.mmp</code>.</p>
+<p class="CodeBlock"><code>TARGET        CreateStaticDLL.dll<br>TARGETTYPE    dll<br>UID           0x1000008d 0x10004268<br>SOURCEPATH    .<br>SOURCE        CreateStaticDLL.cpp<br>USERINCLUDE   .<br>SYSTEMINCLUDE \Epoc32\include<br>LIBRARY       euser.lib<br>EXPORTUNFROZEN</code></p>
+<a name="1.15"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Polymorphic interface DLL</h2>
+</div><div class="Bodytext">
+<p>A polymorphic DLL represents an interface defined with a gate
+function and an abstract class with at least one virtual function. </p>
+<p>The polymorphic DLL exports the gate function at ordinal 1, which
+typically constructs a concrete class derived from the abstract interface. The
+virtual function is then called, and the functions of the class are available.
+</p>
+<p>Examples of polymorphic DLLs in EPOC include device drivers, GUI
+application programs, and many more.</p>
+<p>Each type of interface should specify its own UID, which is used as
+<code>uid2</code> for the polymorphic DLL. </p>
+<p>The function responsible for loading a polymorphic DLL should check
+that its <code>uid2</code> corresponds with the expected interface type.</p>
+<p>For polymorphic DLLs, the interpretation of <code>uid3</code>
+depends on the interface type. <code>uid3</code> may not be required by all
+interfaces. </p>
+<p>The application architecture mandates that <code>uid3</code>
+identify the particular application: the <code>uid3</code> is used to relate an
+application program to its document files.</p>
+<p>The build process for a polymorphic DLL produces an import library
+(<code class="filename">.lib</code>), but it is not used.</p>
+<a name="1.15.10"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>mmp project specification</h3>
+</div><div class="Bodytext">
+<p>The project file for a polymorphic DLL must specify the correct
+target type and UIDs:</p>
+<ul>
+<li>
+<p>Specify the <code>TARGETTYPE</code> line as: </p>
+<p><code>TARGETTYPE dll</code></p>
+<p>This implicitly specifies <code>UID1</code>. Note that a GUI
+application is a special type of polymorphic DLL and has a different target
+type.</p>
+</li>
+<li>
+<p>Specify the UID for the DLL in a <code>UID</code> line:
+</p>
+<p><code>UID</code>
+<em class="metasyntactic">UID2</em>
+[<em class="metasyntactic">UID3</em>]. </p>
+<p>The <em class="metasyntactic">UID2</em> value is defined by the interface
+which is being implemented. Some types of polymorphic DLL also require a third
+UID, but, if so, its meaning is defined by the DLL.</p>
+</li>
+</ul>
+<a name="1.15.11"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Polymorphic DLL UID summary</h3>
+</div><div class="Bodytext"><p>The following table summarises the UID usage for the common system-defined polymorphic DLLs:</p><table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top"><td class="Cell"><p><b>Description</b></p></td><td class="Cell"><p><b>Usual extension</b></p></td><td class="Cell"><p><b>UID2</b></p></td><td class="Cell"><p><b>UID3 required?</b></p></td></tr><tr valign="top"><td class="Cell"><p>application</p></td><td class="Cell"><p>app</p></td><td class="Cell"><p><code>KUidApp</code> in <code class="filename">apadef.h</code></p></td><td class="Cell"><p>yes</p></td></tr><tr valign="top"><td class="Cell"><p>animation</p></td><td class="Cell"><p>ani</p></td><td class="Cell"><p><code>KWservAnimDllUid</code> in <code class="filename">w32adll.h</code></p></td><td class="Cell"><p>no</p></td></tr><tr valign="top"><td class="Cell"><p>control panel applet</p></td><td class="Cell"><p>ctl</p></td><td class="Cell"><p><code>KUidSystemControlDll</code> in <code class="filename">apgctl.h</code></p></td><td class="Cell"><p>yes</p></td></tr><tr valign="top"><td class="Cell"><p>front-end processor</p></td><td class="Cell"><p>fep</p></td><td class="Cell"><p>0x10005e32</p></td><td class="Cell"><p>yes</p></td></tr><tr valign="top"><td class="Cell"><p>MIME recognizer</p></td><td class="Cell"><p>mdl</p></td><td class="Cell"><p>0x10003A19</p></td><td class="Cell"><p>yes</p></td></tr><tr valign="top"><td class="Cell"><p>serial protocol module</p></td><td class="Cell"><p>csy</p></td><td class="Cell"><p><code>KUidUnicodeCommServerModuleV02</code> in <code class="filename">cs_port.h</code></p></td><td class="Cell"><p>no</p></td></tr><tr valign="top"><td class="Cell"><p>socket server protocol module</p></td><td class="Cell"><p>prt</p></td><td class="Cell"><p><code>KUidProtocolModule</code> in <code class="filename">es_prot.h</code></p></td><td class="Cell"><p>yes</p></td></tr><tr valign="top"><td class="Cell"><p>Server-side MTM</p></td><td class="Cell"><p>dll</p></td><td class="Cell"><p><code>KUidMtmServerComponent</code>  in <code class="filename">msvruids.h</code></p></td><td class="Cell"><p>yes</p></td></tr><tr valign="top"><td class="Cell"><p>Client-side MTM</p></td><td class="Cell"><p>dll</p></td><td class="Cell"><p><code>KUidMtmClientComponent</code>  in <code class="filename">msvruids.h</code></p></td><td class="Cell"><p>yes</p></td></tr><tr valign="top"><td class="Cell"><p>UI MTM</p></td><td class="Cell"><p>dll</p></td><td class="Cell"><p><code>KUidMtmUiComponent</code>  in <code class="filename">msvruids.h</code></p></td><td class="Cell"><p>yes</p></td></tr><tr valign="top"><td class="Cell"><p>UI Data MTM</p></td><td class="Cell"><p>dll</p></td><td class="Cell"><p><code>KUidMtmUiDataComponent</code>  in <code class="filename">msvruids.h</code></p></td><td class="Cell"><p>yes</p></td></tr></table></td></tr></table><a name="1.15.12"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Example mmp file</h3>
+</div><div class="Bodytext">
+<p>An example of the <code class="filename">makmake</code> project file for a
+polymorphic DLL is given below <code class="filename">PolymorphicDLL1.mmp</code>.</p>
+<p class="CodeBlock"><code>TARGET        PolymorphicDLL1.dll<br>TARGETTYPE    dll<br>UID           0x10004262 0x10004264<br>SOURCEPATH    .<br>SOURCE        PolymorphicDLL1.cpp<br>USERINCLUDE   .<br>USERINCLUDE   ..\UsingDLLs<br>SYSTEMINCLUDE \Epoc32\include<br>LIBRARY       euser.lib<br>EXPORTUNFROZEN</code></p>
+<p>GUI applications are a special case of a polymorphic interface
+DLL. An example of how to build this type of DLL is given in the linked
+topic.</p>
+<h4 class="subheading">See also</h4>
+<p><a href="HowtoGUIApplication.guide.html#PracticalGuide%2eHowtoGUItarget">How to build for a GUI APP target</a></p>
+<a name="1.16"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>How to freeze exports</h2>
+</div><div class="Bodytext">
+<p>Released versions of DLLs should freeze their exports, so as to
+ensure the backward compatibility of new releases of a library. While you are
+developing a DLL, you can use the <code>exportunfrozen</code> keyword in the
+project's mmp file, to tell the build process that exports are not yet frozen.
+When you are ready to freeze, remove the <code>exportunfrozen</code> keyword,
+and supply a <code class="filename">.def</code> file listing the exports.</p>
+<p>To create a <code class="filename">.def</code> file, build the project in the normal
+way. A warning will be generated to the effect that the frozen
+<code class="filename">.def</code> file does not yet exist. Once the project has been built you
+can freeze it by calling the <code>freeze</code> target in the makefiles. You
+can do this with <code>abld</code> by using:</p>
+<p class="CommandLine"><code>&gt; abld freeze
+</code></p>
+<p>or directly through <code>nmake</code> by:</p>
+<p class="CommandLine"><code>&gt; nmake -f &lt;makefile&gt; freeze
+</code></p>
+<p>Either method will create the frozen <code class="filename">.def</code> file
+containing the project&#8217;s exported functions. Note that all ARM platforms
+share a common <code class="filename">.def</code> file, but that WINS has a different
+<code class="filename">.def</code> file. </p>
+<p>Once the project is frozen, regenerate the makefiles so that the
+import library will be created directly from the frozen <code class="filename">.def</code> file.
+</p>
+<p>The project can be frozen in this way even if the
+<code>exportunfrozen</code> statement is specified, but the import library will
+be created as a side-effect of linking rather than from the frozen
+<code class="filename">.def</code> file, and this import library will be created whether the
+project is frozen or not.</p>
+<h4 class="subheading">Adding new exports</h4>
+<p>New exports can be added to the frozen <code class="filename">.def</code> file by
+calling the <code>freeze</code> target in the makefiles once the project has
+been built with the new exports incorporated. </p>
+<p>The <code>freeze</code> target calls a tool, <code class="filename">efreeze</code>,
+to compare the frozen <code class="filename">.def</code> file, if it exists, with the one
+generated by the two-stage link process in directory:</p>
+<p>
+<code class="filename">\epoc32\Build\</code><em class="metasyntactic">absolute_path_to_mmp_file</em><code class="filename">\</code><em class="metasyntactic">mmp_basename</em><code class="filename">\</code><em class="metasyntactic">platform</em><code class="filename">\
+</code></p>
+<p><code class="filename">efreeze</code> checks that the frozen exports are all present
+and correct in the generated <code class="filename">.def</code> file, and appends any new
+exports to the end of the frozen <code class="filename">.def</code> file.</p>
+<a name="1.17"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>EXE/DLLs</h2>
+</div><div class="Bodytext">
+<p>WINS is single process. Therefore some projects, which build a
+<code class="filename">.exe</code> under ARM to be loaded at run-time, must build a
+<code class="filename">.dll</code> under WINS. For such purposes, the <code class="filename">.dll</code> is a
+kind of polymorphic DLL whose first entry point does just the same thing as the
+<code class="filename">.exe</code>&#8217;s main entry point would do. Such projects are built
+as an <code class="filename">.exe</code> under ARM and a <code class="filename">.dll</code> under the Emulator.
+</p>
+<p>The build target <code>epocexe</code> creates an executable that
+can be launched from the shell. It produces an executable program that exports
+no functions under a multi-process platform (ARM), and a DLL which is linked
+with a function <code>TInt WinsMain()</code> exported as ordinal 1 under a
+single-process (WINS) platform.</p>
+<p>Note that in EPOC R5 releases and before, the <code>exedll</code>
+target was commonly used for this purpose. In later versions,
+<code>exedll</code> should only be used for special EXE programs that need to
+export functions to client DLLs.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to use a bitmap-patterned brush</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="GraphicsGuide2%2ebitmap%2dpattern%2dbrush%2dexample"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToDrawPolylinesAndPolygons.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Graphics</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Graphics</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">How&nbsp;to&nbsp;Draw&nbsp;to&nbsp;a&nbsp;Graphics&nbsp;Context</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;use&nbsp;a&nbsp;bitmap-patterned&nbsp;brush</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to use a bitmap-patterned brush</h1>
+</div><div class="Bodytext">
+<p>If the brush style is set to a patterned brush, then a bitmap can be
+used for filling shapes. The following example code illustrate how this is
+done. The bitmap is tiled around the given origin&#0160;&#8212;  the top left of the
+window is the default&#0160;&#8212;  and clipped to the given shape. The second
+bitmapped brush example shows the effect of moving the origin.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Using a bitmap patterned brush, with the default
+origin</h2>
+</div><div class="Bodytext">
+<ol>
+<li>
+<p>Load the bitmap file in the standard way.</p>
+</li>
+<li>
+<p>Use the bitmap as the graphics context&#8217;s brush
+pattern.</p>
+</li>
+<li>
+<p>Set the brush style to
+<code>TBrushStyle::EPatternedBrush</code>.</p>
+</li>
+<li>
+<p>Discard the brush pattern using
+<code>DiscardBrushPattern()</code>.</p>
+</li>
+<li>
+<p>Destroy the bitmap.</p>
+</li>
+</ol>
+<p>With no brush origin set, the tiling pattern starts at the top left
+corner of the window.</p>
+<p class="CodeBlock"><code>CFbsBitmap* bitmap = new (ELeave) CFbsBitmap();<br>CleanupStack::PushL(bitmap);<br>User::LeaveIfError(bitmap-&gt;Load(KAnMbmFile,KABitmapID));<br>// set brush pattern and style to use the bitmap<br>gc.UseBrushPattern(bitmap);<br>gc.SetBrushStyle(CGraphicsContext::EPatternedBrush);<br>// draw shape filled with bitmap pattern<br>gc.DrawRect(rect);<br>gc.DiscardBrushPattern();<br>CleanupStack::PopAndDestroy();</code></p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Using a bitmap patterned brush, with a set origin</h2>
+</div><div class="Bodytext">
+<p>You can set the brush origin using <code>SetBrushOrigin()</code>, and
+tile the bitmap around this point.</p>
+<p>The example code is exactly the same as that in previous bitmapped
+brush example, except that the following line is added before the rectangle is
+drawn:</p>
+<p class="CodeBlock"><code>...<br>TPoint pos(100,100);<br>gc.SetBrushOrigin(pos);<br>...</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Non pre-emptive servicing</title>
+<link href="../../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="AsynchronousServicesGuide3%2enon%2dpre%2demptive"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../../_index/index.html"><img
+src="../../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../../GlobalGlossary/index.html"><img src="../../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="LongRunningServices.guide.html"><img src="../../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="SimpleEncapsulation.guide.html"><img src="../../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Inter&nbsp;Process&nbsp;Communciation</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Asynchronous&nbsp;Services</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">High&nbsp;Level&nbsp;Asynchronous&nbsp;Service&nbsp;Handling</a>&nbsp;<span class="separator">&#187;</span>
+Non&nbsp;pre-emptive&nbsp;servicing</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Non pre-emptive servicing</h1>
+</div><div class="Bodytext">
+<p>The UI server frameworks spend most of their time waiting for some event to occur, and then spend a <i>short</i> time executing a <code>RunL()</code> function to service that event. When one event has been serviced, processing returns to the wait loop in the active scheduler allowing other events to be serviced.</p>
+<p>If a second request completes while the <code>RunL()</code> function is handling completion of the first request, then another call to <code>RunL()</code> to handle completion of the second request cannot be scheduled until the first invocation of <code>RunL()</code> is complete.</p>
+<p>This means that active object scheduling is non pre-emptive.</p>
+<p>Active objects are queued from the active scheduler in order of priority. The priority is usually determined at the time that the active object is constructed, although it can be changed later.</p>
+<p>If several requests complete while a <code>RunL()</code> function is handling the completion of earlier request, the active scheduler takes the first active object (i.e. the one with the highest priority) with a completed request and calls its <code>RunL()</code> function.</p>
+<p>As scheduling is non pre-emptive, a high-priority request cannot be serviced until the previously running request&#8217;s <code>RunL()</code> has completed.</p>
+<a name="1.9"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Recommendations for active object priority</h2>
+</div><div class="Bodytext">
+<p>Most active objects should have a priority of <code>TPriority::EPriorityStandard</code> and processing should not depend on the order in which active objects are scheduled.</p>
+<p>However, any active object involved in user input should have a higher priority over other active objects to ensure responsiveness and to allow user control over a device.</p>
+<p>Long running and background services should have a low priority.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to open ports</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="SerialCommsServerClientGuide1%2ehow%2dto%2eopenport"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="GlassTeletypeApp.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Serial&nbsp;Comms</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Serial&nbsp;Communications&nbsp;Server&nbsp;Client-Side</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Serial&nbsp;Communications&nbsp;Server&nbsp;Client-Side</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;open&nbsp;ports</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to open ports</h1>
+</div><div class="Bodytext">
+<p>There are a number of distinct steps which it is necessary to take
+before using a serial port. While the first three of these steps will usually
+have been taken before any communication software loads up, they are all listed
+here for completeness to avoid any appearance of complexity in the example
+code.</p>
+<ol>
+<li>
+<p>Load the physical device driver, which interacts directly with
+the hardware at the lowest level.</p>
+</li>
+<li>
+<p>Load the logical device driver, which provides the comms server
+with a consistent interface to the hardware. You should note that both these
+drivers have automatic <code class="filename">.PDD</code> and <code class="filename">.LDD</code> file extensions
+added by their respective loaders, which automatically search the
+<code class="filename">/System/Libs</code> directories on all drives.</p>
+</li>
+<li>
+<p>Since <code>RComm</code> is to be a client to the
+<code>RCommServ</code> comms server, start this service before any attempt is
+made to connect to it. Note that it is only after the device drivers are both
+in place that it makes sense to start the comms server.</p>
+</li>
+<li>
+<p>Connect the <code>RComm</code> client to the server. This, and
+both the following steps, must usually be taken by all software which
+instantiates an <code>RComm</code> object.</p>
+</li>
+<li>
+<p>Ask the server to use a specific comms module by name. These
+<code class="filename">.CSY</code> files are protocol modules that let the server know how it
+should handle the port. For instance, sample terminal code uses a standard
+<em>RS232</em> module called <code>ECUART</code>, while
+infra-red code uses a completely different <em>IrDA</em>
+module called <code>IrCOMM</code>.</p>
+</li>
+<li>
+<p>Finally, open the comms port by name using
+<code>RComm:Open()</code>. You must specify the name of the port, since there
+is no reason why a machine with suitable hardware can&#8217;t have more than
+one serial port open at a time. </p>
+</li>
+</ol>
+<p class="CodeBlock"><code>#define PDD_NAME _L(&quot;EUART1&quot;)<br>#define LDD_NAME _L(&quot;ECOMM&quot;)<br>User::LoadPhysicalDevice (PDD_NAME);   // step 1 <br>User::LoadLogicalDevice (LDD_NAME);    // step 2 <br>StartC32 ();                           // step 3<br>RCommServ server; <br>server.Connect ();                     // step 4<br>server.LoadCommModule (_L (&quot;ECUART&quot;)); // step 5<br>RComm commPort;<br>commPort.Open (server, _L (&quot;COMM::0&quot;), ECommExclusive); // step 6</code></p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Note</h2>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>While the error checking is omitted from this extract as usual,
+even production code can safely ignore <code>KErrAlreadyExists</code> errors on
+loading any of the three driver modules.</p>
+</li>
+</ul>
+<a name="1.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="../../../Base/InterProcessCommunication/ClientServer/ClientServerIntroduction.guide.html#ClientServerGuide%2eclient%2dserver">Client Server</a>.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

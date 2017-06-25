@@ -1,0 +1,1327 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CBaseMtm</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="CBaseMtmUiClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Messaging&nbsp;Architecture</a>&nbsp;<span class="separator">&#187;</span>
+CBaseMtm</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+<p>Location: <code>
+mtclbase.h
+</code><br>Link against: <code>
+msgs.lib
+</code></p>
+</div><div class="Head1">
+<a name="%3a%3aCBaseMtm"></a>
+
+<h1>Class <code>CBaseMtm</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CBaseMtm</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Provides a high-level interface for accessing and manipulating a Message Server entry.  </p><p>Message client applications use the class to access such functionality polymorphically. MTM implementers implement a derived class to provide such functionality for their message protocol. </p>
+<p>In pre-Unicode versions this class had the import library mcld.lib.</p><p>The following are some significant groups of functions:</p>
+<p>Context functions: the <code>SetCurrentEntryL()</code> and <code>SwitchCurrentEntryL()</code> functions change the context&#8212;the entry on which later actions are performed. After creating a new Client-side MTM object, a message client application should set an initial context before using other functions. Note that: any changes made to an existing context are not automatically saved: the message client application should ensure this itself by calling <code>SaveMessageL()</code>; no message data for the new context is retrieved from the Message Server, to retrieve entry data, call <code>LoadMessageL()</code> after setting the context; calling <code>Body()</code> immediately after setting the context returns an empty <code>CRichText</code> object: this is because the private cache of context body text that the base class maintains is re-initialised to an empty value. MTM implementers should note that the virtual <code>ContextEntrySwitched()</code> is called from these functions to allow derived classes to also clear any caches of MTM-specific entry data.</p>
+<p>Store and restore entry data functions: the changes that a message client application makes to a message context through Client-side MTM functions, such as altering the body text obtained through <code>Body()</code>, are, for efficiency, cached in memory by a Client-side MTM. The message store and restore functions are concerned with transferring data between that cache and committed storage. Note that, unlike message contexts, message client applications are not expected to manipulate directly service contexts. Instead, the corresponding User Interface MTM will provide dialogs to allow the user to alter service settings, and call Client-side MTM functions to handle their retrieval and storage. ER5 expects the base class functions to handle storage and retrieval for both message and service contexts, and their implementations must detect what the context is, and act accordingly. Post-ER5, the API is clarified by restricting the base class functions to handle message contexts only. To handle service contexts, a Client-side MTM must define its own functions for the User Interface MTM to call.</p>
+<p>Store and restore body text functions: the base class maintains a private <code>CRichText</code> object cache to store the body text for the current context. This can be accessed for reading and writing by message client applications through <code>Body()</code>. <code>StoreBodyL()</code> and <code>RestoreBodyL()</code> encapsulate for implementers of derived classes the retrieval and storage of this <code>CRichText</code> object to a <code>CMsvStore</code>.</p>
+<p>Address list functions: the format and storage of message addresses is MTM-specific. <code>AddresseeList()</code>, <code>AddAddresseeL()</code>, and <code>RemoveAddressee()</code> are designed to allow clients with no MTM-specific knowledge to access address information in a generic way. The base class has a protected data member <code>iAddresseeList</code>, an array of descriptors, which these functions manipulate. Implementations should save the address information to the appropriate place in the message store when the message is stored.</p>
+<p>MTM-specific functionality: MTM components can offer protocol-specific functionality not provided by base class interface functions. MTM components define IDs that correspond to each protocol-specific operation offered, and implement the <code>InvokeSyncFunctionL()</code> and <code>InvokeAsyncFunctionL()</code> functions to allow clients to access these operations by passing in the appropriate ID. Two functions are provided to allow the MTM component to offer both synchronous and asynchronous functionality. Message client applications can dynamically add user-interface features for these operations using <code>CBaseMtmUiData::MtmSpecificFunctions()</code>. MTM developers should document the IDs if they wish to make the operations available to clients. </p>
+<h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase">CBase</a></code></td><td class="Cell">Base class for all classes to be instantiated on the heap</td>
+</tr>
+<tr><td class="Cell"><code>CBaseMtm</code></td><td class="Cell">Provides a high-level interface for accessing and manipulating a Message Server entry</td>
+</tr>
+<tr><td class="Cell"><code><a href="MMsvEntryObserverClass.html#%3a%3aMMsvEntryObserver">MMsvEntryObserver</a></code></td><td class="Cell">Provides the interface for notification of events associated with an entry</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>CBaseMtm</code>:
+<br><code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aAddAddresseeL%28%29" title="Adds an addressee for the current context, which must be a message-overloaded function">AddAddresseeL()</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aAddresseeList%28%29" title="Gets the list of intended recipients for the current context, which must be a message">AddresseeList()</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aBioTypeChangedL%28%29" title="Informs client-side MTM that the context's BIO field is being changed as a result of a call to CSendAs::SetBioTypeL()">BioTypeChangedL()</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aBody%28%29" title="Gets the body text of the context, which must be a message">Body()</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aCBaseMtm%28%29" title="Creates a CBaseMtm with member variables initialised from the passed arguments">CBaseMtm()</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aContextEntrySwitched%28%29" title="Called by the base class functions SwitchCurrentEntryL() and SetCurrentEntryL() when the context is changed to another entry">ContextEntrySwitched()</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aCreateAttachmentL%28%29" title="Creates an entry for an attachment in the Message Server index">CreateAttachmentL()</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aCreateMessageL%28%29" title="Creates a new message entry as a child of the current context">CreateMessageL()</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aDeleteAttachmentL%28%29" title="Deletes an attachment from the message">DeleteAttachmentL()</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aEntry%28%29" title="Gets a CMsvEntry for the current context">Entry()</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aFind%28%29" title="Searches the specified message part(s) for the plain-text version of the text to be found">Find()</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aForwardL%28%29" title="Creates a forwarded message from the current message context">ForwardL()</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aHandleEntryEventL%28%29" title="Indicates that an event has occurred">HandleEntryEventL()</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aHasContext%28%29" title="Tests if an MTM context has been set">HasContext()</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aInvokeAsyncFunctionL%28%29" title="Invokes asynchronous protocol-specific operations">InvokeAsyncFunctionL()</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aInvokeSyncFunctionL%28%29" title="Invokes synchronous protocol-specific operations">InvokeSyncFunctionL()</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aLoadMessageL%28%29" title="Loads the cache with the message data for the current context--can only be called on message contexts">LoadMessageL()</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aQueryCapability%28%29" title="Queries if the MTM supports a particular capability, specified by a UID">QueryCapability()</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aRemoveAddressee%28%29" title="Removes an address from the current address list">RemoveAddressee()</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aReplyL%28%29" title="Creates a reply message to the current message context">ReplyL()</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aRestoreBodyL%28%29" title="Gets the current cached CRichText from the appropriate stream in the specified message store">RestoreBodyL()</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aRestoreL%28%29" title="Loads the cache with the message data for the current context--can be used for both message and service contexts">RestoreL()</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aSaveMessageL%28%29" title="Commits cached changes to the storage controlled by the Message Server--can only be called on message contexts">SaveMessageL()</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aSession%28%29" title="Gets a reference to the session object passed by the creator of the Client-side MTM">Session()</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aSetCurrentEntryL%28%29" title="Sets the entry on which later actions are performed to the specified CMsvEntry">SetCurrentEntryL()</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aSetSubjectL%28%29" title="Sets the subject text of the context, which must be a message">SetSubjectL()</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aStoreBodyL%28%29" title="Stores and commits the current cached CRichText body text to the appropriate stream in the specified message store">StoreBodyL()</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aStoreL%28%29" title="Commits cached changes to the storage controlled by the Message Server--can be used for both message and service contexts">StoreL()</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aSubjectL%28%29" title="Gets the subject text of the context, which must be a message">SubjectL()</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aSwitchCurrentEntryL%28%29" title="Changes the entry on which later actions are performed to the entry with the specified TMsvId">SwitchCurrentEntryL()</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aType%28%29" title="Gets the Type UID of the message type associated with the Client-side MTM">Type()</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aValidateMessage%28%29" title="Validates the current message context">ValidateMessage()</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aiAddresseeList" title="The address list for the current context">iAddresseeList</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aiCharFormatLayer" title="Character formatting applied to the CRichText object for the body text, as returned by Body()">iCharFormatLayer</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aiMsvEntry" title="The current context">iMsvEntry</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aiParaFormatLayer" title="Paragraph formatting applied to the CRichText object for the body text, as returned by Body()">iParaFormatLayer</a></code>, <code class="ApiItem"><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3a%7eCBaseMtm%28%29" title="Cleans up the base class">~CBaseMtm()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap">CBase</a></code>:
+<br><code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase%3a%3aoperator%20new%28%29" title="Allocates the object from the heap and then initialises its contents to binary zeroes">operator new()</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="MMsvEntryObserverClass.html#%3a%3aMMsvEntryObserver" title="Provides the interface for notification of events associated with an entry">MMsvEntryObserver</a></code>:
+<br><code class="ApiItem"><a href="MMsvEntryObserverClass.html#%3a%3aMMsvEntryObserver%3a%3aEMsvChildrenChanged" title="One or more of the children have been changed">EMsvChildrenChanged</a></code>,
+<code class="ApiItem"><a href="MMsvEntryObserverClass.html#%3a%3aMMsvEntryObserver%3a%3aEMsvChildrenInvalid" title="An error has occurred such that the status of the children is unknown and probably invalid">EMsvChildrenInvalid</a></code>,
+<code class="ApiItem"><a href="MMsvEntryObserverClass.html#%3a%3aMMsvEntryObserver%3a%3aEMsvChildrenMissing" title="Some new children have been created, but CMsvEntry was unable to retrieve the data from the Message Server">EMsvChildrenMissing</a></code>,
+<code class="ApiItem"><a href="MMsvEntryObserverClass.html#%3a%3aMMsvEntryObserver%3a%3aEMsvContextInvalid" title="The context has become invalid">EMsvContextInvalid</a></code>,
+<code class="ApiItem"><a href="MMsvEntryObserverClass.html#%3a%3aMMsvEntryObserver%3a%3aEMsvDeletedChildren" title="Children have been deleted">EMsvDeletedChildren</a></code>,
+<code class="ApiItem"><a href="MMsvEntryObserverClass.html#%3a%3aMMsvEntryObserver%3a%3aEMsvEntryChanged" title="The entry has been changed, either as a result of a CMsvEntry::ChangeL() or by another client">EMsvEntryChanged</a></code>,
+<code class="ApiItem"><a href="MMsvEntryObserverClass.html#%3a%3aMMsvEntryObserver%3a%3aEMsvEntryDeleted" title="The entry has been deleted by another client">EMsvEntryDeleted</a></code>,
+<code class="ApiItem"><a href="MMsvEntryObserverClass.html#%3a%3aMMsvEntryObserver%3a%3aEMsvEntryMoved" title="The current entry has been moved by another client">EMsvEntryMoved</a></code>,
+<code class="ApiItem"><a href="MMsvEntryObserverClass.html#%3a%3aMMsvEntryObserver%3a%3aEMsvNewChildren" title="New children have been created">EMsvNewChildren</a></code>,
+<code class="ApiItem"><a href="MMsvEntryObserverClass.html#%3a%3aMMsvEntryObserver%3a%3aEMsvStoreCommitted" title="Changes to the store associated with this entry have been committed">EMsvStoreCommitted</a></code>,
+<code class="ApiItem"><a href="MMsvEntryObserverClass.html#%3a%3aMMsvEntryObserver%3a%3aEMsvStoreCreated" title="A store associated with this entry has been created">EMsvStoreCreated</a></code>,
+<code class="ApiItem"><a href="MMsvEntryObserverClass.html#%3a%3aMMsvEntryObserver%3a%3aEMsvStoreDeleted" title="The store associated with this entry has been deleted">EMsvStoreDeleted</a></code>,
+<code class="ApiItem"><a href="MMsvEntryObserverClass.html#%3a%3aMMsvEntryObserver%3a%3aHandleEntryEvent%28%29" title="Indicates when called by a CMsvEntry object that an event has occurred -- non-leaving">HandleEntryEvent()</a></code>,
+<code class="ApiItem"><a href="MMsvEntryObserverClass.html#%3a%3aMMsvEntryObserver%3a%3aTMsvEntryEvent" title="Defines entry event types">TMsvEntryEvent</a></code></p>
+<a name="2.6"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction and destruction</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aCBaseMtm%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CBaseMtm()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: CBaseMtm(CRegisteredMtmDll&amp; aRegisteredMtmDll,CMsvSession&amp; aSession);</code></p><h4 class="subheading">Description</h4>
+<p>Creates a <code>CBaseMtm</code> with member variables initialised from the passed arguments. </p><p>Client applications do not use this function. It is relevant only to implementers of derived classes.</p>
+<p>The value of <code>aSession</code> can be accessed through <code>Session()</code>.</p>
+<p>Derived classes can implement a constructor to perform any additional MTM-specific setup that can be safely carried out in a constructor. Such constructors must call the base class constructor function.</p>
+<p>Derived classes also implement two-phase construction functions (<code>NewL()</code>, <code>ConstructL()</code>) to create a new instance of the object, in which any dynamic allocation should be performed. Client-side MTMs also implement a factory function by which a MTM registry can request an instance of the class.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CRegisteredMtmDll&amp; aRegisteredMtmDll
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Registration data for the MTM DLL.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvSession&amp; aSession
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The <code>CMsvSession</code> of the client requesting the object
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3a%7eCBaseMtm%28%29"></a>
+<hr size="1" noshade>
+<h3><code>~CBaseMtm()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>~CBaseMtm();</code></p><h4 class="subheading">Description</h4>
+<p>Cleans up the base class. </p><p><code>CBaseMtm</code> -derived objects must be deleted by client applications when they are no longer required. </p>
+<p>Derived classes can implement a destructor to do any additional clean up tasks that they require.</p>
+<a name="2.7"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Context functions</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aBioTypeChangedL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>BioTypeChangedL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void BioTypeChangedL(TUid aBioTypeUid);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Informs client-side MTM that the context's BIO field is being changed as a result of a call to  <code>CSendAs::SetBioTypeL()</code>.</p><p><code>CSendAs::SetBioTypeL()</code> calls this function before setting the BIO field in the context's index entry. This allows a client-side MTM to perform MTM specific actions when the BIO type changes.    </p><p><code>CSendAs</code> will not change the BIO type if this function leaves.</p><p>The default implementation is to do nothing.
+</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUid aBioTypeUid</code></td>
+<td class="Cell"><p class="ValueDesc">New value for the BIO field</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CSendAsClass.html#%3a%3aCSendAs%3a%3aSetBioTypeL%28%29" title="Sets the BIO type for the message"><code class="ApiItem">CSendAs::SetBioTypeL()</code></a></li>
+</ul>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aCreateMessageL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CreateMessageL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void CreateMessageL(TMsvId aServiceId);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Creates a new message entry as a child of the current context.</p><p>The default implementation creates an empty entry with its visible flag set to false and its in-preparation flag set to true.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TMsvId aServiceId</code></td>
+<td class="Cell"><p class="ValueDesc">ID of the service to own the entry.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.4"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aSetCurrentEntryL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetCurrentEntryL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetCurrentEntryL(CMsvEntry* aEntry);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the entry on which later actions are performed to the specified <code>CMsvEntry</code>. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvEntry* aEntry
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The entry on which all following actions will be performed
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNoMemory
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Insufficient memory
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.5"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aSwitchCurrentEntryL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SwitchCurrentEntryL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SwitchCurrentEntryL(TMsvId aId);</code></p><h4 class="subheading">Description</h4>
+<p>Changes the entry on which later actions are performed to the entry with the specified <code>TMsvId</code>. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId aId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The ID of the entry upon which all following actions will be performed
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNoMemory
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Insufficient memory
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotFound
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The requested entry does not exist
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.6"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aContextEntrySwitched%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ContextEntrySwitched()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: virtual void ContextEntrySwitched()=0; </code></p><h4 class="subheading">Description</h4>
+<p>Called by the base class functions <code>SwitchCurrentEntryL()</code> and <code>SetCurrentEntryL()</code> when the context is changed to another entry. </p><p>Client applications do not use this function. It is relevant only to implementers of derived classes.</p>
+<p>Requirements: </p><p>An implementation should clear:</p>
+<ul><li><p>address data stored in <code>iAddresseeList</code></p></li>
+<li><p>any caches of MTM-specific entry data relating to a previous context. For example, if the implementation has a private buffer storing a message subject, for access through <code>Subject()</code>, this buffer should be cleared.</p></li>
+</ul>
+<a name="2.7.7"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aHasContext%28%29"></a>
+<hr size="1" noshade>
+<h3><code>HasContext()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool HasContext() const;</code></p><h4 class="subheading">Description</h4>
+<p>Tests if an MTM context has been set.</p><p>  A Client-side MTM has no context until one is set through <code>SwitchCurrentEntryL()</code> or <code>SetCurrentEntryL()</code> . </p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TBool
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue</code>: context has been set
+<code>EFalse</code>: context has not been set
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Store and restore entry data</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aRestoreL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RestoreL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void RestoreL()=0;</code></p><h4 class="subheading">Support</h4>
+<p>Withdrawn in 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Loads the cache with the message data for the current context&#8212;can be used for both message and service contexts. </p><p>It is typically used after the context has been set with <code>SetCurrentEntryL()</code> or <code>SwitchCurrentEntryL()</code>. <code>CBaseMtm</code>  functions to manipulate the entry can only be called after this function has been called.</p>
+<p>Requirements:</p>
+<p>An implementation must restore the store and index entry relating to the context. </p>
+<p>For a message context, typically, the message store should be opened for reading with <code>CMsvEntry::ReadStoreL()</code>. It should be then be read to set the following:</p>
+<ul><li><p>body text: call <code>RestoreBodyL()</code> to update the cached body text</p></li>
+<li><p>address list: read the appropriate MTM-specific area of the store to update <code>iAddresseeList</code></p></li>
+<li><p>subject: if supported, read the appropriate MTM-specific area of the store and update the cache with <code>SetSubjectL()</code></p></li>
+</ul><p>For a service context, the service settings should be read from the MTM-specific stream in which they are stored.</p>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aLoadMessageL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>LoadMessageL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void LoadMessageL()=0;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Loads the cache with the message data for the current context&#8212;can only be called on message contexts. </p><p>It is typically used after the context has been set with <code>SetCurrentEntryL()</code> or <code>SwitchCurrentEntryL()</code>. <code>CBaseMtm</code>  functions to manipulate the entry can only be called after this function has been called.</p>
+<p>Requirements:</p>
+<p>An implementation must restore the store and index entry relating to the message context. Typically,  the message store should be opened for reading with <code>CMsvEntry::ReadStoreL()</code>. It should be then be read to set the following:</p>
+<ul><li><p>body text: call <code>RestoreBodyL()</code> to update the cached body text</p></li>
+<li><p>address list: read the appropriate MTM-specific area of the store to update <code>iAddresseeList</code></p></li>
+<li><p>subject: if supported, read the appropriate MTM-specific area of the store and update the cache with <code>SetSubjectL()</code></p></li>
+</ul><p>The function should panic for non-message contexts.</p>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">Standard store-related errors. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.4"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aStoreL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>StoreL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void StoreL()=0; </code></p><h4 class="subheading">Support</h4>
+<p>Withdrawn in 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Commits cached changes to the storage controlled by the Message Server&#8212;can be used for both message and service contexts. It should be called in the following circumstances:</p>
+<ul><li><p>to preserve changes when the context is changed, or when the Client-side MTM object is deleted </p></li>
+<li><p>to enable other parts of Messaging to access the updated entry, as required, for example, before sending a message </p></li>
+</ul><p>Requirements:</p>
+<p>An implementation must update the store and index entry relating to the context. </p>
+<p>For a message context, typically, the message store should be opened for editing with <code>CMsvEntry::EditStoreL()</code>. It should be updated as follows:</p>
+<ul><li><p>body text: call <code>StoreBodyL()</code> to update the store&#8217;s body text stream</p></li>
+<li><p>address list: update the appropriate MTM-specific area of the store from the data in <code>iAddresseeList</code></p></li>
+<li><p>subject: if supported, update the appropriate MTM-specific area of the store from the private cache set by <code>SetSubjectL()</code></p></li>
+</ul><p>Changes can then be committed to the store with <code>CMsvStore::CommitL()</code>.</p>
+<p>The index entry should also be updated to reflect changes. Possible fields that may need updating include: Description (for subject changes); Details and Multiple Recipients (for recipient changes); and Size. Index entry changes are committed using <code>CMsvEntry::ChangeL()</code>.</p>
+<p>For a service context, the service settings should be written to the MTM-specific message store stream in which they are stored.</p>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">Standard store-related errors. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.5"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aSaveMessageL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SaveMessageL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void SaveMessageL()=0; </code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Commits cached changes to the storage controlled by the Message Server&#8212;can only be called on message contexts. It should be called in the following circumstances:</p>
+<ul><li><p>to preserve changes when the context is changed, or when the Client-side MTM object is deleted </p></li>
+<li><p>to enable other parts of the Messaging to access the updated entry, as required, for example, before sending a message </p></li>
+</ul><p>Requirements:</p>
+<p>An implementation must update the store and index entry relating to the message context. Typically, the message store should be opened for editing with <code>CMsvEntry::EditStoreL()</code>. It should be updated as follows:</p>
+<ul><li><p>body text: call <code>StoreBodyL()</code> to update the store&#8217;s body text stream</p></li>
+<li><p>address list: update the appropriate MTM-specific area of the store from the data in <code>iAddresseeList</code></p></li>
+<li><p>subject: if supported, update the appropriate MTM-specific area of the store from the private cache set by <code>SetSubjectL()</code></p></li>
+</ul><p>Changes can then be committed to the store with <code>CMsvStore::CommitL()</code>.</p>
+<p>The index entry should also be updated to reflect changes. Possible fields that may need updating include: Description (for subject changes); Details and Multiple Recipients (for recipient changes); and Size. Index entry changes are committed using <code>CMsvEntry::ChangeL()</code>.</p>
+<p>The function should panic for non-message contexts.</p>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">Standard store-related errors. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Store and restore body text</h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aStoreBodyL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>StoreBodyL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: void StoreBodyL(CMsvStore&amp; aStore);</code></p><h4 class="subheading">Description</h4>
+<p>Stores and commits the current cached <code>CRichText</code> body text to the appropriate stream in the specified message store.  Client applications do not use this function. It is relevant only to implementers of derived classes.</p>
+<p>The function overwrites any existing data in that stream. The implementation must have write access to <code>aStore</code>. </p>
+<p>A typical use of this function is from <code>SaveMessageL()</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvStore&amp; aStore
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Message store in which to store the body text
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrAccessDenied
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The store was opened for read only
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+Other
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Standard stream-related leave codes
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.3"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aRestoreBodyL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RestoreBodyL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: void RestoreBodyL(CMsvStore&amp; aStore);</code></p><h4 class="subheading">Description</h4>
+<p>Gets the current cached <code>CRichText</code> from the appropriate stream in the specified message store. Client applications do not use this function. It is relevant only to implementers of derived classes.</p>
+<p>A typical use of this function is from <code>LoadMessageL()</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvStore&amp; aStore
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Message store from which to read the body text
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">Standard stream-related leave codes. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Response message creation</h2>
+</div><div class="Bodytext">
+<a name="2.10.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aReplyL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ReplyL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual CMsvOperation* ReplyL(TMsvId aDestination, TMsvPartList aPartlist, TRequestStatus&amp; aCompletionStatus)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Creates a reply message to the current message context. </p><p>Some MTMs may support inclusion of elements, specified by <code>aPartlist</code>, from the original message in the reply. The parent for the new entry is specified in <code>aDestination</code>.  </p>
+<p>The returned <code>CMsvOperation</code> object completes when creating the reply is complete. On completion, the context is set to the reply message.</p>
+<p>Requirements:</p>
+<p>A typical implementation for this function would include the following steps: </p>
+<ul><li><p>create a new message in the specified destination by calling <code>CMsvEntry::CreateL()</code></p></li>
+<li><p>set the entry index values as appropriate</p></li>
+<li><p>set the properties of the message as required. The normal minimum is to set the address to the sender of the original message. An implementation may also follow the options specified in <code>aPartlist</code>  to set other properties, for example, to include the original message text.</p></li>
+<li><p>set the context to the reply </p></li>
+<li><p>return a <code>CMsvOperation</code>-derived object to provide asynchronous control and monitoring of the operation</p></li>
+</ul><p>If message replies are not supported, implementations should leave with <code>KErrNotSupported</code>.</p>
+<p>The implementation of this function may be similar to that of <code>ForwardL()</code>, allowing opportunities for code sharing.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId aDestination
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The entry to which to assign the reply
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvPartList aPartlist
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Defines the parts that are to be copied from the original message into the reply
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aCompletionStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The request status to be completed when the operation has finished
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvOperation*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+If successful, this is an asynchronously completing reply operation.
+If failed, this is a completed operation, with status set to the relevant error code.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotSupported
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The Client-side MTM does not support reply operations
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+Other leave codes
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Dependent on implementation
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.3"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aForwardL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ForwardL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual CMsvOperation* ForwardL(TMsvId aDestination, TMsvPartList aPartList, TRequestStatus&amp; aCompletionStatus)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Creates a forwarded message from the current message context. Some MTMs may support inclusion of elements, specified by <code>aPartlist</code>, from the original message in the forwarded message. The parent for the new entry is specified in <code>aDestination</code>. The returned <code>CMsvOperation</code> object completes when editing the forwarded message is complete. On completion, the context is set to the forwarded message.</p>
+<p>Requirements:</p>
+<p>A typical implementation for this function would include the following steps: </p>
+<ul><li><p>create a new message in the specified destination by calling <code>CMsvEntry::CreateL()</code></p></li>
+<li><p>set the entry index values as appropriate</p></li>
+<li><p>set message content as required. The normal minimum is to include the text of the original message. An implementation may also follow the options specified in <code>aPartlist</code>  to include other properties of the original message.</p></li>
+<li><p>set the context to the reply </p></li>
+<li><p>return a <code>CMsvOperation</code>-derived object to provide asynchronous control and monitoring of the operation</p></li>
+</ul><p>If forwarded messages are not supported, implementations should leave with <code>KErrNotSupported</code>.</p>
+<p>The implementation of this function may be similar to that of <code>ReplyL()</code>, allowing opportunities for code sharing.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId aDestination
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The entry to which to assign the forwarded message
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvPartList aPartList
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Defines the parts that are to be copied from the original message into the forwarded message
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aCompletionStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The request status to be completed when the operation has finished
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvOperation*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+If successful, this is an asynchronously completing forward message operation.
+If failed, this is a completed operation, with status set to the relevant error code.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotSupported
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The Client-side MTM does not support creation of forwarded messages
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+Other leave codes
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Dependent on implementation
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Validation and search</h2>
+</div><div class="Bodytext">
+<a name="2.11.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aValidateMessage%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ValidateMessage()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TMsvPartList ValidateMessage(TMsvPartList aPartList)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Validates the current message context. </p><p>The precise validation performed is specific to the MTM, but, typically, checks that the specified message parts are well-formed. </p>
+<p>Requirements:</p>
+<p>Implementation of this function is highly protocol-specific. A minimum step is to check that the current context is a message.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvPartList aPartList
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Indicates the message parts for which validation is requested
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvPartList
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+If valid, <code>KErrNone</code>
+If invalid, identifies the invalid part(s). The error value is the bitmask of the <code>TMsvPartList</code> IDs for each invalid part
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.3"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aFind%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Find()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TMsvPartList Find(const TDesC&amp; aTextToFind, TMsvPartList aPartList)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Searches the specified message part(s) for the plain-text version of the text to be found. </p><p>If the specified part list indicates a part that is not supported, or is not present in the current message, the function behaves as if the specified part exists but does not contain the required text.</p>
+<p>Requirements:</p>
+<p>The parts of the entry for which searching is allowed is implementation specific. If no searching is supported, always return 0.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TDesC&amp; aTextToFind
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The plain-text version of the text to be found.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvPartList aPartList
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Indicates the message parts which should be searched.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvPartList
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+If the text was not found, or searching is unsupported, 0.
+If the text was found, a bitmask of the <code>TMsvPartList</code> IDs for each part in which the text was present.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Address list</h2>
+</div><div class="Bodytext">
+<a name="2.12.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aAddresseeList%28%29"></a>
+<hr size="1" noshade>
+<h3><code>AddresseeList()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const CDesCArray&amp; AddresseeList() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the list of intended recipients for the current context, which must be a message. </p>
+<p>In the case of protocols that allow different classes of recipient (such as To, Cc and Bcc), the list returned is whatever the protocol defines as the default recipient list. </p>
+<p>Requirements:</p>
+<p>The default implementation simply returns the value of the protected data member <code>iAddresseeList</code>. As a consequence, Client-side MTM implementations should update this member whenever the address list is modified.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CDesCArray&amp;
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Array of recipients
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.3"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aAddAddresseeL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>AddAddresseeL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void AddAddresseeL(const TDesC&amp; aRealAddress)=0;<br>virtual void AddAddresseeL(const TDesC&amp; aRealAddress, const TDesC&amp; aAlias)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Adds an addressee for the current context, which must be a message-overloaded function. </p><p>Addresses are not validated by checking their format by this function. Usually that is performed by calling <code>Validate()</code>.</p>
+<p>The second overload of the function allows an alias to be also supplied, which may be useful for some protocols. For example, for fax, if the address is the fax number, the alias could supply the recipient&#8217;s name. </p>
+<p>Requirements:</p>
+<p>Implementations should append the address to the object&#8217;s address cache in the protected <code>iAddresseeList</code> data member. Some implementations may also wish to store addresses in an internal data structure appropriate for the protocol, for example, a class holding message header information. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TDesC&amp; aRealAddress
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+String representing an address to be added to the list for the current message
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TDesC&amp; aAlias
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Alias information
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotSupported
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The message already has the maximum number of addressees
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+Other leave codes
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Dependent on implementation
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.4"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aRemoveAddressee%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RemoveAddressee()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void RemoveAddressee(TInt aIndex)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Removes an address from the current address list. The address is specified by a zero-based index into the address list. If the index is not known, applications can use <code>AddresseeList()</code> to retrieve the entire list to find the item.</p>
+<p>Requirements:</p>
+<p>Implementations should call <code>iAddresseeList-&gt;Delete(aIndex)</code> to remove the address from in the address list protected data member.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt aIndex
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Index of address to be removed
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Data accessors and mutators</h2>
+</div><div class="Bodytext">
+<a name="2.13.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aBody%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Body()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CRichText&amp; Body() const;<br>const CRichText&amp; Body() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the body text of the context, which must be a message. For non-message contexts, an empty <code>CRichText</code> is returned. </p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CRichText&amp;
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Body text of the context
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aStoreBodyL%28%29" title="Stores and commits the current cached CRichText body text to the appropriate stream in the specified message store"><code class="ApiItem">StoreBodyL()</code></a></li>
+<li><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aRestoreBodyL%28%29" title="Gets the current cached CRichText from the appropriate stream in the specified message store"><code class="ApiItem">RestoreBodyL()</code></a></li>
+</ul>
+<a name="2.13.3"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aSetSubjectL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetSubjectL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void SetSubjectL(const TDesC&amp; aSubject); </code></p><h4 class="subheading">Description</h4>
+<p>Sets the subject text of the context, which must be a message. </p><p>Some Client-side MTMs may not support subject text, in which case the function leaves with <code>KErrNotSupported</code>.</p>
+<p>Requirements:</p>
+<p>If the message protocol supports subject text, implementations should maintain a private buffer to store this information, settable through this function.</p>
+<p>Implementations should save the subject text to the appropriate place in the message store when the message is stored.</p>
+<p>The default implementation leaves with <code>KErrNotSupported</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TDesC&amp; aSubject
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Message subject text
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotSupported
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The Client-side MTMs does not support subject text
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aStoreBodyL%28%29" title="Stores and commits the current cached CRichText body text to the appropriate stream in the specified message store"><code class="ApiItem">StoreBodyL()</code></a></li>
+<li><a href="CBaseMtmClass.html#%3a%3aCBaseMtm%3a%3aRestoreBodyL%28%29" title="Gets the current cached CRichText from the appropriate stream in the specified message store"><code class="ApiItem">RestoreBodyL()</code></a></li>
+</ul>
+<a name="2.13.4"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aSubjectL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SubjectL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual const TPtrC SubjectL() const; </code></p><h4 class="subheading">Description</h4>
+<p>Gets the subject text of the context, which must be a message. </p><p>Some Client-side MTMs may not support subject text, in which case the function leaves with <code>KErrNotSupported</code>.</p>
+<p>Requirements:</p>
+<p>If the message protocol supports subject text, implementations should maintain a private buffer to store this information, gettable through this function.</p>
+<p>The default implementation leaves with <code>KErrNotSupported</code>.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TPtrC
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Message subject text
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotSupported
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The Client-side MTMs does not support subject text
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.5"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aSession%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Session()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CMsvSession&amp; Session();</code></p><h4 class="subheading">Description</h4>
+<p>Gets a reference to the session object passed by the creator of the Client-side MTM.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvSession&amp;
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Session object used by the Client-side MTM
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.6"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aType%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Type()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TUid Type() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the Type UID of the message type associated with the Client-side MTM.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TUid
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+UID of the message type associated with the MTM
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.7"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aEntry%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Entry()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CMsvEntry&amp; Entry() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a <code>CMsvEntry</code> for the current context. The message client application can then use this to manipulate the entry.</p>
+<p>Implementers should note that this function returns the value of the protected data member <code>iMsvEntry</code>.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvEntry&amp;
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>CMsvEntry</code> for the current context
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Context entry observer</h2>
+</div><div class="Bodytext">
+<a name="2.14.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aHandleEntryEventL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>HandleEntryEventL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: void HandleEntryEventL(TMsvEntryEvent aEvent, TAny* aT1, TAny* aT2, TAny* aT3);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Indicates that an event has occurred. </p><p>Client applications do not use this function. It is relevant only to implementers of derived classes.</p>
+<p>The Client-side MTM object is automatically set as an observer, through <code>CMsvEntry::AddObserverL()</code>, for the context whenever the context changes (by <code>SetCurrentEntryL()</code> or  <code>SwitchCurrentEntryL()</code>).</p>
+<p>The default implementation is defined to do nothing.</p>
+<p>Requirements:</p>
+<p>Implementations can override this function to handle events concerning the current context. </p>
+<p>In pre-Unicode versions no default implementation  of the <code>MMsvEntryObserver</code> interface is provided, and it must be implemented by the derived class.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvEntryEvent aEvent
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Indicates the event type
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TAny* aT1
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Event specific argument value
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TAny* aT2
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Event specific argument value
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TAny* aT3
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Event specific argument value
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MMsvEntryObserverClass.html#%3a%3aMMsvEntryObserver" title="Provides the interface for notification of events associated with an entry"><code class="ApiItem">MMsvEntryObserver</code></a></li>
+</ul>
+<a name="Messaging%2eCBaseMtm%2especificquery"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Querying MTM-specific functionality</h2>
+</div><div class="Bodytext">
+<a name="2.15.3"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aQueryCapability%28%29"></a>
+<hr size="1" noshade>
+<h3><code>QueryCapability()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt QueryCapability(TUid aCapability, TInt&amp; aResponse); </code></p><h4 class="subheading">Description</h4>
+<p>Queries if the MTM supports a particular capability, specified by a UID.  </p><p>For MTM-specific UIDs, see the documentation for the relevant MTM.</p>
+<p>Requirements:</p>
+<p>Implementations should check <code>aCapability</code> for the standard capability values, plus any MTM-specific capabilities, and if recognised, return a suitable response in <code>aResponse</code>. If <code>aCapability</code> is unknown, return <code>KErrNotSupported</code>.</p>
+<p>The default implementation returns <code>KErrNotSupported</code>. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TUid aCapability
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+UID of capability to be queried
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt&amp; aResponse
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Response value. The format of the response varies according to the capability.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code>: <code>aCapability</code> is a recognised value and a response is returned
+<code>KErrNotSupported</code>: <code>aCapability</code> is not a recognised value
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="ConstantsGeneralCapabilities.html#Messaging%2ecapabilities%2egeneral">Capability constants: general</a></li>
+</ul>
+<a name="2.16"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Calling MTM-specific functionality</h2>
+</div><div class="Bodytext">
+<a name="2.16.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aInvokeAsyncFunctionL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>InvokeAsyncFunctionL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual CMsvOperation* InvokeAsyncFunctionL(TInt aFunctionId, const CMsvEntrySelection&amp; aSelection, TDes8&amp; aParameter, TRequestStatus&amp; aCompletionStatus)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Invokes asynchronous protocol-specific operations. For synchronous operations, a similar function, <code>InvokeSyncFunctionL()</code>, is available.</p>
+<p><code>aSelection</code> and <code>aParameter</code> allow data to be passed to the operation. The <code>TRequestStatus</code> and <code>CMsvOperation</code> objects are used as normal to control and monitor the operation.</p>
+<p>Requirements:</p>
+<p>For functionality that requires message transport access, such as making a connection, the implementation should pass the request onto the corresponding Server-side MTM. This is done through calling <code>CMsvSession::TransferCommandL()</code>. Implementations may also provide protocol-specific functions themselves if this is useful.</p>
+<p><code>InvokeAsyncFunctionL()</code> should return a <code>CMsvOperation</code>-derived object to provide asynchronous control and monitoring of the operation. If <code>CMsvSession::TransferCommandL()</code> is called, this should be the <code>CMsvOperation</code> object returned by that function.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt aFunctionId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+ID of the requested operation
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const CMsvEntrySelection&amp; aSelection
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Selection of message entries. This is used if the operation requires message entries to work on.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TDes8&amp; aParameter
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Buffer containing input and output parameters. The format of this is specific to the operation.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aCompletionStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The request status to be completed when the operation has finished
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvOperation*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+If successful, this is an asynchronously completing operation.
+If failed, this is a completed operation, with status set to the relevant error code.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotSupported
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>aFunctionId</code>  is not a recognised operation ID
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+Other leave codes
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Dependent on implementation
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16.3"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aInvokeSyncFunctionL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>InvokeSyncFunctionL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void InvokeSyncFunctionL(TInt aFunctionId, const CMsvEntrySelection&amp; aSelection, TDes8&amp; aParameter)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Invokes synchronous protocol-specific operations. For asynchronous operations, a similar function, <code>InvokeAsyncFunctionL()</code>, is available.</p>
+<p><code>aSelection</code> and <code>aParameter</code> allow data to be passed to the operation. </p>
+<p>Requirements:</p>
+<p>For functionality that requires message transport access, such as making a connection, the implementation should pass the request onto the corresponding Server-side MTM. This is done through calling <code>CMsvSession::TransferCommandL()</code>. Implementations may also provide protocol-specific functions themselves if this is useful.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt aFunctionId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+ID of the requested operation
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const CMsvEntrySelection&amp; aSelection
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Selection of message entries. This is used if the operation requires message entries to work on.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TDes8&amp; aParameter
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Buffer containing input and output parameters. The format of this is specific to the operation.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotSupported
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>aFunctionId</code>  is not a recognised operation ID
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+Other leave codes
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Dependent on implementation
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.17"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Attachment management</h2>
+</div><div class="Bodytext">
+<a name="2.17.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aCreateAttachmentL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CreateAttachmentL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void CreateAttachmentL(TMsvId&amp; aAttachmentId, TFileName&amp; aDirectory);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Creates an entry for an attachment in the Message Server index.</p>
+<p>The  default implementation raises a panic if no message has been created.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId&amp; aAttachmentId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+On return, the Message Server index ID of the attachment
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TFileName&amp; aDirectory
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+On return, the directory in which to save the attachment
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">In the default implementation, a leave can be propagated from both  <code>CMsvEntry::CreateL()</code>  and  <code>CMsvEntry::SetEntryL()</code>.  <code>KErrNotSupported</code>  indicates that the MTM does not support attachments. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.17.3"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aDeleteAttachmentL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DeleteAttachmentL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void DeleteAttachmentL(TMsvId aMessageId, TMsvId aAttachmentId);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Deletes an attachment from the message.</p>
+<p>The  default implementation deletes the attachment directory and any files in it. It raises a panic if no message has been created.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId aMessageId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Message ID</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId aAttachmentId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Identifies the attachment to be deleted
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">In the default implementation, a leave can be propagated from  <code>CMsvEntry::DeleteL()</code>. The attachment is not deleted. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.18"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Data members</h2>
+</div><div class="Bodytext">
+<a name="2.18.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aiMsvEntry"></a>
+<hr size="1" noshade>
+<h3><code>iMsvEntry</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: CMsvEntry* iMsvEntry</code></p><h4 class="subheading">Description</h4>
+<p>The current context. </p>
+<a name="2.18.3"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aiAddresseeList"></a>
+<hr size="1" noshade>
+<h3><code>iAddresseeList</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: CDesCArrayFlat* iAddresseeList</code></p><h4 class="subheading">Description</h4>
+<p>The address list for the current context. </p>
+<a name="2.18.4"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aiParaFormatLayer"></a>
+<hr size="1" noshade>
+<h3><code>iParaFormatLayer</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: CParaFormatLayer* iParaFormatLayer</code></p><h4 class="subheading">Description</h4>
+<p>Paragraph formatting applied to the <code>CRichText</code> object for the body text, as returned by <code>Body()</code>. This is set to an empty <code>CParaFormatLayer</code> instance whenever the context is set.</p>
+<p>Implementations can modify this if they wish to apply particular formatting to body text.</p>
+<a name="2.18.5"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtm%3a%3aiCharFormatLayer"></a>
+<hr size="1" noshade>
+<h3><code>iCharFormatLayer</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: CCharFormatLayer* iCharFormatLayer</code></p><h4 class="subheading">Description</h4>
+<p>Character formatting applied to the <code>CRichText</code> object for the body text, as returned by <code>Body()</code>.</p>
+<p>Implementations can modify this if they wish to apply particular formatting to body text.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

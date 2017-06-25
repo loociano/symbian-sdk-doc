@@ -1,0 +1,162 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Agenda Entry and Instance overview</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="ApplicationEnginesOverview%2eAgendaEntryOverview%2emain"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="ApplicationEnginesOverview.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="AgendaFileOverview.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Application&nbsp;Engines</a>&nbsp;<span class="separator">&#187;</span>
+Agenda&nbsp;Entry&nbsp;and&nbsp;Instance&nbsp;overview</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Agenda Entry and Instance Overview</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Purpose</h2>
+</div><div class="Bodytext">
+<p>The Agenda Entry and Instance API is the interface to individual
+entries and instances in an agenda file. It is also the interface to the repeat
+details, synchronisation and alarm information, because this information is
+associated with an entry.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Architectural relationships</h2>
+</div><div class="Bodytext">
+<p>The Agenda Entry and Instance API is closely related to the
+following APIs:&nbsp;&#8212; </p>
+<p>Agenda File. Entries and instances exist in agenda files. They are
+added to and deleted from the file and are accessed in the file using the
+Agenda File API.</p>
+<p>To-do List. The to-do entry type (represents an action which needs
+to be carried out) is documented in the To-do Lists API.</p>
+<p>Agenda Model Utilities. The dates and times associated with agenda
+entries (e.g. the start date/time of an appointment) are represented using
+agenda model dates and times rather than <a href="../../APIReference/DateTimeHandling/TTimeClass.html#%3a%3aTTime" title="Stores and manipulates the date and time"><code class="ApiItem">TTime</code></a> values, as
+used elsewhere. These are documented in the Agenda Model Utilities API.</p>
+<p>Versit. vEvents and vTodos can be imported into an agenda file as
+entries. Conversely, agenda entries can be exported from the agenda file as
+vEvents and vTodos.</p>
+<p>Text and Text Attributes. All entries own a rich text object. The
+use of rich text means that entry text can contain formatting which applies to
+individual characters and paragraphs, embedded pictures and other objects such
+as Word documents, voice notes etc.</p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Description</h2>
+</div><div class="Bodytext">
+<p>The API has the following key concepts:</p>
+<p>Entry type. All entries have a type. The following entry types are
+supported:</p>
+<ul>
+<li>
+<p>Events (see class <a href="../../APIReference/AgendaEntry/CAgnEventClass.html#%3a%3aCAgnEvent" title="An event entry or instance"><code class="ApiItem">CAgnEvent</code></a>). These have a
+start date and a display time and optionally an end date. Events are all-day
+entries with no start or end times.</p>
+</li>
+<li>
+<p>Anniversaries (see class <a href="../../APIReference/AgendaEntry/CAgnAnnivClass.html#%3a%3aCAgnAnniv" title="An anniversary entry or instance"><code class="ApiItem">CAgnAnniv</code></a>). These
+are events (<a href="../../APIReference/AgendaEntry/CAgnAnnivClass.html#%3a%3aCAgnAnniv" title="An anniversary entry or instance"><code class="ApiItem">CAgnAnniv</code></a> extends
+<a href="../../APIReference/AgendaEntry/CAgnEventClass.html#%3a%3aCAgnEvent" title="An event entry or instance"><code class="ApiItem">CAgnEvent</code></a>) which can only occur once a year, for example a
+birthday.</p>
+</li>
+<li>
+<p>Appointments (see class <a href="../../APIReference/AgendaEntry/CAgnApptClass.html#%3a%3aCAgnAppt" title="An appointment entry or instance"><code class="ApiItem">CAgnAppt</code></a>). These
+are entries with a start date <em>and time</em> and an end date <em>and
+time</em>. The display time is inherent in the start date/time. Day notes are
+appointments whose end date/time is the same as their start date/time.</p>
+</li>
+<li>
+<p>To-dos (see class <a href="../../APIReference/AgendaTodoList/CAgnTodoClass.html#%3a%3aCAgnTodo" title="A to-do entry or instance"><code class="ApiItem">CAgnTodo</code></a>). To-do entries
+have no start or end date or time. They have either a due date (to indicate the
+date by which the action should be carried out) or a crossed out date (the date
+the action was carried out). For display purposes, they have a display time and
+an optional start date (the first date on which it can be displayed). The
+<a href="../../APIReference/AgendaTodoList/CAgnTodoClass.html#%3a%3aCAgnTodo" title="A to-do entry or instance"><code class="ApiItem">CAgnTodo</code></a> class is documented in the To-do List API.</p>
+</li>
+</ul>
+<p>Instances and entries. Instances are implemented by the same
+classes as entries, namely <a href="../../APIReference/AgendaEntry/CAgnEventClass.html#%3a%3aCAgnEvent" title="An event entry or instance"><code class="ApiItem">CAgnEvent</code></a>,
+<a href="../../APIReference/AgendaEntry/CAgnAnnivClass.html#%3a%3aCAgnAnniv" title="An anniversary entry or instance"><code class="ApiItem">CAgnAnniv</code></a>, <a href="../../APIReference/AgendaEntry/CAgnApptClass.html#%3a%3aCAgnAppt" title="An appointment entry or instance"><code class="ApiItem">CAgnAppt</code></a> and
+<a href="../../APIReference/AgendaTodoList/CAgnTodoClass.html#%3a%3aCAgnTodo" title="A to-do entry or instance"><code class="ApiItem">CAgnTodo</code></a>, but when they are accessed using the instance
+model (see the Agenda File API), a separate object (an instance) is created for
+each repeat of the entry, with the date and time information set for each
+individual repeat. A non-repeating entry or a to-do entry is represented by a
+single instance in the instance model.</p>
+<p>IDs. Entries and instances are uniquely identified in an agenda
+file by IDs. Different types of ID are used in different circumstances:</p>
+<ul>
+<li>
+<p>Entry ID. This is assigned to an entry when it is added to the
+file, but can change if the entry is updated. It therefore cannot be used to
+identify the entry for synchronisation.</p>
+</li>
+<li>
+<p>Instance ID. Because a repeating entry has multiple instances,
+all of which have the same entry ID, an instance is identified by the
+combination of entry ID and instance date, (each instance date for a repeating
+entry is unique).</p>
+</li>
+<li>
+<p>Unique ID. Used to identify both agenda entries and to-do
+lists. This is assigned to the entry or to-do list when it is added to the file
+and is preserved during updates. Because of this, it can be used to identify
+the entry or to-do list during synchronisation.</p>
+</li>
+</ul>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="AgendaFileOverview.guide.html#ApplicationEnginesOverview%2eAgendaFileOverview%2emain">Agenda File Overview</a></p>
+<p><a href="TodoListOverview.guide.html#ApplicationEnginesOverview%2eTodoListOverview%2emain">To-do List Overview</a></p>
+<p><a href="AgendaUtilityOverview.guide.html#ApplicationEnginesOverview%2eAgendaUtilityOverview%2emain">Agenda Model Utilities Overview</a></p>
+<p><a href="../ApplicationServices/VersitOverview.guide.html#ApplicationServicesOverview%2eVersitOverview%2emain">Versit Overview</a></p>
+<p><a href="../ApplicationFramework/TextAndTextAttributesOverview.guide.html#ApplicationFrameworkOverview%2eTextAndTextAttributesOverview%2emain">Text and Text Attributes Overview</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

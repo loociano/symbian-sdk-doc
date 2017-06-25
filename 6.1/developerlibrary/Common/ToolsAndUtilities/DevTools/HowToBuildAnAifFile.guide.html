@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to compile an aif file</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="DevTools%2eaif%2daifbuild"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToWriteAnAifFile.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="ResourceTool_JavaOPLissues.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Application&nbsp;Resource&nbsp;Tools&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;compile&nbsp;an&nbsp;aif&nbsp;file</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>How to compile an aif file</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Overview</h2>
+</div><div class="Bodytext">
+<p>Once you have created a suitable resource file and bitmaps, you must compile these into a single binary <code class="filename">aif</code> file. You can to do this in two ways:</p>
+<ul><li><p>by specifying the files in the project file and compile using <code class="filename">abld</code></p></li>
+<li><p>by using the command line tools <code class="filename">aiftool</code> and <code class="filename">bmconv</code></p></li>
+</ul><a name="1.4"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Compiling using abld</h2>
+</div><div class="Bodytext">
+<p>For C++ applications, an <code class="filename">aif</code> file can be compiled with the <code class="filename">abld</code> tool by using an <code>aif</code> statement in the <code class="filename">.mmp</code> project file. This should list the target file, the source path of the resource file, and any bitmaps. For example, </p>
+<p class="CodeBlock"><code>aif hello.aif helloaif.rss icon1.bmp iconmask1.bmp icon2.bmp iconmask2.bmp</code></p>
+<p>specifies to compile <code class="filename">hello.aif</code> in the application's directory, from the resource file <code class="filename">helloaif.rss</code>, with icons <code class="filename">icon1.bmp</code> and <code class="filename">icon2.bmp</code> and their corresponding masks. The mask bitmap must immediately follow the associated icon.</p>
+<p>The <code class="filename">aif</code> file is compiled when the project is built the <code>abld build</code>. To just build the <code class="filename">aif</code> file (plus the resource files and bitmaps), without other build steps such as compiling C++ files, you can use <code>abld resource</code>.</p>
+<p><code class="filename">abld</code> calls the lower-level command-line tools <code class="filename">aiftool</code> and <code class="filename">bmconv</code> to compile the <code class="filename">aif</code> file. These tools can also be used directly, as explained in the next section.</p>
+<a name="1.5"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Compiling using aiftool and bmconv</h2>
+</div><div class="Bodytext">
+<p>An <code class="filename">aif</code> file can be compiled using the command-line tools <code class="filename">bmconv</code> and <code class="filename">aiftool</code>.</p>
+<a name="1.5.3"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Creating an icon file</h3>
+</div><div class="Bodytext">
+<p>The bitmaps must be converted into a single multi-bitmap (<code class="filename">.mbm</code>) file using the bitmap converter tool b<code class="filename">mconv</code>. You provide a list of the bitmaps to <code class="filename">bmconv</code>, listing each image before its corresponding mask. </p>
+<p>For details of the tool, see <a href="../FileConversionUtilities/index.html#FileConversionUtilities%2eToplevel%2etoc">File Conversion Utilities Guide</a>.  </p>
+<a name="1.5.4"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Creating the aif file</h3>
+</div><div class="Bodytext">
+<p><code class="filename">Aiftool</code> is invoked to compile the resource definition file, together with the multi-bitmap file, into an <code class="filename">aif</code> file. For example,</p>
+<p><code>aiftool hello hello.mbm</code></p>
+<p>This takes the <code class="filename">hello.rss</code> and <code class="filename">hello.mbm</code> files as input, and produces an application information file <code class="filename">hello.aif</code> as output.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

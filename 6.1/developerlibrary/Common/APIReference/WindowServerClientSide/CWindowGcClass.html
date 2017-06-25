@@ -1,0 +1,2162 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CWindowGc</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="CWsBitmapClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Window&nbsp;Server</a>&nbsp;<span class="separator">&#187;</span>
+CWindowGc</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code> w32std.h </code>
+<br>Link against: <code> ws32.lib </code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aCWindowGc"></a>
+
+<h1>Class <code>CWindowGc</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CWindowGc</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Window graphics context.</p>
+<p>Most window graphics context drawing functions map to equivalent
+<code>CFbsBitGc</code> functions&#0160;&#8212;  they are implemented on the screen
+with any co-ordinates being relative to the top left corner of the window.
+However extra clipping is applied. The drawing will always be clipped to the
+visible part of the window, in addition it will be clipped to the non-invalid
+part if you are not doing a redraw and to the region being validated if you are
+doing a redraw.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>In general, server side functions which encounter conditions
+which would normally cause a leave, do not leave but instead return an error
+value indicating the leave condition. In this way the leave can be handled on
+the appropriate side of the client/server boundary. For example, a client can
+choose to wrap server calls with <code>User::LeaveIfError()</code> — which
+causes a leave with the specified error.</p>
+<p>The above advice is true of many functions in this class, and
+in its derived classes.</p>
+</li>
+</ul>
+<h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase">CBase</a></code></td><td class="Cell">Base class for all classes to be instantiated on the heap</td>
+</tr>
+<tr><td class="Cell"><code><a href="../Bitmaps/CBitmapContextClass.html#%3a%3aCBitmapContext">CBitmapContext</a></code></td><td class="Cell">An abstract, device-independent, interface to bitmapped graphics contexts</td>
+</tr>
+<tr><td class="Cell"><code><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext">CGraphicsContext</a></code></td><td class="Cell">Abstract, device independent, interface to graphics contexts</td>
+</tr>
+<tr><td class="Cell"><code>CWindowGc</code></td><td class="Cell">Window graphics context</td>
+</tr>
+<tr><td class="Cell"><code><a href="MWsClientClassClass.html#%3a%3aMWsClientClass">MWsClientClass</a></code></td><td class="Cell">Base class for all classes whose objects are clients of the window server engine</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>CWindowGc</code>:
+<br><code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aActivate%28%29" title="Activates the context for a given window">Activate()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aBitBlt%28%29" title="Performs a bitmap block transfer of a rectangular piece of a bitmap to which the window server already has a handle">BitBlt()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aBitBltMasked%28%29" title="Performs a masked bitmap block transfer of a window server bitmap">BitBltMasked()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aCWindowGc%28%29" title="Constructor which creates, but does not initialise a graphics context">CWindowGc()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aCancelClippingRect%28%29" title="Cancel the clipping rectangle">CancelClippingRect()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aCancelClippingRegion%28%29" title="Cancels the current clipping region">CancelClippingRegion()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aClear%28%29" title="Clears a rectangular area of a window">Clear()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aConstruct%28%29" title="Completes construction">Construct()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aCopyRect%28%29" title="Copies a rectangle from any part of the screen into the window that the gc is active on">CopyRect()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aDeactivate%28%29" title="Frees the graphics context to be used with another window">Deactivate()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aDevice%28%29" title="Gets a pointer to the current graphics device">Device()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aDiscardBrushPattern%28%29" title="Discards a non-built-in brush pattern">DiscardBrushPattern()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aDiscardFont%28%29" title="Discards a font">DiscardFont()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aDrawArc%28%29" title="Draws an arc">DrawArc()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aDrawBitmap%28%29" title="Draws a specified rectangle from a bitmap into another rectangle">DrawBitmap()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aDrawEllipse%28%29" title="Draws and fills an ellipse">DrawEllipse()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aDrawLine%28%29" title="Draws a straight line between two points">DrawLine()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aDrawLineBy%28%29" title="Draws a straight line relative to the current internal drawing position, using a vector">DrawLineBy()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aDrawLineTo%28%29" title="Draws a straight line from the current internal drawing position to a point">DrawLineTo()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aDrawPie%28%29" title="Draws and fills a pie-shaped slice of an ellipse">DrawPie()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aDrawPolyLine%28%29" title="Draws a polyline using points in a list">DrawPolyLine()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aDrawPolygon%28%29" title="Draws and fills a polygon using points defined in a list">DrawPolygon()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aDrawRect%28%29" title="Draws and fills a rectangle">DrawRect()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aDrawRoundRect%28%29" title="Draws and fills a rectangle with rounded corners">DrawRoundRect()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aDrawText%28%29" title="Draws horizontal text within a cleared box">DrawText()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aDrawTextVertical%28%29" title="Draws text vertically in the specified direction, within a box of the specified size">DrawTextVertical()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aMapColors%28%29" title="Re-maps pixel colours within a rectangle">MapColors()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aMoveBy%28%29" title="Moves the internal drawing position by a vector, without drawing a line">MoveBy()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aMoveTo%28%29" title="Moves the internal drawing position relative to the co-ordinate origin, without drawing a line">MoveTo()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aPlot%28%29" title="Draws a single point">Plot()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aReset%28%29" title="Resets the graphics context to its default settings">Reset()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aSetBrushColor%28%29" title="Sets the brush colour">SetBrushColor()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aSetBrushOrigin%28%29" title="Sets the brush pattern origin">SetBrushOrigin()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aSetBrushStyle%28%29" title="Sets the line drawing style for the brush">SetBrushStyle()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aSetCharJustification%28%29" title="Sets the character justification">SetCharJustification()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aSetClippingRect%28%29" title="Sets a clipping rectangle">SetClippingRect()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aSetClippingRegion%28%29" title="Sets the clipping region">SetClippingRegion()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aSetDitherOrigin%28%29" title="Sets the origin used for colour dithering">SetDitherOrigin()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aSetDrawMode%28%29" title="Sets the drawing mode">SetDrawMode()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aSetFaded%28%29" title="Sets whether the graphics context is faded">SetFaded()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aSetFadingParameters%28%29" title="Set fading parameters">SetFadingParameters()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aSetOrigin%28%29" title="Sets the position of the co-ordinate origin">SetOrigin()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aSetPenColor%28%29" title="Sets the pen colour">SetPenColor()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aSetPenSize%28%29" title="Sets the line drawing size for the pen">SetPenSize()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aSetPenStyle%28%29" title="Sets the line drawing style for the pen">SetPenStyle()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aSetStrikethroughStyle%28%29" title="Sets the strikethrough style for all subsequently drawn text">SetStrikethroughStyle()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aSetUnderlineStyle%28%29" title="Sets the underline style for all subsequently drawn text">SetUnderlineStyle()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aSetWordJustification%28%29" title="Sets word justification">SetWordJustification()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aUseBrushPattern%28%29" title="Sets the brush pattern to the specified bitmap">UseBrushPattern()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aUseFont%28%29" title="Sets this context's current font">UseFont()</a></code>, <code class="ApiItem"><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3a%7eCWindowGc%28%29" title="Destructor">~CWindowGc()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap">CBase</a></code>:
+<br><code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase%3a%3aoperator%20new%28%29" title="Allocates the object from the heap and then initialises its contents to binary zeroes">operator new()</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext" title="Abstract, device independent, interface to graphics contexts">CGraphicsContext</a></code>:
+<br><code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aEAlternate" title="Only fill areas with odd winding numbers">EAlternate</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aEAnd" title="8">EAnd</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aECenter" title="Text is centred">ECenter</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aEDashedPen" title="A dashed line">EDashedPen</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aEDiamondCrossHatchBrush" title="The brush fills with forward diagonal and rearward diagonal hatching -- lines going from bottom left to top right plus lines going from top left to bottom right -- giving the effect of a grid of small diamonds">EDiamondCrossHatchBrush</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aEDotDashPen" title="A line of alternating dashes and dots">EDotDashPen</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aEDotDotDashPen" title="A line of alternating single dashes and pairs of dots">EDotDotDashPen</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aEDottedPen" title="A dotted line">EDottedPen</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aEDrawModeAND" title="Bitwise ANDs the pen and brush colours with the screen colour">EDrawModeAND</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aEDrawModeANDNOT" title="Inverts the screen colour before ANDing">EDrawModeANDNOT</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aEDrawModeNOTAND" title="Inverts the pen and brush colours before ANDing">EDrawModeNOTAND</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aEDrawModeNOTANDNOT" title="Inverts the screen and pen and brush colours before ANDing">EDrawModeNOTANDNOT</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aEDrawModeNOTOR" title="Inverts the pen and brush colours before ORing">EDrawModeNOTOR</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aEDrawModeNOTORNOT" title="NOT OR NOT mode">EDrawModeNOTORNOT</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aEDrawModeNOTPEN" title="Inverts the pen and brush colours">EDrawModeNOTPEN</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aEDrawModeNOTSCREEN" title="Inverts the colour of each pixel that is drawn over, (pen and brush attributes are ignored)">EDrawModeNOTSCREEN</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aEDrawModeNOTXOR" title="Inverts the pen and brush colours before XORing">EDrawModeNOTXOR</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aEDrawModeOR" title="Bitwise ORs the pen and brush colours with the screen colour">EDrawModeOR</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aEDrawModeORNOT" title="Inverts the screen, pen and brush colours before ORing">EDrawModeORNOT</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aEDrawModePEN" title="Uses both pen and brush colour as they are">EDrawModePEN</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aEDrawModeXOR" title="Bitwise XORs the pen and brush colours with the screen colour">EDrawModeXOR</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aEForwardDiagonalHatchBrush" title="The brush fills with diagonal hatching -- lines going from bottom left to top right">EForwardDiagonalHatchBrush</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aEHorizontalHatchBrush" title="The brush fills with horizontal hatching -- lines going from left to right">EHorizontalHatchBrush</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aEInvertPen" title="16">EInvertPen</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aEInvertScreen" title="1">EInvertScreen</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aELeft" title="Text is left-aligned">ELeft</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aELogicalOp" title="14">ELogicalOp</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aENullBrush" title="The brush fill has no effect (default)">ENullBrush</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aENullPen" title="The pen does not draw">ENullPen</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aEOr" title="4">EOr</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aEPatternedBrush" title="The brush fills with a selected bitmap pattern, set by UseBrushPattern()">EPatternedBrush</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aEPenmode" title="32">EPenmode</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aERearwardDiagonalHatchBrush" title="The brush fills with rearward diagonal hatching -- lines going from top left to bottom right">ERearwardDiagonalHatchBrush</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aERight" title="Text is right-aligned">ERight</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aESolidBrush" title="The brush fills with a solid single colour, determined by SetBrushColor() and the drawing mode">ESolidBrush</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aESolidPen" title="A solid line (default)">ESolidPen</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aESquareCrossHatchBrush" title="The brush fills with horizontal and vertical hatching -- lines going from left to right plus lines going from top to bottom -- giving the effect of a grid of small squares">ESquareCrossHatchBrush</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aEVerticalHatchBrush" title="The brush fills with vertical hatching -- lines going from top to bottom">EVerticalHatchBrush</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aEWinding" title="Fill areas with winding numbers greater than zero">EWinding</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aEXor" title="2">EXor</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aJustificationInPixels%28%29" title="Gets the amount of space in pixels by which to adjust letter or word spacing, given the total number of words and spaces, a start space, and the number of units to be adjusted">JustificationInPixels()</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aTBrushStyle" title="Brush styles">TBrushStyle</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aTDrawMode" title="Drawing modes">TDrawMode</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aTDrawModeComponents" title="Drawing mode components">TDrawModeComponents</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aTDrawTextParam" title="Reserved for future use">TDrawTextParam</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aTFillRule" title="Rules used to fill self crossing polygons">TFillRule</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aTPenStyle" title="Pen styles">TPenStyle</a></code>,
+<code class="ApiItem"><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aTTextAlign" title="Text alignment">TTextAlign</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="MWsClientClassClass.html#%3a%3aMWsClientClass" title="Base class for all classes whose objects are clients of the window server engine">MWsClientClass</a></code>:
+<br><code class="ApiItem"><a href="MWsClientClassClass.html#%3a%3aMWsClientClass%3a%3aWsHandle%28%29" title="Gets the server side handle for the object">WsHandle()</a></code></p>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext" title="Abstract, device independent, interface to graphics contexts"><code class="ApiItem">CGraphicsContext</code></a></li>
+</ul>
+<a name="2.7"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction and destruction</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aCWindowGc%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CWindowGc()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CWindowGc(CWsScreenDevice *aDevice);</code></p><h4 class="subheading">Description</h4>
+<p>Constructor which creates, but does not initialise a graphics
+context. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CWsScreenDevice *aDevice </code></td>
+<td class="Cell"><p class="ValueDesc"> Any screen device owned by the same session. Its life time
+should be at least as long as the gc itself. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CWsScreenDeviceClass.html#%3a%3aCWsScreenDevice%3a%3aCreateContext%28%29" title="Creates a window graphics context for this device"><code class="ApiItem">CWsScreenDevice::CreateContext()</code></a></li>
+</ul>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aConstruct%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Construct()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt Construct();</code></p><h4 class="subheading">Description</h4>
+<p>Completes construction. </p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code> if successful, otherwise a leave error.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.4"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3a%7eCWindowGc%28%29"></a>
+<hr size="1" noshade>
+<h3><code>~CWindowGc()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual ~CWindowGc();</code></p><h4 class="subheading">Description</h4>
+<p>Destructor.</p>
+<a name="2.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Activation and deactivation</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aActivate%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Activate()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void Activate(RDrawableWindow &amp;aWindow);</code></p><h4 class="subheading">Description</h4>
+<p>Activates the context for a given window. </p>
+<p>When drawing is complete, the code using the context should
+call <code>Deactivate()</code>. Draw methods invoked after an
+<code>Activate()</code> will affect the window specified. A graphics context
+can only be active for one window at a time.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> RDrawableWindow &amp;aWindow </code></td>
+<td class="Cell"><p class="ValueDesc"> The window for which the graphics context is to be activated.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Panic codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">Calling the Draw function before calling this function. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">Calling this function twice without an intervening
+<code>Deactivate()</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aDeactivate%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Deactivate()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void Deactivate();</code></p><h4 class="subheading">Description</h4>
+<p>Frees the graphics context to be used with another window.
+</p>
+<p>This method should be called when the application has completed
+drawing to the window.</p>
+<a name="2.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>The clipping region</h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aCancelClippingRegion%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CancelClippingRegion()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void CancelClippingRegion();</code></p><h4 class="subheading">Description</h4>
+<p>Cancels the current clipping region.</p>
+<a name="2.9.3"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aSetClippingRegion%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetClippingRegion()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt SetClippingRegion(const TRegion&amp; aClippingRegion);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the clipping region.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p> A region is made up of one or more rectangles </p>
+</li>
+<li>
+<p>Drawing is always clipped to the visible area of a window.
+The region specified by this function is in addition to that area.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRegion&amp; aClippingRegion</code></td>
+<td class="Cell"><p class="ValueDesc"> New clipping region. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code> if successful, <code>KErrNoMemory</code>
+if there is insufficient memory to create the region on the server side,
+otherwise another leave error. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.4"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aCancelClippingRect%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CancelClippingRect()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void CancelClippingRect();</code></p><h4 class="subheading">Description</h4>
+<p>Cancel the clipping rectangle. </p>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aSetClippingRect%28%29" title="Sets a clipping rectangle"><code class="ApiItem">SetClippingRect()</code></a></li>
+</ul>
+<a name="2.9.5"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aSetClippingRect%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetClippingRect()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void SetClippingRect(const TRect&amp; aRect);</code></p><h4 class="subheading">Description</h4>
+<p>Sets a clipping rectangle.</p>
+<p>Graphics drawn to the window are clipped, so that only items
+which fall within the rectangle are displayed. </p>
+<p>Note:</p>
+<p>Clipping is additive. If a clipping regions has been set using
+<code>SetClippingRegion()</code> then clipping will be to the intersection of
+that region and this rectangle.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRect&amp; aRect </code></td>
+<td class="Cell"><p class="ValueDesc"> The clipping rectangle. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aSetClippingRegion%28%29" title="Sets the clipping region"><code class="ApiItem">SetClippingRegion()</code></a></li>
+</ul>
+<a name="2.10"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Text drawing functions</h2>
+</div><div class="Bodytext">
+<a name="2.10.2"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aDrawText%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DrawText()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void DrawText(const TDesC &amp;aString,const TPoint &amp;aPosition);</code></p><h4 class="subheading">Description</h4>
+<p>Draws horizontal text with no surrounding box. </p>
+<p>Text drawing is subject to drawing mode, the current font, pen
+colour, drawing mode, word justification and character justification.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TDesC &amp;aString </code></td>
+<td class="Cell"><p class="ValueDesc"> String to write. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TPoint &amp;aPosition </code></td>
+<td class="Cell"><p class="ValueDesc"> The point specifying the position of the baseline at the left
+end of the text </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Panic codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">If this function is called when there is not font&#0160;&#8212;  see
+<code>UseFont()</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aDrawText%28%29" title="Reserved for future use"><code class="ApiItem">CGraphicsContext::DrawText()</code></a></li>
+</ul>
+<a name="2.10.3"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aDrawText%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DrawText()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void DrawText(const TDesC &amp;aString, const TRect &amp;aBox, TInt aBaselineOffset, TTextAlign aHoriz=ELeft, TInt aLeftMrg=0);</code></p><h4 class="subheading">Description</h4>
+<p>Draws horizontal text within a cleared box.</p>
+<p>Text drawing is subject to drawing mode, the current font, pen
+colour, word justification and character justification. It is also subject to
+the background brush (set brush to <code>ENullBrush</code> for no effect on
+background).</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>The text is clipped to the box. You must ensure that the
+specified string is not too large.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TDesC &amp;aString </code></td>
+<td class="Cell"><p class="ValueDesc"> String to write. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRect &amp;aBox </code></td>
+<td class="Cell"><p class="ValueDesc"> The box to draw the text in. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aBaselineOffset </code></td>
+<td class="Cell"><p class="ValueDesc"> An offset from the top of the box to the text baseline. NB the
+baseline is the line on which letters sit&#0160;&#8212;  e.g. below r, s, t, and above
+the tail of q, and y. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TTextAlign aHoriz=ELeft </code></td>
+<td class="Cell"><p class="ValueDesc"> The text alignment mode (default is left, rather than centre
+or right). </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLeftMrg=0 </code></td>
+<td class="Cell"><p class="ValueDesc"> The left margin for left-aligned text, or the right margin for
+right-aligned text (default is zero). </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Panic codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">If this function is called when there is not font&#0160;&#8212;  see
+<code>UseFont()</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aDrawText%28%29" title="Reserved for future use"><code class="ApiItem">CGraphicsContext::DrawText()</code></a></li>
+</ul>
+<a name="2.10.4"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aDrawTextVertical%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DrawTextVertical()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void DrawTextVertical(const TDesC&amp; aText, const TPoint&amp; aPosition, TBool aUp);</code></p><h4 class="subheading">Description</h4>
+<p>Draws vertical text in the specified direction.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TDesC&amp; aText </code></td>
+<td class="Cell"><p class="ValueDesc"> Text to be drawn. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TPoint&amp; aPosition </code></td>
+<td class="Cell"><p class="ValueDesc"> Point of origin of the text baseline. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool aUp </code></td>
+<td class="Cell"><p class="ValueDesc"> Direction. <code>ETrue</code> for up, <code>EFalse</code> for
+down. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Panic codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">If this function is called when there is not font&#0160;&#8212;  see
+<code>UseFont()</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.5"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aDrawTextVertical%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DrawTextVertical()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void DrawTextVertical(const TDesC&amp; aText, const TRect&amp; aBox, TInt aBaselineOffset, TBool aUp, TTextAlign aVert=ELeft, TInt aMargin=0);</code></p><h4 class="subheading">Description</h4>
+<p>Draws text vertically in the specified direction, within a box
+of the specified size.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TDesC&amp; aText </code></td>
+<td class="Cell"><p class="ValueDesc"> Text to be drawn. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRect&amp; aBox </code></td>
+<td class="Cell"><p class="ValueDesc"> Bounding box within which the text should be drawn, and which
+it is clipped to.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aBaselineOffset </code></td>
+<td class="Cell"><p class="ValueDesc"> Height of top of the characters from their text baseline.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool aUp </code></td>
+<td class="Cell"><p class="ValueDesc"> Direction. <code>ETrue</code> for up, <code>EFalse</code> for
+down.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TTextAlign aVert=ELeft </code></td>
+<td class="Cell"><p class="ValueDesc"> Text alignment. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aMargin=0 </code></td>
+<td class="Cell"><p class="ValueDesc"> Margin. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Panic codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">If this function is called when there is not font&#0160;&#8212;  see
+<code>UseFont()</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.6"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aUseFont%28%29"></a>
+<hr size="1" noshade>
+<h3><code>UseFont()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void UseFont(const CFont *aFont);</code></p><h4 class="subheading">Description</h4>
+<p>Sets this context's current font.</p>
+<p>The font is used for text drawing. If the font is already in
+the font and bitmap server's memory the GDI will share that copy.</p>
+<p>Note that this function must be called prior to drawing text or
+the calling thread will panic.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CFont *aFont </code></td>
+<td class="Cell"><p class="ValueDesc"> A device font. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aUseFont%28%29" title="Sets the device font to be used for text drawing"><code class="ApiItem">CGraphicsContext::UseFont()</code></a></li>
+</ul>
+<a name="2.11"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Other drawing functions</h2>
+</div><div class="Bodytext">
+<a name="2.11.2"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aBitBlt%28%29"></a>
+<hr size="1" noshade>
+<h3><code>BitBlt()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void BitBlt(const TPoint &amp;aPos, const CFbsBitmap *aDevice);</code></p><h4 class="subheading">Description</h4>
+<p>Performs a bitmap block transfer.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TPoint &amp;aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The position for the top left corner of the bitmap. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CFbsBitmap *aDevice </code></td>
+<td class="Cell"><p class="ValueDesc"> A memory-resident bitmap. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Bitmaps/CBitmapContextClass.html#%3a%3aCBitmapContext%3a%3aBitBlt%28%29" title="Performs a bitmap block transfer of a rectangular piece of a bitmap"><code class="ApiItem">CBitmapContext::BitBlt()</code></a></li>
+</ul>
+<a name="2.11.3"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aBitBlt%28%29"></a>
+<hr size="1" noshade>
+<h3><code>BitBlt()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void BitBlt(const TPoint &amp;aPos, const CFbsBitmap *aDevice, const TRect &amp;aRect);</code></p><h4 class="subheading">Description</h4>
+<p>Performs a bitmap block transfer of a rectangular piece of a
+bitmap.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>If the rectangle <code>aRect</code> is larger than the
+bitmap then the bitmap will be padded with white.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TPoint&amp; aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The position for the top left corner of the bitmap. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CFbsBitmap* aDevice </code></td>
+<td class="Cell"><p class="ValueDesc"> A memory-resident bitmap </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRect&amp; aRect </code></td>
+<td class="Cell"><p class="ValueDesc"> A rectangle defining the piece of the bitmap to be drawn, with
+co-ordinates relative to the top left corner of the bitmap </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Bitmaps/CBitmapContextClass.html#%3a%3aCBitmapContext%3a%3aBitBlt%28%29" title="Performs a bitmap block transfer of a rectangular piece of a bitmap"><code class="ApiItem">CBitmapContext::BitBlt()</code></a></li>
+</ul>
+<a name="2.11.4"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aBitBlt%28%29"></a>
+<hr size="1" noshade>
+<h3><code>BitBlt()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void BitBlt(const TPoint &amp;aPos, const CWsBitmap* aDevice);</code></p><h4 class="subheading">Description</h4>
+<p>Performs a bitmap block transfer on a bitmap to which the
+window server already has a handle.</p>
+<p>This function should be used in preference to the
+<code>CFbsBitmap</code> overload if the bitmap is to be used more than once, as
+it is a lot quicker.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TPoint&amp; aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The position for the top left corner of the bitmap. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CWsBitmap* aDevice </code></td>
+<td class="Cell"><p class="ValueDesc"> A window server bitmap. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Bitmaps/CBitmapContextClass.html#%3a%3aCBitmapContext%3a%3aBitBlt%28%29" title="Performs a bitmap block transfer of a rectangular piece of a bitmap"><code class="ApiItem">CBitmapContext::BitBlt()</code></a></li>
+</ul>
+<a name="2.11.5"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aBitBlt%28%29"></a>
+<hr size="1" noshade>
+<h3><code>BitBlt()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void BitBlt(const TPoint&amp; aPos, const CWsBitmap* aDevice, const TRect &amp;aRect);</code></p><h4 class="subheading">Description</h4>
+<p>Performs a bitmap block transfer of a rectangular piece of a
+bitmap to which the window server already has a handle.</p>
+<p>This function should be used in preference to the
+<code>CFbsBitmap</code> overload if the bitmap is to be used more than once, as
+it is a lot quicker.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>If the rectangle <code>aRect</code> is larger than the
+bitmap then the bitmap will be padded with white.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TPoint&amp; aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The position for the top left corner of the bitmap. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CWsBitmap* aDevice </code></td>
+<td class="Cell"><p class="ValueDesc"> A window server bitmap. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRect&amp; aRect </code></td>
+<td class="Cell"><p class="ValueDesc"> A rectangle defining the piece of the bitmap to be drawn, with
+co-ordinates relative to the top left corner of the bitmap </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Bitmaps/CBitmapContextClass.html#%3a%3aCBitmapContext%3a%3aBitBlt%28%29" title="Performs a bitmap block transfer of a rectangular piece of a bitmap"><code class="ApiItem">CBitmapContext::BitBlt()</code></a></li>
+</ul>
+<a name="2.11.6"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aBitBltMasked%28%29"></a>
+<hr size="1" noshade>
+<h3><code>BitBltMasked()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void BitBltMasked(const TPoint&amp; aPoint,const CFbsBitmap* aBitmap,const TRect&amp; aSourceRect,const CFbsBitmap* aMaskBitmap,TBool aInvertMask);</code></p><h4 class="subheading">Description</h4>
+<p>Performs a masked bitmap block transfer of a memory resident
+source bitmap.</p>
+<p>The mask bitmap can be used as either a positive or negative
+mask. Masked pixels are not mapped to the destination rectangle.</p>
+<p>A black and white (binary) mask bitmap is used. With
+<code>aInvertMask=ETrue</code>, black pixels in the mask bitmap stop
+corresponding pixels in the source bitmap from being transferred to the
+destination rectangle. With <code>aInvertMask=EFalse</code>, white pixels in
+the mask bitmap stop corresponding pixels in the source bitmap from being
+transferred to the destination rectangle.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TPoint&amp; aPoint </code></td>
+<td class="Cell"><p class="ValueDesc"> A position for the top left corner of the bitmap. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CFbsBitmap* aBitmap </code></td>
+<td class="Cell"><p class="ValueDesc"> A memory-resident source bitmap. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRect&amp; aSourceRect </code></td>
+<td class="Cell"><p class="ValueDesc"> A rectangle defining the piece of the bitmap to be drawn, with
+co-ordinates relative to the top left corner of the bitmap </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CFbsBitmap* aMaskBitmap </code></td>
+<td class="Cell"><p class="ValueDesc"> A mask bitmap. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool aInvertMask </code></td>
+<td class="Cell"><p class="ValueDesc"> If true, a source pixel that is masked by a black pixel is not
+transferred to the destination rectangle. If false, then a source pixel that is
+masked by a white pixel is not transferred to the destination rectangle.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Bitmaps/CBitmapContextClass.html#%3a%3aCBitmapContext%3a%3aBitBltMasked%28%29" title="Performs a masked bitmap block transfer"><code class="ApiItem">CBitmapContext::BitBltMasked()</code></a></li>
+</ul>
+<a name="2.11.7"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aBitBltMasked%28%29"></a>
+<hr size="1" noshade>
+<h3><code>BitBltMasked()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void BitBltMasked(const TPoint&amp; aPoint,const CWsBitmap *aBitmap,const TRect&amp; aSourceRect,const CWsBitmap *aMaskBitmap,TBool aInvertMask);</code></p><h4 class="subheading">Description</h4>
+<p>Performs a masked bitmap block transfer of a window server
+bitmap.</p>
+<p>The mask bitmap can be used as either a positive or negative
+mask. Masked pixels are not mapped to the destination rectangle.</p>
+<p>A black and white (binary) mask bitmap is used. With
+<code>aInvertMask=ETrue</code>, black pixels in the mask bitmap stop
+corresponding pixels in the source bitmap from being transferred to the
+destination rectangle. With <code>aInvertMask=EFalse</code>, white pixels in
+the mask bitmap stop corresponding pixels in the source bitmap from being
+transferred to the destination rectangle.</p>
+<p>This function should be used in preference to the
+<code>CFbsBitmap</code> overload if the bitmap is to be used more than once, as
+it is a lot quicker.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TPoint&amp; aPoint </code></td>
+<td class="Cell"><p class="ValueDesc"> A position for the top left corner of the bitmap. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CWsBitmap *aBitmap </code></td>
+<td class="Cell"><p class="ValueDesc"> A window server bitmap. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRect&amp; aSourceRect </code></td>
+<td class="Cell"><p class="ValueDesc"> A rectangle defining the piece of the bitmap to be drawn, with
+co-ordinates relative to the top left corner of the bitmap. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CWsBitmap *aMaskBitmap </code></td>
+<td class="Cell"><p class="ValueDesc"> A window server mask bitmap. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool aInvertMask </code></td>
+<td class="Cell"><p class="ValueDesc"> If true, a source pixel that is masked by a black pixel is not
+transferred to the destination rectangle. If false, then a source pixel that is
+masked by a white pixel is not transferred to the destination rectangle.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Bitmaps/CBitmapContextClass.html#%3a%3aCBitmapContext%3a%3aBitBltMasked%28%29" title="Performs a masked bitmap block transfer"><code class="ApiItem">CBitmapContext::BitBltMasked()</code></a></li>
+</ul>
+<a name="2.11.8"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aClear%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Clear()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void Clear();</code></p><h4 class="subheading">Description</h4>
+<p>Clears the whole window.</p>
+<p>The cleared area is filled with the current brush
+colour.</p>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Bitmaps/CBitmapContextClass.html#%3a%3aCBitmapContext%3a%3aClear%28%29" title="Clears a rectangular area of a bitmap"><code class="ApiItem">CBitmapContext::Clear()</code></a></li>
+</ul>
+<a name="2.11.9"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aClear%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Clear()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void Clear(const TRect &amp;aRect);</code></p><h4 class="subheading">Description</h4>
+<p>Clears a rectangular area of a window.</p>
+<p>The cleared area is filled with the current brush
+colour.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRect &amp;aRect </code></td>
+<td class="Cell"><p class="ValueDesc"> The rectangle to clear. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Bitmaps/CBitmapContextClass.html#%3a%3aCBitmapContext%3a%3aClear%28%29" title="Clears a rectangular area of a bitmap"><code class="ApiItem">CBitmapContext::Clear()</code></a></li>
+</ul>
+<a name="2.11.10"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aCopyRect%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CopyRect()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void CopyRect(const TPoint&amp; aOffset,const TRect&amp; aRect);</code></p><h4 class="subheading">Description</h4>
+<p>Copies a rectangle from any part of the screen into the window
+that the gc is active on. </p>
+<p>The copy part of the operation applies to the whole rectangle,
+irrespective of whether or not it within the window, however the &quot;paste&quot; is
+clipped to the drawing area.</p>
+<p>The rectangle is specified in window coordinates (if the
+top-left of the rectangle is (0,0) then the area of the screen it specifies has
+it's top-left at the top left corner of the window, if it is (-10,-10) then it
+start 10 pixels above and to the left of the window.) </p>
+<p>Note:</p>
+<ul>
+<li>
+<p>Shadows in the source rectangle will be copied. None of the
+area drawn to will gain shadowing (even if the window is already in
+shadow).</p>
+</li>
+<li>
+<p>This version of this function is only really suitable for
+testing.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TPoint&amp; aOffset</code></td>
+<td class="Cell"><p class="ValueDesc"> The offset from the original position to the point where the
+rectangle is copied. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRect&amp; aRect</code></td>
+<td class="Cell"><p class="ValueDesc"> The rectangular area to be copied. This is in window
+co-ordinates, e.g. the top left corner of the window is position (0,0) with
+respect to the the rectangle.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Bitmaps/CBitmapContextClass.html#%3a%3aCBitmapContext%3a%3aCopyRect%28%29" title="Copies a rectangle"><code class="ApiItem">CBitmapContext::CopyRect()</code></a></li>
+</ul>
+<a name="2.11.11"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aDevice%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Device()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual CGraphicsDevice* Device() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a pointer to the current graphics device.</p>
+<p>This is the device that was passed into the constructor, and is
+therefore a <code>CWsScreenDevice</code>.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CGraphicsDevice* </code></td>
+<td class="Cell"><p class="ValueDesc"> A pointer to the current graphics device. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.12"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aDiscardBrushPattern%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DiscardBrushPattern()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void DiscardBrushPattern();</code></p><h4 class="subheading">Description</h4>
+<p>Discards a non-built-in brush pattern. </p>
+<p>This frees up the memory used for the bitmap, if it is not
+being shared by another process.</p>
+<p>Notes</p>
+<ul>
+<li>
+<p>If no brush pattern set when this function is used then it
+is no effect.</p>
+</li>
+</ul>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aDiscardBrushPattern%28%29" title="Discards a non-built-in brush pattern"><code class="ApiItem">CGraphicsContext::DiscardBrushPattern()</code></a></li>
+</ul>
+<a name="2.11.13"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aDiscardFont%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DiscardFont()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void DiscardFont();</code></p><h4 class="subheading">Description</h4>
+<p>Discards a font. </p>
+<p>This frees up the memory used (if the font is not being shared
+with some other process).</p>
+<p>Notes</p>
+<ul>
+<li>
+<p>If no font in use when this function is called, then there
+is no effect.</p>
+</li>
+</ul>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aDiscardFont%28%29" title="Discards a font"><code class="ApiItem">CGraphicsContext::DiscardFont()</code></a></li>
+</ul>
+<a name="2.11.14"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aDrawArc%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DrawArc()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void DrawArc(const TRect &amp;aRect,const TPoint &amp;aStart,const TPoint &amp;aEnd);</code></p><h4 class="subheading">Description</h4>
+<p>Draws an arc. An arc is a portion of an ellipse.</p>
+<p>The point <code>aStart</code> is used to define one end of a
+line from the geometric centre of the ellipse. The point of intersection
+between this line and the ellipse defines the start point of the arc. The point
+<code>aEnd</code> is used to define one end of a second line from the geometric
+centre of the ellipse. The point of intersection between this line and the
+ellipse defines the end point of the arc. The pixels at both the start point
+and the end point are drawn.</p>
+<p>The arc itself is the segment of the ellipse in an
+anti-clockwise direction from the start point to the end point.</p>
+<p>Notes</p>
+<ul>
+<li>
+<p>A rectangle is used in the construction of the ellipse of
+which the arc is a segment. This rectangle is passed as an argument of type
+<code>TRect</code>.</p>
+</li>
+<li>
+<p>A wide line arc is drawn with the pixels distributed either
+side of a true ellipse, in such a way that the outer edge of the line would
+touch the edge of the construction rectangle. In other words, the ellipse used
+to construct it is slightly smaller than that for a single pixel line
+size.</p>
+</li>
+<li>
+<p>If <code>aStart</code> or <code>aEnd</code> are the ellipse
+centre then the line that defines the start/end of the arc defaults to one
+extending vertically above the centre point.</p>
+</li>
+<li>
+<p>If <code>aStart</code> and <code>aEnd</code> are the same
+point, or points on the same line through the ellipse centre then a complete
+unfilled ellipse is drawn.</p>
+</li>
+<li>
+<p>Line drawing is subject to pen colour, width and style and
+draw mode</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRect&amp; aRect</code></td>
+<td class="Cell"><p class="ValueDesc"> A rectangle in which to draw the ellipse (of which the arc is
+a segment) </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TPoint&amp; aStart</code></td>
+<td class="Cell"><p class="ValueDesc"> A point to define the start the arc </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TPoint&amp; aEnd</code></td>
+<td class="Cell"><p class="ValueDesc"> A point to define the end the arc </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aDrawArc%28%29" title="Draws an arc"><code class="ApiItem">CGraphicsContext::DrawArc()</code></a></li>
+</ul>
+<a name="2.11.15"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aDrawBitmap%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DrawBitmap()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void DrawBitmap(const TPoint &amp;aTopLeft, const CFbsBitmap *aSource);</code></p><h4 class="subheading">Description</h4>
+<p>Draws a bitmap at a specified point. </p>
+<p>The function does a compress/stretch based on its internally
+stored size in twips. Note that if the twips value of the bitmap is not set
+then nothing is drawn (this is the default situation).</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>This member function uses the bitmap's size in twips and
+does a stretch/compress blit using a linear DDA.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TPoint&amp; aTopLeft</code></td>
+<td class="Cell"><p class="ValueDesc"> The point where the top left pixel of the bitmap is to be
+drawn </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CFbsBitmap* aSource</code></td>
+<td class="Cell"><p class="ValueDesc"> A source bitmap. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aDrawBitmap%28%29" title="Draws a specified rectangle of a source bitmap to fit into a given destination rectangle"><code class="ApiItem">CGraphicsContext::DrawBitmap()</code></a></li>
+</ul>
+<a name="2.11.16"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aDrawBitmap%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DrawBitmap()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void DrawBitmap(const TRect&amp; aDestRect, const CFbsBitmap* aSource);</code></p><h4 class="subheading">Description</h4>
+<p>Draws a bitmap in a rectangle.</p>
+<p>The bitmap is compressed/stretched to fit the specified
+rectangle. Note that if the twips value of the bitmap is not set then nothing
+is drawn (this is the default situation).</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>This member function uses the bitmap's size in pixels and
+does a stretch/compress blit using a linear DDA.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRect&amp; aDestRect</code></td>
+<td class="Cell"><p class="ValueDesc"> The rectangle within which the bitmap is to be drawn. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CFbsBitmap* aSource</code></td>
+<td class="Cell"><p class="ValueDesc"> A source bitmap. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aDrawBitmap%28%29" title="Draws a specified rectangle of a source bitmap to fit into a given destination rectangle"><code class="ApiItem">CGraphicsContext::DrawBitmap()</code></a></li>
+</ul>
+<a name="2.11.17"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aDrawBitmap%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DrawBitmap()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void DrawBitmap(const TRect&amp; aDestRect, const CFbsBitmap* aSource, const TRect&amp; aSourceRect);</code></p><h4 class="subheading">Description</h4>
+<p>Draws a specified rectangle from a bitmap into another
+rectangle.</p>
+<p>The function compresses/stretches the specified rectangle from
+the bitmap to fit the destination rectangle. Note that if the twips value of
+the bitmap is not set then nothing is drawn (this is the default
+situation).</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>This member function uses rectangle sizes in pixels and
+does a stretch/compress blit using a linear DDA.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRect&amp; aDestRect</code></td>
+<td class="Cell"><p class="ValueDesc"> The rectangle within which the bitmap is to be drawn. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CFbsBitmap* aSource</code></td>
+<td class="Cell"><p class="ValueDesc"> A source bitmap. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRect&amp; aSourceRect</code></td>
+<td class="Cell"><p class="ValueDesc"> The rectangle in the source bitmap that is copied to the
+destination rectangle. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aDrawBitmap%28%29" title="Draws a specified rectangle of a source bitmap to fit into a given destination rectangle"><code class="ApiItem">CGraphicsContext::DrawBitmap()</code></a></li>
+</ul>
+<a name="2.11.18"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aDrawEllipse%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DrawEllipse()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void DrawEllipse(const TRect&amp; aRect);</code></p><h4 class="subheading">Description</h4>
+<p>Draws and fills an ellipse.</p>
+<p>The ellipse is drawn inside the rectangle defined by the
+<code>aRect</code> argument. Any <code>TRect</code> that has odd pixel
+dimensions, has the bottom right corner trimmed to give even pixel dimensions
+before the ellipse is constructed.</p>
+<p>The column and row of pixels containing the bottom right
+co-ordinate of the <code>aRect</code> argument are not part of the rectangle
+(see Arguments of type <code>TRect</code>).</p>
+<p>Notes</p>
+<ul>
+<li>
+<p>A wide outline ellipse is drawn with the pixels distributed
+either side of a true ellipse, in such a way that the outer edge of the line
+touches the edge of the construction rectangle. In other words, the ellipse
+used to construct it is smaller than that for a single pixel line size.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRect&amp; aRect</code></td>
+<td class="Cell"><p class="ValueDesc"> A rectangle in which to draw the ellipse </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aDrawEllipse%28%29" title="Draws and fills an ellipse"><code class="ApiItem">CGraphicsContext::DrawEllipse()</code></a></li>
+</ul>
+<a name="2.11.19"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aDrawLine%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DrawLine()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void DrawLine(const TPoint&amp; aPoint1,const TPoint&amp; aPoint2);</code></p><h4 class="subheading">Description</h4>
+<p>Draws a straight line between two points.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TPoint&amp; aPoint1</code></td>
+<td class="Cell"><p class="ValueDesc"> The point at the start of the line. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TPoint&amp; aPoint2</code></td>
+<td class="Cell"><p class="ValueDesc"> The point at the end of the line. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aDrawLine%28%29" title="Draws a straight line between two points"><code class="ApiItem">CGraphicsContext::DrawLine()</code></a></li>
+</ul>
+<a name="2.11.20"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aDrawLineBy%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DrawLineBy()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void DrawLineBy(const TPoint&amp; aVector);</code></p><h4 class="subheading">Description</h4>
+<p>Draws a straight line relative to the current internal drawing
+position, using a vector.</p>
+<p>The start point of the line is the current internal drawing
+position. The vector <code>aVector</code> is added to the internal drawing
+position to give the end point of the line</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TPoint&amp; aVector </code></td>
+<td class="Cell"><p class="ValueDesc"> The vector to add to the current internal drawing position,
+giving the end point of the line. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aDrawLineBy%28%29" title="Draws a straight line relative to the current drawing point, using a vector"><code class="ApiItem">CGraphicsContext::DrawLineBy()</code></a></li>
+</ul>
+<a name="2.11.21"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aDrawLineTo%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DrawLineTo()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void DrawLineTo(const TPoint&amp; aPoint);</code></p><h4 class="subheading">Description</h4>
+<p>Draws a straight line from the current internal drawing
+position to a point.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TPoint&amp; aPoint</code></td>
+<td class="Cell"><p class="ValueDesc"> The point at the end of the line. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aDrawLineTo%28%29" title="Draws a straight line from the current drawing point to a specified point"><code class="ApiItem">CGraphicsContext::DrawLineTo()</code></a></li>
+</ul>
+<a name="2.11.22"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aDrawPie%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DrawPie()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void DrawPie(const TRect&amp; aRect,const TPoint&amp; aStart,const TPoint&amp; aEnd);</code></p><h4 class="subheading">Description</h4>
+<p>Draws and fills a pie-shaped slice of an ellipse.</p>
+<p>Outlines are subject to the current pen colour, width, style
+and draw mode. Set the pen to <code>ENullPen</code> for no outline. The fill is
+subject to brush style (colour, hash or pattern), the origin and the current
+drawing mode. set the brush to <code>ENullBrush</code> for no fill.</p>
+<p>The point <code>aStart</code> is used to define one end of a
+line to the centre of the ellipse. The point of intersection between this line
+and the ellipse defines the start point of the arc bounding the pie slice. The
+point <code>aEnd</code> is used to define one end of a second line to the
+centre of the ellipse. The point of intersection between this line and the
+ellipse defines the end point of the arc bounding the pie slice. The pixels at
+the end point are not drawn.</p>
+<p>The pie slice itself is the area bounded by:</p>
+<ul>
+<li>
+<p>the arc of the ellipse in an anticlockwise direction from
+the start point to the end point </p>
+</li>
+<li>
+<p>the straight line from the start point from the geometric
+centre of the ellipse </p>
+</li>
+<li>
+<p>the straight line from the end point from the geometric
+centre of the ellipse </p>
+</li>
+</ul>
+<p>The line drawn by the pen goes inside the rectangle given by
+the <code>aRect</code> argument.</p>
+<p>Notes</p>
+<ul>
+<li>
+<p>A rectangle is used in the construction of the pie slice.
+This rectangle is passed as an argument of type <code>TRect</code>. The curved
+edge of the pie slice is an arc of an ellipse constructed within the
+rectangle.</p>
+</li>
+<li>
+<p>A wide line edged pie slice has the arc drawn with the
+pixels distributed either side of a true ellipse. This is done in such a way
+that the outer edge of the line would touch the edge of the construction
+rectangle. In other words, the ellipse used to construct it is slightly smaller
+than that for a single pixel line size.</p>
+</li>
+<li>
+<p>If <code>aStart</code> or <code>aEnd</code> are the ellipse
+centre then the line that defines the start/end of the arc defaults to one
+extending vertically above the centre point.</p>
+</li>
+<li>
+<p>If <code>aStart</code> and <code>aEnd</code> are the same
+point, or points on the same line through the ellipse centre then a complete
+filled ellipse is drawn. A line is also drawn from the edge to the ellipse
+centre.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRect&amp; aRect</code></td>
+<td class="Cell"><p class="ValueDesc"> A rectangle in which to draw the ellipse bounding the pie
+slice </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TPoint&amp; aStart</code></td>
+<td class="Cell"><p class="ValueDesc"> A point to define the start of the pie slice </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TPoint&amp; aEnd</code></td>
+<td class="Cell"><p class="ValueDesc"> A point to define the end of the pie slice </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aDrawPie%28%29" title="Draws and fills a pie slice"><code class="ApiItem">CGraphicsContext::DrawPie()</code></a></li>
+</ul>
+<a name="2.11.23"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aDrawPolyLine%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DrawPolyLine()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void DrawPolyLine(const CArrayFix&lt;TPoint&gt;* aPointList);</code></p><h4 class="subheading">Description</h4>
+<p>Draws a polyline using points in an array. </p>
+<p>A polyline is a series of concatenated straight lines joining a
+set of points.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CArrayFix&lt;TPoint&gt;* aPointList</code></td>
+<td class="Cell"><p class="ValueDesc"> An array containing the points on the polyline. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aDrawPolyLine%28%29" title="Draws a polyline from a set of points in a list"><code class="ApiItem">CGraphicsContext::DrawPolyLine()</code></a></li>
+</ul>
+<a name="2.11.24"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aDrawPolyLine%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DrawPolyLine()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void DrawPolyLine(const TPoint* aPointList,TInt aNumPoints);</code></p><h4 class="subheading">Description</h4>
+<p>Draws a polyline using points in a list. </p>
+<p>A polyline is a series of concatenated straight lines joining a
+set of points.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TPoint* aPointList</code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to list of points on the polyline. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aNumPoints</code></td>
+<td class="Cell"><p class="ValueDesc"> Number of points in the point list. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aDrawPolyLine%28%29" title="Draws a polyline from a set of points in a list"><code class="ApiItem">CGraphicsContext::DrawPolyLine()</code></a></li>
+</ul>
+<a name="2.11.25"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aDrawPolygon%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DrawPolygon()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt DrawPolygon(const CArrayFix&lt;TPoint&gt; *aPointList,TFillRule aFillRule=EAlternate);</code></p><h4 class="subheading">Description</h4>
+<p>Draws and fills a polygon using points defined in an
+array.</p>
+<p>The first <code>TPoint</code> in the array defines the start of
+the first side of the polygon. The second <code>TPoint</code> defines the
+second vertex (the end point of the first side and the start point of the
+second side) and so on. The final side of the polygon is drawn using the last
+<code>TPoint</code> from the array or list, and the line drawn to the start
+point of the first side.</p>
+<p>Self-crossing polygons can be filled according to one of two
+rules, <code>TFillRule::EAlternate</code> (the default), or
+<code>TFillRule::EWinding</code>. To explain the difference between these
+rules, the concept of a winding number needs to be introduced. The area outside
+any of the loops of the polygon has a winding number of zero, and is never
+filled. An inside a loop which is bounded by an area with winding number 0 has
+a winding number of 1. If an area is within a loop that is bounded by an area
+with winding number 1, e.g. a loop within a loop, has a winding number of 2,
+and so on.</p>
+<p>The filling of a polygon proceeds according to this
+algorithm:</p>
+<ul>
+<li>
+<p>If <code>aFillRule</code> is
+<code>TFillRule::EAlternate</code> (default) and it has an odd winding number,
+then fill the surrounding area.</p>
+</li>
+<li>
+<p>If <code>aFillRule</code> is
+<code>TFillRule::EWinding</code> and it has a winding number greater than zero,
+then fill the surrounding area.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CArrayFix&lt;TPoint&gt;* aPointList</code></td>
+<td class="Cell"><p class="ValueDesc"> An array of points, specifying the vertices of the polygon.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TFillRule aFillRule=EAlternate</code></td>
+<td class="Cell"><p class="ValueDesc"> Either <code>TFillRule::EAlternate</code> (the default) or
+<code>TFillRule::Ewinding</code>. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aDrawPolygon%28%29" title="Draws and fills a polygon defined using a list of points"><code class="ApiItem">CGraphicsContext::DrawPolygon()</code></a></li>
+</ul>
+<a name="2.11.26"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aDrawPolygon%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DrawPolygon()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt DrawPolygon(const TPoint* aPointList,TInt aNumPoints,TFillRule aFillRule=EAlternate);</code></p><h4 class="subheading">Description</h4>
+<p>Draws and fills a polygon using points defined in a
+list.</p>
+<p>The first <code>TPoint</code> in the list defines the start of
+the first side of the polygon. The second <code>TPoint</code> defines the
+second vertex (the end point of the first side and the start point of the
+second side) and so on. The final side of the polygon is drawn using the last
+<code>TPoint</code> from the array or list, and the line drawn to the start
+point of the first side.</p>
+<p>Self-crossing polygons can be filled according to one of two
+rules, <code>TFillRule::EAlternate</code> (the default), or
+<code>TFillRule::EWinding</code>. To explain the difference between these
+rules, the concept of a winding number needs to be introduced. The area outside
+any of the loops of the polygon has a winding number of zero, and is never
+filled. An inside a loop which is bounded by an area with winding number 0 has
+a winding number of 1. If an area is within a loop that is bounded by an area
+with winding number 1, e.g. a loop within a loop, has a winding number of 2,
+and so on.</p>
+<p>The filling of a polygon proceeds according to this
+algorithm:</p>
+<ul>
+<li>
+<p>If <code>aFillRule</code> is
+<code>TFillRule::EAlternate</code> (default) and it has an odd winding number,
+then fill the surrounding area.</p>
+</li>
+<li>
+<p>If <code>aFillRule</code> is
+<code>TFillRule::EWinding</code> and it has a winding number greater than zero,
+then fill the surrounding area.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TPoint* aPointList</code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to list of points, specifying the vertices of the
+polygon. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aNumPoints</code></td>
+<td class="Cell"><p class="ValueDesc"> The number of points in the vertex list </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TFillRule aFillRule=EAlternate</code></td>
+<td class="Cell"><p class="ValueDesc"> Either <code>TFillRule::EAlternate</code> (the default) or
+<code>TFillRule::EWinding</code>. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aDrawPolygon%28%29" title="Draws and fills a polygon defined using a list of points"><code class="ApiItem">CGraphicsContext::DrawPolygon()</code></a></li>
+</ul>
+<a name="2.11.27"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aDrawRect%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DrawRect()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void DrawRect(const TRect&amp; aRect);</code></p><h4 class="subheading">Description</h4>
+<p>Draws and fills a rectangle. </p>
+<p>The rectangle's border is drawn with the pen, and it is filled
+using the brush.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRect&amp; aRect</code></td>
+<td class="Cell"><p class="ValueDesc"> The rectangle to be drawn. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aDrawRect%28%29" title="Draws and fills a rectangle"><code class="ApiItem">CGraphicsContext::DrawRect()</code></a></li>
+</ul>
+<a name="2.11.28"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aDrawRoundRect%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DrawRoundRect()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void DrawRoundRect(const TRect&amp; aRect,const TSize&amp; aEllipse);</code></p><h4 class="subheading">Description</h4>
+<p>Draws and fills a rectangle with rounded corners.</p>
+<p>The rounded corners are each constructed as an arc of an
+ellipse. The dimensions of each corner (corner size and corner height) are
+given by <code>aEllipse</code>. See <code>DrawArc()</code> for a description of
+arc construction.</p>
+<p>The line drawn by the pen (if any) goes inside the rectangle
+given by the <code>TRect</code> argument.</p>
+<p>Notes</p>
+<ul>
+<li>
+<p>Dotted and dashed pen styles cannot be used for the outline
+of a rounded rectangle.</p>
+</li>
+<li>
+<p>If either corner size dimension is greater than half the
+corresponding rectangle length, the corner size dimension is reduced to half
+the rectangle size.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRect&amp; aRect</code></td>
+<td class="Cell"><p class="ValueDesc"> The rectangle to be drawn. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TSize&amp; aEllipse</code></td>
+<td class="Cell"><p class="ValueDesc"> The dimensions of each corner. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aDrawRoundRect%28%29" title="Draws and fills a rectangle with rounded corners"><code class="ApiItem">CGraphicsContext::DrawRoundRect()</code></a></li>
+</ul>
+<a name="2.11.29"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aMapColors%28%29"></a>
+<hr size="1" noshade>
+<h3><code>MapColors()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void MapColors(const TRect&amp; aRect, const TRgb* aColors, TInt aNumPairs=2, TBool aMapForwards=ETrue);</code></p><h4 class="subheading">Description</h4>
+<p>Re-maps pixel colours within a rectangle.</p>
+<p><code>aColors</code> is an array of paired colour values. The
+rectangle is scanned and the colour value of each pixel is looked up in the
+array, and if found is replaced by the value with which it is paired. The
+arguments specify the rectangle, the array of pairs, the number of pairs in the
+array, and the 'direction' of lookup. If no entry is found for the colour value
+of a given pixel it remains unchanged.</p>
+<p>This function was designed for cursor display. A cursor is
+normally displayed as the XOR of the background against which it appears.
+However in some graphics modes, certain colours XOR to very similar shades.
+<code>MapColors() </code>allows more pleasing maps to be specified.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRect&amp; aRect</code></td>
+<td class="Cell"><p class="ValueDesc"> Rectangle to be mapped. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRgb* aColors</code></td>
+<td class="Cell"><p class="ValueDesc"> Array of colour value pairs, one value in a pair is the lookup
+value and the other is the replacement value. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aNumPairs=2</code></td>
+<td class="Cell"><p class="ValueDesc"> Number of pairs in the array. <code>aColors</code> must have
+twice this number of elements. By default the <code>aColors</code> array is
+assumed to specify 2 colours&#0160;&#8212;  a single mapping.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool aMapForwards=ETrue</code></td>
+<td class="Cell"><p class="ValueDesc"> Direction of lookup. <code>ETrue</code> to map forwards, i.e.
+treat the first value in the pair as the lookup value and the second as the
+replacement value; <code>EFalse</code> does the opposite. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.30"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aMoveBy%28%29"></a>
+<hr size="1" noshade>
+<h3><code>MoveBy()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void MoveBy(const TPoint &amp;aVector);</code></p><h4 class="subheading">Description</h4>
+<p>Moves the internal drawing position by a vector, without
+drawing a line.</p>
+<p>The internal drawing position is moved relative to its current
+co-ordinates.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TPoint &amp;aVector </code></td>
+<td class="Cell"><p class="ValueDesc"> The vector to move the internal drawing position by. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aMoveBy%28%29" title="Sets the drawing point relative to the current co-ordinates"><code class="ApiItem">CGraphicsContext::MoveBy()</code></a></li>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aMoveTo%28%29" title="Sets the drawing point relative to the co-ordinate origin"><code class="ApiItem">CGraphicsContext::MoveTo()</code></a></li>
+</ul>
+<a name="2.11.31"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aMoveTo%28%29"></a>
+<hr size="1" noshade>
+<h3><code>MoveTo()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void MoveTo(const TPoint&amp; aPoint);</code></p><h4 class="subheading">Description</h4>
+<p>Moves the internal drawing position relative to the co-ordinate
+origin, without drawing a line.</p>
+<p>A subsequent call to <code>DrawLineTo()</code> or
+<code>DrawLineBy()</code> will then use the new internal drawing position as
+the start point for the line drawn.</p>
+<p>Notes</p>
+<ul>
+<li>
+<p>The operations <code>DrawLine()</code>,
+<code>DrawLineTo()</code>, <code>DrawLineBy()</code> and
+<code>DrawPolyline()</code> also change the internal drawing position to the
+last point of the drawn line(s).</p>
+</li>
+<li>
+<p>The internal drawing position is set to the co-ordinate
+origin if no drawing or moving operations have yet taken place.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TPoint&amp; aPoint</code></td>
+<td class="Cell"><p class="ValueDesc"> The point to move the internal drawing position to. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aMoveTo%28%29" title="Sets the drawing point relative to the co-ordinate origin"><code class="ApiItem">CGraphicsContext::MoveTo()</code></a></li>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aMoveBy%28%29" title="Sets the drawing point relative to the current co-ordinates"><code class="ApiItem">CGraphicsContext::MoveBy()</code></a></li>
+</ul>
+<a name="2.11.32"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aPlot%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Plot()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void Plot(const TPoint&amp; aPoint);</code></p><h4 class="subheading">Description</h4>
+<p>Draws a single point. </p>
+<p>The point is drawn with the current pen settings using the
+current drawing mode.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>If the pen size is greater than one pixel, a filled circle
+of the current pen colour is drawn, with the pen size as the diameter and the
+plotted point as the centre. If the pen size is an even number of pixels, the
+extra pixels are drawn below and to the right of the centre. See
+<code>SetPenSize()</code>.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TPoint&amp; aPoint</code></td>
+<td class="Cell"><p class="ValueDesc"> The point to be drawn. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aPlot%28%29" title="Draws a single point"><code class="ApiItem">CGraphicsContext::Plot()</code></a></li>
+</ul>
+<a name="2.11.33"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aReset%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Reset()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void Reset();</code></p><h4 class="subheading">Description</h4>
+<p>Resets the graphics context to its default settings.</p>
+<p>These are:</p>
+<ul>
+<li>
+<p>the drawing mode is <code>TDrawMode::EDrawModePen</code>
+(pen and brush colours used as they are) </p>
+</li>
+<li>
+<p>there is no clipping rectangle </p>
+</li>
+<li>
+<p>the pen settings are: black, solid, single pixel size
+</p>
+</li>
+<li>
+<p>the brush style is null </p>
+</li>
+<li>
+<p>no text font is selected</p>
+</li>
+</ul>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aReset%28%29" title="Resets the graphics context to its default settings:"><code class="ApiItem">CGraphicsContext::Reset()</code></a></li>
+</ul>
+<a name="2.11.34"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aSetBrushColor%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetBrushColor()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void SetBrushColor(const TRgb &amp;aColor);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the brush colour. </p>
+<p>The effective brush colour depends on the drawing mode (see
+<code>SetDrawMode()</code>). If no brush colour has been set, it defaults to
+white. However the default brush style is null, so when drawing to a window the
+default appears to be the window's background colour.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRgb &amp;aColor </code></td>
+<td class="Cell"><p class="ValueDesc"> An RGB colour for the brush. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aSetBrushColor%28%29" title="Sets the brush colour"><code class="ApiItem">CGraphicsContext::SetBrushColor()</code></a></li>
+</ul>
+<a name="2.11.35"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aSetBrushOrigin%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetBrushOrigin()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void SetBrushOrigin(const TPoint&amp; aOrigin);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the brush pattern origin. </p>
+<p>This specifies the position of the pixel in the top left corner
+of a reference pattern tile, (in absolute device co-ordinates). Other copies of
+the pattern file are then tiled around the reference one. Thus the brush origin
+can be set as the top left corner of a shape.</p>
+<p>The brush pattern may be a built-in style (see
+<code>SetBrushStyle()</code>), or a bitmap. To use a bitmap, the brush must
+have a pattern set (see <code>UseBrushPattern()</code>) and the brush style
+must be set to <code>TBrushStyle::EPatternedBrush</code>.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>If <code>SetBrushOrigin()</code> is not used, then the
+origin defaults to (0,0).</p>
+</li>
+<li>
+<p>This brush origin remains in effect for all fillable shapes
+drawn subsequently, until a new brush origin is set. Shapes can thus be
+considered as windows onto a continuous pattern field (covering the whole
+clipping region of a screen device, or the whole device area of a
+printer).</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TPoint&amp; aOrigin </code></td>
+<td class="Cell"><p class="ValueDesc"> The origin point for the brush. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aSetBrushOrigin%28%29" title="Sets the brush pattern origin"><code class="ApiItem">CGraphicsContext::SetBrushOrigin()</code></a></li>
+</ul>
+<a name="2.11.36"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aSetBrushStyle%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetBrushStyle()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void SetBrushStyle(TBrushStyle aBrushStyle);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the line drawing style for the brush.</p>
+<p>The GDI provides ten brush styles, including six built-in
+hatching patterns (see <code>CGraphicsContext::TBrushStyle</code> enum).</p>
+<p>Notes</p>
+<ul>
+<li>
+<p>Use <code>TBrushStyle::ENullBrush</code> to draw the
+outline of a fillable shape on its own, without filling.</p>
+</li>
+<li>
+<p>If the <code>TBrushStyle::EPatternedBrush</code> style is
+set, but no bitmap pattern has been selected using
+<code>UseBrushPattern()</code>, then the brush defaults to
+<code>TBrushStyle::ENullBrush</code>.</p>
+</li>
+<li>
+<p>Hatching lines are done in the current brush colour, set
+using <code>SetBrushColor()</code>. Hatching can be overlaid on other graphics.
+The hatching pattern starts at the brush origin, set using
+<code>SetBrushOrigin()</code>.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBrushStyle aBrushStyle </code></td>
+<td class="Cell"><p class="ValueDesc"> The brush style. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aSetBrushStyle%28%29" title="Sets the brush style"><code class="ApiItem">CGraphicsContext::SetBrushStyle()</code></a></li>
+</ul>
+<a name="2.11.37"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aSetCharJustification%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetCharJustification()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void SetCharJustification(TInt aExcessWidth,TInt aNumChars);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the character justification. This function is used
+primarily to get accurate WYSIWYG, and is not intended for regular use by
+developers.</p>
+<p>The text line that is to be justified has a certain number of
+characters (this includes the spaces between the words). It also has a distance
+(in pixels) between the end of the last word and the actual end of the line
+(right hand margin, usually). These excess width pixels are distributed amongst
+all the characters, increasing the gaps between them, to achieve full
+justification of the text line.</p>
+<p>This function is particularly useful for WYSIWYG underlining or
+strikethrough, as it ensures that the lines extend into the gaps between
+characters.</p>
+<p>See the linked function for more information.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aExcessWidth </code></td>
+<td class="Cell"><p class="ValueDesc"> The excess width (in pixels) to be distributed between the
+specified number of characters. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aNumChars </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of characters involved </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aSetCharJustification%28%29" title="Sets character justification"><code class="ApiItem">CGraphicsContext::SetCharJustification()</code></a></li>
+</ul>
+<a name="2.11.38"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aSetDitherOrigin%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetDitherOrigin()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void SetDitherOrigin(const TPoint&amp; aPoint);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the origin used for colour dithering.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TPoint&amp; aPoint </code></td>
+<td class="Cell"><p class="ValueDesc"> New dither origin. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.39"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aSetDrawMode%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetDrawMode()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void SetDrawMode(TDrawMode aDrawingMode);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the drawing mode. </p>
+<p>This affects the colour that is actually drawn, because it
+defines the way that the current screen colour logically combines with the
+current pen colour and brush colour. </p>
+<p>There are 13 drawing modes (see
+<code>CGraphicsContext::TDrawMode</code> enum), each giving different logical
+combinations of pen, brush and screen colours. Each mode is produced by ORing
+together different combinations of seven drawing mode components (see
+<code>CGraphicsContext::TDrawModeComponents</code> enum).</p>
+<p>The three most important modes are
+<code>TDrawMode::EDrawModePEN</code>,
+<code>TDrawMode::EDrawModeNOTSCREEN</code> and
+<code>TDrawMode::EDrawModeXOR</code>. The default drawing mode is
+<code>TDrawMode::EDrawModePEN</code>.</p>
+<p>The drawing mode is over-ridden for line and shape drawing
+functions when a wide pen line has been selected. It is forced to
+<code>TDrawMode::EDrawModePEN</code>. This is to prevent undesired effects at
+line joins (vertexes).</p>
+<p>Notes:</p>
+<p><code>TDrawMode::EDrawModeAND</code> gives a &quot;colour filter&quot;
+effect. For example:</p>
+<ul>
+<li>
+<p>ANDing with white gives the original colour </p>
+</li>
+<li>
+<p>ANDing with black gives black </p>
+</li>
+</ul>
+<p><code>TDrawMode::EDrawModeOR</code> gives a &quot;colour boost&quot;
+effect. For example:</p>
+<ul>
+<li>
+<p>ORing with black gives the original colour </p>
+</li>
+<li>
+<p>ORing with white gives white </p>
+</li>
+</ul>
+<p><code>TDrawMode::EDrawModeXOR</code> gives an &quot;Exclusive OR&quot;
+effect. For example:</p>
+<ul>
+<li>
+<p>white XOR black gives white </p>
+</li>
+<li>
+<p>white XOR white gives black </p>
+</li>
+<li>
+<p>black XOR black gives black</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TDrawMode aDrawingMode </code></td>
+<td class="Cell"><p class="ValueDesc"> A drawing mode. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aSetDrawMode%28%29" title="Sets the drawing mode"><code class="ApiItem">CGraphicsContext::SetDrawMode()</code></a></li>
+</ul>
+<a name="2.11.40"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aSetFaded%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetFaded()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetFaded(TBool aFaded);</code></p><h4 class="subheading">Description</h4>
+<p>Sets whether the graphics context is faded.</p>
+<p>Fading is used to change the colour of a window to make other
+windows stand out. For example, you would fade all other windows when
+displaying a dialogue.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool aFaded </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue</code> to fade the GC, <code>EFalse</code> to
+unfade it. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.41"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aSetFadingParameters%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetFadingParameters()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetFadingParameters(TUint8 aBlackMap,TUint8 aWhiteMap);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Set fading parameters.</p>
+<p>This function allows you to override the map used when drawing
+with a faded GC. However if you draw to a faded window with a faded GC, then
+fading on the GC is ignored and it will use the fading of the window.</p>
+<p>Fading is used to change the colour of a window to make other
+windows stand out. For example, you would fade all other windows when
+displaying a dialogue. Fading can either make a faded window closer to white or
+closer to black. The fading map allows you to over-ride the default fading
+parameters set in <code>RWsSession::SetDefaultFadingParameters()</code>.
+</p>
+<p>Fading re-maps colours in the faded gc to fall between the
+specified black and white map values. If <code>aBlackMap</code>=0 and
+<code>aWhiteMap</code>=255 then the colours are mapped unchanged. As the values
+converge the colours are mapped to a smaller range — so the differences
+between colours in the faded gc decrease. If the values are reversed then the
+colours are inverted (i.e. where the gc would be black, it is now white).
+</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUint8 aBlackMap </code></td>
+<td class="Cell"><p class="ValueDesc"> Black map fading parameter. Unfaded this is 0. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUint8 aWhiteMap </code></td>
+<td class="Cell"><p class="ValueDesc"> White map fading parameter. Unfaded this is 255. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aSetDefaultFadingParameters%28%29" title="Sets the default fading parameters"><code class="ApiItem">RWsSession::SetDefaultFadingParameters()</code></a></li>
+<li><a href="RWindowTreeNodeClass.html#%3a%3aRWindowTreeNode%3a%3aSetFaded%28%29" title="Sets one or more windows as faded or unfaded, specifying a fading map"><code class="ApiItem">RWindowTreeNode::SetFaded()</code></a></li>
+</ul>
+<a name="2.11.42"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aSetOrigin%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetOrigin()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void SetOrigin(const TPoint &amp;aPos=TPoint(0,0));</code></p><h4 class="subheading">Description</h4>
+<p>Sets the position of the co-ordinate origin. </p>
+<p>All subsequent drawing operations are then done relative to
+this origin. The default origin is (0,0), the top left corner of the
+window.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TPoint &amp;aPos=TPoint(0,0) </code></td>
+<td class="Cell"><p class="ValueDesc"> A point for the origin, default (0,0). </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aSetOrigin%28%29" title="Sets the position of the co-ordinate origin"><code class="ApiItem">CGraphicsContext::SetOrigin()</code></a></li>
+</ul>
+<a name="2.11.43"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aSetPenColor%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetPenColor()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void SetPenColor(const TRgb &amp;aColor);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the pen colour. The effective pen colour depends on the
+drawing mode (see <code>SetDrawMode()</code>).</p>
+<p>The default pen colour is black.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRgb &amp;aColor </code></td>
+<td class="Cell"><p class="ValueDesc"> An RGB colour for the pen. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aSetPenColor%28%29" title="Sets the pen colour"><code class="ApiItem">CGraphicsContext::SetPenColor()</code></a></li>
+</ul>
+<a name="2.11.44"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aSetPenSize%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetPenSize()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void SetPenSize(const TSize&amp; aSize);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the line drawing size for the pen.</p>
+<p>Lines of size greater than one pixel are drawn with rounded
+ends that extend beyond the end points, (as if the line is drawn using a
+circular pen tip of the specified size). Rounded ends of lines drawn with a
+wide pen are always drawn in <code>TDrawMode::EDrawModePEN</code> mode,
+overriding whatever mode has been set using <code>SetDrawMode()</code>.</p>
+<p>See the linked topic below for more information.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TSize&amp; aSize </code></td>
+<td class="Cell"><p class="ValueDesc"> A line size, the default being 1 pixel. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aSetPenSize%28%29" title="Sets the line drawing size for the pen"><code class="ApiItem">CGraphicsContext::SetPenSize()</code></a></li>
+</ul>
+<a name="2.11.45"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aSetPenStyle%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetPenStyle()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void SetPenStyle(TPenStyle aPenStyle);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the line drawing style for the pen. </p>
+<p>The pen is used when drawing lines and for the outline of
+filled shapes. There are 6 pen styles (see
+<code>CGraphicsContext::TPenStyle</code> enum). If no pen style is set the
+default is <code>TPenStyle::ESolidPen</code>.</p>
+<p>To use a pen style its full context must be given, e.g. for a
+null pen: <code>CGraphicsContext::TPenStyle::ENullPen</code>.</p>
+<p>For more information see the linked topic below.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TPenStyle aPenStyle </code></td>
+<td class="Cell"><p class="ValueDesc"> A pen style. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aSetPenStyle%28%29" title="Sets the line drawing style for the pen"><code class="ApiItem">CGraphicsContext::SetPenStyle()</code></a></li>
+</ul>
+<a name="2.11.46"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aSetStrikethroughStyle%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetStrikethroughStyle()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void SetStrikethroughStyle(TFontStrikethrough aStrikethroughStyle);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the strikethrough style for all subsequently drawn
+text.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TFontStrikethrough aStrikethroughStyle </code></td>
+<td class="Cell"><p class="ValueDesc"> The strikethrough style&#0160;&#8212;  either on or off. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aSetStrikethroughStyle%28%29" title="Sets the strikethrough style"><code class="ApiItem">CGraphicsContext::SetStrikethroughStyle()</code></a></li>
+</ul>
+<a name="2.11.47"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aSetUnderlineStyle%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetUnderlineStyle()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void SetUnderlineStyle(TFontUnderline aUnderlineStyle);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the underline style for all subsequently drawn
+text.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TFontUnderline aUnderlineStyle </code></td>
+<td class="Cell"><p class="ValueDesc"> The underline style&#0160;&#8212;  either on or off. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aSetUnderlineStyle%28%29" title="Sets the underline style"><code class="ApiItem">CGraphicsContext::SetUnderlineStyle()</code></a></li>
+</ul>
+<a name="2.11.48"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aSetWordJustification%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetWordJustification()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void SetWordJustification(TInt aExcessWidth,TInt aNumGaps);</code></p><h4 class="subheading">Description</h4>
+<p>Sets word justification. This function is not intended for
+regular use by developers.</p>
+<p>This function is particularly useful for doing WYSIWYG
+underlining or strikethrough, as it ensures that the lines extend correctly
+into the gaps between words.</p>
+<p>See the linked topic below for more information.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aExcessWidth </code></td>
+<td class="Cell"><p class="ValueDesc"> The excess width (in pixels) to be distributed between the
+specified number of gaps (starting immediately) </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aNumGaps </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of gaps between words </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aSetWordJustification%28%29" title="Adjusts the spaces between words to stretch or squeeze to a certain width"><code class="ApiItem">CGraphicsContext::SetWordJustification()</code></a></li>
+</ul>
+<a name="2.11.49"></a></div><div class="Head3">
+<a name="%3a%3aCWindowGc%3a%3aUseBrushPattern%28%29"></a>
+<hr size="1" noshade>
+<h3><code>UseBrushPattern()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void UseBrushPattern(const CFbsBitmap *aBitmap);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the brush pattern to the specified bitmap. </p>
+<p>For the brush to actually use the bitmap,
+<code>TBrushStyle::EPatternedBrush</code> must be used to set the brush style
+(see <code>SetBrushStyle()</code>). When the brush pattern is no longer
+required, use <code>DiscardBrushPattern()</code> to free up the memory used,
+(if the bitmap is not being shared). If <code>UseBrushPattern()</code> is used
+again without using <code>DiscardBrushPattern()</code> then the previous
+pattern is discarded automatically.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>When loading a bitmap, the GDI checks to see if the bitmap
+is already in memory. If the bitmap is already there, then that copy is
+shared.</p>
+</li>
+<li>
+<p>The brush does not need to have a pattern set at all. There
+are several built-in hatching patterns, which can be selected using
+<code>SetBrushStyle()</code>.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CFbsBitmap *aBitmap </code></td>
+<td class="Cell"><p class="ValueDesc"> A bitmap pattern for the brush </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext%3a%3aUseBrushPattern%28%29" title="Sets the brush pattern to the specified bitmap"><code class="ApiItem">CGraphicsContext::UseBrushPattern()</code></a></li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Using CIdle</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="AsynchronousServices%2eUsing%2dCIdle"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="UsingCActive.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="UsingTCallBack.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Asynchronous&nbsp;Services</a>&nbsp;<span class="separator">&#187;</span>
+Using&nbsp;CIdle</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Using <code>CIdle</code></h1>
+</div><div class="Bodytext">
+<p>An instance of the <code>CIdle</code> class, an idle time active
+object, can be used to perform low-priority processing when no higher-priority
+active objects are ready to run.</p>
+<p>An idle time active object together with its associated callback
+function may be used to implement potentially long running background tasks,
+such as spreadsheet recalculation and word processor repagination.</p>
+<p>A typical example is a background re-calculation in a spreadsheet.
+Assume that the spreadsheet is encapsulated by some class
+<code>CSheet</code>.</p>
+<p class="CodeBlock"><code>class CSheet<br>&nbsp;{<br>&nbsp;...<br>&nbsp;TInt LaunchReCalcL();<br>&nbsp;TInt DoBackgroundRecalc();<br>&nbsp;static TInt BackgroundRecalc(TAny *aSheet);<br>&nbsp;...<br>private:<br>&nbsp;CIdle* iRecalc;<br>&nbsp;...<br>&nbsp;};</code></p>
+<p>Assume that a <code>CSheet</code> object has been created and that,
+as a result of user interaction or some other event, a background
+re-calculation is launched by a call to <code>LaunchReCalc()</code>. The
+implementation of this function would construct a <code>CIdle</code> object,
+specifying a suitably low priority. The value
+<code>CActive::TPriority::EPriorityIdle</code> is recommended:</p>
+<p class="CodeBlock"><code>TInt CSheet::LaunchReCalcL()<br>&nbsp;{<br>&nbsp;...<br>&nbsp;if (!(iRecalc))<br>&nbsp;&nbsp;{<br>&nbsp;&nbsp;iRecalc = CIdle::NewL(CActive::TPriority::EPriorityIdle);<br>&nbsp;&nbsp;}<br>&nbsp;...<br>&nbsp;iRecalc.Start(TCallBack(BackgroundRecalc,this));<br>&nbsp;...<br>&nbsp;};</code></p>
+<p>To start the background recalculation which is performed by the
+<code>DoBackGroundRecalc()</code> member function of C<code>Sheet</code>, start
+by coding:</p>
+<p class="CodeBlock"><code>iRecalc.Start(TCallBack(BackgroundRecalc,this));</code></p>
+<p><code>CIdle::Start()</code> requires a <code>TCallBack</code> object
+to encapsulate the function to be called and a pointer to be passed as a
+parameter to that function. As the encapsulated function must either be static
+or a non-member function, the easiest way to handle this is to pass the static
+function <code>BackgroundRecalc()</code> and a pointer to the sheet object
+itself. <code>BackgroundRecalc()</code> then calls the non-static
+<code>DoBackgroundRecalc()</code>:</p>
+<p class="CodeBlock"><code>TInt Sheet::BackgroundRecalc(TAny* aSheet)<br>&nbsp;{<br>&nbsp;return ((CSheet*)aSheet)-&gt;DoBackgroundRecalc();<br>&nbsp;}</code></p>
+<p><code>BackgroundRecalc()</code> is called when there are no higher
+priority active objects with events to process. It does a small amount of
+recalculation before returning.</p>
+<p>If the function has further work to do, it returns a true value to
+ensure that it is called again when there is no other higher priority event to
+handle. When the function finally completes its recalculation task, it returns
+a false value; the function is not called again.</p>
+<p>Typically, an object such as <code>CSheet</code> or some other object
+accessible from <code>CSheet</code>, keeps track of the state of the
+re-calculation.</p>
+<p>It is important for application responsiveness that each iteration of
+the idle time object take only a short time. All other events handled by the
+active scheduler&nbsp;&#8212; even high-priority ones&nbsp;&#8212; cannot
+be processed until the idle time object&#8217;s callback function
+returns.</p>
+<p>When the background recalculation is complete, the callback function
+is not called again. The idle time active object can be destroyed or left until
+needed again.</p>
+<p>If <code>Cancel()</code> is called, the callback function is not
+called again. An application would need to implement appropriate
+cleanup.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

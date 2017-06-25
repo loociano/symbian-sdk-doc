@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to start active objects</title>
+<link href="../../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="AsynchronousServicesGuide3%2ehow%2dto%2estart%2dactiveobjects"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../../_index/index.html"><img
+src="../../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../../GlobalGlossary/index.html"><img src="../../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToCancelRequests.guide.html"><img src="../../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToRenewRequestFromActiveSched.guide.html"><img src="../../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Inter&nbsp;Process&nbsp;Communciation</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Asynchronous&nbsp;Services</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">High&nbsp;Level&nbsp;Asynchronous&nbsp;Service&nbsp;Handling</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;start&nbsp;active&nbsp;objects</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to start active objects</h1>
+</div><div class="Bodytext">
+<p>The following example code shows how active objects are started.
+While the example shows the creation of an active scheduler, in UI
+applications, an active scheduler is always provided.</p>
+<ul>
+<li>
+<p>Create an instance of the active scheduler,
+<code>exampleScheduler</code>. In ER5, this would be an instance of a derived
+class in order to provide a suitable <code>Error()</code> function to handle
+leaves occurring in the active object <code>RunL()</code> function(s). </p>
+</li>
+<li>
+<p>Push <code>exampleScheduler</code> onto the cleanup stack and
+install as the current active scheduler.</p>
+</li>
+<li>
+<p>Create an active object, <code>myActiveObject</code>, and pass a
+pointer to the service provider as the parameter. Note that often, the service
+provider may be constructed as part of the active object's own construction
+processing.</p>
+</li>
+<li>
+<p>Issue a request using <code>IssueRequest()</code>.</p>
+</li>
+<li>
+<p>Use <code>CActiveScheduler::Start()</code> to start the active
+scheduler&#8217;s wait loop. At least one outstanding request is necessary
+before the wait loop is started, otherwise the thread hangs. All further
+request issuing and servicing occurs within this function. The wait loop
+continues until one of the active objects&#8217; <code>RunL()</code> requests
+termination using <code>CActiveScheduler::Stop()</code>.</p>
+</li>
+<li>
+<p>Pop the active object, the active scheduler and the example
+service provider from the clean-up stack, and destroy. The code assumes that
+the active object does not take ownership of the
+<code>CExampleServiceProvider</code> object and is not responsible for its
+destruction.</p>
+</li>
+</ul>
+<p class="CodeBlock"><code>LOCAL_C void doExampleL()<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Create and install the active scheduler<br>&nbsp;&nbsp;&nbsp;&nbsp;CActiveScheduler* exampleScheduler=new (ELeave) CActiveScheduler;<br>&nbsp;&nbsp;&nbsp;&nbsp;CleanupStack::PushL(exampleScheduler);<br>&nbsp;&nbsp;&nbsp;&nbsp;CActiveScheduler::Install(exampleScheduler);<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Create the service provider. Often, the<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// service provider is part of the active object<br>&nbsp;&nbsp;&nbsp;&nbsp;CExampleServiceProvider* myServiceProvider=new (ELeave) CExampleServiceProvider;<br>&nbsp;&nbsp;&nbsp;&nbsp;CleanupStack::PushL(myServiceProvider);<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Create the active object and issue the<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// first asynchronous request<br>&nbsp;&nbsp;&nbsp;&nbsp;CExampleActiveObject * myActiveObject=new (ELeave) CExampleActiveObject(myServiceProvider);<br>&nbsp;&nbsp;&nbsp;&nbsp;CleanupStack::PushL(myActiveObject);<br>&nbsp;&nbsp;&nbsp;&nbsp;myActiveObject-&gt;IssueRequest();<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Now we can start the active scheduler<br>&nbsp;&nbsp;&nbsp;&nbsp;CActiveScheduler::Start();<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Remove the exampleScheduler and other<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// objects from cleanup stack and destroy them<br>&nbsp;&nbsp;&nbsp;&nbsp;CleanupStack::PopAndDestroy(3);<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

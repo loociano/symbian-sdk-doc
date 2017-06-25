@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Implementing the server side</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="WindowServerGuide%2eImplementingTheServerSide"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="ImplementingTheClientSide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="UsingCAnimDll.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Graphics</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Animation</a>&nbsp;<span class="separator">&#187;</span>
+Implementing&nbsp;the&nbsp;server&nbsp;side</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Implementing the server side</h1>
+</div><div class="Bodytext">
+<p>Paired server side and client side classes are required for each animation object. The server side class should be derived from one of the abstract base classes, based on <a href="../../../APIReference/Animation/CAnimClass.html#%3a%3aCAnim" title="Server side animated object base interface"><code class="ApiItem">CAnim</code></a>, depending on whether the animation is to draw to a sprite or a window:</p><ul><li><p><a href="../../../APIReference/Animation/CSpriteAnimClass.html#%3a%3aCSpriteAnim" title="Sprite animation interface"><code class="ApiItem">CSpriteAnim</code></a> for sprite animations</p></li><li><p><a href="../../../APIReference/Animation/CWindowAnimClass.html#%3a%3aCWindowAnim" title="Window animation interface"><code class="ApiItem">CWindowAnim</code></a> for  window animations</p></li><li><p><a href="../../../APIReference/Animation/CFreeTimerWindowAnimClass.html#%3a%3aCFreeTimerWindowAnim" title="Free timer animation interface"><code class="ApiItem">CFreeTimerWindowAnim</code></a> for free timer animations</p></li></ul><p> The derived classes are constructed in the DLL factory class <code class="ApiItem">CAnimDLL::CreateInstanceL()</code> function.
+See <a href="UsingCAnimDll.guide.html#Animation%2eUsing%2dCAnimDll">How to create an animation object</a>.</p><p><code>CAnim</code> defines the server side functions which are used to implement a given animation, including the drawing commands which the window server will call and any other command functions the animation may require. These functions must be implemented by the user in the derived class.</p><p>The <a href="../../../APIReference/Animation/MAnimGeneralFunctionsClass.html#%3a%3aMAnimGeneralFunctions" title="General animation utility functions interface"><code class="ApiItem">MAnimGeneralFunctions</code></a>, <a href="../../../APIReference/Animation/MAnimWindowFunctionsClass.html#%3a%3aMAnimWindowFunctions" title="Window utility functions interface"><code class="ApiItem">MAnimWindowFunctions</code></a> and <a href="../../../APIReference/Animation/MAnimSpriteFunctionsClass.html#%3a%3aMAnimSpriteFunctions" title="Sprite animation utility functions interface"><code class="ApiItem">MAnimSpriteFunctions</code></a> classes provide a set of helper functions which are implemented by the window server and to which <code>CAnim</code> provides the <code>iFunctions</code> pointer. These helper functions, which include for example functions to set the animation timings, to set the drawing rectangle, to panic the client from the server, and so on, are therefore available to any <code>CAnim</code> derived class.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

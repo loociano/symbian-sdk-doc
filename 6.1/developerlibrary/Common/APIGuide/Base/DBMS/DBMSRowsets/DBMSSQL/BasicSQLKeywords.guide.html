@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Basic SQL keywords</title>
+<link href="../../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="DBMSRowsetsGuide%2eSQL%2ebasic%2dsql%2dkeywords"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../../_index/index.html"><img
+src="../../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../../GlobalGlossary/index.html"><img src="../../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="PreEvaluationProperties.guide.html"><img src="../../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="SupportedSQLSubset.guide.html"><img src="../../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">DBMS</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">DBMS&nbsp;rowsets</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">DBMS&nbsp;SQL</a>&nbsp;<span class="separator">&#187;</span>
+Basic&nbsp;SQL&nbsp;keywords</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Basic SQL keywords</h1>
+</div><div class="Bodytext">
+<p>The following keywords are supported by the DBMS. They are not case sensitive. </p>
+<a name="dbms%2esql%2eselect%2dstatement"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Select statement</h2>
+</div><div class="Bodytext">
+<p><code>select-statement</code> :
+<code>SELECT</code>
+<code>select-list</code>
+<code>FROM</code>
+<code>table-name</code>
+[ <code>WHERE</code>
+<code>search-condition</code> ]
+[ <code>ORDER</code>
+<code>BY</code>
+<code>sort-order</code> ]</p>
+<p>The <code>RDbView</code> class uses a <code>select-statement</code> to specify what data should be present in the Rowset, and how to present it. It is passed as a parameter to the <code>RDbView::Prepare()</code> function, wrapped in a <code>TDbQuery</code> object.</p>
+<a name="1.4.5"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Selecting columns</h3>
+</div><div class="Bodytext">
+<p><code>select-list</code> :
+<code>*</code>
+|    <code>column-name-comma-list</code></p>
+<p>Specifying <code>*</code> requests that all columns for the table be returned in the Rowset, in an undefined order; otherwise a comma separated list specifies which columns to return, and the order that the columns appear in the Rowset.</p>
+<a name="1.4.6"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Names</h3>
+</div><div class="Bodytext">
+<p><code>table-name
+column-name</code></p>
+<p>The table-name should be a table which exists in the database. Column names should refer to columns which exist in the specified table.</p>
+<a name="dbms%2esql%2esearch%2dcondition"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Search condition</h3>
+</div><div class="Bodytext">
+<p><code>search-condition</code> :
+<code>boolean-term</code> [ <code>OR</code>
+<code>search-condition</code> ]
+<code>boolean-term</code> :
+<code>boolean-factor</code> [ <code>AND</code>
+<code>boolean-term</code> ]
+<code>boolean-factor</code> :
+[ <code>NOT</code> ] <code>boolean-primary</code>
+<code>boolean-primary</code> :
+<code>predicate</code>
+|    <code>(</code>
+<code>search-condition</code>
+<code>)</code></p>
+<p>This specifies a condition which a row must meet to be present in the generated Rowset. A trivial search condition is just a single predicate, more complex search conditions are constructed by combining predicates using the keywords <code>AND</code>, <code>OR</code> and <code>NOT</code>, and using parentheses to override the standard precedence of these operators. Without brackets, the order of precedence is <code>NOT</code>, <code>AND</code> then <code>OR</code>. e.g. </p>
+<p class="CodeBlock"><code>a=1 or not b=2 and c=3</code></p>
+<p>is equivalent to</p>
+<p class="CodeBlock"><code>(a=1 or ((not b=2) and c=3))</code></p>
+<p>A <code>search-condition</code> is also used by <code>RDbRowSet::FindL()</code> and <code>RDbRowConstraint::Open()</code>, specifying which rows of the Rowset will be returned by <code>RDbRowSet::FindL()</code> or matched by <code>RDbRowSet::MatchL()</code>.</p>
+<a name="1.4.8"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Predicates</h3>
+</div><div class="Bodytext">
+<p><code>predicate</code> :
+<code>comparison-predicate</code>
+|    <code>like-predicate</code>
+|    <code>null-predicate</code></p>
+<p>These are the building blocks of the search condition. Each predicate tests one condition of a column in the selected table.</p>
+<a name="1.4.8.4"></a><h4>Comparison predicate</h4>
+<p><code>comparison-predicate</code> :
+<code>column-name</code>
+<code>comparison-operator</code>
+<code>literal</code>
+<code>comparison-operator</code> :
+<code>&lt;</code> | <code>&gt;</code> | <code>&lt;=</code> | <code>&gt;=</code> | <code>=</code> | <code>&lt;&gt;</code></p>
+<p>Compare a column value with a supplied literal value. Numeric columns (including bit columns) are compared numerically, text columns are compared lexically (see <a href="../../../../../APIReference/DBMSColumnsColumnSetsAndKeys/TDbTextComparisonEnum.html#%3a%3aTDbTextComparison" title="Represents different ways of comparing Text and LongText columns"><code class="ApiItem">TDbTextComparison</code></a>) and date columns are compared historically. Binary columns cannot be compared. The literal must be of the same type (numeric, string, date) as the column.</p>
+<a name="1.4.8.5"></a><h4>Literals</h4>
+<p><code>literal</code> :
+<code>string-literal</code>
+<code>numeric-literal</code>
+<code>date-literal</code></p>
+<p>A <code>string-literal</code> is a character string enclosed in single quote characters <code>'</code>. To include a single literal quote character <code>'</code> in a <code>string-literal</code>, use two literal quote characters <code>''</code>.</p>
+<p>A <code>numeric-literal</code> is any sequence of characters which can be interpreted by <code>TLex::Val()</code> as a valid decimal integral or floating point number.</p>
+<p>A <code>date-literal</code> is a character string enclosed by the <code>#</code> character, which can be interpreted by <code>TTime::Parse()</code> as a valid date.</p>
+<a name="1.4.8.6"></a><h4>Like predicate</h4>
+<p><code>like-predicate</code> :
+<code>column-name</code> [ <code>NOT</code> ] <code>LIKE</code>
+<code>pattern-value</code>
+<code>pattern-value</code> :
+<code>string-literal</code></p>
+<p>Test whether or not a text column matches a pattern string. The wildcard characters used in the <code>pattern-value</code> are not standard SQL, instead the  wildcard characters are used: <code>?</code> for matching any single character and <code>*</code> for matching zero or more characters. See the description of the <code>TDesC::Match()</code> function.</p>
+<a name="1.4.8.7"></a><h4>Null predicate</h4>
+<p><code>null-predicate</code> :
+<code>column-name</code>
+<code>IS</code> [ <code>NOT</code> ] <code>NULL</code></p>
+<p>Test whether or not a column is Null. This predicate can be applied to all column types.</p>
+<a name="1.4.9"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Specifying a sort order</h3>
+</div><div class="Bodytext">
+<p><code>sort-order</code> :
+<code>sort-specification-comma-list
+sort-specification</code> :
+<code>column-name</code> [ <code>ASC</code> | <code>DESC</code> ]</p>
+<p>Without an <code>ORDER BY</code> clause in the select statement the order that rows are presented is undefined. The columns specified in the sort-order can be ordered in ascending (the default) or descending order, and should appear in the sort-order in decreasing order of precedence. e.g.</p>
+<p class="CodeBlock"><code>surname, first_name</code></p>
+<p>will order the rows by the column <code>surname</code>, and any rows with identical surnames will then be ordered by the column <code>first_name</code>.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to build for a GUI APP target</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="PracticalGuide%2eHowtoGUItarget"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="UsingUids.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowtoEXEDLL.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Build&nbsp;Tools&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;build&nbsp;for&nbsp;a&nbsp;GUI&nbsp;APP&nbsp;target</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to build for a GUI APP target</h1>
+</div><div class="Bodytext">
+<p>A Symbian GUI application has several components: </p>
+<ul>
+<li>
+<p>a polymorphic DLL which defines the application for the GUI
+framework.</p>
+</li>
+<li>
+<p>a resource file which contains definitions for GUI elements and
+translatable strings.</p>
+</li>
+<li>
+<p>an optional application information file which specifies the
+icon, caption and embedding capabilities of the application.</p>
+</li>
+</ul>
+<p>To appear on the shell, GUI
+applications must be run from the <code class="filename">\system\apps\</code><code>appname</code><code class="filename">\</code>
+directory. The application, its resource file and its application information
+file must be named <i>appname</i><code class="filename">.app</code>,
+<i>appname</i><code class="filename">.rsc, and
+</code><i>appname</i><code class="filename">.aif</code> respectively. The toolchain
+used to deliver these files is shown below.</p>
+<div class="Figure">
+<p class="Image"><img src="GUIAppToolchain2.gif" alt="Toolchain for a GUI application"  border="0"></p>
+<p class="Caption">Toolchain for a GUI application</p>
+</div>
+<p>The diagram shows the full complexity of the toochain. Fortunately
+the build process hides this complexity&nbsp;&#8212; see the linked topic
+below. The following sections discuss the special configuration issues
+associated with building for GUI application targets.</p><h4 class="subheading">See also</h4><p><a href="HowtoBuildProcess.guide.html#PracticalGuide%2eHowtoBuildProcess">How to use the Symbian build process</a></p>
+<a name="1.10"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>mmp project specification</h2>
+</div><div class="Bodytext">
+<p>A GUI application is a polymorphic DLL. The mmp project
+specification has special support for this type of polymorphic DLL.</p>
+<ul>
+<li>
+<p>Specify the <code>TARGETTYPE</code> line as: <code> TARGETTYPE
+app</code>This causes <code class="filename">makmake</code> to include a linker command to use
+the <code>NewApplication()</code> function as the ordinal-1 export from the
+application DLL. This is a convenience because GUI applications are a common
+type of polymorphic interface DLL. For other polymorphic interface DLLs, a
+<code class="filename">.def</code> file would have to be used to specify the ordinal-1
+export.</p>
+</li>
+<li>
+<p>Specify the UID for the application in a <code>UID</code> line:
+<code>UID 0x100039CE</code>
+<code>UID3</code>. The
+UID2 value <code>0x100039CE</code> is the unique identifier for Unicode
+application type polymorphic DLL&nbsp;&#8212; all applications will have
+this UID. The UID3 value is the unique identifier for the particular
+application&nbsp;&#8212; this is obtained from Symbian.</p>
+</li>
+<li>
+<p>Specify the output of the build process using the TARGETPATH
+line: <code> TARGETPATH \system\apps\</code><code>AppName</code>
+This is compulsory for GUI applications, and is assumed relative to the EPOC
+<code class="filename">z:</code> drive.</p>
+</li>
+<li>
+<p>Specify the application&#8217;s resource file in the
+<code>RESOURCE</code> line: <code>RESOURCE </code><code>AppName</code><code>.rss</code>This
+is not required for other types of project.</p>
+</li>
+<li>
+<p>Optionally specify the information required to build the
+application information file in the <code>AIF</code> line. <code>AIF </code><code>target-file
+source-path resource [ color-depth ] source-bitmap-list</code> The <code>source-bitmap-list</code> is optional, no icon bitmaps need be supplied. Application
+information files are discussed in greater detail in a following
+section.</p>
+</li>
+</ul>
+<p>An example of a real GUI application project file is given
+below&nbsp;&#8212; <code class="filename">HelloWorld.mmp</code>. Note that the
+<code class="filename">mmp</code> file does not have an AIF line and will hence not build an
+application information file. </p>
+<p class="CodeBlock"><code>TARGET        HelloWorld.app<br>TARGETTYPE    app<br>UID           0x100039CE 0x10004299<br>TARGETPATH    \system\apps\HelloWorld<br>SOURCEPATH    .<br>SOURCE        HelloWorld_Main.cpp<br>SOURCE        HelloWorld_Application.cpp<br>SOURCE        HelloWorld_Document.cpp<br>SOURCE        HelloWorld_AppUi.cpp<br>SOURCE        HelloWorld_AppView.cpp<br>USERINCLUDE   .<br>SYSTEMINCLUDE \epoc32\include<br>RESOURCE      HelloWorld.rss<br>LIBRARY       euser.lib apparc.lib cone.lib eikcore.lib</code></p>
+<a name="1.11"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Resource file</h2>
+</div><div class="Bodytext">
+<p>A resource file is available to an application at run-time, and
+usually has extension <code class="filename">.rsc</code>. It contains resources compiled from a
+source file, <code class="filename">.rss</code>.</p>
+<p>Each resource is a sequence of bytes. Resources within a file are
+identified by number at run-time, but may also be identified symbolically in
+the source file. The resource compiler <code class="filename">rcomp</code> compiles a
+<code class="filename">.rss</code> into a <code class="filename">.rsc</code>, and also emits a series of
+<code>#define</code> statements into a <code class="filename">.rsg</code> file, which the C++
+program may <code>#include</code>, to allow resources lookup by symbolic name
+rather than by number.</p>
+<p>The <code class="filename">.rsg</code> file is required at compile time. Therefore,
+the resource compiler must be run before the C++ compiler.</p>
+<p>Resource data is mapped by structs&nbsp;&#8212; in a similar way
+to C&#8217;s structs. Resource structs are defined using <code>STRUCT</code>
+statements which are understood only by the resource compiler. EPOC provides
+many <code class="ProgramOutput">struct</code> types: occasionally, applications also add their
+own. <code>STRUCT</code> statements are included in headers, conventionally
+with a <code class="filename">.rh</code> extension. These are <code>#include</code>d into
+<code class="filename">.rss</code> files.</p>
+<p>Symbolic constants for various purposes must be available to both C++
+programs and resource file definitions. These are defined using
+<code>#define</code> statements or <code>enum</code> statements, and included
+in <code class="filename">.hrh</code> files. These may be <code>#include</code>d into either C++
+or resource scripts.</p>
+<p>The resource compiler may be integrated into the Visual Studio and
+invoked as a tool. It is also invoked automatically by the build process if a
+resource is specified in the project&#8217;s <code class="filename">mmp</code> file, as
+discussed above.</p>
+<a name="1.12"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Application information file</h2>
+</div><div class="Bodytext">
+<p>Application information files are only required by GUI targets. They
+contain the icon and caption information used to represent the application in
+the shell, and also information about the applications capabilities, e.g.
+whether its documents can be embedded into another application.</p>
+<p>The application icon is actually several images of different
+sizes&nbsp;&#8212; the actual sizes are specific to a particular reference
+design. Each image actually uses two bitmaps: one for the image itself, and
+another for the mask. The mask bitmap should be black for where the image data
+is to be used, and white for where background data is to be used. These
+bitmaps, and an <code class="filename">aif</code> resource file, must be specified in the
+<code class="filename">mmp</code> file&#8217;s <code>AIF</code> line to cause the build process
+to automatically build the <code class="filename">aif</code>.</p>
+<p>If an application does not have an application information file
+(<code class="filename">.aif</code>), then:</p>
+<ul>
+<li>
+<p>a default icon will be used both for the application and its
+documents.</p>
+</li>
+<li>
+<p>embedding will not be supported</p>
+</li>
+<li>
+<p>the application will not support new-file&nbsp;&#8212; i.e.,
+the ability to close one file and open another, when requested by the
+shell.</p>
+</li>
+<li>
+<p>the application&#8217;s caption will be the name of its
+executable, without the extension.</p>
+</li>
+</ul>
+<p>Application information files allow non-default values for these
+properties to be specified, using a special-purpose resource script. This
+script may refer to a <code class="filename">.mbm</code> which is used for the
+application&#8217;s icon in various sizes. It may also contain the caption for
+the application in more than one language.</p>
+<a name="1.12.7"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>See also</h3>
+</div><div class="Bodytext">
+<p><a href="../AIFUITools/index.html#AIFUITools%2eindex">AIF Builder Guide</a></p>
+<a name="1.13"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>GUI app on WINS</h2>
+</div><div class="Bodytext">
+<p>On WINS, all components of an application should be built into the
+target directory on the simulated drive <code class="filename">z:</code>. For debug, this is
+<code class="filename">epoc32\release\wins\udeb\z\system\apps\</code><code>appname</code><code class="filename">\</code>.
+This is the default target path for <code class="filename">abld</code>. To launch a GUI
+application, you need to launch a shell. Usually, this is done by first
+launching the Emulator, <code class="filename">epoc32\release\wins\udeb\epoc.exe</code>.</p>
+<a name="1.14"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>GUI app on ARMI</h2>
+</div><div class="Bodytext">
+<p>On ARMI, all components should be built or copied into the release
+directory on the PC: <code class="filename">epoc32\release\armi\urel\</code>. Then, copy to
+<code class="filename">c:\system\apps\</code><code>appname</code><code class="filename">\</code>
+on the target machine and execute using the machine&#8217;s shell.</p>
+<a name="1.14.3"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>See also</h3>
+</div><div class="Bodytext">
+<p><a href="../Installing/index.html#Installing%2eToplevel%2etoc">Application Installation Guide</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

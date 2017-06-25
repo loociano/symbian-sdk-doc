@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Font information statement</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="printerdrivergeneration%2epdrfilesyntax%2efont%2dinfo"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="PdrFileTranslates.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="PdrFileTypeface.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Printer&nbsp;driver&nbsp;generation</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">.pdr&nbsp;file&nbsp;syntax</a>&nbsp;<span class="separator">&#187;</span>
+Font&nbsp;information&nbsp;statement</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Font information statement</h1>
+</div><div class="Bodytext">
+<p>A number of font information statements can be defined. Each statement has the following syntax:</p><p><b>FontInfo</b>
+<i>font-height-label</i></p><p><b>MaxNormalCharWidth</b>
+<i>char-width</i></p><p><b>Ascent</b>
+<i>ascent</i></p><p><i>code-section-clause-list</i></p><p><b>EndFontBitMap</b>
+</p><p>Note the following points:</p><ul><li><p><i>font-height-label</i> is used by <a href="PdrFileTypeface.guide.html#printerdrivergeneration%2epdrfilesyntax%2etypeface" title="Typeface statement">typeface statements</a> to refer to the font bitmap</p></li><li><p><i>char-width</i> is the maximum normal character width, in pixels</p></li><li><p><i>ascent</i> is the character cell ascent, in pixels</p></li><li><p><i>code-section-clause-list</i> is a list of one or more code sections</p></li></ul><a name="1.11"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>code-section-clause</h2>
+</div><div class="Bodytext"><p>A <i>code-section-clause</i> has the following syntax:</p><p><b>CodeSection</b>
+<i>code-point-start</i>
+<i>code-point-end</i></p><p><i>char-width-clause-list</i>
+</p><p><b>EndCodeSection</b>
+</p><p>A <i>code-section-clause</i>  provides width information for characters in the range <i>code-point-start</i> to <i>code-point-end</i>. The width of each
+character in this range is defined by a <i>char-width-clause</i>. Each successive <i>char-width-clause</i> defines successive characters in
+ascending numerical order through the range. There must be precisely the required number of <i>char-width-clauses</i>,
+i.e. the value of <code>code-point-end - code-point-start + 1</code>,   unless the font is monospaced, in which case only one <i>char-width-clause</i>, for the first
+character in the range, is necessary, as all characters in the range will be defined to have this width.</p><a name="1.11.7"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>char-width-clause</h3>
+</div><div class="Bodytext"><p>A <i>char-width-clause</i> has the following syntax:</p><div class="bnf">
+<dl><dt><code class="bnfName">&lt;<em>char-width-clause</em>&gt;</code> ::=</dt><dd><code class="bnfName">&lt;<em>char-code</em>&gt;</code><code class="bnfName">&lt;<em>char-width</em>&gt;</code></dd></dl>
+</div><a name="1.12"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Example</h2>
+</div><div class="Bodytext">
+<p class="CodeBlock"><code>FontInfo Courier12<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MaxNormalCharWidth 30<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ascent 40<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CodeSection 0:255<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0:30<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EndCodeSection<br>EndFontInfo</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

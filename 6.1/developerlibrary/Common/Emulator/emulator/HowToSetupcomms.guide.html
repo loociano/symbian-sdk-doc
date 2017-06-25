@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to configure comms settings</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="Emulator%2eHow%2dTo%2eQuartzComms"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToEPOCRoot.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/DeveloperGuide/index.html">Developer's&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Emulator</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Emulator&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;configure&nbsp;comms&nbsp;settings</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to configure comms settings</h1>
+</div><div class="Bodytext">
+<p>Since EPOC Release 5, CommDb has been provided as the repository for
+comms-related configuration information. In Version 6.1, CommDb holds
+information about Internet Access Providers (IAPs), Internet Service
+Providers (ISPs), modems, locations, charge-cards, proxies, and WAP
+settings.</p><p>On EPOC R5 devices, and in EPOC R5 emulators, control panel dialogs
+provided an interface to CommDb, allowing these settings to be
+configured. Because Version 6.1 devices are smartphones, users are no
+longer required to manually configure services which work 'out of the
+box'.</p><p>However, this presents a problem for developers working with Version
+6.1 emulators. Emulators running on Windows PCs must be configured to
+use PC hardware to mimic services which would be seamless on real
+devices.
+</p><p>Version 6.1 SDKs include a utility, <code class="filename">setupcomms.bat</code>, which can be run
+from a command prompt to provide an interface to the CommDb
+database. This allows modems, ports, and ISP settings on the emulator
+to be configured to match the hardware and settings available on the
+PC.</p><p>Typically, developers interested in working with Web, WAP, Email, and
+Fax services can do so by configuring the emulator to work with a PC
+serial modem.</p><p>Developers interested in working with SMS services will need to
+connect to a data-enabled mobile phone.</p><p>Note that configuration for individual socket protocol modules is
+changed from EPOC R5. The EPOC R5 <code class="filename">esock.ini</code> is replaced in Version 6.1
+by a separate <code class="filename">.esk</code> file associated with each module. The <code class="filename">.esk</code> file is
+read by the sockets server to tell it how to load and configure the
+module which delivers a requested protocol. The <code class="filename">.esk</code> files use the
+same syntax internally as the Release 5 <code class="filename">esock.ini</code> file.</p><a name="1.10"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Configuring the  emulator for a serial modem</h2>
+</div><div class="Bodytext"><ol><li><p>By default, the  Emulator takes control of the PC's COM2 port to
+simulate a device 'always on' IrDA. Therefore, if a PC modem
+is connected to COM2:</p><ul><li><p>either the PC modem must be set up to use an alternative COM port</p></li><li><p>or the  emulator must be set up to use an alternative COM
+port. To do this, change the irPhysicalComPort setting in
+<code class="filename">Epoc32\Wins\c\System\Data\irda_wins.esk</code> from 1 (which maps to the PC's
+COM2 port) to 0 (which maps to COM1).
+</p></li></ul></li><li><p>CommDb should then be used to configure the appropriate telephony and
+comms services. Run <code class="filename">setupcomms.bat</code> and choose item 1, Modem Information:</p><ul><li><p>Set PortName to COMM::&lt;port-number&gt;, e.g. COMM::0 for COM1.</p></li><li><p>Set <code>TSYName</code> to <code>HAYES</code></p></li><li><p>Set <code>CSYName</code> to <code>ECUART</code></p></li></ul><p>If you enter these names incorrectly, the Emulator can crash.</p></li><li><p>Other fields can be left with their default settings (though it may be
+useful to change the SpeakerPref setting so that you can hear the
+modem dial).</p></li><li><p>You can verify the setup by configuring an Internet connection in the
+Emulator's Control Panel, and opening a page in Web.</p></li></ol>
+<a name="1.11"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Configuring the  emulator for IrDA connection to a mobile phone</h2>
+</div><div class="Bodytext"><p>The default communications settings for a  Emulator are to use
+an infra-red capable mobile phone through the COM2 port.</p><ol><li><p>Assuming that you haven't changed the defaults through setupcomms.bat, the
+simplest way to get a connection is to connect an infra-red pod to the
+COM2 port, and point it at your mobile phone's IR port. To change to
+use COM1, change the irPhysicalComPort setting in
+<code class="filename">Epoc32\Wins\c\System\Data\irda_wins.esk</code> from 1 to 0.
+</p></li><li><p>If you have changed the defaults, you can restore the settings by
+running <code class="filename">setupcomms.bat</code> and make the following Modem Information
+settings:</p><ul><li><p>Set PortName to <code>IRCOMM::&lt;port-number&gt;</code>, e.g. <code>IRCOMM::0</code> for COM1.</p></li><li><p>Set modem type to <code>GSMBSC</code></p></li><li><p>Set comms type to <code>IRCOMM</code></p></li></ul><p>Other fields can be left with their default settings.</p></li><li><p>Again, you can verify the setup by configuring an Internet connection
+in the Emulator's Control Panel, and opening a page in Web.</p></li></ol><a name="1.12"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Configuring the  emulator to use NT RAS
+</h2>
+</div><div class="Bodytext"><p>Some developers may want to configure the  emulator to use their
+PC's networking connection, instead of a modem. This can be achieved
+using NT RAS with a null modem connection between two COM ports on the
+PC. The Emulator 'dials' out on one COM port, and the PC listens for a
+connection on the other. This RAS setup is not supported, but is
+possible.</p><p>CommDb should be configured to dial-out as for a serial modem. Run
+<code class="filename">setupcomms.bat</code> and choose item 1, Modem Information:</p><ul><li><p>Set PortName to <code>COMM::&lt;port-number&gt;</code>, e.g. <code>COMM::0 for COM1</code>.</p></li><li><p>Set <code>TSYName</code> to <code>HAYES</code></p></li><li><p>Set <code>CSYName</code> to <code>ECUART</code></p></li></ul><p>Unfortunately, this step alone is not sufficient. There are two other problems:</p><ul><li><p>As a RAS setup will use both COM1 and COM2 ports, it is necessary
+to prevent monitoring either of these ports for IR connections.</p></li><li><p>As well as the physical connection, an initialisation script is
+required by NT RAS. CommDb as shipped with SDKs includes a default
+initialisation script. However, this script is <em>not</em> acceptable to
+RAS. On Release 5 devices, the control panel dialogs allowed an
+appropriate RAS script to be entered into CommDb. setupcomms.bat does
+<em>not</em> provide an interface to this field in the CommDb database, and
+therefore developers are given no easy way to configure RAS
+initialisation. The required initialisation script sends the string
+<code>CLIENT</code> in clear to the RAS server, and waits for the response
+<code>SERVER</code>. This completes initialisation.</p></li></ul><p>Developers will therefore need to disable the  monitoring
+functionality, and replace the default CommDb with one purpose built
+to support RAS. Source code, build files, and further information are
+available for free download from the Symbian Developer Network, from
+the Networking topic in the C++ Knowledge Base at
+<a href="http://www.symbiandevnet.com/">http://www.symbiandevnet.com</a>.</p><a name="1.13"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext"><p><a href="../emulator-ref/setupcomms.guide.html#Emulator%2eQuartzComms">Comms settings syntax — setupcomms.bat</a>.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

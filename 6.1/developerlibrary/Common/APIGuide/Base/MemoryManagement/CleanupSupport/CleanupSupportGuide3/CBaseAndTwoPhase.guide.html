@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CBase-derived classes and two-phase construction</title>
+<link href="../../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="CleanupSupportGuide3%2etwo%2dphase%2dconstruct"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../../_index/index.html"><img
+src="../../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../../GlobalGlossary/index.html"><img src="../../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToCBase.guide.html"><img src="../../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Memory&nbsp;Management</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Cleanup&nbsp;Support</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Two&nbsp;Phase&nbsp;Construction</a>&nbsp;<span class="separator">&#187;</span>
+CBase-derived&nbsp;classes&nbsp;and&nbsp;two-phase&nbsp;construction</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1><code>CBase</code>-derived classes and two-phase construction</h1>
+</div><div class="Bodytext">
+<p>When the construction of an object cannot leave (except for out-of-memory for the allocation of the object itself), then it is appropriate to use the conventional C++ constructor, which is automatically invoked by <code>new</code>. </p>
+<p>When the construction of an object may leave, then the object must be pushed to the clean-up stack, or a pointer to the object must be stored in an object that would be cleaned up if a leave occurred, <i>before</i> any part of the construction function is invoked that may leave. To allow this to happen, construction steps that can leave, are performed not in the C++ constructor, but in another initialisation functions, referred to as a second phase constructor.</p>
+<p>Thus, the general sequence for two-phase construction is:</p>
+<ol><li><p>allocate memory for the object (and leave if out of memory) using <code>new</code></p></li>
+<li><p>optionally define a C++ constructor to perform any construction that cannot leave</p></li>
+<li><p>push a pointer to the object, or store a pointer to it in a class with cleanup support</p></li>
+<li><p>use the second phase constructor to perform any part of the construction that might leave</p></li>
+</ol><p>Note that:</p>
+<ul><li><p>The whole sequence is usually encapsulated in static member functions called <code>NewL()</code>, and <code>NewLC()</code>
+<code>(</code>which additionally leaves the created object on the clean-up stack). </p></li>
+<li><p>Abstract classes are not intended to be instantiated, and so have no <code>NewLC()</code> or <code>NewL()</code>, only a second phase constructor.</p></li>
+<li><p>Step 2 is optional, because all such construction can be performed by the second phase constructor.  The C++ constructor is only necessary when the class is immediately derived from a base class whose default C++ constructor cannot be used.  In this case, the derived class must call the base class&#8217;s constructor with appropriate parameters.</p></li>
+<li><p>It is conventional for the second phase constructor to be called <code>ConstructL()</code>. </p></li>
+</ul>
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

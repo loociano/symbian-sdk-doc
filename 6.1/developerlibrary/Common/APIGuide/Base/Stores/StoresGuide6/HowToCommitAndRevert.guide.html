@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to commit and revert </title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="StoresGuide6%2ehow%2dto%2ecommit%2drevert"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="IntroductionToTransactions.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Stores</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Transactions</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;commit&nbsp;and&nbsp;revert&nbsp;</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to commit and revert </h1>
+</div><div class="Bodytext">
+<p>Transactions are supported by a commit and revert protocol. Changes
+to a store are not made permanent until they are committed. Until such changes
+are committed, they can be rolled back (i.e. reverted).</p>
+<p>In the following code fragment, <code>store</code> is a pointer to an
+opened permanent file store. The function <code>doUpdateStoreL()</code> adds a
+number of streams to this store and, if successful, establishes a new commit
+point.</p>
+<p>If a failure occurs or the call to <code>CommitL()</code> fails, then
+<code>doUpdateStoreL()</code> leaves; the leave is trapped and any changes made
+to the store are rolled back, so that the store is in the same state as it was
+before the changes were started. The store, therefore, remains in a consistent
+state in the event of failure.</p>
+<p><code>CItemArray</code> is a class that encapsulates an array of
+<code>TItem</code> objects; the relevant part of the definition is:</p>
+<p class="CodeBlock"><code>typedef TBuf&lt;100&gt; TItem;</code></p>
+<p class="CodeBlock"><code>class CItemArray : public CBase<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>public:<br>&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;void AddItemL(const TItem&amp; anItem);<br>&nbsp;&nbsp;&nbsp;&nbsp;void StoreL() const;<br>&nbsp;&nbsp;&nbsp;&nbsp;void ExternalizeL(RWriteStream&amp; aStream) const;<br>&nbsp;&nbsp;&nbsp;&nbsp;...<br>private:<br>&nbsp;&nbsp;&nbsp;&nbsp;CStreamStore&amp; iStore;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;CArrayFixFlat&lt;TStreamId&gt;* iArray;<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>The example also assumes that the store is one that allows streams to
+be modified and replaced; for example, a permanent file store.</p>
+<p class="CodeBlock"><code>...<br>TRAPD(error,doUpdateStoreL(*store));<br>if (error!=KErrNone)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;store-&gt;Revert();<br>&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>...</code></p>
+<p class="CodeBlock"><code>LOCAL_C void doUpdateStoreL(CPersistentStore&amp; aStore)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;_LIT(KTxtHello,&quot;hello&quot;);<br>&nbsp;&nbsp;&nbsp;&nbsp;_LIT(KtxtWorld,&quot; world!&quot;);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// get the root stream into memory<br>&nbsp;&nbsp;&nbsp;&nbsp;CItemArray* array=CItemArray::NewLC(aStore,aStore.Root());<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Add some items<br>&nbsp;&nbsp;&nbsp;&nbsp;TItem item;<br>&nbsp;&nbsp;&nbsp;&nbsp;item = KTxtHello;<br>&nbsp;&nbsp;&nbsp;&nbsp;array-&gt;AddItemL(item);<br>&nbsp;&nbsp;&nbsp;&nbsp;item = KTxtWorld;<br>&nbsp;&nbsp;&nbsp;&nbsp;array-&gt;AddItemL(item);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Re-write the root stream with new data<br>&nbsp;&nbsp;&nbsp;&nbsp;array-&gt;StoreL();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// commit all changes<br>&nbsp;&nbsp;&nbsp;&nbsp;aStore.CommitL();<br>&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p class="CodeBlock"><code>void CItemArray::AddItemL(const TItem&amp; anItem)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;RStoreWriteStream outstream;<br>&nbsp;&nbsp;&nbsp;&nbsp;TStreamId id=outstream.CreateLC(iStore);<br>&nbsp;&nbsp;&nbsp;&nbsp;outstream&lt;&lt;anItem;<br>&nbsp;&nbsp;&nbsp;&nbsp;outstream.CommitL();<br>&nbsp;&nbsp;&nbsp;&nbsp;CleanupStack::PopAndDestroy();<br>&nbsp;&nbsp;&nbsp;&nbsp;iArray-&gt;AppendL(id);<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<a name="1.13"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="../../FileStores/index.html#FileStoresOverview%2etoc">File stores</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

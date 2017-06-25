@@ -1,0 +1,190 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to access tables in the database</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="CommDbGuide%2ehow%2dto%2eaccess"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CommDbIntroduction.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="TransactionsAndLockingDB.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Comms&nbsp;Infrastructure</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;CommDb</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;access&nbsp;tables&nbsp;in&nbsp;the&nbsp;database</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to access tables in the database</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Opening the database</h2>
+</div><div class="Bodytext">
+<p>A client must first access the communications database through
+DBMS. This is done using the services of a <a href="../../../APIReference/CommDb/CCommsDatabaseClass.html#%3a%3aCCommsDatabase" title="Accesses the communications database through the DBMS"><code class="ApiItem">CCommsDatabase</code></a> object,
+which inherits from <a href="../../../APIReference/CommDb/CCommsDatabasebaseClass.html#%3a%3aCCommsDatabaseBase" title="Base class for CCommsDatabase"><code class="ApiItem">CCommsDatabaseBase</code></a>.</p>
+<p>A client constructs a <code>CCommsDatabase</code> object using the
+static <code>NewL()</code> function of the <code>CCommsDatabase</code> class.
+In common with all servers, the first client to attempt to connect to the
+server causes that server to start. The database is opened with shared
+access.</p>
+<p>Note that if the communications database does not exist when
+<code>NewL()</code> is called, it is created, with <em>empty</em> tables,
+before trying to connect to the DBMS.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Building a view on a specific table</h2>
+</div><div class="Bodytext">
+<p>Access to an individual table is gained by opening a view on that
+table. A view is simply a subset of the records (or rows) within a table,
+selected according to defined criteria. Tables, records, rows, columns, and so on,
+are DBMS concepts.</p>
+<p>CommDb uses a <a href="../../../APIReference/CommDb/CCommsDbTableViewclass.html#%3a%3aCCommsDbTableView" title="The view on a specific table"><code class="ApiItem">CCommsDbTableView</code></a> object to encapsulate
+a view on a specific table. A view is constructed using one of the
+<code>CCommsDatabaseBase</code> member functions:</p>
+<ul>
+<li>
+<p><a href="../../../APIReference/CommDb/CCommsDatabasebaseClass.html#%3a%3aCCommsDatabaseBase%3a%3aOpenTableLC%28%29" title="Opens a view onto a whole table and returns a pointer to that view"><code class="ApiItem">OpenTableLC()</code></a></p>
+</li>
+<li>
+<p><a href="../../../APIReference/CommDb/CCommsDatabasebaseClass.html#%3a%3aCCommsDatabaseBase%3a%3aOpenViewMatchingUintLC%28%29" title="Opens a view onto a specified table based on a matching unsigned integer value, and returns a pointer to that view"><code class="ApiItem">OpenViewMatchingUintLC()</code></a></p>
+</li>
+<li>
+<p><a href="../../../APIReference/CommDb/CCommsDatabasebaseClass.html#%3a%3aCCommsDatabaseBase%3a%3aOpenViewMatchingBoolLC%28%29" title="Opens a view onto a specified table based on a matching boolean value, and returns a pointer to that view"><code class="ApiItem">OpenViewMatchingBoolLC()</code></a></p>
+</li>
+<li>
+<p><a href="../../../APIReference/CommDb/CCommsDatabasebaseClass.html#%3a%3aCCommsDatabaseBase%3a%3aOpenViewMatchingTextLC%28%29" title="Opens a view onto a specified table based on a matching 16 bit text type, and returns a pointer to that view"><code class="ApiItem">OpenViewMatchingTextLC()</code></a></p>
+</li>
+<li>
+<p><a href="../../../APIReference/CommDb/CCommsDatabasebaseClass.html#%3a%3aCCommsDatabaseBase%3a%3aOpenViewLC%28%29" title="Opens a view onto a specified table based on an explicitly coded SQL query, and returns a pointer to that view"><code class="ApiItem">OpenViewLC()</code></a></p>
+</li></ul>
+<p>Each function offers a different way of building a view: for
+example, <code>OpenTableLC()</code> builds a view where all the records in the
+table are selected, while <code>OpenViewMatchingUintLC()</code> builds a view
+where the records are selected based on matching the unsigned integer values in
+a named column.</p>
+<p>All of these functions construct a <code>CCommsDbTableView</code>
+object which is subsequently used to navigate through the recordset and access
+individual records.</p>
+<h4 class="subheading">Notes</h4><ul><li><p>Views on the Connection preferences table cannot be obtained through <code>CCommsDbTableView</code>. For details, on what to do instead, see <a href="Connected-pref.guide.html#CommDbGuide%2econn%2dpref%2eguide">Connection preferences</a>.</p></li><li><p>Specialist functions for opening particular views on  the IAP table (<a href="../../../APIReference/CommDb/CCommsDatabaseClass.html#%3a%3aCCommsDatabase%3a%3aOpenIAPTableViewMatchingBearerSetLC%28%29" title="Opens a view on records in the IAP table with a specified range of service types"><code class="ApiItem">CCommsDatabase::OpenIAPTableViewMatchingBearerSetLC()</code></a>) and on the Proxies table (<a href="../../../APIReference/CommDb/CCommsDatabaseClass.html#%3a%3aCCommsDatabase%3a%3aOpenViewOnProxyRecordLC%28%29" title="Opens a view on records in the Proxies table with a specified range of service types and service IDs"><code class="ApiItem">CCommsDatabase::OpenViewOnProxyRecordLC()</code></a>) are also available.</p></li></ul>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Navigating the rows in a view</h2>
+</div><div class="Bodytext">
+<p>Within a given view, there is always the idea of a cursor which
+points to a <em>current</em> record. The <code>CCommsDbTableView</code>
+class offers three functions which allow a client to navigate between
+records:</p>
+<ul>
+<li>
+<p><a href="../../../APIReference/CommDb/CCommsDbTableViewclass.html#%3a%3aCCommsDbTableView%3a%3aGotoFirstRecord%28%29" title="Sets the first record in the view as the current record; i.e"><code class="ApiItem">GotoFirstRecord()</code></a> sets the cursor to point to the
+first record in the view.</p>
+</li>
+<li>
+<p><a href="../../../APIReference/CommDb/CCommsDbTableViewclass.html#%3a%3aCCommsDbTableView%3a%3aGotoNextRecord%28%29" title="Sets the next record in the view as the current record; i.e"><code class="ApiItem">GotoNextRecord()</code></a> sets the cursor to point to the
+next record in the view.</p>
+</li>
+<li>
+<p><a href="../../../APIReference/CommDb/CCommsDbTableViewclass.html#%3a%3aCCommsDbTableView%3a%3aGotoPreviousRecord%28%29" title="Sets the previous record in the view as the current record; i.e"><code class="ApiItem">GotoPreviousRecord()</code></a> sets the cursor to point to
+the previous record in the view.</p>
+</li>
+</ul>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Reading to and writing from individual columns in the current
+record</h2>
+</div><div class="Bodytext">
+<p>The <code>CCommsDbTableView</code> class offers functions which
+allow a client to read from or write to named columns within the
+<em>current</em> record. There are specific functions for reading and
+writing columns of: unsigned integer type, boolean type, short length narrow
+(ASCII) text, short length wide (Unicode) text and long text (ASCII or
+Unicode):</p>
+<ul>
+<li>
+<p><a href="../../../APIReference/CommDb/CCommsDbTableViewclass.html#%3a%3aCCommsDbTableView%3a%3aReadUintL%28%29" title="Reads an unsigned integer value located in a specific column within the current record and copies it into a reference to an unsigned integer"><code class="ApiItem">ReadUintL()</code></a> and <a href="../../../APIReference/CommDb/CCommsDbTableViewclass.html#%3a%3aCCommsDbTableView%3a%3aWriteUintL%28%29" title="Writes an unsigned integer value to a specific column within the current record"><code class="ApiItem">WriteUintL()</code></a></p>
+</li>
+<li>
+<p><a href="../../../APIReference/CommDb/CCommsDbTableViewclass.html#%3a%3aCCommsDbTableView%3a%3aReadBoolL%28%29" title="Reads a boolean value located in a specific column within the current record and copies it into a specified value"><code class="ApiItem">ReadBoolL()</code></a> and <a href="../../../APIReference/CommDb/CCommsDbTableViewclass.html#%3a%3aCCommsDbTableView%3a%3aWriteBoolL%28%29" title="Writes a Boolean value to a specific column within the current record"><code class="ApiItem">WriteBoolL()</code></a></p>
+</li>
+<li>
+<p><a href="../../../APIReference/CommDb/CCommsDbTableViewclass.html#%3a%3aCCommsDbTableView%3a%3aReadTextL%28%29" title="Reads wide (Unicode) text located in a specific column within the current record and copies it into a 16 bit modifiable descriptor"><code class="ApiItem">ReadTextL()</code></a> and <a href="../../../APIReference/CommDb/CCommsDbTableViewclass.html#%3a%3aCCommsDbTableView%3a%3aWriteTextL%28%29" title="Writes the wide (UNICODE) text from a 16 bit descriptor to a specific column within the current record"><code class="ApiItem">WriteTextL()</code></a></p>
+</li>
+<li>
+<p><a href="../../../APIReference/CommDb/CCommsDbTableViewclass.html#%3a%3aCCommsDbTableView%3a%3aReadLongTextLC%28%29" title="Reads the long text located in a specific column within the current record and copies this text to a heap descriptor"><code class="ApiItem">ReadLongTextLC()</code></a> and
+<a href="../../../APIReference/CommDb/CCommsDbTableViewclass.html#%3a%3aCCommsDbTableView%3a%3aWriteLongTextL%28%29" title="Writes the long text from a descriptor to a specific column within the current record"><code class="ApiItem">WriteLongTextL()</code></a></p>
+</li>
+</ul>
+<h4 class="subheading">See also</h4><p><a href="../../Base/DBMS/DBMSColumnsColumnSetsKeys/ColumnTypeCharacteristics.guide.html#DBMSColumnsColumnSetsKeysGuide%2ecolumn%2dcharacteristics">Column type characteristics</a>.</p>
+<a name="1.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Inserting records and changing existing records</h2>
+</div><div class="Bodytext">
+<p>All changes must start with a call to the
+<code>CCommsDbTableView</code> member functions <a href="../../../APIReference/CommDb/CCommsDbTableViewclass.html#%3a%3aCCommsDbTableView%3a%3aInsertRecord%28%29" title="Prepares database to insert a new record -- must be called before writing to any column"><code class="ApiItem">InsertRecord()</code></a> or
+<a href="../../../APIReference/CommDb/CCommsDbTableViewclass.html#%3a%3aCCommsDbTableView%3a%3aUpdateRecord%28%29" title="Prepares to update the current record -- must be called before writing to any column"><code class="ApiItem">UpdateRecord()</code></a>, depending on whether a new record is to be
+inserted or the current record changed, and <em>must</em> complete with a
+call to either <a href="../../../APIReference/CommDb/CCommsDbTableViewclass.html#%3a%3aCCommsDbTableView%3a%3aPutRecordChanges%28%29" title="Confirms changes made to a record which were started by calls to one ofInsertRecord() or UpdateRecord()"><code class="ApiItem">PutRecordChanges()</code></a> or
+<a href="../../../APIReference/CommDb/CCommsDbTableViewclass.html#%3a%3aCCommsDbTableView%3a%3aCancelRecordChanges%28%29" title="Abandons changes made to a record which were started by calls to either:InsertRecord() or UpdateRecord()"><code class="ApiItem">CancelRecordChanges()</code></a>.</p>
+<p><code>PutRecordChanges()</code> confirms the changes to the record
+while <code>CancelRecordChanges()</code> causes the changes to be
+abandoned.</p>
+<p>No read type operations can be made while a change to a record is
+in progress. Any attempt to call a read type function in between, for example,
+a call to <code>UpdateRecord()</code> and a call to
+<code>PutRecordChanges()</code>, raises a
+panic.</p>
+<a name="1.10"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Deleting records</h2>
+</div><div class="Bodytext">
+<p>Records are deleted by a call to the <code>CCommsDbTableView</code>
+member function <a href="../../../APIReference/CommDb/CCommsDbTableViewclass.html#%3a%3aCCommsDbTableView%3a%3aDeleteRecord%28%29" title="Deletes the record at the current cursor position"><code class="ApiItem">DeleteRecord()</code></a>.</p>
+<p>This function is not normally followed by any write operations; in
+addition, neither of the functions <code>PutRecordChanges()</code> nor
+<code>CancelRecordChanges()</code> is called after a record is deleted.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

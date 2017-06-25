@@ -1,0 +1,554 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CServProviderBase</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CProtocolFamilyBaseClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="MSocketNotifyClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Socket&nbsp;Server&nbsp;Protocols</a>&nbsp;<span class="separator">&#187;</span>
+CServProviderBase</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code> es_prot.h </code>
+<br>Link against: <code> esock.lib </code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aCServProviderBase"></a>
+
+<h1>Class <code>CServProviderBase</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CServProviderBase</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Service Access Point.</p>
+<p>This class provides transport services to a single protocol.
+Several of the calls to <code>CServProviderBase</code> have pre-conditions
+attached to them&#0160;&#8212;  for example a connection oriented protocol must have
+its local address set (either by a <code>SetLocalName()</code> or
+<code>AutoBind()</code>) before it is opened. If the socket server calls the
+<code>CServProviderBase</code> in such an erroneous way, the protocol should
+panic. </p>
+<h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase">CBase</a></code></td><td class="Cell">Base class for all classes to be instantiated on the heap</td>
+</tr>
+<tr><td class="Cell"><code>CServProviderBase</code></td><td class="Cell">Service Access Point</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>CServProviderBase</code>:
+<br><code class="ApiItem"><a href="CServProviderBaseClass.html#%3a%3aCServProviderBase%3a%3aActiveOpen%28%29" title="Initiates a connection operation - this means that it tells the protocol to attempt to connect to a peer">ActiveOpen()</a></code>, <code class="ApiItem"><a href="CServProviderBaseClass.html#%3a%3aCServProviderBase%3a%3aAutoBind%28%29" title="Specifies that the protocol should choose a local address for the service access point itself">AutoBind()</a></code>, <code class="ApiItem"><a href="CServProviderBaseClass.html#%3a%3aCServProviderBase%3a%3aCancelIoctl%28%29" title="Cancels an outstanding Ioctl call">CancelIoctl()</a></code>, <code class="ApiItem"><a href="CServProviderBaseClass.html#%3a%3aCServProviderBase%3a%3aEImmediate" title="The protocol should close the connection immediately and free all resources without performing a graceful disconnect">EImmediate</a></code>, <code class="ApiItem"><a href="CServProviderBaseClass.html#%3a%3aCServProviderBase%3a%3aENormal" title="The protocol should shutdown gracefully -- no further input or output will be requested">ENormal</a></code>, <code class="ApiItem"><a href="CServProviderBaseClass.html#%3a%3aCServProviderBase%3a%3aEStopInput" title="The protocol should shut down gracefully -- all further and pending input should be discarded">EStopInput</a></code>, <code class="ApiItem"><a href="CServProviderBaseClass.html#%3a%3aCServProviderBase%3a%3aEStopOutput" title="The protocol should shutdown gracefully -- all pending output should be discarded">EStopOutput</a></code>, <code class="ApiItem"><a href="CServProviderBaseClass.html#%3a%3aCServProviderBase%3a%3aGetData%28%29" title="Gets data which the protocol has indicated is waiting in its buffers using the NewData up-call on theMSocketNotify">GetData()</a></code>, <code class="ApiItem"><a href="CServProviderBaseClass.html#%3a%3aCServProviderBase%3a%3aGetOption%28%29" title="Gets some protocol specific option when called by the socket server on behalf of a client">GetOption()</a></code>, <code class="ApiItem"><a href="CServProviderBaseClass.html#%3a%3aCServProviderBase%3a%3aIoctl%28%29" title="Performs some protocol specific IO control">Ioctl()</a></code>, <code class="ApiItem"><a href="CServProviderBaseClass.html#%3a%3aCServProviderBase%3a%3aLocalName%28%29" title="Gets the local name (address) of the socket service provider entity">LocalName()</a></code>, <code class="ApiItem"><a href="CServProviderBaseClass.html#%3a%3aCServProviderBase%3a%3aPassiveOpen%28%29" title="Tells the protocol to start waiting for an incoming connection request on this socket (i.e">PassiveOpen()</a></code>, <code class="ApiItem"><a href="CServProviderBaseClass.html#%3a%3aCServProviderBase%3a%3aRemName%28%29" title="Gets the remote name (address) of the socket service provider entity">RemName()</a></code>, <code class="ApiItem"><a href="CServProviderBaseClass.html#%3a%3aCServProviderBase%3a%3aSetLocalName%28%29" title="Sets the local name (address) of the socket service provider entity">SetLocalName()</a></code>, <code class="ApiItem"><a href="CServProviderBaseClass.html#%3a%3aCServProviderBase%3a%3aSetOption%28%29" title="Sets some protocol specific option when called by the socket server on behalf of a client">SetOption()</a></code>, <code class="ApiItem"><a href="CServProviderBaseClass.html#%3a%3aCServProviderBase%3a%3aSetRemName%28%29" title="Sets the remote name (address) of the socket service provider entity">SetRemName()</a></code>, <code class="ApiItem"><a href="CServProviderBaseClass.html#%3a%3aCServProviderBase%3a%3aShutdown%28%29" title="Terminates a connection (or closes a non connection-oriented socket down)">Shutdown()</a></code>, <code class="ApiItem"><a href="CServProviderBaseClass.html#%3a%3aCServProviderBase%3a%3aTCloseType" title="Describes the behaviour the SAP should take on shutdown">TCloseType</a></code>, <code class="ApiItem"><a href="CServProviderBaseClass.html#%3a%3aCServProviderBase%3a%3aWrite%28%29" title="Sends data onto the network via the protocol">Write()</a></code>, <code class="ApiItem"><a href="CServProviderBaseClass.html#%3a%3aCServProviderBase%3a%3aiSocket" title="On socket creation, the socket server sets this member to point to a server notification interface">iSocket</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap">CBase</a></code>:
+<br><code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase%3a%3aoperator%20new%28%29" title="Allocates the object from the heap and then initialises its contents to binary zeroes">operator new()</a></code></p>
+<a name="2.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Getting and setting the local address</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aCServProviderBase%3a%3aLocalName%28%29"></a>
+<hr size="1" noshade>
+<h3><code>LocalName()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void LocalName(TSockAddr&amp; anAddr)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the local name (address) of the socket service provider
+entity. The format of the data in the <code>TSockAddr</code> object is defined
+by individual protocols.</p>
+<p>The local address is the address of the local machine plus a
+local port number. Generally only the port number is important, unless you have
+two IP interfaces, for example.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TSockAddr&amp; anAddr </code></td>
+<td class="Cell"><p class="ValueDesc"> The address to be filled in </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aCServProviderBase%3a%3aSetLocalName%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetLocalName()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt SetLocalName(TSockAddr&amp; anAddr)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Sets the local name (address) of the socket service provider
+entity. The format of the data in the <code>TSockAddr</code> object is defined
+by individual protocols.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TSockAddr&amp; anAddr </code></td>
+<td class="Cell"><p class="ValueDesc"> The address </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> Returns <code>KErrNone</code> if the local name is correctly set
+or, if this is not the case, an informative error number. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.4"></a></div><div class="Head3">
+<a name="%3a%3aCServProviderBase%3a%3aAutoBind%28%29"></a>
+<hr size="1" noshade>
+<h3><code>AutoBind()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void AutoBind()=0;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies that the protocol should choose a local address for the
+service access point itself.</p>
+<a name="2.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Getting and setting the remote address</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aCServProviderBase%3a%3aRemName%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RemName()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void RemName(TSockAddr&amp; anAddr)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the remote name (address) of the socket service provider entity.
+The format of the data in the <code>TSockAddr</code> object is defined by
+individual protocols.</p>
+<p>A remote address is either the address you&#8217;re sending data to
+(non connection-oriented sockets)* or the remote end of the connection. It is
+the address of the remote machine (your peer in the network) plus a port
+number.</p>
+<p>Note:</p>
+<p><code>RemName</code> is only meaningful if the socket server client
+has called <code>Connect()</code> to set up a default address for
+<code>SendTo()</code>. This function will only be called on the protocol if
+this is the case.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TSockAddr&amp; anAddr </code></td>
+<td class="Cell"><p class="ValueDesc"> The address to be filled in </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aCServProviderBase%3a%3aSetRemName%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetRemName()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt SetRemName(TSockAddr &amp;anAddr)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Sets the remote name (address) of the socket service provider entity.
+The format of the data in the <code>TSockAddr</code> object is defined by
+individual protocols.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TSockAddr&amp; anAddr </code></td>
+<td class="Cell"><p class="ValueDesc"> The address </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> Returns <code>KErrNone</code> if the remote name is correctly set or,
+if this is not the case, an informative error number. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>I/O controls</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aCServProviderBase%3a%3aIoctl%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Ioctl()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void Ioctl(TUint aLevel, TUint aName,TDes8* anOption)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Performs some protocol specific IO control.</p>
+<p>Notes:</p>
+<p>If this function is called erroneously, the protocol should call
+<code>Error()</code> on the socket. If an Ioctl call is already outstanding,
+the client will be panicked with the value <code>ETwoIoctls</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUint aLevel </code></td>
+<td class="Cell"><p class="ValueDesc"> IOCTL level </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUint aName </code></td>
+<td class="Cell"><p class="ValueDesc"> IOCTL name </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TDes8* anOption </code></td>
+<td class="Cell"><p class="ValueDesc"> IOCTL option </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aCServProviderBase%3a%3aCancelIoctl%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CancelIoctl()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void CancelIoctl(TUint aLevel, TUint aName)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Cancels an outstanding Ioctl call. You are guaranteed only to have one
+outstanding at once. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUint aLevel </code></td>
+<td class="Cell"><p class="ValueDesc"> IOCTL level </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUint aName </code></td>
+<td class="Cell"><p class="ValueDesc"> IOCTL name </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Getting and setting protocol options</h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aCServProviderBase%3a%3aGetOption%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetOption()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void GetOption(TUint aLevel,TUint aName,TDes8&amp; anOption) const =0;</code></p><h4 class="subheading">Description</h4>
+<p>Gets some protocol specific option when called by the socket server on
+behalf of a client. A protocol may pass the request down a protocol stack (to
+protocols it is bound to) using the <code>GetOption()</code>function
+of<code>CProtocolBase</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUint aLevel </code></td>
+<td class="Cell"><p class="ValueDesc"> Option level </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUint aName </code></td>
+<td class="Cell"><p class="ValueDesc"> Option name </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TDes8&amp; anOption </code></td>
+<td class="Cell"><p class="ValueDesc"> Option data </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.3"></a></div><div class="Head3">
+<a name="%3a%3aCServProviderBase%3a%3aSetOption%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetOption()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void SetOption(TUint aLevel, TUint aName, const TDesC8&amp; anOption)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Sets some protocol specific option when called by the socket server on
+behalf of a client. A protocol may pass the request down a protocol stack (to
+protocols it is bound to) using the <code>SetOption()</code> function
+of<code>CProtocolBase</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUint aLevel </code></td>
+<td class="Cell"><p class="ValueDesc"> Option level </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUint aName </code></td>
+<td class="Cell"><p class="ValueDesc"> Option name </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TDesC8&amp; anOption </code></td>
+<td class="Cell"><p class="ValueDesc"> Option data </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Transmitting and receiving data</h2>
+</div><div class="Bodytext">
+<a name="2.10.2"></a></div><div class="Head3">
+<a name="%3a%3aCServProviderBase%3a%3aWrite%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Write()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TUint Write(const TDesC8&amp; aDesc, TUint aOptions, TSockAddr* anAddr=NULL)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Sends data onto the network via the protocol. Connection-oriented sockets
+must be in a connected state (that is <code>ConnectComplete()</code> has been
+called on their <code>MSocketNotify</code>) before <code>Write()</code> is
+called.</p>
+<p>The socket server keeps track of how much data is waiting and then tries
+to send it all until the protocol tells it to hold off by returning 0 (datagram
+sockets) or &#8216;less than all data consumed&#8217; (stream sockets)
+to<code>Write()</code>. The protocol should call <code>CanSend()</code> when it
+is ready to send more data.</p>
+<p><code>anAddr</code> is the address to write the data to. Connection
+oriented sockets always use the default value.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TDesC8 &amp;aDesc </code></td>
+<td class="Cell"><p class="ValueDesc"> The data to be sent. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUint aOptions </code></td>
+<td class="Cell"><p class="ValueDesc"> Protocol specific options </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TSockAddr* anAddr </code></td>
+<td class="Cell"><p class="ValueDesc"> Address to write the data to </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint</code></td>
+<td class="Cell"><p class="ValueDesc">For stream-oriented protocols, the return value is the number of bytes
+actually written. If this is less than the length of the descriptor, then the
+protocol should call <code>CanSend()</code> when it is ready to send more data.
+For datagram-oriented protocols, the write should return either 0 if the write
+cannot be completed, or the length of the descriptor if the write succeeds - no
+other values are valid. If the <code>Write()</code> must return 0, then it
+should call <code>CanSend()</code> when it is ready to send more data. If
+the<code>Write()</code> fails due to some error, then it should
+call<code>Error()</code> with an informative error number,</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.3"></a></div><div class="Head3">
+<a name="%3a%3aCServProviderBase%3a%3aGetData%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetData()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void GetData(TDes8 &amp;aDesc,TUint aOptions, TSockAddr* anAddr)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Gets data which the protocol has indicated is waiting in its buffers
+using the <code>NewData</code> up-call on the<code>MSocketNotify</code>.</p>
+<p><code>GetData()</code> will only ever be called for as much data as the
+protocol has specified it can process using the
+<code>NewData</code>up-call.</p>
+<p>For stream oriented protocols <code>GetData()</code> should fill the
+descriptor with data from the stream. On a datagram
+protocol<code>GetData()</code> should copy one datagram into the descriptor and
+set the length of the descriptor. If a full datagram will not fit into the
+supplied descriptor, the overflow should be discarded. </p>
+<p><code>anAddr</code> should be filled in by the protocol with the address
+of where the data came from.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TDesC8 &amp;aDesc </code></td>
+<td class="Cell"><p class="ValueDesc"> The buffer for data </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUint aOptions </code></td>
+<td class="Cell"><p class="ValueDesc"> Protocol specific options </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TSockAddr* anAddr </code></td>
+<td class="Cell"><p class="ValueDesc"> Where the data came from </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Server access points</h2>
+</div><div class="Bodytext">
+<a name="2.11.2"></a></div><div class="Head3">
+<a name="%3a%3aCServProviderBase%3a%3aActiveOpen%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ActiveOpen()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void ActiveOpen()=0;<br>virtual void ActiveOpen(const TDesC8 &amp;aConnectionData)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Initiates a connection operation - this means that it tells the protocol
+to attempt to connect to a peer. It is called by the socket server in response
+to a connect request from a client. </p>
+<p>The second version of the function is the same, but with user data in the
+connection frame.</p>
+<p><code>ActiveOpen()</code> is only ever called on connection-oriented
+sockets. Such a socket should always have both the local address and the remote
+address specified before <code>ActiveOpen()</code> is called. If this is not
+the case, then the protocol should panic.</p>
+<p>When a connection has completed, the protocol should
+call<code>ConnectComplete()</code> on its <code>TNotify</code>. If an error
+occurs during connection the protocol should not call
+<code>ConnectComplete()</code>at all; instead it should call
+<code>Error()</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TDesC8 &amp;aConnectionData </code></td>
+<td class="Cell"><p class="ValueDesc"> If the protocol supports user specified connection data, then it will be
+held in this buffer. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.3"></a></div><div class="Head3">
+<a name="%3a%3aCServProviderBase%3a%3aPassiveOpen%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PassiveOpen()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void PassiveOpen(TUint aQueSize)=0;<br>virtual void PassiveOpen(TUint aQueSize, const TDesC8 &amp;aConnectionData)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Tells the protocol to start waiting for an incoming connection request on
+this socket (i.e. port). It is called by the socket server in response to a
+listen request from a client.</p>
+<p>The second version of the function is the same, but with user data in the
+connection frame.</p>
+<p><code>PassiveOpen()</code> is only ever called on connection-oriented
+sockets. Such a socket should always have both the local address and the remote
+address specified before <code>PassiveOpen()</code> is called. If this is not
+the case, then the protocol should panic.</p>
+<p>The <code>aQue</code> parameter is the number of sockets which can be
+waiting for an outstanding Start after calling <code>ConnectComplete()</code>.
+The protocol should keep a count of sockets in this state - incrementing a
+variable in <code>ConnectComplete()</code>, and decrementing it
+in<code>Start()</code>.</p>
+<p>When a connection has completed, the protocol should
+call<code>ConnectComplete()</code> on its <code>TNotify</code>. If an error
+occurs during connection the protocol should not call
+<code>ConnectComplete()</code>at all; instead it should call
+<code>Error()</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUint aQueSize </code></td>
+<td class="Cell"><p class="ValueDesc"> size of connect queue </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TDesC8 &amp;aConnectionData </code></td>
+<td class="Cell"><p class="ValueDesc"> if the protocol supports user specified connection data, then it will be
+held in this buffer. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.4"></a></div><div class="Head3">
+<a name="%3a%3aCServProviderBase%3a%3aShutdown%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Shutdown()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void Shutdown(TCloseType option)=0;<br>virtual void Shutdown(TCloseType option,const TDesC8&amp; aDisconnectionData)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Terminates a connection (or closes a non connection-oriented socket
+down). The value of the option argument specifies the type of processing which
+will be required of the protocol after <code>Shutdown()</code> is
+called.</p>
+<p>Normally, when the socket server has called <code>Shutdown()</code> for a
+socket, it will wait for the socket to call <code>CanClose()</code> before
+destroying the <code>CServProviderBase</code> object. However, if the option
+argument is <code>EImmediate</code>, the <code>CServProviderBase</code> will be
+destroyed as soon as <code>Shutdown()</code> returns.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TCloseType option </code></td>
+<td class="Cell"><p class="ValueDesc"> The shutdown type. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TDesC8 &amp;aDisconnectionData </code></td>
+<td class="Cell"><p class="ValueDesc"> If the protocol supports disconnect data, any such data required will be
+held in this buffer. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Enumerations</h2>
+</div><div class="Bodytext">
+<a name="2.12.2"></a></div><div class="Head3">
+<a name="%3a%3aCServProviderBase%3a%3aTCloseType"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TCloseType</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TCloseType</code></p><h4 class="subheading">Description</h4>
+<p>Describes the behaviour the SAP should take on shutdown.</p>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCServProviderBase%3a%3aENormal"><code class="Value">ENormal</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>The protocol should shutdown gracefully&#0160;&#8212;  no further input or
+output will be requested.</para>
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCServProviderBase%3a%3aEStopInput"><code class="Value">EStopInput</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>The protocol should shut down gracefully&#0160;&#8212;  all further and pending
+input should be discarded.</para>
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCServProviderBase%3a%3aEStopOutput"><code class="Value">EStopOutput</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>The protocol should shutdown gracefully&#0160;&#8212;  all pending output should
+be discarded.</para>
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCServProviderBase%3a%3aEImmediate"><code class="Value">EImmediate</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>The protocol should close the connection immediately and free all
+resources without performing a graceful disconnect.</para>
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Data members</h2>
+</div><div class="Bodytext">
+<a name="2.13.2"></a></div><div class="Head3">
+<a name="%3a%3aCServProviderBase%3a%3aiSocket"></a>
+<hr size="1" noshade>
+<h3><code>iSocket</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: MSocketNotify* iSocket</code></p><h4 class="subheading">Description</h4>
+<p>On socket creation, the socket server sets this member to point to a
+server notification interface.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

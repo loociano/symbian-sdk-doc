@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Data safety and recovery</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="InterfaceToDBMSDatabasesGuide%2esafety%2drecovery"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="DatabaseStorageOverhead.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="DatabaseEncryption.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">DBMS</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Interface&nbsp;to&nbsp;DBMS&nbsp;databases</a>&nbsp;<span class="separator">&#187;</span>
+Data&nbsp;safety&nbsp;and&nbsp;recovery</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Data safety and recovery</h1>
+</div><div class="Bodytext">
+<p>A robust stream structure is used to manage row data within a database, and relying on the permanent file store's update integrity, it will survive a crash; this  excludes the case where the file itself is corrupted. Such an aborted access  effects a rollback on the database when it is next opened, all committed data is immediately available, though indexes may have been damaged as for a controlled rollback.</p>
+<p>The database reports damage if it considers that it may have damaged indexes. When this is the case the database can still be used, but attempting to use any damaged index  results in an error. Damaged indexes can be fully restored by recovering the database.</p>
+<p>Compacting the store which contains the database also guarantees no data loss.</p>
+<p>The store used by the database <strong class="warning">must not be committed or reverted while the database is inside a transaction</strong>, this can lead to loss of structural integrity within the database. Such damage is not repairable by DBMS. </p>
+<p>The database streams cannot be corrupted by any action of DBMS itself, but misuse of the store, the file or damage to the file system resulting in such corruption may be detected by the database and reported as an error. DBMS cannot repair such damage to a database.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

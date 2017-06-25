@@ -1,0 +1,1165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>USER</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="Panics%2euser"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="PlatForEpocPanics.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="UserExecPanics.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Panic&nbsp;categories&nbsp;and&nbsp;numbers</a>&nbsp;<span class="separator">&#187;</span>
+USER</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Category: USER</h1>
+</div><div class="Bodytext">
+<p>Panics with this category  are raised on the user side by member functions of T type and R type classes  which reside in <code class="filename">euser.dll</code>.</p><p>They are also raised by some static member functions of the
+<code>User</code>, <code>UserHeap</code> and <code>RHeap</code> classes. Typically, they are caused by passing bad or contradictory values to class constructors
+or member functions.</p><p>The thread causing the panic is terminated.</p>
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0">
+<tr valign="top">
+<td class="Cell">
+<p><code>0</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when a thread calls <a href="../SystemStaticFunctions/UserClass.html#%3a%3aUser" title="Set of static user functions"><code class="ApiItem">User</code></a><code>::Invariant()</code>.
+</p><p>Typically, <code>User::Invariant()</code> is called when a test for a class invariant fails, i.e. when a test which checks
+that the internal data of an object is self-consistent, fails.
+</p><p>Check the design and implementation of your class.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>3</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when a <a href="../DateTimeHandling/TDateTimeClass.html#%3a%3aTDateTime" title="Allows user access to the following components of the time: the year, month, day, hour, minute, second and microsecond, in human-readable form"><code class="ApiItem">TDateTime</code></a> object is constructed with an invalid date or time field.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>7</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Ptr()</code> member function of a 16 bit variant descriptor if the descriptor is invalid.
+</p><p>Check for ways in which the descriptor may have become corrupted, including an unsafe use of cast.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>8</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when a length value passed to a 16 bit variant descriptor member function is invalid. It may be
+raised by some descriptor constructors and, specifically, by the <code>Replace()</code> and <code>Set()</code> descriptor member
+functions.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>9</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when the index value passed to the 16 bit variant descriptor <code>Operator[]</code> is out of bounds</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>10</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when the position value passed to a 16 bit variant descriptor member function is out of
+bounds. It may be raised by the <code>Left()</code>, <code>Right()</code>, <code>Mid()</code>, <code>Insert()</code>, <code>Delete()</code> and <code>Replace()</code>
+member functions of <a href="../Descriptors/TDes16Class.html#%3a%3aTDes16" title="Modifiable 16 bit descriptor; abstract class"><code class="ApiItem">TDes16</code></a>.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>11</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when any operation that moves or copies data to a 16 bit variant descriptor, causes the length
+of that descriptor to exceed its maximum length.
+It may be caused by any of the copying, appending or formatting member functions and, specifically, by the
+<code>Insert()</code>, <code>Replace()</code>, <code>Fill()</code>, <code>Fillz()</code> and <code>ZeroTerminate()</code> descriptor member functions.
+It can also be caused by the <code>SetLength()</code> function. See <a href="../Descriptors/TDes16Class.html#%3a%3aTDes16" title="Modifiable 16 bit descriptor; abstract class"><code class="ApiItem">TDes16</code></a>.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>12</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when the format string passed to the 16 bit variant descriptor member functions <code>Format()</code>
+and <code>AppendFormat()</code> contain invalid commands. See <a href="../Descriptors/TDes16Class.html#%3a%3aTDes16" title="Modifiable 16 bit descriptor; abstract class"><code class="ApiItem">TDes16</code></a>.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>13</code></p>
+</td>
+<td class="Cell">
+<p><em>This panic is raised in debug builds only.</em></p><p>It is raised by the <code>AppendFormatList()</code> member function of the 16 bit variant descriptor <a href="../Descriptors/TDes16Class.html#%3a%3aTDes16" title="Modifiable 16 bit descriptor; abstract class"><code class="ApiItem">TDes16</code></a>, if
+an invalid variable list is passed to the function when the format is <code>%S</code> or <code>%s</code>.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>14</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when expanding or contracting an  <a href="../Descriptors/HBufC16Class.html#%3a%3aHBufC16" title="16 bit heap descriptor"><code class="ApiItem">HBufC16</code></a> buffer using the <code>ReAlloc()</code> or <code>ReAllocL()</code>
+descriptor member functions. Specifically, the panic occurs if the new length being specified is too small to
+contain the data.
+</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>16</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Replace()</code>  member function of the 16 bit variant descriptor <a href="../Descriptors/TDes16Class.html#%3a%3aTDes16" title="Modifiable 16 bit descriptor; abstract class"><code class="ApiItem">TDes16</code></a> when the length of the source
+descriptor is negative or exceeds the maximum length of the target descriptor.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>17</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when 16 bit variant descriptors are constructed with negative length values. It may also be
+raised if the <code>Set()</code>, <code>Repeat()</code> and the <code>Find()</code> member functions are passed negative length values.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>18</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when 16 bit variant descriptors are constructed with negative maximum length values.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>19</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Ptr()</code> member function of an 8 bit variant descriptor if the descriptor is invalid.
+Check for ways in which the descriptor may have become corrupted, including an unsafe use of cast.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>20</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when a length value passed to an 8 bit variant descriptor member function is invalid. It may
+be raised by some descriptor constructors and, specifically, by the <code>Replace()</code> and <code>Set()</code> descriptor member
+functions.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>21</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when the index value passed to the 8 bit variant descriptor <code>Operator[]</code> is out of bounds.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>22</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when the position value passed to an 8 bit variant descriptor member function is out of
+bounds. It may be raised by the <code>Left()</code>, <code>Right()</code>, <code>Mid()</code>, <code>Insert()</code>, <code>Delete()</code> and <code>Replace()</code>
+descriptor member functions.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>23</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when any operation that moves or copies data to an 8 bit variant descriptor, causes the length
+of that descriptor to exceed its maximum length.</p><p>It may be caused by any of the copying, appending or formatting member functions and, specifically, by the
+<code>Insert()</code>, <code>Replace()</code>, <code>Fill()</code>, <code>Fillz()</code> and <code>ZeroTerminate()</code> descriptor member functions.
+It can also be caused by the <code>SetLength()</code> function.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>24</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when the format string passed to the 8 bit variant descriptor member functions <code>Format()</code>
+and <code>AppendFormat()</code> contain invalid commands.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>25</code></p>
+</td>
+<td class="Cell">
+<p><em>This panic is raised in debug builds only.</em></p><p>This panic is raised by the <code>AppendFormatList()</code> member function of the 8 bit variant descriptor <a href="../Descriptors/TDes8Class.html#%3a%3aTDes8" title="Modifiable 8-bit descriptor; abstract class"><code class="ApiItem">TDes8</code></a>, if
+an invalid variable list is passed to the function when the format is <code>%S</code> or <code>%s</code>.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>26</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when expanding or contracting an <a href="../Descriptors/HBufC8Class.html#%3a%3aHBufC8" title="8 bit heap descriptor"><code class="ApiItem">HBufC8</code></a> buffer using the <code>ReAlloc()</code> or <code>ReAllocL()</code>
+descriptor member functions. Specifically, the panic occurs if the new length being specified is too small to
+contain the data.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>28</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Replace()</code> member function of the 8 bit variant descriptor <a href="../Descriptors/TDes8Class.html#%3a%3aTDes8" title="Modifiable 8-bit descriptor; abstract class"><code class="ApiItem">TDes8</code></a>,  when the length of the source
+descriptor is negative or exceeds the maximum length of the target descriptor.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>29</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when 8 bit variant descriptors are constructed with negative length values. It may also be
+raised if the <code>Set()</code>, <code>Repeat()</code> and the <code>Find()</code> member functions are passed negative length values.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>30</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when 8 bit variant descriptors are constructed with negative maximum length values.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>32</code></p>
+</td>
+<td class="Cell">
+<p><em>This panic is raised in debug builds only.</em></p><p>
+It is raised by the <code>Pos()</code> member function of a <code>TRawEvent</code>. The function returns the mouse/pen position
+encapsulated by the <code>TRawEvent</code>. The panic is raised when the event is not a mouse/pen type event.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>33</code></p>
+</td>
+<td class="Cell">
+<p><em>This panic is raised in debug builds only.</em></p><p>It is raised by the <code>ScanCode()</code> member function of a <code>TRawEvent</code>. The function returns the scan code
+associated with a key down or key up event encapsulated by the <code>TRawEvent</code>. The panic is raised when the
+event is not a key down or key up event.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>34</code></p>
+</td>
+<td class="Cell">
+<p><em>This panic is raised in debug builds only.</em></p><p>It is raised by the <code>Modifiers()</code> member function of a <code>TRawEvent</code>. The function returns the modifers
+associated with a modifiers update event encapsulated by the <code>TRawEvent</code>. The panic is raised when the event
+is not a modifier update event.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>35</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the default <code>At()</code> virtual member function of <a href="../ArrayKeys/TKeyClass.html#%3a%3aTKey" title="Defines the characteristics of a key used to access the elements of an array"><code class="ApiItem">TKey</code></a>. The function is intended to be
+overridden by a derived class.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>36</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the default <code>Swap()</code> virtual member function of <a href="../ArrayKeys/TSwapClass.html#%3a%3aTSwap" title="Defines the basic behaviour for swapping two elements of an array"><code class="ApiItem">TSwap</code></a>. The function is intended to be
+overridden by a derived class.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>37</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>operator[]</code> of a <a href="../UIDManipulation/TUidTypeClass.html#%3a%3aTUidType" title="Encapsulates a set of three unique identifiers (UIDs) which, in combination, identify a system object such as a GUI application or a DLL"><code class="ApiItem">TUidType</code></a> when the index value passed to the operator is either
+negative or is greater than or equal to the constant <code>KMaxCheckedUid</code> defined in <code class="filename">e32std.h</code>.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>38</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Set(TDesC8&amp;)</code> member function of <code>TCheckedUid</code> when the length of the
+descriptor passed to the function is not equal to the size of a <code>TCheckedUid</code> object.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>41</code></p>
+</td>
+<td class="Cell">
+<p>This panic is caused by the <a href="../MemoryAllocation/UserHeapClass.html#%3a%3aUserHeap%3a%3aChunkHeap%28%29" title="Creates a heap in a local or global chunk"><code class="ApiItem">UserHeap::ChunkHeap()</code></a> static function when the value defining the minimum
+length of the heap is greater than the value defining the maximum length to which the heap can grow.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>42</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by a number of <a href="../MemoryAllocation/RHeapClass.html#%3a%3aRHeap" title="Represents a heap"><code class="ApiItem">RHeap</code></a> member functions, <code>AllocLen()</code>, <code>Free()</code>, <code>FreeZ()</code>,
+<code>ReAlloc()</code>, <code>ReAllocL()</code>, <code>Adjust()</code> and <code>AdjustL()</code> when a pointer passed to these functions does
+not point to a valid cell.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>43</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Adjust()</code> and <code>AdjustL()</code> member functions of an <a href="../MemoryAllocation/RHeapClass.html#%3a%3aRHeap" title="Represents a heap"><code class="ApiItem">RHeap</code></a>. It is caused when a
+heap cell is being shrunk and the amount by which the cell is being shrunk is less than the current length of the
+cell.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>44</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Free()</code> and <code>FreeZ()</code> member functions of an <a href="../MemoryAllocation/RHeapClass.html#%3a%3aRHeap" title="Represents a heap"><code class="ApiItem">RHeap</code></a>. It is caused when the cell
+being freed overlaps the next cell on the free list (i.e. the first cell on the free list with an address higher than the
+one being freed).</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>45</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Free()</code> and <code>FreeZ()</code> member functions of an <a href="../MemoryAllocation/RHeapClass.html#%3a%3aRHeap" title="Represents a heap"><code class="ApiItem">RHeap</code></a>. It is caused when the cell
+being freed overlaps the previous cell on the free list (i.e. the last cell on the free list with an address lower than
+the one being freed).</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>46</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>ReAlloc()</code> and <code>ReAllocL()</code> member functions of an <a href="../MemoryAllocation/RHeapClass.html#%3a%3aRHeap" title="Represents a heap"><code class="ApiItem">RHeap</code></a>. It is caused when
+the cell being reallocated overlaps the next cell on the free list (i.e. the first cell on the free list with an address
+higher than the one being reallocated).</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>47</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Alloc()</code>, <code>AllocL()</code> or <code>AllocLC()</code> member functions of <a href="../MemoryAllocation/RHeapClass.html#%3a%3aRHeap" title="Represents a heap"><code class="ApiItem">RHeap</code></a>. It is caused
+by trying to allocate a cell from a heap, specifying an unsigned size value which is greater than or equal to the
+value of <code>KMaxTInt/2</code>. The constant <code>KMaxTInt</code> is defined in <code class="filename">e32std.h</code>.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>48</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the heap walker when it finds a bad allocated heap cell address.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>49</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the heap walker when it finds a bad free heap cell address.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>51</code></p>
+</td>
+<td class="Cell">
+<p><em>This panic is raised in debug builds only.</em></p><p>It is raised by the <code>__DbgMarkEnd()</code> member function of <a href="../MemoryAllocation/RHeapClass.html#%3a%3aRHeap" title="Represents a heap"><code class="ApiItem">RHeap</code></a> in debug builds when there has been no
+corresponding call to the <code>__DbgMarkStart()</code> member function; it is also caused when there are more calls
+to <code>__DbgMarkEnd()</code> than to <code>__DbgMarkStart()</code>.
+These functions are part of the debug assistance provided by the <a href="../MemoryAllocation/RHeapClass.html#%3a%3aRHeap" title="Represents a heap"><code class="ApiItem">RHeap</code></a> class.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>52</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Adjust()</code> and <code>AdjustL()</code> member functions of an <a href="../MemoryAllocation/RHeapClass.html#%3a%3aRHeap" title="Represents a heap"><code class="ApiItem">RHeap</code></a>. It is caused when the
+offset from the start of the cell being stretched or shrunk is a negative value.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>54</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>ReAlloc()</code> and <code>ReAllocL()</code> member functions of an <a href="../MemoryAllocation/RHeapClass.html#%3a%3aRHeap" title="Represents a heap"><code class="ApiItem">RHeap</code></a>. It is caused when
+the new size for the cell being reallocated is a negative value.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>55</code></p>
+</td>
+<td class="Cell">
+<p>This panic is caused by the <a href="../MemoryAllocation/UserHeapClass.html#%3a%3aUserHeap" title="A set of static functions for constructing fixed length heaps and local or global heaps"><code class="ApiItem">UserHeap</code></a><code>::ChunkHeap()</code> static function when the value defining the minimum
+length of the heap is negative.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>56</code></p>
+</td>
+<td class="Cell">
+<p>This panic is caused by the <a href="../MemoryAllocation/UserHeapClass.html#%3a%3aUserHeap" title="A set of static functions for constructing fixed length heaps and local or global heaps"><code class="ApiItem">UserHeap</code></a><code>::ChunkHeap()</code>  static
+function when the value defining the maximum length to which the heap can grow, is negative.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>57</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when closing a shared heap using the <code>Close()</code> member function of <a href="../MemoryAllocation/RHeapClass.html#%3a%3aRHeap" title="Represents a heap"><code class="ApiItem">RHeap</code></a> and the access
+count is zero or negative. A zero or negative access count suggests that an attempt is being made to close the
+heap too many times.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>58</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when opening a heap for shared access using the <code>Open()</code> member function of <a href="../MemoryAllocation/RHeapClass.html#%3a%3aRHeap" title="Represents a heap"><code class="ApiItem">RHeap</code></a> and
+the heap type is not <code>EChunkNormal</code>.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>59</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>UnGet()</code> member function of the 8 bit variant lexical analyzer, <a href="../LexicalAnalysis/TLex8Class.html#%3a%3aTLex8" title="Provides general string-parsing functions suitable for numeric format conversions and syntactical-element parsing"><code class="ApiItem">TLex8</code></a>, if the
+character position is already at the start of the string.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>60</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Inc()</code> member function of the 8 bit variant lexical analyzer, <a href="../LexicalAnalysis/TLex8Class.html#%3a%3aTLex8" title="Provides general string-parsing functions suitable for numeric format conversions and syntactical-element parsing"><code class="ApiItem">TLex8</code></a>, if the resulting
+character position lies before the start of the string or after the end of the string.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>61</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>SkipAndMark()</code> member function of the 8 bit variant lexical analyzer, <a href="../LexicalAnalysis/TLex8Class.html#%3a%3aTLex8" title="Provides general string-parsing functions suitable for numeric format conversions and syntactical-element parsing"><code class="ApiItem">TLex8</code></a>, if the
+resulting character position lies before the start of the string or after the end of the string.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>63</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>ValidateMark()</code> member function of the 8 bit variant lexical analyzer, <a href="../LexicalAnalysis/TLex8Class.html#%3a%3aTLex8" title="Provides general string-parsing functions suitable for numeric format conversions and syntactical-element parsing"><code class="ApiItem">TLex8</code></a>, if the
+position of the extraction mark lies before the start of the string or after the end of the string.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>64</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>UnGet()</code> member function of the 16 bit variant lexical analyzer, <a href="../LexicalAnalysis/TLex16Class.html#%3a%3aTLex16" title="Provides general string-parsing functions suitable for numeric format conversions and syntactical-element parsing"><code class="ApiItem">TLex16</code></a>, if the
+character position is already at the start of the string.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>65</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Inc()</code> member function of the 16 bit variant lexical analyzer, <a href="../LexicalAnalysis/TLex16Class.html#%3a%3aTLex16" title="Provides general string-parsing functions suitable for numeric format conversions and syntactical-element parsing"><code class="ApiItem">TLex16</code></a>, if the
+resulting character position lies before the start of the string or after the end of the string.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>66</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>SkipAndMark()</code> member function of the 16 bit variant lexical analyzer, <a href="../LexicalAnalysis/TLex16Class.html#%3a%3aTLex16" title="Provides general string-parsing functions suitable for numeric format conversions and syntactical-element parsing"><code class="ApiItem">TLex16</code></a>, if
+the resulting character position lies before the start of the string or after the end of the string.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>68</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>ValidateMark()</code> member function of the 16 bit variant lexical analyzer, <a href="../LexicalAnalysis/TLex16Class.html#%3a%3aTLex16" title="Provides general string-parsing functions suitable for numeric format conversions and syntactical-element parsing"><code class="ApiItem">TLex16</code></a>, if the
+position of the extraction mark lies before the start of the string or after the end of the string.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>69</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <a href="../LocaleSettings/TDateSuffixClass.html#%3a%3aTDateSuffix" title="Gets a copy of the current locale's date suffix text for a specific day in the month"><code class="ApiItem">TDateSuffix</code></a> constructor or its <code>Set()</code> member function
+when the suffix index specified is negative or is greater than or equal to the value <code>KMaxSuffixes</code> defined in
+<code class="filename">e32std.h</code>. The index is used to access a locale dependent table of suffix characters which can be appended to
+the dates of the month (e.g. the characters &quot;st&quot; for 1st, &quot;nd&quot; for 2nd, &quot;st&quot; for 31st).</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>70</code></p>
+</td>
+<td class="Cell">
+<p><em>Introduced in 6.0:</em> This panic is raised when attempting to complete a client/server request and the <code>RMessagePtr</code> is null.</p><p><em>Withdrawn in 6.0:</em> This panic is raised by the <code>SetRetry()</code> member function of <a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase" title="Client-side handle to a session with a server"><code class="ApiItem">RSessionBase</code></a>, the client interface for
+communication with a server, when the specified delay time between resending a message to the server is either
+negative or a value greater than KMaxTint (defined in e32std.h).</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>71</code></p>
+</td>
+<td class="Cell">
+<p><em>Withdrawn in 6.0:</em> This panic is raised by the <code>SetRetry()</code> member function of <a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase" title="Client-side handle to a session with a server"><code class="ApiItem">RSessionBase</code></a>, the client interface for
+communication with a server, when the specified number of attempts to resend a message to the server is either
+negative or a value greater than <code>KMaxTint</code> (defined in <code class="filename">e32std.h</code>).</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>72</code></p>
+</td>
+<td class="Cell">
+<p><em>Withdrawn in 6.0:</em> This panic is raised by the <code>SetRetry()</code> member function of <a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase" title="Client-side handle to a session with a server"><code class="ApiItem">RSessionBase</code></a>, the client interface for
+communication with a server, when the specified operation code identifying the required service is either
+negative or a value greater than <code>KMaxTint</code> (defined in <code class="filename">e32std.h</code>).</p><p><em>Introduced in 6.0:</em> This panic is raised by the <code>Send()</code> and <code>SendReceive()</code> member functions of <a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase" title="Client-side handle to a session with a server"><code class="ApiItem">RSessionBase</code></a>, the client interface for
+communication with a server, when the specified operation code identifying the required service is either
+negative or a value greater than <code>KMaxTint</code> (defined in <code class="filename">e32std.h</code>).</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>73</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Receive()</code> member function of <code>RServer</code>, the handle to the server, when the
+attempt to receive a message for the server, synchronously, fails.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>75</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the constructor of a singly linked list header, a <a href="../SinglyLinkedLists/TSglQueClass.html#%3a%3aTSglQue" title="A templated class that provides the behaviour for managing a singly linked list"><code class="ApiItem">TSglQue</code></a> or by the
+<code>SetOffset()</code> member function when the specified offset is not 4 byte aligned, i.e. when it is not divisible by
+4.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>76</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when attempting to remove an object from a singly linked list, using the <code>Remove()</code> member
+function of <a href="../SinglyLinkedLists/TSglQueClass.html#%3a%3aTSglQue" title="A templated class that provides the behaviour for managing a singly linked list"><code class="ApiItem">TSglQue</code></a>, when that object is not in the list.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>78</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the constructor of a doubly linked list header, a <a href="../DoublyLinkedLists/TDblQueClass.html#%3a%3aTDblQue" title="A templated class that provides the behaviour for managing a doubly linked list"><code class="ApiItem">TDblQue</code></a> or by the
+<code>SetOffset()</code> member function, when the specified offset is not 4 byte aligned, i.e. when it is not divisible by
+4.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>79</code></p>
+</td>
+<td class="Cell">
+<p><em>This panic is raised in debug builds only.</em></p><p>It is raised by a call to either the <code>First()</code> and <code>Last()</code> member functions of a doubly linked list, a
+<a href="../DoublyLinkedLists/TDblQueClass.html#%3a%3aTDblQue" title="A templated class that provides the behaviour for managing a doubly linked list"><code class="ApiItem">TDblQue</code></a>, which return pointers to the first and last element in the list respectively; the panic
+occurs when the list is empty.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>80</code></p>
+</td>
+<td class="Cell">
+<p><em>This panic is raised in debug builds only.</em></p><p>It is raised by the post increment operator, <code>operator++</code>, the post decrement operator, <code>operator—</code> and
+the return current element operator, <code>operator T*</code>, of the doubly linked list iterator, a
+<a href="../DoublyLinkedLists/TDblQueIterClass.html#%3a%3aTDblQueIter" title="A templated class that provides the behaviour for iterating through a set of doubly linked list elements"><code class="ApiItem">TDblQueIter</code></a>; the panic occurs when the element returned by these operators is not in the list.
+Typically, this is caused by the removal of the element from the list prior to calling these operators.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>81</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the get rectangle operator, <code>operator[]</code>, of a clipping region, derived from the
+abstract base class <a href="../Graphics/TRegionClass.html#%3a%3aTRegion" title="Clipping region -- abstract base class"><code class="ApiItem">TRegion</code></a>. The panic occurs when the index, which refers to the specific rectangle within the
+region, is greater than or equal to the number of rectangles contained within the region (as returned by the
+<code>Count()</code> member function).</p><p>The index must be strictly less than the number of contained rectangles.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>82</code></p>
+</td>
+<td class="Cell">
+<p><em>This panic is raised in debug builds only.</em></p><p>
+It is raised when sorting the rectangles within a clipping region, derived from the abstract base class <a href="../Graphics/TRegionClass.html#%3a%3aTRegion" title="Clipping region -- abstract base class"><code class="ApiItem">TRegion</code></a>,
+using the <code>Sort()</code> member function of <a href="../Graphics/TRegionClass.html#%3a%3aTRegion" title="Clipping region -- abstract base class"><code class="ApiItem">TRegion</code></a>. The panic occurs when the region is invalid.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>83</code></p>
+</td>
+<td class="Cell">
+<p>This panic occurs when the Kernel sends a message to the Kernel server and this completes with an error, i.e. an
+error code which is not <code>KErrNone</code>.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>84</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Panic()</code> member function of <code>RTest</code>, the test class.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>85</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>CheckConsoleCreated()</code> member functions of <code>RTest</code> and <code>RTestJ</code>, the test
+classes, when the creation of a console, as derived from a <code>CConsoleBase</code>, fails.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>86</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the static function <a href="../SystemStaticFunctions/UserClass.html#%3a%3aUser%3a%3aAfter%28%29" title="Suspends the current thread until a specified time interval has expired"><code class="ApiItem">User::After()</code></a> which is used to suspend the current thread until
+the specified time interval, in microseconds, has expired. The panic occurs when the specified time interval is
+negative.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>87</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when a relative timer event is requested from an asynchronous timer service, an <a href="../TimersAndTimingServices/RTimerClass.html#%3a%3aRTimer" title="Asynchronous timer services"><code class="ApiItem">RTimer</code></a>,
+using the <code>After()</code> member function. The panic occurs when the requested time interval is negative.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>88</code></p>
+</td>
+<td class="Cell">
+<p><em>This panic is raised in debug builds only.</em></p><p>This panic is raised by  <a href="../RawMemory/MemClass.html#%3a%3aMem%3a%3aCompare%28%29" title="Compares a block of data at one specified location with a block of data at another specified location"><code class="ApiItem">Mem::Compare()</code></a>, <a href="../RawMemory/MemClass.html#%3a%3aMem%3a%3aCompareC%28%29" title="Compares a block of data at one location with a block of data at another location using the specified collation method and collating to the specified maximum collation level"><code class="ApiItem">Mem::CompareC()</code></a> and
+<a href="../RawMemory/MemClass.html#%3a%3aMem%3a%3aCompareF%28%29" title="Compares a block of data at one specified location with a block of data at another specified location, using the standard folding method appropriate to the current locale"><code class="ApiItem">Mem::CompareF()</code></a>, which compare two areas of memory. The panic occurs when the length of the area of
+memory designated as the left hand area, is negative.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>89</code></p>
+</td>
+<td class="Cell">
+<p><em>This panic is raised in debug builds only.</em></p><p>This panic is raised by  <a href="../RawMemory/MemClass.html#%3a%3aMem%3a%3aCompare%28%29" title="Compares a block of data at one specified location with a block of data at another specified location"><code class="ApiItem">Mem::Compare()</code></a>, <a href="../RawMemory/MemClass.html#%3a%3aMem%3a%3aCompareC%28%29" title="Compares a block of data at one location with a block of data at another location using the specified collation method and collating to the specified maximum collation level"><code class="ApiItem">Mem::CompareC()</code></a> and
+<a href="../RawMemory/MemClass.html#%3a%3aMem%3a%3aCompareF%28%29" title="Compares a block of data at one specified location with a block of data at another specified location, using the standard folding method appropriate to the current locale"><code class="ApiItem">Mem::CompareF()</code></a>, which compare two areas of memory. The panic occurs when the length of the area of
+memory designated as the right hand area, is negative.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>90</code></p>
+</td>
+<td class="Cell">
+<p><em>This panic is raised in debug builds only.</em></p><p>This panic is raised by  <a href="../RawMemory/MemClass.html#%3a%3aMem%3a%3aCopy%28%29" title="Copies data from a source location to a target location and returns a pointer to the end of the copied data"><code class="ApiItem">Mem::Copy()</code></a>, which copies the content of one area of memory to
+another. The panic occurs when the length of the area of memory to be copied, is negative</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>91</code></p>
+</td>
+<td class="Cell">
+<p><em>This panic is raised in debug builds only.</em></p><p>This panic is raised by <a href="../RawMemory/MemClass.html#%3a%3aMem%3a%3aMove%28%29" title="Moves a block of data from a source location to a target location and returns a pointer to the end of the moved data"><code class="ApiItem">Mem::Move()</code></a>, which moves the content of one area of memory to
+another. The panic occurs when the length of the area of memory to be moved, is not a multiple of 4.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>92</code></p>
+</td>
+<td class="Cell">
+<p><em>This panic is raised in debug builds only.</em></p><p>This panic is raised by <a href="../RawMemory/MemClass.html#%3a%3aMem%3a%3aMove%28%29" title="Moves a block of data from a source location to a target location and returns a pointer to the end of the moved data"><code class="ApiItem">Mem::Move()</code></a>, which moves the content of one area of memory to
+another. The panic occurs when the address of the source for the move operation, is not aligned on a 4 byte
+boundary.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>93</code></p>
+</td>
+<td class="Cell">
+<p><em>This panic is raised in debug builds only.</em></p><p>This panic is raised by <a href="../RawMemory/MemClass.html#%3a%3aMem%3a%3aMove%28%29" title="Moves a block of data from a source location to a target location and returns a pointer to the end of the moved data"><code class="ApiItem">Mem::Move()</code></a>, which moves the content of one area of memory to
+another. The panic occurs when the address of the target for the move operation, is not aligned on a 4 byte
+boundary.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>94</code></p>
+</td>
+<td class="Cell">
+<p><em>This panic is raised in debug builds only.</em></p><p>This panic is raised by <a href="../RawMemory/MemClass.html#%3a%3aMem%3a%3aSwap%28%29" title="Swaps a number of bytes of data between two specified locations"><code class="ApiItem">Mem::Swap()</code></a>, which swaps the content of one area of memory with
+another. The panic occurs when the length of the area of memory to be swapped, is negative.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>95</code></p>
+</td>
+<td class="Cell">
+<p><em>This panic is raised in debug builds only.</em></p><p>This panic is raised by  <a href="../RawMemory/MemClass.html#%3a%3aMem%3a%3aFill%28%29" title="Fills a specified block of data with a specified character, replacing any existing content"><code class="ApiItem">Mem::Fill()</code></a> and <a href="../RawMemory/MemClass.html#%3a%3aMem%3a%3aFillZ%28%29" title="Fills a specified block of data with binary zeroes (i.e"><code class="ApiItem">Mem::FillZ()</code></a>, both of which fill an area of
+memory. The panic occurs when the length of the area of memory to be filled, is negative.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>96</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by <a href="../SystemStaticFunctions/UserClass.html#%3a%3aUser%3a%3aQuickSort%28%29" title="Quick sorts array elements"><code class="ApiItem">User::QuickSort()</code></a>, when the value for the number of records
+to be sorted, is negative.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>97</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by <a href="../SystemStaticFunctions/UserClass.html#%3a%3aUser%3a%3aBinarySearch%28%29" title="Performs a binary search for an array element containing a specified key"><code class="ApiItem">User::BinarySearch()</code></a>, when the value for the number of
+records taking part in the search, is negative.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>98</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the constructor of the base key class, <a href="../ArrayKeys/TKeyClass.html#%3a%3aTKey" title="Defines the characteristics of a key used to access the elements of an array"><code class="ApiItem">TKey</code></a>. It occurs when the offset value passed to the
+constructor is negative.As <code>TKey</code> is an abstract class, i.e. objects of type <code>TKey</code> are not intended to be explicitly constructed, look at the
+offset value passed to the constructors of derived classes such as <a href="../ArrayKeys/TKeyArrayFixClass.html#%3a%3aTKeyArrayFix" title="Defines the characteristics of a key used to access the elements of arrays of fixed length objects"><code class="ApiItem">TKeyArrayFix</code></a>, <a href="../ArrayKeys/TKeyArrayVarClass.html#%3a%3aTKeyArrayVar" title="Defines the characteristics of a key used to access the elements of arrays of variable length objects"><code class="ApiItem">TKeyArrayVar</code></a> and
+<a href="../ArrayKeys/TKeyArrayPakClass.html#%3a%3aTKeyArrayPak" title="Defines the characteristics of a key used to access the elements of packed arrays"><code class="ApiItem">TKeyArrayPak</code></a> for the cause of the panic.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>99</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when a local or global chunk is created using the <a href="../MemoryAllocation/RChunkClass.html#%3a%3aRChunk" title="Provides a handle to a chunk"><code class="ApiItem">RChunk</code></a> member functions:
+<code>CreateLocal()</code>, <code>CreateGlobal()</code>, <code>CreateDoubleEndedLocal()</code> and
+<code>CreateDoubleEndedGlobal()</code>. It occurs when the value for the maximum size to which this chunk can
+be adjusted, is negative.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>100</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when a local or global chunk is created using the <a href="../MemoryAllocation/RChunkClass.html#%3a%3aRChunk" title="Provides a handle to a chunk"><code class="ApiItem">RChunk</code></a> member functions:
+<code>CreateLocal()</code> and <code>CreateGlobal()</code>. It occurs when the value for the number of bytes to be
+committed to this chunk on creation, is negative.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>101</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when a local or global chunk is created using the <a href="../MemoryAllocation/RChunkClass.html#%3a%3aRChunk" title="Provides a handle to a chunk"><code class="ApiItem">RChunk</code></a> member functions:
+<code>CreateLocal()</code> and <code>CreateGlobal()</code>. It occurs when the value for the number of bytes to be
+committed to this chunk on creation is greater than the value for the maximum size to which this chunk can be
+adjusted.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>102</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when changing the number of bytes committed to a chunk by calling the <code>Adjust()</code> member
+function of <a href="../MemoryAllocation/RChunkClass.html#%3a%3aRChunk" title="Provides a handle to a chunk"><code class="ApiItem">RChunk</code></a>. The panic occurs when the value passed to the function is negative.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>103</code></p>
+</td>
+<td class="Cell">
+<p><em>Withdrawn in 6.0:</em> The panic is raised by the <code>CreateSession()</code> member function of the abstract session base class
+<code>RSessionBase</code>. <code>CreateSession()</code> is a protected function and can only be called by member functions
+of derived classes. The panic occurs when the delay time interval passed to this function is negative.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>104</code></p>
+</td>
+<td class="Cell">
+<p><em>Withdrawn in 6.0:</em> The panic is raised by the <code>CreateSession()</code> member function of the abstract session base class
+<code>RSessionBase</code>. <code>CreateSession()</code> is a protected function and can only be called by member functions
+of derived classes. The panic occurs when the retry count passed to this function is negative.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>105</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when a local or global semaphore is created using the <a href="../Semaphores/RSemaphoreClass.html#%3a%3aRSemaphore" title="Provides a handle to a semaphore"><code class="ApiItem">RSemaphore</code></a> member functions:
+<code>CreateLocal()</code> and <code>CreateGlobal()</code>. It occurs when the value for the initial semaphore count is
+negative.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>106</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when a semaphore, an <a href="../Semaphores/RSemaphoreClass.html#%3a%3aRSemaphore" title="Provides a handle to a semaphore"><code class="ApiItem">RSemaphore</code></a>, is signaled using the <code>Signal(TInt aCount)</code>
+member function and the count value is negative.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>107</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when a critical section, an <a href="../CriticalSections/RCriticalSectionClass.html#%3a%3aRCriticalSection" title="Handle to a critical section"><code class="ApiItem">RCriticalSection</code></a>, is signalled using the <code>Signal()</code>
+member function. The panic occurs when the <code>Signal()</code> is not matched by an earlier call to <code>Wait()</code> and
+suggests that this is a stray signal.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>108</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when creating a thread using the <code>Create()</code> member functions of <a href="../ThreadsAndProcesses/RThreadClass.html#%3a%3aRThread" title="A handle to a thread"><code class="ApiItem">RThread</code></a>. The panic
+only occurs for those variants of <code>Create()</code> which take a pointer to an <a href="../MemoryAllocation/RHeapClass.html#%3a%3aRHeap" title="Represents a heap"><code class="ApiItem">RHeap</code></a> as one of the arguments and is
+caused if the heap referred to here is neither of type <a href="../MemoryAllocation/RHeapBaseClass.html#%3a%3aRHeapBase%3a%3aEChunkNormal" title="Indicates a heap which is the only occupant of its hosting chunk"><code class="ApiItem">RHeapBase::EChunkNormal</code></a> nor of type
+<a href="../MemoryAllocation/RHeapBaseClass.html#%3a%3aRHeapBase%3a%3aEChunkStack" title="Indicates a heap which shares its hosting chunk with the program stack"><code class="ApiItem">RHeapBase::EChunkStack</code></a>.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>109</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when creating a thread using the <code>Create()</code> member functions of <a href="../ThreadsAndProcesses/RThreadClass.html#%3a%3aRThread" title="A handle to a thread"><code class="ApiItem">RThread</code></a>. The panic
+occurs when the value of the stack size passed to these functions is negative.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>110</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when creating a thread using the <code>Create()</code> member functions of <a href="../ThreadsAndProcesses/RThreadClass.html#%3a%3aRThread" title="A handle to a thread"><code class="ApiItem">RThread</code></a>. The panic is
+only raised by those variants of <code>Create()</code> which create a new heap for the new thread. The panic occurs if the
+minimum heap size specified is less than <code>KMinHeapSize</code> , defined in <code class="filename">e32std.h</code>.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>111</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when creating a thread using the <code>Create()</code> member functions of <a href="../ThreadsAndProcesses/RThreadClass.html#%3a%3aRThread" title="A handle to a thread"><code class="ApiItem">RThread</code></a>. The panic is
+only raised by those variants of <code>Create()</code> which create a new heap for the new thread. The panic occurs if the
+minimum heap size specified is greater than the maximum size to which the heap can grow</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>112</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Alloc()</code> and <code>AllocL()</code> member functions of class <code>RRef</code> when the size
+value passed is negative.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>113</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by:</p><ul><li><p>the constructor of a time representation object, a <a href="../DateTimeHandling/TTimeClass.html#%3a%3aTTime" title="Stores and manipulates the date and time"><code class="ApiItem">TTime</code></a>, which takes a text string, when the format of that
+text string is incorrect or represents an invalid date/time.
+</p></li><li><p>the <code>Parse()</code> member function of a time representation object, a <a href="../DateTimeHandling/TTimeClass.html#%3a%3aTTime" title="Stores and manipulates the date and time"><code class="ApiItem">TTime</code></a>, if the century offset value is
+either negative or is greater than or equal to 100.</p></li><li><p>
+the <a href="../DateTimeHandling/TimeClass.html#%3a%3aTime%3a%3aDaysInMonth%28%29" title="Gets the number of days in a month"><code class="ApiItem">Time::DaysInMonth()</code></a> function, if an invalid month value is passed.</p></li></ul>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>114</code></p>
+</td>
+<td class="Cell">
+<p><em>This panic is raised in debug builds only.</em></p><p>This panic is raised by member functions of a <code>TBusLocalDrive</code> when no connection has been made to a local
+drive.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>115</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when attempting to connect to a local drive using the <code>Connect()</code> member function of
+<code>TBusLocalDrive</code> and the specified drive number is out of range, i.e. the drive number is negative or is greater
+than or equal to <code>KMaxLocalDrives</code>, defined in <code class="filename">e32std.h</code>.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>116</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Lookup()</code> member function of an <a href="../DynamicallyLoadingLinkLibraries/RLibraryClass.html#%3a%3aRLibrary" title="Provides a handle to a dynamically loadable DLL"><code class="ApiItem">RLibrary</code></a>, a handle to a dynamically loaded
+DLL, when the ordinal number of the required DLL function, is zero or negative.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>119</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when setting a new currency symbol using the <a href="../SystemStaticFunctions/UserClass.html#%3a%3aUser%3a%3aSetCurrencySymbol%28%29" title="Sets the system wide currency symbol"><code class="ApiItem">User::SetCurrencySymbol()</code></a>
+function. The panic occurs when the length of the descriptor containing the new symbol is greater than
+<code>KMaxCurrencySymbol</code>, defined in <code class="filename">e32std.h</code>.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>120</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>CreateDoubleEndedLocal()</code> and <code>CreateDoubleEndedGlobal()</code>
+member functions of an <a href="../MemoryAllocation/RChunkClass.html#%3a%3aRChunk" title="Provides a handle to a chunk"><code class="ApiItem">RChunk</code></a> when the lower address of the committed region is negative.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>121</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>CreateDoubleEndedLocal()</code> and <code>CreateDoubleEndedGlobal()</code>
+member functions of an <a href="../MemoryAllocation/RChunkClass.html#%3a%3aRChunk" title="Provides a handle to a chunk"><code class="ApiItem">RChunk</code></a> when the upper address of the committed region is negative.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>122</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>CreateDoubleEndedLocal()</code> and <code>CreateDoubleEndedGlobal()</code>
+member functions of an <a href="../MemoryAllocation/RChunkClass.html#%3a%3aRChunk" title="Provides a handle to a chunk"><code class="ApiItem">RChunk</code></a> when the upper address of the committed region is lower than the lower
+address of the committed region.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>123</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>CreateDoubleEndedLocal()</code> and <code>CreateDoubleEndedGlobal()</code>
+member functions of an <a href="../MemoryAllocation/RChunkClass.html#%3a%3aRChunk" title="Provides a handle to a chunk"><code class="ApiItem">RChunk</code></a> when the upper address of the committed region is lower than the maximum
+size to which this chunk can be adjusted.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>124</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>AdjustDoubleEnded()</code> member function of an <a href="../MemoryAllocation/RChunkClass.html#%3a%3aRChunk" title="Provides a handle to a chunk"><code class="ApiItem">RChunk</code></a> when the lower
+address of the committed region is negative.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>125</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>AdjustDoubleEnded()</code> member function of an <a href="../MemoryAllocation/RChunkClass.html#%3a%3aRChunk" title="Provides a handle to a chunk"><code class="ApiItem">RChunk</code></a> when the upper
+address of the committed region is negative.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>126</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>AdjustDoubleEnded()</code> member function of an <a href="../MemoryAllocation/RChunkClass.html#%3a%3aRChunk" title="Provides a handle to a chunk"><code class="ApiItem">RChunk</code></a> when the upper
+address of the committed region is lower than the lower address of the committed region.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>127</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when constructing an array of pointers, an <a href="../DynamicArrays/RPointerArrayClass.html#%3a%3aRPointerArray" title="A simple and efficient array of pointers to objects"><code class="ApiItem">RPointerArray</code></a>, and specifying a granularity value which is one of the following:</p><ul><li><p>zero</p></li><li><p>  negative</p></li><li><p>greater than  <code>0x10000000</code>.</p></li></ul>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>128</code></p></td>
+<td class="Cell">
+<p>This panic is raised when constructing an array of fixed length objects, an <a href="../DynamicArrays/RArrayClass.html#%3a%3aRArray" title="A simple and efficient array of fixed length objects"><code class="ApiItem">RArray</code></a>, and specifying a key offset value which is   one of the following:</p><ul><li><p>negative</p></li><li><p>not a multiple of 4</p></li><li><p>greater than or equal to the size of the array elements.</p></li></ul></td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>129</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when constructing an array of fixed length objects, an <a href="../DynamicArrays/RArrayClass.html#%3a%3aRArray" title="A simple and efficient array of fixed length objects"><code class="ApiItem">RArray</code></a>, and the length of the array elements is one of the following:</p>
+<ul><li><p>zero</p></li><li><p>negative</p></li><li><p>greater than  640.</p></li></ul></td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>130</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when an index value passed to a member function of a  <a href="../DynamicArrays/RArrayClass.html#%3a%3aRArray" title="A simple and efficient array of fixed length objects"><code class="ApiItem">RArray</code></a> or a <a href="../DynamicArrays/RPointerArrayClass.html#%3a%3aRPointerArray" title="A simple and efficient array of pointers to objects"><code class="ApiItem">RPointerArray</code></a>  identifying an array element,  is out of bounds.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>131</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when the value identifying the insertion position in a call to  <a href="../DynamicArrays/RArrayClass.html#%3a%3aRArray%3a%3aInsert%28%29" title="Inserts an object into the array at a specified position"><code class="ApiItem">RArray::Insert()</code></a> or <a href="../DynamicArrays/RPointerArrayClass.html#%3a%3aRPointerArray%3a%3aInsert%28%29" title="Inserts an object pointer into the array at a specified position"><code class="ApiItem">RPointerArray::Insert()</code></a> is either negative or greater than the number of elements in the array.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>132</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when an index value passed to <a href="../RawMemory/MemClass.html#%3a%3aMem%3a%3aCollationMethodByIndex%28%29" title="Returns the collation method identified by the specified index"><code class="ApiItem">Mem::CollationMethodByIndex()</code></a> or <a href="../RawMemory/MemClass.html#%3a%3aMem%3a%3aCollationMethodId%28%29" title="Returns the Uid associated with the specified collation method"><code class="ApiItem">Mem::CollationMethodId()</code></a>  is out of bounds.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>133</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when an index value passed to <a href="../FixedSizeArrays/TFixedArrayClass.html#%3a%3aTFixedArray%3a%3aAt%28%29" title="Returns a reference to the specified element within the C++ array checking that it is within the array in both release and debug builds"><code class="ApiItem">TFixedArray::At()</code></a> or <a href="../FixedSizeArrays/TFixedArrayClass.html#%3a%3aTFixedArray%3a%3aoperator%5b%5d" title="Returns a reference to the specified element with the C++ array checking that it is within the array for debug builds only"><code class="ApiItem">TFixedArray::operator[]</code></a>  is out of bounds.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>135</code></p>
+</td>
+<td class="Cell">
+<p><em>Introduced in 6.0: </em>This panic is raised when an attempt to automatically attach a thread to a session fails (through  a call to <a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase%3a%3aAttach%28%29" title="Explicitly attaches a thread to the session"><code class="ApiItem">RSessionBase::Attach()</code></a>).</p>
+</td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

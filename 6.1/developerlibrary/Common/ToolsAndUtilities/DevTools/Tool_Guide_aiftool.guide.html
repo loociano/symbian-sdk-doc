@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Application information files</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="DevTools%2eaif"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="Tool_Guide_App_Resources_in_EPOC.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToWriteAnAifFile.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Application&nbsp;Resource&nbsp;Tools&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+Application&nbsp;information&nbsp;files</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Application information files</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Overview</h2>
+</div><div class="Bodytext">
+<p>Application Information Files, extension <code class="filename">.aif</code>, store data concerning an application.  The information includes the application&#8217;s:</p>
+<ul><li><p><em>icon</em> in various sizes</p></li>
+<li><p><em>caption</em> in supported languages</p></li>
+<li><p><em>capabilities</em>, such as embedding, new-file and hidden</p></li>
+<li><p><em>MIME-type</em> support priorities</p></li>
+</ul><p><code class="filename">aif</code> files can be specified in a number of ways:</p>
+<ul><li><p>through the GUI tool AIF Builder: see <a href="../AIFUITools/AIFBuilderIntro/index.html#AIFBuilderIntro%2etoc">Introduction to AIF Builder</a></p></li>
+<li><p>through manually writing an Aiftool resource file: see <a href="../DevTools-ref/Tool_Ref_aif-RSS.guide.html#DevTools%2dref%2eaiftool%2drss%2dformat">Aiftool resource file format&nbsp;&#8212; .rss</a></p></li>
+</ul><p>If you manually write an Aiftool resource file, </p>
+<ul><li><p>If you are using C++, you can specify that Aiftool should be invoked as part of the <code class="filename">abld</code> process, by using the <code>aif</code> keyword in your <code class="filename">.mmp</code> file.</p></li>
+<li><p>You can invoke the command-line Aiftool tool to create the <code class="filename">aif</code> file, as described in the topic <a href="../DevTools-ref/Tool_Ref_aiftool.guide.html#DevTools%2dRef%2eaiftool">Application information file compiler aiftool.exe</a>. </p></li>
+</ul><p>There are also C++ reader and writer classes for manipulating the data stored in <code class="filename">aif</code> files (the writer class is rarely needed).</p>
+<p>Software can run without an <code class="filename">aif</code> file. In this case; a
+default icon, typically a question mark, is used for the application and its
+documents; MIME types are not supported; embedding is not supported; and the
+application does not support new-file, e.g. the ability to create files from
+the system shell rather than from within an application. The default caption is
+the name of its executable, without the extension.</p>
+<p>The following topics describe each of the application properties defined in the application information file.</p>
+<a name="DevTools%2eaif%2dicons"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Application icons</h2>
+</div><div class="Bodytext">
+<p>Icons are used to represent applications, and their associated files/documents, when they are embedded, or when they are shown on the system shell. </p>
+<p>Aif files allow multiple icons of different sizes to be stored&#0160;&#8212;  the most appropriate size for the current container zoom state is displayed.  Supplying a variety of sizes helps to ensure that an icon will not have to be dynamically scaled when it is drawn at a particular size&nbsp;&#8212; scaling small bitmaps generally results in a marked loss of quality. The icon sizes to use vary between device families:</p>
+<ul><li><p>Crystal: two icons, with sizes 64x50 and 25x20.</p></li>
+<li><p>Quartz: most applications have only a 20x16 icon, which the Launcher combines with a round background icon. A 32x32 icon can also be supplied, and if it is, is used unchanged.</p></li>
+</ul><p>Each icon size needs a picture bitmap, and a mask bitmap. The mask should be black for the regions which are to be selected from the picture, and white for the transparent areas where the background should show through.</p>
+<a name="DevTools%2eaif%2dcaptions"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Application captions</h2>
+</div><div class="Bodytext">
+<p>An application's caption is the text displayed below its icon. Typically it is the application's name.</p>
+<p>Captions for multiple languages can be stored in one <code class="filename">.aif</code>, and the one corresponding to the current system language is used. If there is no caption matching the current system language, the <code class="filename">.aif</code> filename is used.  This means that one <code class="filename">.aif</code> can be used for multiple language versions of an application, as long as the icon does not need to change across these versions.</p>
+<a name="DevTools%2eaif%2dcapabilities"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Application capabilities</h2>
+</div><div class="Bodytext">
+<p>The three file properties/capabilities defined in an .<code class="filename">aif</code> file are detailed below. Note the following language-specific behaviour:</p>
+<ul><li><p>C++: all properties apply</p></li>
+<li><p>OPL: the embeddability property does not apply</p></li>
+<li><p>Java: no properties apply</p></li>
+</ul><a name="1.6.5"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>embeddability</h3>
+</div><div class="Bodytext">
+<p>An application can be defined as embeddable, not embeddable, or EmbeddableOnly. An embeddable file appears in the embeddable list.  A file with the property EmbeddableOnly appears in the embeddable list, but not on the shell.</p>
+<p>It is possible to set the Embeddable or EmbeddableOnly capability for an application which does not create embeddable documents, e.g. for a Java application. Attempting to embed such an application will cause the system to return <code class="ProgramOutput">Not Supported</code>.</p>
+<p>By default, the capability is <em>not</em> embeddable.</p>
+<a name="1.6.6"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>hidden</h3>
+</div><div class="Bodytext">
+<p>An application can be defined as Hidden or Not Hidden. The Hidden property is intended for applications which are to run in the background.  Such files do not appear on the shell or in the embeddable applications list, however they are visible in the system task list.</p>
+<p>The Hidden capability can be applied to any application. However Java applications should not be hidden, because this will remove their icon from the shell&nbsp;&#8212; which is the whole point of giving them an <code class="filename">aif</code> file.</p>
+<p>By default, files are <em>not</em> hidden.</p>
+<a name="1.6.7"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>new-file</h3>
+</div><div class="Bodytext">
+<p>An application can be defined with capabilities Does Not Support New File or Supports New File. The property allows new files to be created from the system screen as well as in the program. </p>
+<p>It is possible to set the Supports New File capability for an application which does not have the ability to create new document files, e.g. for a Java application. Attempting to create a new file for such an application will cause the system to launch the application.</p>
+<p>By default, files do <em>not</em> support the New File property.</p>
+<a name="1.6.8"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Note:</h3>
+</div><div class="Bodytext">
+<p>In C++, these capabilities are encapsulated in the <code>TApaAppCapability</code> class. </p>
+<a name="DevTools%2euid"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>UIDs, extension and location</h2>
+</div><div class="Bodytext">
+<p>Application information files are located in the same directory as the application with which they are associated. They are normally given the same name as the application file (<code class="filename">.app</code>), but with an extension <code class="filename">.aif</code>.  </p>
+<p>Like other files, application information files have a set of 3 identifying UIDs:</p>
+<ul><li><p>The first UID identifies the file as a stream store, see <code>KDirectFileStoreLayoutUid</code>, defined in <code class="filename">s32file.h</code></p></li>
+<li><p>The second UID identifies the DLL as an application information store, see <code>KUidAppInfoFile</code>, defined in <code class="filename">apadef.h</code></p></li>
+<li><p>The third UID associates the AIF with its parent application, e.g. <code>KUid</code><code>AppName</code><code>App</code></p></li>
+</ul><p>When an <code class="filename">.aif</code> file is created using Aiftool, users need only specify the third UID. Aiftool automatically inserts the others.  </p>
+<a name="DevTools%2eaif%2dmime%2dtype"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>MIME support</h2>
+</div><div class="Bodytext">
+<p>Multipurpose Internet Mail Extensions, MIMEs, define a file format for transferring non-textual data, such as graphics, audio and fax, over the Internet. The datatype_list section of the Aiftool resource file lists the MIME types that the application supports, and the priority of support that each type is given.  When a file is to be opened, EPOC launches the application which has the highest priority support for the selected file type.</p>
+<p>There are four priority levels, of which only <code>EDataTypePriorityNormal</code> or <code>EDataTypePriorityLow</code> should normally be used.  For example, a text editor is good at editing text/plain files, and would hence be given a priority of <code>EDataTypePriorityNormal</code> for that file type. A web browser is less good at handling text files, and would be assigned the lower priority <code>EDataTypePriorityLow</code>. Hence either application can be launched to handle a text document, however if both applications are present, the text editor is launched by preference. </p>
+<p><code>EDataTypePriorityHigh</code> should only be assigned under exceptional conditions &nbsp;&#8212;  e.g. if no other application could ever handle a particular MIME type as brilliantly. </p>
+<p><code>EDataTypePriorityLastResort</code> should also be used sparingly. Text editors are terrible at displaying HTML, and would either have the priority <code>EDataTypePriorityLastResort</code>, or would not support the type at all.</p>
+<a name="1.8.7"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Notes:</h3>
+</div><div class="Bodytext">
+<ul><li><p>Given two applications with the same MIME type priority, EPOC arbitrarily launches one of the applications. </p></li>
+<li><p>Developers can give users the ability to set their application as the default MIME type launcher&nbsp;&#8212; through the user defined mapping API (<code class="filename">datastor.h</code>,&nbsp;class <code>CTypeStoreManager</code>). </p></li>
+<li><p>Java applications do not support MIME types.</p></li>
+</ul>
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

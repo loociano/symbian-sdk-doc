@@ -1,0 +1,763 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>TStreamBuf</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="TMemBufClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="TStreamFilterClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Stream&nbsp;Buffers</a>&nbsp;<span class="separator">&#187;</span>
+TStreamBuf</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>s32buf.h</code>
+<br>Link against: <code>estor.lib</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aTStreamBuf"></a>
+
+<h1>Class <code>TStreamBuf</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>TStreamBuf</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Adds  buffering capabilities to a stream buffer</p><p>The class provides  pointers to mark out the current read and write areas within the intermediate buffer. The class also defines the pure virtual functions <code>UnderflowL()</code> and <code>OverflowL()</code> which must be provided by a derived class.</p><p>Streams which have buffering capabilities derive from this class, otherwise they  derive from <code>MStreamBuf</code>.</p>
+<p>Note that the  class does not  provide the buffer; this is left to the class derived from it. For example, the memory buffer classes use the memory area directly, the file buffer class allocate a heap cell to use as a buffer.</p><h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code><a href="MStreamBufClass.html#%3a%3aMStreamBuf">MStreamBuf</a></code></td><td class="Cell">A stream buffer that provides a generic I/O interface for streamed data</td>
+</tr>
+<tr><td class="Cell"><code>TStreamBuf</code></td><td class="Cell">Adds buffering capabilities to a stream buffer</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>TStreamBuf</code>:
+<br><code class="ApiItem"><a href="TStreamBufClass.html#%3a%3aTStreamBuf%3a%3aAvail%28%29" title="Gets the number of bytes available in the write area within the intermediate buffer">Avail()</a></code>, <code class="ApiItem"><a href="TStreamBufClass.html#%3a%3aTStreamBuf%3a%3aDoReadL%28%29" title="Reads data from the intermediate buffer and, if necessary, any remaining data from the stream to the specified target stream input object">DoReadL()</a></code>, <code class="ApiItem"><a href="TStreamBufClass.html#%3a%3aTStreamBuf%3a%3aDoWriteL%28%29" title="Writes data to the intermediate buffer and then, if necessary, to the stream from the specified source stream output object">DoWriteL()</a></code>, <code class="ApiItem"><a href="TStreamBufClass.html#%3a%3aTStreamBuf%3a%3aEnd%28%29" title="Gets the current end point of the write area within the intermediate buffer">End()</a></code>, <code class="ApiItem"><a href="TStreamBufClass.html#%3a%3aTStreamBuf%3a%3aOverflowL%28%29" title="Empties the intermediate buffer and resets the start and end points of the write area">OverflowL()</a></code>, <code class="ApiItem"><a href="TStreamBufClass.html#%3a%3aTStreamBuf%3a%3aPtr%28%29" title="Gets the current start point of the write area within the intermediate buffer">Ptr()</a></code>, <code class="ApiItem"><a href="TStreamBufClass.html#%3a%3aTStreamBuf%3a%3aSetBuf%28%29" title="Sets the start and end points of the write area within the intermediate buffer">SetBuf()</a></code>, <code class="ApiItem"><a href="TStreamBufClass.html#%3a%3aTStreamBuf%3a%3aSetEnd%28%29" title="Sets the end point of the write area within the intermediate buffer">SetEnd()</a></code>, <code class="ApiItem"><a href="TStreamBufClass.html#%3a%3aTStreamBuf%3a%3aSetPtr%28%29" title="Sets the start point of the write area within the intermediate buffer">SetPtr()</a></code>, <code class="ApiItem"><a href="TStreamBufClass.html#%3a%3aTStreamBuf%3a%3aTArea" title="Used to identify the type of area within an intermediate buffer">TArea</a></code>, <code class="ApiItem"><a href="TStreamBufClass.html#%3a%3aTStreamBuf%3a%3aTStreamBuf%28%29" title="Sets the pointers that mark out the read and write areas within the intermediate buffer to null">TStreamBuf()</a></code>, <code class="ApiItem"><a href="TStreamBufClass.html#%3a%3aTStreamBuf%3a%3aUnderflowL%28%29" title="Re-fills the intermediate buffer and resets the start and end points of the read area">UnderflowL()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf" title="A stream buffer that provides a generic I/O interface for streamed data">MStreamBuf</a></code>:
+<br><code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3a%20SeekL%28%29" title="Moves the position of the read mark or the write mark in the stream"> SeekL()</a></code>,
+<code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aClose%28%29" title="Closes the stream buffer">Close()</a></code>,
+<code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aDoRelease%28%29" title="Frees resources before abandoning the stream buffer">DoRelease()</a></code>,
+<code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aDoSeekL%28%29" title="Moves the position of the read/write mark in the stream">DoSeekL()</a></code>,
+<code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aDoSynchL%28%29" title="Synchronises the stream buffer with the stream, leaving if any error occurs">DoSynchL()</a></code>,
+<code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aERead" title="The flag bit used to indicate that an operation applies to the read mark in a stream or to the read area in an stream buffer">ERead</a></code>,
+<code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aEWrite" title="The flag bit used to indicate that an operation applies to the write mark in a stream or to the write area in an stream buffer">EWrite</a></code>,
+<code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aPushL%28%29" title="Puts a cleanup item for this object onto the cleanup stack">PushL()</a></code>,
+<code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aRead%28%29" title="Reads data, asynchronously, from the stream buffer into the specified descriptor; request completion is guaranteed, even if request initiation fails">Read()</a></code>,
+<code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aReadL%28%29" title="Reads data from the stream buffer into the specified data sink">ReadL()</a></code>,
+<code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aRelease%28%29" title="Frees resources before abandoning the stream buffer">Release()</a></code>,
+<code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aSeekL%28%29" title="Moves the position of the write mark in the stream by the specified offset">SeekL()</a></code>,
+<code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aSizeL%28%29" title="Gets the size of the stream">SizeL()</a></code>,
+<code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aSynch%28%29" title="Synchronises the stream buffer with the stream, returning any error">Synch()</a></code>,
+<code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aSynchL%28%29" title="Synchronises the stream buffer with the stream, leaving if any error occurs">SynchL()</a></code>,
+<code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTMark" title="Used to identify the type of mark in a stream">TMark</a></code>,
+<code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTRead" title="Indicates that an operation applies to the read mark in a stream or to the read area in an stream buffer">TRead</a></code>,
+<code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTWrite" title="Indicates that an operation applies to the write mark in a stream or to the write area in an stream buffer">TWrite</a></code>,
+<code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTellL%28%29" title="Gets the position of the write mark within the stream">TellL()</a></code>,
+<code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aWrite%28%29" title="Writes data, asynchronously, from the specified descriptor into the stream buffer; request completion is guaranteed, even if request initiation fails">Write()</a></code>,
+<code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aWriteL%28%29" title="Writes data into the stream buffer from the specified data source">WriteL()</a></code></p>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="TStreamBufClass.html#%3a%3aTStreamBuf%3a%3aUnderflowL%28%29" title="Re-fills the intermediate buffer and resets the start and end points of the read area"><code class="ApiItem">UnderflowL()</code></a></li>
+<li><a href="TStreamBufClass.html#%3a%3aTStreamBuf%3a%3aOverflowL%28%29" title="Empties the intermediate buffer and resets the start and end points of the write area"><code class="ApiItem">OverflowL()</code></a></li>
+</ul>
+<a name="2.7"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aTStreamBuf%3a%3aTStreamBuf%28%29"></a>
+<hr size="1" noshade>
+<h3><code>TStreamBuf()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected : TStreamBuf();</code></p><h4 class="subheading">Description</h4>
+<p>Sets the pointers that mark out the read and write areas within the intermediate buffer to null.</p>
+<a name="2.8"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Set the read / write areas in the intermediate buffer</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aTStreamBuf%3a%3aSetBuf%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetBuf()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected : void SetBuf(TArea anArea,TUint8* aPtr,TUint8* anEnd);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the start and end points of the read and/or the write area within the intermediate buffer.</p><p>A start point is always within an area; an end point is always the first byte beyond the end of an area.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TArea anArea</code></td>
+<td class="Cell"><p class="ValueDesc">The  areas within the  intermediate buffer for which the start and end points are to be set. These can be the  read area and/or the  write area, as indicated by  the   <code>ERead</code> and   <code>EWrite</code> bits. Only these bits can be set, otherwise the function raises a STORE-Stream 17 panic.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint8* aPtr</code></td>
+<td class="Cell"><p class="ValueDesc">The start  point.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint8* anEnd</code></td>
+<td class="Cell"><p class="ValueDesc">The end point.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTRead" title="Indicates that an operation applies to the read mark in a stream or to the read area in an stream buffer"><code class="ApiItem">MStreamBuf::TRead</code></a></li>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTWrite" title="Indicates that an operation applies to the write mark in a stream or to the write area in an stream buffer"><code class="ApiItem">MStreamBuf::TWrite</code></a></li>
+</ul>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aTStreamBuf%3a%3aSetBuf%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetBuf()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected : void SetBuf(TRead,TUint8* aPtr,TUint8* anEnd);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the start and end points of the read  area within the  intermediate buffer.</p><p>A start point is always within an area; an end point is always the first byte beyond the end of an area.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRead</code></td>
+<td class="Cell"><p class="ValueDesc">(The enumerator is not used).</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint8* aPtr</code></td>
+<td class="Cell"><p class="ValueDesc">The start  point.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint8* anEnd</code></td>
+<td class="Cell"><p class="ValueDesc">The end point.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTRead" title="Indicates that an operation applies to the read mark in a stream or to the read area in an stream buffer"><code class="ApiItem">MStreamBuf::TRead</code></a></li>
+</ul>
+<a name="2.8.4"></a></div><div class="Head3">
+<a name="%3a%3aTStreamBuf%3a%3aSetBuf%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetBuf()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected : void SetBuf(TWrite,TUint8* aPtr,TUint8* anEnd);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the start and end points of the write area within the intermediate buffer.</p><p>A start point is always within an area; an end point is always the first byte beyond the end of an area.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TWrite</code></td>
+<td class="Cell"><p class="ValueDesc">(The enumerator is not used).</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint8* aPtr</code></td>
+<td class="Cell"><p class="ValueDesc">The start  point.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint8* anEnd</code></td>
+<td class="Cell"><p class="ValueDesc">The end point.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTWrite" title="Indicates that an operation applies to the write mark in a stream or to the write area in an stream buffer"><code class="ApiItem">MStreamBuf::TWrite</code></a></li>
+</ul>
+<a name="2.8.5"></a></div><div class="Head3">
+<a name="%3a%3aTStreamBuf%3a%3aSetPtr%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetPtr()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected : void SetPtr(TArea anArea,TUint8* aPtr);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the  start point of the read and/or the write area within the  intermediate buffer.</p><p>A start point is always within an area.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TArea anArea</code></td>
+<td class="Cell"><p class="ValueDesc">The  areas within the intermediate buffer for which the start  point is to be set. These can be the  read area and/or the  write area, as indicated by  the   <code>ERead</code> and   <code>EWrite</code> bits. Only these bits can be set, otherwise the function raises a STORE-Stream 17 panic.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint8* aPtr</code></td>
+<td class="Cell"><p class="ValueDesc">The start  point.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTRead" title="Indicates that an operation applies to the read mark in a stream or to the read area in an stream buffer"><code class="ApiItem">MStreamBuf::TRead</code></a></li>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTWrite" title="Indicates that an operation applies to the write mark in a stream or to the write area in an stream buffer"><code class="ApiItem">MStreamBuf::TWrite</code></a></li>
+</ul>
+<a name="2.8.6"></a></div><div class="Head3">
+<a name="%3a%3aTStreamBuf%3a%3aSetPtr%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetPtr()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected : void SetPtr(TRead,TUint8* aPtr);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the  start point of the read  area within the intermediate buffer.</p><p>A start point is always within an area.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRead</code></td>
+<td class="Cell"><p class="ValueDesc">(The enumerator is not used).</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint8* aPtr1</code></td>
+<td class="Cell"><p class="ValueDesc">The start  point.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTRead" title="Indicates that an operation applies to the read mark in a stream or to the read area in an stream buffer"><code class="ApiItem">MStreamBuf::TRead</code></a></li>
+</ul>
+<a name="2.8.7"></a></div><div class="Head3">
+<a name="%3a%3aTStreamBuf%3a%3aSetPtr%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetPtr()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected : void SetPtr(TWrite,TUint8* aPtr);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the  start point of the write  area within the intermediate buffer.</p><p>A start point is always within an area.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TWrite</code></td>
+<td class="Cell"><p class="ValueDesc">(The enumerator is not used).</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint8* aPtr</code></td>
+<td class="Cell"><p class="ValueDesc">The start  point.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTWrite" title="Indicates that an operation applies to the write mark in a stream or to the write area in an stream buffer"><code class="ApiItem">MStreamBuf::TWrite</code></a></li>
+</ul>
+<a name="2.8.8"></a></div><div class="Head3">
+<a name="%3a%3aTStreamBuf%3a%3aSetEnd%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetEnd()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected : void SetEnd(TArea anArea,TUint8* aPtr);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the  end point of the read and/or the write area within the intermediate buffer.</p><p>An end point is always the first byte beyond the end of an area.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TArea anArea</code></td>
+<td class="Cell"><p class="ValueDesc">The  areas within the intermediate buffer for which the end  point is to be set. These can be the  read area and/or the  write area, as indicated by  the   <code>ERead</code> and   <code>EWrite</code> bits. Only these bits can be set, otherwise the function raises a STORE-Stream 17 panic.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint8* aPtr</code></td>
+<td class="Cell"><p class="ValueDesc">The end  point.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTRead" title="Indicates that an operation applies to the read mark in a stream or to the read area in an stream buffer"><code class="ApiItem">MStreamBuf::TRead</code></a></li>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTWrite" title="Indicates that an operation applies to the write mark in a stream or to the write area in an stream buffer"><code class="ApiItem">MStreamBuf::TWrite</code></a></li>
+</ul>
+<a name="2.8.9"></a></div><div class="Head3">
+<a name="%3a%3aTStreamBuf%3a%3aSetEnd%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetEnd()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected : void SetEnd(TRead,TUint8* anEnd);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the  end point of the read  area within the intermediate buffer.</p><p>An end point is always the first byte beyond the end of an area.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRead</code></td>
+<td class="Cell"><p class="ValueDesc">(The enumerator is not used).</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint8* aPtr</code></td>
+<td class="Cell"><p class="ValueDesc">The end   point.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTRead" title="Indicates that an operation applies to the read mark in a stream or to the read area in an stream buffer"><code class="ApiItem">MStreamBuf::TRead</code></a></li>
+</ul>
+<a name="2.8.10"></a></div><div class="Head3">
+<a name="%3a%3aTStreamBuf%3a%3aSetEnd%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetEnd()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected : void SetEnd(TWrite,TUint8* anEnd);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the end point of the write  area within the intermediate buffer.</p><p>An end point is always the first byte beyond the end of an area.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TWrite</code></td>
+<td class="Cell"><p class="ValueDesc">(The enumerator is not used).</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint8* aPtr</code></td>
+<td class="Cell"><p class="ValueDesc">The end   point.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTWrite" title="Indicates that an operation applies to the write mark in a stream or to the write area in an stream buffer"><code class="ApiItem">MStreamBuf::TWrite</code></a></li>
+</ul>
+<a name="2.9"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Accessors</h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aTStreamBuf%3a%3aPtr%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Ptr()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected : TUint8* Ptr(TArea anArea) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the current start point of the  read or write area within the intermediate buffer.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TArea anArea</code></td>
+<td class="Cell"><p class="ValueDesc">The  area within the intermediate buffer for which the start point is to be fetched. This can be either the read area or the write area, as indicated by  the   <code>ERead</code> and   <code>EWrite</code> bits. Only one of these can be set, otherwise the function raises a STORE-Stream 17 panic.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint8*</code></td>
+<td class="Cell"><p class="ValueDesc">The start point.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTRead" title="Indicates that an operation applies to the read mark in a stream or to the read area in an stream buffer"><code class="ApiItem">MStreamBuf::TRead</code></a></li>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTWrite" title="Indicates that an operation applies to the write mark in a stream or to the write area in an stream buffer"><code class="ApiItem">MStreamBuf::TWrite</code></a></li>
+</ul>
+<a name="2.9.3"></a></div><div class="Head3">
+<a name="%3a%3aTStreamBuf%3a%3aPtr%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Ptr()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected : TUint8* Ptr(TRead) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the current start point of the read  area within the intermediate buffer.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRead</code></td>
+<td class="Cell"><p class="ValueDesc">(The enumerator is not used).</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint8*</code></td>
+<td class="Cell"><p class="ValueDesc">The start point.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTRead" title="Indicates that an operation applies to the read mark in a stream or to the read area in an stream buffer"><code class="ApiItem">MStreamBuf::TRead</code></a></li>
+</ul>
+<a name="2.9.4"></a></div><div class="Head3">
+<a name="%3a%3aTStreamBuf%3a%3aPtr%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Ptr()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected : TUint8* Ptr(TWrite) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the current start point of the write  area within the intermediate buffer.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TWrite</code></td>
+<td class="Cell"><p class="ValueDesc">(The enumerator is not used).</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint8*</code></td>
+<td class="Cell"><p class="ValueDesc">The start point.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTWrite" title="Indicates that an operation applies to the write mark in a stream or to the write area in an stream buffer"><code class="ApiItem">MStreamBuf::TWrite</code></a></li>
+</ul>
+<a name="2.9.5"></a></div><div class="Head3">
+<a name="%3a%3aTStreamBuf%3a%3aEnd%28%29"></a>
+<hr size="1" noshade>
+<h3><code>End()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected : TUint8* End(TArea anArea) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the current end point of the  read or write area within the  intermediate buffer.</p><p>An end point is always the first byte beyond the end of an area.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TArea anArea</code></td>
+<td class="Cell"><p class="ValueDesc">The  area within the  intermediate buffer for which the  end point is to be fetched. This can be either the read area or the write area, as indicated by  the   <code>ERead</code> and   <code>EWrite</code> bits. Only one of these can be set, otherwise the function raises a STORE-Stream 17 panic.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint8*</code></td>
+<td class="Cell"><p class="ValueDesc">The end  point.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.6"></a></div><div class="Head3">
+<a name="%3a%3aTStreamBuf%3a%3aEnd%28%29"></a>
+<hr size="1" noshade>
+<h3><code>End()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected : TUint8* End(TRead) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the current end point of the read  area within the  intermediate buffer.</p><p>An end point is always the first byte beyond the end of an area.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRead</code></td>
+<td class="Cell"><p class="ValueDesc">(The enumerator is not used).</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint8*</code></td>
+<td class="Cell"><p class="ValueDesc">The end  point.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTRead" title="Indicates that an operation applies to the read mark in a stream or to the read area in an stream buffer"><code class="ApiItem">MStreamBuf::TRead</code></a></li>
+</ul>
+<a name="2.9.7"></a></div><div class="Head3">
+<a name="%3a%3aTStreamBuf%3a%3aEnd%28%29"></a>
+<hr size="1" noshade>
+<h3><code>End()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected : TUint8* End(TWrite) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the current end point of the write  area within the  intermediate buffer.</p><p>An end point is always the first byte beyond the end of an area.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TWrite</code></td>
+<td class="Cell"><p class="ValueDesc">(The enumerator is not used).</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint8*</code></td>
+<td class="Cell"><p class="ValueDesc">The end  point.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTWrite" title="Indicates that an operation applies to the write mark in a stream or to the write area in an stream buffer"><code class="ApiItem">MStreamBuf::TWrite</code></a></li>
+</ul>
+<a name="2.10"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Information</h2>
+</div><div class="Bodytext">
+<a name="2.10.2"></a></div><div class="Head3">
+<a name="%3a%3aTStreamBuf%3a%3aAvail%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Avail()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected : TInt Avail(TArea anArea) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the number of bytes available in the   read or write area within the  intermediate buffer.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TArea anArea</code></td>
+<td class="Cell"><p class="ValueDesc">The  area within the  intermediate buffer for which the  number of available bytes  is to be fetched. This can be either the read area or the write area, as indicated by  the   <code>ERead</code> and   <code>EWrite</code> bits. Only one of these can be set, otherwise the function raises a STORE-Stream 17 panic.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The number of bytes available.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.3"></a></div><div class="Head3">
+<a name="%3a%3aTStreamBuf%3a%3aAvail%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Avail()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected : TInt Avail(TRead) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the number of bytes available in the   read  area within the  intermediate buffer.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRead</code></td>
+<td class="Cell"><p class="ValueDesc">(The enumerator is not used).</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The number of bytes available.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTRead" title="Indicates that an operation applies to the read mark in a stream or to the read area in an stream buffer"><code class="ApiItem">MStreamBuf::TRead</code></a></li>
+</ul>
+<a name="2.10.4"></a></div><div class="Head3">
+<a name="%3a%3aTStreamBuf%3a%3aAvail%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Avail()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected : TInt Avail(TWrite) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the number of bytes available in the   write area within the  intermediate buffer.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TWrite</code></td>
+<td class="Cell"><p class="ValueDesc">(The enumerator is not used).</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The number of bytes available.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTWrite" title="Indicates that an operation applies to the write mark in a stream or to the write area in an stream buffer"><code class="ApiItem">MStreamBuf::TWrite</code></a></li>
+</ul>
+<a name="2.11"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Virtual function implementations</h2>
+</div><div class="Bodytext">
+<a name="2.11.2"></a></div><div class="Head3">
+<a name="%3a%3aTStreamBuf%3a%3aDoReadL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DoReadL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected : virtual TInt DoReadL(TAny* aPtr,TInt aMaxLength);</code></p><h4 class="subheading">Description</h4>
+<p>Reads data from the  intermediate buffer into the specified memory location.</p><p>The function calls the virtual function <code>UnderfLowL()</code>  to give concrete implementations the chance to refill the  intermediate buffer,  and satisfy the caller's requirements.</p><p>This implementation overrides the one supplied by the base class <code>MStreamBuf</code>, and is called by, <code>MStreamBuf::ReadL(TAny*,TInt)</code>.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAny* aPtr</code></td>
+<td class="Cell"><p class="ValueDesc">A pointer to the target memory location  for the data read from the  intermediate buffer.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aMaxLength</code></td>
+<td class="Cell"><p class="ValueDesc">The maximum number of bytes  to be read.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The number of bytes  read. This may be less than the amount requested.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aReadL%28%29" title="Reads data from the stream buffer into the specified data sink"><code class="ApiItem">MStreamBuf::ReadL()</code></a></li>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aDoReadL%28%29" title="Reads data from the stream into the specified data sink"><code class="ApiItem">MStreamBuf::DoReadL()</code></a></li>
+</ul>
+<a name="2.11.3"></a></div><div class="Head3">
+<a name="%3a%3aTStreamBuf%3a%3aDoReadL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DoReadL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected : virtual TStreamTransfer DoReadL(MStreamInput&amp; anInput,TStreamTransfer aTransfer);</code></p><h4 class="subheading">Description</h4>
+<p>Reads data from the  intermediate buffer and, if necessary, any remaining data from the stream to the specified target stream input object.</p><p>It is called by  <code>ReadL(MStreamInput&amp;,TStreamTransfer)</code>.</p><p>The intermediate buffer is  emptied first by calling the target stream input's <code>PushL()</code> function, which performs the read from intermediate buffer operation. Any remaining data is then read from the stream by calling the target stream object's <code>ReadFromL()</code> function, which performs the read from stream operation.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">MStreamInput&amp; anInput</code></td>
+<td class="Cell"><p class="ValueDesc">The target stream input object. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamTransfer aTransfer</code></td>
+<td class="Cell"><p class="ValueDesc">A stream transfer object defining the amount of data available to be written.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamTransfer</code></td>
+<td class="Cell"><p class="ValueDesc">The amount of data that was not consumed.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Notes:</h4>
+<ul>
+<li><note>This implementation is called for streams that  have buffering capabilities and are derived from this class.</note></li>
+</ul>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamInputClass.html#%3a%3aMStreamInput%3a%3aReadFromL%28%29" title="Reads data from the specified stream into this stream input object"><code class="ApiItem">MStreamInput::ReadFromL()</code></a></li>
+<li><a href="MStreamInputClass.html#%3a%3aMStreamInput%3a%3aPushL%28%29" title="Reads data from an intermediate buffer into this stream input object"><code class="ApiItem">MStreamInput::PushL()</code></a></li>
+</ul>
+<a name="2.11.4"></a></div><div class="Head3">
+<a name="%3a%3aTStreamBuf%3a%3aDoWriteL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DoWriteL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected : virtual void DoWriteL(const TAny* aPtr,TInt aLength);</code></p><h4 class="subheading">Description</h4>
+<p>Writes  data from the specified memory location into the  intermediate buffer.</p><p>The function calls the virtual function <code>OverfLowL()</code>  to give concrete implementations the chance to forward  the  intermediate buffer content to its destination.</p><p>This implementation overrides the one supplied by the base class <code>MStreamBuf</code>, and is called by <code>MStreamBuf::WriteL(const TAny*,TInt)</code>.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TAny* aPtr</code></td>
+<td class="Cell"><p class="ValueDesc">A pointer to the source  memory location  for the data to be written to the  intermediate buffer.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aLength</code></td>
+<td class="Cell"><p class="ValueDesc">The number of bytes  to be written.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The number of bytes  written.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aWriteL%28%29" title="Writes data into the stream buffer from the specified data source"><code class="ApiItem">MStreamBuf::WriteL()</code></a></li>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aDoWriteL%28%29" title="Writes data to the stream from the specified data source"><code class="ApiItem">MStreamBuf::DoWriteL()</code></a></li>
+</ul>
+<a name="2.11.5"></a></div><div class="Head3">
+<a name="%3a%3aTStreamBuf%3a%3aDoWriteL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DoWriteL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected : virtual TStreamTransfer DoWriteL(MStreamOutput&amp; anOutput,TStreamTransfer aTransfer);</code></p><h4 class="subheading">Description</h4>
+<p>Writes data to the intermediate buffer and then, if necessary, to the stream from the specified source stream output object.</p><p>It is called by  <code>WriteL(MStreamOutput&amp;,TStreamTransfer)</code>.</p><p>The buffer is filled first by calling the source stream output's <code>PullL()</code> function, which performs the write to intermediate buffer operation. Any remaining data  is then written to the stream by calling the source stream object's <code>WriteToL()</code> function, which performs the write to stream operation.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">MStreamOutput&amp; anInput</code></td>
+<td class="Cell"><p class="ValueDesc">The source  stream output object.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamTransfer aTransfer</code></td>
+<td class="Cell"><p class="ValueDesc">A stream transfer object defining the amount of data available to be written.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamTransfer</code></td>
+<td class="Cell"><p class="ValueDesc">The amount of data that was not consumed.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Notes:</h4>
+<ul>
+<li><note>This implementation is called for streams that  have buffering capabilities and are derived from this class.</note></li>
+</ul>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamOutputClass.html#%3a%3aMStreamOutput%3a%3aWriteToL%28%29" title="Writes data to the specified stream from this stream output object"><code class="ApiItem">MStreamOutput::WriteToL()</code></a></li>
+<li><a href="MStreamOutputClass.html#%3a%3aMStreamOutput%3a%3aPullL%28%29" title="Writes data to an intermediate buffer from this stream output object"><code class="ApiItem">MStreamOutput::PullL()</code></a></li>
+</ul>
+<a name="2.12"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Virtual functions requiring implementation</h2>
+</div><div class="Bodytext">
+<a name="2.12.2"></a></div><div class="Head3">
+<a name="%3a%3aTStreamBuf%3a%3aUnderflowL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>UnderflowL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>private :&nbsp;&nbsp;&nbsp;&nbsp;virtual TInt UnderflowL(TInt aMaxLength)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Re-fills the  intermediate buffer and resets the start and end points of the read area.</p><p>The implementation of this function depends on the way the stream itself is implemented. For example, the in-memory streams have simple implementations.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aMaxLength</code></td>
+<td class="Cell"><p class="ValueDesc">The maximum amount of data required for the intermediate buffer.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The amount of data available in the  intermediate buffer.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.3"></a></div><div class="Head3">
+<a name="%3a%3aTStreamBuf%3a%3aOverflowL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>OverflowL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>private : virtual void OverflowL()=0;</code></p><h4 class="subheading">Description</h4>
+<p>Empties the  intermediate buffer  and resets the start and end points of the write area.</p><p>The implementation of this function
+depends on the way the stream itself is implemented. For example, the in-memory streams have simple implementations.</p>
+<a name="2.13"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Typedefs</h2>
+</div><div class="Bodytext">
+<a name="2.13.2"></a></div><div class="Head3">
+<a name="%3a%3aTStreamBuf%3a%3aTArea"></a>
+<hr size="1" noshade>
+<h3>Typedef <code>TArea</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>typedef TInt TArea;</code></p><h4 class="subheading">Description</h4>
+<p>Used to identify the type of area within an intermediate buffer.</p><p>The type is used by  functions of this class that set or get pointers into  the intermediate buffer.</p><p>The type uses the <code>ERead</code> and <code>EWrite</code> enumeration values, as bit flags, to identify the read and write areas respectively.</p><p>
+<code>ERead</code> is an <code>MStreamBuf::TRead</code> enumerator. <code>EWrite</code> is an <code>MStreamBuf::EWrite</code> enumerator.</p><h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTRead" title="Indicates that an operation applies to the read mark in a stream or to the read area in an stream buffer"><code class="ApiItem">MStreamBuf::TRead</code></a></li>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTWrite" title="Indicates that an operation applies to the write mark in a stream or to the write area in an stream buffer"><code class="ApiItem">MStreamBuf::TWrite</code></a></li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

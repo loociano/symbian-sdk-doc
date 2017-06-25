@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to store a compound object</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="StoresStreamsGuide2%2ehow%2dto%2estore%2dcompound"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToStoreRestoreNonCompound.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToRestoreCompound.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Store&nbsp;Streams</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Storing&nbsp;and&nbsp;restoring</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;store&nbsp;a&nbsp;compound&nbsp;object</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to store a compound object</h1>
+</div><div class="Bodytext">
+<p>The protocol for storing a compound object follows a standard
+pattern. However, the design of some compound objects may force deviations from
+this.</p>
+<p>A compound object can be stored either in-line or out-of-line.</p>
+<p>The basic protocol for storing is the <code>StoreL()</code> function.
+This is true whether the object is stored in-line or out-of-line and should be
+prototyped as:</p>
+<p class="CodeBlock"><code>TStreamId StoreL(CStreamStore&amp; aStore) const;</code></p>
+<p>The function takes a reference to the store in which the stream or
+stream network is to be stored and returns the stream ID through which the
+object can be restored later.</p>
+<a name="1.8"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Storing components in-line</h2>
+</div><div class="Bodytext">
+<p>Storing a compound object&#8217;s component objects in-line means
+writing all of these components to the same stream.</p>
+<p>In general, this is achieved by defining and implementing a
+<code>StoreL()</code> member function for the compound object's class.</p>
+<p>For example, for a class <code>CCompound</code> defined as:</p>
+<p class="CodeBlock"><code>CCompound class : public CBase<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;TInt         iDdata;<br>&nbsp;&nbsp;&nbsp;&nbsp;CComponentA* iCompA;<br>&nbsp;&nbsp;&nbsp;&nbsp;CComponentB* iCompB;<br>&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>where <code>CComponentA</code> and <code>CComponentB</code> are
+classes, the object's component objects can be stored in the same stream as the
+remainder of the component's data. The <code>StoreL()</code> implementation
+is:</p>
+<p class="CodeBlock"><code>TStreamId CCompound::StoreL(CStreamStore&amp; aStore)<br>&nbsp;&nbsp;&nbsp;&nbsp;{ <br>&nbsp;&nbsp;&nbsp;&nbsp;RStoreWriteStream outstream;<br>&nbsp;&nbsp;&nbsp;&nbsp;TStreamId id = outstream.CreateLC(aStore); // Creates the write stream<br>&nbsp;&nbsp;&nbsp;&nbsp;ExternalizeL(outstream);                   // Externalises the object and all of its components<br>&nbsp;&nbsp;&nbsp;&nbsp;outstream.CommitL();                       // Commits the stream<br>&nbsp;&nbsp;&nbsp;&nbsp;CleanupStack::PopAndDestroy();             // Performs cleanup on the write stream object<br>&nbsp;&nbsp;&nbsp;&nbsp;return id;                                 // Returns the stream ID <br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p><code>ExternalizeL()</code> externalises <code>CCompound</code>’s
+data members and components; the implementation is:</p>
+<p class="CodeBlock"><code>void CCompound::ExternalizeL(RWriteStream&amp; aStream) const<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;aStream &lt;&lt; iData;<br>&nbsp;&nbsp;&nbsp;&nbsp;aStream &lt;&lt; *iCompA;<br>&nbsp;&nbsp;&nbsp;&nbsp;aStream &lt;&lt; *iCompB;<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>The stream can be visualised as:</p>
+<div class="Figure">
+<p class="Image"><img src="StoreInline.gif" alt=""  border="0"></p>
+</div>
+<a name="1.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Storing components out-of-line</h2>
+</div><div class="Bodytext"><p>Storing a compound object&#8217;s component objects out-of-line means
+writing all of its component objects to a different stream from that to which
+it, itself, is written. Each component may be written to its own stream or to
+its own network of streams. The main advantage of this is that it allows for
+deferred loading of streams.</p>
+<p>It is important to note that components are stored <em>before</em>
+the containing object.</p>
+<p> The following code fragment defines an example class, CCompound, having
+two components, <code>CComponentA</code> and <code>CComponentB</code>. The
+components are defined as instances of the templated class TSwizzle.</p>
+<p class="CodeBlock"><code>CCompound class : public CBase<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;TInt                  iDdata;<br>&nbsp;&nbsp;&nbsp;&nbsp;TSwizzle&lt;CComponentA&gt; iCompA;<br>&nbsp;&nbsp;&nbsp;&nbsp;TSwizzle&lt;CComponentB&gt; iCompB;<br>&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>Storing is achieved by defining and implementing a <code>StoreL()</code>
+member function for the compound object's class. In this example, the
+<code>StoreL()</code> implementation is:</p>
+<p class="CodeBlock"><code>TStreamId CCompound::StoreL(CStreamStore&amp; aStore)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;CStoreMap* map=CStoreMap::NewLC(aStore);<br>&nbsp;&nbsp;&nbsp;&nbsp;StoreComponentsL(*map);<br>&nbsp;&nbsp;&nbsp;&nbsp;RStoreWriteStream stream(*map);<br>&nbsp;&nbsp;&nbsp;&nbsp;TStreamId id=stream.CreateLC(aStore);<br>&nbsp;&nbsp;&nbsp;&nbsp;ExternalizeL(stream);<br>&nbsp;&nbsp;&nbsp;&nbsp;stream.CommitL();<br>&nbsp;&nbsp;&nbsp;&nbsp;map-&gt;Reset();<br>&nbsp;&nbsp;&nbsp;&nbsp;CleanupStack::PopAndDestroy(2);<br>&nbsp;&nbsp;&nbsp;&nbsp;return id;<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>The <code>StoreL()</code> function:</p>
+<ul>
+<li>
+<p>writes the <code>CCompound</code> components to their own
+streams.</p>
+</li>
+<li>
+<p>writes <code>CCompound</code> itself and its components&#8217;
+stream IDs to a single stream.</p>
+</li>
+<li>
+<p>returns the ID of the top-level stream.</p>
+</li>
+</ul>
+<p>This can be visualised as:</p>
+<div class="Figure">
+<p class="Image"><img src="StoreOutOfLine.gif" alt=""  border="0"></p>
+</div>
+<p><code>CCompound</code>’s components are stored to their own streams by
+defining and implementing a <code>StoreComponentsL()</code> member function;
+this is prototyped as:</p>
+<p class="CodeBlock"><code>void StoreComponentsL(CStreamStore&amp; aStore,CStoreMap&amp; aMap)</code></p>
+<p>and implemented as:</p>
+<p class="CodeBlock"><code>void CCompound::StoreComponentsL(CStreamStore&amp; aStore,CStoreMap&amp; aMap)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;TStreamId id;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (iCompA)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id = iCompA-&gt;StoreL(aStore); // store component<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aMap.BindL(iCompA,id);       // connect the resulting stream id and component<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;if (iCompB)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id = iCompB-&gt;StoreL(aStore); // store component<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aMap.BindL(iCompB,id);       // connect the resulting stream id and component<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>The condition: <code>if (iCompA)</code> is equivalent to: <code>if
+(iCompA.IsPtr())</code>, and returns true only if the Swizzle represents the
+<code>CComponentA</code> object as a pointer. In an application where deferred
+loading is important, this allows for the possibility that the
+<code>CComponentA </code>object is not loaded when the attempt to store the
+<code>CCompound</code> object is made.</p>
+<p>Although each of <code>CCompound</code>'s components are shown stored in
+their own respective single streams, they may be stored into their own
+respective network of streams and the resulting stream IDs may be the IDs of
+head streams. A component can consist of further components.</p>
+<p><code>StoreComponentsL()</code> takes a reference to a store map, as well
+as the store. The store map is constructed by <code>StoreL()</code> and is used
+to contain the association between internal objects and stored components
+(represented in the store by their stream IDs). These IDs are written by
+<code>CCompound</code>'s <code>ExternalizeL()</code> function and is
+implemented:</p>
+<p class="CodeBlock"><code>void CCompound::ExternalizeL(RWriteStream&amp; aStream) const<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;aStream &lt;&lt; iDdata;<br>&nbsp;&nbsp;&nbsp;&nbsp;aStream &lt;&lt; iCompA;<br>&nbsp;&nbsp;&nbsp;&nbsp;aStream &lt;&lt; iCompB;<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>This simplicity is due to <code>RStoreWriteStream</code> behaviour. The
+pointers are automatically looked up in the map associated with the stream, as
+they are being externalised.</p>
+<p>The store map must be reset before destroying it because the store
+map’s destructor deletes any streams from the store that are still referenced
+in the map. This means that, should a leave occur during the storing operation,
+any streams that have been written are automatically cleaned up.</p>
+<p>It is legitimate to define the <code>CCompound</code> class without using
+Swizzles. If the class is defined as:</p>
+<p class="CodeBlock"><code>CCompound class : public CBase<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;TInt         iDdata;<br>&nbsp;&nbsp;&nbsp;&nbsp;CComponentA* iCompA;<br>&nbsp;&nbsp;&nbsp;&nbsp;CComponentB* iCompB;<br>&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p> then the implementations of <code>CCompound::StoreL()</code>,
+<code>CCompound::StoreComponentsL()</code> remain the same, but
+<code>CCompound::ExternalizeL()</code> has to change to:</p>
+<p class="CodeBlock"><code>void CCompound::ExternalizeL(RWriteStream&amp; aStream) const<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;aStream &lt;&lt; iDdata;<br>&nbsp;&nbsp;&nbsp;&nbsp;aStream &lt;&lt; *iCompA;<br>&nbsp;&nbsp;&nbsp;&nbsp;aStream &lt;&lt; *iCompB;<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p> However, this makes it more difficult to implement deferred
+loading.</p>
+<a name="1.9.27"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>See also</h3>
+</div><div class="Bodytext">
+<p><a href="../StoreStreamsGuide4/index.html#StoreStreamsGuide4%2etoc">Store map</a></p>
+<p><a href="../StoreStreamsGuide3/index.html#StoreStreamsGuide3%2etoc">Swizzles and deferred loading</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

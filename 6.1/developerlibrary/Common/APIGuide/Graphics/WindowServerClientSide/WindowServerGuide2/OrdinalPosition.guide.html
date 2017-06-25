@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Ordinal position</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="WindowServerGuide5%2eOrdinalPosition"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="WindowHierarchy.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="WindowGroupPriority.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Graphics</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Window&nbsp;Server</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Window&nbsp;types</a>&nbsp;<span class="separator">&#187;</span>
+Ordinal&nbsp;position</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Ordinal position</h1>
+</div><div class="Bodytext">
+<p>All windows in the window server have an <em>ordinal
+position</em> which describes their z-order, i.e. their ordering
+from nearest the viewer to furthest away from the viewer. Each window&#8217;s
+ordinal position is relative to its parent window and is unique among its
+siblings.</p>
+<p>Ordinal positions are positive integers starting at 0, with 0 being
+the front-most position. A window with an ordinal position of 0 will be
+displayed in the <em>foreground</em>, i.e., in front of
+all its sibling windows. The ordinal position of other windows increases by one
+for each position behind this window.</p>
+<p>When a window is created, it is automatically given an ordinal
+position of 0 within its parent window. Then, when another child of the same
+parent is created, the first window&#8217;s ordinal position will change to 1,
+and the new window&#8217;s position will be 0. These ordinal positions can be
+changed after the windows have been created, using functions provided by the
+<code>RWindowTreeNode</code> class.</p>
+<p>When a window's ordinal position is changed, its order in the sibling
+list is also changed, so that the window with ordinal position 0 is always
+first in the sibling list, the window with ordinal position 1 is next in the
+list, and so on. Changing the ordinal position of windows therefore affects the
+result of the <a href="../../../../APIReference/WindowServerClientSide/RWindowTreeNodeClass.html#%3a%3aRWindowTreeNode%3a%3aParent%28%29" title="Get the node's parent"><code class="ApiItem">RWindowTreeNode::Parent()</code></a>, <a href="../../../../APIReference/WindowServerClientSide/RWindowTreeNodeClass.html#%3a%3aRWindowTreeNode%3a%3aChild%28%29" title="Gets the first child of the node"><code class="ApiItem">RWindowTreeNode::Child()</code></a>,
+<a href="../../../../APIReference/WindowServerClientSide/RWindowTreeNodeClass.html#%3a%3aRWindowTreeNode%3a%3aNextSibling%28%29" title="Gets the next window after this one in its sibling list"><code class="ApiItem">RWindowTreeNode::NextSibling()</code></a> and <a href="../../../../APIReference/WindowServerClientSide/RWindowTreeNodeClass.html#%3a%3aRWindowTreeNode%3a%3aPrevSibling%28%29" title="Gets the node before this one in the sibling list"><code class="ApiItem">RWindowTreeNode::PrevSibling()</code></a> functions.</p>
+<p>To give an illustration of how ordinal positions work, the diagram
+below shows three windows, A, B and C, all belonging to the same window group.
+Their ordinal positions are as follows: A=0; B=1; C=2.</p>
+<div class="Figure">
+<p class="Image"><img src="wsintro-ordinal.gif" alt=""  border="0"></p>
+</div>
+<p>This would be the default ordering of the windows if they were
+created in the order CBA. Many sibling windows within an application may not
+overlap in practice: nevertheless, each window has a unique ordinal position,
+even though this will not be evident in the way they are displayed.</p>
+<p>If a window&#8217;s ordinal position is changed, its position on the
+screen will change. All its child windows also move with it, although their
+ordinal positions, which are relative to the parent, don&#8217;t
+change.</p>
+<a name="1.11"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Moving a window to the front</h2>
+</div><div class="Bodytext">
+<p>A window is moved to the front (i.e., to the
+<em>foreground</em>) by giving it an ordinal position of
+0. The diagram below shows windows A, B and C, but window B has now been given
+an ordinal position of 0. A&#8217;s position has been incremented to 1, and
+C&#8217;s remains as 2.</p>
+<div class="Figure">
+<p class="Image"><img src="wsintro-movefront1.gif" alt=""  border="0"></p>
+</div>
+<p>The diagram below shows the same three windows as above, except
+that window B now contains a child window, D. Window D&#8217;s ordinal
+position is 0, relative to its parent window, B.</p>
+<div class="Figure">
+<p class="Image"><img src="wsintro-movefront2.gif" alt=""  border="0"></p>
+</div>
+<p>If window A is now moved to the front, window B moves behind it, as
+shown in the diagram below. Window D&#8217;s ordinal position is still 0, but
+because its position always remains relative to its parent window, it moves
+with window B to behind window A.</p>
+<div class="Figure">
+<p class="Image"><img src="wsintro-movefront3.gif" alt=""  border="0"></p>
+</div>
+<a name="1.12"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Moving a window to the back</h2>
+</div><div class="Bodytext">
+<p>If a window is given an ordinal position greater than all its
+siblings, it will be moved to the back of them. For convenience, the functions
+for setting ordinal position allow a negative ordinal position to be specified,
+which sends the window to the back and sets its ordinal position to be the
+highest among its siblings.</p>
+<a name="1.13"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Ordinal position of window groups</h2>
+</div><div class="Bodytext">
+<p>The ordinal position of a window group has special significance
+because there is normally one window group per application. As a result, the
+z-order of applications on the screen is typically determined by the ordinal
+positions of their window groups: for example, giving a window group an ordinal
+position of 0 will typically bring an application to the front of the screen.
+Note, however, that window groups also have a priority, which overrides ordinal
+position. Ordinal position only applies among window groups of the same
+priority. </p>
+<p>The ordinal position of window groups is typically controlled by a
+shell or similar application: the <a href="../../../../APIReference/WindowServerClientSide/RWsSessionClass.html#%3a%3aRWsSession" title="Window server session"><code class="ApiItem">RWsSession</code></a> class provides
+functions for such applications to set window group ordinal positions.</p>
+<a name="1.14"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Keyboard focus and window group ordinal position</h2>
+</div><div class="Bodytext">
+<p>When a window group is given an ordinal position of 0, it is
+automatically given keyboard focus, unless it has disabled keyboard focus by
+calling <code>EnableReceiptOfFocus(EFalse)</code>, or another window group has
+a higher priority.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

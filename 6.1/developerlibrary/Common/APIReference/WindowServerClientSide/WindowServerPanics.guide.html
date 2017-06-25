@@ -1,0 +1,475 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Window Server Panics</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="WindowServerClientSide%2epanics"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="UsingTTextCursor.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="wsiniSyntax.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Window&nbsp;Server</a>&nbsp;<span class="separator">&#187;</span>
+Window&nbsp;Server&nbsp;Panics</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Window server panics</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Overview</h2>
+</div><div class="Bodytext">
+<p>Panics from the window server may be raised by the W32 interface or
+by code in the window server itself. </p><p>The server runs continuously and brings the machine down if it crashes, so it cannot
+panic its own thread when it detects an error in one of its client’s
+requests.  Instead  it panics the client’s thread using
+<a href="../ThreadsAndProcesses/RThreadClass.html#%3a%3aRThread%3a%3aPanic%28%29" title="Panics this thread, specifying the panic category name and reason"><code class="ApiItem">RThread::Panic()</code></a>. These panics have a
+category of WSERV.</p>
+<p>W32 is a synchronous interface onto the window server that user
+code can include, link to and invoke instead of sending low level client-server
+requests to the window server. Some errors can be detected before they are sent
+to the server and are raised as panics from W32. Code in the W32 synchronous
+interface runs in the client’s thread, so it raises panics in situations it
+can understand on the current thread via <a href="../SystemStaticFunctions/UserClass.html#%3a%3aUser%3a%3aPanic%28%29" title="Panics the current thread, specifying a category name and panic number"><code class="ApiItem">User::Panic()</code></a>.
+These panics have a category of W32.</p>
+<p>To minimise strain on the system, W32 can cache several requests in
+order in a buffer and send them as a group to the server. This means that a
+panic might not be caused by a bug in the last client-side code to run, but by
+an earlier line that does not get its request serviced until later. To debug such a panic it is often useful to turn on auto flushing.</p>
+<p>Note that some panics are raised in debug builds only.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Window server synchronous interface (W32) panics</h2>
+</div><div class="Bodytext">
+<p>Panics whose category is W32 are raised by the synchronous
+interface onto the window server when it realises a client has attempted an
+action the interface can’t legally pass on to the window server thread.
+Because the interface is synchronous, the current thread is panicked, and the
+request is never sent to the window server.</p>
+<p>These panics are defined in the enumeration <code>TW32Panic</code>
+of <code class="filename">w32cmd.h</code>.</p><table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top"><td class="Cell">
+<p>1</p></td><td class="Cell">
+<p>An attempt was made to reconnect to the window server using
+<a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aConnect%28%29" title="Connects the client session to the window server"><code class="ApiItem">RWsSession::Connect()</code></a>. It is only possible to reconnect if the current session has been closed.</p></td></tr><tr valign="top"><td class="Cell">
+<p>2</p></td><td class="Cell">
+<p>Not used.</p></td></tr><tr valign="top"><td class="Cell">
+<p>3</p></td><td class="Cell">
+<p>Not used.</p></td></tr><tr valign="top"><td class="Cell">
+<p>4</p></td><td class="Cell">
+<p>Not used.</p></td></tr><tr valign="top"><td class="Cell">
+<p>5</p></td><td class="Cell">
+<p><code>TooManyPairsRaised</code> by
+<a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aMapColors%28%29" title="Re-maps pixel colours within a rectangle"><code class="ApiItem">CWindowGc::MapColors()</code></a> when more than 16 pairs of colours
+are declared in its <code>aNumPairs</code> argument.</p></td></tr><tr valign="top"><td class="Cell">
+<p>6</p></td><td class="Cell">
+<p> introduced Version 6.0 </p>
+<p>A single string is too long to fit into the buffer.
+</p></td></tr></table></td></tr></table>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Window server panics</h2>
+</div><div class="Bodytext">
+<p>Panics with a category of WSERV are raised by the window server
+when it realises a client has requested something it can’t do. The requesting
+thread is panicked.</p>
+<p>These panics are defined in the enumeration
+<code>TClientPanic</code> of <code class="filename">w32cmd.h</code>.</p><table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top"><td class="Cell">
+<p>1</p></td><td class="Cell">
+<p>Out of range opcode.</p><p>The client has sent a request opcode that
+wasn’t recognised. Each server-side object can only handle some of the
+requests defined in the window server, and if the request isn’t recognised, this panic is
+raised.</p><p>Clients would normally only get this is if they bypass the normal W32 API. </p>
+</td></tr><tr valign="top"><td class="Cell">
+<p>2</p></td><td class="Cell">
+<p>Invalid command buffer.</p><p>A corrupt buffer of requests was
+discovered by the server. This is raised when the buffer itself is noticeably
+broken, and not when the commands in it are wrong.</p></td></tr><tr valign="top"><td class="Cell">
+<p>3</p></td><td class="Cell">
+<p>Invalid handle.</p>
+<p>The server couldn’t find the target object for a request in
+the handle index. This can be raised when a command is sent to the handle for a
+window that has been closed, for example.</p></td></tr><tr valign="top"><td class="Cell">
+<p>4</p></td><td class="Cell">
+<p>A handle whose value was NULL was detected. </p>
+<p>For example, when Constructing one of the subclasses of the
+client-side <a href="RWindowBaseClass.html#%3a%3aRWindowBase" title="Client-side handle to a server-side window"><code class="ApiItem">RWindowBase</code></a> with a client handle argument of NULL.</p>
+<p>On the server side, a <code>TWsClCmdCreateWindow</code> with a client
+handle field of <code>NULL</code> passed as argument to <code>CWsClientWindow::ConstructL()</code> will
+raise this error.</p></td></tr><tr valign="top"><td class="Cell">
+<p>5</p></td><td class="Cell">
+<p>Not used.</p></td></tr><tr valign="top"><td class="Cell">
+<p>6</p></td><td class="Cell">
+<p>Invalid window handle.</p>
+<p>A handle which should have referred to a window of a
+particular type referred to a window of another type, or the object index
+didn’t recognise the handle.</p>
+<p>On the server side, this panic is ultimately raised by
+<code>CWsClient::HandleToWindow()</code> and
+<code>CWsClient::HandleToClientWindow()</code> during handle
+conversions.</p></td></tr><tr valign="top"><td class="Cell">
+<p>7</p></td><td class="Cell">
+<p>Invalid bitmap handle.</p>
+<p>A corrupt bitmap handle was encountered. This is a common
+panic uncovered when a bitmap handle refers to nothing, or to a server-side
+object that isn’t a bitmap. </p><p>Also:</p>
+<ul>
+<li>
+<p>In response to an <code>EWsGcOpUseBrushPattern</code> request if the
+bitmap parameter couldn’t be used. On the client side,
+<a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aUseBrushPattern%28%29" title="Sets the brush pattern to the specified bitmap"><code class="ApiItem">CWindowGc::UseBrushPattern()</code></a> sends this request.</p>
+</li>
+<li>
+<p>In response to an <code>EWsSpriteOpAppendMember</code> request when
+the bitmaps for the sprite member can't be created on the server side. On the client side,
+<a href="RWsSpriteBaseClass.html#%3a%3aRWsSpriteBase%3a%3aAppendMember%28%29" title="Adds a sprite member to a sprite or pointer cursor"><code class="ApiItem">RWsSpriteBase::AppendMember()</code></a> sends this request.</p>
+</li>
+<li>
+<p>Any failed attempt to duplicate a supplied bitmap.</p>
+</li>
+</ul></td></tr><tr valign="top"><td class="Cell">
+<p>8</p></td><td class="Cell">
+<p>Event read already outstanding.</p>
+<p><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aEventReady%28%29" title="Requests standard events from the window server"><code class="ApiItem">RWsSession::EventReady()</code></a>,
+<a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aRedrawReady%28%29" title="Requests redraw events from the window server"><code class="ApiItem">RWsSession::RedrawReady()</code></a>, or
+<a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aPriorityKeyReady%28%29" title="Requests priority key events from the window server"><code class="ApiItem">RWsSession::PriorityKeyReady()</code></a> was called again when an
+event read was already outstanding, i.e..   when an event was waiting to be delivered
+by the window server.</p></td></tr><tr valign="top"><td class="Cell">
+<p>9</p></td><td class="Cell">
+<p>Attempted to use a non-active graphics context. </p>
+<p>A drawing request was sent to a graphics context when the context was
+not active. </p>
+<p>On the server side, this panic is raised by
+<code>CWsGc::CommandL()</code> on all requests received when the
+context isn’t active except <code>EWsGcOpActivate</code>,
+<code>EWsGcOpDeactivate</code>, <code>EWsGcOpFree</code>, and
+<code>EWsGcOpTestInvariant</code>.</p></td></tr><tr valign="top"><td class="Cell">
+<p>10</p></td><td class="Cell">
+<p>Attempted to activate an already active graphics
+context.</p>
+<p>On the server side, this is raised by <code>CWsGc::Activate()</code> as a response to a <code>EWsGcOpActivate</code>
+request.</p>
+<p>The request is sent by the client-side method
+<a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aActivate%28%29" title="Activates the context for a given window"><code class="ApiItem">CWindowGc::Activate()</code></a>. </p></td></tr><tr valign="top"><td class="Cell">
+<p>11</p></td><td class="Cell">
+<p>Window already active. </p>
+<p>An attempt was made to reactivate an active window. The request is sent by the client-side method
+<a href="RWindowBaseClass.html#%3a%3aRWindowBase%3a%3aActivate%28%29" title="Displays the window and enables it to receive events"><code class="ApiItem">RWindowBase::Activate()</code></a>.</p><p>On the
+server side, this panic is raised by
+<code>CWsClientWindow::Activate()</code> in response to an
+<code>EWsWinOpActivate</code> request.</p>
+</td></tr><tr valign="top"><td class="Cell">
+<p>12</p></td><td class="Cell">
+<p>Already inside a begin/end redraw pair.</p>
+<p>A begin-redraw window request was made when the window had
+already begun redrawing. Begin-redraw messages are paired with end-redraw
+messages, and ordering is important. Invoking
+<a href="RWindowClass.html#%3a%3aRWindow%3a%3aBeginRedraw%28%29" title="Begins the redraw of a rectangle within the window's invalid region"><code class="ApiItem">RWindow::BeginRedraw()</code></a>, then
+<code>RWindow::BeginRedraw()</code> again before the corresponding
+<a href="RWindowClass.html#%3a%3aRWindow%3a%3aEndRedraw%28%29" title="Ends the current redraw"><code class="ApiItem">RWindow::EndRedraw()</code></a> raises this panic.</p>
+<p>On the server side, this panic is raised if an
+<code>EWsWinOpBeginRedraw</code> request is sent twice before the closing
+<code>EWsWinOpEndRedraw</code>.</p></td></tr><tr valign="top"><td class="Cell">
+<p>13</p></td><td class="Cell">
+<p>Invalid font handle.</p>
+<p>On the client-side
+is raised if <a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aUseFont%28%29" title="Sets this context's current font"><code class="ApiItem">CWindowGc::UseFont()</code></a> is called with an invalid font handle.</p><p>On the server side, <code>CWsGc::SetGcAttribute()</code>
+raises this error in response to an <code>EWsGcOpUseFont</code>
+request.</p></td></tr><tr valign="top"><td class="Cell">
+<p>14</p></td><td class="Cell">
+<p>Printing with no active font.</p>
+<p>A command to draw text to a window was sent to a graphics context when no
+font was set. Any of the overloads of
+<a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aDrawTextVertical%28%29" title="Draws text vertically in the specified direction, within a box of the specified size"><code class="ApiItem">CWindowGc::DrawTextVertical()</code></a> or
+<a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aDrawText%28%29" title="Draws horizontal text within a cleared box"><code class="ApiItem">CWindowGc::DrawText()</code></a> might cause the panic to be raised;
+the font should be set using <a href="CWindowGcClass.html#%3a%3aCWindowGc%3a%3aUseFont%28%29" title="Sets this context's current font"><code class="ApiItem">CWindowGc::UseFont()</code></a>
+first.</p>
+<p>On the server side, this panic is raised by
+<code>CWsGc::DoDrawCommand()</code> in response to any of the requests
+to display text defined in <code>TWsGcOpcodes</code>.</p></td></tr><tr valign="top"><td class="Cell">
+<p>15</p></td><td class="Cell">
+<p>Attempted to set invalid text cursor type.</p>
+<p>An invalid cursor type was passed to the window server. Valid
+types are defined in the <a href="TTextCursorStruct.html#%3a%3aTTextCursor" title="Text cursor parameter information"><code class="ApiItem">TTextCursor</code></a> struct in
+<code class="filename">w32std.h</code>.</p>
+<p>This panic is raised in response to a call to <code>RWsTextCursor::Set()</code>.</p>
+<p>The exact set of valid text cursor types may increase with
+time.</p></td></tr><tr valign="top"><td class="Cell">
+<p>16</p></td><td class="Cell">
+<p>A drawing command was sent to a graphics context active on a group window.</p></td></tr><tr valign="top"><td class="Cell">
+<p>17</p></td><td class="Cell">
+<p>Not used.</p></td></tr><tr valign="top"><td class="Cell">
+<p>18</p></td><td class="Cell">
+<p>Not used.</p></td></tr><tr valign="top"><td class="Cell">
+<p>19</p></td><td class="Cell">
+<p>Attempted to use a patterned brush when the pattern bitmap has not yet been set — <code>UseBrushPattern()</code>.</p>
+</td></tr><tr valign="top"><td class="Cell">
+<p>20</p></td><td class="Cell">
+<p>Not used.</p></td></tr><tr valign="top"><td class="Cell">
+<p>21</p></td><td class="Cell">
+<p>Attempted to do a client destroy function on an illegal
+handle.</p>
+<p>A client tried to destroy or cancel a server-side object by
+its handle on an unrecognised handle, or on a handle of the wrong type for the
+operation.</p>
+<p>This panic may be caused by the
+<a href="RWindowGroupClass.html#%3a%3aRWindowGroup%3a%3aCancelCaptureKeyUpAndDowns%28%29" title="Cancels a capture request for a key up or key down event"><code class="ApiItem">RWindowGroup::CancelCaptureKeyUpAndDowns()</code></a> or
+<a href="RWindowGroupClass.html#%3a%3aRWindowGroup%3a%3aCancelCaptureKey%28%29" title="Cancels a request for key capture"><code class="ApiItem">RWindowGroup::CancelCaptureKey()</code></a> methods. These correspond
+to the <code>EWsWinOpCancelCaptureKeyUpsAndDowns</code> and
+<code>EWsWinOpCancelCaptureKey</code> server requests. In this case, the panic
+means that there is no such capture key object in existence in the target
+window group.</p></td></tr><tr valign="top"><td class="Cell">
+<p>22</p></td><td class="Cell">
+<p>Panic from the Anim DLL.</p>
+<p>An animation DLL tried either changing its default or next
+timing interval when its timing mode was set to <code>ESyncNone</code>, or
+activating a graphics context when the context was already
+activated.</p><p>There are a variety of other reasons why this panic might be raised, all which are Anim DLL related.  The Animation writer can also cause functions raise this panic. </p></td></tr><tr valign="top"><td class="Cell">
+<p>23</p></td><td class="Cell">
+<p>Invalid Anim object handle.</p>
+<p>A null animation handle was detected in the server on receipt
+of an animation command, possibly because the relevant animation has been deleted. This panic may be raised by a subclass of
+<a href="RAnimClass.html#%3a%3aRAnim" title="Client-side handle to a server-side animation class"><code class="ApiItem">RAnim</code></a> calling <a href="RAnimClass.html#%3a%3aRAnim%3a%3aCommand%28%29" title="Sends a command to the server-side CAnim instance, and returns immediately"><code class="ApiItem">RAnim::Command()</code></a> or
+<a href="RAnimClass.html#%3a%3aRAnim%3a%3aCommandReply%28%29" title="Sends a command and its arguments to the server-side CAnim instance, and waits for a response"><code class="ApiItem">RAnim::CommandReply()</code></a>.</p>
+<p>On the server side, the <code>EWsAnimDllOpCommandReply</code>
+and <code>EWsAnimDllOpCommand</code> requests can raise this panic in
+<code>CWsAnimDll</code>.</p></td></tr><tr valign="top"><td class="Cell">
+<p>24</p></td><td class="Cell">
+<p>Leave from a non-leaving animation function.</p>
+<p>Code in an animated DLL called by the server invoked <code>Leave()</code>.
+Animated DLL code is provided by the client and run by the server, so unhandled
+leaves are trapped and the notification is passed on as a client
+panic.</p></td></tr><tr valign="top"><td class="Cell">
+<p>25</p></td><td class="Cell">
+<p>Not used.</p></td></tr><tr valign="top"><td class="Cell">
+<p>26</p></td><td class="Cell">
+<p>Not used.</p></td></tr><tr valign="top"><td class="Cell">
+<p>27</p></td><td class="Cell">
+<p>Not used.</p></td></tr><tr valign="top"><td class="Cell">
+<p>28</p></td><td class="Cell">
+<p>Inconsistent polygon or polyline data was supplied. For
+example when restarting without finishing an old
+polygon.</p></td></tr><tr valign="top"><td class="Cell">
+<p>29</p></td><td class="Cell">
+<p>A client attempted to set a negative shadow height. </p>
+<p>This panic is caused by a call to
+<a href="RWindowBaseClass.html#%3a%3aRWindowBase%3a%3aSetShadowHeight%28%29" title="Sets a window's shadow height"><code class="ApiItem">RWindowBase::SetShadowHeight()</code></a> with a negative
+argument.</p>
+<p>On the server side,
+<code>CWsClientWindow::CommandL()</code> raises the panic in response
+to an invalid <code>EWsWinOpSetShadowHeight</code>
+request.</p></td></tr><tr valign="top"><td class="Cell">
+<p>30</p></td><td class="Cell">
+<p>Not used.</p></td></tr><tr valign="top"><td class="Cell">
+<p>31</p></td><td class="Cell">
+<p>The client tried to construct a window with an invalid redraw
+type. The valid redraw types defined in the enumeration <code>TWinTypes</code> of
+<code class="filename">w32cmd.h</code>.</p>
+<p>On the server side, this panic is raised by
+<code>CWsClientWindow::ConstructL()</code> in response to an
+initialisation message containing an invalid redraw
+type.</p></td></tr><tr valign="top"><td class="Cell">
+<p>32</p></td><td class="Cell">
+<p>A server-side redraw region is almost certainly corrupt. </p><p>This
+panic is raised when an <code>EWsWinOpGetInvalidRegion</code> is received by a
+<code>CWsRedrawMsgWindow</code> with a <code>TInt</code> parameter of
+zero or less.</p></td></tr><tr valign="top"><td class="Cell">
+<p>33</p></td><td class="Cell">
+<p>The client failed to provide a reply buffer to a server-side
+function when one was needed. </p>
+<p>All server-side functions that need more space for their
+reply than a <code>TInt</code> use the client’s reply buffer. If the client fails to
+provide space for such replies, this panic will be emitted.</p>
+<p>This panic is raised by
+<code>CWsClient::ReplyBuf()</code> when <code>CWsClient</code>’s reply buffer is
+null. </p></td></tr><tr valign="top"><td class="Cell">
+<p>34</p></td><td class="Cell">
+<p>Not used.</p></td></tr><tr valign="top"><td class="Cell">
+<p>35</p></td><td class="Cell">
+<p>A client passed an invalid or unrecognised corner type or
+flag.</p>
+<p> This panic is raised in response to a client call to <a href="RWindowBaseClass.html#%3a%3aRWindowBase%3a%3aSetCornerType%28%29" title="Sets the shape of a window's corners"><code class="ApiItem">RWindowBase::SetCornerType()</code></a> when specifying inconsistent or non-existent flags.</p>
+<p>Valid flags are masked by
+<a href="TCornerTypeEnum.html#%3a%3aECornerTypeMask" title="Corner type mask"><code class="ApiItem">ECornerTypeMask</code></a>, and recognised types are defined in
+<a href="TCornerTypeEnum.html#%3a%3aTCornerType" title="Window corner types"><code class="ApiItem">TCornerType</code></a>. These are all defined in
+<code class="filename">w32std.h</code>.</p>
+<p>The server raises this panic as a response to
+<code>EWsWinOpSetCornerType</code> request with an undefined corner type or an
+unrecognised flag in its parameters.</p></td></tr><tr valign="top"><td class="Cell">
+<p>36</p></td><td class="Cell">
+<p>The server was asked to update a region of  a backed-up window which has not had MaintainBackup called on it. </p>
+<p>A client-side call to either form of
+<a href="RBackedUpWindowClass.html#%3a%3aRBackedUpWindow%3a%3aUpdateScreen%28%29" title="Copies a part of the backup bitmap to the on-screen bitmap"><code class="ApiItem">RBackedUpWindow::UpdateScreen()</code></a> may raise this panic. </p><p>On the server side,
+the panic is raised in response to an <code>EWsWinOpUpdateScreenRegion</code>
+or <code>EWsWinOpUpdateScreen</code> request when not maintaining a full backup of  a backed-up
+window.</p></td></tr><tr valign="top"><td class="Cell">
+<p>37</p></td><td class="Cell">
+<p>Panic raised when it was not possible to read or write data to the client thread. The data is usually contained in a descriptor.</p></td></tr><tr valign="top"><td class="Cell">
+<p>38</p></td><td class="Cell">
+<p>The client attempted to access a sprite after the sprite's
+window was destroyed. Note that pointer cursors are implemented as
+sprites.</p></td></tr><tr valign="top"><td class="Cell">
+<p>39</p></td><td class="Cell">
+<p>A client requested event data without having received an event telling it that the data was ready.</p></td></tr><tr valign="top"><td class="Cell">
+<p>40</p></td><td class="Cell">
+<p>The mask for a sprite is smaller than the sprite’s bitmap.
+A mask is permitted to be larger than its bitmap.</p></td></tr><tr valign="top"><td class="Cell">
+<p>41</p></td><td class="Cell">
+<p>Bad sprite handle.</p>
+<p>A null sprite handle was encountered, or a handle which was
+supposed to refer to a sprite referred to something else.</p>
+<p>The client-side methods
+<a href="RWindowTreeNodeClass.html#%3a%3aRWindowTreeNode%3a%3aSetCustomPointerCursor%28%29" title="Sets the pointer cursor to an application-defined cursor"><code class="ApiItem">RWindowTreeNode::SetCustomPointerCursor()</code></a> and
+<a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aSetSystemPointerCursor%28%29" title="Sets a cursor in the system pointer cursor list"><code class="ApiItem">RWsSession::SetSystemPointerCursor()</code></a>, amongst others, can cause this panic
+to be raised; they correspond to the server requests
+<code>EWsWinOpSetCustomPointerCursor</code> and
+<code>EWsClOpSetSystemPointerCursor</code>.</p></td></tr><tr valign="top"><td class="Cell">
+<p>42</p></td><td class="Cell">
+<p>A client attempted to set or clear a system pointer cursor
+without first owning the list of system pointer cursors.</p>
+<p><a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aSetSystemPointerCursor%28%29" title="Sets a cursor in the system pointer cursor list"><code class="ApiItem">RWsSession::SetSystemPointerCursor()</code></a> and
+<a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aClearSystemPointerCursor%28%29" title="Clears a system pointer cursor from the list"><code class="ApiItem">RWsSession::ClearSystemPointerCursor()</code></a> can raise this
+panic. See also <a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aClaimSystemPointerCursorList%28%29" title="Claims the system pointer cursor list"><code class="ApiItem">RWsSession::ClaimSystemPointerCursorList()</code></a>
+and <a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aFreeSystemPointerCursorList%28%29" title="Releases the system pointer cursor list and deletes all the entries in it"><code class="ApiItem">RWsSession::FreeSystemPointerCursorList()</code></a>.</p>
+<p>The server requests which can raise this panic are
+<code>EWsClOpSetSystemPointerCursor</code> and
+<code>EWsClOpClearSystemPointerCursor</code>.</p></td></tr><tr valign="top"><td class="Cell">
+<p>43</p></td><td class="Cell">
+<p>A client attempted to enable a pointer move buffer when none
+was allocated.</p>
+<p><a href="RWindowBaseClass.html#%3a%3aRWindowBase%3a%3aEnablePointerMoveBuffer%28%29" title="Enables the pointer move buffer for receiving pointer move events"><code class="ApiItem">RWindowBase::EnablePointerMoveBuffer()</code></a>
+can cause this panic to be emitted; the corresponding server request is
+<code>EWsWinOpEnablePointerMoveBuffer</code>.</p></td></tr><tr valign="top"><td class="Cell">
+<p>44</p></td><td class="Cell">
+<p>Raised in response to commands that send a string, when the string has been incorrectly stored in the command buffer.</p></td></tr><tr valign="top"><td class="Cell">
+<p>45</p></td><td class="Cell">
+<p>Not used.</p></td></tr><tr valign="top"><td class="Cell">
+<p>46</p></td><td class="Cell">
+<p>An invalid call or request parameter was detected by
+<code>CWsPassword</code>. This can be caused:</p>
+<ul>
+<li>
+<p>By <a href="RWindowBaseClass.html#%3a%3aRWindowBase%3a%3aPasswordWindow%28%29" title="Make this window the password window"><code class="ApiItem">RWindowBase::PasswordWindow()</code></a>
+sending an <code>EWsWinOpPasswordWindow</code> server request whose password
+mode parameter is not recognised.</p>
+</li>
+<li>
+<p>By an attempt to cancel the password window by a
+client which doesn’t own the window.</p>
+</li>
+<li>
+<p>By <a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aPasswordEntered%28%29" title="Disables window server password mode"><code class="ApiItem">RWsSession::PasswordEntered()</code></a>
+sending a <code>EWsClOpPasswordEntered</code> server request when no password
+window has been set, or when the client does not own the password
+window.</p>
+</li>
+</ul>
+<p>Valid password modes are defined in
+<a href="TPasswordModeEnum.html#%3a%3aTPasswordMode" title="Password mode flags"><code class="ApiItem">TPasswordMode</code></a> of
+<code class="filename">w32std.h</code>.</p></td></tr><tr valign="top"><td class="Cell">
+<p>47</p></td><td class="Cell">
+<p>An invalid compute mode was sent to the window server. On the
+client side, <a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aComputeMode%28%29" title="Sets the mode used to control process priorities"><code class="ApiItem">RWsSession::ComputeMode()</code></a> can do this, the
+window server request is <code>EWsClOpComputeMode</code>. Valid compute modes
+are defined in the enumeration <a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aTComputeMode" title="Compute mode flags"><code class="ApiItem">RWsSession::TComputeMode</code></a>,
+which is declared in <code class="filename">w32std.h</code>.</p></td></tr><tr valign="top"><td class="Cell">
+<p>48</p></td><td class="Cell">
+<p>A client attempted to set the  display mode of a
+backed-up window. This can be done with
+<a href="RWindowBaseClass.html#%3a%3aRWindowBase%3a%3aSetRequiredDisplayMode%28%29" title="Sets the window's display mode"><code class="ApiItem">RWindowBase::SetRequiredDisplayMode()</code></a> or the
+<code>EWsWinOpRequiredDisplayMode</code> server
+request.</p></td></tr><tr valign="top"><td class="Cell">
+<p>49</p></td><td class="Cell">
+<p>A client attempted to get a message when has not been signalled in
+the server.</p>
+<p>This panic can be raised on a client thread calling
+<a href="RWindowGroupClass.html#%3a%3aRWindowGroup%3a%3aFetchMessage%28%29" title="Gets a message from the session"><code class="ApiItem">RWindowGroup::FetchMessage()</code></a> or sending the
+<code>EWsWinOpGetMessageSize</code> or <code>EWsWinOpGetMessage</code>
+messages.</p></td></tr><tr valign="top"><td class="Cell">
+<p>50</p></td><td class="Cell">
+<p>A client tried to send a second initialisation
+message, i.e. to call <a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aConnect%28%29" title="Connects the client session to the window server"><code class="ApiItem">RWsSession::Connect()</code></a> twice.</p></td></tr><tr valign="top"><td class="Cell">
+<p>51</p></td><td class="Cell">
+<p>A client attempted to send a message without specifying a
+target window.</p><p>This can be raised, for example, in response to <a href="RWsSessionClass.html#%3a%3aRWsSession%3a%3aRequestOffEvents%28%29" title="Requests the window server to send OFF events to a window"><code class="ApiItem">RWsSession::RequestOffEvents()</code></a></p></td></tr><tr valign="top"><td class="Cell">
+<p>52</p></td><td class="Cell">
+<p>A client attempted to perform and operation on a window that
+has had its parent or ancestor deleted. An operation which might raise this
+panic could be setting the window size, position or extent.</p>
+<p>Panic introduced in version 5.1</p></td></tr><tr valign="top"><td class="Cell">
+<p>53</p></td><td class="Cell">
+<p>A client attempted to reset a window group’s default owning
+window. For example, by calling the function
+<a href="RWindowGroupClass.html#%3a%3aRWindowGroup%3a%3aDefaultOwningWindow%28%29" title="Make this window group the default owning window group"><code class="ApiItem">RWindowGroup::DefaultOwningWindow()</code></a> twice on the same
+window group.</p><p>This is only raised in debug builds.</p></td></tr><tr valign="top"><td class="Cell">
+<p>54</p></td><td class="Cell">
+<p>A client attempted to perform an operation on an invalid
+screen mode.</p>
+<p>For example, if the client called the functions
+<a href="CWsScreenDeviceClass.html#%3a%3aCWsScreenDevice%3a%3aGetScreenModeSizeAndRotation%28%29" title="Get the screen rotation and size, in pixels, for the specified screen mode"><code class="ApiItem">CWsScreenDevice::GetScreenModeSizeAndRotation()</code></a> or
+<a href="CWsScreenDeviceClass.html#%3a%3aCWsScreenDevice%3a%3aSetScreenMode%28%29" title="Sets the screen mode"><code class="ApiItem">CWsScreenDevice::SetScreenMode()</code></a> with an illegal index.</p>
+<p>Panic introduced in version 5.1</p></td></tr><tr valign="top"><td class="Cell">
+<p>55</p></td><td class="Cell">
+<p>A client attempted to set an invalid screen enforcement
+mode.</p>
+<p>The valid screen mode enforcement modes are defined in
+<a href="TScreenModeEnforcementEnum.html#%3a%3aTScreenModeEnforcement" title="Screen mode enforcement flags"><code class="ApiItem">TScreenModeEnforcement</code></a>.</p>
+<p>Panic introduced in version 5.1</p></td></tr><tr valign="top"><td class="Cell">
+<p>56</p></td><td class="Cell">
+<p>A client specified an event type which was not a pointer
+event, when this is what was required by the operation. e.g. <a href="RWindowGroupClass.html#%3a%3aRWindowGroup%3a%3aSimulatePointerEvent%28%29" title="Simulates a pointer event"><code class="ApiItem">RWindowGroup::SimulatePointerEvent()</code></a>.</p>
+<p>Panic introduced in version 5.1</p></td></tr><tr valign="top"><td class="Cell">
+<p>57</p></td><td class="Cell">
+<p>A client attempted to specify a  screen rotation or
+orientation that is not allowed. Each screen size mode has a list of allowed rotations.</p>
+<p>Panic introduced in version 5.1</p></td></tr><tr valign="top"><td class="Cell">
+<p>58</p></td><td class="Cell">
+<p>A client attempted to call a function that can only be called
+on a top level client window on a lower level window. A top level client window is a window with a window group as a
+parent, e.g. <a href="RWindowBaseClass.html#%3a%3aRWindowBase%3a%3aMoveToGroup%28%29" title="Moves this window to another window group"><code class="ApiItem">RWindowBase::MoveToGroup()</code></a>.</p>
+<p>Panic introduced in version 6.0</p></td></tr></table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>TCollationMethod</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="TClockFormatEnum.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="TCurrencySymbolClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Locale&nbsp;Settings</a>&nbsp;<span class="separator">&#187;</span>
+TCollationMethod</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>collate.h</code>
+<br>Link against: <code></code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aTCollationMethod"></a>
+
+<h1>Struct <code>TCollationMethod</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>TCollationMethod</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Defines a collation method. Collation means sorting pieces of text.
+It needs to take into account characters, accents and case; spaces and
+punctuation are usually ignored. It differs from ordinary methods of sorting in
+that it is locale-dependent&nbsp;&#8212; different languages use different
+ordering methods. Additionally, multiple collation methods may exist within the
+same locale.</p>
+<p>A collation method provides the collation keys and other data
+needed to customise collation; the <code>Mem</code> and <code>TDesC16</code>
+collation functions (e.g. <code>Mem::CompareC()</code>) perform the collation.
+Note that these functions use the standard collation method for the current
+locale&nbsp;&#8212; you only need to specify an object of class
+<code>TCollationMethod</code> to customise this collation scheme. Collation
+methods can be retrieved using member functions of the <code>Mem</code> class.
+Each one has a unique identifier.</p>
+<p>A collation method specifies a main table of collation keys, and
+optionally an overriding table that contains keys for which the values in the
+main table are overridden. A collation key table
+(<code>TCollationKeyTable</code>) is the set of collation keys: primary (basic
+character identity), secondary (accents and diacritics) and tertiary (case).
+The quaternary key is the Unicode character values themselves.</p>
+<p>The simplest way to customise a collation method is to create a
+local copy of the standard collation method and change it. For example, you
+could use the standard method, but not ignore punctuation and spaces:</p>
+<p class="CodeBlock"><code>TCollationMethod m = *Mem::CollationMethodByIndex(0); // get the standard method<br>m.iFlags |= TCollationMethod::EIgnoreNone; // dont ignore punctuation and spaces</code></p><p>Defined in <code>TCollationMethod</code>:
+<br><code class="ApiItem"><a href="TCollationMethodStruct.html#%3a%3aTCollationMethod%3a%3aAnonymous" title="Miscellaneous constants">Anonymous</a></code>, <code class="ApiItem"><a href="TCollationMethodStruct.html#%3a%3aTCollationMethod%3a%3aEAccentsBackwards" title="Compare secondary keys which represent accents in reverse order (from right to left); this is needed for French when comparing words that differ only in accents">EAccentsBackwards</a></code>, <code class="ApiItem"><a href="TCollationMethodStruct.html#%3a%3aTCollationMethod%3a%3aEFoldCase" title="Fold all characters to lower case before extracting keys; needed for comparison of filenames, for which case is ignored but other tertiary distinctions are not">EFoldCase</a></code>, <code class="ApiItem"><a href="TCollationMethodStruct.html#%3a%3aTCollationMethod%3a%3aEIgnoreNone" title="Don't ignore any keys (punctuation, etc">EIgnoreNone</a></code>, <code class="ApiItem"><a href="TCollationMethodStruct.html#%3a%3aTCollationMethod%3a%3aESwapCase" title="Reverse the normal order of upper and lower case for characters differing only in case">ESwapCase</a></code>, <code class="ApiItem"><a href="TCollationMethodStruct.html#%3a%3aTCollationMethod%3a%3aESwapKana" title="Reverse the normal order for characters differing only in whether they are katakana or hiragana">ESwapKana</a></code>, <code class="ApiItem"><a href="TCollationMethodStruct.html#%3a%3aTCollationMethod%3a%3aiFlags" title="Flags as defined above">iFlags</a></code>, <code class="ApiItem"><a href="TCollationMethodStruct.html#%3a%3aTCollationMethod%3a%3aiId" title="The UID of the collation method">iId</a></code>, <code class="ApiItem"><a href="TCollationMethodStruct.html#%3a%3aTCollationMethod%3a%3aiMainTable" title="The main collation key table; if NULL, use the standard table">iMainTable</a></code>, <code class="ApiItem"><a href="TCollationMethodStruct.html#%3a%3aTCollationMethod%3a%3aiOverrideTable" title="If non-NULL, tailoring for collation keys">iOverrideTable</a></code>
+</p>
+<a name="2.5"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Enumerations</h2>
+</div><div class="Bodytext">
+<a name="2.5.2"></a></div><div class="Head3">
+<a name="%3a%3aTCollationMethod%3a%3aAnonymous"></a>
+<hr size="1" noshade>
+<h3>Enum <code>Anonymous</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>Anonymous</code></p><h4 class="subheading">Description</h4>
+<p>Miscellaneous constants.</p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aTCollationMethod%3a%3aEIgnoreNone"><code class="Value">EIgnoreNone</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Don't ignore any keys&#0160;(punctuation, etc. is normally
+ignored).</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aTCollationMethod%3a%3aESwapCase"><code class="Value">ESwapCase</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Reverse the normal order of upper and lower case for characters
+differing only in case. </para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aTCollationMethod%3a%3aEAccentsBackwards"><code class="Value">EAccentsBackwards</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Compare secondary keys which represent accents in reverse order
+(from right to left); this is needed for French when comparing words that
+differ only in accents.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aTCollationMethod%3a%3aESwapKana"><code class="Value">ESwapKana</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Reverse the normal order for characters differing only in whether
+they are katakana or hiragana.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aTCollationMethod%3a%3aEFoldCase"><code class="Value">EFoldCase</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Fold all characters to lower case before extracting keys; needed for
+comparison of filenames, for which case is ignored but other tertiary
+distinctions are not.</para></p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Data members</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aTCollationMethod%3a%3aiId"></a>
+<hr size="1" noshade>
+<h3><code>iId</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TUint iId</code></p><h4 class="subheading">Description</h4>
+<p>The UID of the collation method.</p>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aTCollationMethod%3a%3aiMainTable"></a>
+<hr size="1" noshade>
+<h3><code>iMainTable</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const TCollationKeyTable* iMainTable</code></p><h4 class="subheading">Description</h4>
+<p>The main collation key table; if NULL, use the standard
+table.</p>
+<a name="2.6.4"></a></div><div class="Head3">
+<a name="%3a%3aTCollationMethod%3a%3aiOverrideTable"></a>
+<hr size="1" noshade>
+<h3><code>iOverrideTable</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const TCollationKeyTable* iOverrideTable</code></p><h4 class="subheading">Description</h4>
+<p>If non-NULL, tailoring for collation keys.</p>
+<a name="2.6.5"></a></div><div class="Head3">
+<a name="%3a%3aTCollationMethod%3a%3aiFlags"></a>
+<hr size="1" noshade>
+<h3><code>iFlags</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TUint iFlags</code></p><h4 class="subheading">Description</h4>
+<p>Flags as defined above.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

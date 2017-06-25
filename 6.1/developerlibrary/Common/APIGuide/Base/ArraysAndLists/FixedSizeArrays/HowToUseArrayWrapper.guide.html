@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to use the range checking wrapper</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="FixedSizeArraysGuide%2ehow%2dto%2erange%2dchecking"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToReplaceArrayWithWrapper.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Arrays&nbsp;and&nbsp;Lists</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Fixed&nbsp;Size&nbsp;Arrays</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;use&nbsp;the&nbsp;range&nbsp;checking&nbsp;wrapper</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to use the range checking wrapper</h1>
+</div><div class="Bodytext">
+<p>Instead of declaring a C++ array directly:</p>
+<p class="CodeBlock"><code>TTest array[4];</code></p>
+<p>use:</p>
+<p class="CodeBlock"><code>TFixedArray&lt;TTest,4&gt; array;</code></p>
+<a name="1.7"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Initialise array</h2>
+</div><div class="Bodytext">
+<p>The array can be initialised either at construction time or by
+using the <code>Copy()</code> member function after construction.</p>
+<p class="CodeBlock"><code>...<br>const TTest data[] = {TTest(1),TTest(2),TTest(3),TTest(4)};<br>...<br>&nbsp;// initialise at construction time<br>TFixedArray&lt;TTest,4&gt; array(&amp;data[0],4);<br>...<br>&nbsp;// or later using Copy()<br>TFixedArray&lt;TTest,4&gt; array;<br>array.Copy(&amp;data[0],4);<br>...</code></p>
+<a name="1.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Check accesses for legality</h2>
+</div><div class="Bodytext">
+<p>Accesses can be checked for legality using the <code>At()</code>
+function or the <code>operator[]</code>.</p>
+<p>The <code>At()</code> function checks for a legal access in both a
+release build and a debug build while the <code>operator[]</code> only checks
+for a legal access in a debug build.</p>
+<p>Assuming that the <code>TTest</code> class has a public member
+function called <code>SetValue()</code>, then a call to this function on the
+second element of the array is legal:</p>
+<p class="CodeBlock"><code>array.At(1).SetValue(100);</code></p>
+<p>but an attempt to call this function on the fifth element raises a
+panic; in this example, there are only four elements:</p>
+<p class="CodeBlock"><code>array.At(5).SetValue(100); // panics</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Active objects</title>
+<link href="../../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="AsynchronousServicesGuide3%2eactive%2dobjects"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../../_index/index.html"><img
+src="../../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../../GlobalGlossary/index.html"><img src="../../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="IntroductionToActiveObjectsScheduler.guide.html"><img src="../../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="ActiveScheduler.guide.html"><img src="../../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Inter&nbsp;Process&nbsp;Communciation</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Asynchronous&nbsp;Services</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">High&nbsp;Level&nbsp;Asynchronous&nbsp;Service&nbsp;Handling</a>&nbsp;<span class="separator">&#187;</span>
+Active&nbsp;objects</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Active objects</h1>
+</div><div class="Bodytext">
+<p>An active object uses an asynchronous service provider class to
+provide the service. The active object hides the asynchronous service provider
+and offers request and cancel functions for that service provider.</p>
+<p>The class from which all active objects are derived is
+<code>CActive</code>. This provides <i>derived</i> active objects
+with:</p>
+<ul>
+<li>
+<p>the data member <code>iStatus</code>, an object of type
+<code>TRequestStatus</code>, which is passed to the request functions of the
+asynchronous service provider. The active object&#8217;s request functions,
+therefore, do not include a <code>TRequestStatus</code> among their parameters
+(except when the active object is itself acting as a secondary provider of
+asynchronous services).</p>
+</li>
+<li>
+<p>the flag data member, <code>iActive</code>, which is used to
+indicate that a request has been issued. The active scheduler tests this flag
+when handling the completion of a wait for any request. The active
+object&#8217;s request functions must set this flag when they issue a request
+by calling the <code>SetActive()</code> function.</p>
+</li>
+<li>
+<p>the <code>Cancel()</code> function which cancels an outstanding
+request and resets the <code>iActive</code> flag. If no request has been issued
+<code>Cancel()</code> does nothing, otherwise it calls <code>DoCancel()</code>,
+a pure virtual function which must be provided by derived classes and which
+handles specific cancellation as required by the service provider.
+<code>Cancel()</code> then waits for the completion of that request and sets
+the active request flag to false.</p>
+</li>
+<li>
+<p>the <code>TPriority</code> enumeration, which defines the set of
+priorities which an active object can take. The active object's priority is set
+during construction.. When the active scheduler&#8217;s wait completes, it
+checks the active object with the highest priority. Where active objects have
+the same priority, the order of checking is not defined.</p>
+</li>
+</ul>
+<p>Classes derived from <code>CActive</code> must:</p>
+<ul>
+<li>
+<p>own an asynchronous service provider. It may do this by
+containing either an instance of the required service provider or a handle to
+that provider.</p>
+</li>
+<li>
+<p>provide one or more request functions, such as
+<code>IssueRequest()</code>, which pass on the request to an asynchronous
+service provider. </p>
+</li>
+<li>
+<p>implement a <code>DoCancel()</code> function which passes on a
+cancel request to the asynchronous service provider</p>
+</li>
+<li>
+<p>provide a <code>RunL()</code> function, which is called by the
+active scheduler when it detects that an active object&#8217;s request has
+completed.</p>
+</li>
+<li>
+<p>provide a <code>RunError()</code> function, which is called by
+the active scheduler if the active object's <code>RunL()</code> function
+leaves. A derived class can use the default implementation but this just
+propagates the leave code up to the active scheduler.</p>
+</li>
+</ul>
+<p>Note that the <code>RunError()</code> function is not defined in
+ER5.</p>
+<a name="1.9"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="ActiveScheduler.guide.html#AsynchronousServicesGuide3%2eactive%2dscheduler">Active Scheduler</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Reclamation and compaction, incrementally</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="StoresGuide7%2ecompact%2dreclaim%2dincremental"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="SpaceReclamationAndCompactionIntroduction.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="SingleJob.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Stores</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Space&nbsp;reclamation&nbsp;and&nbsp;compaction</a>&nbsp;<span class="separator">&#187;</span>
+Reclamation&nbsp;and&nbsp;compaction,&nbsp;incrementally</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Reclamation and compaction, incrementally</h1>
+</div><div class="Bodytext">
+<p>Both space reclamation and compaction can be done incrementally, i.e.
+broken down into smaller steps. This allows an application to alternate
+reclamation and compaction with other processing and remain responsive to other
+events.</p>
+<p>To do this, construct an object of type <code>RStoreReclaim</code>
+and call:</p>
+<ul>
+<li>
+<p><code>RStoreReclaim::OpenL()</code> or
+<code>RStoreReclaim::OpenLC()</code> to prepare the <code>RStoreReclaim</code>
+object to perform space reclamation.</p>
+</li>
+<li>
+<p><code>RStoreReclaim::CompactL()</code> or
+<code>RStoreReclaim::CompactLC()</code> to prepare the
+<code>RStoreReclaim</code> object to perform compaction.</p>
+</li>
+</ul>
+<p>Each stage of space reclamation and compaction is performed or
+initiated by calling the appropriate variant of
+<code>RStoreReclaim::Next()</code> or <code>RStoreReclaim::NextL()</code>. The
+class provides both synchronous and asynchronous variants of these two
+functions. The asynchronous versions initiate the next stage of space
+reclamation and compaction.</p>
+<p>At any time during space reclamation or compaction, the
+<code>RStoreReclaim::Available()</code> returns a running total of free space
+discovered so far.</p>
+<p>Compaction and normal access to the store interact in the following
+ways:</p>
+<ul>
+<li>
+<p>if a compaction step is in progress, committing the store causes
+the compaction step to be abandoned and to complete or leave with
+<code>KErrNotReady</code>. All subsequent attempts to initiate a compaction
+step, complete or leave with <code>KErrNotReady</code>. Compaction can be
+restarted by first doing a reset, i.e. by calling <code>ResetL()</code>.</p>
+</li>
+<li>
+<p>a compaction step which needs to physically move a stream,
+completes or leaves with <code>KErrInUse</code>, if any stream within the store
+is open. The stream must be closed before initiating another compaction
+step.</p>
+</li>
+</ul>
+<p>Once compaction is complete, the store must be committed.</p>
+<p>Doing an incremental space reclamation or compaction asynchronously
+requires the use of active objects. </p>
+<a name="1.12"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="../StoresGuide6/index.html#StoreGuide6%2etoc">Transactions</a></p>
+<p><a href="../../InterProcessCommunication/AsynchronousServicesGuide/AsynchronousServicesGuide3/index.html#AsynchronousServicesGuide3%2etoc">High level asynchronous service handling</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

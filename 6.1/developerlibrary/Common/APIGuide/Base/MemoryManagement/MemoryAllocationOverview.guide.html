@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Memory Allocation Overview</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="MemoryManagementOverview%2eMemoryAllocationOverview%2emain"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CleanupSupportOverview.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="CleanupSupport/index.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Memory&nbsp;Management</a>&nbsp;<span class="separator">&#187;</span>
+Memory&nbsp;Allocation&nbsp;Overview</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Memory Allocation Overview</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Purpose</h2>
+</div><div class="Bodytext">
+<p>Provides low-level functionality by which an EPOC process can
+access and manipulate memory areas.</p>
+<p>Most client programs do not need to use this functionality
+directly. They are used by programs that are explicitly concerned about sharing
+memory areas between threads within a process, or between processes.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Description</h2>
+</div><div class="Bodytext">
+<p>The API has two key concepts: chunk and heap. </p>
+<a name="1.4.3"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Chunk</h3>
+</div><div class="Bodytext">
+<p>A chunk is a region of RAM mapped into contiguous linear
+addresses. The address space of a process when it is created consists of one to
+three chunks: </p>
+<p>The <em>stack/heap</em> chunk; this contains the stack and
+the heap used by the main thread of the process. This chunk always exists.
+</p>
+<p>The <em>code</em> chunk: this exists only if the process is
+loaded into RAM (i.e. it is not ROM resident). </p>
+<p>The <em>data</em> chunk: this exists only if the process has
+static data. </p>
+<p>A program can create additional chunks. A <em>global</em>
+chunk can be accessed by other processes, and so allows large amounts of memory
+to be shared.</p>
+<p>The chunk interface is provided by <a href="../../../APIReference/MemoryAllocation/RChunkClass.html#%3a%3aRChunk" title="Provides a handle to a chunk"><code class="ApiItem">RChunk</code></a>.
+</p>
+<p><a href="../../../APIReference/MemoryAllocation/TFindChunkClass.html#%3a%3aTFindChunk" title="Searches for all global chunks by pattern matching against the names of (Kernel side) chunk objects"><code class="ApiItem">TFindChunk</code></a> is used for finding a global
+chunk created by another process.</p>
+<a name="1.4.4"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Heap</h3>
+</div><div class="Bodytext">
+<p>A heap is used for explicit dynamic allocation of memory. EPOC
+defines C++'s <code>new</code> operator to create objects on the current
+thread's heap. </p>
+<p>Heaps may be:</p>
+<ul>
+<li>
+<p>monitored for memory leaks: this happens automatically for
+GUI applications</p>
+</li>
+<li>
+<p>shared between threads within a process</p>
+</li>
+<li>
+<p>accessed and manipulated at the cell level </p>
+</li>
+</ul>
+<p>The heap interface is provided by <a href="../../../APIReference/MemoryAllocation/RHeapClass.html#%3a%3aRHeap" title="Represents a heap"><code class="ApiItem">RHeap</code></a>.
+Where the heap in question is the current thread's heap, it is more convenient
+to use the equivalent functions provided by the System Static Functions API
+<a href="../../../APIReference/SystemStaticFunctions/UserClass.html#%3a%3aUser" title="Set of static user functions"><code class="ApiItem">User</code></a> class.</p>
+<p>The System Static Functions API also provides macros that
+conveniently wrap calls for monitoring heap usage for memory leaks.</p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="../BuffersAndStrings/RawMemoryOverview.guide.html#BuffersAndStringsOverview%2eRawMemoryOverview%2emain">Raw Memory Overview</a></p>
+<p><a href="../SystemStaticFunctions/SystemStaticFunctionsOverview.guide.html#SystemStaticFunctionsOverview%2emain">System Static Functions Overview</a></p>
+<p><a href="../ThreadAndProcessManagement/ThreadAndProcessManagementOverview.guide.html#ThreadAndProcessManagementOverview%2emain">Thread And Process Management Overview</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

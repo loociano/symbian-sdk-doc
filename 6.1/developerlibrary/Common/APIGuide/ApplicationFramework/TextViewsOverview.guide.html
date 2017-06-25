@@ -1,0 +1,164 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Text Views overview</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="ApplicationFrameworkOverview%2eTextViewsOverview%2emain"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="TextAndTextAttributesOverview.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="UIControlFrameworkOverview.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Application&nbsp;Framework</a>&nbsp;<span class="separator">&#187;</span>
+Text&nbsp;Views&nbsp;overview</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Text Views Overview</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Purpose</h2>
+</div><div class="Bodytext">
+<p>Provides access to the layout information needed to format text for
+display. </p>
+<p>The text itself and its formatting are accessed separately, using
+the Text and Text Attributes API. Text views obtain text and formatting
+information via an abstract interface class
+(<a href="../../APIReference/TextAndTextAttributes/MLayDocClass.html#%3a%3aMLayDoc" title="This class specifies the mixin protocol for providing the information needed by the text layout engine to lay out a text object"><code class="ApiItem">MLayDoc</code></a>).</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Architectural relationships</h2>
+</div><div class="Bodytext">
+<p>Uses the Text and Text Attributes API to store the text content and
+formatting attributes.</p>
+<p>The Text Views API is used by the Uikon Core API for editable text
+windows. Higher-level objects such as editable text windows typically own an
+editable text object to hold the rich text and attributes, and a Text Views
+object to store the layout and draw the text.</p>
+<p>The Graphics API provides a graphics device to draw to, for
+instance the screen or a printer, and a graphics context (contains the draw
+functions and the settings they use e.g. pen size and colour).</p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Description</h2>
+</div><div class="Bodytext">
+<p>The API has the following key concepts:</p>
+<a name="1.5.3"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>View and layout</h3>
+</div><div class="Bodytext">
+<p>The two principal classes in the Text Views API are
+<a href="../../APIReference/TextViews/CTextViewClass.html#%3a%3aCTextView" title="Lays out formatted text for display"><code class="ApiItem">CTextView</code></a> and <a href="../../APIReference/TextViews/CTextLayoutClass.html#%3a%3aCTextLayout" title="Text layout"><code class="ApiItem">CTextLayout</code></a>.</p>
+<p>Most of the Text Views API is provided by the
+<code>CTextView</code> class. It allows clients to do horizontal and vertical
+scrolling, set a text selection, change the cursor position and appearance and
+to set margin widths. It also does intelligent scrolling using block transfer
+(blit) and does automatic redrawing if necessary. It is optimised to reformat
+the minimum amount necessary. It also does conversion between document
+positions and x,y coordinates.</p>
+<p><a href="../../APIReference/TextViews/CTextLayoutClass.html#%3a%3aCTextLayout" title="Text layout"><code class="ApiItem">CTextLayout</code></a> is a lower level class than
+<a href="../../APIReference/TextViews/CTextViewClass.html#%3a%3aCTextView" title="Lays out formatted text for display"><code class="ApiItem">CTextView</code></a>. Many of its functions only exist for the
+convenience of other classes in the API. It is used by
+<a href="../../APIReference/TextViews/CTextViewClass.html#%3a%3aCTextView" title="Lays out formatted text for display"><code class="ApiItem">CTextView</code></a> to calculate the layout information. It should
+be used by clients to set layout attributes, including the wrap width, the
+height of the visible portion of the document (the &quot;band&quot;), whether formatting
+should be set to the band only, or to the whole document, and it sets the text
+object which is the source of the text and formatting information.</p>
+<a name="1.5.4"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>x-y coordinates</h3>
+</div><div class="Bodytext">
+<p>As in most bitmapped graphics systems, x coordinates increase
+rightwards and y coordinates increase downwards.</p>
+<p>The Text Views API uses two slightly different coordinate
+systems. In the system used by the <a href="../../APIReference/TextViews/CTextLayoutClass.html#%3a%3aCTextLayout" title="Text layout"><code class="ApiItem">CTextLayout</code></a> class  (see for instance  <a href="../../APIReference/TextViews/CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aDocPosToXyPosL%28%29" title="Returns the x-y coordinates of the document position aDocPos in aPos"><code class="ApiItem">CTextLayout::DocPosToXyPosL()</code></a>), the
+origin for x-y pixel coordinates is the top left hand corner of the visible area of the body
+text, to the right of any margins which may have been set, so that the left
+edge of a non-indented line is at x coordinate 0. These are called layout
+coordinates.</p>
+<p>In the system used by the <a href="../../APIReference/TextViews/CTextViewClass.html#%3a%3aCTextView" title="Lays out formatted text for display"><code class="ApiItem">CTextView</code></a> class,
+the origin for x-y pixel coordinates is at the top left corner of the view
+window, to the left of any margins which may have been set. These are called
+window coordinates.</p>
+<a name="1.5.5"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Scrolling polarity</h3>
+</div><div class="Bodytext">
+<p>When scrolling vertically, the Text Views API uses the convention
+that positive numbers of pixels, lines, paragraphs, pages, etc., mean that the
+text moves down, and vice versa. When scrolling horizontally, positive numbers
+of pixels mean that the text moves left and vice versa.</p>
+<a name="1.5.6"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Band formatting</h3>
+</div><div class="Bodytext">
+<p>The Text Views API support two format states&nbsp;&#8212; in
+one, the visible portion of a document only is formatted, and in the other, the
+entire document is formatted. The visible portion of the document is referred
+to as the band. Setting the formatting to the band may be useful to save memory
+when displaying large documents. The height of the band also controls the
+amount of scroll caused by a page up or down.</p>
+<a name="1.5.7"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Redrawing and scrolling</h3>
+</div><div class="Bodytext">
+<p>If you need automatic scrolling and redrawing you should use
+<a href="../../APIReference/TextViews/CTextViewClass.html#%3a%3aCTextView" title="Lays out formatted text for display"><code class="ApiItem">CTextView</code></a> rather than <a href="../../APIReference/TextViews/CTextLayoutClass.html#%3a%3aCTextLayout" title="Text layout"><code class="ApiItem">CTextLayout</code></a>
+(see for instance
+<a href="../../APIReference/TextViews/CTextViewClass.html#%3a%3aCTextView%3a%3aHandleGlobalChangeL%28%29" title="Reformats and redraws the view after a global change has been made to the layout"><code class="ApiItem">CTextView::HandleGlobalChangeL()</code></a>). When using the <a href="../../APIReference/TextViews/CTextLayoutClass.html#%3a%3aCTextLayout" title="Text layout"><code class="ApiItem">CTextLayout</code></a> class, redrawing and
+scrolling&nbsp;must be done by the user.</p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="TextAndTextAttributesOverview.guide.html#ApplicationFrameworkOverview%2eTextAndTextAttributesOverview%2emain">Text and Text Attributes Overview</a></p>
+<p><a href="../Graphics/GraphicsOverview.guide.html#GraphicsOverview%2eGraphicsOverview%2emain">Graphics Overview</a></p>
+<p><a href="UikonCoreControlsOverview.guide.html#ApplicationFrameworkOverview%2eUikonOverview%2eUikonCoreControlsOverview%2emain">Uikon Core Controls Overview</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

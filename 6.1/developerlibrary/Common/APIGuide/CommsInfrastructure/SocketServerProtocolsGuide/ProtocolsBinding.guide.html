@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Protocols and binding</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="SocketServerProtocolsGuide%2eProtocolsBinding"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="ProtocolModulesFamilies.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="SocketServiceProviders.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Comms&nbsp;Infrastructure</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Socket&nbsp;Server&nbsp;Protocols</a>&nbsp;<span class="separator">&#187;</span>
+Protocols&nbsp;and&nbsp;binding</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Protocols and binding</h1>
+</div><div class="Bodytext">
+<p>A protocol may be a complete stack in itself or it may require the
+services of other protocols (above and below it) to provide a full transport
+service. Generally these protocols will be from the same protocol
+family.</p>
+<p>A protocol that is part of a multi-protocol stack (and is not at the
+lowest level) will be requested to bind to other protocols below it in the
+stack. An obvious corollary of this is that protocols that are not at the top
+of the stack will be <i>bound to</i> by other protocols below them in
+the stack.</p>
+<p>All protocols are expected to accept data from above for transmission
+to lower level protocols (or the network media in the case of a network driver)
+and to accept data from below (or the network media) for transmission up the
+stack to higher level protocols.</p>
+<p>A protocol that is providing socket services will be expected to
+create <code>CSocketServiceProvider</code> objects which accept data from the
+socket server (on behalf of a client request) for transmission down the
+stack.</p>
+<p>When a protocol binds to another protocol, it provides an ID number.
+If the lower protocol provides any multiplexing functions (i.e. more than one
+protocol can bind to it) this ID number should be the number used to identify
+data sent to the binding protocol. The exact usage and significant size of this
+ID number is protocol-specific.</p>
+<p>Note that this ID number is not the index in the <code class="filename">.esk</code>
+files—it is another number, invented and agreed upon by the protocols in
+question. It is only necessary if any demultiplexing of datagrams will take
+place.</p>
+<p>If the socket server should pass an invalid ID to a protocol to bind
+to (one it has already used, for example), the function <code>Bind()</code> or
+<code>BindTo()</code> should leave. This usually happens when there is an error
+in the <code class="filename">.esk</code> file, so that a protocol is bound to twice by the same
+protocol, for example.</p>
+<p>In a TCP/IP stack, both TCP and UDP need to bind to IP. In the IP
+header there is a byte which can hold a protocol ID. <code>BindTo()</code>
+would therefore be called on both TCP and UDP, with a parameter specifying IP.
+Each call to <code>BindTo()</code> would call <code>Bind()</code> in the lower
+protocol. So IP&#8217;s <code>Bind()</code> would get called twice&#0160;&#8212;
+once from TCP, and once from UDP.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

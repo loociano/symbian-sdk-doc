@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to use literal descriptors</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="LiteralDescriptorsGuide%2ehow%2dto%2eliteral%2ddescriptors"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="NULLConstantLiterals.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Buffers&nbsp;and&nbsp;Strings</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Literal&nbsp;Descriptors</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;use&nbsp;literal&nbsp;descriptors</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to use literal descriptors</h1>
+</div><div class="Bodytext">
+<p>Generate a constant literal as follows:</p>
+<p class="CodeBlock"><code>_LIT(name, string);</code></p>
+<p>where <code>name</code> is a C++ variable name and
+<code>string</code> is the literal text enclosed in a pair of double quotes.
+</p>
+<p>All the code fragments use the build independent form but they are
+equally valid if replaced by the explicit 16 bit variant or the explicit 8 bit
+variant.</p>
+<p>As <code>name</code> represents a constant variable, it is
+conventional for the variable name to start with a capital <code>K</code>, for
+example:</p>
+<p class="CodeBlock"><code>_LIT(KTxtMatchString,&quot;Hello&quot;);</code></p>
+<p>This generates the constant literal descriptor:</p>
+<p class="CodeBlock"><code>const static TLitC&lt;5&gt; KTxtMatchString;</code></p>
+<p>and this is initialised to contain the string <code>Hello</code>.
+Developers never need to code a <code>TLitC</code> class explicitly; it is
+always be constructed through the macro.</p>
+<p>This constant literal descriptor can be passed directly to functions
+which are prototyped to take a <code>const TDesC&amp;</code> type:</p>
+<p class="CodeBlock"><code>TBufC&lt;32&gt; x;<br>...<br>x.Match(KTxtMatchString);<br>...</code></p>
+<p>The literal descriptor classes: <code>TLitC16</code>,
+<code>TLitC8</code>, <code>TLitC16</code>, also provide a conversion operator
+so that they can be passed to functions which take a <code>const
+TRefByValue&lt;const TDesC&gt;</code> type. This means that they can be passed
+to functions such as <code>TDes::Format()</code>:</p>
+<p class="CodeBlock"><code>_LIT(KFormat1,&quot;Length is %d&quot;);<br>...<br>TBuf&lt;256&gt; x;<br>...<br>x.Format(KFormat1,8);<br>...</code></p>
+<p>The <code>&amp;</code> and the <code>()</code> operators acting on a
+constant literal return a <code>const TDesC*</code> and a <code>const
+TDesC&amp;</code> type respectively:</p>
+<p class="CodeBlock"><code>...<br>_LIT(KTxtMatchString,&quot;Hello&quot;);<br>_LIT(KFormat2,&quot;Text is %S&quot;);<br>...</code></p>
+<p class="CodeBlock"><code>TInt length;<br>length = KTxtMatchString().Length();<br>...<br>TBuf&lt;256&gt; x;<br>x.Format(KFormat2,&amp;KTxtMatchString);<br>...</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

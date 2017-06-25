@@ -1,0 +1,212 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Object lifetimes and cleanup</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="idioms%2elifetime"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="OOBasics.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="MultipleInheritance.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/DeveloperGuide/index.html">Developer's&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Essential&nbsp;Idioms</a>&nbsp;<span class="separator">&#187;</span>
+Object&nbsp;lifetimes&nbsp;and&nbsp;cleanup</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Object lifetimes and cleanup</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Overview</h2>
+</div><div class="Bodytext">
+<p>On both stack and heap, objects have a lifetime that runs
+approximately as follows:</p>
+<ol>
+<li>
+<p>allocate memory for the object [on stack or heap]</p>
+</li>
+<li>
+<p>initialise: i.e., set the contents of that memory to usable
+values</p>
+</li>
+<li>
+<p>use the object</p>
+</li>
+<li>
+<p>clean up: i.e., free up any other resources that might have
+been used by that object</p>
+</li>
+<li>
+<p>de-allocate memory [from stack or heap]</p>
+</li>
+</ol>
+<p>Object lifetime is a fundamental concept. In some operating
+systems, it can be neglected, because the stack and heap are destroyed when a
+program terminates. On the Symbian platform, programs may run for months. It is
+therefore important that objects be cleaned up as soon as their lifetime ends,
+whether they are allocated on stack or heap, and whether their lifetime ended
+through normal processing or through an error condition.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Lifetimes in C</h2>
+</div><div class="Bodytext">
+<p>On the C stack, an object&#8217;s lifetime, for a user of that
+object, might look like this:</p>
+<p class="CodeBlock"><code>#include &quot;s.h&quot;</code></p>
+<p class="CodeBlock"><code>void foo()<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;S s;<br>&nbsp;&nbsp;&nbsp;&nbsp;sInitialize(&amp;s, p1,p2);<br>&nbsp;&nbsp;&nbsp;&nbsp;sUse(&amp;s, p3,p4);<br>&nbsp;&nbsp;&nbsp;&nbsp;sCleanup(&amp;s);<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>Memory for the <code>S</code> is allocated on entry to the
+function, and de-allocated on exit. The functions <code>sInitialize()</code>
+and <code>sCleanup()</code> have been defined as part of the API for an
+<code>S</code>, in <code class="filename">s.h</code> (in fact, C programmers are not always as
+disciplined as this, and expect the users of their objects to do their own
+initialisation, in an ad hoc way). The function <code>sUse()</code> represents
+a use of the <code>S</code>. Note that the <code>S</code> is passed by pointer:
+its address must be taken whenever it is used as a function parameter.</p>
+<p>On the C heap, an object's lifetime might look like this:</p>
+<p class="CodeBlock"><code>void foo()<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;S* s=(S*)malloc(sizeof(S));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// should really check this succeeded!!<br>&nbsp;&nbsp;&nbsp;&nbsp;sInitialize(s, p1,p2);<br>&nbsp;&nbsp;&nbsp;&nbsp;sUse(s, p3,p4);<br>&nbsp;&nbsp;&nbsp;&nbsp;sCleanup(s);<br>&nbsp;&nbsp;&nbsp;&nbsp;free(s);<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>This time, a pointer is used to refer to the <code>S</code>: as a
+result, the syntax of passing an <code>S</code> is slightly more pleasant,
+because you don&#8217;t have to take its address.</p>
+<p>On the other hand, the allocation and de-allocation of memory is
+done using <code>malloc()</code>, whose syntax is extremely ugly, and
+<code>free()</code>.</p>
+<p>Mostly, the lifetime of a heap-based object would not be contained
+within a single function like this: it might be created from one function, used
+from another, and destroyed from another.</p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Lifetimes in C++</h2>
+</div><div class="Bodytext">
+<p>One way of looking at C++ is as a neat way to control object lifetimes.
+C++ allows functions to be associated directly with objects, which means that
+you do not need a special naming convention to indicate that a function is
+loosely associated with an object. Two special functions are the constructor
+and the destructor: the constructor is called every time the C++ system knows
+that an object&#8217;s lifetime begins, and the destructor is called every
+time the C++ system knows that an object&#8217;s lifetime ends. Finally, C++
+defines <code>operator new()</code>, which is much nicer than
+<code>malloc()</code>, and <code>operator delete</code>, which is somewhat
+nicer than <code>free()</code>.</p>
+<p>On the C++ stack, an object&#8217;s lifetime looks like this:</p>
+<p class="CodeBlock"><code>void foo()<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;S s(p1,p2); // invokes constructor<br>&nbsp;&nbsp;&nbsp;&nbsp;s.Use(p3,p4); // nice syntax!<br>&nbsp;&nbsp;&nbsp;&nbsp;} // invokes destructor</code></p>
+<p>Memory is allocated on function entry, and the constructor is invoked
+when processing reaches the declaration. The use of member functions makes the
+syntax of using everything much more pleasant: there is no need to pass a
+reference to the <code>S</code>, because that is done implicitly.</p>
+<p>Crucially, C++ causes the destructor to be invoked when the function
+terminates. There is no need for the user of the class to do anything to cause
+this to happen&nbsp;&#8212; all that&#8217;s necessary is that the provider
+of the class provided a destructor.</p>
+<p>Note, though, that in some exception conditions&nbsp;&#8212; for
+instance, if the <code>Use()</code> function fails in some way&nbsp;&#8212;
+the function may not return normally, and the destructor will therefore not be
+invoked. We will shortly discuss how the Symbian platform addresses
+this.</p>
+<p>On the C++ heap, object lifetime looks like this:</p>
+<p class="CodeBlock"><code>void foo()<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;S* s=new S(p1,p2); // allocate, construct - should really check<br>&nbsp;&nbsp;&nbsp;&nbsp;s-&gt;Use(p3,p4);<br>&nbsp;&nbsp;&nbsp;&nbsp;delete s; // destruct, de-allocate<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>Again, the syntax is much nicer. Only one thing cannot be provided by
+C++: the user of a class must still remember to delete the object at the end of
+its lifetime.</p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Lifetimes in the Symbian platform</h2>
+</div><div class="Bodytext">
+<p>Symbian platform idioms for object lifetime on the stack look very
+similar to standard C++. The control of object lifetimes on the heap is,
+however, very different, as shown in the following code:</p>
+<p class="CodeBlock"><code>void FooL()<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;CS* s=new (Eleave) CS; // allocate and check<br>&nbsp;&nbsp;&nbsp;&nbsp;CleanupStack::PushL(s); // push, just in case<br>&nbsp;&nbsp;&nbsp;&nbsp;s-&gt;ConstructL(p1,p2);    // finish constructing - might leave<br>&nbsp;&nbsp;&nbsp;&nbsp;s-&gt;UseL(p3,p4); // use - might leave<br>&nbsp;&nbsp;&nbsp;&nbsp;CleanupStack::PopAndDestroy();    // destruct, de-allocate<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>This code fragment shows four vital things:</p>
+<ul>
+<li>
+<p>all heap-based classes have names beginning with <code>C</code>: they are
+in fact derived from a single base class, <code>CBase</code>, which exists
+solely to support easy cleanup</p>
+</li>
+<li>
+<p>a cleanup stack is used to hold references to objects: if a leave occurs
+due to out-of-memory or some other error, objects held on the cleanup stack are
+popped from it, and destroyed. In the case of <code>CBase*</code> objects
+pushed to the stack, they are destroyed by calling their C++ destructor. The
+<code>CBase</code> class has a virtual destructor
+(<code>CBase::~CBase()</code>) which makes this possible.</p>
+</li>
+<li>
+<p>any function which might leave is designated by a trailing <code>L</code>
+in its name. When you see a function that might leave, you must
+<i>always</i> ask what would happen if it did leave, and what would
+happen if it did not. The operating system provides all the program
+infrastructure required to allow objects to be de-allocated even when a leave
+occurs, but without burdening the programmer.</p>
+</li>
+<li>
+<p><code>new (ELeave)</code> is an overloaded <code>operator new()</code>
+function, which will leave if it fails to allocate the required memory. It
+never returns a null pointer.</p>
+</li>
+</ul>
+<p>Two other things are worthy of note:</p>
+<ul>
+<li>
+<p>since the cleanup stack itself requires memory allocation for each stack
+frame, a push might leave. The <code>PushL()</code> function reflects this in
+its name. The cleanup stack is guaranteed to have a free slot before a
+<code>CleanupStack::PushL()</code>, so that the object reference will always be
+successfully stored on the stack. If a leave occurs when allocating the next
+stack frame, the object will be popped and destroyed as normal.</p>
+</li>
+<li>
+<p><i>the C++ constructor must not leave</i>. For objects whose
+construction requires resource allocation or any other operation that might
+fail, this means that construction must be separated into a C++ constructor
+that does not leave, and another initialisation function that might leave,
+which is conventionally called <code>ConstructL()</code>.</p>
+</li>
+</ul>
+<p>The cleanup stack, <code>CBase</code>, and two-phase construction, are at
+the heart of the operating system. A very few rules govern cleanup stack
+programming, and they are relatively easy to learn. See
+<a href="../../APIGuide/Base/MemoryManagement/CleanupSupport/CleanupSupportGuide2/index.html#CleanupSupportGuide2%2etoc">Cleanup Stack Basics</a> for more on
+this.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

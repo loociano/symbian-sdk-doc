@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Shape operations</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="GraphicsGuide1%2eshape%2doperations"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="GraphicsContextSettings.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="TextOperations.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Graphics</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Graphics</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Drawing&nbsp;and&nbsp;Graphics&nbsp;Contexts</a>&nbsp;<span class="separator">&#187;</span>
+Shape&nbsp;operations</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Shape operations</h1>
+</div><div class="Bodytext">
+<p>A graphics context provides line and shape drawing graphics operations for points, lines, and fillable shapes.</p>
+<a name="1.4"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Lines&nbsp;</h2>
+</div><div class="Bodytext">
+<p>There are three line primitives&#0160;&#8212;  straight line, <em>polyline</em> and arc. These are drawn with the pen, with all its current settings. Straight lines can be drawn between two given points, to a single given point from the current internal drawing position, or by moving the internal drawing position by a given vector. They are constructed with the help of a linear DDA.</p>
+<a name="1.5"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Fillable shapes&nbsp;</h2>
+</div><div class="Bodytext">
+<p>There are five shape drawing primitives&nbsp;&#8212;pie slice, ellipse, rectangle, rounded rectangle, and polygon. All may be drawn with or without an outline.</p>
+<p>Outlines are drawn with the pen, and thus subject to pen colour, pen size and pen style settings. The effective outline colour depends on the drawing mode. If the pen size has been set to greater than or equal to half the size of the shape, then the shape will be filled with solid pen colour. The pen style should be set to null if no outline is required.</p>
+<p>Shapes are filled using the brush, and thus subject to the brush style (colour, hash or pattern) and brush pattern origin. The effective fill colour depends on the drawing mode. The brush style should be set to null if no fill is required.</p>
+<a name="1.6"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Pen size</h2>
+</div><div class="Bodytext">
+<p>Note that when the pen is a single pixel wide:</p>
+<ul><li><p>There is a guarantee that each pixel will be written only once on the display.  This allows shapes to be drawn in exclusive-or mode, without the risk that multiple writes will cancel each other out.</p></li>
+<li><p>When straight lines are drawn, their last point is not included.  This allows a polyline to be constructed without the pixels at the joins being written twice. The single write guarantee can thus be maintained for multiple consecutive primitives. However, the last point of an arc is always drawn.</p></li>
+</ul><p>If the pen size is greater than one pixel, a straight line is drawn as a rectangular shaped region of pixels, with rounded ends that extend beyond the start and end points. See <code>CGraphicsContext::SetPenSize()</code> for details.</p>
+<a name="1.7"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Rectangles</h2>
+</div><div class="Bodytext">
+<p>All the fillable shape drawing primitives, (except <code>DrawPolygon()</code>), either use a rectangle directly or to define the position of an ellipse that is used in the construction of the shape. This rectangle is passed as an argument of type <code>TRect</code>.</p>
+<p>Care is needed when specifying rectangles. The <code>TRect</code> class is defined to include the pixel at its top left corner, but to exclude the pixel at its bottom right corner.  Thus, a rectangle specified as:</p>
+<p class="CodeBlock"><code>TRect(TPoint(100,50),TPoint(300,150))</code></p>
+<p>includes the point (100,50) but not the point (300,150). No pixels will be written to column 300, nor to row 150, on the display. The rectangle drawn on the screen will be 300&#8211;100=200 pixels wide, and 150&#8211;50=100 pixels high.</p>
+<a name="1.8"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Ellipses</h2>
+</div><div class="Bodytext">
+<p>Ellipses whose axes are aligned with the x and y axes of the co-ordinate system, are supported; other ellipses are not.  Ellipses are defined with reference to their bounding rectangle. The comments above on the behaviour of <code>TRect</code> also need to be observed when drawing ellipses.  Arcs, pie slices and the corners of rounded rectangles are all defined as sections of an ellipse.</p>
+<a name="1.9"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="TheLinearDDA.guide.html#GraphicsGuide1%2elinear%2dDDA">The linear DDA</a>.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

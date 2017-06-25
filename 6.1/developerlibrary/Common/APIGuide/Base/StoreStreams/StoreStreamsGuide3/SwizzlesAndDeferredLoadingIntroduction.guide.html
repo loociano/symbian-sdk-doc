@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Introduction to Swizzles and deferred loading </title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="StoreStreamsGuide3%2eswizzles%2dintroduction"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="ExternalisingASwizzle.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Store&nbsp;Streams</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Swizzled&nbsp;and&nbsp;deferred&nbsp;loading</a>&nbsp;<span class="separator">&#187;</span>
+Introduction&nbsp;to&nbsp;Swizzles&nbsp;and&nbsp;deferred&nbsp;loading&nbsp;</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Introduction to Swizzles and deferred loading </h1>
+</div><div class="Bodytext">
+<p>In complex applications involving a large network of objects, it may
+be desirable, and even necessary, to defer the loading of objects into memory
+from the store.</p>
+<p>It should, therefore, be possible to represent such an object in one
+of two ways:</p>
+<ul>
+<li>
+<p>by the stream ID of the stream containing the external
+representation of that object, if it is not in memory.</p>
+</li>
+<li>
+<p>by a pointer, if it is in memory (or has already been loaded into
+memory); the pointer points to the in-memory object.</p>
+</li>
+</ul>
+<p>A Swizzle is a device for handling this dual representation.</p>
+<p>A typical container type object, therefore, does not have a pointer
+directly to a contained object, but has a Swizzle which can represent that
+contained object <em>either</em> as a pointer <em>or</em> as a stream
+ID, as illustrated in the following diagram.</p>
+<div class="Figure">
+<p class="Image"><img src="SwizzleConcept.gif" alt=""  border="0"></p>
+</div>
+<p>A Swizzle can be considered as a lean, but efficient, container in
+its own right.</p>
+<p>The concrete Swizzle classes are templated; the template parameter
+defines the type of object which the Swizzle represents.</p>
+<p>There are two general concrete Swizzle classes:</p>
+<ul>
+<li>
+<p><code>TSwizzle&lt;class&nbsp;T&gt;</code></p>
+</li>
+<li>
+<p><code>TSwizzleC&lt;class&nbsp;T&gt;</code></p>
+</li>
+</ul>
+<p>A <code>TSwizzle&lt;class&nbsp;T&gt;</code> represents a
+<code>&lt;class&nbsp;T&gt;</code> type object. Full access is available to
+the <code>&lt;class&nbsp;T&gt;</code> type object through the
+Swizzle.</p>
+<p>A <code>TSwizzleC&lt;class&nbsp;T&gt;</code> represents a
+<code>&lt;class&nbsp;T&gt;</code> type object. Access to the object is
+limited; in particular the object cannot be changed.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

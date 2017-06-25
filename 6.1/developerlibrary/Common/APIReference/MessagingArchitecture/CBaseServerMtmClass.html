@@ -1,0 +1,890 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CBaseServerMtm</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CBaseMtmUiDataClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="CClientMtmRegistryClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Messaging&nbsp;Architecture</a>&nbsp;<span class="separator">&#187;</span>
+CBaseServerMtm</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+<p>Location: <code>
+mtsr.h
+</code><br>Link against: <code>
+msgs.lib
+</code></p>
+</div><div class="Head1">
+<a name="%3a%3aCBaseServerMtm"></a>
+
+<h1>Class <code>CBaseServerMtm</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CBaseServerMtm</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p></p>
+<p>Base class for Server-side MTM components. Server-side MTMs provide all message transport functionality for a particular messaging protocol. </p>
+<p>In pre-Unicode versions this class had the import library msvd.lib.</p>
+<p>MTM implementers implement a derived class to provide such functionality for their message protocol. Writers of message client applications are never concerned with this class and its sub-classes, as these are only accessed by the Message Server. </p>
+<p>Each MTM interprets the generic commands in different ways. For example, a Fax MTM would transmit a fax when asked to copy a fax from a local folder to a fax service. For the same function, an IMAP MTM would create a copy of the message on the remote server and update the message index to show the copy of the message on the remote server. An important initial design task is to the map the functions to the functionality provided by the protocol.</p>
+<p>Server-side MTM functions are called by the Message Server as a result of a client request that requires some remote operation with the MTM&#8217;s protocol. The following steps give a simplified view of the usual sequence of events:</p>
+<ul><li><p>the Message Server instantiates a Server-side MTM object through the factory function</p></li>
+<li><p>the Message Server calls the appropriate asynchronous function on the Server-side MTM interface, passing a <code>TRequestStatus</code> argument</p></li>
+<li><p>the Server-side MTM function typically starts whatever asynchronous communications it requires and returns</p></li>
+<li><p>the Server-side MTM is signalled when the asynchronous communications complete, and handles the result</p></li>
+<li><p>the Server-side MTM signals the Message Server, through the <code>TRequestStatus</code> passed earlier</p></li>
+<li><p>the Message Server deletes the Server-side MTM object</p></li>
+</ul><p>To qualify this somewhat:</p>
+<ul><li><p>it is up to the Server-side MTM implementation to decide how to translate data back and forth between the formats used by Message Server (index entry, message store, binary files), and that required by the protocol; this is another important design task </p></li>
+<li><p>depending on the protocol being used, the communications sequence can be of considerable complexity; typically it requires division into a number of asynchronous steps</p></li>
+<li><p>for greater efficiency where further commands are shortly expected, deletion of the Server-side MTM object can be prevented</p></li>
+</ul><p>For asynchronous requests, a Server-side MTM should always complete the <code>TRequestStatus</code> with <code>KErrNone</code>. Any errors should be returned in the progress information.</p>
+<p>Note the following significant groups of functions:</p><p>Copy and move from remote functions: <code>CopyToLocalL()</code> and <code>MoveToLocalL()</code> are called by the Message Server to get a selection of entries from a remote location. For many protocols, this should be interpreted as message retrieval. For protocols where messages exist on a remote server, this function is typically used to download specific messages, after an initial connection has downloaded message headers. </p>
+<p>Copy and move to remote functions: <code>CopyFromLocalL()</code> and <code>MoveFromLocalL()</code> are called by the Message Server to copy/move a selection of entries to a remote location. For many protocols, this should be interpreted as message sending. </p>
+<p>Copy and move within remote functions: <code>CopyWithinServiceL()</code> and <code>MoveWithinServiceL()</code> are called by the Message Server to copy a selection of entries within a remote service. An example of their use might be for a user rearranging messages within remote folders.  </p>
+<h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive">CActive</a></code></td><td class="Cell">The core class of the active object abstraction</td>
+</tr>
+<tr><td class="Cell"><code><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase">CBase</a></code></td><td class="Cell">Base class for all classes to be instantiated on the heap</td>
+</tr>
+<tr><td class="Cell"><code>CBaseServerMtm</code></td><td class="Cell">(No abstract)</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>CBaseServerMtm</code>:
+<br><code class="ApiItem"><a href="CBaseServerMtmClass.html#%3a%3aCBaseServerMtm%3a%3aCBaseServerMtm%28%29" title="Initialises member variables from the passed arguments">CBaseServerMtm()</a></code>, <code class="ApiItem"><a href="CBaseServerMtmClass.html#%3a%3aCBaseServerMtm%3a%3aChangeL%28%29" title="Updates a remote entry with relevant data when called by the Message Server">ChangeL()</a></code>, <code class="ApiItem"><a href="CBaseServerMtmClass.html#%3a%3aCBaseServerMtm%3a%3aCommandExpected%28%29" title="Tests if the Server-side MTM object should be deleted when called by the Message Server">CommandExpected()</a></code>, <code class="ApiItem"><a href="CBaseServerMtmClass.html#%3a%3aCBaseServerMtm%3a%3aCopyFromLocalL%28%29" title="Copies a selection of entries from a local location to a remote location">CopyFromLocalL()</a></code>, <code class="ApiItem"><a href="CBaseServerMtmClass.html#%3a%3aCBaseServerMtm%3a%3aCopyToLocalL%28%29" title="Copies a selection of entries from a remote location to a local location">CopyToLocalL()</a></code>, <code class="ApiItem"><a href="CBaseServerMtmClass.html#%3a%3aCBaseServerMtm%3a%3aCopyWithinServiceL%28%29" title="Copies a selection of entries within a remote location">CopyWithinServiceL()</a></code>, <code class="ApiItem"><a href="CBaseServerMtmClass.html#%3a%3aCBaseServerMtm%3a%3aCreateL%28%29" title="Creates a new remote entry with relevant data when called by the Message Server">CreateL()</a></code>, <code class="ApiItem"><a href="CBaseServerMtmClass.html#%3a%3aCBaseServerMtm%3a%3aDeleteAllL%28%29" title="Deletes each entry in the supplied selection when called by the message Server">DeleteAllL()</a></code>, <code class="ApiItem"><a href="CBaseServerMtmClass.html#%3a%3aCBaseServerMtm%3a%3aDoComplete%28%29" title="Called by the base class RunL() if DoRunL() leaves">DoComplete()</a></code>, <code class="ApiItem"><a href="CBaseServerMtmClass.html#%3a%3aCBaseServerMtm%3a%3aDoRunL%28%29" title="Handles the completion of any asynchronous requests that it makes">DoRunL()</a></code>, <code class="ApiItem"><a href="CBaseServerMtmClass.html#%3a%3aCBaseServerMtm%3a%3aMoveFromLocalL%28%29" title="Moves a selection of entries from a local location to a remote location">MoveFromLocalL()</a></code>, <code class="ApiItem"><a href="CBaseServerMtmClass.html#%3a%3aCBaseServerMtm%3a%3aMoveToLocalL%28%29" title="Moves a selection of entries from a remote location to a local location">MoveToLocalL()</a></code>, <code class="ApiItem"><a href="CBaseServerMtmClass.html#%3a%3aCBaseServerMtm%3a%3aMoveWithinServiceL%28%29" title="Moves a selection of entries within a remote location">MoveWithinServiceL()</a></code>, <code class="ApiItem"><a href="CBaseServerMtmClass.html#%3a%3aCBaseServerMtm%3a%3aProgress%28%29" title="This function is called by the Message Server to get progress information for the current asynchronous operation">Progress()</a></code>, <code class="ApiItem"><a href="CBaseServerMtmClass.html#%3a%3aCBaseServerMtm%3a%3aRunL%28%29" title="Provides a simple implementation of CActive::RunL() that calls the derived class's DoRunL() function">RunL()</a></code>, <code class="ApiItem"><a href="CBaseServerMtmClass.html#%3a%3aCBaseServerMtm%3a%3aSetInitialEntry%28%29" title="Sets the initial context for the object when called by the Message Server">SetInitialEntry()</a></code>, <code class="ApiItem"><a href="CBaseServerMtmClass.html#%3a%3aCBaseServerMtm%3a%3aStartCommandL%28%29" title="Executes an MTM-specific operation on a selection of entries when called by the Message Server">StartCommandL()</a></code>, <code class="ApiItem"><a href="CBaseServerMtmClass.html#%3a%3aCBaseServerMtm%3a%3aiServerEntry" title="The entry on which to operate">iServerEntry</a></code>, <code class="ApiItem"><a href="CBaseServerMtmClass.html#%3a%3aCBaseServerMtm%3a%3a%7eCBaseServerMtm%28%29" title="Cleans up the base class">~CBaseServerMtm()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive" title="The core class of the active object abstraction">CActive</a></code>:
+<br><code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aCancel%28%29" title="Cancels the wait for completion of an outstanding request">Cancel()</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aDeque%28%29" title="Removes the active object from the active scheduler's list of active objects">Deque()</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aDoCancel%28%29" title="Implements cancellation of an outstanding request">DoCancel()</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aEPriorityHigh" title="A priority higher than EPriorityUserInput">EPriorityHigh</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aEPriorityIdle" title="A low priority, useful for active objects representing background processing">EPriorityIdle</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aEPriorityLow" title="A priority higher than EPriorityIdle but lower thanEPriorityStandard">EPriorityLow</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aEPriorityStandard" title="Most active objects will have this priority">EPriorityStandard</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aEPriorityUserInput" title="A priority higher than EPriorityStandard; useful for active objects handling user input">EPriorityUserInput</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aIsActive%28%29" title="Determines whether the active object has a request outstanding">IsActive()</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aIsAdded%28%29" title="Determines whether the active object has been added to the active scheduler's list of active objects">IsAdded()</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aPriority%28%29" title="Returns the priority of the active object">Priority()</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aRunError%28%29" title="Handles a leave occurring in the request completion event handlerRunL()">RunError()</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aSetActive%28%29" title="Indicates that the active object has issued a request and that it is now outstanding">SetActive()</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aSetPriority%28%29" title="Sets the priority of the active object">SetPriority()</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aTPriority" title="Defines standard priorities for active objects">TPriority</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aiStatus" title="The request status associated with an asynchronous request">iStatus</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap">CBase</a></code>:
+<br><code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase%3a%3aoperator%20new%28%29" title="Allocates the object from the heap and then initialises its contents to binary zeroes">operator new()</a></code></p>
+<a name="2.6"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction and destruction</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseServerMtm%3a%3aCBaseServerMtm%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CBaseServerMtm()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: CBaseServerMtm(CRegisteredMtmDll&amp; aRegisteredMtmDll);</code></p><h4 class="subheading">Support</h4>
+<p>Withdrawn in 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Initialises member variables from the passed arguments. </p>
+<p>Derived classes can implement a constructor to perform any additional MTM-specific setup that can be safely carried out in a constructor. Such constructors must call the base class constructor function.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CRegisteredMtmDll&amp; aRegisteredMtmDll
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Registration data for the MTM DLL
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aCBaseServerMtm%3a%3aCBaseServerMtm%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CBaseServerMtm()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: CBaseServerMtm(CRegisteredMtmDll&amp; aRegisteredMtmDll, CMsvServerEntry* aServerEntry);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Initialises member variables from the passed arguments. The object is passed a <code>CMsvServerEntry</code> object in <code>aServerEntry</code>. This object is used to access and change Message Server entries. Its context is initially set either to the parent of the entry or selection being operated on, or the entry itself. The base class constructor stores it in the protected <code>iServerEntry</code> member. </p>
+<p>Derived classes can implement a constructor to perform any additional MTM-specific setup that can be safely carried out in a constructor. Such constructors must call the base class constructor function.</p>
+<p>For pre-Unicode releases, see the previous constructor definition and <code>SetInitialEntry()</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CRegisteredMtmDll&amp; aRegisteredMtmDll
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Registration data for the MTM DLL
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvServerEntry* aInitialEntry
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Context on which to operate
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.4"></a></div><div class="Head3">
+<a name="%3a%3aCBaseServerMtm%3a%3a%7eCBaseServerMtm%28%29"></a>
+<hr size="1" noshade>
+<h3><code>~CBaseServerMtm()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>~CBaseServerMtm(); </code></p><h4 class="subheading">Description</h4>
+<p>Cleans up the base class. <code>CBaseServerMtm</code>-derived objects are deleted by the Message Server when they are no longer required. </p>
+<p>Derived classes can implement a destructor to do any additional clean up tasks that they require.</p>
+<a name="2.6.5"></a></div><div class="Head3">
+<a name="%3a%3aCBaseServerMtm%3a%3aSetInitialEntry%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetInitialEntry()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void SetInitialEntry(CMsvServerEntry* aEntry)=0;</code></p><h4 class="subheading">Support</h4>
+<p>Withdrawn in 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Sets the initial context for the object when called by the Message Server. The context is initially set either to the parent of the entry or selection being operated on, or the entry itself.</p><p>The function should be implemented to store the passed <code>CMsvServerEntry</code> in a suitable piece of private data.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvServerEntry* aEntry
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The entry that the object should set as its initial context.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Create, change, delete</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseServerMtm%3a%3aChangeL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ChangeL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void ChangeL(TMsvEntry aNewEntry, TRequestStatus&amp; aStatus)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Updates a remote entry with relevant data when called by the Message Server. Implementations should provide this function if the messaging protocol supports updating of remote entries. If this is not supported, implementations should leave with <code>KErrNotSupported</code>. </p>
+<p>The Server-side MTM implementation must decide what information in the <code>TMsvEntry</code> is relevant to the remote entry, and translate it appropriately for the specific protocol. Most of the data contained in the <code>TMsvEntry</code> is specific to the EPOC Message Server, and would probably have no direct correlation with the protocol&#8217;s own storage format. Some entry data may however be useful. For example, if the protocol supports remote renaming of folders, the implementation could:</p>
+<ul><li><p>check for a folder type entry</p></li>
+<li><p>extract the folder name from <code>aNewEntry.iDetails</code></p></li>
+<li><p>check if the folder name has changed by comparing the new name with <code>iDetails</code> in the index entry currently; if not, complete with <code>KErrNone</code></p></li>
+<li><p>initiate a protocol-specific action to rename the remote folder</p></li>
+</ul><p>The implementation should also always update the local Message Server index through <code>CMsvServerEntry::ChangeL()</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvEntry aNewEntry
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Data by which to update entry
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Asynchronous completion word for the operation.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotSupported
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The Server-side MTM does not support this operation
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+Other leave codes
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Dependent on implementation
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aCBaseServerMtm%3a%3aCreateL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CreateL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void CreateL(TMsvEntry aNewEntry, TRequestStatus&amp; aStatus)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Creates a new remote entry with relevant data when called by the Message Server. Implementations should provide this function if the messaging protocol supports creation of remote entries. If this is not supported, implementations should leave with <code>KErrNotSupported</code>.</p>
+<p>As with <code>ChangeL()</code>, the Server-side MTM implementation must decide what information in the <code>TMsvEntry</code> is relevant to the remote entry, and translate it appropriately for the specific protocol. Most of the data contained in the <code>TMsvEntry</code> is specific to the Message Server, and would probably have no direct correlation with the protocol&#8217;s own storage format. For example, for a folder, probably only the name and parent are needed, so if the protocol supports creation of remote folders, the implementation could:</p>
+<ul><li><p>check for a folder type entry</p></li>
+<li><p>get the folder name and parent details from <code>aNewEntry</code></p></li>
+<li><p>initiate a protocol-specific action to create the remote folder</p></li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvEntry aNewEntry
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Data by which to create entry
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Asynchronous completion word for the operation.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotSupported
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The Server-side MTM does not support this operation
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+Other leave codes
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Dependent on implementation
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.4"></a></div><div class="Head3">
+<a name="%3a%3aCBaseServerMtm%3a%3aDeleteAllL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DeleteAllL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void DeleteAllL(const CMsvEntrySelection&amp; aSelection, TRequestStatus&amp; aStatus)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Deletes each entry in the supplied selection when called by the message Server. If any of the entries in the selection is a parent entry, then all its children should also be deleted, recursively to the bottom of the ownership tree.</p>
+<p>Implementations should provide this function if the messaging protocol supports deletion of remote entries. If this is not supported, implementations should leave with <code>KErrNotSupported</code>. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const CMsvEntrySelection&amp; aSelection
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The collection of entries that are to be deleted.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Asynchronous completion object.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotSupported
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The Server-side MTM does not support this operation
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+Other leave codes
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Dependent on implementation
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Copy and move from remote</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseServerMtm%3a%3aCopyToLocalL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CopyToLocalL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void CopyToLocalL(const CMsvEntrySelection&amp; aSelection, TMsvId aDestination, TRequestStatus&amp; aStatus)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Copies a selection of entries from a remote location to a local location. This will only be meaningful for some protocols.</p>
+<p>Requirements:</p>
+<p>Implementations should provide this function if the messaging protocol supports retrieval of remote entries. If this is not supported, implementations should leave with <code>KErrNotSupported</code>. </p>
+<p>Implementations of this function have three fundamental steps:</p>
+<ul><li><p>doing the transfer operation using the appropriate communications protocols </p></li>
+<li><p>converting protocol-specific data into the three-part storage format (index entry, message store, binary files) required by the Message Server</p></li>
+<li><p>updating entries in the Message Server</p></li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const CMsvEntrySelection&amp; aSelection
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The collection of message index entries for which the copy/moving is required.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId aDestination
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The entry ID to which the selection is to be copied
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Asynchronous completion word for the operation
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotSupported
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The Server-side MTM does not support this operation
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+Other leave codes
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Dependent on implementation
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aCBaseServerMtm%3a%3aMoveToLocalL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>MoveToLocalL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void MoveToLocalL(const CMsvEntrySelection&amp; aSelection, TMsvId aDestination, TRequestStatus&amp; aStatus)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Moves a selection of entries from a remote location to a local location. </p>
+<p>Requirements:</p>
+<p>Implementations should provide this function if the messaging protocol supports retrieval of remote entries. If this is not supported, implementations should leave with <code>KErrNotSupported</code>. </p>
+<p>Implementations of this function have three fundamental steps:</p>
+<ul><li><p>doing the transfer operation using the appropriate communications protocols </p></li>
+<li><p>converting protocol-specific data into the three-part storage format (index entry, message store, binary files) required by the Message Server</p></li>
+<li><p>updating entries in the Message Server</p></li>
+</ul><p><code>MoveToLocalL()</code> should differ from <code>CopyToLocalL()</code> in additionally deleting the original remote data. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const CMsvEntrySelection&amp; aSelection
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The collection of message index entries for which the moving is required.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId aDestination
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The entry ID to which the selection is to be copied/moved
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Asynchronous completion word for the operation
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotSupported
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The Server-side MTM does not support this operation
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+Other leave codes
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Dependent on implementation
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Copy and move to remote</h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseServerMtm%3a%3aCopyFromLocalL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CopyFromLocalL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void CopyFromLocalL(const CMsvEntrySelection&amp; aSelection, TMsvId aDestination, TRequestStatus&amp; aStatus)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Copies a selection of entries from a local location to a remote location. </p>
+<p>Requirements:</p>
+<p>Implementations should provide this function if the messaging protocol supports retrieval of remote entries. If this is not supported, implementations should leave with <code>KErrNotSupported</code>. </p>
+<p>Implementations of this function have three fundamental steps:</p>
+<ul><li><p>reading entry data</p></li>
+<li><p>converting entry data from the Message Server format into that required by the protocol</p></li>
+<li><p>doing the transfer operation using the appropriate communications protocols </p></li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const CMsvEntrySelection&amp; aSelection
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The collection of message index entries for which the copy is required
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId aDestination
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The entry ID of the service by which the entries should be transferred
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Asynchronous completion word for the operation
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotSupported
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The Server-side MTM does not support this operation
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+Other leave codes
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Dependent on implementation
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.3"></a></div><div class="Head3">
+<a name="%3a%3aCBaseServerMtm%3a%3aMoveFromLocalL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>MoveFromLocalL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void MoveFromLocalL(const CMsvEntrySelection&amp; aSelection, TMsvId aDestination, TRequestStatus&amp; aStatus)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Moves a selection of entries from a local location to a remote location. </p>
+<p>Requirements:</p>
+<p>Implementations should provide this function if the messaging protocol supports retrieval of remote entries. If this is not supported, implementations should leave with <code>KErrNotSupported</code>. </p>
+<p>Implementations of this function have three fundamental steps:</p>
+<ul><li><p>reading entry data</p></li>
+<li><p>converting entry data from the Message Server format into that required by the protocol</p></li>
+<li><p>doing the transfer operation using the appropriate communications protocols </p></li>
+</ul><p>The implementation of <code>MoveFromLocalL()</code> should differ from <code>CopyFromLocalL()</code> in additionally deleting the original local data. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const CMsvEntrySelection&amp; aSelection
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The collection of message index entries for which the move is required
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId aDestination
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The entry ID of the service by which the entries should be transferred
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Asynchronous completion word for the operation
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotSupported
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The Server-side MTM does not support this operation
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+Other leave codes
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Dependent on implementation
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Copy and move within remote</h2>
+</div><div class="Bodytext">
+<a name="2.10.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseServerMtm%3a%3aCopyWithinServiceL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CopyWithinServiceL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void CopyWithinServiceL(const CMsvEntrySelection&amp; aSelection, TMsvId aDestination, TRequestStatus&amp; aStatus)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Copies a selection of entries within a remote location. </p>
+<p>Requirements:</p>
+<p>Implementations should provide this function if the messaging protocol supports the ability to copy entries within a remote service. If this is not supported, implementations should leave with <code>KErrNotSupported</code>. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const CMsvEntrySelection&amp; aSelection
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The collection of message index entries for which the copy is required
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId aDestination
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The server entry ID to which the selection is to be copied
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Asynchronous completion word for the operation
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotSupported
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The Server-side MTM does not support this operation
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+Other leave codes
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Dependent on implementation
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.3"></a></div><div class="Head3">
+<a name="%3a%3aCBaseServerMtm%3a%3aMoveWithinServiceL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>MoveWithinServiceL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void MoveWithinServiceL(const CMsvEntrySelection&amp; aSelection, TMsvId aDestination, TRequestStatus&amp; aStatus)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Moves a selection of entries within a remote location. </p>
+<p>Requirements:</p>
+<p>Implementations should provide this function if the messaging protocol supports the ability to move entries within a remote service. If this is not supported, implementations should leave with <code>KErrNotSupported</code>. </p>
+<p>The implementation of <code>MoveWithinServiceL()</code> should differ from <code>CopyWithinServiceL()</code> in additionally deleting the original data. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const CMsvEntrySelection&amp; aSelection
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The collection of message index entries for which the move is required
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId aDestination
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The server entry ID to which the selection is to be moved
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Asynchronous completion word for the operation
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotSupported
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The Server-side MTM does not support this operation
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+Other leave codes
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Dependent on implementation
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Command and progress</h2>
+</div><div class="Bodytext">
+<a name="2.11.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseServerMtm%3a%3aStartCommandL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>StartCommandL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void StartCommandL(CMsvEntrySelection&amp; aSelection, TInt aCommand, const TDesC8&amp; aParameter, TRequestStatus&amp; aStatus)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Executes an MTM-specific operation on a selection of entries when called by the Message Server.</p><p>The call is made as a response to a client program invoking an MTM-specific operation through <code>CBaseMtm::InvokeSyncFunctionL()</code>/<code>InvokeAsyncFunctionL()</code>. The <code>aSelection</code>, <code>aCommand</code>, and <code>aParameter</code> arguments pass the values of the original <code>aSelection</code>, <code>aFunctionId</code>, and <code>aParameter</code> respectively arguments from such a call. The use (if any) of the <code>aSelection</code> and <code>aParameter</code> arguments by the function depends on the command.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvEntrySelection&amp; aSelection
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+A selection of message entries on which the command is to be executed
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt aCommand
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The MTM-specific command to be carried out
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TDesC8&amp; aParameter
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Command-specific parameters
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Asynchronous completion word for the operation
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">The function can leave with MTM- and command-specific leave codes. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.3"></a></div><div class="Head3">
+<a name="%3a%3aCBaseServerMtm%3a%3aCommandExpected%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CommandExpected()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TBool CommandExpected()=0;</code></p><h4 class="subheading">Description</h4>
+<p>Tests if  the Server-side MTM object should be deleted when called by the Message Server</p>
+<p>It is useful to stop the MTM being deleted when more commands are expected shortly. This would be the case, for example, after receiving a command to go online. </p>
+<p>If there are no more commands expected by the Server-side MTM object, then the function should return <code>EFalse</code>, and the Message Server will delete it.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TBool
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue</code>: the MTM object should not be deleted
+<code>EFalse</code>: the MTM object can be deleted
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.4"></a></div><div class="Head3">
+<a name="%3a%3aCBaseServerMtm%3a%3aProgress%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Progress()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual const TDesC8&amp; Progress()=0;</code></p><h4 class="subheading">Description</h4>
+<p>This function is called by the Message Server to get progress information for the current asynchronous operation. </p>
+<p>The call is made as a response to a client program requesting progress information through <code>CMsvOperation::ProgressL()</code>. The packing format used in the <code>TDesC8</code> is MTM-specific. Only the implementation of the User Interface MTM progress information functions need to understand the format.</p>
+<p>The progress buffer should have a maximum size of 256 bytes.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TDesC8&amp;
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Progress information on current asynchronous operation
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aDisplayProgressSummary%28%29" title="Displays a message describing the progress of an operation"><code class="ApiItem">CBaseMtmUi::DisplayProgressSummary()</code></a></li>
+<li><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aGetProgress%28%29" title="Obtains progress information description and statistics"><code class="ApiItem">CBaseMtmUi::GetProgress()</code></a></li>
+</ul>
+<a name="2.12"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Active object completion</h2>
+</div><div class="Bodytext">
+<a name="2.12.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseServerMtm%3a%3aRunL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RunL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void RunL();</code></p><h4 class="subheading">Description</h4>
+<p>Provides a simple implementation of <code>CActive::RunL()</code> that calls the derived class's <code>DoRunL()</code> function. If that function leaves, then the leave is trapped, and <code>DoComplete()</code> is called to handle the error.</p>
+<p>This implementation ensures that derived classes handle leave errors in <code>RunL()</code>, rather than the default of the error being passed to the active scheduler.</p>
+<a name="2.12.3"></a></div><div class="Head3">
+<a name="%3a%3aCBaseServerMtm%3a%3aDoRunL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DoRunL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: virtual void DoRunL()=0;</code></p><h4 class="subheading">Description</h4>
+<p>Handles the completion of any asynchronous requests that it makes. It is called from the base class <code>RunL()</code> .</p>
+<p>Note that any leaves made by this function result in <code>DoComplete()</code> being called with the leave code.</p>
+<a name="2.12.4"></a></div><div class="Head3">
+<a name="%3a%3aCBaseServerMtm%3a%3aDoComplete%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DoComplete()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void DoComplete(TInt aError)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Called by the base class <code>RunL()</code> if <code>DoRunL()</code> leaves. It should be implemented to handle this error. For example, progress information could be updated to reflect the problem.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt aError
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The leave code given by <code>DoRunL()</code>.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Data members</h2>
+</div><div class="Bodytext">
+<a name="2.13.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseServerMtm%3a%3aiServerEntry"></a>
+<hr size="1" noshade>
+<h3><code>iServerEntry</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: CMsvServerEntry* iServerEntry</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.1
+</p><h4 class="subheading">Description</h4>
+<p>The entry on which to operate. It is set in the constructor.</p>
+<p>The destructor deletes this member. </p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

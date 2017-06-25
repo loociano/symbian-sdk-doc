@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>IrDA Sockets Overview</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="InfraredOverview%2eIrDASocketsOverview%2emain"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="IrDASerialOverview.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="IrTranPOverview.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Infrared</a>&nbsp;<span class="separator">&#187;</span>
+IrDA&nbsp;Sockets&nbsp;Overview</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>IrDA Sockets Overview</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Purpose</h2>
+</div><div class="Bodytext">
+<p>Allows applications to use infrared communications, as defined by
+the IrDA protocol stack, through EPOC's generic sockets interface.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Architectural relationships</h2>
+</div><div class="Bodytext">
+<p>The Sockets Server defines a generic interface for all socket type
+communication services, and defines a plug-in architecture for implementing
+particular providers. IrDA Sockets is such a plug-in. Clients access its
+services through the generic Sockets Client API, specifying protocol-specific
+behaviour through infrared-specific utility types and constants.</p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Description</h2>
+</div><div class="Bodytext">
+<p>The API has five key concepts: IrTinyTP socket protocol, IrMUX
+socket protocol, IrDA discovery, IAS database queries, and IAS database
+registration.</p>
+<a name="1.5.3"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>IrTinyTP socket protocol</h3>
+</div><div class="Bodytext">
+<p>The IrTinyTP socket protocol provides access to IrDA IrTinyTP, a
+reliable transport layer which corresponds to a sequenced packet service.
+Client applications access this through the generic socket interface
+<a href="../../APIReference/SocketsClient/RSocketClass.html#%3a%3aRSocket" title="Provides a client endpoint to a protocol"><code class="ApiItem">RSocket</code></a>.</p>
+<a name="1.5.4"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>IrMUX socket protocol</h3>
+</div><div class="Bodytext">
+<p>The IrMUX socket protocol provides access to the raw IrDA LM-MUX
+layer, which corresponds to an unreliable datagram service. Client applications
+access this through the generic socket interface
+<a href="../../APIReference/SocketsClient/RSocketClass.html#%3a%3aRSocket" title="Provides a client endpoint to a protocol"><code class="ApiItem">RSocket</code></a>.</p>
+<a name="1.5.5"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>IrDA discovery</h3>
+</div><div class="Bodytext">
+<p>IrDA discovery is done through the generic host name resolution
+interface <a href="../../APIReference/SocketsClient/RHostResolverClass.html#%3a%3aRHostResolver" title="Provides an interface to host name resolution services, such as DNS, that may be provided by particular protocol modules"><code class="ApiItem">RHostResolver</code></a>. Discovery information is returned
+in a <a href="../../APIReference/IrDASockets/TIrdaSockAddrClass.html#%3a%3aTIrdaSockAddr" title="An IrDA socket address"><code class="ApiItem">TIrdaSockAddr</code></a>.</p>
+<a name="1.5.6"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>IAS database queries</h3>
+</div><div class="Bodytext">
+<p>IrDA IAS database queries are performed through
+<a href="../../APIReference/SocketsClient/RNetDatabaseClass.html#%3a%3aRNetDatabase" title="Provides an interface to network databases, such as LM-IAS with IrDA, that may be provided by particular protocol modules"><code class="ApiItem">RNetDatabase</code></a>. The query itself is constructed in a
+<a href="../../APIReference/IrDASockets/TIASQueryClass.html#%3a%3aTIASQuery" title="An Information Access Service (IAS) query to another device's IAS server"><code class="ApiItem">TIASQuery</code></a> object. A response to a query is held in a
+<a href="../../APIReference/IrDASockets/TIASResponseClass.html#%3a%3aTIASResponse" title="Response from an Information Access Service (IAS) query to another device's IAS server"><code class="ApiItem">TIASResponse</code></a> object.</p>
+<a name="1.5.7"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>IAS database registration</h3>
+</div><div class="Bodytext">
+<p>IrDA IAS database registration is performed through
+<a href="../../APIReference/SocketsClient/RNetDatabaseClass.html#%3a%3aRNetDatabase" title="Provides an interface to network databases, such as LM-IAS with IrDA, that may be provided by particular protocol modules"><code class="ApiItem">RNetDatabase</code></a>. Information for a database entry is
+encapsulated by <a href="../../APIReference/IrDASockets/TIASDatabaseEntryClass.html#%3a%3aTIASDatabaseEntry" title="An Information Access Service (IAS) record in the network database"><code class="ApiItem">TIASDatabaseEntry</code></a>.</p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="../CommsInfrastructure/SocketsClientOverview.guide.html#CommsInfrastructureOverview%2eSocketsClientOverview%2emain">Sockets Client Overview</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

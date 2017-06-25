@@ -1,0 +1,178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>TStreamExchange</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="TStreamMarkClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Support&nbsp;For&nbsp;Implementing&nbsp;Stream&nbsp;Stores</a>&nbsp;<span class="separator">&#187;</span>
+TStreamExchange</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>s32share.h</code>
+<br>Link against: <code>estor.lib</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aTStreamExchange"></a>
+
+<h1>Class <code>TStreamExchange</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>TStreamExchange</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Manages access to a shared host buffer  for shared stream buffers.</p><p>The class  maintains independent markers for the shared stream buffer that has  most recently read or written to the shared host buffer.</p><p>This is the way in which multiple requests from the same shared stream buffer are handled without the need for  repeated seeking. The shared host buffer only needs to seek when a new shared buffer needs to use it</p><p>Defined in <code>TStreamExchange</code>:
+<br><code class="ApiItem"><a href="TStreamExchangeClass.html#%3a%3aTStreamExchange%3a%3aHost%28%29" title="Gets a pointer to the stream buffer that acts as the shared host">Host()</a></code>, <code class="ApiItem"><a href="TStreamExchangeClass.html#%3a%3aTStreamExchange%3a%3aHostL%28%29" title="Gets a pointer to the stream buffer that acts as the shared host, and leaves if this object is not active">HostL()</a></code>, <code class="ApiItem"><a href="TStreamExchangeClass.html#%3a%3aTStreamExchange%3a%3aIsActive%28%29" title="Tests whether this object is using a stream buffer that is acting as shared host">IsActive()</a></code>, <code class="ApiItem"><a href="TStreamExchangeClass.html#%3a%3aTStreamExchange%3a%3aRelease%28%29" title="Releases the reference to the shared host, and drops any active read or write marks">Release()</a></code>, <code class="ApiItem"><a href="TStreamExchangeClass.html#%3a%3aTStreamExchange%3a%3aShare%28%29" title="Tells the object to use the specified stream buffer that will act as the shared host">Share()</a></code>, <code class="ApiItem"><a href="TStreamExchangeClass.html#%3a%3aTStreamExchange%3a%3aSizeL%28%29" title="Gets the size of the shared host buffer">SizeL()</a></code>, <code class="ApiItem"><a href="TStreamExchangeClass.html#%3a%3aTStreamExchange%3a%3aTStreamExchange%28%29" title="Constructs the object, specifying the stream buffer that will act as the shared host">TStreamExchange()</a></code>
+</p>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="RShareBufClass.html#%3a%3aRShareBuf" title="A shared stream buffer"><code class="ApiItem">RShareBuf</code></a></li>
+</ul>
+<a name="2.6"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aTStreamExchange%3a%3aTStreamExchange%28%29"></a>
+<hr size="1" noshade>
+<h3><code>TStreamExchange()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TStreamExchange();</code></p><h4 class="subheading">Description</h4>
+<p>Constructs an empty object.</p><p>Call <code>Share()</code> to prepare for access to a shared stream buffer.</p>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aTStreamExchange%3a%3aTStreamExchange%28%29"></a>
+<hr size="1" noshade>
+<h3><code>TStreamExchange()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TStreamExchange(MStreamBuf* aHost);</code></p><h4 class="subheading">Description</h4>
+<p>Constructs the object, specifying the stream buffer that will act as the shared host.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">MStreamBuf* aHost</code></td>
+<td class="Cell"><p class="ValueDesc">A pointer to a stream buffer that will act as the shared host.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Member functions</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aTStreamExchange%3a%3aShare%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Share()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Share(MStreamBuf* aHost);</code></p><h4 class="subheading">Description</h4>
+<p>Tells the object to use the specified stream buffer that will act as the shared  host.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">MStreamBuf* aHost</code></td>
+<td class="Cell"><p class="ValueDesc">A pointer to a stream buffer that will act as the shared host.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aTStreamExchange%3a%3aIsActive%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IsActive()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool IsActive() const;</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether this object is using a stream buffer   that is acting as shared host.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc">True, if this object is using a shared host ;  false, otherwise.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.4"></a></div><div class="Head3">
+<a name="%3a%3aTStreamExchange%3a%3aHost%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Host()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>MStreamBuf* Host();</code></p><h4 class="subheading">Description</h4>
+<p>Gets a pointer to the stream buffer that acts as the shared host.</p><p>The function refreshes the active read/write marks and gives the caller exclusive use of the shared host.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">MStreamBuf*</code></td>
+<td class="Cell"><p class="ValueDesc">A pointer to a stream buffer that acts as shared host.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.5"></a></div><div class="Head3">
+<a name="%3a%3aTStreamExchange%3a%3aHostL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>HostL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>MStreamBuf* HostL();</code></p><h4 class="subheading">Description</h4>
+<p>Gets a pointer to the stream buffer that acts as the shared host, and leaves  if this object is not active.</p><p>The function refreshes the active read/write marks and gives the caller exclusive use of the shared host.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">MStreamBuf*</code></td>
+<td class="Cell"><p class="ValueDesc">A pointer to a stream buffer that acts as shared host.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="TStreamExchangeClass.html#%3a%3aTStreamExchange%3a%3aIsActive%28%29" title="Tests whether this object is using a stream buffer that is acting as shared host"><code class="ApiItem">IsActive()</code></a></li>
+</ul>
+<a name="2.7.6"></a></div><div class="Head3">
+<a name="%3a%3aTStreamExchange%3a%3aRelease%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Release()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Release();</code></p><h4 class="subheading">Description</h4>
+<p>Releases the reference to the shared host, and drops any active read or write marks.</p>
+<a name="2.7.7"></a></div><div class="Head3">
+<a name="%3a%3aTStreamExchange%3a%3aSizeL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SizeL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt SizeL() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the size of the shared host buffer.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The size of the shared host buffer.</p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

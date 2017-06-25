@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>MFepInlineTextFormatRetriever</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="MFepAttributeStorerClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="MFepPointerEventHandlerDuringInlineEditClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Front&nbsp;End&nbsp;Processors</a>&nbsp;<span class="separator">&#187;</span>
+MFepInlineTextFormatRetriever</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>fepitfr.h</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aMFepInlineTextFormatRetriever"></a>
+
+<h1>Class <code>MFepInlineTextFormatRetriever</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>MFepInlineTextFormatRetriever</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Specifies the mixin protocol for finding out the formatting to
+apply to inline text. This class should be overridden by front end processors
+which support inline editing.</p>
+<p>An instance of a class which implements this protocol should be
+passed to
+<code>MCoeFepAwareTextEditor::StartFepInlineEditL()</code>.</p><p>Defined in <code>MFepInlineTextFormatRetriever</code>:
+<br><code class="ApiItem"><a href="MFepInlineTextFormatRetrieverClass.html#%3a%3aMFepInlineTextFormatRetriever%3a%3aGetFormatOfFepInlineText%28%29" title="Gets the character formatting to apply to the inline text">GetFormatOfFepInlineText()</a></code>
+</p>
+<a name="2.5"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Get inline text formatting</h2>
+</div><div class="Bodytext">
+<a name="2.5.2"></a></div><div class="Head3">
+<a name="%3a%3aMFepInlineTextFormatRetriever%3a%3aGetFormatOfFepInlineText%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetFormatOfFepInlineText()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void GetFormatOfFepInlineText(TCharFormat&amp; aFormat, TInt&amp; aNumberOfCharactersWithSameFormat, TInt aPositionOfCharacter) const=0;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the character formatting to apply to the inline text. This
+function may be used to differentiate the formatting of the inline text from
+the surrounding text. The first parameter should be set to contain the
+character formatting values to use.</p>
+<p><code>MCoeFepAwareTextEditor</code> provides a member function
+for finding out the character formatting of the surrounding
+text&nbsp;&#8212; <code>GetFormatForFep()</code>. This can be called inside
+the implementation of this function to make any necessary adjustments to the
+format of the inline text to ensure that it is different from the surrounding
+text.</p>
+<p>The second and third parameters enable different parts of the
+inline text to have different formatting. </p>
+<p>All implementations of this function need to set the
+<code>aNumberOfCharactersWithSameFormat</code> parameter. If all of the inline
+text uses the same formatting then
+<code>aNumberOfCharactersWithSameFormat</code> should be set to the length of
+the inline text and the <code>aPositionOfCharacter</code> parameter can be
+ignored.</p>
+<p>When the inline text does not all use the same formatting, the
+second parameter should be set to the number of characters starting at
+<code>aPositionOfCharacter</code> which have the same
+formatting&nbsp;&#8212; see the following example.</p>
+<p>Example</p>
+<p>If the inline text is 7 characters long, the first 4 characters
+are in format A, the next 2 characters are in format B, and the remaining
+character is in format C.</p>
+<p>When the FEP framework (which knows that the inline text is 7
+characters long) needs to find out the format of the inline text, it calls
+<code>GetFormatOfFepInlineText()</code> passing zero into
+<code>aPositionOfCharacter</code> (to signify the start of the inline text).
+</p>
+<p>As the first 4 characters are all in format A, the function
+should set <code>aFormat</code> to A and it should set
+<code>aNumberOfCharactersWithSameFormat</code> to 4. As the FEP framework has
+only been told the format of the first 4 characters, it calls
+<code>GetFormatOfFepInlineText()</code> again passing 4 into
+<code>aPositionOfCharacter</code>. As the 2 characters starting at position 4
+are all in format B, the function should set <code>aFormat</code> to B and it
+should set <code>aNumberOfCharactersWithSameFormat</code> to 2. The FEP
+framework still does not know the format of the 7th character so it calls
+<code>GetFormatOfFepInlineText()</code> a third time passing 6 into
+<code>aPositionOfCharacter</code>. As the character at position 6 is in format
+C, the function should set <code>aFormat</code> to C and it should set
+<code>aNumberOfCharactersWithSameFormat</code> to 1. The FEP framework now
+knows the format of all of the inline text.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TCharFormat&amp; aFormat</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the formatting to apply to the inline text
+(or to a portion of it).</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aNumberOfCharactersWithSameFormat</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the number of characters in the inline text
+(starting at <code>aPositionOfCharacter</code>) which have the same
+formatting.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aPositionOfCharacter</code></td>
+<td class="Cell"><p class="ValueDesc">Start position within the inline text.</p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

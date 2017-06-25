@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to read remote service attributes</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="bt%2eguide%2esdpa%2eattributes"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="Howtoservice.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="Howtoresults.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Bluetooth</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Bluetooth&nbsp;Service&nbsp;Discovery&nbsp;Agent</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;read&nbsp;remote&nbsp;service&nbsp;attributes</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>How to read remote service attributes</h1>
+</div><div class="Bodytext">
+<p>The data for a service record is contained in attributes. Each attribute has a well-known ID, a type, and a value.</p><p>Attribute requests take service record handles found as a result of service searches and return attributes. You can limit the attributes returned to a specific attribute, or to a range of IDs.</p><p>Like a service search,  results are returned through asynchronous callbacks to an <a href="../../../APIReference/BluetoothServiceDiscoveryAgent/MSdpAgentNotifierClass.html#%3a%3aMSdpAgentNotifier" title="Handles responses to Bluetooth Service Discovery Protocol queries"><code class="ApiItem">MSdpAgentNotifier</code></a> interface, which the querier must implement.</p><p>The steps to read attributes are as follows:</p>
+<ol><li><p>Create a <a href="../../../APIReference/BluetoothServiceDiscoveryAgent/CSdpAttrIdMatchListClass.html#%3a%3aCSdpAttrIdMatchList" title="SDP Attribute ID Match list"><code class="ApiItem">CSdpAttrIdMatchList</code></a> object in which to specify the attributes that you want retrieved (termed the match list).</p></li><li><p>Add the attribute IDs to the match list using <a href="../../../APIReference/BluetoothServiceDiscoveryAgent/CSdpAttrIdMatchListClass.html#%3a%3aCSdpAttrIdMatchList%3a%3aAddL%28%29" title="Adds a range of IDs to the list"><code class="ApiItem">CSdpAttrIdMatchList::AddL()</code></a>. IDs are wrapped in a <a href="../../../APIReference/BluetoothServiceDiscoveryAgent/TAttrRangeStruct.html#%3a%3aTAttrRange" title="A range of attribute ID values"><code class="ApiItem">TAttrRange</code></a>  type, which can specify a single attribute or a range of IDs.</p></li><li><p>Start the query using using <a href="../../../APIReference/BluetoothServiceDiscoveryAgent/CSdpAgentClass.html#%3a%3aCSdpAgent%3a%3aAttributeRequestL%28%29" title="Gets the specified attributes for a remote service"><code class="ApiItem">CSdpAgent::AttributeRequestL()</code></a>. As well as the match list, you specify the record handle of the service that you're interested in.</p></li></ol>
+<h4 class="subheading">Example</h4><p class="CodeBlock"><code>// Assumes agent is an CSdpAgent, and serviceHandle a service record handle<br><br>// 1. Create a match list<br>CSdpAttrIdMatchList* matchList = CSdpAttrIdMatchList::NewL();<br>CleanupStack::PushL(matchList);<br><br>// 2. Add an attribute ID to get<br>matchList-&gt;AddL(TAttrRange(0x102));<br><br>// 3. Set the match list on the agent<br>agent-&gt;AttributeRequestL(serviceHandle, *matchList);<br><br>CleanupStack::PopAndDestroy(); //matchList</code></p><h4 class="subheading">Note</h4><p><code>CSdpAgent::AttributeRequestL()</code> is an overloaded function. Some of the overloads allow you to supply an <a href="../../../APIReference/BluetoothServiceDiscoveryDatabase/MSdpElementBuilderClass.html#%3a%3aMSdpElementBuilder" title="Constructs an attribute value from multiple data elements"><code class="ApiItem">MSdpElementBuilder</code></a> object: if it is supplied, then the object will be called with each type found in the response.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

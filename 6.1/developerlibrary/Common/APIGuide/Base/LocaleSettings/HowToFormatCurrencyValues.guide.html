@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to format currency values</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="LocaleSettingsGuide%2eHowToFormatCurrencyValues"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToUniversalLocalHome.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Locale&nbsp;Settings</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;format&nbsp;currency&nbsp;values</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to format currency values</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>From 6.1 onward</h2>
+</div><div class="Bodytext"><p>From 6.1, the <a href="../../../APIReference/LocaleSettings/TLocaleClass.html#%3a%3aTLocale" title="Sets and gets the system's locale settings"><code class="ApiItem">TLocale</code></a> class provides the <code>FormatCurrency()</code> functions that can format  currency values into a descriptor. The functions can handle both small and large  values. They render the currency amount as text, using the current locale's formatting requirements. These include  items such as:</p><ul><li><p> the appropriate currency symbol</p></li><li><p>	whether the currency symbol is placed before or after the currency amount</p></li><li><p>whether there is space between the currency amount and the currency symbol</p></li><li><p>the number of decimal places</p></li><li><p>the way a negative currency value is rendered.</p></li></ul><p>There are four overloaded variants of <code>FormatCurrency()</code>, two of which are suitable for rendering currency values  that fit into a <a href="../../../APIReference/BasicTypes/TIntTypedef.html#%3a%3aTInt" title="Signed integer type of the natural machine word length"><code class="ApiItem">TInt</code></a> type, and the other two of which are suitable for rendering very large currency values that fit into a <a href="../../../APIReference/BasicTypes/TInt64Class.html#%3a%3aTInt64" title="A 64-bit integer"><code class="ApiItem">TInt64</code></a> type.</p><p>Both pairs of functions behave in the same way, and the following code fragments will also apply  to the <code>TInt64</code> variants.</p><p>The first code fragment uses the <code>void FormatCurrency(TDes&amp;,TInt);</code> variant.</p><p class="CodeBlock"><code>...<br>TLocale locale;<br><br>TInt amount;<br>TBuf&lt;64&gt; buffer;<br><br>locale.set();<br>locale.FormatCurrency(buffer,amount);<br>...</code></p><p>On return, the descriptor buffer contains the currency value formatted as text using the currency symbol and formatting appropriate to the current locale. Note, however, that the caller is responsible for ensuring that the descriptor buffer is large enough. Too small a buffer results in a USER 11 panic.</p><p>The second code fragment uses the <code>void FormatCurrency(TDes&amp;,TDesOverflow&amp;,TInt);</code> variant.</p><p class="CodeBlock"><code>class TestOverflow : public TDesOverflow<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;void Overflow(TDes&amp; aBufferThatOverflowed);<br>&nbsp;&nbsp;&nbsp;&nbsp;};<br><br>void TestOverflow::Overflow(TDes&amp; aBufferThatOverflowed)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;_LIT(KTextOverflow,&quot;Overflowed&quot;);<br>&nbsp;&nbsp;&nbsp;&nbsp;aBufferThatOverflowed = KTextOverflow;<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>...<br>TLocale locale;<br>TestOverflow ovfl;<br><br>TInt amount;<br>HBufC* bufPtr;<br><br>bufPtr = HBufC::NewL(10);<br><br>locale.set();<br>locale.FormatCurrency(*bufPtr,ovfl,amount);<br>...</code></p><p>In this fragment, if the formatted text cannot fit into the buffer, <code>*bufPtr</code>, then <code>TestOverflow::Overflow()</code> is called which simply sets the text &quot;Overflowed&quot;  into the buffer. In practice, application code would probably perform more sophisticated  recovery which might include re-allocating the buffer and re-trying the <code>FormatCurrency()</code> operation.</p><a name="1.4"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Before 6.1</h2>
+</div><div class="Bodytext"><p>Before 6.1, the <code>FormatCurrency()</code> function is not available and the procedure for formatting a currency value needs more  code and explicitly uses more of the functionality of the <code>TLocale</code> class.</p><p>In the following example code fragments,  the formatting is done by  a function called <code>foo()</code>. This function takes a descriptor that, on return, holds the formatted currency  value. The function assumes that the descriptor is big enough to hold the formatted text. The example holds the currency value as a <a href="../../../APIReference/BasicTypes/TRealTypedef.html#%3a%3aTReal" title="64-bit floating point number -- identical to TReal64"><code class="ApiItem">TReal</code></a> value.</p><p><code>foo()</code>  uses the <code>AppendNum()</code> and <code>Append()</code> descriptor functions to
+format and append the currency value and symbol to <code>aBuffer</code> using
+an object of class <a href="../../../APIReference/CharacterRepresentationOfRealNumbers/TRealFormatClass.html#%3a%3aTRealFormat" title="Defines the character representation of a real number type such as a TReal or a TRealX"><code class="ApiItem">TRealFormat</code></a> to determine the character
+representation of the currency value.</p><p>The code formats the following locale-dependent aspects of currency
+information: </p>
+<ul>
+<li>
+<p>the number of decimal places</p>
+</li>
+<li>
+<p>the decimal and thousands separators (<code>iPoint</code> and
+<code>iTriad</code>) </p>
+</li>
+<li>
+<p>whether <em>triads</em> are allowed or not
+(<code>iTriLen</code>)</p>
+</li>
+<li>
+<p>An <code>iTriLen</code> value of 1 signifies that triads are
+allowed throughout the currency amount. A value of zero means that no triads
+are allowed.</p>
+</li>
+</ul><p class="CodeBlock"><code>void foo(TDes&amp; aBuffer, TReal aCurrencyAmount)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// get system locale settings<br>&nbsp;&nbsp;&nbsp;&nbsp;TLocale locale; <br>&nbsp;&nbsp;&nbsp;&nbsp;TRealFormat realFormat; <br>&nbsp;&nbsp;&nbsp;&nbsp;realFormat.iType=EFixed; <br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// convert number to the general form &quot;nnn.ddd&quot; where<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// &quot;n&quot; is the integer and &quot;d&quot; is the decimal portion.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// iWidth is the maximum number of characters allowed to represent the number<br>&nbsp;&nbsp;&nbsp;&nbsp;realFormat.iWidth=30; <br>&nbsp;&nbsp;&nbsp;&nbsp;realFormat.iDecimalPlaces=locale.CurrencyDecimalPlaces(); <br>&nbsp;&nbsp;&nbsp;&nbsp;realFormat.iPoint=locale.DecimalSeparator(); <br>&nbsp;&nbsp;&nbsp;&nbsp;realFormat.iTriad=locale.ThousandsSeparator();<br>&nbsp;&nbsp;&nbsp;&nbsp;realFormat.iTriLen=(locale.CurrencyTriadsAllowed() ? 1 : 0);<br>&nbsp;&nbsp;&nbsp;&nbsp;...</code></p><p>Note the following points:</p><ul>
+<li>
+<p>Use <code>CurrencySymbolPosition()</code> and
+<code>CurrencySpaceBetween()</code> to decide whether the currency symbol should
+be placed before or after the currency amount and whether or not to insert a
+space between the symbol and the amount.</p>
+</li>
+<li>
+<p>Use <code>CurrencyNegativeInBrackets()</code> to decide
+whether or not negative currency amounts should be enclosed in brackets. If
+this is the case, and the value is negative, an open bracket is appended and
+any minus sign is removed by appending the currency value to the buffer as a
+negative value.</p>
+</li>
+<li><p>Use <code>CurrencySpaceBetween()</code> to decide whether or not to insert a space between the currency symbol and the currency value.</p></li></ul><p class="CodeBlock"><code>... <br>_LIT(KTxtOpenBracket,&quot;(&quot;);<br>_LIT(KTxtCloseBracket,&quot;)&quot;);<br>_LIT(KTxtSpace,&quot; &quot;);<br>TCurrencySymbol symbol;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;// Get system wide currency symbol setting<br>symbol.Set(); <br><br>&nbsp;&nbsp;&nbsp;&nbsp;// Append an open bracket, if the amount is negative and the locale demands it. <br>if ((aCurrencyAmount&lt;0) &amp;&amp; (locale.CurrencyNegativeInBrackets()))<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;aBuffer.Append(KTxtOpenBracket);<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>&nbsp;&nbsp;&nbsp;&nbsp;// Position the currency symbol before the currency value, and insert space between the<br>&nbsp;&nbsp;&nbsp;&nbsp;// symbol and the amount if the locale demands them.<br>if (locale.CurrencySymbolPosition() == ELocaleBefore)<br>&nbsp;&nbsp;&nbsp;&nbsp;{ <br>&nbsp;&nbsp;&nbsp;&nbsp;aBuffer.Append(symbol);<br>&nbsp;&nbsp;&nbsp;&nbsp;if (locale.CurrencySpaceBetween())<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aBuffer.Append(KTxtSpace); <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>&nbsp;&nbsp;&nbsp;&nbsp;// Append negative currency value and remove the sign if the locale demands<br>&nbsp;&nbsp;&nbsp;&nbsp;// negative values in brackets<br>if ((locale.CurrencyNegativeInBrackets()) &amp;&amp; (aCurrencyAmount&lt;0))<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;aBuffer.AppendNum(-aCurrencyAmount,realFormat);<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>else<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;aBuffer.AppendNum(aCurrencyAmount,realFormat); <br>&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>&nbsp;&nbsp;&nbsp;&nbsp;// Position the currency symbol after the currency value, and insert space between the<br>&nbsp;&nbsp;&nbsp;&nbsp;// amount and the symbol if the locale demands them.<br>if (locale.CurrencySymbolPosition() == ELocaleAfter)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;if (locale.CurrencySpaceBetween())<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aBuffer.Append(KTxtSpace);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;aBuffer.Append(symbol);<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>&nbsp;&nbsp;&nbsp;&nbsp;// Finally, append the closing bracket, if the value is negative and<br>&nbsp;&nbsp;&nbsp;&nbsp;// the locale demands brackets around negative values.<br>if ((aCurrencyAmount&lt;0) &amp;&amp; (locale.CurrencyNegativeInBrackets()))<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;aBuffer.Append(KTxtCloseBracket);<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>}</code></p><p>Note that the currency symbol cannot be set using the  <code>TLocale</code> class.
+Use <a href="../../../APIReference/SystemStaticFunctions/UserClass.html#%3a%3aUser%3a%3aSetCurrencySymbol%28%29" title="Sets the system wide currency symbol"><code class="ApiItem">User::SetCurrencySymbol()</code></a> to do this.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

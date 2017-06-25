@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to implement a polymorphic interface DLL</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="DynamicallyLoadingLinkLibraries%2ehow%2dto%2eimplement%2dpolymorphic%2dinterface"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToUseInterfacePolymorphic.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="SupportingPolymorphicInterface.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Dynamically&nbsp;Loading&nbsp;Link&nbsp;Libraries</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;implement&nbsp;a&nbsp;polymorphic&nbsp;interface&nbsp;DLL</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>How to implement a polymorphic interface DLL</h1>
+</div><div class="Bodytext">
+<p>The following code fragments show a simple implementation of a polymorphic interface DLL. The DLL being implemented is the one whose <a href="HowToDefineInterfacePolymorphic.guide.html#DynamicallyLoadingLinkLibraries%2ehow%2dto%2edefine%2dpolymorphic%2dinterface" title="How to define the interface to a polymorphic interface DLL">interface</a> is defined by the <code>CMessenger</code> class.</p><p>This  example implementation issues a greeting in French.</p><a name="2"></a></div><div class="Head1">
+<hr size="3" noshade>
+<h1>The concrete class declaration</h1>
+</div><div class="Bodytext">
+<p>Declare a concrete class, called <code>CFrenchMessenger</code>, as follows:</p>
+<p class="CodeBlock"><code>class CFrenchMessenger : public CMessenger<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>public:<br>&nbsp;&nbsp;&nbsp;&nbsp;virtual void ConstructL(CConsoleBase* aConsole, const TDesC&amp; aName);<br>&nbsp;&nbsp;&nbsp;&nbsp;virtual ~CFrenchMessenger();<br>&nbsp;&nbsp;&nbsp;&nbsp;virtual void ShowMessage();<br>&nbsp;&nbsp;&nbsp;&nbsp;};</code></p><a name="2.4"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Notes:</h2>
+</div><div class="Bodytext">
+<ul><li><p>the class implements all of the functions which are declared as pure-virtual in the abstract base class <code>CMessenger</code>.</p></li>
+<li><p>no explicit C++ constructor is needed; a new <code>CMessenger</code> derived object is allocated by the exported function <code>NewMessenger()</code> which runs in the DLL. The default C++ constructor can, therefore, be safely used.</p></li>
+<li><p>second-phase construction, implemented by <code>ConstructL()</code>, completes construction.</p></li>
+</ul><a name="3"></a></div><div class="Head1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="3" noshade>
+<h1>Implementation</h1>
+</div><div class="Bodytext">
+<p>Start the implementation code as follows:</p>
+<p class="CodeBlock"><code>GLDEF_C TInt E32Dll(TDllReason /*aReason*/)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;return(KErrNone);<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br><br><br>EXPORT_C CMessenger* NewMessenger()<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;return new (ELeave) CFrenchMessenger;<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p><a name="3.4"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Notes:</h2>
+</div><div class="Bodytext">
+<ul>
+<li><p>The <code>E32Dll()</code> function is required by all DLLs; it is defined as the main DLL entry point which implies that it is exported, even though there is no explicit <code>EXPORT_C</code> in the C++ code. Its primary use is to allocate thread-local storage.</p></li>
+<li><p>the <code>NewMessenger()</code> function is exported, at ordinal 1 from the DLL; it allocates a <code>CFrenchMessenger</code> object using the <code>new (ELeave)</code> operator.</p></li>
+<li><p>This pattern should be followed by all code packaged as a DLL intended for dynamic loading.</p></li>
+<li><p>The rest of the C++ module is conventional, note that none of the functions are exported; they are available via the virtual function table which is made available to user code through construction of the <code>CFrenchMessenger</code> object.</p></li>
+<li><p>In the UID section, the <code class="filename">.mmp</code> file defining the project must  include the same UID values as used by the code that loads the DLL, i.e. the value of <code>KMessengerUid</code> and the value that identifies the specific implementation.</p></li></ul>
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

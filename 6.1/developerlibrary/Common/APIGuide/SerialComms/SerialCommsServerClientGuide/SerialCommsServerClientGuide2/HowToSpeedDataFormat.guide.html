@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to set up the speed and the data format</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="SerialCommsServerClientGuide1%2ehow%2dto%2espeed"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="ConfiguringPorts.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="SettingUphandshaking.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Serial&nbsp;Comms</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Serial&nbsp;Communications&nbsp;Server&nbsp;Client-Side</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Configuring&nbsp;Ports</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;set&nbsp;up&nbsp;the&nbsp;speed&nbsp;and&nbsp;the&nbsp;data&nbsp;format</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>How to set up the speed and the data format</h1>
+</div><div class="Bodytext">
+<p>At the very simplest level, values are set using <code>Config()</code> with its <code>TCommConfig</code> package to define the speed a port will run at (with <code>iRate</code>) and the data format (with <code>iDataBits</code>, <code>iStopBits</code> and <code>iParity</code>). Enumerated types are provided for setting these up (<code>TBps</code>, <code>TDataBits</code>, <code>TStopBits</code> and <code>TParity</code>).</p>
+<p>A similiar method is used by <code>Caps()</code> and its <code>TCommCaps</code> package to hold possible speeds in its own <code>iRate</code>, with possible data formats in its own <code>iDataBits,</code>
+<code>iStopBits</code> and <code>iParity</code>. The main differences between these and the identically named elements in <code>TCommConfig</code> is that unlike settings, port capabilities are never exclusive. For instance, the fact that a port can handle a speed of 50 bps doesn&#8217;t stop it from being able to support faster speeds as well. For this reason, the integers used to hold all the relevant capabilities of the port must be used in conjunction with individually enumerated bitmasks which are provided to enable the safe extraction of specific items of information. </p>
+<p>The following code uses <code>Caps()</code> to find out if its desired port configuration of 19200 bps and 8 data bits with no parity and one stop bit is possible:</p>
+<p class="CodeBlock"><code>TCommCaps ourCapabilities;<br>commPort.Caps (ourCapabilities);<br><br>if (((ourCapabilities ().iRate &amp; KCapsBps19200)  == 0)||<br>&nbsp;&nbsp;&nbsp;&nbsp;((ourCapabilities ().iDataBits &amp; KCapsData8) == 0)||<br>&nbsp;&nbsp;&nbsp;&nbsp;((ourCapabilities ().iStopBits &amp; KCapsStop1) == 0)||<br>&nbsp;&nbsp;&nbsp;&nbsp;((ourCapabilities ().iParity &amp; KCapsParityNone) == 0))<br>&nbsp;&nbsp;&nbsp;User::Leave (KErrNotSupported) ;</code></p>
+<p>In software embedded on a machine where the capabilities of the hardware are well known in advance it is not necessary to include these checks. It is not bad practise to miss out the capabilities check and go straight to configuring the port. The most efficient way of doing this is to initialise your <code>TCommConfig</code> by reading the current settings into it, and then simply changing those settings which are considered to be important.</p>
+<p class="CodeBlock"><code>TCommConfig portSettings;<br>commPort.Config (portSettings);<br>portSettings ().iRate = EBps19200;<br>portSettings ().iParity = EParityNone;<br>portSettings ().iDataBits = EData8;<br>portSettings ().iStopBits = EStop1;<br>r = commPort.SetConfig (portSettings);<br>User::LeaveIfError (r);</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

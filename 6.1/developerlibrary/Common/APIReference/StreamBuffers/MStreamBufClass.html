@@ -1,0 +1,1173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>MStreamBuf</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="KStreamUnlimitedMacro.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="MStreamInputClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Stream&nbsp;Buffers</a>&nbsp;<span class="separator">&#187;</span>
+MStreamBuf</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>s32buf.h</code>
+<br>Link against: <code>estor.lib</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aMStreamBuf"></a>
+
+<h1>Class <code>MStreamBuf</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>MStreamBuf</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>A stream buffer that provides a generic I/O interface for streamed data.</p>
+<p>A stream buffer:</p>
+<ul>
+<li>
+<p>may be buffered or unbuffered</p>
+</li>
+<li>
+<p>may provide read-only, write-only or read/write capability</p>
+</li>
+<li>
+<p>may be seekable, or unseekable.</p>
+</li>
+</ul>
+<p>A seekable stream buffer maintains independent read and write pointers, which can be manipulated separately. This is unlike the <code>RFile</code> interface which maintains a single current position in the file. For example, file streams and memory streams are seekable streams, but socket, serial-comms, and filtered streams are not.</p>
+<p>Objects of this type are used by the stream interface classes derived from <code>RReadStream</code> and <code>RWriteStream</code>.</p>
+<p> The class has no member data.</p>
+<p>Derive from this class, if the stream has no intermediate buffering capabilities, otherwise derive from <code>TStreamBuf</code>.</p>
+<p>Defined in <code>MStreamBuf</code>:
+<br><code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3a%20SeekL%28%29" title="Moves the position of the read mark or the write mark in the stream"> SeekL()</a></code>, <code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aClose%28%29" title="Closes the stream buffer">Close()</a></code>, <code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aDoReadL%28%29" title="Reads data from the stream into the specified data sink">DoReadL()</a></code>, <code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aDoRelease%28%29" title="Frees resources before abandoning the stream buffer">DoRelease()</a></code>, <code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aDoSeekL%28%29" title="Moves the position of the read/write mark in the stream">DoSeekL()</a></code>, <code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aDoSynchL%28%29" title="Synchronises the stream buffer with the stream, leaving if any error occurs">DoSynchL()</a></code>, <code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aDoWriteL%28%29" title="Writes data to the stream from the specified data source">DoWriteL()</a></code>, <code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aERead" title="The flag bit used to indicate that an operation applies to the read mark in a stream or to the read area in an stream buffer">ERead</a></code>, <code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aEWrite" title="The flag bit used to indicate that an operation applies to the write mark in a stream or to the write area in an stream buffer">EWrite</a></code>, <code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aPushL%28%29" title="Puts a cleanup item for this object onto the cleanup stack">PushL()</a></code>, <code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aRead%28%29" title="Reads data, asynchronously, from the stream buffer into the specified descriptor; request completion is guaranteed, even if request initiation fails">Read()</a></code>, <code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aReadL%28%29" title="Reads data from the stream buffer into the specified data sink">ReadL()</a></code>, <code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aRelease%28%29" title="Frees resources before abandoning the stream buffer">Release()</a></code>, <code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aSeekL%28%29" title="Moves the position of the write mark in the stream by the specified offset">SeekL()</a></code>, <code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aSizeL%28%29" title="Gets the size of the stream">SizeL()</a></code>, <code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aSynch%28%29" title="Synchronises the stream buffer with the stream, returning any error">Synch()</a></code>, <code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aSynchL%28%29" title="Synchronises the stream buffer with the stream, leaving if any error occurs">SynchL()</a></code>, <code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTMark" title="Used to identify the type of mark in a stream">TMark</a></code>, <code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTRead" title="Indicates that an operation applies to the read mark in a stream or to the read area in an stream buffer">TRead</a></code>, <code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTWrite" title="Indicates that an operation applies to the write mark in a stream or to the write area in an stream buffer">TWrite</a></code>, <code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTellL%28%29" title="Gets the position of the write mark within the stream">TellL()</a></code>, <code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aWrite%28%29" title="Writes data, asynchronously, from the specified descriptor into the stream buffer; request completion is guaranteed, even if request initiation fails">Write()</a></code>, <code class="ApiItem"><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aWriteL%28%29" title="Writes data into the stream buffer from the specified data source">WriteL()</a></code>
+</p>
+<h4 class="subheading">Notes:</h4>
+<ul>
+<li><note>Get a  reference to the stream buffer used by a read stream by calling <code>RReadStream::Source()</code></note></li>
+<li><note>Get a  reference to the stream buffer used by a write stream by calling <code>RWriteStream::Sink()</code></note></li>
+</ul>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../Streaming/RReadStreamClass.html#%3a%3aRReadStream" title="The read stream interface"><code class="ApiItem">RReadStream</code></a></li>
+<li><a href="../Streaming/RWriteStreamClass.html#%3a%3aRWriteStream" title="The write stream interface"><code class="ApiItem">RWriteStream</code></a></li>
+<li><a href="TStreamBufClass.html#%3a%3aTStreamBuf" title="Adds buffering capabilities to a stream buffer"><code class="ApiItem">TStreamBuf</code></a></li>
+</ul>
+<a name="2.7"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Read from the intermediate buffer</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aReadL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ReadL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt ReadL(TAny* aPtr,TInt aMaxLength);<br>&nbsp;&nbsp;&nbsp;&nbsp;</code></p><h4 class="subheading">Description</h4>
+<p>Reads data from the stream buffer into the specified memory location.</p><p>The function   calls the  virtual function <code>DoReadL(TAny*,TInt)</code> to implement this behaviour.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAny* aPtr</code></td>
+<td class="Cell"><p class="ValueDesc">A pointer to the target memory location  for the data read from the  stream buffer.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aMaxLength</code></td>
+<td class="Cell"><p class="ValueDesc">The maximum number of bytes  to be read.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The number of bytes read.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aDoReadL%28%29" title="Reads data from the stream into the specified data sink"><code class="ApiItem">MStreamBuf::DoReadL()</code></a></li>
+</ul>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aReadL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ReadL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt ReadL(TDes8&amp; aDes,TInt aMaxLength,TRequestStatus&amp; aStatus);<br>&nbsp;&nbsp;&nbsp;&nbsp;</code></p><h4 class="subheading">Description</h4>
+<p>Reads data, asynchronously, from the stream buffer into the specified descriptor.</p><p>The function    calls the  virtual function <code>DoReadL(TDes8&amp;,TInt,TRequestStatus&amp;)</code> to implement this behaviour.</p><p>If the function leaves, then  no read request will  have been initiated.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes8&amp; aDes</code></td>
+<td class="Cell"><p class="ValueDesc">The target descriptor   for the data read from the stream buffer.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aMaxLength</code></td>
+<td class="Cell"><p class="ValueDesc">The maximum number of bytes  to be read.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStatus</code></td>
+<td class="Cell"><p class="ValueDesc">The request status that indicates the completion status of this
+asynchronous request.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The maximum number of bytes to be read,   as used in this request.  This can be  different to the value   supplied in <code>aMaxLength</code>; this is dependent  on the implementation.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aDoReadL%28%29" title="Reads data from the stream into the specified data sink"><code class="ApiItem">MStreamBuf::DoReadL()</code></a></li>
+</ul>
+<a name="2.7.4"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aReadL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ReadL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt ReadL(TDes8&amp; aDes,TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Reads data, asynchronously, from the  stream buffer into the specified descriptor.</p><p>The function   calls the  virtual function <code>DoReadL(TDes8&amp;,TInt,TRequestStatus&amp;)</code> to implement this behaviour. The maximum  number of bytes to be read is  the maximum length of the descriptor.</p><p>If the function leaves, then  no  read request will  have been initiated.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes8&amp; aDes</code></td>
+<td class="Cell"><p class="ValueDesc">The target descriptor   for the data read from the stream buffer.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStatus</code></td>
+<td class="Cell"><p class="ValueDesc">The request status that indicates the completion status of this
+asynchronous request.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The maximum number of bytes to be read,   as used in this request.  This value can be  different to the maximum length of the descriptor; this is dependent on the implementation.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aDoReadL%28%29" title="Reads data from the stream into the specified data sink"><code class="ApiItem">MStreamBuf::DoReadL()</code></a></li>
+</ul>
+<a name="2.7.5"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aReadL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ReadL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TStreamTransfer ReadL(MStreamInput&amp; anInput,TStreamTransfer aTransfer);<br>&nbsp;&nbsp;&nbsp;&nbsp;</code></p><h4 class="subheading">Description</h4>
+<p>Reads data from the stream buffer into the specified data sink.</p><p>The function   calls the  virtual function <code>DoReadL(MStreamInput&amp;,TStreamTransfer)</code> to implement this behaviour.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">MStreamInput&amp; anInput</code></td>
+<td class="Cell"><p class="ValueDesc">The  data sink that is the target for the read operation.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamTransfer aTransfer</code></td>
+<td class="Cell"><p class="ValueDesc">Defines the amount of data available to be read.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamTransfer</code></td>
+<td class="Cell"><p class="ValueDesc">The amount of data that was not consumed.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.6"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aReadL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ReadL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt ReadL(MStreamInput&amp; anInput,TInt aMaxLength);<br>&nbsp;&nbsp;&nbsp;&nbsp;</code></p><h4 class="subheading">Description</h4>
+<p>Reads data from the  stream buffer into the specified  data sink.</p><p>The function   uses the  virtual function <code>DoReadL(MStreamInput&amp;,TStreamTransfer)</code> to implement this behaviour.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">MStreamInput&amp; anInput</code></td>
+<td class="Cell"><p class="ValueDesc">The data sink which is the target for the read operation.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aMaxLength</code></td>
+<td class="Cell"><p class="ValueDesc">The maximum amount of data available to  be read.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The amount of data that was not consumed.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.7"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aReadL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ReadL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ReadL(MStreamInput&amp; anInput);</code></p><h4 class="subheading">Description</h4>
+<p>Reads data from the  stream buffer into the specified  data sink.</p><p>The function   uses the  virtual function <code>DoReadL(MStreamInput&amp;,TStreamTransfer)</code> to implement this behaviour.</p><p>No explicit limit is placed on the amount of data that can be read.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">MStreamInput&amp; anInput</code></td>
+<td class="Cell"><p class="ValueDesc">The  data sink that is the target for the read operation.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.8"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aRead%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Read()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Read(TDes8&amp; aDes,TInt aMaxLength,TRequestStatus&amp; aStatus);<br>&nbsp;&nbsp;&nbsp;&nbsp;</code></p><h4 class="subheading">Description</h4>
+<p>Reads data, asynchronously, from the  stream buffer into the specified descriptor; request completion is guaranteed, even if request initiation fails.</p><p>The function   calls the  virtual function <code>DoReadL(TDes8&amp;,TInt,TRequestStatus&amp;)</code> to implement this behaviour.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes8&amp; aDes</code></td>
+<td class="Cell"><p class="ValueDesc">The target descriptor   for the data read from the  stream buffer.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aMaxLength</code></td>
+<td class="Cell"><p class="ValueDesc">The maximum number of bytes  to be read.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStatus</code></td>
+<td class="Cell"><p class="ValueDesc">The request status that indicates the completion status of this
+asynchronous request.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The maximum number of bytes to be read,   as used in this request.  This can be  different to the value   supplied in <code>aMaxLength</code>; this is dependent  on the implementation.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aDoReadL%28%29" title="Reads data from the stream into the specified data sink"><code class="ApiItem">MStreamBuf::DoReadL()</code></a></li>
+</ul>
+<a name="2.7.9"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aRead%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Read()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Read(TDes8&amp; aDes,TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Reads data, asynchronously, from the  stream buffer into the specified descriptor; request completion is guaranteed, even if request initiation fails.</p><p>The function    calls the  virtual function <code>DoReadL(TDes8&amp;,TInt,TRequestStatus&amp;)</code> to implement this behaviour. The maximum  number of bytes to be read is the value of the maximum length of the descriptor.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes8&amp; aDes</code></td>
+<td class="Cell"><p class="ValueDesc">The target descriptor   for the data read from the  stream buffer.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStatus</code></td>
+<td class="Cell"><p class="ValueDesc">The request status that indicates the completion status of this
+asynchronous request.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The maximum number of bytes to be read,   as used in this request.  This value can be  different to the maximum length of the descriptor; this is dependent on the implementation.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aDoReadL%28%29" title="Reads data from the stream into the specified data sink"><code class="ApiItem">MStreamBuf::DoReadL()</code></a></li>
+</ul>
+<a name="2.8"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Write to the  stream buffer</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aWriteL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>WriteL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void WriteL(const TAny* aPtr,TInt aLength);<br>&nbsp;&nbsp;&nbsp;&nbsp;</code></p><h4 class="subheading">Description</h4>
+<p>Writes data from the specified memory location into the  stream buffer.</p><p>The function   calls the  virtual function <code>DoWriteL(TAny*,TInt)</code> to implement this behaviour.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TAny* aPtr</code></td>
+<td class="Cell"><p class="ValueDesc">A pointer to the  memory location  from which  data is to be written to the   stream buffer.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aLength</code></td>
+<td class="Cell"><p class="ValueDesc">The  number of bytes  to be written.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aDoWriteL%28%29" title="Writes data to the stream from the specified data source"><code class="ApiItem">MStreamBuf::DoWriteL()</code></a></li>
+</ul>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aWriteL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>WriteL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt WriteL(const TDesC8&amp; aDes,TInt aMaxLength,TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Writes data, asynchronously, from the specified descriptor into the  stream buffer.</p><p>The function    calls the  virtual function <code>DoWriteL(const TDesC8&amp;,TInt,TRequestStatus&amp;)</code> to implement this behaviour.</p><p>If the function leaves, then  no write request will  have been initiated.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC8&amp; aDes</code></td>
+<td class="Cell"><p class="ValueDesc">The source  descriptor   for the data to be written into  the  stream buffer.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aMaxLength</code></td>
+<td class="Cell"><p class="ValueDesc">The maximum number of bytes  to be written.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStatus</code></td>
+<td class="Cell"><p class="ValueDesc">The request status that indicates the completion status of this
+asynchronous request.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The maximum number of bytes to be written,   as used in this request.  This can be  different to the value   supplied in <code>aMaxLength</code>; this is dependent  on the implementation.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aDoWriteL%28%29" title="Writes data to the stream from the specified data source"><code class="ApiItem">MStreamBuf::DoWriteL()</code></a></li>
+</ul>
+<a name="2.8.4"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aWriteL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>WriteL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt WriteL(const TDesC8&amp; aDes,TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Writes data, asynchronously, from the specified descriptor into the  stream buffer.</p><p>The function   calls the  virtual function <code>DoWriteL(const TDesC8&amp;,TInt,TRequestStatus&amp;)</code> to implement this behaviour. The maximum  number of bytes to be written is the value of the maximum length of the descriptor.</p><p>If the function leaves, then  no  write request will  have been initiated.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC8&amp; aDes</code></td>
+<td class="Cell"><p class="ValueDesc">The source  descriptor   for the data to be written into  the  stream buffer.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStatus</code></td>
+<td class="Cell"><p class="ValueDesc">The request status that indicates the completion status of this
+asynchronous request.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The maximum number of bytes to be written,   as used in this request.  This can be  different to the maximum length of the descriptor; this is dependent  on the implementation.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aDoWriteL%28%29" title="Writes data to the stream from the specified data source"><code class="ApiItem">MStreamBuf::DoWriteL()</code></a></li>
+</ul>
+<a name="2.8.5"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aWriteL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>WriteL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TStreamTransfer WriteL(MStreamOutput&amp; anOutput,TStreamTransfer aTransfer);<br>&nbsp;&nbsp;&nbsp;&nbsp;</code></p><h4 class="subheading">Description</h4>
+<p>Writes data into the  stream buffer from the specified data source.</p><p>The function calls the virtual function <code>DoWriteL(MStreamOutput&amp;,TStreamTransfer)</code> to implement this behaviour.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">MStreamOutput&amp; anOutput</code></td>
+<td class="Cell"><p class="ValueDesc">The data  source for the write operation.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamTransfer aTransfer</code></td>
+<td class="Cell"><p class="ValueDesc">Defines the amount of data to be pulled from the output stream object.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamTransfer</code></td>
+<td class="Cell"><p class="ValueDesc">A stream transfer object defining the amount of data that was not consumed.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.6"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aWriteL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>WriteL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt WriteL(MStreamOutput&amp; anOutput,TInt aMaxLength);</code></p><h4 class="subheading">Description</h4>
+<p>Writes data into the  stream buffer from the specified data source.</p><p>The function calls the virtual function <code>DoWriteL(MStreamOutput&amp;,TStreamTransfer)</code> to implement this behaviour.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">MStreamOutput&amp; anOutput</code></td>
+<td class="Cell"><p class="ValueDesc">The data source  for the write operation.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aMaxLength</code></td>
+<td class="Cell"><p class="ValueDesc">The maximum amount of data available to be written.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The amount of data that  was not consumed.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.7"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aWriteL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>WriteL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void WriteL(MStreamOutput&amp; anOutput);</code></p><h4 class="subheading">Description</h4>
+<p>Writes data into the  stream buffer from the specified data source.</p><p>The function calls the virtual function <code>DoWriteL(MStreamOutput&amp;,TStreamTransfer)</code> to implement this behaviour.</p><p>No explicit limit is placed on the amount of data that can be written.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">MStreamOutput&amp; anOutput</code></td>
+<td class="Cell"><p class="ValueDesc">The data source  for the write operation.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aMaxLength</code></td>
+<td class="Cell"><p class="ValueDesc">The maximum amount of data available to be written.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.8"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aWrite%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Write()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Write(const TDesC8&amp; aDes,TInt aMaxLength,TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Writes data, asynchronously, from the specified descriptor into the  stream buffer; request completion is guaranteed, even if request initiation fails.</p><p>The function    calls the  virtual function <code>DoWriteL(const TDesC8&amp;,TInt,TRequestStatus&amp;)</code> to implement this behaviour.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">MStreamOutput&amp; anOutput</code></td>
+<td class="Cell"><p class="ValueDesc">The output stream which is the source for the write operation.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The maximum number of bytes to be written,   as used in this request.  This can be  different to the value   supplied in <code>aMaxLength</code>; this is dependent  on the implementation.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aDoWriteL%28%29" title="Writes data to the stream from the specified data source"><code class="ApiItem">MStreamBuf::DoWriteL()</code></a></li>
+</ul>
+<a name="2.8.9"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aWrite%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Write()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Write(const TDesC8&amp; aDes,TRequestStatus&amp; aStatus);<br>&nbsp;&nbsp;&nbsp;&nbsp;</code></p><h4 class="subheading">Description</h4>
+<p>Writes data, asynchronously, from the specified descriptor into the  stream buffer; request completion is guaranteed, even if request initiation fails.</p><p>The function   calls the  virtual function <code>DoWriteL(const TDesC8&amp;,TInt,TRequestStatus&amp;)</code> to implement this behaviour. The maximum  number of bytes to be written is the value of the maximum length of the descriptor.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC8&amp; aDes</code></td>
+<td class="Cell"><p class="ValueDesc">The source  descriptor   for the data to be written into  the  stream buffer.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStatus</code></td>
+<td class="Cell"><p class="ValueDesc">The request status that indicates the completion status of this
+asynchronous request.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The maximum number of bytes to be written,   as used in this request.  This can be  different to the value   supplied in <code>aMaxLength</code>; this is dependent  on the implementation.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aDoWriteL%28%29" title="Writes data to the stream from the specified data source"><code class="ApiItem">MStreamBuf::DoWriteL()</code></a></li>
+</ul>
+<a name="2.9"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Positioning  read and write marks in the stream</h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aSeekL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SeekL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SeekL(TMark aMark,TStreamPos aPos);</code></p><h4 class="subheading">Description</h4>
+<p>Moves the position of the read or write mark in the stream.</p><p>The new position is calculated by adding the  specified value  to the position of the beginning of the stream.</p><p>The function   calls   virtual function <code>DoSeekL(TMark,TStreamLocation,TInt)</code> to implement this behaviour.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TMark aMark</code></td>
+<td class="Cell"><p class="ValueDesc">The type of mark, i.e. read or write.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamPos aLocation</code></td>
+<td class="Cell"><p class="ValueDesc">A stream position value on which the calculation of the new position is based.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Notes:</h4>
+<ul>
+<li><note>As there are two current positions, one for the read mark and one for the write mark, it is not valid, in general,  to    use a single call to <code>SeekL()</code>  to move both the read and write marks.</note></li>
+<li><note>Not all streams are seekable.</note></li>
+</ul>
+<a name="2.9.3"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3a%20SeekL%28%29"></a>
+<hr size="1" noshade>
+<h3><code> SeekL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TStreamPos SeekL(TMark aMark,TStreamLocation aLocation,TInt anOffset=0);</code></p><h4 class="subheading">Description</h4>
+<p>Moves the position of the read mark or the write  mark in the stream.</p><p>The new position is calculated by adding the  specified offset  to one of:</p><ul><li><p>the position of the beginning of the stream</p></li><li><p>the position of the end of the stream</p></li><li><p>the position of the current   read mark or write  mark.</p></li></ul><p>The function   calls the  virtual function <code>DoSeekL(TMark,TStreamLocation,TInt)</code> to implement this behaviour.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TMark aMark</code></td>
+<td class="Cell"><p class="ValueDesc">The type of mark, i.e read or write.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamLocation aLocation</code></td>
+<td class="Cell"><p class="ValueDesc">The location in the stream on which the calculation of the new position is based.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt anOffset</code></td>
+<td class="Cell"><p class="ValueDesc">The offset value.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamPos</code></td>
+<td class="Cell"><p class="ValueDesc">The new stream position of the  read or write mark.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Notes:</h4>
+<ul>
+<li><note>As there are two current positions, one for the read mark and one for the write mark, it is not valid, in general,  to    use a single call to <code>SeekL()</code>  to move both the read and write marks.</note></li>
+<li><note>Not all streams are seekable.</note></li>
+</ul>
+<a name="2.9.4"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aSeekL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SeekL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TStreamPos SeekL(TRead,TStreamLocation aLocation,TInt anOffset=0);</code></p><h4 class="subheading">Description</h4>
+<p>Moves the position of the read mark in the stream.</p><p>The new position is calculated by adding the  specified offset  to one of:</p><ul><li><p>the position of the beginning of the stream</p></li><li><p>the position of the end of the stream</p></li><li><p>the position of the current   read  mark.</p></li></ul><p>The function   calls the  virtual function <code>DoSeekL(TMark,TStreamLocation,TInt)</code> to implement this behaviour.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRead</code></td>
+<td class="Cell"><p class="ValueDesc">(The enumerator value is not used)</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamLocation aLocation</code></td>
+<td class="Cell"><p class="ValueDesc">The location in the stream on which the calculation of the new position is based.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt anOffset</code></td>
+<td class="Cell"><p class="ValueDesc">The offset value.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamPos</code></td>
+<td class="Cell"><p class="ValueDesc">The new stream position of the  read mark.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Notes:</h4>
+<ul>
+<li><note>Not all streams are seekable.</note></li>
+</ul>
+<a name="2.9.5"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aSeekL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SeekL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TStreamPos SeekL(TWrite,TStreamLocation aLocation,TInt anOffset=0);</code></p><h4 class="subheading">Description</h4>
+<p>Moves the position of the write mark in the stream.</p><p>The new position is calculated by adding the  specified offset  to one of:</p><ul><li><p>the position of the beginning of the stream</p></li><li><p>the position of the end of the stream</p></li><li><p>the position of the current   write  mark.</p></li></ul><p>The function   calls the  virtual function <code>DoSeekL(TMark,TStreamLocation,TInt)</code> to implement this behaviour.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TWrite</code></td>
+<td class="Cell"><p class="ValueDesc">(The enumerator value is not used)</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamLocation aLocation</code></td>
+<td class="Cell"><p class="ValueDesc">The location in the stream on which the calculation of the new position is based.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt anOffset</code></td>
+<td class="Cell"><p class="ValueDesc">The offset value.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamPos</code></td>
+<td class="Cell"><p class="ValueDesc">The new stream position of the  write mark.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Notes:</h4>
+<ul>
+<li><note>Not all streams are seekable.</note></li>
+</ul>
+<a name="2.9.6"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aSeekL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SeekL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TStreamPos SeekL(TRead,TInt anOffset);</code></p><h4 class="subheading">Description</h4>
+<p>Moves the position of the  read mark in the stream  by the specified offset.</p><p>The function   calls the  virtual function <code>DoSeekL(TMark,TStreamLocation,TInt)</code> to implement this behaviour.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRead</code></td>
+<td class="Cell"><p class="ValueDesc">(The enumerator value is not used)</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt anOffset</code></td>
+<td class="Cell"><p class="ValueDesc">The amount by which the position of the read mark is to be moved relative to the existing position of the read mark.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamPos</code></td>
+<td class="Cell"><p class="ValueDesc">The new stream position of the  read mark.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Notes:</h4>
+<ul>
+<li><note>Not all streams are seekable.</note></li>
+</ul>
+<a name="2.9.7"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aSeekL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SeekL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TStreamPos SeekL(TWrite,TInt anOffset);</code></p><h4 class="subheading">Description</h4>
+<p>Moves the position of the  write mark in the stream by the specified offset.</p><p>The function   calls the  virtual function <code>DoSeekL(TMark,TStreamLocation,TInt)</code> to implement this behaviour.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TWrite</code></td>
+<td class="Cell"><p class="ValueDesc">(The enumerator value is not used)</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt anOffset</code></td>
+<td class="Cell"><p class="ValueDesc">The amount by which the position of the write mark is to be moved relative to the existing position of the write mark.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamPos</code></td>
+<td class="Cell"><p class="ValueDesc">The new stream position of the  write mark.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Notes:</h4>
+<ul>
+<li><note>Not all streams are seekable.</note></li>
+</ul>
+<a name="2.10"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Closing and cleanup related activities</h2>
+</div><div class="Bodytext">
+<a name="2.10.2"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aSynch%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Synch()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Synch();</code></p><h4 class="subheading">Description</h4>
+<p>Synchronises the  stream buffer with the stream, returning any error.</p><p>In effect, this ensures that   buffered data is delivered to the stream.</p><p>This function calls <code>SynchL()</code> inside a <code>TRAPD</code> harness and returns the leave code if a leave occurs.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code>, if successful; otherwise one of  the other system wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aSynchL%28%29" title="Synchronises the stream buffer with the stream, leaving if any error occurs"><code class="ApiItem">MStreamBuf::SynchL()</code></a></li>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aDoSynchL%28%29" title="Synchronises the stream buffer with the stream, leaving if any error occurs"><code class="ApiItem">MStreamBuf::DoSynchL()</code></a></li>
+</ul>
+<a name="2.10.3"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aSynchL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SynchL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SynchL();</code></p><h4 class="subheading">Description</h4>
+<p>Synchronises the  stream buffer with the  stream, leaving if any error occurs.</p><p>In effect, this ensures that   buffered data is delivered to the stream.</p><p>The function   calls the  virtual function <code>DoSynchL()</code> to implement this behaviour.</p><h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aDoSynchL%28%29" title="Synchronises the stream buffer with the stream, leaving if any error occurs"><code class="ApiItem">MStreamBuf::DoSynchL()</code></a></li>
+</ul>
+<a name="2.10.4"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aRelease%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Release()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Release();</code></p><h4 class="subheading">Description</h4>
+<p>Frees resources before abandoning the stream buffer.</p><p>The function   calls the  virtual function <code>DoRelease()</code> to implement this behaviour.</p><p><code>Release()</code> is called by both <code>RReadStream::Release()</code> and <code>RWriteStream::Release()</code>.</p><h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aDoRelease%28%29" title="Frees resources before abandoning the stream buffer"><code class="ApiItem">MStreamBuf::DoRelease()</code></a></li>
+<li><a href="../Streaming/RReadStreamClass.html#%3a%3aRReadStream%3a%3aRelease%28%29" title="Frees resources before abandoning the stream"><code class="ApiItem">RReadStream::Release()</code></a></li>
+<li><a href="../Streaming/RWriteStreamClass.html#%3a%3aRWriteStream%3a%3aRelease%28%29" title="Frees resources before abandoning the stream"><code class="ApiItem">RWriteStream::Release()</code></a></li>
+</ul>
+<a name="2.10.5"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aClose%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Close()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Close();</code></p><h4 class="subheading">Description</h4>
+<p>Closes the stream buffer.</p><p>This function attempts to synchronise buffered data  with the  stream before freeing any resources. All errors are ignored.</p><h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aSynch%28%29" title="Synchronises the stream buffer with the stream, returning any error"><code class="ApiItem">MStreamBuf::Synch()</code></a></li>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aRelease%28%29" title="Frees resources before abandoning the stream buffer"><code class="ApiItem">MStreamBuf::Release()</code></a></li>
+</ul>
+<a name="2.10.6"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aPushL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PushL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void PushL();</code></p><h4 class="subheading">Description</h4>
+<p>Puts a cleanup item for this  object onto the cleanup stack.</p><p>This allows allocated resources to be cleaned up if a subsequent leave occurs.</p>
+<a name="2.11"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Accessors</h2>
+</div><div class="Bodytext">
+<a name="2.11.2"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aTellL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>TellL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TStreamPos TellL(TRead) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the position of the  read mark within the stream.</p><p>The function   calls the  virtual function <code>DoSeekL(TMark,TStreamLocation,TInt)</code> to implement this behaviour.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRead</code></td>
+<td class="Cell"><p class="ValueDesc">(The enumerator value is not used).</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamPos</code></td>
+<td class="Cell"><p class="ValueDesc">The stream position.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.3"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aTellL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>TellL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TStreamPos TellL(TWrite) <br>const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the position of the  write mark within the stream.</p><p>The function   calls the  virtual function <code>DoSeekL(TMark,TStreamLocation,TInt)</code> to implement this
+behaviour.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TWrite</code></td>
+<td class="Cell"><p class="ValueDesc">(The enumerator value is not used).</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamPos</code></td>
+<td class="Cell"><p class="ValueDesc">The stream position.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.4"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aSizeL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SizeL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt SizeL() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the size of the stream.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The size of the stream, in bytes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Virtual functions providing default behaviour</h2>
+</div><div class="Bodytext">
+<a name="2.12.2"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aDoReadL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DoReadL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>private : virtual TInt DoReadL(TAny* aPtr,TInt aMaxLength);</code></p><h4 class="subheading">Description</h4>
+<p>Reads data from the  stream buffer into the specified memory location.</p><p>This is  called by <code>ReadL(TAny*,TInt)</code>.</p><p>This class does not provide buffering capabilities and, therefore, this implementation     raises a STORE-Stream 10 panic. Buffering capabilities are supported by the derived class, <code>TStreamBuf</code>, which provides an implementation.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAny* aPtr</code></td>
+<td class="Cell"><p class="ValueDesc">A pointer to the target memory location  for the data read from this  stream buffer.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aMaxLength</code></td>
+<td class="Cell"><p class="ValueDesc">The maximum number of bytes  to be read.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The number of bytes  read.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aReadL%28%29" title="Reads data from the stream buffer into the specified data sink"><code class="ApiItem">MStreamBuf::ReadL()</code></a></li>
+<li><a href="TStreamBufClass.html#%3a%3aTStreamBuf%3a%3aDoReadL%28%29" title="Reads data from the intermediate buffer and, if necessary, any remaining data from the stream to the specified target stream input object"><code class="ApiItem">TStreamBuf::DoReadL()</code></a></li>
+</ul>
+<a name="2.12.3"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aDoReadL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DoReadL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>private : virtual TInt DoReadL(TDes8&amp; aDes,TInt aMaxLength,TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Reads data from the  stream buffer into the specified descriptor.</p><p>This function  is called by <code>ReadL(TDes8&amp;,TInt,TRequestStatus&amp;)</code>.</p><p>This implementation deals with the  request synchronously, and completes the request with <code>KErrNone</code>.  Other implementations may choose to deal with this in a true asynchronous manner.</p><p>In addition, the read operation itself uses the <code>DoReadL(TAny*,TInt)</code> variant.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes8&amp; aDes</code></td>
+<td class="Cell"><p class="ValueDesc">The target descriptor   for the data read from the stream buffer. On return, the length of the descriptor is set to the number of bytes read from the stream buffer.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aMaxLength</code></td>
+<td class="Cell"><p class="ValueDesc">The maximum number of bytes  to be read. This value must not be greater than the maximum length of the descriptor, otherwise the function raises a  STORE-Stream 2 panic.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStatus</code></td>
+<td class="Cell"><p class="ValueDesc">The request status that indicates the completion status of this
+asynchronous request.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The maximum number of bytes to be read,   as used in this request. This implementation uses, and returns, the value supplied in   <code>aMaxLength</code>. Other implementations may choose to use a  different value.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aReadL%28%29" title="Reads data from the stream buffer into the specified data sink"><code class="ApiItem">MStreamBuf::ReadL()</code></a></li>
+</ul>
+<a name="2.12.4"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aDoReadL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DoReadL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>private : virtual TStreamTransfer DoReadL(MStreamInput&amp; anInput,TStreamTransfer aTransfer);</code></p><h4 class="subheading">Description</h4>
+<p>Reads data from the stream into the specified data sink.</p><p>It is called by  <code>ReadL(MStreamInput&amp;,TStreamTransfer)</code>.</p><p>This implementation   calls the sink's  <code>ReadFromL()</code> function, which performs the read (transfer) operation.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">MStreamInput&amp; anInput</code></td>
+<td class="Cell"><p class="ValueDesc">The target data sink.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamTransfer aTransfer</code></td>
+<td class="Cell"><p class="ValueDesc">A stream transfer object defining the amount of data available to be read.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamTransfer</code></td>
+<td class="Cell"><p class="ValueDesc">A stream transfer object defining the amount of data that was not consumed.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Notes:</h4>
+<ul>
+<li><note>This implementation of <code>DoReadL()</code> is called for streams that do not have buffering capabilities, and that are derived directly from this class.</note></li>
+</ul>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamInputClass.html#%3a%3aMStreamInput%3a%3aReadFromL%28%29" title="Reads data from the specified stream into this stream input object"><code class="ApiItem">MStreamInput::ReadFromL()</code></a></li>
+</ul>
+<a name="2.12.5"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aDoWriteL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DoWriteL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>private : virtual void DoWriteL(const TAny* aPtr,TInt aLength);</code></p><h4 class="subheading">Description</h4>
+<p>Writes  data from the specified memory location into the stream buffer.</p><p>This is  called by <code>WriteL(const TAny*,TInt)</code>.</p><p>This class does not provide buffering capabilities and, therefore, this implementation    raises a STORE-Stream 11 panic. Buffering capabilities are supported by the derived class, <code>TStreamBuf</code>, which provides an   implementation.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TAny* aPtr</code></td>
+<td class="Cell"><p class="ValueDesc">A pointer to the source  memory location  for the data to be written to this stream buffer.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aLength</code></td>
+<td class="Cell"><p class="ValueDesc">The number of bytes  to be written.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aWriteL%28%29" title="Writes data into the stream buffer from the specified data source"><code class="ApiItem">MStreamBuf::WriteL()</code></a></li>
+<li><a href="TStreamBufClass.html#%3a%3aTStreamBuf%3a%3aDoWriteL%28%29" title="Writes data to the intermediate buffer and then, if necessary, to the stream from the specified source stream output object"><code class="ApiItem">TStreamBuf::DoWriteL()</code></a></li>
+</ul>
+<a name="2.12.6"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aDoWriteL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DoWriteL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>private : virtual TInt DoWriteL(const TDesC8&amp; aDes,TInt aMaxLength,TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Writes data from the specified descriptor into this stream buffer.</p><p>This function  is called by <code>WriteL(const TDesC8&amp;,TInt,TRequestStatus&amp;)</code>.</p><p>This implementation deals with the  request synchronously, and completes the request with <code>KErrNone</code>. Other implementations may choose to deal with this in a true asynchronous manner.</p><p>In addition, the write operation itself uses the <code>DoWriteL(TAny*,TInt)</code> variant.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC8&amp; aDes</code></td>
+<td class="Cell"><p class="ValueDesc">The source  descriptor   for the data to be written into the  stream buffer.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aMaxLength</code></td>
+<td class="Cell"><p class="ValueDesc">The number of bytes to be written. This value must not be greater than the maximum length of the descriptor, otherwise the function raises a  STORE-Stream 6 panic.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStatus</code></td>
+<td class="Cell"><p class="ValueDesc">The request status that indicates the completion status of this
+asynchronous request.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The maximum number of bytes to be written,   as used in this request. This implementation uses, and returns, the value supplied in   <code>aMaxLength</code>. Other implementations may choose to use a  different value.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aWriteL%28%29" title="Writes data into the stream buffer from the specified data source"><code class="ApiItem">MStreamBuf::WriteL()</code></a></li>
+</ul>
+<a name="2.12.7"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aDoWriteL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DoWriteL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>private : virtual TStreamTransfer DoWriteL(MStreamOutput&amp; anOutput,TStreamTransfer aTransfer);</code></p><h4 class="subheading">Description</h4>
+<p>Writes data to the  stream  from the specified data source.</p><p>It is called by  <code>WriteL(MStreamOutput&amp;,TStreamTransfer)</code>.</p><p>This implementation  calls the target stream output object's <code>WriteToL()</code> function, which performs the write (transfer) operation.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">MStreamOutput&amp; anInput</code></td>
+<td class="Cell"><p class="ValueDesc">The data source.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamTransfer aTransfer</code></td>
+<td class="Cell"><p class="ValueDesc">A stream transfer object defining the amount of data available to be written.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamTransfer</code></td>
+<td class="Cell"><p class="ValueDesc">The amount of data that was not consumed.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Notes:</h4>
+<ul>
+<li><note>This implementation of <code>DoReadL()</code> is called for streams that do not have buffering capabilities, and that are derived directly from this class.</note></li>
+</ul>
+<a name="2.12.8"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aDoSeekL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DoSeekL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>private : virtual TStreamPos DoSeekL(TMark aMark,TStreamLocation aLocation,TInt anOffset);</code></p><h4 class="subheading">Description</h4>
+<p>Moves the position of the  read/write mark in the stream.</p><p>The new position is calculated by adding the  specified offset  to one of:</p><ul><li><p>the beginning of the stream</p></li><li><p>the end of the stream</p></li><li><p>the current   position of the read/write  mark.</p></li></ul><p>It is  called by all variations of  <code>SeekL()</code> and <code>Seek()</code>.</p><p>Not all streams are seekable, and this default implementation    raises a STORE-Stream 12 panic. Streams that are seekable must provide a suitable implementation.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TMark aMark</code></td>
+<td class="Cell"><p class="ValueDesc">The type of mark (read or write) whose position is to be set.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamLocation aLocation</code></td>
+<td class="Cell"><p class="ValueDesc">The location in the stream on which the calculation of the new position is based.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt anOffset</code></td>
+<td class="Cell"><p class="ValueDesc">The offset from the specified location.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamPos</code></td>
+<td class="Cell"><p class="ValueDesc">The new  stream position of the  read/write mark.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aSeekL%28%29" title="Moves the position of the write mark in the stream by the specified offset"><code class="ApiItem">MStreamBuf::SeekL()</code></a></li>
+</ul>
+<a name="2.12.9"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aDoRelease%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DoRelease()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>private : virtual void DoRelease();</code></p><h4 class="subheading">Description</h4>
+<p>Frees resources before abandoning the stream buffer.</p><p>It is called by <code>Release()</code>.</p><p>This implementation    is empty, but  classes derived from <code>MStreamBuf</code> can provide their own implementation, if necessary.</p><h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aRelease%28%29" title="Frees resources before abandoning the stream buffer"><code class="ApiItem">MStreamBuf::Release()</code></a></li>
+</ul>
+<a name="2.12.10"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aDoSynchL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DoSynchL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>private : virtual void DoSynchL();</code></p><h4 class="subheading">Description</h4>
+<p>Synchronises the stream buffer with the    stream, leaving if any error occurs.</p><p>In effect, this  ensures that  buffered data is delivered to the stream.</p><p>It is called by <code>SynchL()</code>.</p><p>This implementation is empty, but classes derived from <code>MStreamBuf</code> can provide their own implementation, if necessary.</p>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aSynchL%28%29" title="Synchronises the stream buffer with the stream, leaving if any error occurs"><code class="ApiItem">MStreamBuf::SynchL()</code></a></li>
+</ul>
+<a name="2.13"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>enumerations</h2>
+</div><div class="Bodytext">
+<a name="2.13.2"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aTRead"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TRead</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TRead</code></p><h4 class="subheading">Description</h4>
+<p>Indicates  that an operation applies to the   read mark  in a stream or to the  read  area in an stream buffer.</p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aMStreamBuf%3a%3aERead"><code class="Value">ERead</code></a></td>
+<td class="Cell"><p class="ValueDesc"><para>The flag bit  used to indicate that an operation applies to  the read mark in a stream or to the read   area in an stream buffer.</para></p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.3"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aTWrite"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TWrite</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TWrite</code></p><h4 class="subheading">Description</h4>
+<p>Indicates that an operation applies to the   write mark  in a stream or to the  write  area in an  stream buffer.</p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aMStreamBuf%3a%3aEWrite"><code class="Value">EWrite</code></a></td>
+<td class="Cell"><p class="ValueDesc"><para>The flag bit  used to indicate that an operation applies to  the write mark in a stream or to the write  area in an  stream buffer.</para></p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Typedefs</h2>
+</div><div class="Bodytext">
+<a name="2.14.2"></a></div><div class="Head3">
+<a name="%3a%3aMStreamBuf%3a%3aTMark"></a>
+<hr size="1" noshade>
+<h3>Typedef <code>TMark</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>typedef TInt TMark;</code></p><h4 class="subheading">Description</h4>
+<p>Used to identify the type of mark in a stream.</p><p>The type is used by  functions of this class and derived classes that perform seek operations to marks  within  a stream.</p><p>The type uses the <code>ERead</code> and <code>EWrite</code> enumeration values, as bit flags, to identify the read and write marks  respectively.</p><p>
+<code>ERead</code> is an <code>MStreamBuf::TRead</code> enumerator. <code>EWrite</code> is an <code>MStreamBuf::EWrite</code> enumerator.</p><h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTRead" title="Indicates that an operation applies to the read mark in a stream or to the read area in an stream buffer"><code class="ApiItem">MStreamBuf::TRead</code></a></li>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTWrite" title="Indicates that an operation applies to the write mark in a stream or to the write area in an stream buffer"><code class="ApiItem">MStreamBuf::TWrite</code></a></li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

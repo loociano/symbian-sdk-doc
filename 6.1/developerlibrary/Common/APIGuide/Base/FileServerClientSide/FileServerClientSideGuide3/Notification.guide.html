@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to implement CFileMan operation observers</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="FileServerClientSideGuide3%2enotification"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="ClassCFileMan.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="ClassTFindFileExample.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">File&nbsp;Server&nbsp;Client&nbsp;Side</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">File&nbsp;management&nbsp;and&nbsp;searching</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;implement&nbsp;CFileMan&nbsp;operation&nbsp;observers</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to implement <code>CFileMan</code> operation
+observers</h1>
+</div><div class="Bodytext">
+<p>To be notified of events resulting from <code>CFileMan</code>
+operations, implement a file notification observer interface
+<code>MFileManObserver</code>.</p>
+<p>Notification functions are called before or after each entry has been
+processed, or during a file copy or move. This notification can be used to
+provide information about the state of the operation, such as error messages,
+the names of the target and destination files, and the number of bytes
+transferred during a copy operation. </p>
+<p>The interface can also be used to allow the user to cancel, retry or
+continue processing an entry, or to abort the whole operation.
+<code>TControl</code> encapsulates these options.</p>
+<p>The following example defines a class that implements
+<code>MFileManObserver</code> to monitor a file copy operation.</p>
+<p class="CodeBlock"><code>/** <br>&nbsp;&nbsp;&nbsp;&nbsp;Monitors file copy events, and prints out the progress.<br>*/<br>class TFileCopyProgressMonitor : public MFileManObserver<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>public:<br>&nbsp;&nbsp;&nbsp;&nbsp;/** <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Constructor.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@param aFileMan Used to obtain the number of bytes currently copied <br>&nbsp;&nbsp;&nbsp;&nbsp;*/<br>&nbsp;&nbsp;&nbsp;&nbsp;TFileCopyProgressMonitor(CFileMan&amp; aFileMan);<br>private:<br>&nbsp;&nbsp;&nbsp;&nbsp;// Virtuals defined by MFileManObserver<br>&nbsp;&nbsp;&nbsp;&nbsp;TControl NotifyFileManStarted();<br>&nbsp;&nbsp;&nbsp;&nbsp;TControl NotifyFileManOperation();<br>&nbsp;&nbsp;&nbsp;&nbsp;TControl NotifyFileManEnded();&nbsp;&nbsp;&nbsp;&nbsp;<br>private:<br>&nbsp;&nbsp;&nbsp;&nbsp;CFileMan&amp; iFileMan;<br>&nbsp;&nbsp;&nbsp;&nbsp;};<br><br><br><br>TFileCopyProgressMonitor::TFileCopyProgressMonitor(CFileMan&amp; aFileMan)<br>:iFileMan(aFileMan)<br>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>// Called when copy operation started<br>MFileManObserver::TControl TFileCopyProgressMonitor::NotifyFileManStarted()<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;console-&gt;Printf(KStarted);<br>&nbsp;&nbsp;&nbsp;&nbsp;return EContinue;<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>// Called when copy operation is in progress<br>MFileManObserver::TControl TFileCopyProgressMonitor::NotifyFileManOperation()<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;console-&gt;Printf(KProgress,iFileMan.BytesTransferredByCopyStep());<br>&nbsp;&nbsp;&nbsp;&nbsp;return EContinue;<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>// Called when copy operation is complete<br>MFileManObserver::TControl TFileCopyProgressMonitor::NotifyFileManEnded()<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;console-&gt;Printf(KComplete);<br>&nbsp;&nbsp;&nbsp;&nbsp;return EContinue;<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

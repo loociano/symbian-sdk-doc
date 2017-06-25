@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Externalizing a Swizzle</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="StoreStreamsGuide3%2eswizzles%2dexternalizing"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="SwizzlesAndDeferredLoadingIntroduction.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="InternalisingASwizzle.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Store&nbsp;Streams</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Swizzled&nbsp;and&nbsp;deferred&nbsp;loading</a>&nbsp;<span class="separator">&#187;</span>
+Externalizing&nbsp;a&nbsp;Swizzle</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Externalising a Swizzle</h1>
+</div><div class="Bodytext">
+<p>Typically, externalizing a Swizzle is a two stage process which
+involves:</p>
+<ul>
+<li>
+<p>externalizing the in-memory object which the Swizzle represents,
+to its own stream</p>
+</li>
+<li>
+<p>externalizing the resulting stream ID.</p>
+</li>
+</ul>
+<p>For example, given a container type object, <code>CClassABC</code>,
+with a data member <code>TSwizzle&lt;CClassB&gt;&nbsp;iB</code> representing
+a <code>CClassB</code> object in memory, the diagram below illustrates the
+result of storing the container object.</p>
+<div class="Figure">
+<p class="Image"><img src="SwizzleExt.gif" alt=""  border="0"></p>
+</div>
+<p>The following code fragments illustrates the process.</p>
+<p><code>iB</code> is a <code>CClassB</code> type component of a class
+<code>CClassABC</code>, and is represented by a Swizzle. The data member is
+defined as:</p>
+<p class="CodeBlock"><code>class CCClassABC : public CBase<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;TSwizzle&lt;CClassB&gt; iB;<br>&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>Typically, a <code>CClassB</code> object is constructed and assigned
+to <code>iB</code>; this uses the Swizzle&#8217;s assignment operator:</p>
+<p class="CodeBlock"><code>iB = CClassB::NewL();</code></p>
+<p>The Swizzle now represents the <code>CClassB</code> object by
+pointer.</p>
+<p>The <code>StoreL()</code> member function of <code>CClassABC</code>
+constructs a store map, an object of type <code>CStoreMap</code>, before
+calling <code>StoreComponentsL()</code> to externalise the swizzled
+<code>CClassB</code> object to its own stream.</p>
+<p class="CodeBlock"><code>TStreamId CClassABC::StoreL() const<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;CStoreMap* map=CStoreMap::NewLC(iStore);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;StoreComponentsL(*map);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RStoreWriteStream stream(*map);<br>&nbsp;&nbsp;&nbsp;&nbsp;TStreamId id=stream.CreateLC(iStore);<br>&nbsp;&nbsp;&nbsp;&nbsp;ExternalizeL(stream);<br>&nbsp;&nbsp;&nbsp;&nbsp;stream.CommitL();<br><br>&nbsp;&nbsp;&nbsp;&nbsp;map-&gt;Reset();<br>&nbsp;&nbsp;&nbsp;&nbsp;CleanupStack::PopAndDestroy(2);<br>&nbsp;&nbsp;&nbsp;&nbsp;return id;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>The variable <code>iStore</code> is a member of
+<code>CClassABC</code> containing a reference to the store.</p>
+<p><code>StoreComponentsL()</code> externalises the swizzled
+<code>CClassB</code> object by calling <code>CClassB</code>’s own
+<code>StoreL() </code>member function which constructs a stream, externalises
+itself to the stream and returns the ID of that stream:</p>
+<p class="CodeBlock"><code>void CClassABC::StoreComponentsL(CStoreMap&amp; aMap) const<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TStreamId id;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (iB)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id = iB-&gt;StoreL(iStore); // Id of the CClassB stream <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aMap.BindL(iB,id);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>The Swizzle must represent the <code>CClassB</code> type object as a
+pointer, i.e. the swizzled object must be in memory. The
+<code>operator-&gt;</code> applied to the Swizzle <code>iB</code> gives access
+to the <code>StoreL()</code> member function of the <code>CClassB</code>
+object.</p>
+<p>The condition <code>if (iB)</code> is equivalent to <code>if
+(iB.IsPtr())</code> and returns true only if the Swizzle represents the
+<code>CClassB</code> object as a pointer . The act of externalizing the
+<code>CClassB</code> object, does not, and need not change the way that the
+Swizzle represents that object. Here, the <code>CClassB</code> object remains
+in memory and the Swizzle maintains its representation of it as a pointer, even
+after it has been externalised.</p>
+<p>The Stream ID of the externalised <code>CClassB</code> object is
+stored in the store map along with the associated Swizzle using
+<code>CStoreMap</code>’s <code>BindL() </code>member function .The store map
+is used again later when the stream ID is externalised as part of
+<code>CClassABC</code>’s data.</p>
+<p>The <code>ExternalizeL()</code> member function of
+<code>CClassABC</code> externalises <code>CClassABC</code>'s member data. This
+includes the stream ID of the externalised <code>CClassB</code> object which is
+externalised by applying the templated stream <code>operator&lt;&lt;</code> to
+the Swizzle <code>iB</code>.</p>
+<p class="CodeBlock"><code>void CCompound::ExternalizeL(RWriteStream&amp; aStream) const<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;aStream &lt;&lt; iB<br>&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>At this point, the Swizzle still represents the <code>CClassB</code>
+object as a pointer, and the object itself is still in memory.</p>
+<p>The mechanism underlying the implementation of the stream
+<code>operator&lt;&lt;</code>, assumes that the stream ID associated with the
+Swizzle has been placed in the store map. It also assumes that the
+<code>RStoreWriteStream</code> object has been constructed, specifying the
+store map as an externalizer.</p>
+<p>The end result of the operation <code>aStream &lt;&lt; iB;</code>, is
+to externalise, to the stream, the stream ID associated with the Swizzle
+<code>iB</code>. The following diagram shows this:</p>
+<div class="Figure">
+<p class="Image"><img src="SwizzleExtMap.gif" alt=""  border="0"></p>
+</div>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>MFepAttributeStorer</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="MCoeFepObserverClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="MFepInlineTextFormatRetrieverClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Front&nbsp;End&nbsp;Processors</a>&nbsp;<span class="separator">&#187;</span>
+MFepAttributeStorer</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>fepbase.h</code>
+<br>Link against: <code>fepbase.lib</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aMFepAttributeStorer"></a>
+
+<h1>Class <code>MFepAttributeStorer</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>MFepAttributeStorer</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Protocol for storing, restoring and synchronising FEP attributes.
+</p><p>An abstract base class for  <code>CCoeFep</code>, so FEPs must
+implement the pure virtual functions declared in this class.</p>
+<p>Rather than using a single device-wide instance of a FEP, each application has its own instance of the FEP. <code>MFepAttributeStorer</code> provides a framework for synchronising
+FEP
+attributes across each running instance of the same FEP. For this to happen, the FEP must implement
+<code>MFepAttributeStorer::WriteAttributeDataToStreamL()</code> and
+<code>MFepAttributeStorer::ReadAttributeDataFromStreamL()</code>.</p><p> Attributes
+are FEP-specific, and are identified by a UID which can be accessed using
+<code>AttributeAtIndex()</code>. An example of a FEP attribute might be whether
+inline editing is enabled or disabled.</p><p>Defined in <code>MFepAttributeStorer</code>:
+<br><code class="ApiItem"><a href="MFepAttributeStorerClass.html#%3a%3aMFepAttributeStorer%3a%3aAttributeAtIndex%28%29" title="Returns the UID of the FEP attribute at the index specified">AttributeAtIndex()</a></code>, <code class="ApiItem"><a href="MFepAttributeStorerClass.html#%3a%3aMFepAttributeStorer%3a%3aNumberOfAttributes%28%29" title="Returns the total number of FEP attributes">NumberOfAttributes()</a></code>, <code class="ApiItem"><a href="MFepAttributeStorerClass.html#%3a%3aMFepAttributeStorer%3a%3aReadAllAttributesL%28%29" title="Reads all of the FEP's attributes from the system settings">ReadAllAttributesL()</a></code>, <code class="ApiItem"><a href="MFepAttributeStorerClass.html#%3a%3aMFepAttributeStorer%3a%3aReadAttributeDataFromStreamL%28%29" title="Reads the value of the attribute identified by the UID specified in aAttributeUid from the specified read stream">ReadAttributeDataFromStreamL()</a></code>, <code class="ApiItem"><a href="MFepAttributeStorerClass.html#%3a%3aMFepAttributeStorer%3a%3aWriteAttributeDataAndBroadcastL%28%29" title="Call this function after changing the value of multiple attributes that need to be synchronised">WriteAttributeDataAndBroadcastL()</a></code>, <code class="ApiItem"><a href="MFepAttributeStorerClass.html#%3a%3aMFepAttributeStorer%3a%3aWriteAttributeDataToStreamL%28%29" title="Writes the value of the attribute specified to the specified write stream">WriteAttributeDataToStreamL()</a></code>
+</p>
+<a name="2.5"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Read/write attributes</h2>
+</div><div class="Bodytext">
+<a name="2.5.2"></a></div><div class="Head3">
+<a name="%3a%3aMFepAttributeStorer%3a%3aReadAllAttributesL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ReadAllAttributesL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ReadAllAttributesL(CCoeEnv&amp; aConeEnvironment);</code></p><h4 class="subheading">Description</h4>
+<p>Reads all of the FEP's attributes from the system settings.
+Calls the implementation of <code>ReadAttributeDataFromStreamL()</code> for
+each attribute.</p>
+<p>This function has identical behaviour to
+<code>CCoeFep::ReadAllAttributesL()</code>.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CCoeEnv&amp; aConeEnvironment</code></td>
+<td class="Cell"><p class="ValueDesc">Cone environment, provides a file server session.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.5.3"></a></div><div class="Head3">
+<a name="%3a%3aMFepAttributeStorer%3a%3aWriteAttributeDataToStreamL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>WriteAttributeDataToStreamL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void WriteAttributeDataToStreamL(TUid aAttributeUid, RWriteStream&amp; aStream) const=0;</code></p><h4 class="subheading">Description</h4>
+<p>Writes the value of the attribute specified to the specified
+write stream.</p>
+<p>Called by
+<code>MFepAttributeStorer::WriteAttributeDataAndBroadcastL()</code> for each
+attribute passed to it.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUid aAttributeUid</code></td>
+<td class="Cell"><p class="ValueDesc">UID of the attribute to write to the stream.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">RWriteStream&amp; aStream</code></td>
+<td class="Cell"><p class="ValueDesc">The stream to which to write the attribute.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.5.4"></a></div><div class="Head3">
+<a name="%3a%3aMFepAttributeStorer%3a%3aReadAttributeDataFromStreamL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ReadAttributeDataFromStreamL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void ReadAttributeDataFromStreamL(TUid aAttributeUid, RReadStream&amp; aStream)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Reads the value of the attribute identified by the UID specified in
+<code>aAttributeUid</code> from the specified read stream. You should take
+appropriate action if the attribute has changed e.g. if inline editing has been
+disabled, you might cancel the current transaction.</p>
+<p>This function is called by
+<code>MFepAttributeStorer::ReadAllAttributesL()</code> for all attributes. It
+is also called when the FEP receives a message that an attribute has been
+changed by another running instance of the FEP (using
+<code>WriteAttributeDataAndBroadcastL()</code>).</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUid aAttributeUid</code></td>
+<td class="Cell"><p class="ValueDesc">Identifies the attribute whose value should be read.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">RReadStream&amp; aStream</code></td>
+<td class="Cell"><p class="ValueDesc">Read stream from which to read the attribute's value.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.5.5"></a></div><div class="Head3">
+<a name="%3a%3aMFepAttributeStorer%3a%3aWriteAttributeDataAndBroadcastL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>WriteAttributeDataAndBroadcastL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void WriteAttributeDataAndBroadcastL(CCoeEnv&amp; aConeEnvironment, TUid aAttributeUid);</code></p><h4 class="subheading">Description</h4>
+<p>Call this function after changing the value of an attribute that
+needs to be synchronised. Writes the new value to the system-wide settings and
+causes all other running instances of the FEP to be notified of the
+change.</p>
+<p>A panic occurs if <code>aAttributeUid</code> is not one of the FEP's
+attributes.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CCoeEnv&amp; aConeEnvironment</code></td>
+<td class="Cell"><p class="ValueDesc">The FEP's cone environment.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUid aAttributeUid</code></td>
+<td class="Cell"><p class="ValueDesc">The UID of the attribute whose value has changed.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.5.6"></a></div><div class="Head3">
+<a name="%3a%3aMFepAttributeStorer%3a%3aWriteAttributeDataAndBroadcastL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>WriteAttributeDataAndBroadcastL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void WriteAttributeDataAndBroadcastL(CCoeEnv&amp; aConeEnvironment, const TArray&lt;TUid&gt;&amp; aAttributeUids);</code></p><h4 class="subheading">Description</h4>
+<p>Call this function after changing the value of multiple attributes that
+need to be synchronised. Writes the new values to the system settings, and
+causes all other running instances of the FEP to be notified of the
+change.</p>
+<p>A panic occurs if any of the attributes contained in
+<code>aAttributeUids</code> are not among the FEP's
+attributes.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CCoeEnv&amp; aConeEnvironment</code></td>
+<td class="Cell"><p class="ValueDesc">The FEP's cone environment.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TArray&lt;TUid&gt;&amp; aAttributeUids</code></td>
+<td class="Cell"><p class="ValueDesc">Array of UIDs of the attribute whose values have changed.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Get attributes</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aMFepAttributeStorer%3a%3aNumberOfAttributes%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NumberOfAttributes()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt NumberOfAttributes() const=0;</code></p><h4 class="subheading">Description</h4>
+<p>Returns the total number of FEP attributes.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The number of FEP attributes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aMFepAttributeStorer%3a%3aAttributeAtIndex%28%29"></a>
+<hr size="1" noshade>
+<h3><code>AttributeAtIndex()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TUid AttributeAtIndex(TInt aIndex) const=0;</code></p><h4 class="subheading">Description</h4>
+<p>Returns the UID of the FEP attribute at the index
+specified.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aIndex</code></td>
+<td class="Cell"><p class="ValueDesc">An array index.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUid</code></td>
+<td class="Cell"><p class="ValueDesc">The UID of the FEP attribute at <code>aIndex</code>.</p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

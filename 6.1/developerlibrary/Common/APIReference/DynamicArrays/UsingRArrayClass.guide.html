@@ -1,0 +1,168 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Using RArray&lt;class T&gt;</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="dynamicarrays%2eusing%2eRArray"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="UsingCArrayVarTAnyClass.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="UsingRPointerArrayClass.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Dynamic&nbsp;Arrays</a>&nbsp;<span class="separator">&#187;</span>
+Using&nbsp;RArray&lt;class&nbsp;T&gt;</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Using <code>RArray&lt;class T&gt;</code></h1>
+</div><div class="Bodytext">
+<a name="dynamicarrays%2eusing%2eRArray%2ebeforeoutofscope"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Before the array before it goes out of scope</h2>
+</div><div class="Bodytext">
+<p>By convention, class names starting with the letter <code>R</code>
+do not allocate memory on the heap. <a href="RArrayClass.html#%3a%3aRArray" title="A simple and efficient array of fixed length objects"><code class="ApiItem">RArray</code></a><code>&lt;class
+T&gt;</code> is an <i>exception</i> and this should be remembered
+when using the class.</p>
+<p>If an array is declared on the program stack, then its
+<code>Close()</code> or <code>Reset()</code> member function must be called to
+ensure that allocated memory is freed.</p>
+<p>Similarly, if <code>RArray&lt;class T&gt;</code> is a data member
+of another class, then the destructor of that class must call
+<code>Close()</code> or <code>Reset()</code>.</p>
+<a name="dynamicarrays%2eusing%2eRArray%2eorderalogorithm"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Packaging the algorithm for ordering array
+objects</h2>
+</div><div class="Bodytext">
+<p>A <code>RArray&lt;class T&gt;</code> array allows its contained
+objects to be ordered. The array provides the behaviour for inserting and
+sorting instances of the template class <code>T</code>. To help with this, the
+template class <code>T</code> must provide an algorithm for deciding how two
+class <code>T</code> objects are ordered. This algorithm is implemented by a
+function which must be wrapped in a <code>TLinearOrder&lt;class T&gt;</code>
+package.</p>
+<p>The function implementing the algorithm can be a static member of
+the class <code>T</code> but need not necessarily be so.</p>
+<p>Here, we aim to build an array of <code>TMyTest</code> objects
+ordered in a way which makes sense for the <code>TMyTest</code> class.</p>
+<p class="CodeBlock"><code>class TMyTest<br>&nbsp;{ <br>public :<br>&nbsp;TMyTest(TInt anAint,TInt aBint);<br>&nbsp;static TInt Compare(const TMyTest&amp; aFirst, const TMyTest&amp; Second);<br>public:<br>&nbsp;TInt a;<br>&nbsp;TInt b;<br>&nbsp;};</code></p>
+<p>In this example , the algorithm is implemented by a static function
+called <code>Compare()</code>. It takes const references to two
+<code>TMyTest</code> objects and returns zero if the objects are equal, a
+negative value if <code>aFirst</code> is less than <code>aSecond</code> and a
+positive value if <code>aFirst</code> is greater than
+<code>aSecond</code>.</p>
+<p class="CodeBlock"><code>TInt TMyTest::Compare(const TMyTest&amp; aFirst,const TMyTest&amp; aSecond)<br>&nbsp;{<br>&nbsp;if (aFirst.b &lt; aSecond.b)<br>&nbsp;&nbsp;return -1;<br>&nbsp;if (aFirst.b &gt; aSecond.b)<br>&nbsp;&nbsp;return 1;<br>&nbsp;return 0;<br>&nbsp;}</code></p>
+<p>Construct three <code>TMyTest</code> objects and then construct an
+array object for an array of <code>TMyTest</code> objects; the array has
+default granularity.</p>
+<p class="CodeBlock"><code>TMyTest one(1,1);<br>TMyTest two(2,2);<br>TMyTest three(3,3);<br>...<br>RArray&lt;TMyTest&gt; x;</code></p>
+<p>There are at least three ways of proceeding, some of which are more
+efficient than others.</p>
+<ul>
+<li>
+<p>Explicitly build a <code>TLinearOrder&lt;TMyTest&gt;</code> and
+pass this as a parameter to <code>InsertInOrder()</code>.</p>
+</li>
+</ul>
+<p class="CodeBlock"><code>...<br>TLinearOrder&lt;TMyTest&gt; order(TMyTest::Compare);<br>...<br>x.InsertInOrder(one,order);<br>...</code></p>
+<ul>
+<li>
+<p>Construct a temporary <code>TLinearOrder&lt;TMyTest&gt;</code>
+on the call to <code>InsertInOrder()</code>.</p>
+</li>
+</ul>
+<p class="CodeBlock"><code>...<br>x.InsertInOrder(one,TLinearOrder&lt;TMyTest&gt;(TMyTest::Compare));<br>...</code></p>
+<ul>
+<li>
+<p>Implicitly construct a temporary
+<code>TLinearOrder&lt;TMyTest&gt;</code> on the call to
+<code>InsertOrder()</code>.</p>
+</li>
+</ul>
+<p class="CodeBlock"><code>...<br>x.InsertInOrder(one,TMyTest::Compare);<br>...</code></p>
+<p>This applies to all member functions of <code>RArray&lt;class
+T&gt;</code> which take a <code>TLinearOrder&lt;class T&gt;</code>
+argument.</p>
+<a name="dynamicarrays%2eusing%2eRArray%2ematchalogorithm"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Packaging the algorithm for matching array objects</h2>
+</div><div class="Bodytext">
+<p>One of the <code>Find()</code> member functions of <code>RArray&lt;class
+T&gt;</code> takes a <code>TIdentityRelation&lt;class T&gt;</code> as an
+argument. This packages a function which implements an algorithm for deciding
+whether two class <code>T</code> objects match.</p>
+<p>The packaging technique is the same as for the previous section. As an
+example, we can extend the class <code>TMyTest</code> used in<a href="UsingRArrayClass.guide.html#dynamicarrays%2eusing%2eRArray%2eorderalogorithm" title="Using RArray&lt;class T&gt; / Packaging the algorithm for ordering array objects">Packaging the algorithm for ordering array objects</a>by adding another static function called
+<code>Match()</code>.</p>
+<p class="CodeBlock"><code>class TMyTest<br>&nbsp;{ <br>public :<br>&nbsp;TMyTest(TInt anAint,TInt aBint);<br>&nbsp;static TInt Compare(const TMyTest&amp; aFirst, const TMyTest&amp; Second);<br>&nbsp;static TBool Match(const TMyTest&amp; aFirst, const TMyTest&amp; Second);<br>public:<br>&nbsp;TInt a;<br>&nbsp;TInt b;<br>&nbsp;};</code></p>
+<p>A typical implementation for <code>Match()</code> might be:</p>
+<p class="CodeBlock"><code>TBool TMyTest::Match(const TMyTest&amp; aFirst,const TMyTest&amp; aSecond)<br>&nbsp;{<br>&nbsp;if ((aFirst.a == aSecond.a) &amp;&amp; (aFirst.b == aSecond.b))<br>&nbsp;&nbsp;return ETrue;<br>&nbsp;return EFalse;<br>&nbsp;}</code></p>
+<p>So, given an array:</p>
+<p class="CodeBlock"><code>RArray&lt;TMyTest&gt; x;RArray&lt;TMyTest&gt; x;</code></p>
+<p>populated with a number <code>TMyTest</code> objects, we can
+package<code>TMyTest</code>'s matching function in at least three ways.</p>
+<ul>
+<li>
+<p>Explicitly build a <code>TIdentityRelation&lt;TMyTest&gt;</code> and pass
+this as a parameter to <code>Find()</code>; for example:</p>
+</li>
+</ul>
+<p class="CodeBlock"><code>...<br>TIdentityRelation&lt;TMyTest&gt; matcher(TMyTest::Match);<br>...<br>TMyTest hunter(9,9);<br>TInt index = x.Find(hunter,order);<br>if (index == KErrNotFound)<br>&nbsp;{<br>&nbsp;...<br>&nbsp;}<br>...</code></p>
+<ul>
+<li>
+<p>Construct a temporary <code>TIdentityRelation&lt;TMyTest&gt;</code> on
+the call to <code>Find()</code>.</p>
+</li>
+</ul>
+<p class="CodeBlock"><code>...<br>TMyTest hunter(9,9);<br>TInt index = x.Find(hunter,TIdentityRelation&lt;TMyTest&gt;(TMyTest::Match));<br>if (index == KErrNotFound)<br>&nbsp;{<br>&nbsp;...<br>&nbsp;}<br>...</code></p>
+<ul>
+<li>
+<p>Implicitly construct a
+temporary<code>TIdentityRelation&lt;TMyTest&gt;</code> on the call
+to<code>Find()</code>.</p>
+</li>
+</ul>
+<p class="CodeBlock"><code>...<br>TMyTest hunter(9,9);<br>TInt index = x.Find(hunter,TMyTest::Match);<br>if (index == KErrNotFound)<br>&nbsp;{<br>&nbsp;...<br>&nbsp;}<br>...</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

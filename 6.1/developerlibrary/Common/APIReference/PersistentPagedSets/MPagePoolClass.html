@@ -1,0 +1,227 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>MPagePool</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="KPoolPageSizeConstant.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="TCachePagePoolClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Persistent&nbsp;Paged&nbsp;Sets</a>&nbsp;<span class="separator">&#187;</span>
+MPagePool</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>s32page.h</code>
+<br>Link against: <code>estor.lib</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aMPagePool"></a>
+
+<h1>Class <code>MPagePool</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>MPagePool</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Interface to a page pool, the storage abstraction used by the B-trees API.
+</p><p>The interface is abstract and handles pages as <code>TAny</code> pointers. It is left to derived classes to implement page storage in a particular storage medium, such as memory or disk.</p><p>Defined in <code>MPagePool</code>:
+<br><code class="ApiItem"><a href="MPagePoolClass.html#%3a%3aMPagePool%3a%3aAcquireL%28%29" title="Returns a function that abandons all locked pages for this page pool">AcquireL()</a></code>, <code class="ApiItem"><a href="MPagePoolClass.html#%3a%3aMPagePool%3a%3aAllocL%28%29" title="Allocates an unassigned page">AllocL()</a></code>, <code class="ApiItem"><a href="MPagePoolClass.html#%3a%3aMPagePool%3a%3aAssignL%28%29" title="Assigns a reference to a new page and unlocks it">AssignL()</a></code>, <code class="ApiItem"><a href="MPagePoolClass.html#%3a%3aMPagePool%3a%3aDelete%28%29" title="Deletes a page, ignoring any errors">Delete()</a></code>, <code class="ApiItem"><a href="MPagePoolClass.html#%3a%3aMPagePool%3a%3aDeleteL%28%29" title="Deletes a page, leaving if an error occurs">DeleteL()</a></code>, <code class="ApiItem"><a href="MPagePoolClass.html#%3a%3aMPagePool%3a%3aLockL%28%29" title="Locks a page and returns a pointer to it">LockL()</a></code>, <code class="ApiItem"><a href="MPagePoolClass.html#%3a%3aMPagePool%3a%3aPop%28%29" title="Do a pop from the cleanup stack">Pop()</a></code>, <code class="ApiItem"><a href="MPagePoolClass.html#%3a%3aMPagePool%3a%3aPushL%28%29" title="Pushes this object onto the cleanup stack">PushL()</a></code>, <code class="ApiItem"><a href="MPagePoolClass.html#%3a%3aMPagePool%3a%3aUnlock%28%29" title="Unlocks a page">Unlock()</a></code>, <code class="ApiItem"><a href="MPagePoolClass.html#%3a%3aMPagePool%3a%3aUpdateL%28%29" title="Updates a page">UpdateL()</a></code>
+</p>
+<a name="2.5"></a></div><div class="Head2">
+<a name="%3a%3aMPagePool%3a%3aAcquireL%28%29"></a>
+<hr size="2" noshade>
+<h2><code>AcquireL()</code></h2>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TPageAbandonFunction AcquireL()=0;</code></p><h4 class="subheading">Description</h4>
+<p>Returns a function that abandons all locked pages for this page pool.
+</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TPageAbandonFunction</code></td>
+<td class="Cell"><p class="ValueDesc">A function that abandons all locked pages for this page pool.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><a name="%3a%3aMPagePool%3a%3aAllocL%28%29"></a>
+<hr size="2" noshade>
+<h2><code>AllocL()</code></h2>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TAny* AllocL()=0;</code></p><h4 class="subheading">Description</h4>
+<p>Allocates an unassigned page.
+</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAny*</code></td>
+<td class="Cell"><p class="ValueDesc">Newly allocated page.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><a name="%3a%3aMPagePool%3a%3aAssignL%28%29"></a>
+<hr size="2" noshade>
+<h2><code>AssignL()</code></h2>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TPageRef AssignL(const TAny* aPage,TPageReclamation aReclamation=EPageDeleteOnly)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Assigns a reference to a new page and unlocks it.
+</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TAny* aPage</code></td>
+<td class="Cell"><p class="ValueDesc">Page to assign</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TPageReclamation aReclamation=EPageDeleteOnly</code></td>
+<td class="Cell"><p class="ValueDesc">Flag for page reclaimation settings</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TPageRef</code></td>
+<td class="Cell"><p class="ValueDesc">Reference to page</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><a name="%3a%3aMPagePool%3a%3aDelete%28%29"></a>
+<hr size="2" noshade>
+<h2><code>Delete()</code></h2>
+</div><div class="Bodytext"><p class="Prototype"><code>void Delete(TPageRef aRef);</code></p><h4 class="subheading">Description</h4>
+<p>Deletes a page, ignoring any errors.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TPageRef aRef</code></td>
+<td class="Cell"><p class="ValueDesc">Reference to the page to delete</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><a name="%3a%3aMPagePool%3a%3aDeleteL%28%29"></a>
+<hr size="2" noshade>
+<h2><code>DeleteL()</code></h2>
+</div><div class="Bodytext"><p class="Prototype"><code>void DeleteL(TPageRef aRef);</code></p><h4 class="subheading">Description</h4>
+<p>Deletes a page, leaving if an error occurs.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TPageRef aRef</code></td>
+<td class="Cell"><p class="ValueDesc">Reference to the page to delete</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><a name="%3a%3aMPagePool%3a%3aPop%28%29"></a>
+<hr size="2" noshade>
+<h2><code>Pop()</code></h2>
+</div><div class="Bodytext"><p class="Prototype"><code>void Pop();</code></p><h4 class="subheading">Description</h4>
+<p>Do a pop from the cleanup stack.</p>
+<a name="2.11"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><a name="%3a%3aMPagePool%3a%3aPushL%28%29"></a>
+<hr size="2" noshade>
+<h2><code>PushL()</code></h2>
+</div><div class="Bodytext"><p class="Prototype"><code>void PushL();</code></p><h4 class="subheading">Description</h4>
+<p>Pushes this object onto the cleanup stack.</p>
+<a name="2.12"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><a name="%3a%3aMPagePool%3a%3aLockL%28%29"></a>
+<hr size="2" noshade>
+<h2><code>LockL()</code></h2>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TAny* LockL(TPageRef aRef)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Locks a page and returns a pointer to it.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TPageRef aRef</code></td>
+<td class="Cell"><p class="ValueDesc">Reference to the page to lock</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAny*</code></td>
+<td class="Cell"><p class="ValueDesc">Locked page</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><a name="%3a%3aMPagePool%3a%3aUnlock%28%29"></a>
+<hr size="2" noshade>
+<h2><code>Unlock()</code></h2>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void Unlock(const TAny* aPage,TPageChange aChange=EPageNoChange)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Unlocks a page.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TAny* aPage</code></td>
+<td class="Cell"><p class="ValueDesc">Page to unlock</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TPageChange aChange=EPageNoChange</code></td>
+<td class="Cell"><p class="ValueDesc">How the page should be treated  once it is unlocked</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><a name="%3a%3aMPagePool%3a%3aUpdateL%28%29"></a>
+<hr size="2" noshade>
+<h2><code>UpdateL()</code></h2>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void UpdateL(const TAny* aPage)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Updates a page. </p><p>This can be used for cached pages that may have become outdated.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TAny* aPage</code></td>
+<td class="Cell"><p class="ValueDesc">Page to update</p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

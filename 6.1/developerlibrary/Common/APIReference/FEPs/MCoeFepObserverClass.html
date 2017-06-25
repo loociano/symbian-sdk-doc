@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>MCoeFepObserver</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="MCoeFepAwareTextEditor_Extension1Class.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="MFepAttributeStorerClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Front&nbsp;End&nbsp;Processors</a>&nbsp;<span class="separator">&#187;</span>
+MCoeFepObserver</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>fepbase.h</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aMCoeFepObserver"></a>
+
+<h1>Class <code>MCoeFepObserver</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>MCoeFepObserver</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Specifies the mixin protocol for observing a FEP transaction.
+Applications which need to implement this protocol should derive from this
+class. The functions are not pure virtual because most applications will only need to override one of them.</p><p>Defined in <code>MCoeFepObserver</code>:
+<br><code class="ApiItem"><a href="MCoeFepObserverClass.html#%3a%3aMCoeFepObserver%3a%3aHandleCompletionOfTransactionL%28%29" title="If an application needs to get more information about a FEP transaction than is provided by the FEP framework, (for example, a Japanese FEP may want the pronunciation of the transaction's text as well as the text itself), then it should override HandleCompletionOfTransactionL() to retrieve the information it wants from the FEP">HandleCompletionOfTransactionL()</a></code>, <code class="ApiItem"><a href="MCoeFepObserverClass.html#%3a%3aMCoeFepObserver%3a%3aHandleStartOfTransactionL%28%29" title="Handles the start of a FEP transaction">HandleStartOfTransactionL()</a></code>
+</p>
+<a name="2.5"></a></div><div class="Head2">
+<a name="%3a%3aMCoeFepObserver%3a%3aHandleStartOfTransactionL%28%29"></a>
+<hr size="2" noshade>
+<h2><code>HandleStartOfTransactionL()</code></h2>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void HandleStartOfTransactionL();</code></p><h4 class="subheading">Description</h4>
+<p>Handles the start of a FEP transaction. The implementation of
+this function might move focus to an existing edit window
+(<code>CEikEdwin</code>), or might launch a new dialog (if the dialog should
+appear as soon as the user starts composing their text in the FEP rather than
+when the text contained in the FEP is committed to it).</p>
+<p>This function should be called by the FEP when it receives the
+first event which begins a FEP transaction. It should be called after using
+<code>CoeFep::MakeDeferredFunctionCall()</code> to handle the event.</p>
+<p>The FEP calls this function indirectly by calling
+<code>CCoeEnv::ForEachFepObserverCall()</code> passing in
+<code>FepObserverHandleStartOfTransactionL</code>. Internally, this calls
+<code>HandleStartOfTransactionL()</code> for each <code>MCoeFepObserver</code>
+object that has been registered with the cone environment by calling
+<code>CCoeEnv::AddFepObserverL()</code>.</p>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CCoeFepClass.html#%3a%3aCCoeFep%3a%3aMakeDeferredFunctionCall%28%29" title="Uses a high-priority active object to call the specified object's ExecuteFunctionL()"><code class="ApiItem">CCoeFep::MakeDeferredFunctionCall()</code></a></li>
+</ul>
+<a name="2.6"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><a name="%3a%3aMCoeFepObserver%3a%3aHandleCompletionOfTransactionL%28%29"></a>
+<hr size="2" noshade>
+<h2><code>HandleCompletionOfTransactionL()</code></h2>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void HandleCompletionOfTransactionL();</code></p><h4 class="subheading">Description</h4>
+<p>If an application needs to get more information about a FEP
+transaction than is provided by the FEP framework, (for example, a Japanese FEP
+may want the pronunciation of the transaction&#8217;s text as well as the text
+itself), then it should override <code>HandleCompletionOfTransactionL()</code>
+to retrieve the information it wants from the FEP.</p>
+<p>This assumes that the application knows which concrete FEP is above
+it so that it can call the specialised functions in that FEP. An application
+can safely do this by calling <code>CCoeEnv::Fep()</code> to get the address of
+the current FEP (this is NULL if there is no FEP above it) and downcasting this
+address to the specific derived class of the FEP it is expecting, on condition
+that the <code>CCoeEnv::FepUid()</code> function returns the UID of the FEP it
+is expecting.</p>
+<p>This function is called by the FEP framework. If the FEP is doing
+inline editing, <code>HandleCompletionOfTransactionL()</code> is called inside
+<code>MCoeFepAwareTextEditor</code>'s <code>CommitFepInlineEditL()</code>. If
+it isn't doing inline editing, <code>HandleCompletionOfTransactionL()</code> is
+called (inside an active object) after the key events generated by one or more
+calls to <code>CCoeFep</code>'s <code>SimulateKeyEventsL()</code> have been
+sent to the application.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

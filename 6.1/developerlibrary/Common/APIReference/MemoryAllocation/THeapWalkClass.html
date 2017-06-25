@@ -1,0 +1,256 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>THeapWalk</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="TFindChunkClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="UHEAPCHECKALLMacro.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Memory&nbsp;Allocation</a>&nbsp;<span class="separator">&#187;</span>
+THeapWalk</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>e32std.h</code>
+<br>Link against: <code>euser.lib</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aTHeapWalk"></a>
+
+<h1>Class <code>THeapWalk</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>THeapWalk</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Provides the behaviour for walking through the lists of allocated
+and free cells of a heap to check that the heap is in a consistent state and is
+not corrupted.</p>
+<p>The class is pure virtual and is not intended to be instantiated.
+Instead, a derived class must be constructed which provides an implementation
+for the <code>Info()</code> pure virtual function.</p>
+<p>Writing derived classes:</p>
+<p>The <code>THeapWalk</code> class provides most of the effort for
+walking the heap. To use it, a derived class must be built which provides an
+implementation for the <code>Info()</code> function.</p>
+<p><code>Info()</code> is called by the <code>Walk()</code> function
+for every good allocated cell and every good free cell on the heap together
+with the address and length of these cells. The derived class can use this
+information as it sees fit.</p>
+<p>In addition, <code>Info()</code> is called when <code>Walk()</code>
+detects a free cell or an allocated cell which it considers to be bad. In this
+event, this call to <code>Info()</code> is the last one before
+<code>Walk()</code> itself terminates.</p><p>Defined in <code>THeapWalk</code>:
+<br><code class="ApiItem"><a href="THeapWalkClass.html#%3a%3aTHeapWalk%3a%3aEBadAllocatedCellAddress" title="The cell is an allocated cell and its address is bad">EBadAllocatedCellAddress</a></code>, <code class="ApiItem"><a href="THeapWalkClass.html#%3a%3aTHeapWalk%3a%3aEBadAllocatedCellSize" title="The cell is an allocated cell and its length is incorrect">EBadAllocatedCellSize</a></code>, <code class="ApiItem"><a href="THeapWalkClass.html#%3a%3aTHeapWalk%3a%3aEBadFreeCellAddress" title="The cell is a free cell and its address is bad">EBadFreeCellAddress</a></code>, <code class="ApiItem"><a href="THeapWalkClass.html#%3a%3aTHeapWalk%3a%3aEGoodAllocatedCell" title="The cell is an allocated cell">EGoodAllocatedCell</a></code>, <code class="ApiItem"><a href="THeapWalkClass.html#%3a%3aTHeapWalk%3a%3aEGoodFreeCell" title="The cell is a free cell">EGoodFreeCell</a></code>, <code class="ApiItem"><a href="THeapWalkClass.html#%3a%3aTHeapWalk%3a%3aInfo%28%29" title="Gets information for every good allocated cell and every good free cell on the heap together with the address and length of these cells">Info()</a></code>, <code class="ApiItem"><a href="THeapWalkClass.html#%3a%3aTHeapWalk%3a%3aSetValue%28%29" title="Sets a value into this object">SetValue()</a></code>, <code class="ApiItem"><a href="THeapWalkClass.html#%3a%3aTHeapWalk%3a%3aTCellType" title="Describes the type and state of cell found on the heap by Walk()">TCellType</a></code>, <code class="ApiItem"><a href="THeapWalkClass.html#%3a%3aTHeapWalk%3a%3aTHeapWalk%28%29" title="Constructs this object taking a reference to the specified heap which is to be checked">THeapWalk()</a></code>, <code class="ApiItem"><a href="THeapWalkClass.html#%3a%3aTHeapWalk%3a%3aValue%28%29" title="Returns the value currently held by this object">Value()</a></code>, <code class="ApiItem"><a href="THeapWalkClass.html#%3a%3aTHeapWalk%3a%3aWalk%28%29" title="Walks through the entire heap">Walk()</a></code>
+</p>
+<a name="2.5"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction and destruction</h2>
+</div><div class="Bodytext">
+<a name="2.5.2"></a></div><div class="Head3">
+<a name="%3a%3aTHeapWalk%3a%3aTHeapWalk%28%29"></a>
+<hr size="1" noshade>
+<h3><code>THeapWalk()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>THeapWalk(const RHeap&amp; aHeap);</code></p><h4 class="subheading">Description</h4>
+<p>Constructs this object taking a reference to the specified heap
+which is to be checked.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const RHeap&amp; aHeap</code></td>
+<td class="Cell"><p class="ValueDesc">A reference to the heap which is to be walked through.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Walking the heap</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aTHeapWalk%3a%3aWalk%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Walk()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Walk();</code></p><h4 class="subheading">Description</h4>
+<p>Walks through the entire heap.</p>
+<p>The function walks through the list of allocated cells and the
+list of free cells checking that the addresses and lengths of both allocated
+cells and free cells are consistent.</p>
+<p>The function terminates when it has successfully walked the
+entire heap or when it has found an error such as a bad cell pointer, a bad
+cell length or a cell which appears to overlap another
+cell.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The value last set by the <code>SetValue()</code> function. See
+the <code>SetValue()</code> and the <code>Value()</code> functions.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Reporting on next free or allocated cell</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aTHeapWalk%3a%3aInfo%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Info()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void Info(TCellType aType,TAny* aBase,TInt aLength)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Gets information for every good allocated cell and every good free
+cell on the heap together with the address and length of these cells. This
+function is called by the <code>Walk()</code> function.</p>
+<p>It is also called when <code>Walk()</code> detects a free cell or
+an allocated cell which it considers to be bad. In this event, this is the last
+call to <code>Info()</code> before <code>Walk()</code> itself
+terminates.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TCellType aType</code></td>
+<td class="Cell"><p class="ValueDesc">A description of the cell. If this is one of:
+<code>EBadFreeCellAddress</code>, <code>EBadAllocatedCellSize</code> or
+<code>EBadAllocatedCellAddress</code>, then this is the last call to this
+function.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAny* aBase</code></td>
+<td class="Cell"><p class="ValueDesc">A pointer to the cell; this may be an allocated cell or a free cell
+depending on the value of <code>aType</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aLength</code></td>
+<td class="Cell"><p class="ValueDesc">The length of the cell.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aTHeapWalk%3a%3aValue%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Value()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: TInt Value() const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns the value currently held by this object. The class contains a
+private data member for holding this.</p>
+<p>The heap walker function <code>Walk()</code> returns the current
+value when it terminates, either after successfully walking the entire heap or
+prematurely when it discovers a bad allocated or free cell.</p>
+<p>The value can be set using the <code>SetValue()</code> member
+function.</p>
+<p>No specific meaning is assigned to this value by this class; a
+derived class is free to use it as it wishes, for example, to keep a count of
+the number of cells found. It is likely that this function will be useful to
+the derived class implementation of <code>Info()</code>.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The value currently held by this object.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.4"></a></div><div class="Head3">
+<a name="%3a%3aTHeapWalk%3a%3aSetValue%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetValue()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: void SetValue(TInt aValue);</code></p><h4 class="subheading">Description</h4>
+<p>Sets a value into this object. The class contains a private data member
+for holding this value.</p>
+<p>The heap walker function <code>Walk()</code> returns the current value
+when it terminates, either after successfully walking the entire heap or
+prematurely when it discovers a bad allocated or free cell.</p>
+<p>No specific meaning is assigned to this value by this class; a derived
+class is free to use it as it wishes, for example, to keep a count of the
+number of cells found. It is likely that this function will be useful to the
+derived class implementation of <code>Info()</code>.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aValue</code></td>
+<td class="Cell"><p class="ValueDesc">The value to be set into this object.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Enumerations</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aTHeapWalk%3a%3aTCellType"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TCellType</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TCellType</code></p><h4 class="subheading">Description</h4>
+<p>Describes the type and state of cell found on the heap by
+<code>Walk()</code>. Information of this type is passed to each call of the
+<code>Info()</code> function by the heap walker,
+<code>Walk()</code>.</p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aTHeapWalk%3a%3aEGoodAllocatedCell"><code class="Value">EGoodAllocatedCell</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>The cell is an allocated cell.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aTHeapWalk%3a%3aEGoodFreeCell"><code class="Value">EGoodFreeCell</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>The cell is a free cell.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aTHeapWalk%3a%3aEBadAllocatedCellSize"><code class="Value">EBadAllocatedCellSize</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>The cell is an allocated cell and its length is
+incorrect.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aTHeapWalk%3a%3aEBadAllocatedCellAddress"><code class="Value">EBadAllocatedCellAddress</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>The cell is an allocated cell and its address is
+bad.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aTHeapWalk%3a%3aEBadFreeCellAddress"><code class="Value">EBadFreeCellAddress</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>The cell is a free cell and its address is bad.</para></p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,650 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Resource file format .rss</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="DevTools%2dref%2erss"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="Tool_Ref_Rcomp.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Application&nbsp;Resource&nbsp;Tools&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+Resource&nbsp;file&nbsp;format&nbsp;.rss</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Resource file format <code class="filename">.rss</code></h1>
+</div><div class="Bodytext">
+<a name="1.3"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Overview</h2>
+</div><div class="Bodytext">
+<p>This section details the source text resource file format, and is a useful reference for developers in C++ and OPL.</p>
+<p>Topics covered include; the lexical conventions obeyed, the C++ pre-processor statements supported, and a description of the native resource compiler statements.</p>
+<a name="1.4"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Changes since v5</h2>
+</div><div class="Bodytext">
+<p>Note the following changes since v5:</p>
+<ul><li><p>UTF8 encoding can be used in source files to represent Unicode values.</p></li>
+<li><p><code>TEXT</code> resources are deprecated: you should use <code>LTEXT</code> instead.</p></li>
+<li><p>Binary compatibility is broken with Unicode resource files prepared with v5. For  <code>LTEXT16</code>, <code>TEXT16</code> and <code>BUF16</code> values, the data is aligned to a multiple of 2 bytes from the start of the individual resource (not the offset in the overall resource file) by inserting a padding byte (value 0xAB). This padding byte goes after the length byte for the <code>LTEXT16</code> case, and there is a BAFL panic <code>15</code> in debug builds if the padding byte is not found when <code>TResourceReader::ReadTPtrC16()</code> expects one.</p></li><li><p>The &lt; number &gt; syntax for using special character codes expects a Unicode character value if a Unicode resource is being created. The &lt; number &gt; syntax cannot be used to specify individual 8-bit values in Unicode resource files.</p></li>
+</ul><a name="1.5"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Resource file definition</h2>
+</div><div class="Bodytext">
+<a name="1.5.2"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Lexical conventions</h3>
+</div><div class="Bodytext">
+<ul><li><p>Whitespace, except when enclosed in quotes for strings, is ignored by the compiler.</p></li>
+<li><p>Both C-style (<code>/* */</code>) and C++-style (<code>//</code>) comments are supported.</p></li>
+<li><p>Strings must be enclosed with double-quotes.</p></li>
+<li><p>To include a double-quote within a string, enter a double-quote preceded by a backslash. The following resource generates the output string <code>&quot;text&quot;</code> : i.e., the binary sequence: <code>0x22 0x74 0x65 0x78 0x74 0x22</code>.</p></li>
+<li><p><code>RESOURCE SIMPLE quote_example
+{
+string=&quot;\&quot;text\&quot;&quot;;
+}</code></p></li>
+<li><p>where string is of type <code>BUF</code>.</p></li>
+<li><p>To include a backslash within a string, enter two backslash characters. The following resource generates the output string <code>\text\</code> : i.e., the binary sequence: <code>0x5c 0x74 0x65 0x78 0x74 0x5c</code>.</p></li>
+<li><p><code>RESOURCE SIMPLE backslash_example
+{
+string=&quot;\\text\\&quot;;
+}</code></p></li>
+<li><p>You can use the syntax <code>&lt;</code><code>number</code><code>&gt;</code>, to specify a character by character code. If a Unicode resource is being created, this must be a Unicode character value.</p></li>
+</ul><a name="1.5.3"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>C++ pre-processor statements</h3>
+</div><div class="Bodytext">
+<p>The following pre-processor statements are supported by the resource compiler:</p>
+<ul><li><p><code>#define</code></p></li>
+<li><p><code>#undef</code></p></li>
+<li><p><code>#line</code></p></li>
+<li><p><code>#include</code></p></li>
+<li><p><code>#ifdef</code></p></li>
+<li><p><code>#ifndef</code></p></li>
+<li><p><code>#if</code></p></li>
+<li><p><code>#else</code></p></li>
+<li><p><code>#endif</code></p></li>
+</ul><a name="DevTools%2dref%2erss%2dconditionalcompile"></a><h4>Conditional compilation in resource files</h4>
+<p>The resource compiler supports conditional compilation such as</p>
+<p class="CodeBlock"><code>#ifdef SOMETHING</code></p>
+<p class="CodeBlock"><code>// do something</code></p>
+<p class="CodeBlock"><code>#else </code></p>
+<p class="CodeBlock"><code>// do something else</code></p>
+<p class="CodeBlock"><code>#endif</code></p>
+<p>or</p>
+<p class="CodeBlock"><code>#ifndef WHATEVER</code></p>
+<p class="CodeBlock"><code>// do something</code></p>
+<p class="CodeBlock"><code>#endif</code></p>
+<a name="1.5.3.5"></a><h4>Include files within a source file</h4>
+<p>You can include files within the source file by using a <code>#include</code> directive, for example:</p>
+<p class="CodeBlock"><code>#include &lt;eikdef.rh&gt;</code></p>
+<p>or </p>
+<p class="CodeBlock"><code>#include &quot;eikdef.hrh&quot;</code></p>
+<p>The searching algorithm used by the resource compiler depends on whether the item to be included is enclosed in double-quotes or angled brackets.</p>
+<p>If the filename is enclosed in double-quotes, the resource compiler searches for that file through the following directories in the given order:</p>
+<ul><li><p>the <em>current</em> directory</p></li>
+<li><p>the relative directory <code class="filename">..\inc</code></p></li>
+<li><p>the absolute directory <code class="filename">\epoc32\include</code></p></li>
+</ul><p>If the filename is enclosed in angled brackets, the resource compiler searches for that file through the following directories in the given order:</p>
+<ul><li><p>the relative directory <code class="filename">..\inc</code></p></li>
+<li><p>the absolute directory <code class="filename">\epoc32\include</code></p></li>
+</ul><a name="1.5.4"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Resource file statements</h3>
+</div><div class="Bodytext">
+<p><code>source-file</code> :
+<code>statement-list</code></p>
+<p>A source file consists of any number of statements.</p>
+<p><code>statement</code> :
+<code>struct-statement</code>
+| <code>resource-statement</code>
+| <code>character_set-statement</code>
+| <code>name-statement</code>
+| <code>offset-statement</code>
+| <code>system-statement</code>
+| <code>enum-statement</code></p>
+<p>The most usual forms of statement are a <code>struct-statement</code> and a <code>resource-statement</code>. The struct statement defines a <em>type</em> of resource, see <a href="Tool_Ref_RSS-file-format.guide.html#DevTools%2dref%2erss%2dstruct" title="Resource file format .rss / Resource file definition / STRUCT statement">STRUCT statement</a>. The resource statement defines an actual resource <em>instance</em> of the type defined in a struct, gives it a resource ID, see <a href="Tool_Ref_RSS-file-format.guide.html#DevTools%2dref%2erss%2dids" title="Resource file format .rss / Resource file definition / Generated resource IDs">Generated resource IDs</a>, and causes it to be generated in the resource file, see <a href="Tool_Ref_RSS-file-format.guide.html#DevTools%2dref%2erss%2dresource" title="Resource file format .rss / Resource file definition / RESOURCE statement">RESOURCE statement</a>.</p>
+<a name="DevTools%2dref%2erss%2dids"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Generated resource IDs</h3>
+</div><div class="Bodytext">
+<p>By default, the resource IDs in the generated header file are allocated from <code>1</code> in ascending sequence.  The sequence can be made to begin from another value using the <code>NAME</code> statement, see <a href="Tool_Ref_RSS-file-format.guide.html#DevTools%2dref%2erss%2dname" title="Resource file format .rss / Resource file definition / NAME statement">NAME statement</a>.</p>
+<a name="DevTools%2dref%2erss%2dstruct"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>STRUCT statement</h3>
+</div><div class="Bodytext">
+<p><code>struct-statement</code> :
+<code>STRUCT</code>
+<code>struct-name</code> [ <code>BYTE</code> | <code>WORD</code> ] <code>{</code>
+<code>struct-member-list</code>
+<code>}</code></p>
+<p>A <code>STRUCT</code> statement defines the format of a struct; all resources are defined in terms of structs. The struct has a name designated by <code>struct-name</code>, and some items designated by <code>struct-member-list</code>.</p>
+<p>The length of most structs is variable. A resource&#8217;s entire length can be deduced from the position of the next resource; this information is available in a resource file&#8217;s index. If the struct is embedded within a resource, however, its length <em>must</em> be identified another way.</p>
+<ul><li><p>Use <code>BYTE</code> to prefix the struct with a single byte indicating its length (zero to 255 characters).</p></li>
+<li><p>Use <code>WORD</code> to prefix the struct with a word indicating its length (zero to 65,535 characters).</p></li>
+</ul><p>The following are valid <code>STRUCT</code> statements:</p>
+<p class="CodeBlock"><code>STRUCT STRING<br>&nbsp;{<br>&nbsp;LTEXT str;<br>&nbsp;}</code></p>
+<p class="CodeBlock"><code>STRUCT TEST BYTE<br>&nbsp;{<br>&nbsp;WORD status;<br>&nbsp;STRUCT text;<br>&nbsp;}</code></p>
+<p>The first example defines a struct called <code>STRING</code> which contains a single <code>LTEXT</code> item.</p>
+<p>The second example defines a struct called <code>TEST</code> which contains a <code>WORD</code> and an embedded struct. The total length of <code>TEST</code> is unknown, but should not exceed 255 characters: the <code>BYTE</code> directive in the definition indicates that, when this struct is embedded within another, it should be preceded with a byte indicating its length (zero to 255 characters).</p>
+<p>The <code>struct-member-list</code> is a sequence of <code>struct-member</code>s where each member is terminated by a semi-colon. The complete list is enclosed within a pair of braces as demonstrated by the struct called <code>TEST</code>.</p>
+<a name="1.5.6.13"></a><h4>Struct names</h4>
+<p>The following rules must be observed for <code>struct-names</code>:</p>
+<ul><li><p>they must be given in upper case</p></li>
+<li><p>they must begin with an alphabetic character, although subsequent characters may be numeric</p></li>
+<li><p>they may not begin with any of the following resource compiler keywords&nbsp;— the 12 struct <code>type-names</code>, see <a href="Tool_Ref_RSS-file-format.guide.html#DevTools%2dref%2erss%2ddefine%2dmember" title="Resource file format .rss / Resource file definition / STRUCT statement / Defining struct members">Defining struct members</a>, and the keywords: <code>GLOBAL</code>, <code>STRUCT</code>, <code>LEN</code> or <code>RESOURCE</code>. This restriction applies only to the <code>struct-name</code>, not the <code>member-name</code> of any individual struct members.</p></li>
+<li><p>So the following struct definition will generate an error</p></li>
+</ul><p class="CodeBlock"><code>STRUCT BUFTHING<br>&nbsp;{<br>&nbsp;BUF buffer;<br>&nbsp;}</code></p>
+<ul><li><p>whereas this struct definition will compile correctly</p></li>
+</ul><p class="CodeBlock"><code>STRUCT ABUFTHING<br>&nbsp;{<br>&nbsp;BUF buffer;<br>&nbsp;}</code></p>
+<a name="DevTools%2dref%2erss%2ddefine%2dmember"></a><h4>Defining struct members</h4>
+<p><code>struct-member</code> :
+<code>member-declaration</code> [ <code>=</code>
+<code>initialiser</code> ] <code>;</code></p>
+<p><code>member-declaration</code> :
+<code>type-name</code>
+<code>member-name</code>
+| [ <code>LEN</code> [ <code>BYTE</code> ] ] <code>type-name</code>
+<code>member-name</code>
+[ <code>(</code>
+<i>length-limit</i>
+<code>)</code> ]
+[ <code>[</code> [<code>array-size</code>] <code>]</code> ]</p>
+<p><code>type-name</code> :
+<code>BYTE</code>
+| <code>WORD</code><code>
+</code>|<code>
+</code><code>LONG</code>
+| <code>DOUBLE</code><code>
+</code>| <code>TEXT</code><code>
+</code>|<code>
+</code><code>LTEXT</code><code>
+</code>|<code>
+</code><code>BUF
+</code>| <code>BUF&lt;n&gt;</code>
+| <code>LINK</code>
+| <code>LLINK</code><code>
+</code>|<code>
+</code><code>SRLINK</code>
+| <code>STRUCT</code></p>
+<ul><li><p>Each member of a struct is identified by a <code>declaration</code> followed by an optional <code>initialiser</code>, and then a semi-colon.</p></li>
+<li><p>The simplest form of <code>declaration</code> is to specify a <code>type-name</code> and a <code>member-name</code> only:</p></li>
+</ul><p class="CodeBlock"><code>STRUCT TEST<br>&nbsp;{<br>&nbsp;WORD length;<br>&nbsp;}</code></p>
+<ul><li><p>The <code>type-name</code> must be in upper case (<code>WORD</code> in this example).</p></li>
+<li><p>The <code>member-name</code> must be in lower case (<code>length</code> in this example).</p></li>
+<li><p>An <code>SRLINK</code> member may not have an <code>initialiser</code> since it is self-referencing and, therefore, only takes the value of the resource ID the struct is declared in. This is assigned automatically by the resource compiler.</p></li>
+</ul><p>These are the valid types:</p>
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+<p><code>BYTE</code></p>
+</td>
+<td class="Cell">
+<p>A single byte.  Can be treated as a signed integer (–128 to +127) or unsigned integer (0 to 255).</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>WORD</code></p>
+</td>
+<td class="Cell">
+<p>Two bytes.  Can be treated as a signed integer (–32,768 to +32,767) or unsigned integer (0 to 65,535).</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>LONG</code></p>
+</td>
+<td class="Cell">
+<p>Four bytes.  Can be treated as a signed integer (–2,147,483,648 to 2147483647) or an unsigned integer (0 to 4,294,967,295).</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>DOUBLE</code></p>
+</td>
+<td class="Cell">
+<p>Eight byte real for double precision floating point numbers (approximately ±1.7E±308).</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>TEXT</code></p>
+</td>
+<td class="Cell">
+<p>A string, terminated by a null. This is deprecated: use <code>LTEXT</code> instead.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>LTEXT</code></p>
+</td>
+<td class="Cell">
+<p>A Unicode string with a leading byte which holds the length of the string, and no terminating null. </p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>BUF</code></p>
+</td>
+<td class="Cell">
+<p>A  Unicode string with no terminating null and no leading byte.</p>
+</td>
+</tr><tr valign="top"><td class="Cell"><p><code>BUF8</code></p></td><td class="Cell"><p>A string of 8-bit characters, with no terminating null and no leading byte count. Used for putting 8-bit data into a resource.</p></td></tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>BUF&lt;n&gt;</code></p>
+</td>
+<td class="Cell">
+<p>A Unicode string with no terminating null and no leading byte but which has a maximum length <code>n</code>. This type is an alternative to using the length-limit with <code>BUF</code> types,</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>LINK</code></p>
+</td>
+<td class="Cell">
+<p>The ID of another resource (16 bits), rather like a pointer to that resource.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>LLINK</code></p>
+</td>
+<td class="Cell">
+<p>The ID of another resource (32 bits).</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>SRLINK</code></p>
+</td>
+<td class="Cell">
+<p>A self-referencing link.  This is a 32 bit link which contains the resource ID of the resource it is defined in.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>STRUCT</code></p>
+</td>
+<td class="Cell">
+<p>Any struct, rather like including that struct as a member in this struct. <code>STRUCT</code> members are useful because it means that once a struct has been defined it can be re-used for a variety of resources.</p>
+</td>
+</tr>
+</table></td></tr></table><ul><li><p>Numbers more than one byte long are stored little-endian: that is, their least significant byte is stored first.</p></li>
+<li><p><code>LINK</code> and <code>STRUCT</code> are not type-safe: it is the responsibility of the user of a struct to ensure that the correct resource type is linked or included. The definer of a struct should give some idea, perhaps using a comment:</p></li>
+</ul><p class="CodeBlock"><code>STRUCT TEST<br>&nbsp;{<br>&nbsp;WORD length;<br>&nbsp;STRUCT text; // should be a STRING <br>&nbsp;}</code></p>
+<ul><li><p>a <code>length-limit</code> may be specified for members of string type (<code>BUF</code>,  <code>TEXT</code> and <code>LTEXT</code>): the <code>length-limit</code> is enclosed in parentheses after the member name. In the following example</p></li>
+</ul><p class="CodeBlock"><code>STRUCT TEST<br>&nbsp;{<br>&nbsp;TEXT string1(9);<br>&nbsp;LTEXT string2(MAX);<br>&nbsp;BUF string3;<br>&nbsp;}</code></p>
+<ul><li><p><code>string1</code> has a maximum of 9 characters, <code>string2</code> a maximum of <code>MAX</code> characters (where <code>MAX</code> has been <code>#defined</code> elsewhere) and <code>string3</code> has no maximum length.  Note that this maximum applies only to the actual characters and does not take account of the terminating zero (for <code>TEXT</code> members) or leading byte  (for <code>LTEXT</code> members).</p></li>
+<li><p>Note that from v5 onwards, <code>TEXT</code> is deprecated.</p></li><li><p>An alternative method to using <code>length-limit</code> with a <code>BUF</code> type is to use the type <code>BUF&lt;n&gt;</code>. For example, given the definition of <code>TEST</code> and the resource definitions for <code>test1</code>, <code>test2</code> and <code>test3</code>:</p></li>
+</ul><p class="CodeBlock"><code>STRUCT TEST<br>&nbsp;{<br>&nbsp;BUF&lt;4&gt; string;<br>&nbsp;}</code></p>
+<p class="CodeBlock"><code>RESOURCE TEST test1<br>&nbsp;{<br>&nbsp;string=&quot;abcd&quot;;<br>&nbsp;}</code></p>
+<p class="CodeBlock"><code>RESOURCE TEST test2<br>&nbsp;{<br>&nbsp;string=&quot;ab&quot;;<br>&nbsp;}</code></p>
+<p class="CodeBlock"><code>RESOURCE TEST test3<br>&nbsp;{<br>&nbsp;string=&quot;abcdef&quot;;<br>&nbsp;}</code></p>
+<ul><li><p><code>test1</code> generates <code>0x61 0x62 0x63 0x64</code></p></li>
+<li><p><code>test2</code> generates <code>0x61 0x62</code></p></li>
+<li><p>but <code>test3</code> generates an error because the maximum length of <code>string</code> permitted by the definition of the <code>STRUCT</code> is 4.</p></li>
+</ul><a name="DevTools%2dref%2erss%2darray"></a><h4>Arrays within structs</h4>
+<p>Recall the <code>member-declaration</code> syntax; look at a specific subset of this (see <a href="Tool_Ref_RSS-file-format.guide.html#DevTools%2dref%2erss%2ddefine%2dmember" title="Resource file format .rss / Resource file definition / STRUCT statement / Defining struct members">Defining struct members</a> for the full syntax of a struct member:</p>
+<p><code>member-declaration</code>  :
+<code>type-name</code>
+<code>member-name</code>
+| [ <code>LEN</code> [ <code>BYTE</code> ] ] <code>type-name</code>
+<code>member-name</code>
+<code>[</code> [<code>array-size</code>] <code>]</code></p>
+<p>A declaration of a struct member may either be a simple <code>type-name</code>
+<code>member-name</code>, or it may be an array of values of identical type.</p>
+<p>Arrays are always indicated by square brackets:</p>
+<p class="CodeBlock"><code>STRUCT HAS_ARRAY<br>&nbsp;{<br>&nbsp;STRUCT elements[];<br>&nbsp;}</code></p>
+<p>In the example above, the <code>HAS_ARRAY</code> struct has one array member, <code>elements</code>. Each member of <code>elements</code> is of <code>STRUCT</code> type.</p>
+<p>If you specify the array size, inside the square brackets, then the generated resource will contain no count of the number of elements. So this resource:</p>
+<p class="CodeBlock"><code>STRUCT FIXED_ARRAY<br>&nbsp;{<br>&nbsp;WORD elements[3];<br>&nbsp;}<br><br>RESOURCE FIXED_ARRAY example1<br>&nbsp;{<br>&nbsp;elements={9,8,7};<br>&nbsp;}</code></p>
+<p>will generate the output</p>
+<p class="CodeBlock"><code>0x09 0x00 0x08 0x00 0x07 0x00</code></p>
+<p>For variable length arrays a count of the number of elements precedes the resource. The default for this is a word, but by prefixing the struct definition with <code>LEN</code>
+<code>BYTE</code> it will be a byte count. So the following resource:</p>
+<p class="CodeBlock"><code>STRUCT VAR_ARRAY<br>&nbsp;{<br>&nbsp;WORD elements [];<br>&nbsp;}<br><br>RESOURCE VAR_ARRAY example2<br>&nbsp;{<br>&nbsp;elements={9,8,7};<br>&nbsp;}</code></p>
+<p>will generate the output</p>
+<p class="CodeBlock"><code>0x03 0x00 0x09 0x00 0x08 0x00 0x07 0x00 </code></p>
+<p>whereas this resource:</p>
+<p class="CodeBlock"><code>STRUCT VAR_ARRAY2<br>&nbsp;{<br>&nbsp;LEN BYTE WORD elements[];<br>&nbsp;}<br><br>RESOURCE VAR_ARRAY2 example3<br>&nbsp;{<br>&nbsp;elements={9,8,7};<br>&nbsp;}</code></p>
+<p>will generate this output</p>
+<p class="CodeBlock"><code>0x03 0x09 0x00 0x08 0x00 0x07 0x00</code></p>
+<p>The compiler allows you to prefix <code>LEN</code>
+<code>BYTE</code> or <code>LEN</code>
+<code>WORD</code> even for fixed length arrays but it has no effect. Fixed length arrays do not generate an element count.</p>
+<p>See also the section on initialising array items in <a href="Tool_Ref_RSS-file-format.guide.html#DevTools%2dref%2erss%2dresource%2dinit" title="Resource file format .rss / Resource file definition / Initialising resource members">Initialising resource members</a>.</p>
+<a name="DevTools%2dref%2erss%2dresource"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>RESOURCE statement</h3>
+</div><div class="Bodytext">
+<p><code>resource-statement</code> :
+<code>RESOURCE</code>
+<code>struct-name</code> [<code>resource-name</code>] <code>{</code>
+<code>resource-initialiser-list</code>
+<code>}</code></p>
+<p>The <code>RESOURCE</code> statement is used to generate a resource in the resource file. The statement specifies three things:</p>
+<ul><li><p>a <code>struct-name</code> which denotes the structure that will be used for the resource</p></li>
+<li><p>It must have been defined in a previous <code>STRUCT</code> statement and must be in upper case.</p></li>
+<li><p>an optional <code>resource-name</code> which identifies the resource</p></li>
+<li><p>The <code>resource-name</code> must be in lower case.</p></li>
+<li><p>The <code>resource-name</code> causes a symbolic constant to be generated in the resource compiler&#8217;s output header file, so that a resource</p></li>
+</ul><p class="CodeBlock"><code>RESOURCE TEST my_test { /* etc */ }</code></p>
+<ul><li><p>will result in a definition of the form</p></li>
+</ul><p class="CodeBlock"><code>#define MY_TEST 1</code></p>
+<ul><li><p>in the generated header file.</p></li>
+<li><p>The default ID for the first resource defined in the file is one with subsequent resources&#8217; IDs generated in ascending sequence. See <a href="Tool_Ref_RSS-file-format.guide.html#DevTools%2dref%2erss%2dids" title="Resource file format .rss / Resource file definition / Generated resource IDs">Generated resource IDs</a> for more information on how resource IDs are generated.</p></li>
+<li><p>If no resource name is specified then the resource is generated in the object<code class="filename">
+</code>file and assigned a resource ID as usual, but will not be published in the header file.  Anonymous resources are used mainly for playback scripts where the resources are read in sequentially by default, so that assigning names to them would be superfluous.</p></li>
+<li><p>The <code>resource-name</code> may also be used by the resource compiler for <code>LINK</code> and <code>LLINK</code> members&nbsp;— see <a href="Tool_Ref_RSS-file-format.guide.html#DevTools%2dref%2erss%2dlink%2didentifiers" title="Resource file format .rss / Resource file definition / Initialising resource members / Resource identifiers for LINKs and LLINKs">Resource identifiers for LINKs and LLINKs</a>.</p></li>
+<li><p>initialisation for members of the resource struct, where their default values are not appropriate</p></li>
+</ul><p>As an example, given the struct definition</p>
+<p class="CodeBlock"><code>STRUCT NCEDIT<br>&nbsp;{<br>&nbsp;WORD current;<br>&nbsp;WORD low;<br>&nbsp;WORD high=65535;<br>&nbsp;}</code></p>
+<p>you could define a resource:</p>
+<p class="CodeBlock"><code>RESOURCE NCEDIT MEMORY_SIZE<br>&nbsp;{<br>&nbsp;low=640;<br>&nbsp;high=1024;<br>&nbsp;}</code></p>
+<p>Thus, in the resource file, <code>current</code> has the value compiler default value of 0, <code>low</code> has the value 640 (specified in the resource definition) and <code>high</code> has the value 1024 (specified in the resource definition, overriding the default for the struct type).</p>
+<a name="DevTools%2dref%2erss%2dresource%2dinit"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Initialising resource members</h3>
+</div><div class="Bodytext">
+<p>The resource initialiser has different forms depending on whether a single, simple, member is being initialised, or whether a struct or an array is being initialised:</p>
+<p><code>resource-initialiser</code> : <code>member-name</code> [ <code>(</code>
+<code>length-limit</code>
+<code>)</code> ] <code>=</code>
+<code>initialiser</code></p>
+<p><code>initialiser</code> :
+<code>simple-initialiser</code>
+| <code>struct-initialiser</code>
+| <code>array-initialiser</code></p>
+<p>Resource members may be initialised by default (in the struct definition) or explicitly initialised (in the resource definition).</p>
+<p>In general,</p>
+<ul><li><p>If a member is initialised in a <code>RESOURCE</code> statement, that is its value.</p></li>
+<li><p>If it is initialised in a <code>STRUCT</code> statement, that is its value for all resources which do not explicitly initialise it.</p></li>
+<li><p>If it is <em>neither</em> initialised in a <code>RESOURCE</code> statement <em>nor</em> a <code>STRUCT</code> statement, then: <code>BYTE</code>, <code>WORD</code> and <code>DOUBLE</code> members contain zero; <code>TEXT</code>, <code>LTEXT</code> and <code>BUF</code> members contain an empty string.</p></li>
+<li><p>It is an error for <code>LINK</code> and <code>LLINK</code> members to have no explicit value, so they must be initialised, either by default (in the <code>STRUCT</code> statement) or explicitly (in the <code>RESOURCE</code> statement).</p></li>
+<li><p><code>SRLINK</code> members may not be initialised (either in the <code>STRUCT</code> statement or a <code>RESOURCE</code> statement) since they are automatically assigned the resource ID of the resource in which they appear.</p></li>
+<li><p>Members which are themselves <code>STRUCT</code>s may not be default initialised. They can only be initialised in the <code>RESOURCE</code> definition. If they are not explicitly initialised they will take up zero bytes in the resource file. For example, given the following <code>STRUCT</code> definition:</p></li>
+<li><p><code>STRUCT TEST2
+{
+WORD    value;
+STRUCT  tester;
+}</code></p></li>
+<li><p>The following <code>RESOURCE</code> statement only generates the two bytes <code>0xFF 0x00</code>.</p></li>
+<li><p><code>RESOURCE TEST2 item
+{
+value=255;
+}</code></p></li>
+</ul><p>Default values can be specified for struct members by using an initialiser, for example</p>
+<p class="CodeBlock"><code>STRUCT NCEDIT<br>&nbsp;{<br>&nbsp;WORD current;<br>&nbsp;WORD low;<br>&nbsp;WORD high=65535;<br>&nbsp;}</code></p>
+<p>With this specification, any <code>NCEDIT</code> resource will, by default, have a <code>high</code> member whose value is 65,535. If the <code>RESOURCE</code> statement specifies a different value, it will be used instead.</p>
+<a name="1.5.8.12"></a><h4>Simple member initialisation</h4>
+<p><code>simple-initialiser</code> :
+<code>number</code>
+| <code>string</code>
+| <code>resource-identifier</code></p>
+<ul><li><p>A <code>BYTE</code>, <code>WORD</code>, <code>LONG</code> or <code>DOUBLE</code> member must be initialised with a number.  The number can be the result of simple expressions such as <code>3+1</code> or <code>NUM1+NUM2</code> where <code>NUM1</code> and <code>NUM2</code> have been <code>#defined</code> earlier on in the file.</p></li>
+<li><p>A <code>TEXT</code>, <code>LTEXT</code> or <code>BUF</code> member must be initialised with a string. If a <code>length-limit</code> has been declared for that member in the <code>STRUCT</code> definition then an error will be generated if the <code>string</code> is longer than the limit. You can, however, override any maximum length declared in the struct definition by specifying a new maximum length after the member name in the resource definition. For instance the following resource</p></li>
+</ul><p class="CodeBlock"><code>RESOURCE THING<br>&nbsp;{<br>&nbsp;string(20)=&quot;Very long string&quot;;<br>&nbsp;}</code></p>
+<ul><li><p>will compile correctly even if the struct definition specified a maximum length of 10 for <code>string</code>.</p></li>
+</ul><a name="DevTools%2dref%2erss%2dlink%2didentifiers"></a><h4>Resource identifiers for LINKs and LLINKs</h4>
+<p>A <code>LINK</code> or <code>LLINK</code> member must be initialised with a <code>resource-identifier</code>.  This resource identifier may be in the form of a resource name or a number.  </p>
+<ul><li><p>If it is a resource name and it is declared in lower case, it refers to a resource in the file.</p></li>
+<li><p>It is not necessary for the resource to be defined at the time the statement is processed, but an error will result if the resource is not defined in the entire file.  When declared in lower case any <code>NAME</code> specified in the file will be added onto the resource ID.</p></li>
+<li><p>If the resource name is declared in upper case, it refers to a resource defined in another file.</p></li>
+<li><p>To reference it you must <code>#include</code> the relevant header file containing the resource.  All resource names are turned into upper case when their <code>#define</code>s are generated in the header file&nbsp;— this is how the resource compiler recognises that it must look for the resource in another file.  If this resource does not exist in any <code>#include</code>d file then an error is generated.</p></li>
+<li><p>The resource identifier may also be specified as a number: in this case it is the resource ID (including <code>NAME</code>).</p></li>
+<li><p>If no such resource ID exists either in the file or any <code>#include</code>d header files, no error is generated by the compiler.  The programmer must therefore ensure that the ID is a valid reference.</p></li>
+</ul><p>See <a href="Tool_Ref_RSS-file-format.guide.html#DevTools%2dref%2erss%2dids" title="Resource file format .rss / Resource file definition / Generated resource IDs">Generated resource IDs</a> for information on how resource IDs are generated.  See also <a href="Tool_Ref_RSS-file-format.guide.html#DevTools%2dref%2erss%2dname" title="Resource file format .rss / Resource file definition / NAME statement">NAME statement</a> and related statements.</p>
+<a name="1.5.8.14"></a><h4>Initialising array items</h4>
+<p><code>array-initialiser</code> :
+<code>{</code>
+<code>array-initialiser-item-comma-list</code>
+<code>}</code></p>
+<p><code>array-initialiser-item</code> :
+<code>initialiser</code></p>
+<p>To initialise a member of array type, give the items in the array in sequence.  Each initialiser must be of a type compatible with the member being initialised.</p>
+<a name="1.5.8.14.5"></a><h4>Fixed-length arrays</h4>
+<p>If the member was declared as a fixed-length array (e.g., <code>WORD elements[10]</code>), then it is an error to specify any more items than were given in the length (either in the <code>STRUCT</code> or the <code>RESOURCE</code> definition).  If fewer items are specified in the default initialisation (i.e. in the <code>STRUCT</code> definition) then an error also results.  Note that if fewer elements are specified when initialising the array in the <code>RESOURCE</code> statement, then any elements not specified after the specified values will be lost, even if they have been default initialised in the <code>STRUCT</code> definition.  Take the following example:</p>
+<p class="CodeBlock"><code>STRUCT SAMPLE<br>&nbsp;{<br>&nbsp;BYTE bts[3]={1,2,3};<br>&nbsp;}</code></p>
+<p>In the following resource:</p>
+<p class="CodeBlock"><code>RESOURCE SAMPLE default<br>&nbsp;{}</code></p>
+<p>the output will be the whole default array</p>
+<p class="CodeBlock"><code>0x01 0x02 0x03</code></p>
+<p>but in this resource:</p>
+<p class="CodeBlock"><code>RESOURCE SAMPLE first_specified<br>&nbsp;{<br>&nbsp;bts={5};<br>&nbsp;}</code></p>
+<p>the output is:</p>
+<p class="CodeBlock"><code>0x05</code></p>
+<p>with the second and third elements lost. If you specify only the second element in the <code>RESOURCE</code> definition then the first element is taken from the default initialisation, the second from the explicit initialisation and the third element is lost.  The following resource:</p>
+<p class="CodeBlock"><code>RESOURCE SAMPLE  second_specified<br>&nbsp;{<br>&nbsp;bts[1]=5;<br>&nbsp;}</code></p>
+<p><code>results in the 2-byte output:</code></p>
+<p class="CodeBlock"><code>0x01 0x05</code></p>
+<p>If, however, you explicitly initialise an element in the middle of an array without having supplied default values for array members before it, then an error will result.</p>
+<a name="1.5.8.14.6"></a><h4>Variable length arrays</h4>
+<p>If the array was not declared fixed-length then the number of elements is worked out from the initiali<code>s</code>er and prepended to the resource. The default for this element count is a word: you may specify it as a byte by declaring <code>LEN</code><code>
+</code><code>BYTE</code> in front of the array declaration in the <code>STRUCT</code> definition; e.g.</p>
+<p class="CodeBlock"><code>STRUCT VAR_ARRAY<br>&nbsp;{<br>&nbsp;LEN BYTE WORD [];<br>&nbsp;}</code></p>
+<a name="1.5.8.14.7"></a><h4>Using expressions to initialise array elements</h4>
+<p>You may initialise array elements with expressions.  You must explicitly initialise each member component of the array otherwise the expressions will be evaluated incorrectly.  The following resource:</p>
+<p class="CodeBlock"><code>RESOURCE SAMPLE correct_expression<br>&nbsp;{<br>&nbsp;bts[0]=3+1;<br>&nbsp;bts[1]=2;<br>&nbsp;bts[2]=3;<br>&nbsp;}</code></p>
+<p>will generate the correct output <code>0x0</code>4<code> 0x02 0x03</code>.  However, if you use the following syntax:</p>
+<p class="CodeBlock"><code>RESOURCE SAMPLE incorrect_expression<br>&nbsp;{<br>&nbsp;bts={3+1,2,3};<br>&nbsp;}</code></p>
+<p>the output will be <code>0x03 0x02 0x03. </code>This is because the pre-processor treats &#8216;<code>3+1&#8217;</code> as a literal string which is then interpreted by the compiler as 3.  In the resource <code>correct_expression</code> above the &#8216;=&#8216; sign forces the pre-processor to evaluate the expression.</p>
+<a name="1.5.8.15"></a><h4>Initialising <code>STRUCT</code> items</h4>
+<p><code>struct-initialiser</code> :
+<code>struct-name</code>
+<code>{</code>
+<code>struct-initialiser-item-list</code>
+<code>}</code></p>
+<p><code>struct-initialiser-item</code> :
+<code>member-name</code>
+<code>=</code>
+<code>initialiser</code>
+<code>;</code></p>
+<p><code>STRUCT</code> members may only be initialised in the resource definition.</p>
+<p>To initialise a member of <code>STRUCT</code> type, give the <code>struct-name</code> with which you wish to initialise it, and then specify each member of that struct which you wish to initialise.</p>
+<p>The <code>member-name</code>s listed must be members of the <code>struct-name</code> struct. Each <code>initialise</code> must be of a type compatible with the member it is initialising.</p>
+<p>The compiler does not enforce type safety. Any struct can be used to initialise a member declared to be of struct type. Usually, however, the designer of the struct will have intended only one or a limited number of structs ever be used to initialise a member. You should ensure that you initialise struct members with the intended struct type.</p>
+<p>Given the previously defined struct types</p>
+<p class="CodeBlock"><code>STRUCT STRINGCOUNT<br>&nbsp;{<br>&nbsp;BUF message;<br>&nbsp;WORD num;<br>&nbsp;}</code></p>
+<p class="CodeBlock"><code>STRUCT SAMPLE<br>&nbsp;{<br>&nbsp;WORD anynumber;<br>&nbsp;STRUCT text; // should be a STRINGCOUNT <br>&nbsp;}</code></p>
+<p>the following example shows how to define the struct within a resource:</p>
+<p class="CodeBlock"><code>RESOURCE SAMPLE show_how<br>&nbsp;{<br>&nbsp;anynumber=10;<br>&nbsp;text=STRINGCOUNT<br>&nbsp;&nbsp;{<br>&nbsp;&nbsp;message=&quot;Hello&quot;<br>&nbsp;&nbsp;num=5;<br>&nbsp;&nbsp;};<br>&nbsp;}</code></p>
+<p>Note the trailing semicolon after the closing <code>}</code> of the <code>text</code> struct member initialisation: this is because a semicolon follows&nbsp;<i>all</i> member initialisations. For longer, more complicated resources deciding where semicolons must be placed may become confusing. As shown in the following example, array lists are separated by commas and terminated without a semi-colon. Similarly, resources are not terminated by a semi-colon.</p>
+<p class="CodeBlock"><code>RESOURCE DIALOG example_dialog<br>&nbsp;{<br>&nbsp;title=&quot;Example&quot;;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;topsection=DLAY_SECTION<br>&nbsp;&nbsp;{<br>&nbsp;&nbsp;control_list=<br>&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ACLIST<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;butlist_flags=BUTLIST_HORIZONTAL;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rid=R_HCIL_BUTTONS_OK_CANCEL;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},    // array member so comma needed<br>&nbsp;&nbsp;&nbsp;ACLIST<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;butlist_flags=BUTLIST_HORIZONTAL;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rid=R_HCIL_BUTTONS_OK_CANCEL;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} // last item in array so nothing needed<br>&nbsp;&nbsp;&nbsp;}; // end of struct member control_list so &#8216;;&#8217; needed<br>&nbsp;&nbsp;};  // end of struct member topsection so &#8216;;&#8217; needed<br>&nbsp;}   // end of resource so nothing needed</code></p>
+<p>The rules to remember are as follows:</p>
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+<p><b>type of entity</b></p>
+</td>
+<td class="Cell">
+<p><b>Punctuation needed after closing </b><b>&#8216;</b><b>}</b><b>&#8217;</b></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>resource</p>
+</td>
+<td class="Cell">
+<p>nothing</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>array member (not last one)</p>
+</td>
+<td class="Cell">
+<p>,</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>last array member</p>
+</td>
+<td class="Cell">
+<p>nothing</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>struct member</p>
+</td>
+<td class="Cell">
+<p>;</p>
+</td>
+</tr>
+</table></td></tr></table><p>See the definitions of <code>resource-statement</code>, <code>struct-statement</code>, <code>struct-member</code> and <code>array-initialiser</code> for a complete explanation of the syntax.</p>
+<a name="DevTools%2dref%2erss%2dname"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>NAME statement</h3>
+</div><div class="Bodytext">
+<p><code>name-statement</code>:
+<code>NAME</code>
+<code>short-name</code></p>
+<p>Use this statement to ensure that the resources in the file have a unique ID so that an application can use multiple resource files without resource ID conflict.</p>
+<p>This statement must be the first non-comment statement in the file.</p>
+<p>The <code>short-name</code> must be between one and four alphabetic characters long and be unique (no other file may use the same one). For the sake of consistency this constant should be in upper case although lower case is allowed (and will be converted to upper case by the compiler). This <code>short-name</code> is then converted into a number and shifted onto the leading 20 bits of the resource ID, leaving the bottom 12 bits for the number of the resource in the file. This allows a maximum of 4095 resources to be defined in a source file.</p>
+<p>So with <code>NAME</code> set to <code>AAAA</code>, if this resource is the first resource in the file</p>
+<p class="CodeBlock"><code>RESOURCE STRING one<br>&nbsp;{<br>&nbsp;wd=5;<br>&nbsp;}</code></p>
+<p>the first entry in the generated header file will be</p>
+<p class="CodeBlock"><code>#define ONE 0x04FD8001</code></p>
+<p>04FD8 is the leading 20 bits for all IDs in the file and 001 is the reference of that resource within the file.</p>
+<p>Since the <code>NAME</code> statement maps all resource IDs within the file onto 32-bit numbers, only <code>LLINK</code>s may be used for  resource references in that file.  Using the <code>NAME</code> statement in a resource file means that any attempt to use a <code>LINK</code> will generate an error.</p>
+<a name="DevTools%2dref%2erss%2dcharacter%2dset"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>CHARACTER_SET statement</h3>
+</div><div class="Bodytext">
+<p><code>character_set-statement</code> :
+<code>CHARACTER_SET</code>
+<code>character_set-name</code></p>
+<p>Use a <code>CHARACTER_SET</code> statement to define the character set to be used. The permitted values for <code>character_set-name</code> are defined as:</p>
+<p><code>character_set-name</code> :
+| <code>CP1252</code><code>
+</code>|<code>
+</code><code>UTF8</code></p>
+<p>If the <code>CHARACTER_SET</code> statement is omitted from a resource file, character set CP1252 is taken as default.</p>
+<a name="DevTools%2dref%2erss%2denum"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>ENUM statement</h3>
+</div><div class="Bodytext">
+<p><code>enum-statement</code> :
+<code>enum</code> [ <code>enum-label</code> ] <code>{</code>
+<code>enum-list</code>
+<code>}</code>
+<code>;</code>
+| <code>ENUM</code> [ <code>enum-label</code> ] <code>{</code>
+<code>enum-list</code>
+<code>}</code>
+<code>;</code></p>
+<p>Use an <code>enum</code> (or an <code>ENUM</code>) statement to define a set of integer values. The values are associated with symbols defined in the <code>enum-list</code>; the syntax and the semantics are compatible with those of C++ enumerations.</p>
+<p>Each member of the <code>enum-list</code> is followed by a comma except for the last one. The syntax of a member is defined as:</p>
+<p><code>enum-member</code> :
+<code>member-name</code> [ =<code>initialiser</code> ]</p>
+<p>The defined enumerator symbols can be used in both C++ code and resource scripts and are commonly defined in files which have the conventional file extension <code class="filename">hrh</code>. The <code class="filename">.hrh</code> files are included in both C++ files and resource source files.</p>
+<p>For example, the <code>enum</code> definition:</p>
+<p class="CodeBlock"><code>enum<br>&nbsp;{<br>&nbsp;EExampleCmdIdFirst=0x100,<br>&nbsp;EExampleCmdIdSecond,<br>&nbsp;EExampleCmdIdThird,<br>&nbsp;EExampleCmdIdFourth<br>&nbsp;};</code></p>
+<p>defines the enumerators <code>EExampleCmdIdFirst</code>, <code>EExampleCmdIdSecond</code> etc. and assigns values to them.</p>
+<p>In general, each enumerator can be assigned a specific value. If no value is explicitly assigned, the value generated by the resource compiler is the value of the previous enumerator plus one. Thus, in the above example, <code>EExampleCmdIdFirst</code> is assigned the value <code>0x100</code> (decimal 256), <code>EExampleCmdIdSecond</code> is assigned the value <code>0x101</code> (decimal 257) etc.</p>
+<p>If the first enumerator is not assigned an explicit value, it defaults to <code>0</code>.</p>
+<p>More than one enumerator may be assigned an explicit value.</p>
+<p>The assigned value can be coded in either hexadecimal or plain decimal notation.</p>
+<p class="CodeBlock"><code>enum {<br>&nbsp;testvalue1=10,<br>&nbsp;testvalue2,<br>&nbsp;testvalue3=20,<br>&nbsp;testvalue4<br>&nbsp;};</code></p>
+<p class="CodeBlock"><code>STRUCT TEST1<br>&nbsp;{<br>&nbsp;BYTE b1;<br>&nbsp;BYTE b2;<br>&nbsp;BYTE b3;<br>&nbsp;BYTE b4;<br>&nbsp;}</code></p>
+<p class="CodeBlock"><code>RESOURCE TEST1 test<br>&nbsp;{<br>&nbsp;b1=testvalue1;<br>&nbsp;b2=testvalue2;<br>&nbsp;b3=testvalue3;<br>&nbsp;b4=testvalue4;<br>&nbsp;}</code></p>
+<p>In this example the resource generated is: <code>0x0A 0x0B 0x14 0x15</code></p>
+<p>Note that the final semi-colon in an <code>enum</code> may be omitted; however, to retain compatibility with the C++ compiler, it is advisable to retain it.</p>
+<a name="DevTools%2dref%2erss%2dlayout"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Compiled resource file format&nbsp;— <code class="filename">.rsc</code></h2>
+</div><div class="Bodytext">
+<p>All resource files have the following format: </p>
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+<p><i>header</i></p>
+</td>
+<td class="Cell">
+<p><i>resources</i></p>
+</td>
+<td class="Cell">
+<p><i>index table</i></p>
+</td>
+</tr>
+</table></td></tr></table><p>where:</p>
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+<p>header</p>
+</td>
+<td class="Cell">
+<p>is always four bytes long.  It  consists of two 16-bit numbers: the first gives the file offset of the start of the index table, the second gives the length in bytes of the index table</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>resources</p>
+</td>
+<td class="Cell">
+<p>are a series of variable-length data items generated in the order specified in the source file</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>index table</p>
+</td>
+<td class="Cell">
+<p>is a sequence of 16-bit numbers, the first giving the file offset of the start of the first resource, the second giving the file offset of the start of the second resource and so on up to the last resource in the file. The last 16-bit number gives the file offset of the end of the last resource (i.e. the beginning of the index table)</p>
+</td>
+</tr>
+</table></td></tr></table><p>Note that for  <code>LTEXT16</code>, <code>TEXT16</code> and <code>BUF16</code> values, the data is aligned to a multiple of 2 bytes from the start of the individual resource (not from the start of the overall resource file) by adding a padding byte, whose value is <code>0xAB</code> (for the <code>LTEXT16</code> case, this is inserted  between the length byte and the first Unicode character). The padding byte is added  if the offset from the start of the individual resource's binary data (in its in-memory format) to the first Unicode character would otherwise be an odd number.</p><p>So for example the following source file:</p>
+<p class="CodeBlock"><code>STRUCT SIMPLE<br>&nbsp;{<br>&nbsp;WORD wd;<br>&nbsp;LONG lg;<br>&nbsp;BUF name;<br>&nbsp;}</code></p>
+<p class="CodeBlock"><code>RESOURCE SIMPLE one<br>&nbsp;{<br>&nbsp;wd=5;<br>&nbsp;lg=10000;<br>&nbsp;name=&quot;Simon&quot;;<br>&nbsp;}</code></p>
+<p class="CodeBlock"><code>RESOURCE SIMPLE two<br>&nbsp;{<br>&nbsp;name=&quot;John&quot;;<br>&nbsp;}</code></p>
+<p>when compiled, will produce the following output resource file:</p>
+<p class="CodeBlock"><code>0:  19 00 06 00 05 00 10 27  00 00 53 69 6d 6f 6e 00 .......&#8217; ..Simon.</code></p>
+<p class="CodeBlock"><code>10: 00 00 00 00 00 4a 6f 68  6e 04 00 0f 00 19 00    .....Joh n......</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to pop and destroy</title>
+<link href="../../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="CleanupSupportGuide2%2ehow%2dto%2epop%2ddestroy"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../../_index/index.html"><img
+src="../../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../../GlobalGlossary/index.html"><img src="../../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToCleanUpStack.guide.html"><img src="../../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToTrailingC.guide.html"><img src="../../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Memory&nbsp;Management</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Cleanup&nbsp;Support</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Cleanup&nbsp;Stack&nbsp;Basics</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;pop&nbsp;and&nbsp;destroy</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to pop and destroy</h1>
+</div><div class="Bodytext">
+<p>In general, it is recommended that any objects which are accessed
+only through an automatic pointer are pushed onto the cleanup stack
+immediately, before being used, and only popped before they must be
+destroyed.</p>
+<p>You can use the single function
+<code>CleanupStack::PopAndDestroy()</code> to both pop the object from the
+cleanup stack and destroy it. This operation is the usual thing to do when an
+object on the cleanup stack has been finished with.</p>
+<p class="CodeBlock"><code>void doExampleL()<br>&nbsp;{<br>&nbsp;// allocate and leave if could not<br>&nbsp;CExample* myExample = new (ELeave) CExample;<br><br>&nbsp;// this cannot leave - no protection needed<br>&nbsp;myExample-&gt;iInt = 5; <br>&nbsp;&nbsp;&nbsp;// do something that might leave, protected by cleanup stack<br>&nbsp;CleanupStack::PushL(myExample); // push pointer to stack<br><br>&nbsp;myExample-&gt;DoSomethingL()); // something that might leave <br><br>&nbsp;// pop from cleanup stack, and destroy, in one operation<br>&nbsp;CleanupStack::PopAndDestroy();  <br>&nbsp;}</code></p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Note</h2>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p><code>Pop()</code> on its own is nevertheless useful: it is
+safe to pop an object from the cleanup stack when you are sure that it will
+either be destroyed, or a reference stored to it, before any operations are
+performed on it which might leave. This way, an object can never be orphaned
+(which is our aim). In the former case, you get pop-and-destroy all in one,
+which it is worthwhile for the system to provide. In the latter case, you need
+to store a pointer. This is what happens, for instance, in two-phase
+construction.</p>
+</li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

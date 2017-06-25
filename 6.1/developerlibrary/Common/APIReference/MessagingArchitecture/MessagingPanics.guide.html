@@ -1,0 +1,1868 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Messaging panics</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="Messaging%2epanics"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="ConstantsUIMTMPrefs.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="UsingCBaseServerMtm.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Messaging&nbsp;Architecture</a>&nbsp;<span class="separator">&#187;</span>
+Messaging&nbsp;panics</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Messaging panics</h1>
+</div><div class="Bodytext">
+<p>The panic categories and panic numbers vary substantially between ER5 and later releases. For this reason, ER5 panics are documented in a separate section.</p>
+<a name="1.4"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Post-ER5 panics</h2>
+</div><div class="Bodytext">
+<p>This section documents panics for the releases later than ER5.</p>
+<a name="1.4.3"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Panic categories</h3>
+</div><div class="Bodytext">
+<p>Messaging has a number of panic categories that reflect the area that raised the panic.</p>
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+<p><b>Category</b></p>
+</td>
+<td class="Cell">
+<p><b>Description</b></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>MSGS</p>
+</td>
+<td class="Cell">
+<p>Panic of Message Server from <code class="filename">msgs</code> library</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>MSGS Client</p>
+</td>
+<td class="Cell">
+<p>Panic of client from <code class="filename">msgs</code> library</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>MTMUI Data</p>
+</td>
+<td class="Cell">
+<p>Panic from <code class="filename">mtur</code> library relating to UI Data MTM operation</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>MTUI</p>
+</td>
+<td class="Cell">
+<p>Panic from <code class="filename">mtur</code> library relating to User Interface MTM operation</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>SEND</p>
+</td>
+<td class="Cell">
+<p>Panic from <code>CSendAs</code></p>
+</td>
+</tr>
+</table></td></tr></table><a name="1.4.4"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>MSGS panics</h3>
+</div><div class="Bodytext">
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+<p>11-18</p>
+</td>
+<td class="Cell">
+<p>Parent of context could not be found</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>19-20</p>
+</td>
+<td class="Cell">
+<p>Specified entry was not a child of the parent</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>35</p>
+</td>
+<td class="Cell">
+<p><code>CMsvServerEntry::DeleteEntry()</code> called on current context</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>36</p>
+</td>
+<td class="Cell">
+<p><code>CMsvServerEntry</code> update index request failed as ID specified is not the same as the context ID</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>66</p>
+</td>
+<td class="Cell">
+<p>Invalid <code>TMsvEntry</code> provided in <code>CMsvServerEntry</code> change function</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>94</p>
+</td>
+<td class="Cell">
+<p><code>CMsvServerEntry::EditStoreL()</code> called with associated message store already open</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>95</p>
+</td>
+<td class="Cell">
+<p><code>CMsvServerEntry::ReadStoreL()</code> called with associated message store already open</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>96</p>
+</td>
+<td class="Cell">
+<p><code>CMsvServerEntry</code> destroyed while associated message store was left open</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>97</p>
+</td>
+<td class="Cell">
+<p><code>CMsvServerEntry</code> object notified of unknown message store event type</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>98</p>
+</td>
+<td class="Cell">
+<p><code>CMsvServerEntry</code> object notified of event relating to unknown message store </p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>99</p>
+</td>
+<td class="Cell">
+<p>New <code>CMsvServerEntry</code> context request failed as the context&#8217;s store is still open</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>109</p>
+</td>
+<td class="Cell">
+<p><code>CMsvServerEntry</code> context cannot be changed as it has been deleted</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>120</p>
+</td>
+<td class="Cell">
+<p><code>CMsvServerEntry</code> move  function failed as the destination is the current parent</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>146</p>
+</td>
+<td class="Cell">
+<p><code>CMsvServerEntry</code> request failed as no context has been set for the object</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>175</p>
+</td>
+<td class="Cell">
+<p><code>CMsvServerEntry::MoveEntry()/MoveEntryWithinService()</code> failed as the destination belongs to a different service that the source</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>176</p>
+</td>
+<td class="Cell">
+<p><code>CMsvServerEntry</code> request called with an asynchronous move function is already being carried out on the context</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>177</p>
+</td>
+<td class="Cell">
+<p><code>CMsvServerEntry::MoveEntryL()</code> called with an asynchronous move function already being carried out on the context</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>178</p>
+</td>
+<td class="Cell">
+<p><code>CMsvServerEntry</code>
+<code>::MoveEntryCompleted()</code> called with no move completed</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>179</p>
+</td>
+<td class="Cell">
+<p>Target of <code>CMsvServerEntry::MoveEntryL()</code> is the current context</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>180</p>
+</td>
+<td class="Cell">
+<p><code>CMsvServerEntry</code>
+<code>::CancelMoveEntry()</code> called with no move begun</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>181</p>
+</td>
+<td class="Cell">
+<p><code>CMsvServerEntry</code> destroyed while asynchronous move operation was in progress</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>194</p>
+</td>
+<td class="Cell">
+<p><code>CMtmDllInfo::SetHumanReadableNameL()</code> called with name longer than 50 characters</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>195</p>
+</td>
+<td class="Cell">
+<p><code>CRegisteredMtmDll</code> object destroyed while MTM DLL is still in use</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>196</p>
+</td>
+<td class="Cell">
+<p><code>CRegisteredMtmDll</code> object released with no instances in use</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>197</p>
+</td>
+<td class="Cell">
+<p><code>CRegisteredMtmDll</code> load library call made while MTM DLL is still in use</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>198</p>
+</td>
+<td class="Cell">
+<p><code>CMtmDllRegistry::MtmTypeUid()</code> an out-of-range index value</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>199</p>
+</td>
+<td class="Cell">
+<p><code>CMtmDllRegistry::IsInUse()</code> specified a non-registered MTM</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>200</p>
+</td>
+<td class="Cell">
+<p>MTM registered with type UID of existing MTM</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>203</p>
+</td>
+<td class="Cell">
+<p>Request to sort entries by unknown priority</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>209</p>
+</td>
+<td class="Cell">
+<p>Registration data for a single MTM component has incorrect value for UID2</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>210</p>
+</td>
+<td class="Cell">
+<p>Request to sort entries by unknown MTM</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>211</p>
+</td>
+<td class="Cell">
+<p>Error in constructed MTM list for sorting</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>223</p>
+</td>
+<td class="Cell">
+<p>ID specified in new index entry is not the same as the context ID in <code>CMsvEntry</code> change context</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>227</p>
+</td>
+<td class="Cell">
+<p><code>CMsvSession</code>
+<code>::RemoveObserver()</code> was called for a non-registered observer</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>228</p>
+</td>
+<td class="Cell">
+<p>Client attempted to remove an entry observer  that was not a registered observer</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>234</p>
+</td>
+<td class="Cell">
+<p>Attempted to remove a session observer while no session observer exists</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>235</p>
+</td>
+<td class="Cell">
+<p>No context for <code>CMsvEntry</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>236</p>
+</td>
+<td class="Cell">
+<p><code>CMsvEntry</code> children already sorted</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>237</p>
+</td>
+<td class="Cell">
+<p><code>CMsvEntry</code> encountered deletion of an entry not listed as a  child</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>239</p>
+</td>
+<td class="Cell">
+<p><code>CMsvEntry</code> context cannot be used, as it is being changed</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>240</p>
+</td>
+<td class="Cell">
+<p>A context <code>CMsvEntry</code> change operation is already taking place</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>241</p>
+</td>
+<td class="Cell">
+<p>Selection passed to <code>CMsvEntry::DeleteL()</code> contains entries with different MTM or service properties</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>242</p>
+</td>
+<td class="Cell">
+<p><code>CMsvEntry::ChildrenWithTypeL()</code> was called with an unknown type</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>244</p>
+</td>
+<td class="Cell">
+<p>Selection was specified in <code>CMsvEntry</code> move, but MTM type or service fields are inconsistent among the entries</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>245</p>
+</td>
+<td class="Cell">
+<p>Selection was specified in <code>CMsvEntry</code> copy, but MTM type or service fields are inconsistent among the entries</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>249</p>
+</td>
+<td class="Cell">
+<p><code>CMsvEntry::CreateL()</code> called with invalid <code>TMsvEntry</code>
+</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>250</p>
+</td>
+<td class="Cell">
+<p><code>CMsvEntry::ChangeL()</code> called with invalid <code>TMsvEntry</code>
+</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>251</p>
+</td>
+<td class="Cell">
+<p><code>CMsvEntry</code> object destroyed with associated message store left open</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>258</p>
+</td>
+<td class="Cell">
+<p>Empty selection passed to <code>CMsvEntry::DeleteL()</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>259</p>
+</td>
+<td class="Cell">
+<p><code>CMsvEntry::SetEntryL()</code> called with associated message store left open</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>260</p>
+</td>
+<td class="Cell">
+<p><code>CMsvEntry::MoveL()</code> called with move target set to the present parent</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>261</p>
+</td>
+<td class="Cell">
+<p>Client attempts to open already open message store through <code>CMsvEntry</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>262</p>
+</td>
+<td class="Cell">
+<p><code>CMsvSession</code> object destroyed with entries still on the session cleanup stack</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>265</p>
+</td>
+<td class="Cell">
+<p>Entry passed to<code> CMsvEntry::DeleteL()</code> has different owning service than parent</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>266</p>
+</td>
+<td class="Cell">
+<p>Entry passed to<code> CMsvEntry::MoveL()</code> has different owning service than parent</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>267</p>
+</td>
+<td class="Cell">
+<p>Entry passed to<code> CMsvEntry::CopyL()</code> has different owning service than parent</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>268</p>
+</td>
+<td class="Cell">
+<p><code>CMsvEntry</code> notified of new child with different owning service than context</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>269</p>
+</td>
+<td class="Cell">
+<p><code>CMsvEntry</code> notified of entry deletion with different owning service than context</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>270</p>
+</td>
+<td class="Cell">
+<p><code>CMsvEntry</code> notified of message store modification with different owning service than context</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>271</p>
+</td>
+<td class="Cell">
+<p><code>CMsvEntry</code> notified of entry modification with different owning service than context</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>273</p>
+</td>
+<td class="Cell">
+<p>The Message Server has completed an asynchronous request with an error</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>275</p>
+</td>
+<td class="Cell">
+<p><code>CBaseMtm::StoreBodyL()</code> or <code>CBaseMtm::RestoreBodyL()</code> called with no context set</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>279</p>
+</td>
+<td class="Cell">
+<p>Entry ID of <code>CBaseMtm</code> context changed</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>280</p>
+</td>
+<td class="Cell">
+<p>MTM data was not found in MTM data file on installation</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>281</p>
+</td>
+<td class="Cell">
+<p>Copy or move already in progress for <code>CMsvServerEntry</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>282</p>
+</td>
+<td class="Cell">
+<p><code>CMsvServerEntry::Cancel()</code> called when no asynchronous operation is in progress<code>
+</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>283</p>
+</td>
+<td class="Cell">
+<p>Error reading file system</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>284</p>
+</td>
+<td class="Cell">
+<p>Unknown error in  <code>CMsvServerEntry::HasDirectory()</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>285</p>
+</td>
+<td class="Cell">
+<p><code>CMsvOperation::FinalProgress()</code> was called when the operation was not complete</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>286</p>
+</td>
+<td class="Cell">
+<p><code>CMsvOperation::FinalProgress()</code> called an operation's <code>ProgressL()</code> function that left</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>287</p>
+</td>
+<td class="Cell">
+<p>Error reading file system</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>294</p>
+</td>
+<td class="Cell">
+<p>The synchronous version of <code>CMsvEntry::CreateL()</code>, <code>CMsvEntry::ChangeL()</code>, or <code>CMsvEntry::DeleteL()</code> was called for a non-local context</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>296</p>
+</td>
+<td class="Cell">
+<p>A <code>CMsvServerEntry</code> delete function was called with an empty selection</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>299</p>
+</td>
+<td class="Cell">
+<p>Target of a <code>CMsvServerEntry::CopyEntriesL()</code> call was the current context</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>300</p>
+</td>
+<td class="Cell">
+<p><code>CMsvServerEntry::CopyEntriesL()</code> called when a copy is already in progress<code>
+</code></p>
+</td>
+</tr>
+</table></td></tr></table><a name="Messaging%2epanic%2emsgsdclientper5"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>MSGS Client panics</h3>
+</div><div class="Bodytext">
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+<p>1</p>
+</td>
+<td class="Cell">
+<p>Unsupported asynchronous request made to Message Server</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>2</p>
+</td>
+<td class="Cell">
+<p>Session event notification request repeated by client</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>3</p>
+</td>
+<td class="Cell">
+<p>Failed to write data into asynchronous call descriptor to be passed back to client</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>4</p>
+</td>
+<td class="Cell">
+<p>Failed to read data from asynchronous call descriptor passed from client</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>5</p>
+</td>
+<td class="Cell">
+<p>Client requested Message Server to create or modify an entry with invalid data</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>7</p>
+</td>
+<td class="Cell">
+<p>Message Server session ended while a message store is still locked</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>8</p>
+</td>
+<td class="Cell">
+<p>Message Server session ended with outstanding requests</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>9</p>
+</td>
+<td class="Cell">
+<p>Client requested Message Server to release message store that was not locked</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>10</p>
+</td>
+<td class="Cell">
+<p>Client requested Message Server to delete empty entry selection</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>11</p>
+</td>
+<td class="Cell">
+<p>Client requested Message Server to pop remote entry from session cleanup stack</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>12</p>
+</td>
+<td class="Cell">
+<p>Progress information exceeded maximum 256-character length</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>13</p>
+</td>
+<td class="Cell">
+<p>Client requested Message Server to move an empty selection of entries</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>14</p>
+</td>
+<td class="Cell">
+<p>Client requested Message Server to copy an empty selection of entries</p>
+</td>
+</tr>
+</table></td></tr></table><a name="1.4.6"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>MTUI panics</h3>
+</div><div class="Bodytext">
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+<p>0</p>
+</td>
+<td class="Cell">
+<p>Empty selection passed to <code>CBaseMtmUi</code> move, copy, or delete function</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>2</p>
+</td>
+<td class="Cell">
+<p>Target of <code>CBaseMtmUi</code> move or copy function was not service or folder</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>4</p>
+</td>
+<td class="Cell">
+<p><code>CBaseMtmUi::DeleteServiceL()</code> called for non-service entry</p>
+</td>
+</tr>
+</table></td></tr></table><a name="1.4.7"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>MTUI Data panics</h3>
+</div><div class="Bodytext">
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+<p>1</p>
+</td>
+<td class="Cell">
+<p>Inconsistent start/end and zoom parameters passed to <code>CBaseMtmUiData::CreateBitmapsL()</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>4</p>
+</td>
+<td class="Cell">
+<p>Multiple location flags set in <code>TMtmUiFunction::aFlags</code></p>
+</td>
+</tr>
+</table></td></tr></table><a name="Messaging%2epanic%2esend%2eposter5"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>SEND panics</h3>
+</div><div class="Bodytext">
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+<p>1</p>
+</td>
+<td class="Cell">
+<p>Out of range index passed to <code>CSendAs::SetMtmL()</code> or <code>CSendAs::SetService()</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>2</p>
+</td>
+<td class="Cell">
+<p>Internal discrepancy in MTM array</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>3</p>
+</td>
+<td class="Cell">
+<p>Asked to create zero-length MTM array</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>4</p>
+</td>
+<td class="Cell">
+<p><code>CSendAs::SetMtmL()</code> called when a message has already been created</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>5</p>
+</td>
+<td class="Cell">
+<p>Asked to create zero-length service array</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>6</p>
+</td>
+<td class="Cell">
+<p>MTM not chosen when <code>CSendAs::CreateMessageL()</code> called</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>7</p>
+</td>
+<td class="Cell">
+<p>Message not saved when <code>CSendAs::AbandonMessage()</code> called</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>8</p>
+</td>
+<td class="Cell">
+<p>Message not created when <code>CSendAs::SaveMessageL()</code> called</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>9</p>
+</td>
+<td class="Cell">
+<p><code>CSendAs::RecipientList()</code>, <code>CSendAs::RemoveRecipient()</code>, or <code>CSendAs::AddRecipientL()</code> called without message being saved or created</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>10</p>
+</td>
+<td class="Cell">
+<p><code>CSendAs::SetSubjectL()</code> called without message being saved or created</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>11</p>
+</td>
+<td class="Cell">
+<p><code>CSendAs::SetBodyL()</code> or <code>CSendAs::ValidateMessage()</code> called without message being saved or created</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>12</p>
+</td>
+<td class="Cell">
+<p><code>CSendAs</code> active without asynchronous rendering being called</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>13</p>
+</td>
+<td class="Cell">
+<p><code>CSendAs</code> cancelled without asynchronous rendering being called</p>
+</td>
+</tr>
+</table></td></tr></table><a name="1.5"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>ER5 panics</h2>
+</div><div class="Bodytext">
+<p>This section documents panics for the ER5 release only.</p>
+<a name="1.5.3"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Panic categories</h3>
+</div><div class="Bodytext">
+<p>Messaging has a number of panic categories that reflect the area that raised the panic.</p>
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+<p><b>Category</b></p>
+</td>
+<td class="Cell">
+<p><b>Description</b></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>MCLD</p>
+</td>
+<td class="Cell">
+<p>Panic from MCLD library</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>MENT</p>
+</td>
+<td class="Cell">
+<p>Panic from MENT library</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>MSVD</p>
+</td>
+<td class="Cell">
+<p>Panic of Message Server from MSVD library</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>MSVD Client</p>
+</td>
+<td class="Cell">
+<p>Panic of client from MSVD library</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>MTMUI Data</p>
+</td>
+<td class="Cell">
+<p>Panic from MTUR library relating to UI Data MTM operation</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>MTUI</p>
+</td>
+<td class="Cell">
+<p>Panic from MTUR library relating to User Interface MTM operation</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>SEND</p>
+</td>
+<td class="Cell">
+<p>Panic from <code>CSendAs</code></p>
+</td>
+</tr>
+</table></td></tr></table><a name="1.5.4"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>MCLD panics</h3>
+</div><div class="Bodytext">
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+<p>4</p>
+</td>
+<td class="Cell">
+<p>ID specified in new index entry is not the same as the context ID in <code>CMsvEntry</code> change context</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>8</p>
+</td>
+<td class="Cell">
+<p><code>CMsvSession</code>
+<code>::RemoveObserver()</code> was called for a non-registered observer</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>9</p>
+</td>
+<td class="Cell">
+<p>Client attempted to remove an entry observer  that was not a registered observer</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>15</p>
+</td>
+<td class="Cell">
+<p>Attempted to remove a session observer while no session observer exists</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>16</p>
+</td>
+<td class="Cell">
+<p>No context for <code>CMsvEntry</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>17</p>
+</td>
+<td class="Cell">
+<p><code>CMsvEntry</code> children already sorted</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>18</p>
+</td>
+<td class="Cell">
+<p><code>CMsvEntry</code> encountered deletion of an entry not listed as a  child</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>20</p>
+</td>
+<td class="Cell">
+<p><code>CMsvEntry</code> context cannot be used, as it is being changed</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>21</p>
+</td>
+<td class="Cell">
+<p>A context <code>CMsvEntry</code> change operation is already taking place</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>22</p>
+</td>
+<td class="Cell">
+<p>Selection passed to <code>CMsvEntry::DeleteL()</code> contains entries with different MTM or service properties</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>23</p>
+</td>
+<td class="Cell">
+<p><code>CMsvEntry::ChildrenWithTypeL()</code> was called with an unknown type</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>25</p>
+</td>
+<td class="Cell">
+<p>Selection was specified in <code>CMsvEntry</code> move, but MTM type or service fields are inconsistent among the entries</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>26</p>
+</td>
+<td class="Cell">
+<p>Selection was specified in <code>CMsvEntry</code> copy, but MTM type or service fields are inconsistent among the entries</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>30</p>
+</td>
+<td class="Cell">
+<p><code>CMsvEntry::CreateL()</code> called with invalid <code>TMsvEntry</code>
+</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>31</p>
+</td>
+<td class="Cell">
+<p><code>CMsvEntry::ChangeL()</code> called with invalid <code>TMsvEntry</code>
+</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>32</p>
+</td>
+<td class="Cell">
+<p><code>CMsvEntry</code> object destroyed with associated message store left open</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>39</p>
+</td>
+<td class="Cell">
+<p>Empty selection passed to <code>CMsvEntry::DeleteL()</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>40</p>
+</td>
+<td class="Cell">
+<p><code>CMsvEntry::SetEntryL()</code> called with associated message store left open</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>41</p>
+</td>
+<td class="Cell">
+<p><code>CMsvEntry::MoveL()</code> called with move target set to the present parent</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>42</p>
+</td>
+<td class="Cell">
+<p>Client attempts to open already open message store through <code>CMsvEntry</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>43</p>
+</td>
+<td class="Cell">
+<p><code>CMsvSession</code> object destroyed with entries still on the session cleanup stack</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>46</p>
+</td>
+<td class="Cell">
+<p>Entry passed to<code> CMsvEntry::DeleteL()</code> has different owning service than parent</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>47</p>
+</td>
+<td class="Cell">
+<p>Entry passed to<code> CMsvEntry::MoveL()</code> has different owning service than parent</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>48</p>
+</td>
+<td class="Cell">
+<p>Entry passed to<code> CMsvEntry::CopyL()</code> has different owning service than parent</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>49</p>
+</td>
+<td class="Cell">
+<p><code>CMsvEntry</code> notified of new child with different owning service than context</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>50</p>
+</td>
+<td class="Cell">
+<p><code>CMsvEntry</code> notified of entry deletion with different owning service than context</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>51</p>
+</td>
+<td class="Cell">
+<p><code>CMsvEntry</code> notified of message store modification with different owning service than context</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>52</p>
+</td>
+<td class="Cell">
+<p><code>CMsvEntry</code> notified of entry modification with different owning service than context</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>54</p>
+</td>
+<td class="Cell">
+<p>The Message Server has completed an asynchronous request with an error</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>57</p>
+</td>
+<td class="Cell">
+<p><code>CBaseMtm::StoreBodyL()</code> or <code>CBaseMtm::RestoreBodyL()</code> called with no context set</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>61</p>
+</td>
+<td class="Cell">
+<p>Entry ID of <code>CBaseMtm</code> context changed</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>62</p>
+</td>
+<td class="Cell">
+<p>MTM data was not found in MTM data file on installation</p>
+</td>
+</tr>
+</table></td></tr></table><a name="1.5.5"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>MENT panics</h3>
+</div><div class="Bodytext">
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+<p>13</p>
+</td>
+<td class="Cell">
+<p><code>CMtmDllInfo::SetHumanReadableNameL()</code> called with name longer than 50 characters</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>14</p>
+</td>
+<td class="Cell">
+<p><code>CRegisteredMtmDll</code> object destroyed while MTM DLL is still in use</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>15</p>
+</td>
+<td class="Cell">
+<p><code>CRegisteredMtmDll</code> object released with no instances in use</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>16</p>
+</td>
+<td class="Cell">
+<p><code>CRegisteredMtmDll</code> load library call made while MTM DLL is still in use</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>17</p>
+</td>
+<td class="Cell">
+<p><code>CMtmDllRegistry::MtmTypeUid()</code> an out-of-range index value</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>18</p>
+</td>
+<td class="Cell">
+<p><code>CMtmDllRegistry::IsInUse()</code> specified a non-registered MTM</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>19</p>
+</td>
+<td class="Cell">
+<p>MTM registered with type UID of existing MTM</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>22</p>
+</td>
+<td class="Cell">
+<p>Request to sort entries by unknown priority</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>28</p>
+</td>
+<td class="Cell">
+<p>Registration data for a single MTM component has incorrect value for UID2</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>29</p>
+</td>
+<td class="Cell">
+<p>Request to sort entries by unknown MTM</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>30</p>
+</td>
+<td class="Cell">
+<p>Error in constructed MTM list for sorting</p>
+</td>
+</tr>
+</table></td></tr></table><a name="1.5.6"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>MSVD panics</h3>
+</div><div class="Bodytext">
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+<p>11-18</p>
+</td>
+<td class="Cell">
+<p>Parent of context could not be found</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>19-20</p>
+</td>
+<td class="Cell">
+<p>Specified entry was not a child of the parent</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>35</p>
+</td>
+<td class="Cell">
+<p><code>CMsvServerEntry::DeleteEntry()</code> called on current context</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>36</p>
+</td>
+<td class="Cell">
+<p><code>CMsvServerEntry</code> update index request failed as ID specified is not the same as the context ID</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>66</p>
+</td>
+<td class="Cell">
+<p>Invalid <code>TMsvEntry</code> provided in <code>CMsvServerEntry</code> change function</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>94</p>
+</td>
+<td class="Cell">
+<p><code>CMsvServerEntry::EditStoreL()</code> called with associated message store already open</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>95</p>
+</td>
+<td class="Cell">
+<p><code>CMsvServerEntry::ReadStoreL()</code> called with associated message store already open</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>96</p>
+</td>
+<td class="Cell">
+<p><code>CMsvServerEntry</code> destroyed while associated message store was left open</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>97</p>
+</td>
+<td class="Cell">
+<p><code>CMsvServerEntry</code> object notified of unknown message store event type</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>98</p>
+</td>
+<td class="Cell">
+<p><code>CMsvServerEntry</code> object notified of event relating to unknown message store </p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>99</p>
+</td>
+<td class="Cell">
+<p>New <code>CMsvServerEntry</code> context request failed as the context&#8217;s store is still open</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>109</p>
+</td>
+<td class="Cell">
+<p><code>CMsvServerEntry</code> context cannot be changed as it has been deleted</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>120</p>
+</td>
+<td class="Cell">
+<p><code>CMsvServerEntry</code> move  function failed as the destination is the current parent</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>146</p>
+</td>
+<td class="Cell">
+<p><code>CMsvServerEntry</code> request failed as no context has been set for the object</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>175</p>
+</td>
+<td class="Cell">
+<p><code>CMsvServerEntry::MoveEntry()/MoveEntryWithinService()</code> failed as the destination belongs to a different service that the source</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>176</p>
+</td>
+<td class="Cell">
+<p><code>CMsvServerEntry</code> request called with an asynchronous move function is already being carried out on the context</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>177</p>
+</td>
+<td class="Cell">
+<p><code>CMsvServerEntry::MoveEntryL()</code> called with an asynchronous move function already being carried out on the context</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>178</p>
+</td>
+<td class="Cell">
+<p><code>CMsvServerEntry</code>
+<code>::MoveEntryCompleted()</code> called with no move completed</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>179</p>
+</td>
+<td class="Cell">
+<p>Target of <code>CMsvServerEntry::MoveEntryL()</code> is the current context</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>180</p>
+</td>
+<td class="Cell">
+<p><code>CMsvServerEntry</code>
+<code>::CancelMoveEntry()</code> called with no move begun</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>181</p>
+</td>
+<td class="Cell">
+<p><code>CMsvServerEntry</code> destroyed while asynchronous move operation was in progress</p>
+</td>
+</tr>
+</table></td></tr></table><a name="1.5.7"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>MSVD Client panics</h3>
+</div><div class="Bodytext">
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+<p>1</p>
+</td>
+<td class="Cell">
+<p>Unsupported asynchronous request made to Message Server</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>2</p>
+</td>
+<td class="Cell">
+<p>Session event notification request repeated by client</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>3</p>
+</td>
+<td class="Cell">
+<p>Failed to write data into asynchronous call descriptor to be passed back to client</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>4</p>
+</td>
+<td class="Cell">
+<p>Failed to read data from asynchronous call descriptor passed from client</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>5</p>
+</td>
+<td class="Cell">
+<p>Client requested Message Server to create or modify an entry with invalid data</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>7</p>
+</td>
+<td class="Cell">
+<p>Message Server session ended while a message store is still locked</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>8</p>
+</td>
+<td class="Cell">
+<p>Message Server session ended with outstanding requests</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>9</p>
+</td>
+<td class="Cell">
+<p>Client requested Message Server to release message store that was not locked</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>10</p>
+</td>
+<td class="Cell">
+<p>Client requested Message Server to delete empty entry selection</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>11</p>
+</td>
+<td class="Cell">
+<p>Client requested Message Server to pop remote entry from session cleanup stack</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>12</p>
+</td>
+<td class="Cell">
+<p>Progress information exceeded maximum 256-character length</p>
+</td>
+</tr>
+</table></td></tr></table><a name="1.5.8"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>MTUI panics</h3>
+</div><div class="Bodytext">
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+<p>4</p>
+</td>
+<td class="Cell">
+<p>Empty selection passed to <code>CBaseMtmUi</code> move, copy, or delete function</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>6</p>
+</td>
+<td class="Cell">
+<p>Target of <code>CBaseMtmUi</code> move or copy function was not service or folder</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>8</p>
+</td>
+<td class="Cell">
+<p><code>CBaseMtmUi::DeleteServiceL()</code> called for non-service entry</p>
+</td>
+</tr>
+</table></td></tr></table><a name="1.5.9"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>MTUI Data panics</h3>
+</div><div class="Bodytext">
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+<p>1</p>
+</td>
+<td class="Cell">
+<p>Inconsistent start/end and zoom parameters passed to <code>CBaseMtmUiData::CreateBitmapsL()</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>4</p>
+</td>
+<td class="Cell">
+<p>Multiple location flags set in <code>TMtmUiFunction::aFlags</code></p>
+</td>
+</tr>
+</table></td></tr></table><a name="Messaging%2epanic%2esend"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>SEND panics</h3>
+</div><div class="Bodytext">
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+<p>1</p>
+</td>
+<td class="Cell">
+<p>Out of range index passed to <code>CSendAs::SetMtmL()</code> or CSendAs::SetService()</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>2</p>
+</td>
+<td class="Cell">
+<p>Internal discrepancy in MTM array</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>3</p>
+</td>
+<td class="Cell">
+<p>Asked to create zero-length MTM array</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>4</p>
+</td>
+<td class="Cell">
+<p><code>CSendAs::SetMtmL()</code> called when a message has already been created</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>5</p>
+</td>
+<td class="Cell">
+<p>Asked to create zero-length service array</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>6</p>
+</td>
+<td class="Cell">
+<p>MTM not chosen when <code>CSendAs::CreateMessageL()</code> called</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>7</p>
+</td>
+<td class="Cell">
+<p>Message not saved when <code>CSendAs::AbandonMessage()</code> called</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>8</p>
+</td>
+<td class="Cell">
+<p>Message not created when <code>CSendAs::SaveMessageL()</code> called</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>9</p>
+</td>
+<td class="Cell">
+<p><code>CSendAs::RecipientList()</code>, <code>CSendAs::RemoveRecipient()</code>, or <code>CSendAs::AddRecipientL()</code> called without message being saved or created</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>10</p>
+</td>
+<td class="Cell">
+<p><code>CSendAs::SetSubjectL()</code> called without message being saved or created</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>11</p>
+</td>
+<td class="Cell">
+<p><code>CSendAs::SetBodyL()</code> or <code>CSendAs::ValidateMessage()</code> called without message being saved or created</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>12</p>
+</td>
+<td class="Cell">
+<p><code>CSendAs</code> active without asynchronous rendering being called</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>13</p>
+</td>
+<td class="Cell">
+<p><code>CSendAs</code> cancelled without asynchronous rendering being called</p>
+</td>
+</tr>
+</table></td></tr></table>
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to use TZoomFactor and MGraphicsDeviceMap</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="GraphicsGuide3%2ezooming%2dexample"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="TwipToPixelMapping.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Graphics</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Graphics</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Twips&nbsp;and&nbsp;Zooming</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;use&nbsp;TZoomFactor&nbsp;and&nbsp;MGraphicsDeviceMap</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to use <code>TZoomFactor</code> and
+<code>MGraphicsDeviceMap</code></h1>
+</div><div class="Bodytext">
+<p>The example code shown here demonstrates the effects of different
+zoom factors on text and graphics. Example code displays some text, a
+rectangle, and a bitmap at various different zoom factors, with commentary text
+set at a fixed zoom factor.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Setting up a <code>TZoomFactor</code></h2>
+</div><div class="Bodytext">
+<p>The following fragment of code demonstrates how to set up a zoom
+factor object. The zoom factor is first set to 1-to-1 (no zoom) using the value
+<code>TZoomFactor::EZoomOneToOne</code>. Then it is shown how to set a zoom
+factor by multiplying or dividing <code>EZoomOneToOne</code>.</p>
+<p>In actual applications, for example, one zoom factor could be used
+for the client area of an application which can be zoomed, and another for
+drawing menus and button-bars which should not be zoomed.</p>
+<p class="CodeBlock"><code>// Create zoom factor object<br>TZoomFactor devicemap(iCoeEnv-&gt;ScreenDevice());<br><br>// Set zoom factor at 1 to 1<br>devicemap.SetZoomFactor(TZoomFactor::EZoomOneToOne);<br><br>// Set zoom factor at 200%<br>devicemap.SetZoomFactor(TZoomFactor::EZoomOneToOne*2);</code></p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Twips to pixels conversions using a zoom factor</h2>
+</div><div class="Bodytext">
+<ol>
+<li>
+<p>Define a rectangle in twips </p>
+</li>
+<li>
+<p>Use the device map&#8217;s conversion function
+<code>TwipsToPixels()</code> to convert the rectangles co-ordinates into pixels
+</p>
+</li>
+<li>
+<p>Draw the rectangle using <code>DrawRect()</code> in the graphics
+context <code>gc</code></p>
+</li>
+</ol>
+<p class="CodeBlock"><code>// set up example box in twips<br>TRect boxInTwips(TPoint(0,0),TPoint(500,300));<br>// convert rectangle co-ordinates into pixels<br>TRect boxInPixels = deviceMap-&gt;TwipsToPixels(boxInTwips);<br>gc.DrawRect(boxInPixels);</code></p>
+<a name="1.5.4"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Notes</h3>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>The actual conversion that <code>TwipsToPixels()</code> applies
+is dependent on the device map&#8217;s zoom factor setting, and the twips to
+pixels mapping of the graphics device which the device map is associated
+with.</p>
+</li>
+</ul>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Drawing text using a zoom factor</h2>
+</div><div class="Bodytext">
+<p>This fragment of code shows how to draw text using a zoom factor.
+</p>
+<ol>
+<li>
+<p>Create a font specification (in this case for a 10 point Times New
+Roman font) </p>
+</li>
+<li>
+<p>Find the nearest device font, using
+<code>MGraphicsDeviceMap::GetNearestFontInTwips()</code>, to that specification
+for the particular device map. This takes into account the map&#8217;s zoom
+factor and twip to pixel mapping. </p>
+</li>
+<li>
+<p>Use this device font to draw the text using
+<code>CGraphicsContext::DrawText()</code></p>
+</li>
+<li>
+<p>Discard the font using <code>CGraphicsContext::DiscardFont()</code>
+and <code>MGraphicsDeviceMap::ReleaseFont()</code></p>
+</li>
+</ol>
+<p class="CodeBlock"><code>// set up absolute font-spec and text box for 200 twip Roman font<br>TFontSpec fontSpec(_L(&quot;Times New Roman&quot;),200);<br>// find the nearest font to the specified one<br>CFont* screenFont;<br>deviceMap-&gt;GetNearestFontInTwips(screenFont,fontSpec);<br>// use it for this graphics context<br>gc.UseFont(screenFont);<br>gc.DrawText(_L(&quot;grzoom example text&quot;),TPoint(20,20));<br>// discard and release font<br>gc.DiscardFont();<br>deviceMap-&gt;ReleaseFont(screenFont);</code></p>
+<a name="1.6.5"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Note</h3>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>Due to the overhead of running
+<code>GetNearestFontInTwips()</code>, the caller would normally cache any fonts
+provided by it at the start of an application and after each change to the zoom
+factor, and only release them when the application is exited or the zoom factor
+changed. </p>
+</li>
+</ul>
+<a name="1.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Zooming bitmaps</h2>
+</div><div class="Bodytext">
+<p>You can draw a bitmap to the graphics device, scaled according to the
+current zoom factor. </p>
+<ol>
+<li>
+<p>Define a rectangle in twips </p>
+</li>
+<li>
+<p>Use the device map&#8217;s conversion function
+<code>TwipsToPixels()</code> to convert the rectangle's co-ordinates into
+pixels according to the current zoom factor.</p>
+</li>
+<li>
+<p>Draw the bitmap using <code>DrawBitmap()</code> stretched/compressed
+into the rectangle.</p>
+</li>
+</ol>
+<p class="CodeBlock"><code>// set up rectangle for bitmap to be stretched into<br>TRect bitmapRectInTwips(TPoint(0,0),TPoint(500,500));<br>TRect bitmapRectInPixels = iLeftMap-&gt;TwipsToPixels(bitmapRectInTwips);<br>bitmapRectInPixels.iTl.iY+=125;<br>bitmapRectInPixels.iBr.iY+=125;<br>bitmapRectInPixels.iTl.iX+=100;<br>bitmapRectInPixels.iBr.iX+=100;<br>// draw the bitmap, stretched into the rectangle<br>SystemGc.DrawBitmap(bitmapRectInPixels, iBitmap);</code></p>
+<a name="1.7.5"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>See also</h3>
+</div><div class="Bodytext">
+<p><a href="../../Bitmaps/index.html#BitmapsGuide%2etoc">Bitmaps</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

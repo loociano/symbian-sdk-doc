@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>RShareBuf</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="RShareReadStreamClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Support&nbsp;For&nbsp;Implementing&nbsp;Stream&nbsp;Stores</a>&nbsp;<span class="separator">&#187;</span>
+RShareBuf</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>s32share.h</code>
+<br>Link against: <code>estor.lib</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aRShareBuf"></a>
+
+<h1>Class <code>RShareBuf</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>RShareBuf</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>A shared stream buffer.</p><p>This class is part of the framework used by  <code>CFileStore</code> that allows multiple stream buffers to concurrently access the single hosting file buffer, an <code>RFileBuf</code> object.</p><p>Each shared stream buffer  maintains its own read and write positions.</p><p>Read and write operations to <code>RShareBuf</code> are directed through separate <code>TStreamMark</code> objects, one for read and one for write. The <code>TStreamMark</code> objects re-direct  read/write operations through a <code>TStreamExchange</code> object to the <code>RFileBuf</code> object, which handles the actual file read and write operations. </p><p>This stream buffer can also be accessed through  <code>RShareReadStream</code> and <code>RShareWriteStream</code> objects.</p><h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code><a href="../StreamBuffers/MStreamBufClass.html#%3a%3aMStreamBuf">MStreamBuf</a></code></td><td class="Cell">A stream buffer that provides a generic I/O interface for streamed data</td>
+</tr>
+<tr><td class="Cell"><code>RShareBuf</code></td><td class="Cell">A shared stream buffer</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>RShareBuf</code>:
+<br><code class="ApiItem"><a href="RShareBufClass.html#%3a%3aRShareBuf%3a%3aOpen%28%29" title="Prepares the shared stream buffer for streaming">Open()</a></code>, <code class="ApiItem"><a href="RShareBufClass.html#%3a%3aRShareBuf%3a%3aRShareBuf%28%29" title="Constructs an empty shared stream buffer object">RShareBuf()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../StreamBuffers/MStreamBufClass.html#%3a%3aMStreamBuf" title="A stream buffer that provides a generic I/O interface for streamed data">MStreamBuf</a></code>:
+<br><code class="ApiItem"><a href="../StreamBuffers/MStreamBufClass.html#%3a%3aMStreamBuf%3a%3a%20SeekL%28%29" title="Moves the position of the read mark or the write mark in the stream"> SeekL()</a></code>,
+<code class="ApiItem"><a href="../StreamBuffers/MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aClose%28%29" title="Closes the stream buffer">Close()</a></code>,
+<code class="ApiItem"><a href="../StreamBuffers/MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aDoReadL%28%29" title="Reads data from the stream into the specified data sink">DoReadL()</a></code>,
+<code class="ApiItem"><a href="../StreamBuffers/MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aDoRelease%28%29" title="Frees resources before abandoning the stream buffer">DoRelease()</a></code>,
+<code class="ApiItem"><a href="../StreamBuffers/MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aDoSeekL%28%29" title="Moves the position of the read/write mark in the stream">DoSeekL()</a></code>,
+<code class="ApiItem"><a href="../StreamBuffers/MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aDoSynchL%28%29" title="Synchronises the stream buffer with the stream, leaving if any error occurs">DoSynchL()</a></code>,
+<code class="ApiItem"><a href="../StreamBuffers/MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aDoWriteL%28%29" title="Writes data to the stream from the specified data source">DoWriteL()</a></code>,
+<code class="ApiItem"><a href="../StreamBuffers/MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aERead" title="The flag bit used to indicate that an operation applies to the read mark in a stream or to the read area in an stream buffer">ERead</a></code>,
+<code class="ApiItem"><a href="../StreamBuffers/MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aEWrite" title="The flag bit used to indicate that an operation applies to the write mark in a stream or to the write area in an stream buffer">EWrite</a></code>,
+<code class="ApiItem"><a href="../StreamBuffers/MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aPushL%28%29" title="Puts a cleanup item for this object onto the cleanup stack">PushL()</a></code>,
+<code class="ApiItem"><a href="../StreamBuffers/MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aRead%28%29" title="Reads data, asynchronously, from the stream buffer into the specified descriptor; request completion is guaranteed, even if request initiation fails">Read()</a></code>,
+<code class="ApiItem"><a href="../StreamBuffers/MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aReadL%28%29" title="Reads data from the stream buffer into the specified data sink">ReadL()</a></code>,
+<code class="ApiItem"><a href="../StreamBuffers/MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aRelease%28%29" title="Frees resources before abandoning the stream buffer">Release()</a></code>,
+<code class="ApiItem"><a href="../StreamBuffers/MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aSeekL%28%29" title="Moves the position of the write mark in the stream by the specified offset">SeekL()</a></code>,
+<code class="ApiItem"><a href="../StreamBuffers/MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aSizeL%28%29" title="Gets the size of the stream">SizeL()</a></code>,
+<code class="ApiItem"><a href="../StreamBuffers/MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aSynch%28%29" title="Synchronises the stream buffer with the stream, returning any error">Synch()</a></code>,
+<code class="ApiItem"><a href="../StreamBuffers/MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aSynchL%28%29" title="Synchronises the stream buffer with the stream, leaving if any error occurs">SynchL()</a></code>,
+<code class="ApiItem"><a href="../StreamBuffers/MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTMark" title="Used to identify the type of mark in a stream">TMark</a></code>,
+<code class="ApiItem"><a href="../StreamBuffers/MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTRead" title="Indicates that an operation applies to the read mark in a stream or to the read area in an stream buffer">TRead</a></code>,
+<code class="ApiItem"><a href="../StreamBuffers/MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTWrite" title="Indicates that an operation applies to the write mark in a stream or to the write area in an stream buffer">TWrite</a></code>,
+<code class="ApiItem"><a href="../StreamBuffers/MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTellL%28%29" title="Gets the position of the write mark within the stream">TellL()</a></code>,
+<code class="ApiItem"><a href="../StreamBuffers/MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aWrite%28%29" title="Writes data, asynchronously, from the specified descriptor into the stream buffer; request completion is guaranteed, even if request initiation fails">Write()</a></code>,
+<code class="ApiItem"><a href="../StreamBuffers/MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aWriteL%28%29" title="Writes data into the stream buffer from the specified data source">WriteL()</a></code></p>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="TStreamMarkClass.html#%3a%3aTStreamMark" title="Manages the position of a read mark or a write mark within a shared stream"><code class="ApiItem">TStreamMark</code></a></li>
+<li><a href="TStreamExchangeClass.html#%3a%3aTStreamExchange" title="Manages access to a shared host buffer for shared stream buffers"><code class="ApiItem">TStreamExchange</code></a></li>
+<li><a href="../FileStores/RFileBufClass.html#%3a%3aRFileBuf" title="A stream buffer hosted by a file"><code class="ApiItem">RFileBuf</code></a></li>
+<li><a href="RShareReadStreamClass.html#%3a%3aRShareReadStream" title="Supports the opening, for reading, of a stream which shares its host with other streams"><code class="ApiItem">RShareReadStream</code></a></li>
+<li><a href="RShareWriteStreamClass.html#%3a%3aRShareWriteStream" title="Supports the opening, for writing, of a stream which shares its host with other streams"><code class="ApiItem">RShareWriteStream</code></a></li>
+</ul>
+<a name="2.7"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aRShareBuf%3a%3aRShareBuf%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RShareBuf()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>RShareBuf();</code></p><h4 class="subheading">Description</h4>
+<p>Constructs an empty shared stream buffer object.</p><p>Call one of the <code>Open()</code> functions to prepare the stream.</p>
+<a name="2.8"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Member functions</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aRShareBuf%3a%3aOpen%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Open()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Open(TStreamExchange&amp; aHost,TStreamPos aPos,TInt aMode=ERead|EWrite);</code></p><h4 class="subheading">Description</h4>
+<p>Prepares the shared stream buffer for  streaming.</p><p>The function sets the   read mark and/or   the write mark to the specified position within the host stream.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamExchange&amp; aHost</code></td>
+<td class="Cell"><p class="ValueDesc">The object that manages   shared streaming.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamPos aPos</code></td>
+<td class="Cell"><p class="ValueDesc">The  position within the host stream.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aMode</code></td>
+<td class="Cell"><p class="ValueDesc">The  streaming mode.            This can be read and/or  write, as indicated by  the   <code>ERead</code> and   <code>EWrite</code> bits.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../StreamBuffers/MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTRead" title="Indicates that an operation applies to the read mark in a stream or to the read area in an stream buffer"><code class="ApiItem">MStreamBuf::TRead</code></a></li>
+<li><a href="../StreamBuffers/MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTWrite" title="Indicates that an operation applies to the write mark in a stream or to the write area in an stream buffer"><code class="ApiItem">MStreamBuf::TWrite</code></a></li>
+</ul>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aRShareBuf%3a%3aOpen%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Open()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Open(TStreamExchange&amp; aHost,TInt aMode=ERead|EWrite);</code></p><h4 class="subheading">Description</h4>
+<p>Prepares the  shared stream buffer for streaming.</p><p>The function sets the   read mark and/or   the write mark to the beginning of the host stream.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamExchange&amp; aHost</code></td>
+<td class="Cell"><p class="ValueDesc">The object that manages   shared streaming.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aMode</code></td>
+<td class="Cell"><p class="ValueDesc">The  streaming mode.            This can be read and/or  write, as indicated by  the   <code>ERead</code> and   <code>EWrite</code> bits.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../StreamBuffers/MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTRead" title="Indicates that an operation applies to the read mark in a stream or to the read area in an stream buffer"><code class="ApiItem">MStreamBuf::TRead</code></a></li>
+<li><a href="../StreamBuffers/MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aTWrite" title="Indicates that an operation applies to the write mark in a stream or to the write area in an stream buffer"><code class="ApiItem">MStreamBuf::TWrite</code></a></li>
+<li><a href="../StreamBuffers/KStreamBeginningMacro.html#KStreamBeginning" title="Constructs a TStreamPos object that denotes the beginning of any seekable stream"><code class="ApiItem">KStreamBeginning</code></a></li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Client application programming</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="MessagingGuide4%2eProgrammingClientApplications"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="MessageClientApplicationTypes.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="ObserversAndNotification.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Messaging</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Messaging</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Message&nbsp;Client&nbsp;Applications</a>&nbsp;<span class="separator">&#187;</span>
+Client&nbsp;application&nbsp;programming</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Client application programming</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Basic set-up</h2>
+</div><div class="Bodytext">
+<p>A message client application typically performs the following steps in a set-up function, such as the <code>ConstructL()</code> function of the application UI class: </p>
+<ul><li><p>create a <code>CMsvSession</code> session to the Message Server</p></li>
+<li><p>create registry classes, so that MTM components can later be instantiated</p></li>
+<li><p>from the session, obtain the root entry of the index, from which other entries can later be obtained</p></li>
+</ul><a name="1.4"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>User interface</h2>
+</div><div class="Bodytext">
+<p>A message client application can then discover the immediate children of the root entry. To display entries to the user in a typical message/folder view format, the application can query the MTM type of each entry, and load icon resources from the appropriate User Interface MTMs.</p>
+<p>After an initial message view display, it is up to the message client application to handle user input events and access User Interface MTMs if required. For example, if the user selects an entry and then chooses an Edit command, the application should:</p>
+<ul><li><p>identify the selected entry and set the context to this entry (so it has instances of the generic message header class <code>TMsvEntry</code> and of the message encapsulation class <code>CMsvEntry</code> for the entry)</p></li>
+<li><p>use the data from the <code>TMsvEntry</code> object to discover the MTM type that handles the entry</p></li>
+<li><p>request instances of the relevant Client-side MTM and User Interface MTM objects from the registries</p></li>
+<li><p>inform the Client-side MTM of the current context</p></li>
+<li><p>calls the <code>EditL()</code> function provided by the User Interface MTM. This returns a <code>CMsvOperation</code> operation object to manage the asynchronous operation.</p></li>
+<li><p>that operation object completes, e.g. when the user finishes editing, and signals an active object implemented by the client program that this has occurred</p></li>
+<li><p>that active object handles any action, such as cleanup, that is required </p></li>
+</ul><p>This is the most simple presentation of the steps involved for this single command. Applications with rich user interfaces will define handler functions for many such commands. They will also declare classes to generalise handling of issues such as:</p>
+<ul><li><p>handling multiple operation active objects</p></li>
+<li><p>caching MTM objects</p></li>
+</ul>
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

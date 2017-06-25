@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>World Server functionality</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="WorldServerClientSideGuide%2eintroduction"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="Obtainingdata.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Application&nbsp;Services</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;World&nbsp;Server</a>&nbsp;<span class="separator">&#187;</span>
+World&nbsp;Server&nbsp;functionality</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>World Server functionality</h1>
+</div><div class="Bodytext">
+<p>The World Server provides information about a city or a country,
+including stored data and calculated results. The server is designed primarily
+applications dealing with dialling information.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>The world database</h2>
+</div><div class="Bodytext">
+<p>The world database is an alphabetically sorted array of city and
+country entries, which is constructed from a <em>read-only data
+file</em>, any imported user data files, and any individually added
+cities/countries. </p>
+<p>The read-only file is the main source for the world database, and
+is usually stored in ROM. The ROM file can be replaced by a read-only file in
+RAM&#8212;<code class="filename">C:\System\data\Wld_Data.dbz</code>. </p>
+<p>Users can individually add, edit or delete entries to/from the
+world database arrays, or make multiple changes by importing a data file. Note
+that the array is alphabetically re-ordered whenever cities/countries are added
+or removed. There are some limitations on what entries can be
+deleted&#8212;these are discussed in a later section.</p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>World IDs</h2>
+</div><div class="Bodytext">
+<p>Each city has a unique ID comprised of its city and country name&#8212;<code>TWldID</code>. To access world information, the session owner
+must first get the ID for the desired city/country from the world server&#8212;through a connection to <code>RWorldServer</code>. </p>
+<p>Both city and country name are required in the ID because the same
+city name can be used in more than one country (e.g. London). When a country is
+fetched, the ID refers to the capital of that country.</p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Finding a city or country </h2>
+</div><div class="Bodytext">
+<p>The client can use either an exact string match, or prefix matching
+on the city and country names, to get the ID for a particular city/country. The
+first match according to the locale — country or whole database — is
+returned. Since the database is sorted alphabetically by city and country name
+this match is the first in alphabetic order. The various find functions return
+a null <code>TWldID</code> if there is no match.</p>
+<p>The client can also navigate backwards or forwards through
+sequential <code>TWldID</code>s. When finding the next or previous city, the
+client is able to specify whether the city is from the same country or anywhere
+in the world.</p>
+<p>The server can also be used to return the ID of the closest city to
+a given map co-ordinate. From this, the ID of the next closest city can be
+fetched.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

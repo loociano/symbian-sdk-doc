@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Sessions and requests</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="ClientServerGuide%2esessions%2drequests"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="ProvidingServicesUsingServer.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="SubsessionsWithinSessions.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Inter&nbsp;Process&nbsp;Communciation</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Client/Server</a>&nbsp;<span class="separator">&#187;</span>
+Sessions&nbsp;and&nbsp;requests</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Sessions and requests</h1>
+</div><div class="Bodytext">
+<p>Communication between client and server is represented by a
+<i>session</i>; this is initiated by the client. A client thread may
+have several sessions with a server. A session can also be shared by all the
+client threads in a process.</p>
+<p> Sessions are maintained by the Kernel and the important points
+are:</p>
+<ul>
+<li>
+<p>The client has an <code>RSessionBase</code> handle to the
+session.</p>
+</li>
+<li>
+<p>The server uses a <code>CSharableSession</code>-derived class to
+represent the session.</p>
+</li>
+<li>
+<p>A session may be sharable between the threads in the client
+process or it can be restricted to the thread connecting to the server.</p>
+</li>
+</ul>
+<p>If a call to the client interface requires a service from the server,
+the client interface must set up and send a message. The message has a 32-bit
+operation code to identify the request, and up to four 32-bit parameters. The
+process can be summarised as follows:</p>
+<ul>
+<li>
+<p>The client sends the message to the server using
+<code>RSessionBase::SendReceive()</code>. This call eventually returns with the
+completion code.</p>
+</li>
+<li>
+<p>The Kernel packages the operation code and parameters and
+delivers an <code>RMessage</code> to the server.</p>
+</li>
+<li>
+<p>The server delivers the message to the appropriate
+<code>CSharableSession</code> object, which implements the request. When the
+server has finished, it uses <code>RMessage::Complete()</code> to indicate that
+the service has been performed and to return a 32-bit result to the
+client&nbsp;&#8212; this is returned from the
+<code>SendReceive()</code>.</p>
+</li>
+</ul>
+<p>The following diagram illustrates this:</p>
+<div class="Figure">
+<p class="Image"><img src="SessionsAndRequests.gif" alt=""  border="0"></p>
+</div>
+<p>A server can support multiple connections from a client in a number
+of distinct ways:</p>
+<ul>
+<li>
+<p>The client may have a number of concurrent sessions with a
+particular server.</p>
+</li>
+<li>
+<p>Each session is independent of any other within the client
+thread; <code>Connect()</code> must be called to initialise each new
+connection.</p>
+</li>
+<li>
+<p>The client may create a number of <i>subsessions</i>
+within a single session.</p>
+</li>
+<li>
+<p>Each <i>client subsession </i>corresponds to a
+<i>subsession object</i> in the server. The client subsession
+contains a handle to this subsession object. All communication is via the
+owning session; the handle is used to match up corresponding client subsessions
+and subsession objects.</p>
+</li>
+<li>
+<p>Subsessions use fewer Kernel resources than sessions, although
+they are slightly more complex to use.</p>
+</li>
+</ul>
+<p>A server can support the creation of sharable sessions allowing all
+the threads in a client process to share a single session. The important points
+are:</p>
+<ul>
+<li>
+<p>The server must support the sharing of sessions.</p>
+</li>
+<li>
+<p>The connecting thread can make the session sharable among all
+threads in the client process.</p>
+</li>
+<li>
+<p>Client threads can make an explicit request to attach to the
+session or they can be automatically attached. Auto attachment is aimed at
+processes like Java. Attaching ensures that Kernel resources are allocated to
+allow a thread to start sending messages to the server.</p>
+</li>
+<li>
+<p>Up to 255 threads can be concurrently attached to a
+session.</p>
+</li>
+</ul>
+<p>Note that in ER5:</p>
+<ul>
+<li>
+<p>There is no concept of a sharable session and the class
+<code>CSharableSession</code> is not defined. A session can only be used by the
+connecting thread.</p>
+</li>
+<li>
+<p>The server uses a <code>CSession</code>-derived class to
+represent the session.</p>
+</li>
+</ul>
+<a name="1.16"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="SubsessionsWithinSessions.guide.html#ClientServerGuide%2esubsession">Subsessions within a session</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Types of error and recovery</title>
+<link href="../../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="CleanupSupportGuide1%2eerror%2drecovery"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../../_index/index.html"><img
+src="../../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../../GlobalGlossary/index.html"><img src="../../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="CppExceptionHandling.guide.html"><img src="../../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Memory&nbsp;Management</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Cleanup&nbsp;Support</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Exception&nbsp;Handling</a>&nbsp;<span class="separator">&#187;</span>
+Types&nbsp;of&nbsp;error&nbsp;and&nbsp;recovery</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Types of error and recovery</h1>
+</div><div class="Bodytext">
+<p>Error conditions can be divided into three broad categories:</p>
+<ul>
+<li>
+<p>program errors, such as an attempt to access an element beyond
+the bounds of an array or buffer</p>
+</li>
+<li>
+<p>environment errors, such as insufficient memory, insufficient
+disk space, or other missing resources</p>
+</li>
+<li>
+<p>user errors, such as an attempt to enter bad data in a dialog, an
+invalid action in, say, a word processor, or bad syntax in a source file</p>
+</li>
+</ul>
+<p>Program errors are checked by asserts (<code>__ASSERT_DEBUG</code>
+macro), and are signalled by a panic. Recovery from such errors involves
+re-writing part of the program that contained the error. </p>
+<p>Environment and user errors can be handled in broadly two
+ways:</p>
+<ul>
+<li>
+<p>If they can be detected before an action is performed, then a
+return value other than<code> KErrNone</code> is a convenient means to signal
+the error.</p>
+<p>This method is simple to program, and cleanup
+requirements&nbsp;&#8212; if they exist at all&nbsp;&#8212; are often
+easy to identify and handle.</p>
+</li>
+<li>
+<p>Alternatively, the program can use the exception handling and
+cleanup techniques discussed in this section.</p>
+<p>This method is more appropriate when the detection of an error
+occurs deep inside the processing of a requested action: if the error return
+value method were used, every function would have to return such an error and
+cleanup requirements would have to be handled for virtually every function
+call. The logic becomes repetitive and it&#8217;s easier to incorporate it
+into an exception-handling scheme.</p>
+</li>
+</ul>
+<p>When programming for possible environment or user error conditions,
+bear in mind both approaches for handling them, and choose the most suitable
+one.</p>
+<p>Applications must perform proper cleanup when an exception occurs,
+because they are designed to run for long periods (months or even years)
+without interruption or system re-boot. </p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Cancelling an asynchronous request</title>
+<link href="../../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="AsynchronousServices2%2ecancel%2dasync%2drequest"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../../_index/index.html"><img
+src="../../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../../GlobalGlossary/index.html"><img src="../../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToHandleMultipleWaitLoop.guide.html"><img src="../../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Inter&nbsp;Process&nbsp;Communciation</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Asynchronous&nbsp;Services</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Low&nbsp;Level&nbsp;Asynchronous&nbsp;Service&nbsp;Handling</a>&nbsp;<span class="separator">&#187;</span>
+Cancelling&nbsp;an&nbsp;asynchronous&nbsp;request</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Cancelling an asynchronous request</h1>
+</div><div class="Bodytext">
+<p>Most asynchronous service providers support a cancel function. This
+allows an outstanding request to be cancelled before it is complete. </p>
+<p>A single thread that is waiting for a single asynchronous request to
+complete cannot cancel that request because the thread is asleep until it
+completes. However, when multiple requests are outstanding, the handling of a
+request completion may involve cancelling some or all of the other outstanding
+requests.</p>
+<p>In all cases, the correct user protocol for cancellation is:</p>
+<p class="CodeBlock"><code>    // only cancel if we know that there is<br>&nbsp;&nbsp;&nbsp;&nbsp;// an outstanding request<br>if (requestIssued)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Issue cancel to service provider<br>&nbsp;&nbsp;&nbsp;&nbsp;provider.cancel();<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Wait for it complete (it must complete)<br>&nbsp;&nbsp;&nbsp;&nbsp;User::WaitForRequest(requestStatus);<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Now note that request is no longer outstanding<br>&nbsp;&nbsp;&nbsp;&nbsp;requestIssued=EFalse;<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<a name="1.7"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Notes</h2>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>A cancel should only be issued from the thread that issued the
+request.</p>
+</li>
+<li>
+<p>It is convention that cancel functions provided by asynchronous
+service providers have <code>Cancel</code> somewhere in the name, but need not
+necessarily be called <code>Cancel()</code>.</p>
+</li>
+<li>
+<p>An asynchronous service provider must make certain guarantees
+about cancellation:</p>
+</li>
+<ul>
+<li>
+<p>it must complete quickly&nbsp;&#8212; otherwise, the
+<code>User::WaitForRequest()</code> above would take a long time to complete,
+and cause the program to become unresponsive</p>
+</li>
+<li>
+<p>it must not violate the guarantee that each request produces
+precisely one signal</p>
+</li>
+</ul>
+<li>
+<p>The service provider does not have to guarantee to cancel the
+actual request: it may already have completed&nbsp;&#8212; asynchronously,
+by definition&nbsp;&#8212; by the time the client thread issues the
+cancel.</p>
+</li>
+<li>
+<p>Although the cancel must return quickly, the service initiated
+by the request may not have completed. For instance, if data were requested
+from a network drive, it may not be returned until after the cancel. Because of
+the cancel, the service provider must discard such data.</p>
+</li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

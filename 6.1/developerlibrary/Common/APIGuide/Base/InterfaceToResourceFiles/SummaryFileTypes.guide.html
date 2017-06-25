@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Summary of file types</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="InterfaceToResourceFilesGuide%2esummary%2dfile%2dtypes"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="TypeSafety.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Interface&nbsp;to&nbsp;Resource&nbsp;Files</a>&nbsp;<span class="separator">&#187;</span>
+Summary&nbsp;of&nbsp;file&nbsp;types</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Summary of file types</h1>
+</div><div class="Bodytext">
+<p>The file types involved with resource file usage are defined in the
+following diagram:</p>
+<div class="Figure">
+<p class="Image"><img src="ResourceFiletypes.gif" alt=""  border="0"></p>
+</div>
+<p>These files work together as follows:</p>
+<ul>
+<li>
+<p>the C++ compiler and linker, together, take <code class="filename">.cpp</code>
+source files and produce <code class="filename">.exe</code> output (or <code class="filename">.dll</code>, or
+<code class="filename">.app</code>, or another such extension)</p>
+</li>
+<li>
+<p>the resource compiler takes a <code class="filename">.rss</code> source file
+containing <code>RESOURCE</code> statements and converts it into a
+<code class="filename">.rsc</code> resource file which contains the resources the executable
+program will use. It also produces a <code class="filename">.rsg</code> generated header file,
+which contains the symbolic ids of these resources.</p>
+</li>
+<li>
+<p>the <code class="filename">.rsg</code> file is <code>#include</code>d by the
+<code class="filename">.cpp</code> file, so that the C++ compiler has access to the symbolic ids
+of the resources that will be used</p>
+</li>
+<li>
+<p>C++ class definitions are specified in a <code class="filename">.h</code> file; a
+typical application will include several system header files and usually one or
+more of its own</p>
+</li>
+<li>
+<p>resource structs are specified in a <code class="filename">.rh</code> file. A
+typical application will use system-provided resource headers, which define
+standard controls etc. Only if the application requires its own structs, will
+it include its own <code class="filename">.rh</code> file</p>
+</li>
+<li>
+<p>flag values are <code>#define</code>d in a file which must be
+available to both the C++ compiler and the resource compiler: the
+<code class="filename">.hrh</code> extension is used for this and <code class="filename">.hrh</code> files are
+typically <code>#include</code>d into the <code class="filename">.h</code> file that defines the
+classes (for C++) <em>and</em> the <code class="filename">.rh</code> file that defines the
+structs (for the resource compiler)</p>
+</li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

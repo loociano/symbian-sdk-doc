@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>The Glass Teletype application</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="SerialCommsServerClientGuide1%2eglass"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="AccessingSerialPortServices.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToOpenPorts.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Serial&nbsp;Comms</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Serial&nbsp;Communications&nbsp;Server&nbsp;Client-Side</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Serial&nbsp;Communications&nbsp;Server&nbsp;Client-Side</a>&nbsp;<span class="separator">&#187;</span>
+The&nbsp;Glass&nbsp;Teletype&nbsp;application</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>The Glass Teletype application</h1>
+</div><div class="Bodytext">
+<p>One of the classic serial communications applications is the
+so-called glass teletype, whose heart is an algorithm structured round a tight
+loop. Programs of this type are commonly used as the basis of terminal
+emulators, but they don&#8217;t make efficient use of either modern
+communication hardware or modern operating systems. There are two main reasons
+why this is so.</p>
+<ul>
+<li>
+<p>The tight loop hogs the processor making it unsuitable for use in
+multitasking operating systems, as the glass teletype consumes CPU resources
+even when it has nothing to do.</p>
+</li>
+<li>
+<p>One call is made to whatever comms API the operating system
+provides for each character that arrives. There are no economies of scale
+offered for use in situations where either blocks or packets of character are
+being received. Consequently, receiving multiple characters at the serial port
+is extremely inefficient.</p>
+</li>
+</ul>
+<p>Because of these considerations, the API doesn&#8217;t provide the
+primitive facilities suitable for writing terminal emulators which implement
+the algorithm. Instead, a more complex but richer range of features is made
+available. Taken together, they make it easy to write serial communications
+routines which can perform well at high speeds and can also guarantee optimum
+performance in a multitasking environment. In particular, the two problems
+mentioned above are avoided as follows:</p>
+<ul>
+<li>
+<p>All communications input and output is handled using asynchronous
+requests. This enforces good practise, as it simply isn&#8217;t possible for
+busy waiting loops to be written in communications software. An understanding
+of the way that asynchronous services are handled is essential to using the
+API, and a knowledge of active objects is probably needed for any serious
+communications application.</p>
+</li>
+<li>
+<p>Descriptors are used as multi-byte buffers for all serial input
+and output functions rather than sending or receiving individual characters.
+This minimises the overheads involved both in buffer management and in calls to
+the communications server. Clearly, it would still be possible to send and
+receive single bytes (by using descriptors containing a single byte) but this
+no longer appears to be a natural way of doing things. </p>
+</li>
+</ul>
+<p>As well as the issues just addressed, there are a number of other
+features that need to be understood before beginning to use the serial
+communications API.</p>
+<ul>
+<li>
+<p>Opening serial ports is sometimes more complex than in other
+operating systems.</p>
+</li>
+<li>
+<p>In addition to the usual serial port settings which control items
+such as data format and flow control, there are also specific configuration
+settings that can be used to control the way that the asynchronous calls in the
+API behave.</p>
+</li>
+</ul>
+<p>Example code for a working glass teletype running inside the text
+shell can be found in the <code class="filename">GlassTerm</code> example, which shows how to
+handle all the concerns addressed so far, and is the source for the code
+extracts found here.</p>
+<a name="1.10"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="../../../Base/InterProcessCommunication/AsynchronousServicesGuide/index.html#AsynchronousServices%2eindex">Asynchronous Services</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

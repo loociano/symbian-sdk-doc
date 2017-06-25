@@ -1,0 +1,284 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>WSINI.INI</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="WindowServerClientSide%2ewsini%2dsyntax"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="WindowServerPanics.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Window&nbsp;Server</a>&nbsp;<span class="separator">&#187;</span>
+WSINI.INI</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>WSINI.INI</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Overview</h2>
+</div><div class="Bodytext">
+<p>Window server parameters may be set using a configuration file
+called <code class="filename">wsini.ini</code>. The settings in <code class="filename">wsini.ini</code> are used
+to configure the WINS emulator, or to configure a shell running on a target
+machine. Typically, configuration is used during development for debugging or
+test purposes.</p>
+<p>For example, window server logging may be used to log all window
+server events. This can be useful for debugging window server client applications.
+Window server logging is controlled by <code class="filename">wsini.ini</code> settings.</p>
+<p>Other <code class="filename">wsini.ini</code> settings control the choice of shell,
+the shell reboot behaviour, and the system's default display mode.</p>
+<p>A complete description of all parameters currently recognised by
+the window server is given in the table below.</p>
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+<p><b>Parameter</b></p>
+</td>
+<td class="Cell">
+<p><b>Description</b></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="ProgramName">AUTOCLEAR</code>
+<i>value</i></p>
+</td>
+<td class="Cell">
+<p>When an <code>RWindow</code> is manipulated by an
+application, this argument determines whether the invalid region will be
+cleared to its background colour (as set by either variant of
+<code>RWindow::SetBackgroundColor()</code>) before being redrawn.</p>
+<p>The possible values are: </p>
+<p>0 — the background will not be cleared, even if a
+background colour has been set. This is for use in debugging  only.</p>
+<p>1 — the default. The background will be cleared if a
+background colour has been set, but not if no background colour has been
+set.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="ProgramName">LOG</code>
+<i>string</i></p>
+</td>
+<td class="Cell">
+<p>Used to specify the type of logging which is required. Loads
+one of the three logging DLLs, as specified by <i>string</i>.
+Possible values are:</p>
+<p><code class="ProgramName">FL</code> — log to file</p>
+<p><code class="ProgramName">SR</code> — log to the serial port (MARM
+only)</p>
+<p><code class="ProgramName">WN</code> — log to another WIN32 window (WINS
+only)</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="ProgramName">LOGENABLE</code></p>
+</td>
+<td class="Cell">
+<p>If specified, enables logging from boot-up</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="ProgramName">LOGP</code>
+<i>filespec</i></p>
+</td>
+<td class="Cell">
+<p>Use this keyword to specify a fully qualified file name for
+the output log file.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="ProgramName">NOBLANKSCREEN</code></p>
+<p>Version 5.1 Only</p>
+</td>
+<td class="Cell">
+<p>Sets that the screen is not cleared at boot up or whenever no
+window is visible in a part of the screen. This feature is available
+<em>only</em> in ER5U.</p>
+<p>Without the keyword set, the Root Window clears the screen at
+boot up and also whenever no other window is visible in part of the screen.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="ProgramName">POINTER</code>
+<i>value</i></p><p>Withdrawn 6.0</p>
+</td>
+<td class="Cell">
+<p>Sets when the window server will generate pointer events. It
+has two possible values:</p>
+<p>0 — The window server generates pointer events only
+when the pen is touching the digitiser. This is equivalent to pressing a mouse
+button. The window server generates drag events but not move events. This is
+the default value and is used for pen input.</p>
+<p>1 — The window server generates pointer events whether
+or not a mouse button is pressed, i.e. it generates pointer move events as well
+as drag events. This is used for mouse or trackball input.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="ProgramName">REBOOT</code>
+<i>value</i></p>
+</td>
+<td class="Cell">
+<p>Specifies the shell reboot mode. The following  values
+are defined:</p>
+<p>0 — the shell tries
+to reboot as soon as it exits (the default).</p>
+<p>1 — the shell tries
+to reboot only when there are no clients.</p>
+<p>2 — when the session
+finishes, kill the whole machine, even if other apps are running — for
+use during development only!</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="ProgramName">SCR_ROTATION</code>&lt;<i>integer
+rotations</i>&gt;</p>
+</td>
+<td class="Cell">
+<p>Specify a list of screen rotations. This is introduced in
+ER5U.</p>
+<p>The <i>integer</i> value is a positive integer
+which corresponds to a particular screen size mode. </p>
+<p>The <i>rotations</i> value is a comma separated
+list which specifies, in degrees, the rotation values available for the given
+screen size.</p>
+<p>E.g. <code>SCR_ROTATION2 90,270</code>.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="ProgramName">SHELLCMD</code>
+<i>string</i></p>
+</td>
+<td class="Cell">
+<p>Specifies the command line argument to pass when starting the
+shell; similar to DOS box command parameters under Microsoft Windows.</p>
+<p>Defaults to an empty string.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="ProgramName">STARTUP</code>
+<i>string</i></p>
+</td>
+<td class="Cell">
+<p>Specifies the name of the shell to use. Defaults to
+<code class="filename">shell</code>.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="ProgramName">WINDOWMODE COLOR</code>&lt;<i>value</i>
+&gt;</p>
+<p>or</p>
+<p><code class="ProgramName">WINDOWMODE
+GRAY</code>&lt;<i>value</i>&gt;</p>
+</td>
+<td class="Cell">
+<p>This argument is used to set the default display mode. On the
+Emulator, it may be used to reflect the fact that different hardware may
+require different default display modes.</p>
+<p>If this argument is omitted, or if the requested display mode
+value is not supported by the device, the machine's lowest display mode is
+used. An exception to this is that <code>EGray2</code> will only be used if no
+other display modes are supported. The lowest display mode is the one which
+supports the fewest greys/colours. Note that all greyscale display modes are
+considered to be lower than any colour display mode.</p>
+<p>For a colour display mode, <code>value</code> can be of the
+following:&#0160;&#8212;  </p>
+<ul>
+<li>
+<p>16 for <code>EColor16</code>,</p>
+</li>
+<li>
+<p>256 for <code>EColor256</code>,</p>
+</li>
+<li>
+<p>4K for <code>EColor4K</code>,</p>
+</li>
+<li>
+<p>64K for <code>EColor64K</code>,</p>
+</li>
+<li>
+<p>16M for <code>EColor16M</code>.</p>
+</li>
+</ul>
+<p>For instance, specifying <code>WINDOWMODE COLOR256</code>
+gives a default display mode of 256 colours.</p>
+<p>For a greyscale display mode, <i>value</i> can be
+one of the following:&#0160;&#8212; </p>
+<ul>
+<li>
+<p>2 for <code>EGray2</code>,</p>
+</li>
+<li>
+<p>4 for <code>EGray4</code>,</p>
+</li>
+<li>
+<p>16 for <code>EGray16</code>,</p>
+</li>
+<li>
+<p>256 for <code>EGray256</code>.</p>
+</li>
+</ul>
+<p>For instance, specifying
+<code class="ProgramName">WINDOWMODE GRAY16</code> gives a default display mode
+of 16 greys.</p>
+</td>
+</tr><tr valign="top"><td class="Cell"><p><code class="ProgramName">SIZE_MODE</code></p></td><td class="Cell"><p>Sets the screen mode enforcement. It is read when the system is booted.  If it is not set then a value of 0 (<code>ESizeEnforcementNone</code>) is used.</p><p>See also: <a href="TScreenModeEnforcementEnum.html#%3a%3aTScreenModeEnforcement" title="Screen mode enforcement flags"><code class="ApiItem">TScreenModeEnforcement</code></a>, <a href="CWsScreenDeviceClass.html#%3a%3aCWsScreenDevice%3a%3aScreenModeEnforcement%28%29" title="Gets the current screen size mode enforcement settings"><code class="ApiItem">CWsScreenDevice::ScreenModeEnforcement()</code></a>, <a href="CWsScreenDeviceClass.html#%3a%3aCWsScreenDevice%3a%3aSetScreenModeEnforcement%28%29" title="Sets the screen mode enforcement requirements"><code class="ApiItem">CWsScreenDevice::SetScreenModeEnforcement()</code></a></p></td></tr><tr valign="top"><td class="Cell"><p><code class="ProgramName">SCR_WIDTH</code>&lt;<i>n</i>&gt; <i>width</i>
+</p></td><td class="Cell"><p>Sets the screen width in pixels for a particular screen mode. The screen mode is set by <i>n</i> and <i>width</i> is the width in pixels. </p><p>e.g. SCR_WIDTH2 240 sets a width of 240 pixels for the screen size mode 2.</p></td></tr><tr valign="top"><td class="Cell"><p><code class="ProgramName">SCR_HEIGHT</code>&lt;<i>n</i>&gt; <i>height</i>
+</p></td><td class="Cell"><p>Sets the screen height in pixels for a particular screen mode. The screen mode is set by <i>n</i> and <i>height</i> is the height in pixels. </p></td></tr><tr valign="top"><td class="Cell"><p><code class="ProgramName">SCR_TWIPS_WIDTH</code>&lt;<i>n</i>&gt; <i>width</i>
+</p></td><td class="Cell"><p>Sets the screen width in twips for a particular screen mode. The screen mode is set by <i>n</i> and <i>width</i> is the width in twips. </p></td></tr><tr valign="top"><td class="Cell"><p><code class="ProgramName">SCR_TWIPS_HEIGHT</code>&lt;<i>n</i>&gt; <i>height</i>
+</p></td><td class="Cell"><p>Sets the screen height in twips for a particular screen mode. The screen mode is set by <i>n</i> and <i>height</i> is the height in twips. </p></td></tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

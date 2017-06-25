@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to configure a project file</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="cshelp%2ehowto%2dprojectfile"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToProjectStructure.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToRTF.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">CS&nbsp;Help&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;configure&nbsp;a&nbsp;project&nbsp;file</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to configure a project file</h1>
+</div><div class="Bodytext">
+<p>The project file defines the location of all resources used by the
+project and the target help file name. The project file has an extension <code class="filename">.cshlp</code>, for use with the CS Help compiler GUI, or <code class="filename">.xml</code> for use with the command line driven tool. The easiest way to create a project file
+is to alter an existing file to suit the new project structure and files. To
+create a project file:</p>
+<ol>
+<li>
+<p>Create an XML prologue. This gives the XML version conformance,
+the location of the DTD for source document validation and the location of the
+XSL file to allow the proofing XML to be viewed in a browser. The code fragment
+below shows a typical prologue.</p>
+<p class="CodeBlock"><code>&lt;?xml version=&quot;1.0&quot;?&gt;<br>&lt;!DOCTYPE cshproj SYSTEM &quot;/epoc32/tools/cshlpcmp/dtd/cshproj.dtd&quot;&gt;<br>&lt;?xml:stylesheet href=&quot;/epoc32/tools/cshlpcmp/xsl/CSHproj.xsl&quot; title=&quot;CS-Help project file&quot; type=&quot;text/xsl&quot;?&gt;</code></p>
+<p> If altering an existing project file this need not be
+changed.</p>
+</li>
+<li>
+<p>Declare the body of the project file in the
+<code>&lt;cshproj&gt;</code> tags: </p>
+<p class="CodeBlock"><code>&lt;cshproj&gt;<br>rest-of-project file<br>&lt;/cshproj&gt;</code></p>
+<p>The rest of the project file is defined within these tags.</p>
+</li>
+<li>
+<p>Specify the UID of the Help file:</p>
+<p class="CodeBlock"><code>&lt;helpfileUID&gt;<br>UID-of-Help-file<br>&lt;/helpfileUID&gt;</code></p>
+</li>
+<li>
+<p>Specify the directories used by the project, as shown below.</p>
+<p class="CodeBlock"><code>&lt;directories&gt;<br>&lt;input&gt;directory containing project, source rtf and customisation files\&lt;/input&gt;<br>&lt;output&gt;output directory\&lt;/output&gt;<br>&lt;graphics&gt;directory for holding graphics files\&lt;/graphics&gt;<br>&lt;working&gt;directory for temporary working files\&lt;/working&gt;<br>&lt;/directories&gt;</code></p>
+<p>If altering an existing project file, simply change the input, output,
+graphics and working directories to suit your project structure. Note directory
+names must be specified with a trailing backslash
+“\”—as shown above before the closing
+tags.</p>
+</li>
+<li>
+<p> Specify the names of the customisation and source <code class="filename">rtf</code> files
+used by the project, and the name of the output file—as shown
+below. <code class="filename">xml</code> source files may also be specified. The CS Help
+compiler finds/creates these at the locations specified in the
+<code>&lt;directories&gt;</code> section.</p>
+<p class="CodeBlock"><code>&lt;files&gt;<br>&lt;source&gt;<br>&lt;file&gt;source-rtf-file-name.rtf&lt;/file&gt;<br>&lt;xmlfile&gt;source-xml-file-name.xml&lt;/xmlfile&gt;<br>&lt;/source&gt;<br>&lt;destination&gt;CS-Help-output-file-name.hlp &lt;/destination&gt;<br>&lt;customization&gt;customisation-file-name.xml &lt;/customization&gt;<br>&lt;/files&gt;</code></p>
+<p>If altering an existing project file, simply change the name of the
+source and output files. The customisation file can also be changed, however
+most projects will use the same file.</p>
+</li>
+<li>
+<p>Save the file</p>
+</li>
+</ol>
+<a name="1.5"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Examples</h2>
+</div><div class="Bodytext">
+<p>A listing of the project file for the Shapes example is given
+below—<code class="filename">Shapes.cshlp</code>.This contains the UID of the
+help file followed by the directories used by the project
+in<code>&lt;directories&gt; </code>tags. The <code class="filename">rtf</code> source file,
+output file <code class="filename">shapes.hlp</code>, and customisation file are specified in
+the<code class="filename">&lt;files&gt;</code> tags.</p>
+<p class="CodeBlock"><code>&lt;?xml version=&quot;1.0&quot;?&gt;<br>&lt;!DOCTYPE cshproj SYSTEM &quot;/epoc32/tools/cshlpcmp/dtd/cshproj.dtd&quot;&gt;<br>&lt;?xml:stylesheet href=&quot;/epoc32/tools/cshlpcmp/xsl/CSHproj.xsl&quot; title=&quot;CS-Help project&quot; type=&quot;text/xsl&quot;?&gt;</code></p>
+<p class="CodeBlock"><code>&lt;cshproj&gt;<br>&lt;helpfileUID&gt;0X10008AB6&lt;/helpfileUID&gt;<br>&lt;directories&gt;<br>&nbsp;&lt;input&gt;&lt;/input&gt;<br>&nbsp;&lt;output&gt;..\..\..\epoc32\wins\c\system\help\&lt;/output&gt; <br>&nbsp;&lt;graphics&gt;&lt;/graphics&gt;<br>&nbsp;&lt;working&gt;temp\&lt;/working&gt;<br>&lt;/directories&gt;<br>&lt;files&gt;<br>&nbsp;&lt;source&gt;<br>&nbsp;&lt;file&gt;shapes.rtf&lt;/file&gt;<br>&nbsp;&lt;/source&gt;<br>&nbsp;&lt;destination&gt;shapes.hlp&lt;/destination&gt;<br>&nbsp;&lt;customization&gt;custom.xml&lt;/customization<br>&lt;/files&gt;<br>&lt;/cshproj&gt;</code></p>
+<p>A project file combining the topics for both the Shapes application and
+the CS Help demonstration file may be created by specifying
+both<code class="filename">rtf</code> files between the &lt;source&gt; tags. The appropriate
+section, given below, is taken from the project
+file,<code class="filename">\CsHelp\project\CombinedProj.cshlp</code>.</p>
+<p class="CodeBlock"><code>&lt;source&gt;<br>&nbsp;&lt;file&gt;CsHelp.rtf&lt;/file&gt;<br>&nbsp;&lt;file&gt;Shapes.rtf&lt;/file&gt;<br>&lt;/source&gt;</code></p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="../CSHelp-ref/ProjectFileReference.guide.html#cshelp%2dref%2eproject%2dfiles">Project file—.cshlp</a>.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

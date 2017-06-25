@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to set up remote debugging</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="OnTargetDebugging%2eHowToSetupRemote"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToBuildProgToDebug.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToConfigureGDBInitialisationFile.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">On-target&nbsp;Debugging&nbsp;using&nbsp;GDB&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;set&nbsp;up&nbsp;remote&nbsp;debugging</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>How to set up remote debugging</h1>
+</div><div class="Bodytext">
+<p>Remote debugging has been validated for connection over  IR and using a serial cable. Note that no other processes may use the serial port during a debugging session, e.g. Symbian connect.</p><p>The program  to be debugged can be installed on the Symbian device using Symbian Connect or an Installation file, or the GDB <b>rcopy</b> command once GDB has been started.</p><p>To set up remote debugging on the host computer:</p><ol><li><p>Set up the communication link to the target device</p><p>Connect either the serial cable or an IR pod to the selected comms port. GDB commands <b>target epoc com</b> and <b>set remotebaud</b> can then be used   to open the specified serial port  and to set the connection speed. These commands may be issued from the GDB command prompt, once GDB has started, but are usually included as part of the GDB initialisation file.  The commands are defined in the  <a href="../OnTargetDebugging-ref/SymbianGDBCommandReference.guide.html#OnTargetDebugging%2eSymbianGDBCommandReference">Symbian specific GDB command reference</a> and the <a href="../OnTargetDebugging-ref/GDBCommandReference.guide.html#OnTargetDebugging%2eGDBCommandSummary">GDB command summary</a>. </p></li>
+<li><p>Create a GDB initialisation file (<code class="filename">gdb.ini</code>) </p><p>The GDB initialisation file can be used to  batch-execute a number of commands that would otherwise have to be manually entered at the host's <b>(gdb)</b> command prompt.  Typically this file is created within the same directory as the project build file <code class="filename">bld.inf</code>.  See <a href="HowToConfigureGDBInitialisationFile.guide.html#OnTargetDebugging%2eHowToGDBIniFile">How to configure the GDB initialisation file</a> for more information.</p></li><li><p>Start <code class="filename">gdb.exe</code> in the same directory as <code class="filename">gdb.ini</code>
+</p><p>First open a command prompt in the directory containing the <code class="filename">gdb.ini</code> file.  To start the command line GDB interface  enter  <b>gdb -nw</b>. To start the GUI GDB interface  enter  <b>gdb</b>. Once in the GUI, the console can be activated by selecting the menu option: <code class="ProgramName">View | Console</code>.</p></li><li><p>Install the program to be debugged on the Symbian device. This may be done using Symbian-connect, an Installation file, or the GDB <b>rcopy</b> command.</p></li></ol><p>To set up remote debugging on the target device:</p><ol>
+<li><p>Set up the communication link to the host computer</p><p>Connect  the Symbian device to the host through the serial cable, or by pointing its  IR port at the  host's IR pod.</p></li><li><p>Install the GDB stub software</p><p>Note that the software may already installed in the device ROM (<code class="filename">Z:\System\Programs\</code>). If not, it can be installed on any drive using the installation file provided with the SDK.</p></li>
+<li><p>Start the stub executable  <code class="filename">gdbstub.exe</code></p><p>By default the stub is set up to use a serial cable    attached to port 0, with the connection speed set to 115200 baud — this is the same default speed as GDB.  The stub can be configured to other values, e.g. for connection via IR, using either command line arguments or a configuration file. See the <a href="../OnTargetDebugging-ref/GDBStubCommandLineSyntax.guide.html#OnTargetDebugging%2egdbstub%2dcommandsyntax">GDB stub command line syntax</a> and <a href="../OnTargetDebugging-ref/GDBStubConfigurationFileSyntax.guide.html#OnTargetDebugging%2egdbstub%2dconfigfilesyntax">GDB configuration file syntax</a> topics for more information.</p><p>Note that the method used to start the GDB stub  executable may need to be different on different devices. See the <a href="http://www.symbiandevnet.com">Symbian Developer Network</a>  for device-specific information.</p></li></ol><p>See the topic <a href="HowToUseGDB.guide.html#OnTargetDebugging%2eHowToCloseGDB" title="How to use GDB / How to close a debug session">How to close a debug session</a> for information about how to close GDB and the GDB stub.</p>
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

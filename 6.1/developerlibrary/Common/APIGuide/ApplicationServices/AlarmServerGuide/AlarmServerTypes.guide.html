@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Types of alarms</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="AlarmServerGuide%2etypes"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="AlarmServerFunctionality.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Application&nbsp;Services</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Alarm&nbsp;Server</a>&nbsp;<span class="separator">&#187;</span>
+Types&nbsp;of&nbsp;alarms</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Types of alarms</h1>
+</div><div class="Bodytext">
+<p>The alarm server supports three types of alarms; clock alarms, session alarms, orphaned alarms and agenda alarms.  There are several other categories of alarms, but these are sub-categories of the main types.</p>
+<p>Each of the alarm types is discussed in detail in the following sections.</p>
+<a name="1.5"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Clock alarms</h2>
+</div><div class="Bodytext">
+<p>The alarm server can store up to 8 clock alarms which, once set, are independent of the client that set them. Because they are managed solely by the server, they are serviced even if the application that entered them is not running.</p>
+<p>Any client can set any of the clock alarms. These are accessible to the end user through the Time application.</p>
+<a name="1.6"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Session alarms</h2>
+</div><div class="Bodytext">
+<p>Session alarms are handled on behalf of a session with the alarm server, and fulfil the requirements of <em>PIM</em> applications. Each session is able to set only one session alarm; the server notifies the session when it should set its next alarm.</p>
+<p>When a session disconnects from the server, its session alarm is cancelled. The session must specifically <em>orphan</em> its alarm to keep it in the pending alarm queue after disconnection&#8212;see below for discussion of orphan alarms.</p>
+<p>There are two types of session alarms:</p>
+<ul><li><p>Timed session alarms are those which belong to timed events&#8212;events in a PIM application with a defined start and finish time. The alarm notification time is specified as an offset from the event start time, so that when the event time changes, so too does the alarm time.</p></li>
+<li><p>Untimed session alarms, or day alarms, are those which belong to untimed events&#8212;events which don&#8217;t have a specified start/finish time.  This type of alarm stores an actual activation time&#8212;rather than an offset to an event time.</p></li>
+</ul><a name="1.7"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Orphaned alarms</h2>
+</div><div class="Bodytext">
+<p>A session can <em>orphan</em> its session alarm, and thereby relinquish control of it to the alarm server. The alarm is then stored in the server&#8217;s orphaned alarm array. It has no session owner, and no session is notified when the alarm is due.</p>
+<p>When a session closes its connection to the alarm server, it may choose to orphan its session alarm&#8212;thereby allowing the alarm to be serviced after the session closes.  An application can regain control of an orphaned alarm by setting an alarm with the same parameters, e.g. time, date, etc.</p>
+<p>After orphaning an alarm, a session is allocated enough memory for another session alarm&#8212;which it can also orphan. Sessions can orphan as many alarms as memory allows. The server removes all orphaned alarms when the system time is changed or the alarm server is re-started.</p>
+<p>Snoozed alarms are those which have been deferred after activation. When any alarm is snoozed, it is also orphaned. </p>
+<a name="1.8"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Other alarm categories</h2>
+</div><div class="Bodytext">
+<p>Other alarm categories are:</p>
+<ul><li><p><em>next/pending</em> alarms: alarms that activate in the future&#8212;irrespective of type.  </p></li>
+<li><p><em>awaiting acknowledgement</em> alarms: alarms for which the alarm time has been reached, or which were initially set at some time in the past. </p></li>
+<li><p><em>acknowledged/review</em> alarms: alarms that have been acknowledged&#8212;the server maintains these in a <em>review list</em> until it is cleared, or until they are pushed out of the list by new acknowledged alarms.  The server clears the review list when the system time is changed or the alarm server is re-started.</p></li>
+<li><p><em>silenced</em> alarms: alarms that are awaiting acknowledgement, in which the sound notification has been cancelled.</p></li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

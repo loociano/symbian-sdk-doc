@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to format date and time independent of locale</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="LocaleSettingsGuide%2eHowToPrintDateTimeLocalIndependently"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToFormatDateTime.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToFormatDateAsText.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Locale&nbsp;Settings</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;format&nbsp;date&nbsp;and&nbsp;time&nbsp;independent&nbsp;of&nbsp;locale</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to format date and time independent of locale</h1>
+</div><div class="Bodytext">
+<p>In these code fragments, all output  is purely numerical, date and time separators and formatting is fixed and locale independent.</p>
+<p>To display the <em>universal time</em> and
+current <em>local time</em> implement code as
+follows:</p><p class="CodeBlock"><code>
+<br>TBuf&lt;256&gt; buffer;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;// Time in microseconds since 0 AD nominal Gregorian<br>TTime time;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;// year-month-day-hour-minute-second-microsecond<br>TDateTime dateTime;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;// Set and print Universal date/time<br>&nbsp;&nbsp;&nbsp;&nbsp;// Get Universal time (= GMT)<br>time.UniversalTime();<br><br>&nbsp;&nbsp;&nbsp;&nbsp;// Convert to fields<br>dateTime=time.DateTime();<br><br>&nbsp;&nbsp;&nbsp;&nbsp;// Format universal time numerically<br>formatDateTime(buffer,dateTime);<br><br>&nbsp;&nbsp;&nbsp;&nbsp;// Get current local time, taking daylight saving<br>&nbsp;&nbsp;&nbsp;&nbsp;// into account, if in effect<br>time.HomeTime();<br><br>&nbsp;&nbsp;&nbsp;&nbsp;// Convert to fields<br>dateTime=time.DateTime();<br><br>&nbsp;&nbsp;&nbsp;&nbsp;// Format current local date/time numerically<br>formatDateTime(buffer,dateTime);</code></p><p>Here, the formatting  is handled by the  <code>formatDateTime()</code> function.
+This is implemented:</p><p class="CodeBlock"><code>LOCAL_C void formatDateTime(TDes&amp; aBuffer,TDateTime aDateTime)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;_LIT(KFormatTxt,&quot;%d %d %d %d:%d:%d.%d\n&quot;);<br>&nbsp;&nbsp;&nbsp;&nbsp;aBuffer.Format(KFormatTxt,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aDateTime.Year(),<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TInt(aDateTime.Month()+1), <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Format the month as a TInt to preserve locale independence<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aDateTime.Day()+1, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Day and month ranges begin at zero (0-30 and 0-11), <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// so add one when formatting<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aDateTime.Hour(), aDateTime.Minute(), aDateTime.Second(),<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aDateTime.MicroSecond()<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br>&nbsp;&nbsp;&nbsp;&nbsp;{</code></p>
+<a name="1.8"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Notes</h2>
+</div><div class="Bodytext"><ul><li><p>The <code>TTime</code> class is used for storing and
+manipulating times. As it stores a time value as a 64 bit integer, it needs to be converted into a <code>TDateTime</code>
+object, before it can be converted into formatted text.</p></li><li><p><code>TDateTime</code> is the intermediary class for
+all input and output of dates and times by the user.</p></li><li><p>In the <code>TDateTime</code> class, the month is represented
+by a <a href="../../../APIReference/LocaleSettings/TMonthEnum.html#%3a%3aTMonth" title="An enumeration whose enumerators represent the months of the year"><code class="ApiItem">TMonth</code></a> enumeration. The values of this enumeration are relative to zero. Similarly, the day is represented by a number whose value is
+zero for the first day in the month, one for the second day etc. Therefore,
+when formatting <code>TDateTime</code> values, as above, the integer
+representations of these fields must be incremented by one; they must be
+decremented by one when converting from human-readable values into
+<code>TDateTime</code> as the next example code fragment shows:</p><p class="CodeBlock"><code>...<br>&nbsp;&nbsp;&nbsp;&nbsp;// set date to 31st December 1996<br>&nbsp;&nbsp;&nbsp;&nbsp;// set the date as if input from a user interface<br>TInt year=1996;<br>TInt month=12;<br>TInt day=31;<br><br>TInt error=dateTime.Set(year,TMonth(month-1),day-1,9,1,5,1000);<br>&nbsp;&nbsp;&nbsp;&nbsp;// month and day values are zero-offset !<br>&nbsp;&nbsp;&nbsp;&nbsp;// check that date/time are set ok<br>User::LeaveIfError(dateTime.Set(year,TMonth(month-1),day-1,9,1,5,1000));<br>...</code></p></li></ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

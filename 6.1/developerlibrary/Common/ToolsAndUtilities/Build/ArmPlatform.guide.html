@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>The ARM platform</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="PracticalGuide%2eArmPlatform"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowtoBuildProcess.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="UsingWINSplatform.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Build&nbsp;Tools&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+The&nbsp;ARM&nbsp;platform</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>The ARM platform</h1>
+</div><div class="Bodytext">
+<p>Third parties should build programs for native targets (real machines running ARM processors, rather than the Emulator) using the ARMI build target. This is always done on the command line, for example:</p>
+<p class="CommandLine"><code>&gt; abld build armi urel</code></p><p>The form of executable code is termed an <em>Application Binary Interface</em> (ABI), of which ARMI is one. Operating system code in ROM may have been compiled with alternative ABIs, called ARM4 and THUMB. Projects built for ARMI will work however with code built in any of the three ABIs.</p>
+<a name="1.6"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Machine word alignment</h2>
+</div><div class="Bodytext">
+<p>ARM uses a 32-bit RISC architecture with minimal extra silicon for unnecessary control purposes.  This is the main reason why the chip is so cheap, and uses so little power, which in turn is why it is so popular for battery-powered consumer devices.</p>
+<p>One consequence of this is that 32-bit quantities must be aligned to a 32-bit machine word boundary&nbsp;&#8212; in other words, their address must be a multiple of four.  So, for instance, the following code</p>
+<p class="CodeBlock"><code>TInt* p; // pointer to integers<br>...<br>TInt i=*p; // get from a pointer</code></p>
+<p>will only work if <code>p</code> is a multiple of four at the time it is used.  If <code>p</code> is not a multiple of four, an access violation will result.</p>
+<p>For normal purposes, this restriction is transparent to the programmer, because struct and class members are aligned appropriately by the compiler and heap allocator.  For example, in</p>
+<p class="CodeBlock"><code>struct S<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;TText8 iText; // offset 0, 1 byte<br>&nbsp;&nbsp;&nbsp;&nbsp;TText8 iText2; // offset 1, 1 byte<br>&nbsp;&nbsp;&nbsp;&nbsp;TInt32 iInteger; // offset 4, 4 bytes<br>&nbsp;&nbsp;&nbsp;&nbsp;};</code></p>
+<p>the second byte quantity is aligned at offset 1, which is ok for bytes.  But the compiler generates two pad bytes in order to align the integer at offset 4.  Therefore, <code>sizeof(S)</code> is 8, not 6 as might be expected.  The compiler ensures that all quantities are aligned, whether in structs or C arrays.</p>
+<p>You must be aware of the alignment restriction, however, if you are implementing a packed structure of some kind.  For instance, the code</p>
+<p class="CodeBlock"><code>TText8 array[200];<br>for (TInt i=0; i&lt;=196; i++)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;TInt* p=(TInt*) array[i]; // needs a cast<br>&nbsp;&nbsp;&nbsp;&nbsp;TInt n=*p; // four bytes from the array makes one integer?<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>will work under WINS and will compile with <code class="filename">gcc</code>.  But it will generate an access violation the second time through the loop, because <code>p</code> will be one greater than a multiple of four.</p>
+<p>To bypass this problem, you should do something like</p>
+<p class="CodeBlock"><code>TText8 array[200];<br>for (TInt i=0; i&lt;196; i++)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;TAny* p=array[i]; // really a TAny*, so no cast needed!<br>&nbsp;&nbsp;&nbsp;&nbsp;TInt n;<br>&nbsp;&nbsp;&nbsp;&nbsp;Mem::Copy(&amp;n, p, sizeof(TInt)); // copy byte by byte<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>In a way, C++&#8217;s type system supports the programmer here.  The packed structure can only be implemented by using casting.  When you do a cast, you must always think about what might be the potentially dangerous consequences.  In the ARM environment, machine word alignment is a potentially dangerous consequence that you must always bear in mind.  On the other hand, when you are not using casts, the compiler will do all that is necessary to ensure machine word alignment, without programmer intervention.</p>
+<a name="1.7"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Timer</h2>
+</div><div class="Bodytext">
+<p>Under WINS, standard timer resolution is 1/10th second.  Under ARM, it is 1/64th second.  Under both platforms, an <code>After()</code> timer request is effectively rounded upwards to the machine&#8217;s timer resolution.  Also, there is a minimum wait of one tick.</p>
+<p>Therefore, animation as used for games and other special effects must be carefully controlled for each platform.</p>
+<p>The differences in standard timer resolution do not matter so much for communications and other time-out purposes, where a coarser grain is often acceptable.  On the other hand, some protocols are much more demanding, in which case a higher-resolution time service must be used.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

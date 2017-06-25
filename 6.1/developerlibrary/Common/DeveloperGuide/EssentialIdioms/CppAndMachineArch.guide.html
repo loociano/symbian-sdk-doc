@@ -1,0 +1,236 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>C++ and machine architecture</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="idioms%2emachinearch"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="ClassTypes.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="OOBasics.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/DeveloperGuide/index.html">Developer's&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Essential&nbsp;Idioms</a>&nbsp;<span class="separator">&#187;</span>
+C++&nbsp;and&nbsp;machine&nbsp;architecture</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>C++ and machine architecture</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Overview</h2>
+</div><div class="Bodytext">
+<p>The C++ language, following its foundation in C, is close to the
+machine architecture. This allows applications to be implemented efficiently,
+but, especially for developers new to the language, presents some issues of
+which you need to be aware. This topic reviews the basic language features from
+this perspective, and discusses how the resulting issues are handled.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Arithmetic types</h2>
+</div><div class="Bodytext">
+<p>An <code>int</code> is usually implemented as the natural machine
+word size of the particular implementation. This is 32 bits in most modern
+machines. It was 16 bits in older machines, and in a few machines it may even
+be 64 bits.</p>
+<p>Similarly, a pointer (a <code>void*</code>, for instance) is
+usually implemented as a machine word but, in some machines with special
+architectures, a pointer may be more complex.</p>
+<p>It is assumed that the Symbian platform is implemented on a machine
+with a 32-bit or greater machine word, and 32-bit pointers. The types
+<code>TInt</code> and <code>TUint</code> are <code>typedef</code>ed onto the
+built-in <code>int</code> and <code>unsigned int</code> types, and are
+guaranteed to be at least 32 bits.</p>
+<p>When you need a specific size, regardless of implementation, use a
+sized type. Several of these are available:</p><table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top"><td class="Cell">
+<p><code>TInt32</code>, <code>TUint32</code></p></td><td class="Cell">
+<p>32-bit signed and unsigned integer</p>
+<p>In each case, the representation is a 32-bit machine word
+which, in the ARM architecture, must be aligned to a four-byte boundary. The
+compiler ensures that this is always the case.</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>TInt8</code>, <code>TUint8</code>,
+<code>TText8</code></p></td><td class="Cell">
+<p>8-bit signed and unsigned integer, and 8-bit character</p>
+<p>In each case, the representation is an 8-bit byte, which has
+no specific alignment requirements.</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>TInt16</code>, <code>TUint16</code>,
+<code>TText16</code></p></td><td class="Cell">
+<p>16-bit signed and unsigned integer, and 16-bit
+character</p>
+<p>In each case, the representation is a 16-bit halfword, which
+should be aligned to a two-byte boundary. The ARM architecture (prior to ARM8
+and the Thumb instruction set) is relatively poor at handling 16-bit
+quantities, and their use is recommended only when space is at a premium, or
+for Unicode text handling.</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>TInt64</code></p></td><td class="Cell">
+<p>64-bit unsigned integer</p>
+<p>Since ARM has no built-in support for 64-bit arithmetic,
+<code>TInt64</code> is implemented as a C++ class.</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>TReal, TReal64</code></p></td><td class="Cell">
+<p>Double-precision floating point, IEEE754 64-bit
+representation</p>
+<p>This is the floating-point type recommended for general use.
+The ARM architecture provides no native floating-point support. You are
+recommended to perform operations in integer arithmetic if possible (for
+instance, most GUI calculations), and to use floating-point only when the
+problem demands it (for instance, a spreadsheet
+application).</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>TReal32</code></p></td><td class="Cell">
+<p>32-bit floating point</p>
+<p>This is smaller and quicker, but should only be used when
+space and/or time are at a true premium, as its precision is unsatisfactory for
+many applications.</p></td></tr></table></td></tr></table>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Compound types</h2>
+</div><div class="Bodytext">
+<p>Apart from classes, C++ inherits from C various other types of
+compounding.</p>
+<p>A <code>struct</code> maps an area of memory:</p>
+<p class="CodeBlock"><code>struct TEg<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;TInt iInt; // offset 0, 4 bytes<br>&nbsp;&nbsp;&nbsp;&nbsp;TText8 iText; // offset 4, 1 byte<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// 3 wasted bytes<br>&nbsp;&nbsp;&nbsp;&nbsp;TReal iReal; // offset 8, 8 bytes<br>&nbsp;&nbsp;&nbsp;&nbsp;} // total length = 16 bytes</code></p>
+<div class="Figure">
+<p class="Image"><img src="idioms-struct.gif" alt=""  border="0"></p>
+</div>
+<p>Structures are regarded as <code>T</code> types: that is they may
+not own heap-allocated resources such as <code>C</code> type classes. </p>
+<p>An array contains many built-ins or other types</p>
+<p class="CodeBlock"><code>TInt a[32]; // 32 TInts, = 128 bytes</code></p>
+<p class="CodeBlock"><code>S b[3]; // 3 S&#8217;s, = 48 bytes</code></p>
+<p>The main disadvantage of using C++ arrays is that there is no
+automatic checking of index values. For this reason, and to support more
+complex containers, C++ has evolved the Standard Template Library (STL). The
+Symbian platform does not use STL, but provides its own range of efficient
+container classes, for fixed, dynamic, and associative arrays. For details, see
+<a href="../../APIGuide/Base/ArraysAndLists/DynamicArrays/DynamicArraysGuide1/index.html#DynamicArraysGuide1%2etoc">Dynamic Arrays</a>.</p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Pointers</h2>
+</div><div class="Bodytext">
+<p>A pointer is a memory address. If you can take the address of an object,
+then you can refer to it by pointer:</p>
+<p class="CodeBlock"><code>S* ps; // pointer to an S</code></p>
+<p class="CodeBlock"><code>ps=&amp;s; // take address of existing S</code></p>
+<p>A pointer is a 32-bit machine word, and could point to anything.</p>
+<div class="Figure">
+<p class="Image"><img src="idioms-pointer.gif" alt=""  border="0"></p>
+</div>
+<p>The specifier is placed next to the type rather than the name. </p>
+<p>There is often a need to refer to memory as anything: for this, a
+<code>void*</code> pointer is used in C++. In the Symbian platform, a
+<code>TAny*</code> may be referred to instead. A <code>TAny*</code> is a
+pointer to anything.</p>
+<a name="1.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Strings</h2>
+</div><div class="Bodytext">
+<p>In C++, the basic string is an array of characters:</p>
+<p class="CodeBlock"><code>char* hello=&quot;hello&quot;;</code></p>
+<p>This statement does two things: firstly, it sets aside six bytes of
+memory containing the characters 'h', 'e', 'l', 'l', 'o', '\0'. Secondly, it
+sets the pointer <code>hello</code> to contain the address of the first of
+those bytes.</p>
+<div class="Figure">
+<p class="Image"><img src="idioms-string.gif" alt=""  border="0"></p>
+</div>
+<p>Functions accessing the string rely on this address as its starting
+point, and the terminating <code>\0</code> to indicate its end. Functions which
+manipulate the string must either deliberately not extend it, or must have some
+cue as to the amount of memory reserved for the string (beyond the trailing
+<code>\0</code>) so they know how much it can be extended. This leads to an
+awkward programming style, and every C++ library provides a way to manipulate
+strings more elegantly. Symbian&#8217;s solution is
+<em>descriptors</em>: these are introduced in
+<a href="Descriptors.guide.html#idioms%2edescriptors">Descriptors</a>.</p>
+<a name="1.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Functions</h2>
+</div><div class="Bodytext">
+<p>Functions are a piece of code which can be called and executed from
+anywhere else in a program. The stack is used to pass parameters and to contain
+local variables. The stack is often augmented by machine registers, especially
+in a register-rich processor such as the ARM, so that memory is often not used.
+But, conceptually, there is a stack, and for the purposes of this explanation
+it is convenient to consider the stack as if it were implemented entirely in
+memory.</p>
+<p>Parameters are passed by copying or evaluating onto the called
+function&#8217;s stack frame. It is bad practice to pass large parameters,
+such as an entire struct&nbsp;&#8212; or, in fact, anything beyond two
+machine words in size&nbsp;&#8212; because this involves excessive copying.
+Instead, a pointer or a reference should be used to pass the address, instead
+of the data itself.</p>
+<p>In a multi-tasking system such as the Symbian platform, each thread has
+its own stack, which is a pre-allocated area of memory. Each function then
+allocates its own frame from the stack on entry, and de-allocates it on exit.
+The advantage of the stack mechanism is that allocation and de-allocation are
+very rapid indeed&nbsp;&#8212; just a couple of instructions. Also, the
+lifetime of any variable on the stack is very well defined: it is the lifetime
+of its owning function&nbsp;&#8212; or, in fact, its owning block, since
+functions may have blocks within them.</p>
+<p>When a function returns, its stack memory is still there: it is just not
+allocated. The stack memory will be re-used by the next function that is
+called. A potential source of error is to allocate an object on a
+function&#8217;s stack frame, and then return a pointer to it:</p>
+<p class="CodeBlock"><code>TEg* foo()<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;TEg s;<br>&nbsp;&nbsp;&nbsp;&nbsp;TEg* ps=&amp;s;<br>&nbsp;&nbsp;&nbsp;&nbsp;return ps; // !! error !!<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>This pointer will not be valid for long, because the memory will be
+re-used when the next function is called. You should never allow this to
+happen. This error is so obvious that a compiler will trap it. But it can occur
+in more subtle forms:</p>
+<p class="CodeBlock"><code>foo(CContainer* aContainer)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;TEg s;<br>&nbsp;&nbsp;&nbsp;&nbsp;TEg* ps=&amp;s;<br>&nbsp;&nbsp;&nbsp;&nbsp;aContainer-&gt;iMember=ps;<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>These cannot be trapped so easily.</p>
+<a name="1.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Heap</h2>
+</div><div class="Bodytext">
+<p>Each thread also has a heap. You can allocate and de-allocate objects on
+the heap at will, and refer to them by pointer. The benefit of a heap is that
+the lifetime of an object is entirely within your control. This power comes
+with responsibility: you must not forget to de-allocate objects once you have
+finished with them, and you must not use pointers to objects that have been
+de-allocated. </p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to use the Symbian build process</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="PracticalGuide%2eHowtoBuildProcess"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="ArmPlatform.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Build&nbsp;Tools&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;use&nbsp;the&nbsp;Symbian&nbsp;build&nbsp;process</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to use the Symbian build process</h1>
+</div><div class="Bodytext">
+<p>The build process provides a consistent interface for all Symbian
+build activities. To build a component you will need the following
+files:</p>
+<ul>
+<li>
+<p>a project definition file (<code class="filename">.mpp</code> file) that describes
+a project to be built. This is an environment neutral file that can be used by
+the tools to produce make files for any of the supported target environments.
+It also defines resource file and application information files to be
+built.</p>
+</li>
+<li>
+<p>a component description file (<code class="filename">bld.inf</code>), which lists
+all the projects in a component, and gives additional build instructions.
+</p>
+</li>
+</ul>
+<p>The tools used to process these files include <code class="filename">bldmake</code>,
+<code class="filename">abld</code> and (usually not directly) <code class="filename">makmake</code>. The actual
+process is detailed below.</p>
+<p>Note that the GUI tool MEAD, with access to abld and bldmake
+functionality, provides an alternative method to using this building process.
+See
+<a href="../MeadGuide/index.html#MEADguide%2etoc">The application development wizard</a>.</p>
+<a name="1.7"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Building from the command line</h2>
+</div><div class="Bodytext">
+<p>The procedure below summarises the build process.</p>
+<ol>
+<li>
+<p>Create a project specification, or <code class="filename">mmp</code> file.
+</p>
+</li>
+<li>
+<p>Create a <code class="filename">bldmake</code> component definition file
+(<code class="filename">bld.inf</code>). In many cases this will specify a single project
+<code class="filename">mmp</code> file.</p>
+</li>
+<li>
+<p>Run <code class="filename">bldmake</code> from the directory where the
+<code class="filename">bld.inf</code> file is located: </p>
+<p class="CommandLine"><code>&gt; bldmake bldfiles</code></p>
+<p>This creates the <code class="filename">abld.bat</code> batch file.</p>
+</li>
+<li>
+<p>Use <code>abld build</code> to build the project. </p>
+<p><code class="filename">abld</code> calls <code class="filename">nmake</code> on the appropriate
+<code class="filename">.make</code> files, calls the resource compiler to create the resource
+file, and may call <code class="filename">bmconv</code> to create a multibitmap icon file and
+<code class="filename">aiftool</code> to create an application information file.</p>
+</li>
+</ol>
+<p>Generally, for any component, the minimal sequence of actions and
+commands needed to build the component are as follows:</p>
+<div class="Figure">
+<p class="Image"><img src="build_process.gif" alt="Build process"  border="0"></p>
+<p class="Caption">Build process</p>
+</div>
+<a name="1.7.6"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>See also</h3>
+</div><div class="Bodytext">
+<p><a href="UsingAbld.guide.html#PracticalGuide%2eusing%2dabld" title="How to use abld">Using abld</a></p>
+<p><a href="UsingBldmake.guide.html#PracticalGuide%2eusing%2dbldmake" title="How to use bldmake">Using bldmake</a></p>
+<a name="1.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Building from the IDE</h2>
+</div><div class="Bodytext">
+<p>You can build applications for the Emulator (WINS platform) from
+within the Microsoft Visual C++ 6 IDE. To do this, define a
+<code class="filename">bld.inf</code> file and a .<code class="filename">mmp</code> file, and run <code>bldmake
+bldfiles</code> as described. Then to generate the IDE workspace, use:</p>
+<p class="CommandLine"><code>&gt; abld makefile vc6</code></p>
+<p>The <code class="filename">.dsw</code> and <code class="filename">.dsp</code> files are created in
+the directory:</p>
+<p><code class="filename">epoc32\build\</code><em class="metasyntactic">absolute_path_to_mmp_file</em><code class="filename">\</code><em class="metasyntactic">mmp_basename</em><code class="filename">\wins</code></p>
+<p>If later you change the <code class="filename">.mmp</code> file, you can use the
+same command to regenerate the MSVC6 workspace without the need to close the
+workspace first.</p>
+<p>The project file has a special build step which invokes the
+resource compiler, so for projects that use resources, this does not need to be
+run separately.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

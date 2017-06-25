@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Graphics</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="WindowServerGuide3%2eWindowServerGraphics"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="WservDrawingRedrawing.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Graphics</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Window&nbsp;Server</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Graphics&nbsp;and&nbsp;drawing</a>&nbsp;<span class="separator">&#187;</span>
+Graphics</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Graphics</h1>
+</div><div class="Bodytext">
+<p>Window server applications exist mainly to draw graphics to the screen. They  may draw to any <code>RDrawableWindow</code> — either an <a href="../../../../APIReference/WindowServerClientSide/RWindowClass.html#%3a%3aRWindow" title="Handle to a standard window"><code class="ApiItem">RWindow</code></a> or an <a href="../../../../APIReference/WindowServerClientSide/RBackedUpWindowClass.html#%3a%3aRBackedUpWindow" title="Client-side handle to a drawable window with a back buffer"><code class="ApiItem">RBackedUpWindow</code></a> —  via a graphics device, of type <a href="../../../../APIReference/WindowServerClientSide/CWsScreenDeviceClass.html#%3a%3aCWsScreenDevice" title="Software device screen"><code class="ApiItem">CWsScreenDevice</code></a>, and a graphics context, of type <code class="ApiItem">CWindowGC</code>. These classes are derived from the <a href="../../../../APIReference/Graphics/CGraphicsDeviceClass.html#%3a%3aCGraphicsDevice" title="Specifies the interface for concrete device classes"><code class="ApiItem">CGraphicsDevice</code></a> and <a href="../../../../APIReference/Graphics/CGraphicsContextClass.html#%3a%3aCGraphicsContext" title="Abstract, device independent, interface to graphics contexts"><code class="ApiItem">CGraphicsContext</code></a> classes defined by the GDI, so that general drawing functions may be used for drawing to windows, as well as to other graphics devices. The window server itself does not provide the facilities to draw graphics to a physical device. <code>CWindowGc</code> functions are not passed to the window server directly.  Rather, they are buffered in a buffer maintained by the window server client API.  This buffer is flushed to the window server only rarely.  By this means the context switching involved in drawing is minimised, and system performance significantly enhanced.</p>
+<p><code>CWsScreenDevice</code> encapsulates the device-dependent aspects of graphics operations. Graphics functions are not carried out directly via a <code>CWsScreenDevice</code>, however, but via a graphics context with which it is associated. The graphics context class, <code>CWindowGC</code>, provides a rich set of drawing functions, including functions to draw lines, arcs, polygons, text and bitmaps, etc.</p>
+<p>A graphics context contains a collection of configurable parameters concerned with graphics, such as pen width, pen colour, brush colour, etc. It is stored in the server, thus reducing the amount of information that has to be sent with each graphics call: the graphics call simply specifies the graphics context it wishes to use, and a single graphics context can be shared between multiple windows.</p>
+<p>To draw to a graphics context it must be associated with a window. Typically a graphics context is created when a session is constructed, and that graphics context is shared between several windows in the application. When the window needs to use the graphics context it calls <code class="ApiItem">CWindowGC::Activate()</code>. If necessary it can change the graphics context's settings. <code class="ApiItem">CWindowGC::Deactivate()</code> should be called  if the graphics context is currently active upon a
+window.</p>
+<p>Several optimisations are used by the window server to obtain high-performance graphics</p>
+<ul><li><p>each window is associated with an <code>RWsSession</code> which is in turn associated with a client-side buffer.  Instead of implementing graphics operations by a direct client-server call, which involves expensive context switching, all graphics operations are stored as opcodes in the buffer, and the buffer is only flushed in certain circumstances</p></li>
+<li><p>the <code>CFbsBitmap</code> class allows a bitmap to be shared between all threads in the system&nbsp;&#8212; including the client and the window server.  This sharing is mediated by the font and bitmap server.  The <code>CWsBitmap</code> class eliminates further context switches by taking ownership of the handle of the bitmap.  Applications may use this class to more efficiently open, blit-to-screen, and close a series of bitmaps</p></li>
+<li><p><code>CWsBitmap</code>s may also be used to allow applications to use the bitmapped graphics (BITGDI) in their own thread — through a <code>CFbsBitGc</code> — to construct an image, and then efficiently blit it onto the screen using <code>CWindowGc::DrawBitmap()</code>.  This allows fast animation and flicker-free update</p></li>
+<li><p>a single graphics context may be used for drawing to many windows — it is not necessary to have one per window.  The <code>Activate()</code> function associates a <code>CWindowGc</code> with a particular window</p></li>
+</ul>
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

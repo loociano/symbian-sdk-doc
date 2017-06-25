@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to make a primary connection</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="IrDAGuide2%2ehowto%2dprimary%2dconnection"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="IrDaConnection.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToIrDASecondaryConnection.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Infrared</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;IrDA&nbsp;Sockets</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">The&nbsp;IrDA&nbsp;Sockets&nbsp;API</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;make&nbsp;a&nbsp;primary&nbsp;connection</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to make a primary connection</h1>
+</div><div class="Bodytext">
+<p>Once a device has been discovered, an IrDA connect may be initiated.
+</p>
+<p>An <code>RSocket</code> object is required to achieve this. In terms
+of the IrDA specification, a successful return from connect will put the two
+machines into the link state (or NRM) after having completed both the IrLAP and
+IrLMP connect procedures.</p>
+<p>Use the functions <code>RSocket::Open()</code>,
+<code>RSocket::Bind()</code>, and <code>RSocket::Connect()</code> to achieve
+this connection.</p>
+<p>The following example code illustrates the attempted opening of two
+IrDA sockets on <code>&lt;homeport,remoteport&gt;</code> tuple pairs
+<code>&lt;2,1&gt; </code>and <code>&lt;2,3&gt;</code>.</p>
+<p class="CodeBlock"><code>TInt ret;<br>RSocketServ ss;<br>...<br>//<br>// MAKING SOCKET 1<br>//<br>TProtocolDesc pInfo;<br>RSocket       sock1;<br>ret=sock1.Open(ss,pInfo.iAddrFamily,pInfo.iSockType,pInfo.iProtocol);</code></p>
+<p class="CodeBlock"><code>//<br>// BIND SOCKET 1 - PORT 2<br>//<br>TUint8         home   = 0x02;<br>TUint8         remote = 0x01;<br>TSockAddr      addr;<br>TRequestStatus stat1;<br><br>addr.SetPort(home);<br>sock1.Bind(addr);                  // Binding to home port: home<br><br>addr.SetPort(remote);              // Trying to connect to sockt 1,<br>sock1.Connect(addr,stat1);         // remote port: remote<br>User::WaitForRequest(stat1);<br><br>switch (stat1.Int())<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>case KErrNone:<br>&nbsp;&nbsp;&nbsp;&nbsp;// Successfully completed a MUX connect<br>&nbsp;&nbsp;&nbsp;&nbsp;break;<br><br>case KErrNotFound:<br>&nbsp;&nbsp;&nbsp;&nbsp;// #### No devices were discovered ####<br>&nbsp;&nbsp;&nbsp;&nbsp;break;<br><br>case KErrTimedOut:<br>&nbsp;&nbsp;&nbsp;&nbsp;// #### LAP connect has failed ####<br>&nbsp;&nbsp;&nbsp;&nbsp;break;<br><br>case KErrCouldNotConnect:<br>&nbsp;&nbsp;&nbsp;&nbsp;// #### MUX connect has failed ####<br>&nbsp;&nbsp;&nbsp;&nbsp;break;<br><br>case KErrDisconnected:<br>&nbsp;&nbsp;&nbsp;&nbsp;// #### General disconnect indication ####<br>&nbsp;&nbsp;&nbsp;&nbsp;break;<br><br>default:<br>&nbsp;&nbsp;&nbsp;&nbsp;// #### Unknown connnect error ####<br>&nbsp;&nbsp;&nbsp;&nbsp;break;<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p class="CodeBlock"><code>//<br>// MAKING SOCKET 2<br>//<br>RSocket sock2;<br>ret=sock2.Open(ss,pInfo.iAddrFamily,pInfo.iSockType,pInfo.iProtocol);</code></p>
+<p class="CodeBlock"><code>//<br>// BIND TO SOCKET 2<br>//<br>home   = 0x02;<br>remote = 0x03;<br><br>addr.SetPort(home);<br>sock2.Bind(addr);                  // Binding to home port: home<br><br>addr.SetPort(remote);              // Trying to connect to socket 2<br>test.Next(_L(&quot;Connect to socket&quot;));// remote port: remote<br>sock2.Connect(addr,stat1);  <br>User::WaitForRequest(stat1);       // stat1 should return KErrNone</code></p>
+<p>Note that it is not necessary to bind to a specific home port. If
+desired, an autobinding mechanism may be invoked by omitting the bind code. In
+the case illustrated below, after opening the socket, an attempt is made to
+connect to a specified remote port only. The <code>LocalName()</code> service
+is subsequently invoked in order to determine the value of the home port
+generated during autobinding. The autobinding code in the IrDA protocol module
+always sets the home port to the lowest unused home port value. The code
+fragment below also illustrates how to append connect data by means of an
+overloaded <code>RSocket</code> connect call. The <code>&#8220;fPsion IRLink
+1.00&#8221;</code> string is necessary to initiate a file transfer with a
+version 1 EPOC16 IrDA client (Siena or S3c). The output string is the
+corresponding return from the remote SIBO machine&#8217;s MUX connect confirm
+frame. A successful return from this connect thus corresponds to a MUX
+connection to an EPOC16 IrDA stack.</p>
+<p class="CodeBlock"><code>...<br>TUint8 remote = 0x01; // Must set remote port to 1 to talk to SIBO.<br>TUint8 home   = 0xff;<br>TRequestStatus stat1;<br><br>//<br>// CONNECTING TO SOCKET<br>//<br>_LIT8(KConnData,&quot;fPsion IRLink 1.00&quot;); // Up to 64 bytes connect data.<br>TBuf&lt;64&gt; output;                      // For connect confirm data.<br><br>addr.SetPort(remote);                     // Remote port: remote<br>sock1.Connect(addr,connData,output,stat1);// If no bind, then AutoBind<br>User::WaitForRequest(stat1);              // invoked.<br><br>switch (stat1.Int())<br>&nbsp;{<br>case KErrNone:<br>&nbsp;&nbsp;&nbsp;&nbsp;// Successfully completed a MUX connect<br>&nbsp;&nbsp;&nbsp;&nbsp;// Returned data in descriptor buffer: output<br>&nbsp;&nbsp;&nbsp;&nbsp;break;<br><br>case KErrNotFound:<br>&nbsp;&nbsp;&nbsp;&nbsp;// ### No devices were discovered ####<br>&nbsp;&nbsp;&nbsp;&nbsp;break;<br><br>case KErrTimedOut:<br>&nbsp;&nbsp;&nbsp;&nbsp;// #### LAP connect has failed ####<br>&nbsp;&nbsp;&nbsp;&nbsp;break;<br><br>case KErrCouldNotConnect:<br>&nbsp;&nbsp;&nbsp;&nbsp;// #### MUX connect has failed ####<br>&nbsp;&nbsp;&nbsp;&nbsp;break;<br><br>case KErrDisconnected:<br>&nbsp;&nbsp;&nbsp;&nbsp;// #### General disconnect indication ####<br>&nbsp;&nbsp;&nbsp;&nbsp;break;<br><br>default:<br>&nbsp;&nbsp;&nbsp;&nbsp;// #### Unknown connnect error ####<br>&nbsp;&nbsp;&nbsp;&nbsp;break;<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p class="CodeBlock"><code>//<br>// LOCAL AND REMOTE NAMES<br>//<br>sock1.LocalName(addr,stat1);<br>User::WaitForRequest(stat1);<br>if (stat1.Int()==KErrNone)<br>&nbsp;{<br>&nbsp;home=TUint8(addr.Port());   // Bound to home port: home<br>&nbsp;}<br>else<br>&nbsp;{<br>&nbsp;// stat1.Int() returned from LocalName() request<br>&nbsp;}<br><br>sock1.RemoteName(addr,stat1);<br>User::WaitForRequest(stat1);<br>if (stat1.Int()==KErrNone)<br>&nbsp;{<br>&nbsp;remote=TUint8(addr.Port()); // Bound to remote port: remote<br>&nbsp;}<br>else<br>&nbsp;{<br>&nbsp;// stat1.Int()returned from RemoteName() request<br>&nbsp;}</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

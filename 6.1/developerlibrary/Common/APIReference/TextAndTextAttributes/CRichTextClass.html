@@ -1,0 +1,2076 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CRichText</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CPlainTextClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="CStyleListClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Text&nbsp;and&nbsp;Text&nbsp;Attributes</a>&nbsp;<span class="separator">&#187;</span>
+CRichText</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code> txtrich.h </code>
+<br>Link against: <code> etext.lib </code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aCRichText"></a>
+
+<h1>Class <code>CRichText</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CRichText</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Text with rich formatting.</p><p>In rich text, each paragraph can have a different paragraph format, and
+each character can have a different character format.</p>
+<p>All formatting in a rich text object is based
+on a global character and paragraph format layer, and a chain of layers on
+which they may be based. In case of conflict,  upper layers override lower
+layers. These two format layers are specified on
+construction, and are not owned by the text object. Additional formatting may then be added to any portion of the text. This is called specific formatting and in case of conflict, it overrides
+the formatting in the global layers. Specific formatting is owned by the text object. So, the effective
+formatting of a rich text object may be composed of specific formatting and formatting specified in
+a chain of format layers.</p>
+<p>Rich text supports styles. A style is a named set
+of paragraph and character format attributes. Styles are stored in a  list which is passed to the rich text object on construction, or which is assigned to the
+object after construction. Styles can be appended to and removed from the list and existing styles can be modified. Only paragraph styles are supported. This means that styles are
+applied to entire paragraphs, although both character and paragraph format
+attributes may be set in the style.</p>
+<p>Rich text also supports object embedding. Embedded objects are represented in rich text by  <code>CPicture</code>-derived objects. A rich text object which supports the display of
+pictures needs to be supplied with a picture factory.</p>
+<h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase">CBase</a></code></td><td class="Cell">Base class for all classes to be instantiated on the heap</td>
+</tr>
+<tr><td class="Cell"><code><a href="CEditableTextClass.html#%3a%3aCEditableText">CEditableText</a></code></td><td class="Cell">An abstract base class which defines the behaviour that all classes in the editable text class hierarchy (CPlainText, CGlobalText and CRichText) must provide</td>
+</tr>
+<tr><td class="Cell"><code><a href="CGlobalTextClass.html#%3a%3aCGlobalText">CGlobalText</a></code></td><td class="Cell">Text with globally applied formatting</td>
+</tr>
+<tr><td class="Cell"><code><a href="CPlainTextClass.html#%3a%3aCPlainText">CPlainText</a></code></td><td class="Cell">Stores and manipulates plain text</td>
+</tr>
+<tr><td class="Cell"><code>CRichText</code></td><td class="Cell">Text with rich formatting</td>
+</tr>
+<tr><td class="Cell"><code><a href="MFormatTextClass.html#%3a%3aMFormatText">MFormatText</a></code></td><td class="Cell">Specifies the mixin protocol for getting and setting character and paragraph format attributes</td>
+</tr>
+<tr><td class="Cell"><code><a href="MLayDocClass.html#%3a%3aMLayDoc">MLayDoc</a></code></td><td class="Cell">This class specifies the mixin protocol for providing the information needed by the text layout engine to lay out a text object</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>CRichText</code>:
+<br><code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aAppendParagraphL%28%29" title="Appends one or more empty paragraphs to the document">AppendParagraphL()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aAppendTakingSolePictureOwnershipL%28%29" title="Appends a rich text object to this one">AppendTakingSolePictureOwnershipL()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aApplyCharFormatL%28%29" title="Applies character formatting to a range of characters">ApplyCharFormatL()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aApplyParaFormatL%28%29" title="Applies paragraph formatting to a range of paragraphs">ApplyParaFormatL()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aApplyParagraphStyleL%28%29" title="Applies a specified paragraph style to a range of paragraphs">ApplyParagraphStyleL()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aCancelInsertCharFormat%28%29" title="Cancels the "insert pending" state set by a call to SetInsertCharFormatL() or DelSetInsertCharFormatL()">CancelInsertCharFormat()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aCharPosOfParagraph%28%29" title="Finds the length and the start position of a paragraph identified by its paragraph number -- the first paragraph is numbered zero">CharPosOfParagraph()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aComponentInfo%28%29" title="Gets information about the number of components contained in the text object (the field count, the picture count and the style count)">ComponentInfo()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aCopyToStoreL%28%29" title="Copies a portion of the rich text object, with components to the clipboard">CopyToStoreL()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aDelSetInsertCharFormatL%28%29" title="Deletes a range of characters">DelSetInsertCharFormatL()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aDeleteFromParagraph%28%29" title="Removes a range of characters from within a single paragraph only">DeleteFromParagraph()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aDeleteL%28%29" title="Deletes one or more characters beginning at, and including, the character at a specified document position">DeleteL()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aDeleteParagraph%28%29" title="Deletes one or more whole paragraphs of text">DeleteParagraph()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aDetachFromStoreL%28%29" title="Loads pictures not already present in memory -- overloaded function">DetachFromStoreL()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aDropPictureOwnership%28%29" title="Removes ownership from this rich text object of the picture located at a document position">DropPictureOwnership()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aEMultiPara" title="The text object will contain multiple paragraphs">EMultiPara</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aESinglePara" title="The text object will contain a single paragraph">ESinglePara</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aExternalizeL%28%29" title="Externalises the rich text object and all of its components (field set, style list, rich text formatting, pictures) to a read stream">ExternalizeL()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aExternalizeMarkupDataL%28%29" title="Externalises the rich text object's markup (specific formatting, styles and pictures)">ExternalizeMarkupDataL()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aExternalizeStyleDataL%28%29" title="Externalises the style list owned by the rich text object">ExternalizeStyleDataL()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aGetCharFormat%28%29" title="Gets the effective character formatting which applies to a range of characters">GetCharFormat()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aGetChars%28%29" title="Gets a constant pointer descriptor to a portion of the text object with constant character formatting">GetChars()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aGetParaFormatL%28%29" title="Gets the effective paragraph formatting which applies to a range of paragraphs">GetParaFormatL()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aGetParagraphFormatL%28%29" title="Gets the effective paragraph formatting which applies to the paragraph which contains a specified document position">GetParagraphFormatL()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aGetPictureSizeInTwips%28%29" title="Gets the size of a picture located at a specified document position">GetPictureSizeInTwips()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aGetSpecificCharFormat%28%29" title="Gets the specific character formatting which applies to the character to the left of a document position">GetSpecificCharFormat()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aGetSpecificCharFormatRight%28%29" title="Gets the specific character formatting which applies to the character logically after a document position">GetSpecificCharFormatRight()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aHasMarkupData%28%29" title="Tests whether the rich text object has any markup, or owns a style list">HasMarkupData()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aInsertL%28%29" title="Inserts a picture header into the text object at a specified document position">InsertL()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aInternalizeL%28%29" title="Internalises the rich text object and all of its components (field set, style list, rich text formatting and pictures) from a read stream">InternalizeL()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aInternalizeMarkupDataL%28%29" title="Internalises the rich text object's markup (specific formatting, styles and pictures)">InternalizeMarkupDataL()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aInternalizeStyleDataL%28%29" title="Internalises the style list owned by the rich text object from a read stream, if one is present in the stream">InternalizeStyleDataL()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aNewL%28%29" title="Allocates and constructs a rich text object with a field factory and a picture factory">NewL()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aNotifyStyleChangedL%28%29" title="Removes style aFrom from every paragraph in the document to which it applies, and replaces it with style aTo">NotifyStyleChangedL()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aNotifyStyleDeletedL%28%29" title="Removes a style from all paragraphs to which it applies">NotifyStyleDeletedL()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aParagraphCount%28%29" title="Gets a count of the number of paragraphs in the text object">ParagraphCount()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aParagraphNumberForPos%28%29" title="Gets the number of the paragraph which contains a document position">ParagraphNumberForPos()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aParagraphStyle%28%29" title="Gets a pointer to the first paragraph style encountered in the specified range">ParagraphStyle()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aPasteFromStoreL%28%29" title="Pastes the contents of the clipboard into the rich text object at the specified document position">PasteFromStoreL()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aPictureCount%28%29" title="Gets a count of the number of pictures contained in the rich text object">PictureCount()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aPictureFactory%28%29" title="Gets the picture factory">PictureFactory()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aPictureHandleL%28%29" title="Gets a pointer to the picture located at a specified document position, if one exists">PictureHandleL()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aPictureHeader%28%29" title="Gets the picture header which describes the picture located at a specified document position">PictureHeader()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aRemoveSpecificCharFormatL%28%29" title="Removes all specific character formatting from a range of characters (does not remove the formatting which has been taken from the object's global character format layer)">RemoveSpecificCharFormatL()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aRemoveSpecificParaFormatL%28%29" title="Removes all specific paragraph formatting from a range of paragraphs">RemoveSpecificParaFormatL()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aReset%28%29" title="Resets the document's contents to a single end-of-document delimiter">Reset()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aRestoreComponentsL%28%29" title="Restores the rich text object's components (field set, style list, formatting and pictures) from a stream store">RestoreComponentsL()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aRestoreWithStyleListL%28%29" title="Restores a rich text object, including all of its components and an externally owned style list, from a stream store">RestoreWithStyleListL()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aSetEditObserver%28%29" title="Sets the rich text object's edit observer">SetEditObserver()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aSetHasChanged%28%29" title="Sets whether the document's content or formatting has changed">SetHasChanged()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aSetInsertCharFormatL%28%29" title="Applies character formatting to a zero length selection, for example turning bold on">SetInsertCharFormatL()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aSetPictureFactory%28%29" title="Sets the picture factory">SetPictureFactory()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aSetStyleListExternallyOwned%28%29" title="Assigns an externally owned style list to the rich text object">SetStyleListExternallyOwned()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aStoreComponentsL%28%29" title="Stores the rich text object's components (field set, style list, formatting and pictures) to the stream store specified">StoreComponentsL()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aStoreMarkupComponentsL%28%29" title="Stores all pictures in the rich text object to a stream store">StoreMarkupComponentsL()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aStoreResolver%28%29" title="Gets the store resolver">StoreResolver()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aStyleCount%28%29" title="Gets the number of styles contained in the rich text object's style list">StyleCount()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aStyleList%28%29" title="Gets a pointer to the style list used by the rich text object">StyleList()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aStyleListExternallyOwned%28%29" title="Tests whether the style list used by this rich text object is owned by the object itself, or is externally owned">StyleListExternallyOwned()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aStyleListPresent%28%29" title="Tests whether the rich text object uses a style list">StyleListPresent()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aTParaType" title="Number of paragraphs in the object">TParaType</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aUpdateFieldL%28%29" title="Re-evaluates the field which covers the document position specified">UpdateFieldL()</a></code>, <code class="ApiItem"><a href="CRichTextClass.html#%3a%3aCRichText%3a%3a%7eCRichText%28%29" title="The destructor frees all resources owned by the rich text object, prior to its destruction">~CRichText()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap">CBase</a></code>:
+<br><code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase%3a%3aoperator%20new%28%29" title="Allocates the object from the heap and then initialises its contents to binary zeroes">operator new()</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText" title="An abstract base class which defines the behaviour that all classes in the editable text class hierarchy (CPlainText, CGlobalText and CRichText) must provide">CEditableText</a></code>:
+<br><code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aEDefaultTextGranularity" title="Granularity of the buffer, default 256 characters">EDefaultTextGranularity</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aEFlatStorage" title="Storage uses a flat buffer (CBufFlat)">EFlatStorage</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aELineBreak" title="Forced line break">ELineBreak</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aENonBreakingHyphen" title="A hard (non-breaking) hyphen">ENonBreakingHyphen</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aENonBreakingSpace" title="A hard (non-breaking) space">ENonBreakingSpace</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aENonBreakingTab" title="Non-breaking tab stop (ensures that the words on either side of the tab stop remain on the same line)">ENonBreakingTab</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aEPageBreak" title="New page">EPageBreak</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aEParagraphDelimiter" title="Paragraph delimiter">EParagraphDelimiter</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aEPictureCharacter" title="Represents a picture inserted into the text object">EPictureCharacter</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aEPotentialHyphen" title="A soft hyphen (ensures that a hyphen followed by a new line will be inserted at that point should a line break be required anywhere within the word)">EPotentialHyphen</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aESegmentedStorage" title="Storage uses a segmented buffer (CBufSeg)">ESegmentedStorage</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aETabCharacter" title="Tab stop">ETabCharacter</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aEVisibleSpaceCharacter" title="Visible space character">EVisibleSpaceCharacter</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aHasChanged%28%29" title="Tests whether the editable text object has been changed by an operation on it, as set by SetHasChanged()">HasChanged()</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aRestoreL%28%29" title="Restores the text and its components from a stream store">RestoreL()</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aStoreL%28%29" title="Stores the text and its components">StoreL()</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aTDocumentStorage" title="Storage type">TDocumentStorage</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="CGlobalTextClass.html#%3a%3aCGlobalText" title="Text with globally applied formatting">CGlobalText</a></code>:
+<br><code class="ApiItem"><a href="CGlobalTextClass.html#%3a%3aCGlobalText%3a%3aCancelSelectLabel%28%29" title="Not supported">CancelSelectLabel()</a></code>,
+<code class="ApiItem"><a href="CGlobalTextClass.html#%3a%3aCGlobalText%3a%3aEnquirePageBreak%28%29" title="Tests whether a page break occurs within a range of characters">EnquirePageBreak()</a></code>,
+<code class="ApiItem"><a href="CGlobalTextClass.html#%3a%3aCGlobalText%3a%3aGlobalCharFormatLayer%28%29" title="Gets the character format layer referenced by the global text object">GlobalCharFormatLayer()</a></code>,
+<code class="ApiItem"><a href="CGlobalTextClass.html#%3a%3aCGlobalText%3a%3aGlobalParaFormatLayer%28%29" title="Gets the paragraph format layer referenced by the global text object">GlobalParaFormatLayer()</a></code>,
+<code class="ApiItem"><a href="CGlobalTextClass.html#%3a%3aCGlobalText%3a%3aLdDocumentLength%28%29" title="Gets the the number of characters in the document">LdDocumentLength()</a></code>,
+<code class="ApiItem"><a href="CGlobalTextClass.html#%3a%3aCGlobalText%3a%3aLdToParagraphStart%28%29" title="Gets the document position of the start of the paragraph containing a specified document position">LdToParagraphStart()</a></code>,
+<code class="ApiItem"><a href="CGlobalTextClass.html#%3a%3aCGlobalText%3a%3aSelectParagraphLabel%28%29" title="Global text does not support paragraph labels, so this function returns EFalse">SelectParagraphLabel()</a></code>,
+<code class="ApiItem"><a href="CGlobalTextClass.html#%3a%3aCGlobalText%3a%3aSetGlobalCharFormat%28%29" title="Replaces the character format layer referenced by the global text object">SetGlobalCharFormat()</a></code>,
+<code class="ApiItem"><a href="CGlobalTextClass.html#%3a%3aCGlobalText%3a%3aSetGlobalParaFormat%28%29" title="Replaces the paragraph format layer referenced by the global text object">SetGlobalParaFormat()</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText" title="Stores and manipulates plain text">CPlainText</a></code>:
+<br><code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aAnonymous" title="Scan mask values">Anonymous</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aConvertAllFieldsToText%28%29" title="Removes all fields from the text object's field set, leaving their current text value in the text object">ConvertAllFieldsToText()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aConvertFieldToText%28%29" title="Converts the field containing the specified document position into text, leaving its current value in the text object">ConvertFieldToText()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aDocumentLength%28%29" title="Gets the the number of characters in the text object">DocumentLength()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aEOrganiseByLine" title="When importing text from a text file, a single line feed or a line feed followed by a carriage return is converted into a space character">EOrganiseByLine</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aEOrganiseByParagraph" title="When importing text from a text file, all line feeds are converted into paragraph delimiters">EOrganiseByParagraph</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aEScanBackwards" title="Scan direction is backwards">EScanBackwards</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aEScanEndOfData" title="Indicates that a scan has passed the end of text paragraph delimiter">EScanEndOfData</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aEScanJoinDelimiters" title="Treat adjacent word or paragraph delimiters as a single delimiter">EScanJoinDelimiters</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aEScanPictureIsDelimiter" title="Picture characters are considered to be word delimiters">EScanPictureIsDelimiter</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aEScanPunctuationIsDelimiter" title="Punctuation characters, except hyphens and apostrophes, are considered to be word delimiters">EScanPunctuationIsDelimiter</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aEScanStayIfBoundary" title="If the current document position is a word or paragraph boundary, no scan occurs">EScanStayIfBoundary</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aEScanToUnitEnd" title="Scan to the last character in the word or paragraph">EScanToUnitEnd</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aEScanToUnitStart" title="Scan to the first character in the word or paragraph">EScanToUnitStart</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aExportAsTextL%28%29" title="Writes the contents of the plain text object to a text file">ExportAsTextL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aExportTextL%28%29" title="Writes plain text to a stream, optionally converting it from Unicode into a foreign encoding">ExportTextL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aExternalizeFieldDataL%28%29" title="Externalises the plain text object's field set">ExternalizeFieldDataL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aExternalizePlainTextL%28%29" title="Externalises the plain text object's text content (preceded by a length count) to a write stream">ExternalizePlainTextL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aExternalizePlainTextNoLengthCountL%28%29" title="Externalises the plain text object's text content to a write stream">ExternalizePlainTextNoLengthCountL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aExtract%28%29" title="Copies the contents of the text object into a descriptor -- overloaded function">Extract()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aFieldCount%28%29" title="Gets a count of the number of fields in the text object's field set">FieldCount()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aFieldFactory%28%29" title="Gets a pointer to the field factory used by the text object">FieldFactory()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aFindFields%28%29" title="Tests whether a document position is located within a field -- overloaded function">FindFields()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aGetWordInfo%28%29" title="Gets the start position and length of the word that contains the document position specified">GetWordInfo()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aImportTextFileL%28%29" title="Imports a plain text file into this text object">ImportTextFileL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aImportTextL%28%29" title="Imports plain text from a stream into this text object, optionally converting it from a foreign encoding into Unicode">ImportTextL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aInsertFieldL%28%29" title="Inserts a field into the text object at a specified document position">InsertFieldL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aInternalizeFieldDataL%28%29" title="Internalizes the field set">InternalizeFieldDataL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aInternalizePlainTextL%28%29" title="Internalises an empty text object's text content from a read stream -- overloaded function">InternalizePlainTextL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aNewTextFieldL%28%29" title="Creates and returns a new field">NewTextFieldL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aPageContainingPos%28%29" title="Gets the number of the page which contains the specified document position">PageContainingPos()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aRead%28%29" title="Gets a read-only view of a portion of the text object">Read()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aRemoveField%28%29" title="Removes the field covering the document position specified from the field set, and deletes all text content associated with the field from the text object">RemoveField()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aRestoreFieldComponentsL%28%29" title="Restores the plain text object's field set">RestoreFieldComponentsL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aScanParas%28%29" title="Scans from a document position to the beginning or end of a paragraph">ScanParas()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aScanWords%28%29" title="Scans from a document position to the beginning or end of a word">ScanWords()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aSetFieldFactory%28%29" title="Sets up a field factory">SetFieldFactory()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aSetPageTable%28%29" title="Links the text object to a page table">SetPageTable()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aStoreFieldComponentsL%28%29" title="Stores the plain text object's field components to a stream store">StoreFieldComponentsL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aTImportExportParam" title="Parameters for importing or exporting text using CPlainText::ImportTextL() or CPlainText::ExportTextL()">TImportExportParam</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aTImportExportResult" title="Results of importing or exporting text using CPlainText::ImportTextL() or CPlainText::ExportTextL()">TImportExportResult</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aTScanDataEnd" title="Used in text scanning functions to indicate the end of the document has been passed">TScanDataEnd</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aTTextOrganisation" title="Line delimiter translation">TTextOrganisation</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aTextField%28%29" title="Returns a pointer to the field located at the specified document position">TextField()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aToParagraphStart%28%29" title="Gets the document position of the start of the paragraph containing the specified document position">ToParagraphStart()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aUpdateAllFieldsL%28%29" title="Re-evaluates all of the fields in the text object">UpdateAllFieldsL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aWordCount%28%29" title="Gets a count of the number of words in the text object">WordCount()</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="MLayDocClass.html#%3a%3aMLayDoc" title="This class specifies the mixin protocol for providing the information needed by the text layout engine to lay out a text object">MLayDoc</a></code>:
+<br><code class="ApiItem"><a href="MLayDocClass.html#%3a%3aMLayDoc%3a%3aEForceLoadFalse" title="Do not load the picture data into memory">EForceLoadFalse</a></code>,
+<code class="ApiItem"><a href="MLayDocClass.html#%3a%3aMLayDoc%3a%3aEForceLoadTrue" title="Load the picture data into memory">EForceLoadTrue</a></code>,
+<code class="ApiItem"><a href="MLayDocClass.html#%3a%3aMLayDoc%3a%3aTForcePictureLoad" title="Used as a parameter to the PictureHandleL() function to control whether picture data should be loaded into memory or not">TForcePictureLoad</a></code></p>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CParagraphStyleClass.html#%3a%3aCParagraphStyle" title="Defines a paragraph style"><code class="ApiItem">CParagraphStyle</code></a></li>
+</ul>
+<a name="2.7"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction and destruction</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aNewL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NewL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static&nbsp;CRichText*&nbsp;NewL(const CParaFormatLayer*&nbsp;aGlobalParaLayer,const&nbsp;CCharFormatLayer*&nbsp;aGlobalCharLayer,TDocumentStorage&nbsp;aStorage=ESegmentedStorage, TInt&nbsp;aDefaultTextGranularity=EDefaultTextGranularity,TParaType aParaType=EMultiPara);</code></p><h4 class="subheading">Description</h4>
+<p>Allocates and constructs an empty rich text object, with a
+global character and paragraph format layer. A single end-of-document delimiter
+is inserted. No style list is allocated.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CParaFormatLayer* aGlobalParaLayer </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the paragraph format layer referenced by the rich
+text object. Must not be NULL, or a panic occurs. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CCharFormatLayer* aGlobalCharLayer </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the character format layer referenced by the rich
+text object. Must not be NULL, or a panic occurs. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TDocumentStorage aStorage </code></td>
+<td class="Cell"><p class="ValueDesc"> The type of in-memory buffer to use. Defaults to
+<code>ESegmentedStorage</code> which should rarely need to be changed. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aDefaultTextGranularity </code></td>
+<td class="Cell"><p class="ValueDesc"> Specifies the granularity of the in-memory buffer. Default is
+<code>EDefaultTextGranularity</code> bytes (=256), and this should rarely need
+to be changed. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TParaType aParaType </code></td>
+<td class="Cell"><p class="ValueDesc"> This argument indicates whether you are using a single
+paragraph or multiple paragraphs, and thus affects the granularity of aggregate
+objects used internally for storing paragraph attributes. Default =
+<code>EMultiPara</code>. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CRichText* </code></td>
+<td class="Cell"><p class="ValueDesc"> The rich text object. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aNewL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NewL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static CRichText* NewL(const CParaFormatLayer* aGlobalParaLayer,const CCharFormatLayer* aGlobalCharLayer, const CStyleList&amp; aStyleList,TDocumentStorage aStorage=ESegmentedStorage,TInt aDefaultTextGranularity=EDefaultTextGranularity, TParaType aParaType=EMultiPara);</code></p><h4 class="subheading">Description</h4>
+<p>Allocates and constructs an empty rich text object which supports
+styles. It is constructed with a global character and paragraph format layer
+and a style list. A single end-of-document delimiter is inserted. The rich text
+object takes ownership of the style list.</p>
+<p>Note:</p>
+<p>A rich text object not constructed with a style list may still
+use styles, by calling <code>SetStyleListExternallyOwned()</code> at any time
+after construction. In this case, the rich text object does not own the style
+list.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CParaFormatLayer* aGlobalParaLayer </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the paragraph format layer referenced by the rich
+text object. Must not be NULL, or a panic occurs. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CCharFormatLayer* aGlobalCharLayer </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the character format layer referenced by the rich
+text object. Must not be NULL, or a panic occurs. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CStyleList&amp; aStyleList </code></td>
+<td class="Cell"><p class="ValueDesc"> Style list. Holds the set of paragraph styles which can be used
+in the rich text object. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TDocumentStorage aStorage </code></td>
+<td class="Cell"><p class="ValueDesc"> The type of in-memory buffer to use. Defaults to
+<code>ESegmentedStorage</code> which should rarely need to be changed. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aDefaultTextGranularity </code></td>
+<td class="Cell"><p class="ValueDesc"> Specifies the granularity of the in-memory buffer. Default is
+<code>EDefaultTextGranularity</code> bytes (=256), and this should rarely need
+to be changed. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TParaType aParaType </code></td>
+<td class="Cell"><p class="ValueDesc"> This argument indicates whether you are using a single paragraph
+or multiple paragraphs, and thus affects the granularity of aggregate objects
+used internally for storing paragraph attributes. Default =
+<code>EMultiPara</code>. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CRichText* </code></td>
+<td class="Cell"><p class="ValueDesc"> The new rich text object. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.4"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aNewL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NewL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static&nbsp;CRichText*&nbsp;NewL(const CStreamStore&amp; aStore,TStreamId aStreamId,const CParaFormatLayer* aGlobalParaLayer,const CCharFormatLayer* aGlobalCharLayer, MTextFieldFactory* aFieldFactory=NULL, TDocumentStorage aStorage=ESegmentedStorage);</code></p><h4 class="subheading">Description</h4>
+<p>Allocates and constructs a rich text object with a field factory.
+Its text content is internalized from a stream store.</p>
+<p>Note:</p>
+<p>A rich text object not constructed with a field factory may still
+support the addition of fields, by calling <code>SetFieldFactory()</code>,
+defined in the base class <code>CPlainText</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CStreamStore&amp; aStore </code></td>
+<td class="Cell"><p class="ValueDesc"> Stream store from which the object is restored. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TStreamId aStreamId </code></td>
+<td class="Cell"><p class="ValueDesc"> ID of the stream store. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CParaFormatLayer* aGlobalParaLayer </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the paragraph format layer referenced by the rich text
+object. Must not be NULL, or a panic occurs. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CCharFormatLayer* aGlobalCharLayer </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the character format layer referenced by the rich text
+object. Must not be NULL, or a panic occurs. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> MTextFieldFactory* aFieldFactory </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to a field factory. A field factory must be provided if
+the text object supports fields. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TDocumentStorage aStorage </code></td>
+<td class="Cell"><p class="ValueDesc"> The type of in-memory buffer to use. Defaults to
+<code>ESegmentedStorage</code> which should rarely need to be changed. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CRichText* </code></td>
+<td class="Cell"><p class="ValueDesc"> The new rich text object. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.5"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aNewL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NewL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static CRichText* NewL(const CStreamStore&amp; aStore,TStreamId aStreamId,const CParaFormatLayer* aGlobalParaLayer,const CCharFormatLayer *aGlobalCharLayer,MPictureFactory* aPictureFactory, MRichTextStoreResolver* aStoreResolver,MTextFieldFactory* aFieldFactory=NULL, TDocumentStorage aStorage=ESegmentedStorage);</code></p><h4 class="subheading">Description</h4>
+<p>Allocates and constructs a rich text object with a field factory and
+a picture factory. Its text content is internalized from a stream store.</p>
+<p>Note:</p>
+<p>A rich text object not constructed with a field factory may still
+support the addition of fields, by calling <code>SetFieldFactory()</code>,
+defined in the base class <code>CPlainText</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CStreamStore&amp; aStore </code></td>
+<td class="Cell"><p class="ValueDesc"> Stream store from which the object is restored. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TStreamId aStreamId </code></td>
+<td class="Cell"><p class="ValueDesc"> ID of the stream store. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CParaFormatLayer* aGlobalParaLayer </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the paragraph format layer referenced by the rich text
+object. Must not be NULL, or a panic occurs. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CCharFormatLayer* aGlobalCharLayer </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the character format layer referenced by the rich text
+object. Must not be NULL, or a panic occurs. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> MPictureFactory* aPictureFactory </code></td>
+<td class="Cell"><p class="ValueDesc"> The picture factory. This is needed to load pictures into memory,
+(see <code>PictureHandleL()</code>). If a store resolver is specified (not
+NULL), then a factory must also be specified, or a panic occurs. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> MRichTextStoreResolver* aStoreResolver </code></td>
+<td class="Cell"><p class="ValueDesc"> A store resolver. This determines which file store the picture is
+stored in. It is used to get from a reference to an embedded picture within a
+<code>CRichText</code> object to the actual picture itself. Picture loading is
+done by the picture factory. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> MTextFieldFactory* aFieldFactory </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to a field factory. A field factory must be provided if the
+text object supports fields. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TDocumentStorage aStorage </code></td>
+<td class="Cell"><p class="ValueDesc"> The type of in-memory buffer to use. Defaults to
+<code>ESegmentedStorage</code> which should rarely need to be changed. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CRichText* </code></td>
+<td class="Cell"><p class="ValueDesc"> The new rich text object. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.6"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3a%7eCRichText%28%29"></a>
+<hr size="1" noshade>
+<h3><code>~CRichText()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual ~CRichText();</code></p><h4 class="subheading">Description</h4>
+<p>The destructor frees all resources owned by the rich text object, prior
+to its destruction.</p>
+<a name="2.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Stream persistence</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aInternalizeL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>InternalizeL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void InternalizeL(RReadStream&amp; aStream);</code></p><h4 class="subheading">Description</h4>
+<p>Internalises the rich text object and all of its components (field set,
+style list, rich text formatting and pictures) from a read stream. The presence
+of this function means that the standard templated
+<code>operator&gt;&gt;()</code> (defined in s32strm.h) is available to
+internalise objects of this class.</p>
+<p>Note:</p>
+<p>The global format layers are not owned by the object; they are supplied
+by the owner of the object and not saved when the object is externalised or
+loaded when it is internalized.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> RReadStream&amp; aStream </code></td>
+<td class="Cell"><p class="ValueDesc"> Stream from which to read the rich text object. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aExternalizeL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ExternalizeL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void ExternalizeL(RWriteStream&amp; aStream)const;</code></p><h4 class="subheading">Description</h4>
+<p>Externalises the rich text object and all of its components (field set,
+style list, rich text formatting, pictures) to a read stream. The presence of
+this function means that the standard templated <code>operator&lt;&lt;()</code>
+(defined in s32strm.h) is available to externalise objects of this
+class.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>Any &quot;insert pending&quot; state is cancelled (calls
+<code>CancelInsertCharFormat()</code>).</p>
+</li>
+<li>
+<p>The global format layers are not owned by the object; they are supplied
+by the owner of the object and not saved when the object is externalised or
+loaded when it is internalized.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> RWriteStream&amp; aStream </code></td>
+<td class="Cell"><p class="ValueDesc"> Stream to which to write the rich text object. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.4"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aStoreComponentsL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>StoreComponentsL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void StoreComponentsL(CStreamStore&amp; aStore,CStoreMap&amp; aMap)const;</code></p><h4 class="subheading">Description</h4>
+<p>Stores the rich text object's components (field set, style list,
+formatting and pictures) to the stream store specified.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CStreamStore&amp; aStore </code></td>
+<td class="Cell"><p class="ValueDesc"> Stream store to which the text components are written. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CStoreMap&amp; aMap </code></td>
+<td class="Cell"><p class="ValueDesc"> A store map. This binds the address of text components to the stream ID
+of <code>aStore</code>. This is needed to support the deferred loading of
+pictures in rich text. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.5"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aRestoreComponentsL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RestoreComponentsL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void RestoreComponentsL(const CStreamStore&amp; aStore);</code></p><h4 class="subheading">Description</h4>
+<p>Restores the rich text object's components (field set, style list,
+formatting and pictures) from a stream store.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CStreamStore&amp; aStore </code></td>
+<td class="Cell"><p class="ValueDesc"> The stream store from which the text object's components are restored.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.6"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aHasMarkupData%28%29"></a>
+<hr size="1" noshade>
+<h3><code>HasMarkupData()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool HasMarkupData()const;</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether the rich text object has any markup, or owns a style
+list.</p>
+<p>Markup is rich text-specific information, for instance specific
+formatting, styles and pictures. It may be stored in a separate stream from the
+text.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue</code> if the rich text object has markup, or owns a style
+list. <code>EFalse</code> if not. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.7"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aInternalizeMarkupDataL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>InternalizeMarkupDataL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void InternalizeMarkupDataL(RReadStream&amp; aStream);</code></p><h4 class="subheading">Description</h4>
+<p>Internalises the rich text object's markup (specific formatting, styles
+and pictures).</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> RReadStream&amp; aStream </code></td>
+<td class="Cell"><p class="ValueDesc"> Stream from which to internalise the rich text markup. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.8"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aExternalizeMarkupDataL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ExternalizeMarkupDataL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ExternalizeMarkupDataL(RWriteStream&amp; aStream)const;</code></p><h4 class="subheading">Description</h4>
+<p>Externalises the rich text object's markup (specific formatting, styles
+and pictures). <code>CRichText::HasMarkupData()</code> can be used to test
+whether the object has any markup information.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> RWriteStream&amp; aStream </code></td>
+<td class="Cell"><p class="ValueDesc"> Stream to which to store the rich text markup information. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.9"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aInternalizeStyleDataL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>InternalizeStyleDataL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void InternalizeStyleDataL(RReadStream&amp; aStream);</code></p><h4 class="subheading">Description</h4>
+<p>Internalises the style list owned by the rich text object from a read
+stream, if one is present in the stream.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> RReadStream&amp; aStream </code></td>
+<td class="Cell"><p class="ValueDesc"> Stream from which to read the style list. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.10"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aExternalizeStyleDataL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ExternalizeStyleDataL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ExternalizeStyleDataL(RWriteStream&amp; aStream)const;</code></p><h4 class="subheading">Description</h4>
+<p>Externalises the style list owned by the rich text object.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> RWriteStream&amp; aStream </code></td>
+<td class="Cell"><p class="ValueDesc"> Stream to which to write the style list. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.11"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aDetachFromStoreL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DetachFromStoreL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void DetachFromStoreL(CPicture::TDetach aDegree);<br>void DetachFromStoreL(CPicture::TDetach aDegree,TInt aPos,TInt aLength);</code></p><h4 class="subheading">Description</h4>
+<p>Loads pictures not already present in memory&nbsp;&#8212; overloaded
+function. Either loads all pictures in the document, or just the pictures
+located within a specified range. </p><p>Note: </p><p>In order to load pictures, a
+picture factory and a store resolver must have been set.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CPicture::TDetach aDegree </code></td>
+<td class="Cell"><p class="ValueDesc"> There are two possible values: <code>EDetachFull</code> and
+<code>EDetachDraw</code>. If you detach using <code>EDetachFull</code> then you
+can both draw and edit the picture(s), but if you detach with
+<code>EDetachDraw</code> then you can only draw them&#0160;&#8212; any
+attempt at editing them causes a panic. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The start of the range of characters to search. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLength </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of characters in the range. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.12"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aRestoreWithStyleListL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RestoreWithStyleListL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void RestoreWithStyleListL(const CStreamStore&amp; aStore,TStreamId aStreamId,const CStyleList&amp; aExternalStyleList);</code></p><h4 class="subheading">Description</h4>
+<p>Restores a rich text object, including all of its components and an
+externally owned style list, from a stream store.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CStreamStore&amp; aStore </code></td>
+<td class="Cell"><p class="ValueDesc"> Stream store from which the object is restored. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TStreamId aStreamId </code></td>
+<td class="Cell"><p class="ValueDesc"> ID of the stream store. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CStyleList&amp; aExternalStyleList </code></td>
+<td class="Cell"><p class="ValueDesc"> An externally owned style list. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.13"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aStoreMarkupComponentsL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>StoreMarkupComponentsL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void StoreMarkupComponentsL(CStreamStore&amp; aStore,CStoreMap&amp; aMap)const;</code></p><h4 class="subheading">Description</h4>
+<p>Stores all pictures in the rich text object to a stream store.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CStreamStore&amp; aStore </code></td>
+<td class="Cell"><p class="ValueDesc"> Stream store to which the pictures are to be stored. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CStoreMap&amp; aMap </code></td>
+<td class="Cell"><p class="ValueDesc"> A store map. This binds the address of pictures to the stream ID of
+<code>aStore</code>. This is needed to support the deferred loading of
+pictures. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Copy and paste</h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aCopyToStoreL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CopyToStoreL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void CopyToStoreL(CStreamStore&amp; aStore,CStreamDictionary&amp; aDictionary,TInt aPos,TInt aLength)const;</code></p><h4 class="subheading">Description</h4>
+<p>Copies a portion of the rich text object, with components to the
+clipboard.</p>
+<p>A panic occurs in the following circumstances:</p>
+<ul>
+<li>
+<p><code>aPos</code> is an invalid document position</p>
+</li>
+<li>
+<p><code>aLength</code> is invalid (zero or less)</p>
+</li>
+<li>
+<p>the sum of <code>aPos</code> and <code>aLength</code> is greater than or
+equal to the number of characters in the document</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CStreamStore&amp; aStore </code></td>
+<td class="Cell"><p class="ValueDesc"> Stream store to which the rich text is written. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CStreamDictionary&amp; aDictionary </code></td>
+<td class="Cell"><p class="ValueDesc"> The stream dictionary. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position from which to begin copying. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLength </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of characters to copy. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.3"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aPasteFromStoreL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PasteFromStoreL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt PasteFromStoreL(const CStreamStore&amp; aStore,const CStreamDictionary&amp; aDictionary,TInt aPos);<br>TInt PasteFromStoreL(const CStreamStore&amp; aStore,const CStreamDictionary&amp; aDictionary,TInt aPos,CParagraphStyle::TStylePasteMode aStylePasteMode);</code></p><h4 class="subheading">Description</h4>
+<p>Pastes the contents of the clipboard into the rich text object at the
+specified document position. Returns the number of characters pasted.</p>
+<p>If the text in the clipboard has been formatted using styles, the
+<code>aStylePasteMode</code> argument indicates whether the styles should be
+preserved or discarded. If the argument is not specified, the pasted rich text
+retains all formatting specified in the styles, and any new style definitions
+are added to the style list of the rich text object into which it is
+pasted.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CStreamStore&amp; aStore </code></td>
+<td class="Cell"><p class="ValueDesc"> The stream store from which to paste the rich text. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CStreamDictionary&amp; aDictionary </code></td>
+<td class="Cell"><p class="ValueDesc"> The stream dictionary. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position at which to paste the rich text. Must be valid, or
+a panic occurs. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CParagraphStyle::TStylePasteMode aStylePasteMode </code></td>
+<td class="Cell"><p class="ValueDesc"> Indicates whether styles in the pasted text should be preserved or
+discarded. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of characters pasted. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Enquiry</h2>
+</div><div class="Bodytext">
+<a name="2.10.2"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aCharPosOfParagraph%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CharPosOfParagraph()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt CharPosOfParagraph(TInt&amp; aLength,TInt aParaOffset)const;</code></p><h4 class="subheading">Description</h4>
+<p>Finds the length and the start position of a paragraph identified by its
+paragraph number&nbsp;&#8212; the first paragraph is numbered zero.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>if <code>aParaOffset</code> is invalid, (equal to or greater than the
+total number of paragraphs), the function&#8217;s return value is
+<code>EScanEndOfData</code> (=&#0160;&#8211; 1)</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aLength </code></td>
+<td class="Cell"><p class="ValueDesc"> On return contains the length of the specified paragraph. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aParaOffset </code></td>
+<td class="Cell"><p class="ValueDesc"> The paragraph number. The first paragraph is numbered zero. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position of the first character in the paragraph. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.3"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aParagraphNumberForPos%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ParagraphNumberForPos()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt ParagraphNumberForPos(TInt&amp; aPos)const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the number of the paragraph which contains a document position.
+Paragraph numbering begins at zero.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> A document position. Must be valid or a panic occurs. On return,
+contains the document position of the first character in the paragraph in which
+it is located. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of the paragraph containing the specified document position.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.4"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aGetChars%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetChars()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void GetChars(TPtrC&amp; aView,TCharFormat&amp; aFormat,TInt aPos)const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a constant pointer descriptor to a portion of the text object with
+constant character formatting. The view starts at the document position
+specified, and ends at: </p>
+<ul>
+<li>
+<p>the last character which shares the same character formatting, or</p>
+</li>
+<li>
+<p>the end of the document, or</p>
+</li>
+<li>
+<p>the end of the segment, if segmented storage is being used</p>
+</li>
+</ul>
+<p>whichever occurs first. </p>
+<p>Also fills a character format object with the character formatting of the
+range of characters.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TPtrC&amp; aView </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, a constant pointer to a portion of the text. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TCharFormat&amp; aFormat </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, contains the character formatting of the text. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The start position for the view. Must be a valid document position, or a
+panic occurs. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.5"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aParagraphCount%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ParagraphCount()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt ParagraphCount()const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a count of the number of paragraphs in the text object.</p>
+<p>Note:</p><p>The paragraph delimiter which terminates every text object means
+this function always returns a count of at least one.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of paragraphs in the document. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.6"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aComponentInfo%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ComponentInfo()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TEtextComponentInfo ComponentInfo()const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets information about the number of components contained in the text
+object (the field count, the picture count and the style count).</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TEtextComponentInfo </code></td>
+<td class="Cell"><p class="ValueDesc"> Contains the component information. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Insert and delete</h2>
+</div><div class="Bodytext">
+<a name="2.11.2"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aInsertL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>InsertL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void InsertL(TInt aPos,const TChar&amp; aChar);<br>virtual void InsertL(TInt aPos,const TDesC&amp; aBuf);</code></p><h4 class="subheading">Description</h4>
+<p>Inserts either a single character or a descriptor into the text object at
+a specified document position. The insertion position must be valid or a panic
+occurs.</p>
+<p>Note:</p>
+<p>A panic occurs if the text object is in an &quot;insert pending&quot; state (i.e.
+<code>SetInsertCharFormatL()</code> has been called and has not been cancelled
+using <code>CancelInsertCharFormat()</code>) and <code>aPos</code> is not the
+same as the insertion point.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position at which to insert the character/descriptor.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TChar&amp; aChar </code></td>
+<td class="Cell"><p class="ValueDesc"> The character to insert. Must not be a picture character or a panic
+occurs. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TDesC&amp; aBuf </code></td>
+<td class="Cell"><p class="ValueDesc"> The descriptor to insert. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.3"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aDeleteL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DeleteL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TBool DeleteL(TInt aPos,TInt aLength);</code></p><h4 class="subheading">Description</h4>
+<p>Deletes one or more characters beginning at, and including, the character
+at a specified document position. Can leave because paragraphs may be merged
+and reformatted by the function.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The start of the range of characters to delete. Must be valid or a panic
+occurs. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLength </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of characters to delete. Must be positive or a panic occurs.
+The sum of <code>aPos</code> and <code>aLength</code> must be less than the
+document length, or a panic occurs. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool </code></td>
+<td class="Cell"><p class="ValueDesc"> Indicates whether two paragraphs have been merged as a result of the
+delete, indicating that the formatting of part of the resulting paragraph may
+have changed. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.4"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aDeleteParagraph%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DeleteParagraph()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void DeleteParagraph(TInt aPos,TInt aLength);</code></p><h4 class="subheading">Description</h4>
+<p>Deletes one or more whole paragraphs of text. No paragraphs can be merged
+together by this function, so it cannot leave&nbsp;&#8212; it must only be
+used to delete entire paragraphs.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position of the start of the first paragraph to delete.
+Must be a valid position or a panic occurs. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLength </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of characters to delete. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.5"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aReset%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Reset()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void Reset();</code></p><h4 class="subheading">Description</h4>
+<p>Resets the document's contents to a single end-of-document delimiter.
+Also deletes the style list if owned by the object.</p>
+<a name="2.11.6"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aAppendParagraphL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>AppendParagraphL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void AppendParagraphL(TInt aReplicas=1);</code></p><h4 class="subheading">Description</h4>
+<p>Appends one or more empty paragraphs to the document. The new paragraphs
+take on the formatting specified in the global format layers.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aReplicas=1 </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of empty paragraphs to append to the document. By default, a
+single paragraph. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.7"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aDeleteFromParagraph%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DeleteFromParagraph()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void DeleteFromParagraph(TInt aPos,TInt aLength);</code></p><h4 class="subheading">Description</h4>
+<p>Removes a range of characters from within a single paragraph only.  Should not be used for deleting an entire paragraph or
+paragraphs because this may cause it to leave. Otherwise, it is guaranteed not to leave.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position of the start of the range of characters to delete.
+Must be a valid document position, or a panic occurs. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLength </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of characters to delete. The sum of <code>aPos</code> and
+<code>aLength</code> must be less than the document length, or a panic occurs.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.8"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aUpdateFieldL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>UpdateFieldL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void UpdateFieldL(TInt aPos);</code></p><h4 class="subheading">Description</h4>
+<p>Re-evaluates the field which covers the document position specified.
+Re-evaluating a field means calculating the field's new value, then inserting
+that value into the text object, replacing the previous value.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>fields have a maximum length of 20 characters</p>
+</li>
+<li>
+<p>the first time a field is updated, the position specified should be the
+position at which the field was inserted</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> A document position in the field to be updated. Must be a valid
+position, or a panic occurs. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.9"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aSetHasChanged%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetHasChanged()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void SetHasChanged(TBool aHasChanged);</code></p><h4 class="subheading">Description</h4>
+<p>Sets whether the document's content or formatting has changed. This function is called with
+an value of <code>ETrue</code> by all functions which modify the text content or formatting. Use
+<code>CEditableText::HasChanged()</code> to test whether the document has
+changed.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool aHasChanged </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue</code> if the text object has been changed,
+<code>EFalse</code> if not. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Edit observer</h2>
+</div><div class="Bodytext">
+<a name="2.12.2"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aSetEditObserver%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetEditObserver()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetEditObserver(MEditObserver* aEditObserver);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Sets the rich text object's edit observer. The observer's
+<code>EditObserver()</code> function is called by the rich text object each
+time the object's text content is edited (e.g. after a paste, insert, delete,
+reset etc.).</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> MEditObserver* aEditObserver </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the edit observer. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Character formatting</h2>
+</div><div class="Bodytext">
+<a name="2.13.2"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aApplyCharFormatL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ApplyCharFormatL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void ApplyCharFormatL(const TCharFormat&amp; aFormat,const TCharFormatMask&amp; aMask,TInt aPos,TInt aLength);</code></p><h4 class="subheading">Description</h4>
+<p>Applies character formatting to a range of characters. The attributes
+which are set in the mask are read from <code>aFormat</code> and applied. The
+attributes which are not set in the mask are not changed. The range of
+characters affected is from <code>aPos</code> to
+<code>aPos</code>+(<code>aLength</code>&#8211;1) inclusive. The sum of
+<code>aPos</code> and <code>aLength</code> must be less than or equal to the
+document length, or a panic occurs. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TCharFormat&amp; aFormat </code></td>
+<td class="Cell"><p class="ValueDesc"> Contains the character format attribute values to apply. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TCharFormatMask&amp; aMask </code></td>
+<td class="Cell"><p class="ValueDesc"> Bitmask specifying which character format attributes should be applied.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> Document position from which to apply the new character formatting. Must
+be greater than or equal to zero, or a panic occurs. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLength </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of characters to which the new formatting should be applied.
+Must be greater than or equal to zero, or a panic occurs. If the length is
+zero, the function has the same effect as <code>SetInsertCharFormatL()</code>.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.3"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aGetCharFormat%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetCharFormat()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void GetCharFormat(TCharFormat&amp; aFormat,TCharFormatMask&amp; aVaries,TInt aPos,TInt aLength)const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the effective character formatting which applies to a range of
+characters. The range of characters involved is from <code>aPos</code> to
+<code>aPos</code>+(<code>aLength</code>&#8211;1) inclusive. On return,
+<code>aFormat</code> is filled with values for all character format attributes,
+and on return, the mask indicates the values that change over the region, and
+whose value is therefore indeterminate.</p>
+<p>The length value can be zero. In this case, the character formatting
+sensed is that of the character immediately to the left of the position
+specified.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TCharFormat&amp; aFormat </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, contains the character format values for the range of
+characters. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TCharFormatMask&amp; aVaries </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, indicates which character format attributes vary over the
+range. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> Document position of the start of the range. Must be valid or a panic
+occurs. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLength </code></td>
+<td class="Cell"><p class="ValueDesc"> Number of characters in the range. Must be greater than or equal to
+zero, or a panic occurs. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.4"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aGetSpecificCharFormat%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetSpecificCharFormat()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void GetSpecificCharFormat(TCharFormat&amp; aFormat,TCharFormatMask&amp; aMask,TInt aPos)const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the specific character formatting which applies to the character to the left of a  document
+position. Specific formatting is just the formatting which has been applied
+over the object's global format layers&nbsp;&#8212; it is not the same as
+the effective formatting.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TCharFormat&amp; aFormat </code></td>
+<td class="Cell"><p class="ValueDesc"> On return contains the specific character formatting which applies to
+the character to the left of the document position.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TCharFormatMask&amp; aMask </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, indicates which character format attributes have been applied
+specifically, (not taken from the global layers). </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position. Must be valid or a panic occurs. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.5"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aGetSpecificCharFormatRight%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetSpecificCharFormatRight()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void GetSpecificCharFormatRight(TCharFormat&amp; aFormat, TCharFormatMask&amp; aMask, TInt aPos) const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.1
+</p><h4 class="subheading">Description</h4>
+<p>Gets the specific character formatting which applies to the character logically after a document
+position. Note that this is not necessarily the character to the right of the document position, because right to left text is supported.</p><p>Specific formatting is just the formatting which has been applied
+over the object's global format layers&nbsp;&#8212; it is not the same as
+the effective formatting.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TCharFormat&amp; aFormat</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the specific character formatting which applies to
+the character logically after the document position.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TCharFormatMask&amp; aMask</code></td>
+<td class="Cell"><p class="ValueDesc">On return, indicates which character format attributes have been applied
+specifically, (not taken from the global layers). </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aPos</code></td>
+<td class="Cell"><p class="ValueDesc">The document position. Must be valid or a panic occurs.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.6"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aRemoveSpecificCharFormatL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RemoveSpecificCharFormatL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void RemoveSpecificCharFormatL(TInt aPos,TInt aLength);</code></p><h4 class="subheading">Description</h4>
+<p>Removes all specific character formatting from a range of characters
+(does not remove the formatting which has been taken from the object's global
+character format layer). A panic occurs in the following situations:</p>
+<ul>
+<li>
+<p>the position is negative,</p>
+</li>
+<li>
+<p>the length is negative,</p>
+</li>
+<li>
+<p>the range goes beyond the end of the document</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position of the start of the region affected. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLength </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of characters in the region affected. If zero, the function
+has no effect. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.7"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aSetInsertCharFormatL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetInsertCharFormatL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetInsertCharFormatL(const TCharFormat&amp; aFormat,const TCharFormatMask&amp; aMask,TInt aPos);</code></p><h4 class="subheading">Description</h4>
+<p>Applies character formatting to a zero length selection, for example
+turning bold on. This has the effect that the formatting will be applied to
+text subsequently inserted at the position. This &quot;insert pending&quot; state is
+cancelled by calling <code>CancelInsertCharFormat()</code>.</p>
+<p>Note:</p>
+<p>After calling this function, if text is inserted at a different position
+to <code>aPos</code>, a panic will occur, unless
+<code>CancelInsertCharFormat()</code> has been called before the insertion to
+cancel the &quot;insert pending&quot; state.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TCharFormat&amp; aFormat </code></td>
+<td class="Cell"><p class="ValueDesc"> The character format values to apply. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TCharFormatMask&amp; aMask </code></td>
+<td class="Cell"><p class="ValueDesc"> Character format mask specifying the attributes affected. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position at which to insert the character format. Must be a
+valid position, or a panic will occur. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.8"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aCancelInsertCharFormat%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CancelInsertCharFormat()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void CancelInsertCharFormat();</code></p><h4 class="subheading">Description</h4>
+<p>Cancels the &quot;insert pending&quot; state set by a call to
+<code>SetInsertCharFormatL()</code> or
+<code>DelSetInsertCharFormatL()</code>.</p>
+<p>This function removes the restriction on the text insertion position
+imposed by these two functions. It is recommended that it is called before
+every cursor movement, scroll, paste, etc. This call is a small overhead, and
+has no effect if not applicable.</p>
+<a name="2.13.9"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aDelSetInsertCharFormatL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DelSetInsertCharFormatL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool DelSetInsertCharFormatL(TInt aPos,TInt aLength);</code></p><h4 class="subheading">Description</h4>
+<p>Deletes a range of characters. The range affected is from
+<code>aPos</code> to <code>aPos</code>+(<code>aLength</code>&#8211;1)
+inclusive. It differs from <code>DeleteL()</code> in that this function
+preserves the formatting of the deleted character at position
+<code>aPos</code>, so that any text subsequently inserted at <code>aPos</code>
+will have that formatting applied to it.</p>
+<p>A panic occurs if:</p>
+<ul>
+<li>
+<p>after calling this function, text is inserted at a different position to
+<code>aPos</code>, without calling <code>CancelInsertCharFormat()</code> before
+the insertion</p>
+</li>
+<li>
+<p><code>aPos</code> is invalid</p>
+</li>
+<li>
+<p><code>aLength</code> is negative</p>
+</li>
+<li>
+<p>the range goes beyond the end of the document</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position of the first character to delete. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLength </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of characters to delete. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue</code> if two paragraphs have been merged as a result of the
+deletion; <code>EFalse</code> if there has been no paragraph merge. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Paragraph formatting</h2>
+</div><div class="Bodytext">
+<a name="2.14.2"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aApplyParaFormatL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ApplyParaFormatL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void ApplyParaFormatL(const CParaFormat* aFormat,const TParaFormatMask&amp; aMask,TInt aPos,TInt aLength);</code></p><h4 class="subheading">Description</h4>
+<p>Applies paragraph formatting to a range of paragraphs. The attributes
+which are set in the mask are taken from <code>aFormat</code> and applied. The
+attributes which are not set in the mask are not changed. </p>
+<p>The region affected consists of every paragraph containing one or more
+characters in the range <code>aPos</code> to
+<code>aPos</code>+(<code>aLength</code>&#8211;1).</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CParaFormat* aFormat </code></td>
+<td class="Cell"><p class="ValueDesc"> Contains the paragraph format attribute values to apply. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TParaFormatMask&amp; aMask </code></td>
+<td class="Cell"><p class="ValueDesc"> Specifies which paragraph format attributes should be affected. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position of the start of the range. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLength </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of characters in the range. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.3"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aGetParaFormatL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetParaFormatL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void GetParaFormatL(CParaFormat* aFormat,TParaFormatMask&amp; aVaries,TInt aPos,TInt aLength, CParaFormat::TParaFormatGetMode aMode=CParaFormat::EAllAttributes)const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the effective paragraph formatting which applies to a range of
+paragraphs. The region involved is every paragraph containing one or more
+characters in the range <code>aPos</code> to
+<code>aPos</code>+(<code>aLength</code>&#8211;1) inclusive. On return,
+<code>aFormat</code> is filled with values for all paragraph format attributes
+and the mask indicates the values that change over the region, and whose value
+is therefore indeterminate.</p>
+<p>Note:</p>
+<p>If <code>aMode</code> has a value of <code>EFixedAttributes</code>, the
+function cannot leave.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CParaFormat* aFormat </code></td>
+<td class="Cell"><p class="ValueDesc"> Must not be NULL or a panic occurs. On return, contains the effective
+paragraph formatting for the range of paragraphs. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TParaFormatMask&amp; aVaries </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, a bitmask indicating which paragraph format attributes vary
+over the range of characters selected. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position of the start of the range. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLength </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of characters in the range. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CParaFormat::TParaFormatGetMode aMode=CParaFormat::EAllAttributes
+</code></td>
+<td class="Cell"><p class="ValueDesc"> The default, <code>EAllAttributes</code> means that values for all
+paragraph format attributes are written to <code>aFormat</code>.
+<code>EFixedAttributes</code> means that tabs, bullets and borders are not
+written to <code>aFormat</code>. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.4"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aGetParagraphFormatL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetParagraphFormatL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void GetParagraphFormatL(CParaFormat* aFormat,TInt aPos)const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the effective paragraph formatting which applies to the paragraph
+which contains a specified document position. On return, <code>aFormat</code>
+is filled with values for all paragraph format attributes.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CParaFormat* aFormat </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, filled with the paragraph's effective paragraph formatting.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> Any document position within the paragraph of interest. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.5"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aRemoveSpecificParaFormatL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RemoveSpecificParaFormatL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void RemoveSpecificParaFormatL(TInt aPos,TInt aLength);</code></p><h4 class="subheading">Description</h4>
+<p>Removes all specific paragraph formatting from a range of paragraphs. This does not remove   formatting from the object's global
+paragraph format layer. The region affected consists of every paragraph
+containing one or more characters in the range covered by document position
+<code>aPos</code> to <code>aPos</code>+(<code>aLength</code>&#8211;1)
+inclusive.</p>
+<p>A panic occurs in the following situations:</p>
+<ul>
+<li>
+<p>the position is negative,</p>
+</li>
+<li>
+<p>the length is negative,</p>
+</li>
+<li>
+<p>the range goes beyond the end of the document</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position of the start of the range. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLength </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of characters in the range. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Pictures</h2>
+</div><div class="Bodytext">
+<a name="2.15.2"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aInsertL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>InsertL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void InsertL(TInt aPos,const TPictureHeader&amp; aHeader);</code></p><h4 class="subheading">Description</h4>
+<p>Inserts a picture header into the text object at a specified document
+position. The picture header specified must reference a valid picture, or a
+panic occurs.</p>
+<p>A panic also occurs if the text object is in an &quot;insert pending&quot; state
+(<code>SetInsertCharFormatL()</code> has been called and has not been cancelled
+using <code>CancelInsertCharFormat()</code>) and <code>aPos</code> is not the
+same as the insertion point.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position at which to insert the picture header. Must be
+valid, or a panic occurs. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TPictureHeader&amp; aHeader </code></td>
+<td class="Cell"><p class="ValueDesc"> A picture header. This holds a pointer to the picture to insert, and
+information about the picture. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15.3"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aSetPictureFactory%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetPictureFactory()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetPictureFactory(MPictureFactory* aPictureFactory,MRichTextStoreResolver* aStoreResolver);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the picture factory.</p>
+<p>Pictures in a rich text object may be represented as picture headers, or
+by the picture data itself. <code>CRichText</code> supports the deferred
+loading of picture data, so that it is only loaded when it is needed to be
+displayed, thus economising on memory use. A rich text object which supports
+the deferred loading of pictures needs to be supplied with a picture factory.
+It can either be set using this function, or during construction.</p>
+<p>Note:</p>
+<p>A panic occurs if the factory is NULL, but the store resolver is not
+NULL.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> MPictureFactory* aPictureFactory </code></td>
+<td class="Cell"><p class="ValueDesc"> The picture factory. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> MRichTextStoreResolver* aStoreResolver </code></td>
+<td class="Cell"><p class="ValueDesc"> The store resolver. This determines which file store the picture is
+stored in. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15.4"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aPictureHandleL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PictureHandleL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual CPicture* PictureHandleL(TInt aPos,MLayDoc::TForcePictureLoad aForceLoad=MLayDoc::EForceLoadTrue)const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a pointer to the picture located at a specified document position,
+if one exists. If the picture is not in memory, the function loads it (if the
+second argument has a value of <code>MLayDoc::EForceLoadTrue</code>). </p><p>Note:</p><p> In order to load the picture, a picture factory and a store resolver must have
+been set.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> Document position of the picture character. Must be a valid position.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> MLayDoc::TForcePictureLoad aForceLoad=MLayDoc::EForceLoadTrue </code></td>
+<td class="Cell"><p class="ValueDesc"> If the picture is not loaded into memory,
+<code>MLayDoc::EForceLoadTrue</code> loads it using the picture factory;
+<code>MLayDoc::EForceLoadFalse</code> does not, and in this case, the function
+returns NULL. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CPicture* </code></td>
+<td class="Cell"><p class="ValueDesc"> A pointer to the picture located at <code>aPos</code>. NULL if
+<code>aPos</code> does not specify a picture character, or if there is a
+picture at <code>aPos</code> which is not in memory, and the second argument is
+<code>MLayDoc::EForceLoadFalse</code>. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15.5"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aGetPictureSizeInTwips%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetPictureSizeInTwips()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt GetPictureSizeInTwips(TSize&amp; aSize, TInt aPos)const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the size of a picture located at a specified document position.
+</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TSize&amp; aSize </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, contains the size of the picture located at
+<code>aPos</code>. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> Document position of the picture. Must be a valid position. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNotFound</code> if there is no picture at the specified
+document position, <code>KErrNone</code> if there is. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15.6"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aPictureFactory%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PictureFactory()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>MPictureFactory* PictureFactory()const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the picture factory. A picture factory may be set during
+construction, or by calling <code>CRichText::SetPictureFactory()</code>.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> MPictureFactory* </code></td>
+<td class="Cell"><p class="ValueDesc"> The picture factory </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15.7"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aStoreResolver%28%29"></a>
+<hr size="1" noshade>
+<h3><code>StoreResolver()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>MRichTextStoreResolver* StoreResolver()const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the store resolver. A store resolver may be set during construction,
+or by calling <code>CRichText::SetPictureFactory()</code>.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> MRichTextStoreResolver* </code></td>
+<td class="Cell"><p class="ValueDesc"> The store resolver. This determines which file store the picture is
+stored in. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15.8"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aPictureCount%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PictureCount()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt PictureCount()const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a count of the number of pictures contained in the rich text
+object.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The picture count. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15.9"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aPictureHeader%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PictureHeader()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TPictureHeader PictureHeader(TInt aPos)const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the picture header which describes the picture located at a
+specified document position. If no picture header is located at the position,
+the function constructs and returns a default one.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position. Must be valid. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TPictureHeader </code></td>
+<td class="Cell"><p class="ValueDesc"> The picture header located at document position <code>aPos</code>, or a
+default picture header. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15.10"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aAppendTakingSolePictureOwnershipL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>AppendTakingSolePictureOwnershipL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void AppendTakingSolePictureOwnershipL(const CRichText&amp; aSource);</code></p><h4 class="subheading">Description</h4>
+<p>Appends a rich text object to this one. The text is appended
+immediately after the end-of-text paragraph delimiter. The
+incoming text's formatting is set to be based on the global formatting of this
+rich text object. </p>
+<p>Notes:</p>
+<p>If this rich text object is empty (e.g. because it is newly initialised,
+or has been reset), then the end-of-text delimiter of the incoming rich text is
+not appended. This avoids the possibility of having a trailing paragraph
+delimiter, giving one more empty line than would typically be desired. </p>
+<p>If the incoming rich text contains pictures which have been loaded into
+memory, their sole ownership is transferred to the current rich text object. In
+<code>aSource</code>, these picture handles are set to NULL.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CRichText&amp; aSource </code></td>
+<td class="Cell"><p class="ValueDesc"> The rich text object to append. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15.11"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aDropPictureOwnership%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DropPictureOwnership()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void DropPictureOwnership(TInt aPos);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.1
+</p><h4 class="subheading">Description</h4>
+<p>Removes  ownership from this rich text object of the picture located at a document position. The picture character is deleted from the document and ownership of the picture passes to the caller of this function. Use <code>PictureHandleL()</code> beforehand to get a pointer to the picture.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aPos</code></td>
+<td class="Cell"><p class="ValueDesc">The document position of the picture character. Must be valid or a panic occurs.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CRichTextClass.html#%3a%3aCRichText%3a%3aPictureHandleL%28%29" title="Gets a pointer to the picture located at a specified document position, if one exists"><code class="ApiItem">CRichText::PictureHandleL()</code></a></li>
+</ul>
+<a name="2.16"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Paragraph styles</h2>
+</div><div class="Bodytext">
+<a name="2.16.2"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aApplyParagraphStyleL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ApplyParagraphStyleL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ApplyParagraphStyleL(const CParagraphStyle&amp; aStyle,TInt aPos,TInt aLength,CParagraphStyle::TApplyParaStyleMode aMode);</code></p><h4 class="subheading">Description</h4>
+<p>Applies a specified paragraph style to a range of paragraphs. The region
+affected consists of every paragraph containing one or more characters in the
+range <code>aPos</code> to <code>aPos</code>+(<code>aLength</code>&#8211;1).</p>
+<p>A panic occurs if:</p>
+<ul>
+<li>
+<p><code>aPos</code> is invalid, or</p>
+</li>
+<li>
+<p><code>aLength</code> is negative, or</p>
+</li>
+<li>
+<p>the range goes beyond the end of the document, or</p>
+</li>
+<li>
+<p>the rich text object has no style list</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CParagraphStyle&amp; aStyle </code></td>
+<td class="Cell"><p class="ValueDesc"> The style to apply. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position of the start of the range. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLength </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of characters in the range. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CParagraphStyle::TApplyParaStyleMode aMode </code></td>
+<td class="Cell"><p class="ValueDesc"> Controls what specific formatting, if any, should be preserved when the
+style is applied. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16.3"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aParagraphStyle%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ParagraphStyle()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const CParaFormatLayer* ParagraphStyle(TBool&amp; aStyleChangesOverRange,TInt aPos,TInt aLength)const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a pointer to the first paragraph style encountered in the specified
+range.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool&amp; aStyleChangesOverRange </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, set to <code>ETrue</code> if more than one paragraph style is
+used over the specified range of characters. Otherwise <code>EFalse</code>
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position of the start of the range. Must be valid. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLength </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of characters in the range. Must be greater than or equal to
+zero. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CParaFormatLayer* </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the paragraph style which applies to the paragraph containing
+document position <code>aPos</code>. Its type (returned by
+<code>CParaFormatLayer::Type()</code>) indicates whether this object is a
+style, or just a paragraph format layer. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16.4"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aStyleCount%28%29"></a>
+<hr size="1" noshade>
+<h3><code>StyleCount()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt StyleCount()const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the number of styles contained in the rich text object's style list.
+Returns zero if there is no style list present.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of styles in the style list </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16.5"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aStyleListPresent%28%29"></a>
+<hr size="1" noshade>
+<h3><code>StyleListPresent()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool StyleListPresent()const;</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether the rich text object uses a style list. The style list may
+be owned by the object itself, or may be externally owned.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool </code></td>
+<td class="Cell"><p class="ValueDesc"> True if the object uses a style list. False if not </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16.6"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aStyleList%28%29"></a>
+<hr size="1" noshade>
+<h3><code>StyleList()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CStyleList* StyleList()const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a pointer to the style list used by the rich text object.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CStyleList* </code></td>
+<td class="Cell"><p class="ValueDesc"> The object's style list. NULL if no style list present. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16.7"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aStyleListExternallyOwned%28%29"></a>
+<hr size="1" noshade>
+<h3><code>StyleListExternallyOwned()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool StyleListExternallyOwned()const;</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether the style list used by this rich text object is owned by
+the object itself, or is externally owned. This value is set using
+<code>SetStyleListExternallyOwned()</code>.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool </code></td>
+<td class="Cell"><p class="ValueDesc"> True if the rich text object's style list is externally owned. False if
+it owns its style list, or if it does not use a style list. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16.8"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aSetStyleListExternallyOwned%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetStyleListExternallyOwned()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetStyleListExternallyOwned(TBool aExternallyOwned);</code></p><h4 class="subheading">Description</h4>
+<p>Sets whether the style list used by this rich text object is owned by the
+object itself, or is externally owned.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool aExternallyOwned </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue</code> if the style list should be marked as externally
+owned, <code>EFalse</code> if not. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16.9"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aSetStyleListExternallyOwned%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetStyleListExternallyOwned()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetStyleListExternallyOwned(const CStyleList&amp; aStyleList);</code></p><h4 class="subheading">Description</h4>
+<p>Assigns an externally owned style list to the rich text object. Replaces
+any previous style list used by the object. Calls SetStyleListExternallyOwned(ETrue).</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool aExternallyOwned </code></td>
+<td class="Cell"><p class="ValueDesc"> The style list to assign to this rich text object. Not owned by the rich
+text object. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16.10"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aNotifyStyleChangedL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NotifyStyleChangedL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void NotifyStyleChangedL(const CParagraphStyle* aTo,const CParagraphStyle* aFrom);</code></p><h4 class="subheading">Description</h4>
+<p>Removes style <code>aFrom</code> from every paragraph in the document to
+which it applies, and replaces it with style <code>aTo</code>.</p>
+<p>If style <code>aTo</code> is NULL, <code>aFrom</code> is replaced by the
+global character and paragraph format layers, so that in effect, style
+<code>aFrom</code> is removed. Any specific formatting which has been applied
+to the paragraphs is retained.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>This function should be called on the text content object after changing
+a style in the style list.</p>
+</li>
+<li>
+<p>A panic occurs if the rich text object does not use a style list (this
+can be tested for using <code>StyleListPresent()</code>).</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CParagraphStyle* aTo </code></td>
+<td class="Cell"><p class="ValueDesc"> The new paragraph style to apply. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CParagraphStyle* aFrom </code></td>
+<td class="Cell"><p class="ValueDesc"> The paragraph style to remove. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16.11"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aNotifyStyleDeletedL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NotifyStyleDeletedL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void NotifyStyleDeletedL(const CParagraphStyle* aStyle);</code></p><h4 class="subheading">Description</h4>
+<p>Removes a style from all paragraphs to which it applies. The formatting
+is reset to the global character and paragraph format layers, except that any
+specific formatting which has been applied to the paragraphs is
+retained.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>This function should be called on the text content object after deleting
+a style in the style list.</p>
+</li>
+<li>
+<p>A panic occurs if the rich text object does not use a style list (this
+can be tested for using <code>StyleListPresent()</code>).</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CParagraphStyle* aStyle </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the style to remove from the rich text object. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.17"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Enumerations</h2>
+</div><div class="Bodytext">
+<a name="2.17.2"></a></div><div class="Head3">
+<a name="%3a%3aCRichText%3a%3aTParaType"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TParaType</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TParaType</code></p><h4 class="subheading">Description</h4>
+<p>Number of paragraphs in the object.</p>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCRichText%3a%3aESinglePara"><code class="Value">ESinglePara</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>The text object will contain a single paragraph.</para>
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCRichText%3a%3aEMultiPara"><code class="Value">EMultiPara</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>The text object will contain multiple paragraphs.</para>
+</p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

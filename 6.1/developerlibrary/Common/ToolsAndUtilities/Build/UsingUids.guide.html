@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to use UIDs</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="BuildGuide%2eUsingUids"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="bc.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowtoGUIApplication.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Build&nbsp;Tools&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;use&nbsp;UIDs</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>How to use UIDs</h1>
+</div><div class="Bodytext">
+<p>A UID is a globally unique identifier consisting of a 32-bit number.</p>
+<p>In the Symbian platform, objects are identified by a compound identifier, known as the <em>UID type</em>, which is constructed from three 32 bit individual UIDs. The individual UIDs making up the UID type are referred to as its <em>UID1</em>, <em>UID2</em> and <em>UID3</em> components.</p>
+<p>EPOC makes widespread use of UIDs:</p>
+<ul><li><p>UIDs are used to identify the types of different objects at runtime and loadtime&nbsp;&#8212; for example identifying executables, DLLs, filestores.</p></li>
+<li><p>UIDs are used to verify that objects present compatible and expected interfaces at runtime and loadtime&nbsp;&#8212; for example verifying that DLLs are of the expected type or that filestores are of appropriate type.</p></li>
+<li><p>UIDs are fundamental to the association of applications with documents&nbsp;&#8212; for example associating a document with an application allows the system to launch the application when the document is opened.</p></li>
+</ul><p>To program successfully, developers need to understand why and how to use UIDs in their programs.</p>
+<a name="1.8"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>What UIDs are for</h2>
+</div><div class="Bodytext">
+<p>UIDs are used throughout the Symbian platform to enable various kinds of file identification and association. From a user point of view, conventional file names are preferable, for either purpose. Symbian therefore supports a flexible, long filename, file naming scheme.</p>
+<p>However from a system point of view guaranteed unique, 32-bit numbers provide for much safer, systematic, and more lightweight identification. UIDs are therefore a fundamental feature of the platform.</p>
+<p>By convention, the <em>UID type</em> of an object is a set of three separate UIDs used in combination. The component UIDs are referred to as UID1, UID2 and UID3 and have the following general characteristics:</p>
+<ul><li><p><em>UID1</em>&#8212; can be thought of as a system level identifier; for example, executables, DLLs, and file stores are all distinguished by UID1.</p></li>
+<li><p><em>UID2</em>&#8212;distinguishes between objects having the same UID1 and can be thought of as an interface identifier; for example, static interface (shared library) and polymorphic interface (application or plug-in framework) DLLs are distinguished by UID2</p></li>
+<li><p><em>UID3</em>&#8212;identifies objects having a particular UID2 and can be thought of as a project identifier; for example, UID3 might be shared by all objects belonging to a given program, including library DLLs if any, framework DLLs, and all documents</p></li>
+</ul><p>The UID type is a <code>TUidType</code> object and is constructed from a combination of all or some of the three possible UIDs. The UID type can be queried to return its component <em>UID1</em>, <em>UID2</em> and <em>UID3</em> values.</p>
+<p>If no UIDs are attached to an object, then all three component UIDs are returned as <code>KUidNull</code>.</p>
+<a name="1.9"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>UID1, UID2, UID3, and the no UIDs case</h2>
+</div><div class="Bodytext">
+<p>An object in EPOC and more particularly files in EPOC may have all, some, or none of the three possible UIDs defined.</p>
+<p>The no UIDs case is provided to allow users to interact and exchange data easily with other systems, allowing non-native data files to be used freely and conveniently on Symbian systems. The Symbian Platform allows customisable file association and identification even where UIDs are absent, based on file extension naming conventions.</p>
+<p>However, for EPOC native programs, UIDs are used as the primary means of file type identification. Where possible, this is preferable to depending on file extensions.</p>
+<p>EPOC predefines all possible UID1 and UID2 UIDs at system level. Developers refer to them by their constant names, although in project (<code class="filename">.mmp</code>)<code class="filename">
+</code>files, hexadecimal numbers are used.</p>
+<ul><li><p>UID1 &nbsp;&#8212; valid examples include <code>KExecutableImageUid</code>, <code>KDynamicLibraryUid</code> and <code>KDirectFileStoreLayoutUid</code></p></li>
+<li><p>UID2 &nbsp;&#8212; valid examples include <code>KSharedLibraryUid</code> for a static interface DLL and <code>KUidApp</code> for an EIKON application</p></li>
+<li><p>Developers are responsible for ensuring that where UID3 values are required, they are properly allocated</p></li>
+</ul><p>Note that in project (<code class="filename">.mmp</code>) files, UID2 and UID3 values can be specified but UID1 values cannot; The UID1 value is implied by the target type defined in the project.</p>
+<a name="1.9.8"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>EXE targets and UIDs</h3>
+</div><div class="Bodytext">
+<p>All executable targets have a UID1 of <code>KExecutableImageUid</code>. This is system-defined by EPOC and is automatically built into any executable target based on the <code>exe</code> target type declared in the project file.</p>
+<p>Because <code>exe</code> targets define no interfaces and use no frameworks they need specify no further UIDs. An executable project therefore specifies no UIDs, including in ER5 no Unicode specific UIDs.</p>
+<a name="1.9.9"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>DLLs and UIDs</h3>
+</div><div class="Bodytext">
+<p>All DLLs, whether they have static or polymorphic interfaces, have a UID1 of <code>KDynamicLibraryUid</code>. This is system-defined by EPOC and is automatically built into any DLL target based on the <code>dll</code> target type declared in the project file.</p>
+<p>Static and polymorphic DLLs are therefore distinguished by the different interfaces they present, as defined by their UID2 values.</p>
+<p>For static interface DLLs, the UID2 is <code>KSharedLibraryUid.</code> The UID3 which is used to identify the interface uniquely must be allocated by the developer.</p>
+<p>For polymorphic DLLs, the UID2 is defined by the framework which is being implemented. Some frameworks require a UID3 to be specified, others do not. For example, a GUI application must specify a UID2 of <code>KUidApp</code> which is defined by the application framework, and a UID3 which must be allocated by the developer. To give another example, the printer driver framework, requires a UID2 but not a UID3.</p>
+<p>Where one project uses multiple DLLs, for example a GUI application comprising a framework-derived polymorphic DLL with an application engine built separately as a static interface DLL, the DLLs will usually share the same UID3. In other cases where multiple projects share some common DLLs, for example multiple different applications which share some engine DLLs, each project including the shared engine project will specify unique UID3s.</p>
+<p>DLL UIDs allow the loader to check whether the DLL is of the subtype intended. This prevents files which just happen to have the right name from being loaded inadvertently.</p>
+<a name="1.9.10"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Documents and UIDs</h3>
+</div><div class="Bodytext">
+<p>In EPOC, documents are really file-stores&nbsp;&#8212; stores which can be closed and re-opened. There are two different kinds of file store, <em>direct file stores</em> which are write-once-read-many, and <em>permanent file stores</em> which are write-many-read-many.</p>
+<p>A document&#8217;s UID1 will therefore be one of <code>KDirectFileStoreLayoutUid</code> or <code>KPermanentFileStoreLayoutUid</code>. The UID2 and/or UID3 will be application dependent.</p>
+<p>Every native document must have an appropriate UID1 which should be set by the application which creates the document. Typically documents may have a UID2 of <code>KUidAppDllDoc</code> and a UID3 shared with the creating application. More precisely, a document&#8217;s UID3 should match that of the application which will open it.</p>
+<p>Only the UID1 is required, but in most cases developers will want to specify second and third UIDs for the documents their applications create and use. These UIDs are used by the application architecture framework to manage associations between applications and their documents. This allows an application to be found and launched when a file is opened, and it also allows an application icon to be associated with documents in system shell displays. Conversely, it allows an application, when opening files, to select only applicable files.</p>
+<p>EPOC also allows default file associations with the implication that in some cases users may want to select a different application to open a file. Applications which support this must therefore be able to open documents whose third UID differs from their own.</p>
+<p>Applications may also want to open non-native documents which have no UIDs, and may wish to be specified as default applications for these documents.</p>
+<a name="1.9.11"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Unicode UIDs</h3>
+</div><div class="Bodytext">
+<p>In previous releases the <code>UNICODEUID</code> project file statement was used to identify the UID for the Unicode build, and <code>UID</code> was used for the narrow build.  Since Symbian has now moved exclusively to Unicode builds, the <code>UNICODEUID</code> keyword is deprecated&nbsp;&#8212; the <code>UID</code> statement should be used.</p>
+<a name="1.10"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Uniqueness and allocation</h2>
+</div><div class="Bodytext">
+<p>Because UIDs are fundamental to the Symbian platform, it is important that they are used correctly when developing programs. To ensure uniqueness, it is essential that UIDs are properly allocated.</p>
+<p>Uniqueness is guaranteed by managing allocation centrally from a single database. All UIDs must therefore be assigned to users by a central allocating authority. The only exception to this rule is a reserved range of values which may be used as UIDs by developers during development but which must not be used in released software.</p>
+<a name="1.10.4"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Reserved range for development only</h3>
+</div><div class="Bodytext">
+<p>During development temporary UIDs may be chosen from the range 0x01000000 to 0x0fffffff. Care must still be taken to avoid clashes within development teams and between multiple projects, including old projects which may still be installed on EPOC Emulator or native platforms. UID clashes may stop a program from loading correctly, typically leading to <code class="ProgramOutput">Not Found</code> errors.</p>
+<a name="1.10.5"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Requesting UIDs from Symbian</h3>
+</div><div class="Bodytext">
+<p>Developers can request UIDs either individually or in pre-allocated blocks by emailing uid@symbiandevnet.com.  More information about allocating UIDs can be obtained from the Symbian Developer Network at: <a href="http://www.symbiandevnet.com/techlib/techcomms/techpapers/papers/tn_uid/uidinfo.html">http://www.symbiandevnet.com/techlib/techcomms/techpapers/papers/tn_uid/uidinfo.html</a>.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

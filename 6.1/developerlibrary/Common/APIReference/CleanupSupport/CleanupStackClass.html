@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CleanupStack</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CleanupReleasePushLFunction.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="CTrapCleanupClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Cleanup&nbsp;Support</a>&nbsp;<span class="separator">&#187;</span>
+CleanupStack</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>e32base.h</code>
+<br>Link against: <code>euser.lib</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aCleanupStack"></a>
+
+<h1>Class <code>CleanupStack</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CleanupStack</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>A collection of static functions that are used to add resources to
+and remove resources from the cleanup stack.</p><p>Defined in <code>CleanupStack</code>:
+<br><code class="ApiItem"><a href="CleanupStackClass.html#%3a%3aCleanupStack%3a%3aPop%28%29" title="Pops an object previously pushed onto the cleanup stack by CleanupStack::PushL()">Pop()</a></code>, <code class="ApiItem"><a href="CleanupStackClass.html#%3a%3aCleanupStack%3a%3aPopAndDestroy%28%29" title="Pops and cleans up an item pushed onto the stack">PopAndDestroy()</a></code>, <code class="ApiItem"><a href="CleanupStackClass.html#%3a%3aCleanupStack%3a%3aPushL%28%29" title="Pushes a pointer to an object onto the cleanup stack">PushL()</a></code>
+</p>
+<a name="2.5"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Member functions</h2>
+</div><div class="Bodytext">
+<a name="2.5.2"></a></div><div class="Head3">
+<a name="%3a%3aCleanupStack%3a%3aPushL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PushL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static void PushL(TAny* aPtr);<br>static void PushL(CBase* aPtr);<br>static void PushL(TCleanupItem anItem);</code></p><h4 class="subheading">Description</h4>
+<p>Pushes a pointer to an object onto the cleanup stack. Use the
+function <code>PushL(TCleanupItem anItem)</code> to push a cleanup item onto
+the cleanup stack.</p>
+<p>If a leave occurs while an object is on the stack, it is
+cleaned up automatically:</p>
+<ul>
+<li>
+<p><code>CBase</code>-derived objects are cleaned up with
+<code>delete</code>.</p>
+</li>
+<li>
+<p>Untyped objects are cleaned up with
+<code>User::Free()</code> (a rather limited form of cleanup&nbsp;&#8212; not
+even the C++ destructor is called).</p>
+</li>
+</ul>
+<p>Typically, when an object has been fully constructed and it can
+be guaranteed that a pointer to this new object is stored in some other object
+before a leave occurs, issue <code>CleanupStack::Pop()</code> to pop it back
+off the stack. </p>
+<p>If a leave occurs while a cleanup item is on the stack, the
+cleanup operation defined in the construction of the <code>TCleanupItem</code>,
+is invoked.</p>
+<p>Like <code>CBase*</code> and <code>TAny*</code> types, cleanup
+items can also be popped back off the stack by calling
+<code>CleanupStack::Pop()</code>.</p>
+<p>If no cleanup stack has been allocated, a panic
+occurs.</p>
+<p>Note that for any thread, calling <code>PushL()</code> when no prior call to <code>TRAP</code>
+has been made, raises an E32USER-CBase 66 panic.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAny* aPtr</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to any other object If cleanup is necessary, the object
+will be freed by <code>User::Free()</code>, which does not invoke any
+destructor: it simply frees its memory.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CBase *aPtr</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to <code>CBase</code>-derived object If cleanup is
+necessary, the object will be freed by <code>delete</code>, thus invoking its
+<code>Destruct()</code> function and the C++ destructor, and freeing its
+memory.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TCleanupItem anItem</code></td>
+<td class="Cell"><p class="ValueDesc">A cleanup item If cleanup is necessary, the cleanup operation
+defined in the construction of <code>anItem</code> is called.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">It is guaranteed that the object is pushed onto the cleanup
+stack. However, this function may leave if a stack frame for the next
+<code>PushL()</code> cannot be allocated. In this case, the cleanup stack will
+be cleaned up as normal, and no extra programmer intervention is needed.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.5.3"></a></div><div class="Head3">
+<a name="%3a%3aCleanupStack%3a%3aPop%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Pop()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static void Pop();<br>static void Pop(TInt aCount);</code></p><h4 class="subheading">Description</h4>
+<p>Pops an object previously pushed onto the cleanup stack by
+<code>CleanupStack::PushL()</code>. </p>
+<p>After an object has been successfully constructed and stored
+within another object, it cannot be orphaned and, therefore, the object (i.e. a
+pointer or a cleanup item) can be popped from the cleanup stack.</p>
+<p>The second version of the function allows a specified number
+(<code>aCount</code>) of objects to be popped off the cleanup stack.</p>
+<p>If no cleanup stack has been allocated, or there is nothing on
+the stack, a panic occurs.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aCount</code></td>
+<td class="Cell"><p class="ValueDesc">The number of objects to be popped off the cleanup stack. If a
+parameter of this type is not passed, then only one object is popped off the
+cleanup stack.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.5.4"></a></div><div class="Head3">
+<a name="%3a%3aCleanupStack%3a%3aPopAndDestroy%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PopAndDestroy()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static void PopAndDestroy();<br>static void PopAndDestroy(TInt aCount);</code></p><h4 class="subheading">Description</h4>
+<p>Pops and cleans up an item pushed onto the stack.</p>
+<p>If the item on the stack is a <code>CBase*</code> pointer, the
+pointer is removed from the stack and the object is destroyed with
+<code>delete</code>.</p>
+<p>If the item on the stack is a <code>TAny*</code> pointer, the
+pointer is removed from the stack and the memory occupied by the object is
+freed with <code>User::Free()</code>.</p>
+<p>If the item on the stack is a cleanup item, i.e. an object of type
+<code>TCleanupItem</code>, the item is removed from the stack and the cleanup
+operation defined during construction of the <code>TCleanupItem</code> object
+is invoked.</p>
+<p>Similar to <code>Pop()</code>, the second version of the function
+allows a specified number (<code>aCount</code>) of objects to be popped off the
+cleanup stack and cleaned up.</p>
+<p>If no cleanup stack has been allocated, or there is nothing on the
+stack, a panic occurs.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

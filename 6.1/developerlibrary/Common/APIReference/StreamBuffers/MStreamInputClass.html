@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>MStreamInput</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="MStreamBufClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="MStreamOutputClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Stream&nbsp;Buffers</a>&nbsp;<span class="separator">&#187;</span>
+MStreamInput</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>s32buf.h</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aMStreamInput"></a>
+
+<h1>Class <code>MStreamInput</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>MStreamInput</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>An interface to an object that acts as a target for  read operations from a stream.</p><p>The object behaves as a generic data sink.</p><p>A  stream input object can act as an intelligent buffer,  and is useful for performing filtering, compression or any other general kind of conversion operation that might be needed after reading from a stream.</p><p>The class is pure interface and requires an implementation.</p><p>Defined in <code>MStreamInput</code>:
+<br><code class="ApiItem"><a href="MStreamInputClass.html#%3a%3aMStreamInput%3a%3aPushL%28%29" title="Reads data from an intermediate buffer into this stream input object">PushL()</a></code>, <code class="ApiItem"><a href="MStreamInputClass.html#%3a%3aMStreamInput%3a%3aReadFromL%28%29" title="Reads data from the specified stream into this stream input object">ReadFromL()</a></code>
+</p>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aReadL%28%29" title="Reads data from the stream buffer into the specified data sink"><code class="ApiItem">MStreamBuf::ReadL()</code></a></li>
+</ul>
+<a name="2.6"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Interface  functions</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aMStreamInput%3a%3aReadFromL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ReadFromL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual&nbsp;&nbsp;&nbsp;&nbsp;TStreamTransfer ReadFromL(MStreamBuf&amp; aSource,TStreamTransfer aTransfer)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Reads data from  the specified stream into this stream input object.</p><p>This function is called by the default implementation of <code>MStreamBuf::DoReadL(MStreamInput&amp;,TStreamTransfer)</code>. It may also be called by <code>TStreamBuf::DoReadL(MStreamInput&amp;,TStreamTransfer)</code>, depending on the amount of data to be transferred and the nature of the buffering scheme.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">MStreamBuf&amp; aSource</code></td>
+<td class="Cell"><p class="ValueDesc">The stream  from which data is to be read.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamTransfer aTransfer</code></td>
+<td class="Cell"><p class="ValueDesc">Defines the  amount of data available to be read.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamTransfer</code></td>
+<td class="Cell"><p class="ValueDesc">The amount of data that was not consumed.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MStreamBufClass.html#%3a%3aMStreamBuf%3a%3aDoReadL%28%29" title="Reads data from the stream into the specified data sink"><code class="ApiItem">MStreamBuf::DoReadL()</code></a></li>
+<li><a href="TStreamBufClass.html#%3a%3aTStreamBuf%3a%3aDoReadL%28%29" title="Reads data from the intermediate buffer and, if necessary, any remaining data from the stream to the specified target stream input object"><code class="ApiItem">TStreamBuf::DoReadL()</code></a></li>
+</ul>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aMStreamInput%3a%3aPushL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PushL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt PushL(const TAny* aPtr,TInt aMaxLength)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Reads data from an intermediate  buffer into this stream input object.</p><p>This function is called by the default implementation of <code>TStreamBuf::DoReadL(MStreamInput&amp;,TStreamTransfer)</code> and assumes that the source is a stream buffer's intermediate buffer.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TAny* aPtr</code></td>
+<td class="Cell"><p class="ValueDesc">A pointer into the intermediate buffer from which the read operation starts.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aMaxLength</code></td>
+<td class="Cell"><p class="ValueDesc">The maximum amount of data to be read.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The amount of data read.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="TStreamBufClass.html#%3a%3aTStreamBuf%3a%3aDoReadL%28%29" title="Reads data from the intermediate buffer and, if necessary, any remaining data from the stream to the specified target stream input object"><code class="ApiItem">TStreamBuf::DoReadL()</code></a></li>
+<li><a href="TStreamBufClass.html#%3a%3aTStreamBuf" title="Adds buffering capabilities to a stream buffer"><code class="ApiItem">TStreamBuf</code></a></li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>File store type and layout</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="FileStoresGuide%2efile%2dstores%2elayout%2dtype"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="FileBasedDictionaryStore.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="DirectFileStoreStructure.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">File&nbsp;Stores</a>&nbsp;<span class="separator">&#187;</span>
+File&nbsp;store&nbsp;type&nbsp;and&nbsp;layout</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>File store type and layout</h1>
+</div><div class="Bodytext">
+<p>File stores can be given a unique identity, known as the file store
+type, in order to differentiate them from each other.</p>
+<p>The file store type is defined as a <code>TUidType</code> which can
+be constructed from one, two or three UIDs, i.e. <code>TUid</code>
+components.</p>
+<p>The first UID component identifies the layout of the file store; i.e.
+it identifies the file store as either a direct file store or a permanent file
+store. The second and/or the third UID components are application
+dependent.</p>
+<p>After creating a new file store, an application must set the type of
+the file store using the file store's <code>SetTypeL()</code> member
+function.</p>
+<p>As a minimum requirement, the first UID component of the
+<code>TUidType</code>, which identifies the layout of the file store, must be
+specified. This component takes one of the values:</p>
+<ul>
+<li>
+<p><code>KPermanentFileStoreLayout</code> to identify a permanent
+file store.</p>
+</li>
+<li>
+<p><code>KDirectFileStoreLayout</code> to identify a direct file
+store.</p>
+</li>
+</ul>
+<p>The following code fragment is typical:</p>
+<p class="CodeBlock"><code>...<br>CFileStore* store = CDirectFileStore::ReplaceLC(...,...,...);<br>store-&gt;SetTypeL(KDirectFileStoreLayoutUid);<br>...</code></p>
+<p>If an application needs to explicitly set the second or the third UID
+component, then the <code>TUidType</code> object must be constructed explicitly
+and passed to <code>SetTypeL()</code>; for example:</p>
+<p class="CodeBlock"><code> ...<br>&nbsp;CFileStore* store = CDirectFileStore::ReplaceLC(...,...,...);<br>&nbsp;TUidType thetype(KDirectFileStoreLayoutUid,...,...);<br>&nbsp;store-&gt;SetTypeL(thetype);<br>&nbsp;...</code></p>
+<p>The file store's type can be retrieved by calling the file store’s
+<code>Type(</code>) member function.</p>
+<p>The file store's layout can be retrieved by calling the file
+store’s <code>Layout()</code> member function.</p>
+<a name="1.15"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="../UIDManipulation/index.html#UIDManipulationOverview%2etoc">UID manipulation</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

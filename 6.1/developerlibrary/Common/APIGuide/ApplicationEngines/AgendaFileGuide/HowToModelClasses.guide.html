@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to use the model classes</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="AgendaModelGuide%2ehow%2dto%2emodel%2dclasses"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="EntryInstanceIndexModels.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToAlarms.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Application&nbsp;Engines</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Agenda&nbsp;File</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;use&nbsp;the&nbsp;model&nbsp;classes</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>How to use the model classes</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construct and open the model</h2>
+</div><div class="Bodytext">
+<ul><li><p>To construct a model call <code>NewL()</code> for the required class.</p></li>
+<li><p>To open the model call <code>OpenL()</code> to open the model, associating it with a file from which to read/write data.</p></li>
+</ul><p>A model must be constructed and then opened before it can be used. Opening the model associates it with a file (document) containing agenda data. Agenda data is accessed via the agenda server, provided by <code class="ApiItem">RAgnServ</code>.</p><p>The following example shows how to construct and open the model and connect to the agenda server.</p>
+<p class="CodeBlock"><code>RAgendaServ* agnServer = RAgendaServ::NewL(); // allocate and construct server<br>CleanupStack::PushL(agnServer);<br>agnServer-&gt;Connect(); // connect to the agenda server<br>CleanupClosePushL(*agnServer); // guarantees that the server's Close() method gets called<br><br>CAgnEntryModel* model = CAgnEntryModel::NewL(); // allocate and construct model<br>CleanupStack::PushL(model);<br>model-&gt;SetServer(agnServer); // set server pointer for model<br>model-&gt;OpenL(fileName) // Open file using server<br>// ...Use agenda model API as normal - invokes corresponding server functions<br>CleanupStack::PopAndDestroy(3); // model, close session with server, agnServer</code></p><p>Note that a separate instance of the <code>RAgendaServ</code> class is required for each agenda file that is open — only one file can be open at any one time in the same server session.
+</p><a name="1.3.7"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Model states</h3>
+</div><div class="Bodytext">
+<p>The agenda model has a state which at any time has one of three states (defined by <code>CAgnEntryModel</code>), <code>ENoFile</code>, <code>EBlocked</code>, or <code>EOk</code>. When a model is created using <code>NewL()</code>, it has a state of <code>ENoFile</code>, to indicate that although the object has been constructed it cannot yet access any data as it has not been associated with a file (document).</p>
+<p><code>NewL()</code> takes a single argument, a pointer to a function supplied by the application. This function is called when the model's state moves either to or from the <code>EBlocked</code> state. While the model is being opened its state is <code>EBlocked</code>; as soon as the process of opening the model has completed, its state changes to <code>EOk</code>.</p>
+<a name="1.3.8"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Progress monitoring</h3>
+</div><div class="Bodytext">
+<p><code>OpenL()</code> may take different parameters depending on whether you are opening an entry model or an instance (or indexed) model. </p>
+<p>For the instance and indexed models, <code>OpenL()</code> may take additional parameters which allow the model to be opened either synchronously or asynchronously. The advantage of opening the model asynchronously is that it allows progress information to be displayed in the user interface while the model is being opened — especially useful when opening large agenda documents.</p>
+<p>The <code>aProgressCallBack</code> argument is a pointer to a class supplying a function, <a href="../../../APIReference/AgendaFile/MAgnProgressCallBackClass.html#%3a%3aMAgnProgressCallBack%3a%3aProgress%28%29" title="Called by the agenda model during prolonged operations such as merging and tidying, to indicate how much of the operation has been completed"><code class="ApiItem">MAgnProgressCallBack::Progress()</code></a>, which is called at intervals while the model is being opened and which is passed a percentage value indicating how far the open action has completed. Implementing this requires an active scheduler. One of the application classes, typically the class implementing the user interface view, should be derived from the mixin class <code>MAgnProgressCallBack</code>, and should implement <code>MAgnProgressCallBack::Progress()</code>. </p>
+<a name="1.4"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Getting entries</h2>
+</div><div class="Bodytext">
+<p>To get entries from the model, you have to use a different method depending on whether you are using the instance model or the entry model. </p>
+<p>To get entries from the entry model: </p>
+<ul><li><p>Use an entry iterator (class <a href="../../../APIReference/AgendaServer/RAgendaServClass.html#%3a%3aRAgendaServ" title="The client interface to the agenda server"><code class="ApiItem">RAgendaServ</code></a>). </p></li>
+<li><p>Use next the function <a href="../../../APIReference/AgendaFile/CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aFetchEntryL%28%29" title="Retrieves an entry based on its unique ID using the agenda server"><code class="ApiItem">CAgnEntryModel::FetchEntryL()</code></a> to get one entry at a time. This function takes one argument, the ID of the entry, which is provided by the entry iterator.</p></li>
+<li><p>To get entries from the instance model, use <a href="../../../APIReference/AgendaFile/CAgnModelClass.html#%3a%3aCAgnModel%3a%3aPopulateDayInstanceListL%28%29" title="Populates a list with instance IDs for a particular day"><code class="ApiItem">CAgnModel::PopulateDayInstanceListL()</code></a>, or any of the other <code>Populate…()</code> functions. These return a list of instance IDs that match the criteria given in the arguments to the function. </p></li>
+<li><p>Use these IDs to fetch individual instances using <code>CAgnModel::FetchInstanceL()</code> or <a href="../../../APIReference/AgendaFile/CAgnModelClass.html#%3a%3aCAgnModel%3a%3aFetchInstanceLC%28%29" title="Fetches an instance identified by aInstanceId from the model"><code class="ApiItem">CAgnModel::FetchInstanceLC()</code></a>. The arguments passed to the <code>Populate…()</code> functions include a filter (see <a href="../../../APIReference/AgendaFile/TAgnFilterClass.html#%3a%3aTAgnFilter" title="Identifies which model entry types should be involved when tidying, finding or populating an instance or symbol list"><code class="ApiItem">TAgnFilter</code></a>), which can be used to limit the types of instances that are retrieved into the list.</p></li>
+</ul><a name="1.5"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Adding entries</h2>
+</div><div class="Bodytext">
+<p>To add an entry to the model, use <a href="../../../APIReference/AgendaFile/CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aAddEntryL%28%29" title="Adds an entry to the model's store"><code class="ApiItem">CAgnEntryModel::AddEntryL()</code></a> (entry model) or <a href="../../../APIReference/AgendaFile/CAgnModelClass.html#%3a%3aCAgnModel%3a%3aAddEntryL%28%29" title="Adds an entry to the model"><code class="ApiItem">CAgnModel::AddEntryL()</code></a> (instance model).</p>
+<a name="1.6"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Updating existing entries</h2>
+</div><div class="Bodytext">
+<p>To update an existing entry, use <a href="../../../APIReference/AgendaFile/CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aUpdateEntryL%28%29" title="Updates the details for the existing entry aEntry in the model's store"><code class="ApiItem">CAgnEntryModel::UpdateEntryL()</code></a>. To update an instance, use <a href="../../../APIReference/AgendaFile/CAgnModelClass.html#%3a%3aCAgnModel%3a%3aUpdateInstanceL%28%29" title="Updates one or more instances of an entry in the model"><code class="ApiItem">CAgnModel::UpdateInstanceL()</code></a>.</p>
+<a name="1.7"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Deleting entries</h2>
+</div><div class="Bodytext">
+<p>To delete an entry, use <a href="../../../APIReference/AgendaFile/CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aDeleteEntryL%28%29" title="Deletes the entry identified by aEntryId from the store"><code class="ApiItem">CAgnEntryModel::DeleteEntryL()</code></a>. To delete an instance use <a href="../../../APIReference/AgendaFile/CAgnModelClass.html#%3a%3aCAgnModel%3a%3aDeleteInstanceL%28%29" title="Deletes one or more instances of an entry from the model"><code class="ApiItem">CAgnModel::DeleteInstanceL()</code></a>.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

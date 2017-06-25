@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Where to put trap harnesses?</title>
+<link href="../../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="CleanupSupportGuide1%2erecovery%2dunit"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../../_index/index.html"><img
+src="../../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../../GlobalGlossary/index.html"><img src="../../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToNewAutomaticFail.guide.html"><img src="../../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Memory&nbsp;Management</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Cleanup&nbsp;Support</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Exception&nbsp;Handling</a>&nbsp;<span class="separator">&#187;</span>
+Where&nbsp;to&nbsp;put&nbsp;trap&nbsp;harnesses?</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Where to put trap harnesses?</h1>
+</div><div class="Bodytext">
+<p>Trap harnesses can be nested. If a function leaves, control goes to
+the most recent trap harness in the call stack. This allows independent
+sub-modules to do their own exception handling. Effective trap programming
+requires that the unit of recovery be correctly identified. </p>
+<p>The most basic option is to rely on the top-level trap harness
+provided as part of the application framework for all GUI programs. If a leave
+occurs, and it is not handled by any explicitly coded harness, the framework
+displays an error message corresponding to the leave code.</p>
+<p>For some applications, the unit of recovery may be the processing of
+any user command. In a particular application, the unit of recovery may be
+associated with part of the processing of a particular command&nbsp;&#8212;
+a much finer-grain approach.</p>
+<p>Coding a coarse-grain unit of recovery has the advantage of only one
+trap harness and recovery code, but the disadvantage that recovery code may be
+general and complex, and the danger that a small error leads to catastrophic
+results for a user (e.g. if not enough memory to apply bold formatting resulted
+in termination of the word processor with loss of data!).</p>
+<p>Coding too fine-grain units of recovery results in many trap
+harnesses, lots of recovery code which may require individual attention in each
+case, and potentially significantly increased code size.</p>
+<p>The correct choice is application-specific. For large applications,
+there may be a single course-grain unit of recovery, with other harnesses in
+particular places. </p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

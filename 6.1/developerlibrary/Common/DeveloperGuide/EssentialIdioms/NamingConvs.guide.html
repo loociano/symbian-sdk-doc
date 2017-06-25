@@ -1,0 +1,197 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Naming conventions</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="idioms%2enamingconventions"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="LayoutConvs.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/DeveloperGuide/index.html">Developer's&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Essential&nbsp;Idioms</a>&nbsp;<span class="separator">&#187;</span>
+Naming&nbsp;conventions</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Naming conventions</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Overview</h2>
+</div><div class="Bodytext">
+<p>Applications on the Symbian platform use a standard set of
+conventions to name their classes, structs, variables, functions, macros,
+enumerations, and constants. This topic explains the meaning of these
+conventions.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Class names</h2>
+</div><div class="Bodytext">
+<p>Most class names are formed with a prefix letter <code>C</code>,
+<code>T</code>, <code>R</code>, or <code>M</code>. Briefly, the meaning of
+these is as follows:</p>
+<ul>
+<li>
+<p><code>C</code>: heap-allocated classes, that are derived from a
+base class <code>CBase</code></p>
+</li>
+<li>
+<p><code>T</code>: value classes, that do not own any external
+object</p>
+</li>
+<li>
+<p><code>R</code>: resource classes, that contain handles to a
+real resource which is maintained elsewhere</p>
+</li>
+<li>
+<p><code>M</code>: interface classes, that define abstract
+protocol definitions that are implemented by derived classes </p>
+</li>
+</ul>
+<p>For a detailed discussion on the meaning of these prefixes, see
+<a href="ClassTypes.guide.html#idioms%2etypes">Class types</a>.</p>
+<p>Classes that consist solely of static member functions have no
+prefix letter. Beyond the prefix, the class name is usually a noun that
+indicates the purpose of the class.</p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Struct names</h2>
+</div><div class="Bodytext">
+<p>Structure types are considered as similar to <code>T</code>
+classes, as they should not own external objects, and are normally given names
+beginning with <code>T</code> (although some begin with <code>S</code>).</p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Variable names</h2>
+</div><div class="Bodytext">
+<p>Member variables&#8217; names begin with <code>i</code>, e.g.
+<code>iMember</code>. This makes it easy to check that certain cleanup-related
+rules are being obeyed. Arguments&#8217; names begin with <code>a</code>, e.g.
+<code>aControl</code> or <code>aIndex</code>. Local variables&#8217; names
+have no initial letter. Global variables are usually avoided, but when used,
+their names begin with a capital letter.</p>
+<p>Symbian does not use Hungarian or any notation which attempts to
+include the variable type in its name: such notations are ugly, and become
+impossible to manage when there are several hundred classes in the system. They
+are irrelevant anyway: functions are usually so short that it is easy to see
+the types of variables defined in them, and class browsers provide a quick way
+to find the types of class members.</p>
+<a name="1.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Function names</h2>
+</div><div class="Bodytext">
+<p>Functions&#8217; names indicate what they do. They are usually
+verbs. One exception is &#8220;getter&#8221; functions: for a function
+which returns the value of a member variable, the function name is usually the
+name of the variable, without the leading <code>i</code>:</p>
+<p class="CodeBlock"><code>inline RWindow&amp; Window() const { return iWindow; };</code></p>
+<p>A corresponding &#8220;setter&#8221; function would include the
+word <code>Set</code>, e.g. <code>SetWindow()</code>.</p>
+<p>To terminate functions because of error conditions, the Symbian
+platform does not use standard C++ exception handling, but its own system
+called leaving (see
+<a href="../../APIGuide/Base/MemoryManagement/CleanupSupportOverview.guide.html#MemoryManagementOverview%2eCleanupSupportOverview%2emain">Cleanup Support Overview</a>). Any function that might leave has a name ending in
+<code>...L()</code>. This makes the fundamental process of checking for errors
+easier. The <code>new (ELeave)</code> function might also leave. The
+fundamental leaving function is <code>User::Leave()</code>. Any function that
+contains any of these, and does not trap them, might itself leave, and should
+be coded with a trailing <code>L</code> in its name. If a function calls
+another which might leave, then its name should have the <code>L</code> suffix
+also. </p>
+<p>Associated with the leaving mechanism, is the cleanup stack, which
+allows memory allocated on the heap to be recovered when a leave occurs. An
+allocation or construction function which places data on the cleanup stack ends
+with <code>...LC()</code>. For instance, many <code>new</code>,
+<code>PushL()</code>, <code>ConstructL()</code> sequences are encapsulated in a
+<code>NewLC()</code> function:</p>
+<p class="CodeBlock"><code>CS* s=CS::NewLC(p1, p2);</code></p>
+<p>This allocates the object, initialises it, and leaves it on the
+cleanup stack. This process may leave (if only through the
+<code>PushL()</code>!), so such functions always include an <code>L</code>, and
+are therefore <code>...LC()</code>.</p>
+<p>A function which takes ownership of its object and destroys it has
+a name ending in <code>...D()</code>. An example is the UI framework dialog
+protocol:</p>
+<p class="CodeBlock"><code>CEikDialog* dialog=new (ELeave) CBossSettingsDialog;<br>if (dialog-&gt;ExecuteLD(R_BOSS_SETTINGS_DIALOG))<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;// handle successful settings<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>The <code>ExecuteLD()</code> function includes second-phase
+construction, execution of the dialog and then destruction.</p>
+<a name="1.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Macro names</h2>
+</div><div class="Bodytext">
+<p>Macro names are all capitalised, with underscores to separates
+words.</p>
+<a name="1.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Enumeration names</h2>
+</div><div class="Bodytext">
+<p>Enumerations are named as follows: </p>
+<ul>
+<li>
+<p>as enumerations are types, they have the <code>T</code> prefix</p>
+</li>
+<li>
+<p>enumeration members have the prefix <code>E</code></p>
+</li>
+<li>
+<p>type and members should have a meaningful, unambiguous name</p>
+</li>
+</ul>
+<p>Enumerations should be scoped within the relevant class, so as not to
+pollute the global name space.</p>
+<p>An example of the declaration and use of an enumeration is as
+follows:</p>
+<p class="CodeBlock"><code>class TDemo<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>public:<br>&nbsp;&nbsp;&nbsp;&nbsp;enum TShape {EShapeRound, EShapeSquare};<br>&nbsp;&nbsp;&nbsp;&nbsp;};<br><br>TDemo::TShape shape=TDemo::EShapeSquare;</code></p>
+<a name="1.10"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Constant names</h2>
+</div><div class="Bodytext">
+<p>Names of constants have a prefix <code>K</code>. For example,</p>
+<p class="CodeBlock"><code>const TInt KMaxNameLength=0x20;</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

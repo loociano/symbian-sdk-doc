@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to set date and time</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="AgendaModelGuide%2eHowToEntryDateTime"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToUseEntryClasses.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToAlarmData.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Application&nbsp;Engines</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Agenda&nbsp;Entry&nbsp;and&nbsp;Instance</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;set&nbsp;date&nbsp;and&nbsp;time</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>How to set date and time</h1>
+</div><div class="Bodytext">
+<p>The format of the date and time data for an entry depends on the type of entry.</p>
+<a name="1.4"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Appointments</h2>
+</div><div class="Bodytext">
+<a name="1.4.2"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Appointment</h3>
+</div><div class="Bodytext">
+<p>An appointment typically has a start date-and-time and an end date-and-time. These can be set using <a href="../../../APIReference/AgendaEntry/CAgnApptClass.html#%3a%3aCAgnAppt%3a%3aSetStartAndEndDateTime%28%29" title="Sets the start and end date/times for an appointment"><code class="ApiItem">CAgnAppt::SetStartAndEndDateTime()</code></a>, and retrieved using <a href="../../../APIReference/AgendaEntry/CAgnApptClass.html#%3a%3aCAgnAppt%3a%3aStartDateTime%28%29" title="Returns the start date/time of an appointment entry"><code class="ApiItem">CAgnAppt::StartDateTime()</code></a> and <a href="../../../APIReference/AgendaEntry/CAgnApptClass.html#%3a%3aCAgnAppt%3a%3aEndDateTime%28%29" title="Returns the appointment's end date/time"><code class="ApiItem">CAgnAppt::EndDateTime()</code></a>. </p>
+<a name="1.4.3"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Day note</h3>
+</div><div class="Bodytext">
+<p>Appointments do not <i>have</i> to be timed: if they are not timed, they are known as <em>day notes</em>. Instead of having a start and end date-and-time, a day note has a date and a display time, which can be used by the user interface to tell it where to display the day note in a view that contains times of day, such as a day or week view. </p>
+<p>You can set the display time using <a href="../../../APIReference/AgendaEntry/CAgnApptClass.html#%3a%3aCAgnAppt%3a%3aSetDisplayTime%28%29" title="Sets the display time for day notes"><code class="ApiItem">CAgnAppt::SetDisplayTime()</code></a> and retrieve it using <a href="../../../APIReference/AgendaEntry/CAgnApptClass.html#%3a%3aCAgnAppt%3a%3aDisplayTime%28%29" title="Returns the day note's display time"><code class="ApiItem">CAgnAppt::DisplayTime()</code></a>. </p>
+<p>Day notes are given the default display time when created, which is overridden by <code>SetDisplayTime()</code>. You can find out if an entry has the default display time, using <a href="../../../APIReference/AgendaEntry/CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aHasDefaultDisplayTime%28%29" title="Does the entry use the default display time?"><code class="ApiItem">CAgnBasicEntry::HasDefaultDisplayTime()</code></a>. If <code>SetDisplayTime()</code> has been called, this will return <code>EFalse</code>. </p>
+<p>Note that a timed appointment cannot be given a display time. The display time is inherent in the start date/time.</p>
+<a name="1.5"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>To-do entries</h2>
+</div><div class="Bodytext">
+<p>A to-do entry represents a task or an action to be carried out. It has no start or end date or time. It does have a display time, which allows it to be displayed in views that contain times of day, such as day or week views. Also, it may optionally have a start date (the first date on which it is displayed in day or week views) and either a due date (to indicate the date by which the action should be carried out) or a crossed out date (the date the action was carried out). An undated to-do entry does not have a due date, a crossed out date or a start date. To-do details include the ID of the to-do list to which the to-do belongs and a priority.
+</p>
+<p>To set and get the due or crossed out date, use the functions  <a href="../../../APIReference/AgendaTodoList/CAgnTodoClass.html#%3a%3aCAgnTodo%3a%3aSetDueDate%28%29" title="Sets the due date for a to-do entry"><code class="ApiItem">CAgnTodo::SetDueDate()</code></a>, <a href="../../../APIReference/AgendaTodoList/CAgnTodoClass.html#%3a%3aCAgnTodo%3a%3aCrossedOutDate%28%29" title="Returns the to-do entry's crossed out date, i.e"><code class="ApiItem">CAgnTodo::CrossedOutDate()</code></a>, and <code class="ApiItem">CAgnTodo::SetCrossedOutDate()</code>.</p>
+<p>A to-do also has a display time, to allow it to be displayed in a view that contains times of day, such as a day or week view. This can be set using <a href="../../../APIReference/AgendaTodoList/CAgnTodoClass.html#%3a%3aCAgnTodo%3a%3aSetDisplayTime%28%29" title="Sets the to-do entry's display time"><code class="ApiItem">CAgnTodo::SetDisplayTime()</code></a> and retrieved using <a href="../../../APIReference/AgendaTodoList/CAgnTodoClass.html#%3a%3aCAgnTodo%3a%3aDisplayTime%28%29" title="Returns the to-do entry's display time"><code class="ApiItem">CAgnTodo::DisplayTime()</code></a>.</p>
+<a name="1.6"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Events</h2>
+</div><div class="Bodytext">
+<p>An event has a start date and optionally an end date, and a display time. These can be set/retrieved using the following <a href="../../../APIReference/AgendaEntry/CAgnEventClass.html#%3a%3aCAgnEvent" title="An event entry or instance"><code class="ApiItem">CAgnEvent</code></a> functions: <a href="../../../APIReference/AgendaEntry/CAgnEventClass.html#%3a%3aCAgnEvent%3a%3aSetStartAndEndDate%28%29" title="Sets the start and end dates of the event"><code class="ApiItem">CAgnEvent::SetStartAndEndDate()</code></a>, <a href="../../../APIReference/AgendaEntry/CAgnEventClass.html#%3a%3aCAgnEvent%3a%3aStartDate%28%29" title="Returns the start date of the event entry as set by SetStartAndEndDate()"><code class="ApiItem">CAgnEvent::StartDate()</code></a>, <a href="../../../APIReference/AgendaEntry/CAgnEventClass.html#%3a%3aCAgnEvent%3a%3aEndDate%28%29" title="Returns the event entry's end date as set by SetStartAndEndDate()"><code class="ApiItem">CAgnEvent::EndDate()</code></a>, <a href="../../../APIReference/AgendaEntry/CAgnEventClass.html#%3a%3aCAgnEvent%3a%3aDisplayTime%28%29" title="Returns the event entry's display time"><code class="ApiItem">CAgnEvent::DisplayTime()</code></a>, <a href="../../../APIReference/AgendaEntry/CAgnEventClass.html#%3a%3aCAgnEvent%3a%3aSetDisplayTime%28%29" title="Sets the display time for an event entry"><code class="ApiItem">CAgnEvent::SetDisplayTime()</code></a>.</p>
+<p><code>SetStartAndEndDate()</code> can optionally be called with the start date only: in this case, the end date is set to the same as the start date.</p>
+<a name="1.7"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Anniversaries</h2>
+</div><div class="Bodytext">
+<a name="1.7.2"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Repeating entry</h3>
+</div><div class="Bodytext">
+<p>To create an anniversary entry that repeats yearly on a particular date, create a <a href="../../../APIReference/AgendaEntry/CAgnAnnivClass.html#%3a%3aCAgnAnniv" title="An anniversary entry or instance"><code class="ApiItem">CAgnAnniv</code></a> object and set its repeat details using <a href="../../../APIReference/AgendaEntry/CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aSetRptDefL%28%29" title="Sets the entry's repeat definition"><code class="ApiItem">CAgnEntry::SetRptDefL()</code></a>. The repeat details should be set to repeat yearly from a start to an end date, or forever. Useful functions in setting up the repeat details are <a href="../../../APIReference/AgendaEntry/CAgnRptDefClass.html#%3a%3aCAgnRptDef%3a%3aSetYearlyByDate%28%29" title="Sets the repeat type to yearly by date and sets the repeat details to those contained in aRpt"><code class="ApiItem">CAgnRptDef::SetYearlyByDate()</code></a> and the <a href="../../../APIReference/AgendaEntry/TAgnYearlyByDateRptClass.html#%3a%3aTAgnYearlyByDateRpt" title="A yearly by date repeat, for example 3rd October each year"><code class="ApiItem">TAgnYearlyByDateRpt</code></a> functions <code>SetStartDate()</code>, <code>SetInterval()</code> and <code>SetRepeatForever()</code>.</p>
+<a name="1.7.3"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Base year</h3>
+</div><div class="Bodytext">
+<p>An anniversary can also be given a <em>base year</em>. This is typically used to display the number of years from the base year to the current anniversary — for example, to show someone's age this birthday. The base year is set using <a href="../../../APIReference/AgendaEntry/CAgnAnnivClass.html#%3a%3aCAgnAnniv%3a%3aSetBaseYear%28%29" title="Sets the base year for an anniversary"><code class="ApiItem">CAgnAnniv::SetBaseYear()</code></a>. If the base year is set to a year after the start date, <code>SetBaseYear()</code> adjusts the start date to be in the base year. The base year can be inquired using <a href="../../../APIReference/AgendaEntry/CAgnAnnivClass.html#%3a%3aCAgnAnniv%3a%3aBaseYear%28%29" title="Returns the anniversary entry's base year as set by SetBaseYear()"><code class="ApiItem">CAgnAnniv::BaseYear()</code></a>, and <a href="../../../APIReference/AgendaEntry/CAgnAnnivClass.html#%3a%3aCAgnAnniv%3a%3aHasBaseYear%28%29" title="Retrieves the anniversary entry's has base year property"><code class="ApiItem">CAgnAnniv::HasBaseYear()</code></a> can be used to discover whether or not an anniversary entry has had its base year set. <a href="../../../APIReference/AgendaEntry/CAgnAnnivClass.html#%3a%3aCAgnAnniv%3a%3aSetHasBaseYear%28%29" title="Sets the anniversary entry's has base year property"><code class="ApiItem">CAgnAnniv::SetHasBaseYear()</code></a> may be used to set and unset this.</p>
+<a name="1.7.4"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Non repeating entry</h3>
+</div><div class="Bodytext">
+<p>Note that an anniversary does not have to be a repeating entry: the model does not require it to be repeating. An anniversary can be added to the model with just a start date, which can be set using <code>SetStartAndEndDate()</code> (inherited from <code>CAgnEvent</code>). This would typically be called with the start date only (which would make the end date the same as the start date by default), as it is unusual to have an anniversary that spans more than one day. Note that the start and end date set by <code>SetStartAndEndDate()</code> are not the same as the repeat start and end date set in the repeat details. However, if the repeat details are set after calling <code>SetStartAndEndDate()</code>, the start date will be adjusted to make it the same as the start date in the repeat details. If an anniversary entry's repeat details are set, there is no need to call <code>SetStartAndEndDate()</code> on the entry — the start date is set to the start date of the repeat when <code>SetRptDefL()</code> is called.</p>
+<p>If an anniversary is made repeating, its repeat interval should be set to one year. Calling <code>SetBaseYear()</code> checks this, and causes a panic if the interval is not one year (in debug builds only).</p>
+<p>Anniversaries may optionally be given a non-default display time using <code>SetDisplayTime()</code>.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

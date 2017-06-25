@@ -1,0 +1,135 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Cleanup Support Overview</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="MemoryManagementOverview%2eCleanupSupportOverview%2emain"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="MemoryManagementOverview.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="MemoryAllocationOverview.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Memory&nbsp;Management</a>&nbsp;<span class="separator">&#187;</span>
+Cleanup&nbsp;Support&nbsp;Overview</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Cleanup Support Overview</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Purpose</h2>
+</div><div class="Bodytext">
+<p>Provides idioms to handle program exceptions, and to clean up
+memory when exceptions occur.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Architectural relationships</h2>
+</div><div class="Bodytext">
+<p>EPOC's clean up strategy is closely tied to its general class
+types, particularly classes derived from <a href="../../../APIReference/BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap"><code class="ApiItem">CBase</code></a>.</p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Description</h2>
+</div><div class="Bodytext">
+<p>The API has three key concepts: exception handling, cleanup stack,
+and general cleanup item. </p>
+<a name="1.5.3"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Exception handling</h3>
+</div><div class="Bodytext">
+<p>EPOC does not use standard C++ exceptions (<code>try</code>,
+<code>catch()</code> blocks), but supplies its own idioms. An exception is
+referred to as a <em>leave</em>.</p>
+<p>The <em>trap harness</em> defines a point in code that will
+be immediately jumped to if a leave occurs. The trap harness is set using the
+<a href="../../../APIReference/CleanupSupport/TRAPMacro.html#TRAP" title="Executes the set of C++ statements _s under a trap harness -- use this macro as a C++ statement"><code class="ApiItem">TRAP</code></a> and <a href="../../../APIReference/CleanupSupport/TRAPDMacro.html#TRAPD" title="Use this macro in the same way as you would TRAP, except that the variable _r is defined as part of the macro (and is therefore valid for the rest of the block in which the macro occurs)"><code class="ApiItem">TRAPD</code></a> macros.</p>
+<p>Leaves are raised through calling functions provided by the
+System Static Functions API <code>User</code> class, principally
+<a href="../../../APIReference/SystemStaticFunctions/UserClass.html#%3a%3aUser%3a%3aLeave%28%29" title="Leaves the currently executing function, unwinds the call stack, and returns from the most recently entered trap harness"><code class="ApiItem">User::Leave()</code></a>. Many system functions can result in leaves.
+Leaves may also be raised in user code.</p>
+<a name="1.5.4"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Cleanup stack</h3>
+</div><div class="Bodytext">
+<p>If a leave occurs, any heap allocated resources, such as objects
+created through <code>new()</code>, referred to only through automatic pointer
+variables will be orphaned on the heap, causing a memory leak. To prevent such
+leaks, it is necessary for the program to record any such objects, so that, on
+the event of a leave, the system can automatically find and clean them up. The
+cleanup stack is the means by which this is done. </p>
+<p>The cleanup stack is provided by
+<a href="../../../APIReference/CleanupSupport/CleanupStackClass.html#%3a%3aCleanupStack" title="A collection of static functions that are used to add resources to and remove resources from the cleanup stack"><code class="ApiItem">CleanupStack</code></a>. </p>
+<p>GUI applications have a cleanup stack supplied to them by the
+application framework. Other applications must explicitly create a cleanup
+stack using <a href="../../../APIReference/CleanupSupport/CTrapCleanupClass.html#%3a%3aCTrapCleanup" title="Cleanup stack interface"><code class="ApiItem">CTrapCleanup</code></a>.</p>
+<a name="1.5.5"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>General cleanup item</h3>
+</div><div class="Bodytext">
+<p>By default, the cleanup stack only handles
+<a href="../../../APIReference/BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap"><code class="ApiItem">CBase</code></a>-based classes, and untyped (<code>TAny*</code>)
+objects that can be cleaned up by a simple memory free call. The general
+cleanup item allows other types of object to put on the cleanup stack, by
+making the caller specify a function that is to be called to perform cleanup on
+the object.</p>
+<p>The general cleanup item interface is provided by
+<a href="../../../APIReference/CleanupSupport/TCleanupItemClass.html#%3a%3aTCleanupItem" title="Constructs a TCleanupItem object to be added to the cleanup stack"><code class="ApiItem">TCleanupItem</code></a>.</p>
+<p>Template functions are provided as shortcuts to constructing a
+<a href="../../../APIReference/CleanupSupport/TCleanupItemClass.html#%3a%3aTCleanupItem" title="Constructs a TCleanupItem object to be added to the cleanup stack"><code class="ApiItem">TCleanupItem</code></a> and pushing it onto the cleanup stack. These
+functions are <code>template &lt;class T&gt; void
+CleanupDeletePushL(T*)</code>, <code>template &lt;class T&gt; void
+CleanupClosePushL(T&amp;)</code>, and <code>template &lt;class T&gt; void
+CleanupReleasePushL(T&amp;)</code>.</p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="../BasicTypes/BasicTypesOverview.guide.html#BasicTypesOverview%2emain">Basic Types Overview</a></p>
+<p><a href="../SystemStaticFunctions/SystemStaticFunctionsOverview.guide.html#SystemStaticFunctionsOverview%2emain">System Static Functions Overview</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

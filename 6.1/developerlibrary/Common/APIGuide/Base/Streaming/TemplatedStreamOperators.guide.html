@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Templated stream operators</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="StreamingGuide%2etemplated%2dstream%2doperators"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="ReadStreamInterface.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="ExtIntDescriptors.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Streaming</a>&nbsp;<span class="separator">&#187;</span>
+Templated&nbsp;stream&nbsp;operators</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Templated stream operators</h1>
+</div><div class="Bodytext">
+<p>There are two templated stream operators,
+<code>operator&lt;&lt;</code> and <code>operator&gt;&gt;</code> that can be
+used to externalise and internalise data of all types. They use a syntax that
+is familiar to users of C++ iostreams, or Java streams.</p>
+<p> An object can be externalised to a stream, using a write
+stream:</p>
+<p class="CodeBlock"><code>writeStream &lt;&lt; object;</code></p>
+<p>and later, assuming the operation starts from the appropriate place
+on the stream, the data can be internalised again, using a read stream:</p>
+<p class="CodeBlock"><code>readStream &gt;&gt; object;</code></p>
+<p>The implementation of the operators depends on the type of object on
+which they are called.</p>
+<a name="1.9"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Implementation for a class defining <code>ExternalizeL()</code>
+&amp; <code>InternalizeL()</code></h2>
+</div><div class="Bodytext">
+<p>For a class that defines and implements the
+<code>ExternalizeL()</code> and <code>InternalizeL()</code> functions, the
+Store framework:</p>
+<ul>
+<li>
+<p>implements <code>operator&lt;&lt;</code> by calling the
+<code>ExternalizeL()</code> member function of that class.</p>
+</li>
+<li>
+<p>implements <code>operator&gt;&gt;</code> by calling the
+<code>InternalizeL()</code> member function of that class.</p>
+</li>
+</ul>
+<a name="1.10"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Implementation for standard types and classes</h2>
+</div><div class="Bodytext">
+<p>The Store framework provides the necessary implementation for the
+operators to externalise and internalise the following:</p>
+<ul>
+<li>
+<p>The basic types: <code>TInt8</code>, <code>TInt16</code>,
+<code>TInt32</code>, <code>TInt64</code>, <code>TUint8</code>,
+<code>TUint16</code>, <code>TUint32</code>, <code>TReal32</code> and
+<code>TReal64</code>.</p>
+</li>
+<li>
+<p>The graphics API classes: <code>TPoint</code>,
+<code>TSize</code> and <code>TRect</code>.</p>
+</li>
+<li>
+<p>The UID Manipulation API class: <code>TUid</code>.</p>
+</li>
+<li>
+<p>The Dynamic Buffers API classes: <code>CBufFlat</code> and
+<code>CBufSeg</code>.</p>
+</li>
+</ul>
+<a name="1.11"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Implementation for non-class types</h2>
+</div><div class="Bodytext">
+<p>For non-class types, for example enumerators, a
+<em>specialized</em> implementation of the operators must be defined and
+implemented for that specific non-class type. The definition of the operators
+must conform to the templated definitions.</p>
+<p>For example, for a class <code>TSimple</code> that contains an
+enumeration of type <code>TXxx</code> as a data member:</p>
+<p class="CodeBlock"><code>    enum  TXxx {EX1,EX2,EX3};</code></p>
+<p class="CodeBlock"><code>    class TSimple<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;public :<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;void ExternalizeL(RWriteStream&amp; aStream) const;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;void InternalizeL(RReadStream&amp; aStream);<br>&nbsp;&nbsp;&nbsp;&nbsp;public :<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TXxx     iTheEnum;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TUint    iUintValue;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;};</code></p>
+<p>The <code>iTheEnum</code> data member is externalised using
+<code>operator&lt;&lt;</code> and internalised using
+<code>operator&gt;&gt;</code>:</p>
+<p class="CodeBlock"><code>void TSimple::ExternalizeL(RWriteStream&amp; aStream) const<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aStream &lt;&lt; iTheEnum;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p class="CodeBlock"><code>void TSimple::InternalizeL(RReadStream&amp; aStream)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aStream &gt;&gt; iTheEnum;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>As <code>TXxx</code> is a non-class type, the operators are
+implemented:</p>
+<p class="CodeBlock"><code>RWriteStream&amp; operator&lt;&lt;(RWriteStream&amp; aStream, const TXxx&amp; anXxx)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aStream.WriteInt8L(anXxx);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return aStream;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p class="CodeBlock"><code>RReadStream&amp;  operator&gt;&gt;(RReadStream&amp;  aStream, TXxx&amp; anXxx)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;anXxx = TXxx(aStream.ReadInt8L());<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return aStream;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>The enumerator value is written to the stream using
+<code>RWriteStream::WriteInt8L()</code>. Implicit here is the assumption that
+the enumeration can be represented by just 8 bits.</p>
+<a name="1.12"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Implementation for a class <em>without</em>
+<code>ExternalizeL()</code> &amp; <code>InternalizeL()</code></h2>
+</div><div class="Bodytext">
+<p>The operators may be used on class types that do not define and
+implement <code>InternalizeL()</code> and <code>ExternalizeL()</code>
+functions. This is done by defining and implementing some extra global
+functions.</p>
+<p>In practice, it is much simpler to define and implement
+<code>InternlizeL()</code> and <code>ExternalizeL()</code> for a class, and all
+new classes should include these functions. However, there may be rare
+situations, for example, when porting classes, where it may be undesirable to
+define them.</p>
+<p>To support the use of the operators for such a class, for example,
+for the class <code>TNonStore</code> defined as:</p>
+<p class="CodeBlock"><code>    class TNonStore<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;public :<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;void  SetBuffer(const TDesC&amp; aData);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TPtrC GetBuffer() const;<br>&nbsp;&nbsp;&nbsp;&nbsp;private :<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TBuf&lt;32&gt; iBuffer;<br>&nbsp;&nbsp;&nbsp;&nbsp;public :<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TInt     iIntValue;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TUint    iUintValue;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TReal    iRealValue;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;};</code></p>
+<ul>
+<li>
+<p><em>implement</em> the following
+<code>Externalization()</code> and <code>Internalization()</code>
+<em>global</em> functions:</p>
+<p class="CodeBlock"><code>inline Externalize::Function Externalization(const TNonstore*)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{return Externalize::Function();}</code></p>
+<p class="CodeBlock"><code>inline Internalize::Function Internalization(TNonstore*)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{return Internalize::Function();}</code></p>
+</li>
+<li>
+<p><em>declare</em> the following <code>ExternalizeL()</code>
+and <code>InternalizeL()</code>
+<em>global</em> functions:</p>
+<p class="CodeBlock"><code>void ExternalizeL(const TNonstore&amp; aClass,RWriteStream&amp; aStream);</code></p>
+<p class="CodeBlock"><code>void InternalizeL(TNonstore&amp; aClass,RReadStream&amp; aStream);</code></p>
+</li>
+<li>
+<p><em>implement</em> the <code>ExternalizeL()</code> and
+<code>InternalizeL()</code>
+<em>global</em> functions to implement the
+streaming of <code>TNonstore</code>'s components. For this example
+class:</p>
+<p class="CodeBlock"><code>    void ExternalizeL(const TNonStore&amp; aClass,RWriteStream&amp; aStream)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aStream.WriteInt32L(aClass.iIntValue);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aStream.WriteUint32L(aClass.iUintValue);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aStream.WriteReal64L(aClass.iRealValue);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aStream &lt;&lt; aClass.GetBuffer();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>&nbsp;&nbsp;&nbsp;&nbsp;void InternalizeL(TNonStore&amp; aClass,RReadStream&amp; aStream)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aClass.iIntValue  = aStream.ReadInt32L();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aClass.iUintValue = aStream.ReadUint32L();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aClass.iRealValue = aStream.ReadReal64L();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TBuf&lt;32&gt; temp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aStream &gt;&gt; temp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aClass.SetBuffer(temp);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+</li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

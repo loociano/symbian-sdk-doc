@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to query for a remote service</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="bt%2eguide%2esdpa%2eservice"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="BluetoothServiceDiscoveryAgentoverview.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="Howtoattribs.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Bluetooth</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Bluetooth&nbsp;Service&nbsp;Discovery&nbsp;Agent</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;query&nbsp;for&nbsp;a&nbsp;remote&nbsp;service</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>How to query for a remote service</h1>
+</div><div class="Bodytext">
+<p>The Service Discovery Agent is used to perform queries about the Bluetooth services that are available on a specified remote device. It is typically used after the suitable devices that are in range have been identified through the <a href="../UsingBluetoothSockets/index.html#bt%2eguide%2esockets%2eindex">Bluetooth Sockets</a> API.</p><p>A service search returns the record handles of services that are of a specified class or classes (UUID numbers). If the search is for more than one UUID, then all the UUIDs must exist in a service record for it to be considered a match.</p><p>Service search results are returned through asynchronous callbacks to an <a href="../../../APIReference/BluetoothServiceDiscoveryAgent/MSdpAgentNotifierClass.html#%3a%3aMSdpAgentNotifier" title="Handles responses to Bluetooth Service Discovery Protocol queries"><code class="ApiItem">MSdpAgentNotifier</code></a> interface, which the querier must implement, as discussed later.</p><p>The steps to perform a service search are as follows:</p>
+<ol><li><p>Create a <a href="../../../APIReference/BluetoothServiceDiscoveryAgent/CSdpAgentClass.html#%3a%3aCSdpAgent" title="Makes Bluetooth service discovery protocol (SDP) requests to a remote device"><code class="ApiItem">CSdpAgent</code></a> object, supplying it  with an <a href="../../../APIReference/BluetoothServiceDiscoveryAgent/MSdpAgentNotifierClass.html#%3a%3aMSdpAgentNotifier" title="Handles responses to Bluetooth Service Discovery Protocol queries"><code class="ApiItem">MSdpAgentNotifier</code></a> and the device address of the remote Bluetooth device.</p></li><li><p>Create a <a href="../../../APIReference/BluetoothServiceDiscoveryAgent/CSdpSearchPatternClass.html#%3a%3aCSdpSearchPattern" title="A list of Bluetooth service classes, represented as Universal Unique Identifiers (UUIDs), to be matched in SDP Service Search Requests"><code class="ApiItem">CSdpSearchPattern</code></a> object to specify the service classes to search for. Classes can be added through <a href="../../../APIReference/BluetoothServiceDiscoveryAgent/CSdpSearchPatternClass.html#%3a%3aCSdpSearchPattern%3a%3aAddL%28%29" title="Adds a UID to the list"><code class="ApiItem">CSdpSearchPattern::AddL()</code></a>.</p></li><li><p>Set the search pattern on the agent object using <a href="../../../APIReference/BluetoothServiceDiscoveryAgent/CSdpAgentClass.html#%3a%3aCSdpAgent%3a%3aSetRecordFilterL%28%29" title="Sets the classes of service to query for on the remote device"><code class="ApiItem">CSdpAgent::SetRecordFilterL()</code></a>.</p></li><li><p>Call <a href="../../../APIReference/BluetoothServiceDiscoveryAgent/CSdpAgentClass.html#%3a%3aCSdpAgent%3a%3aNextRecordRequestL%28%29" title="Gets a handle to the record for the next (or first) service on the remote device that matches the service class filter previously set"><code class="ApiItem">CSdpAgent::NextRecordRequestL()</code></a> to get search results until results are exhausted, or sufficient results have been obtained.</p></li></ol><h4 class="subheading">Example</h4><p class="CodeBlock"><code>// 1. Create agent. Assume rcvr implements MSdpAgentNotifier<br>// and devAddr is the address of the remote device<br>CSdpAgent* agent = CSdpAgent::NewLC(rcvr, devAddr);<br><br>// 2. Create a search pattern and add a service classes to it<br>CSdpSearchPattern* list = CSdpSearchPattern::NewL();<br>list-&gt;AddL(0x0100);<br><br>// 3. Set the search pattern on the agent<br>agent-&gt;SetRecordFilterL(*list);<br><br>// 4. Get first search result: results in call back to rcvr<br>agent-&gt;NextRecordRequestL();</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

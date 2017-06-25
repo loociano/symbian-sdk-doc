@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CEchoWrite class</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="TcpipGuide3%2eCechowriteClass"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CechoreadClass.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="Eikecho.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Networking</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;TCP/IP</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Echo&nbsp;Example&nbsp;Program</a>&nbsp;<span class="separator">&#187;</span>
+CEchoWrite&nbsp;class</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1><code>CEchoWrite</code> class</h1>
+</div><div class="Bodytext">
+<p>As you would expect, <code>CEchoWrite</code> is similar to <code>CEchoRead</code>: it wraps an asynchronous write socket call (<code>RSocket::</code>
+<code>Write()</code>) in an active object. The request is made by <code>IssueWrite()</code>:</p>
+<p class="CodeBlock"><code>void CEchoWrite::IssueWrite(const TChar &amp;aChar)<br>// Write character to a stream socket<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;iBuffer.SetLength(0);<br>&nbsp;&nbsp;&nbsp;&nbsp;iBuffer.Append(aChar);<br>&nbsp;&nbsp;&nbsp;&nbsp;iEchoSocket-&gt;Write(iBuffer, iStatus);<br>&nbsp;&nbsp;&nbsp;&nbsp;iTimer-&gt;After(iTimeOut);<br>&nbsp;&nbsp;&nbsp;&nbsp;SetActive();<br>&nbsp;&nbsp;&nbsp;&nbsp;iWriteStatus = ESending;<br>&nbsp;&nbsp;&nbsp;&nbsp;};</code></p>
+<p>A one character buffer containing the character to write is passed to the <code>RSocket::Write()</code> call. As with <code>CEchoEngine::ConnectL()</code>, the function uses a time-out object to protect against excessive time waiting.  </p>
+<p><code>CEchoWrite::RunL()</code> is defined simply to check that no error occurred on the write operation. </p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

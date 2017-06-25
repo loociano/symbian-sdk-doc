@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to use a notifier to display a simple dialog, asynchronously</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="NotificationServicesGuide%2ehow%2dto%2enotifier%2dasynchronous"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToThreadDeath.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToNotifierSynchronous.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Inter&nbsp;Process&nbsp;Communciation</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Notification&nbsp;Services</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;use&nbsp;a&nbsp;notifier&nbsp;to&nbsp;display&nbsp;a&nbsp;simple&nbsp;dialog,&nbsp;asynchronously</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to use a notifier to display a simple dialog,
+asynchronously</h1>
+</div><div class="Bodytext">
+<p>To display a simple dialog box:</p>
+<ul>
+<li>
+<p>construct an <code>RNotifier</code> object and then call its
+<code>Connect()</code> member function to create a session with the Notifier
+server.</p>
+</li>
+<li>
+<p>call the <code>Notify()</code> member function of the
+<code>RNotifier</code>, passing descriptors containing the two lines of text to
+be displayed and the characters for the buttons. <code>Notify()</code> makes an
+asynchronous request to the notifier server.</p>
+</li>
+</ul>
+<p>When the user keys in one of the button characters, the requesting
+thread's <em>request semaphore</em> is signalled to
+indicate that the notifier request is complete. The <code>TRequestStatus</code>
+object supplied by the requesting thread is set to
+<code>KErrNone</code>.</p>
+<p>In addition, a <code>TInt</code>, passed by reference to
+<code>Notify()</code>, is set to 0 or 1 depending on whether the first or the
+second button is selected.</p>
+<p>The session is closed by calling the <code>Close()</code> member
+function of the <code>RNotifier</code>.</p>
+<p>The following code fragments demonstrate this:</p>
+<p class="CodeBlock"><code>{<br>_LIT(KTxtLine1,&quot;First line&quot;);<br>_LIT(KTxtLine2,&quot;Second line&quot;);<br>_LIT(KButt1,&quot;a&quot;);<br>_LIT(KButt2,&quot;b&quot;);<br>...<br>TInt           whichbutton(-1);<br>TRequestStatus stat;<br>...<br>RNotifier      notifier;<br>...<br>notifier.Connect();<br>...<br>notifier.Notify(KTxtLine1,KTxtLine2,KButt1,KButt2,whichbutton,stat);<br>...<br>// other code<br>...<br>User::WaitForRequest(stat);<br>...<br>if (whichbutton==0)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;// first button selected<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>if (whichbutton==1)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;// Second button selected<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>...<br>notifier.Close();<br>...<br>}</code></p>
+<p>Note that the descriptor parameters passed to<code> Notify()</code>
+must remain in existence until the notify request completes; this may be some
+time after the call to <code>Notify()</code> itself.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,2267 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CTextLayout</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CLayoutDataClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="CTextPaginatorClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Text&nbsp;Views</a>&nbsp;<span class="separator">&#187;</span>
+CTextLayout</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code> frmtlay.h </code>
+<br>Link against: <code> form.lib </code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aCTextLayout"></a>
+
+<h1>Class <code>CTextLayout</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CTextLayout</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Text layout.</p>
+<p><code>CTextLayout</code> is the lowest-level text formatting class
+in the Text Views API. It obtains text and formatting attributes via
+the <code>MLayDoc</code> interface class and formats the text to a certain
+width.</p>
+<p>It has functions for drawing the text and performing hit-detection
+&#8212; that is, converting x-y coordinates to document positions, and vice
+versa. It defines many public functions that are not generally useful, but are
+called by the higher-level <code>CTextView</code> class, or exist only for the
+convenience of closely associated classes like the printing and pagination
+systems. These are identified in the documentation by the text &quot;not generally
+useful&quot;.</p>
+<p>When using the <code>CTextLayout</code> class, you must be aware of what functions have previously been called.  For example:</p>
+<p>1) Formatting and scrolling functions must not be called if a
+<code>CTextView</code> object owns the <code>CTextLayout</code> object, because
+the <code>CTextView</code> object may be reformatting the
+<code>CTextLayout</code> object asynchronously by means of an active object, or
+may hold some state information about the <code>CTextLayout</code> object that
+would be invalidated by reformatting. These functions are identified in the
+documentation by the text &quot;Do not use if a <code>CTextView</code> object owns
+this <code>CTextLayout</code> object.&quot;.</p>
+<p>2) Functions that raise out of memory exceptions can leave the
+object in an inconsistent state; these functions can be identified as usual by
+their trailing <code>L</code>. When this occurs, it is necessary to discard the
+formatting information by calling <code>DiscardFormat()</code>.</p>
+<p>3) Some functions change formatting parameters like the wrap width
+or band height, but do not reformat to reflect the change. These functions are
+identified in the documentation by the text &quot;Reformat needed&quot;.</p>
+<h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase">CBase</a></code></td><td class="Cell">Base class for all classes to be instantiated on the heap</td>
+</tr>
+<tr><td class="Cell"><code>CTextLayout</code></td><td class="Cell">Text layout</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>CTextLayout</code>:
+<br><code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aAdjustVerticalAlignment%28%29" title="Temporarily changes the vertical alignment of the text with respect to the visible height">AdjustVerticalAlignment()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aAnonymous" title="Flags used by CTextLayout::XyPosToDocPosL() and DocPosToXyPosL()">Anonymous</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aBandHeight%28%29" title="Gets the height of the band in pixels or twips">BandHeight()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aCalculateHorizontalExtremesL%28%29" title="Returns the left and right extremes, in layout coordinates, of the formatted text">CalculateHorizontalExtremesL()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aChangeBandTopL%28%29" title="Scrolls the text up or down by aPixels pixels, disallowing blank space at the bottom of the visible area if aScrollBlankSpace is CTextLayout::EFDisallowScrollingBlankSpace">ChangeBandTopL()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aCustomDraw%28%29" title="Returns a pointer to the current custom drawing implementation">CustomDraw()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aDiscardFormat%28%29" title="Discards all formatting information">DiscardFormat()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aDocPosToXyPosL%28%29" title="Returns the x-y coordinates of the document position aDocPos in aPos">DocPosToXyPosL()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aDocumentLength%28%29" title="Returns the document length in characters, including all the text, not just the formatted portion, but not including the final paragraph delimiter (the "end-of-text character") if any">DocumentLength()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aDrawBorders%28%29" title="Draws paragraph borders, optionally with a background colour for the border and a clip region">DrawBorders()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aDrawL%28%29" title="Draws the text">DrawL()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aEFAllParagraphsNotWrapped" title="Wrapping off; overrides the paragraph format">EFAllParagraphsNotWrapped</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aEFAllowScrollingBlankSpace" title="Allow blank space to scroll">EFAllowScrollingBlankSpace</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aEFCharacterInsert" title="Insert a character, (not a paragraph delimiter)">EFCharacterInsert</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aEFDisallowScrollingBlankSpace" title="Disallow blank space from scrolling">EFDisallowScrollingBlankSpace</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aEFFormatAllText" title="Format the whole document">EFFormatAllText</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aEFFormatBand" title="Format the visible band only">EFFormatBand</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aEFIndividualChars" title="Convert coordinates to nearest character">EFIndividualChars</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aEFLeftDelete" title="Delete single character to the left">EFLeftDelete</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aEFMaximumLineWidth" title="The maximum line width when wrapping is unset">EFMaximumLineWidth</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aEFNoCurrentFormat" title="Returned by some CTextLayout enquiry functions to indicate that no formatting has taken place so that the requested value cannot be calculated">EFNoCurrentFormat</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aEFNotInCurrentFormat" title="Returned by CTextLayout::ParagraphHeight() when the paragraph is not formatted">EFNotInCurrentFormat</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aEFParagraphDelimiter" title="Insert a paragraph delimiter">EFParagraphDelimiter</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aEFParagraphsWrappedByDefault" title="Wrapping on, unless CParaFormat::iWrap is false">EFParagraphsWrappedByDefault</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aEFRightDelete" title="Delete single character to the right">EFRightDelete</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aEFScrollRedrawWholeScreen" title="A value greater than any possible display height -- indicates that the entire visible area, at least, was scrolled, and so there is no point in blitting text; a full redraw is needed">EFScrollRedrawWholeScreen</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aEFViewDiscardAllFormat" title="Discard all the formatting">EFViewDiscardAllFormat</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aEFViewDontDiscardFormat" title="Do not discard formatting until it is known that it is not needed">EFViewDontDiscardFormat</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aEFWholeLinesOnly" title="Convert coordinates to start or end of line">EFWholeLinesOnly</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aExcludingPartialLines%28%29" title="Tests whether partial lines at the top and bottom of the view are currently excluded">ExcludingPartialLines()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aFirstCharOnLine%28%29" title="Gets the document position of the first character in the specified line, counting the first line as line one (not zero) in the band">FirstCharOnLine()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aFirstDocPosFullyInBand%28%29" title="Gets the first document position in a line that starts at or below the top of the visible area">FirstDocPosFullyInBand()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aFirstFormattedPos%28%29" title="Returns the document position of the first formatted character">FirstFormattedPos()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aFirstLineInBand%28%29" title="Returns the line number, counting from 0, of the first fully visible line">FirstLineInBand()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aFontHeightIncreaseFactor%28%29" title="Returns the font height increase factor as a percentage (i.e">FontHeightIncreaseFactor()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aForceNoWrapping%28%29" title="Turns wrapping on (if aNoWrapping is EFParagraphsWrappedByDefault) or off (if aNoWrapping is EFAllParagraphsNotWrapped)">ForceNoWrapping()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aFormatBandL%28%29" title="Formats enough text to fill the visible band">FormatBandL()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aFormatCharRangeL%28%29" title="Sets the formatted text to begin at the start of the paragraph including aStartPos and end at aEndPos">FormatCharRangeL()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aFormatLineL%28%29" title="Controls the height of a single line, for use by the pagination system only">FormatLineL()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aFormatNextLineL%28%29" title="A special function to support background formatting by the higher level CTextView class">FormatNextLineL()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aFormattedHeightInPixels%28%29" title="Returns the height in pixels of the formatted text">FormattedHeightInPixels()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aFormattedLength%28%29" title="Returns the number of formatted characters">FormattedLength()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aGetCharacterHeightAndAscentL%28%29" title="Gets the height (ascent + descent) and ascent of the font of the character at aDocPos, as created using the graphics device map used for drawing (the "image device") and returns them in aHeight and aAscent, after increasing aHeight by the font height increase factor (see SetFontHeightIncreaseFactor())">GetCharacterHeightAndAscentL()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aGetFontHeightAndAscentL%28%29" title="Gets the height (ascent + descent) and ascent of the font specified by aFontSpec, as created using the graphics device map used for drawing (the "image device") and puts them into aHeight and aAscent, after increasing aHeight by the font height increase factor (see SetFontHeightIncreaseFactor())">GetFontHeightAndAscentL()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aGetLineRect%28%29" title="Gets the rectangle enclosing the formatted line that contains or is closest to y coordinate aYPos">GetLineRect()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aGetLineRectL%28%29" title="Gets a rectangle enclosing two formatted document positions on the same line">GetLineRectL()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aGetMinimumSizeL%28%29" title="Gets the width and height of the bounding box of the text, including indents and margins, when formatted to the specified wrap width">GetMinimumSizeL()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aHandleAdditionalCharactersAtEndL%28%29" title="Reformats to reflect the addition of one or more complete paragraphs at the end of the text">HandleAdditionalCharactersAtEndL()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aHandleBlockChangeL%28%29" title="Reformats to reflect changes to a block of text">HandleBlockChangeL()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aHandleCharEditL%28%29" title="Reformats to reflect a single character edit">HandleCharEditL()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aInvertRangeL%28%29" title="Toggles the range of text in aHighlight by exclusive-ORing">InvertRangeL()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aIsBackgroundFormatting%28%29" title="Tests whether background formatting is currently taking place">IsBackgroundFormatting()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aIsFormattingBand%28%29" title="Tests whether band formatting is on, as set by CTextLayout::SetAmountToFormat()">IsFormattingBand()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aIsWrapping%28%29" title="Tests whether wrapping is on or off">IsWrapping()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aMinimumLineDescent%28%29" title="Returns the minimum line descent in pixels">MinimumLineDescent()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aNewL%28%29" title="Allocates and constructs a CTextLayout object">NewL()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aNonPrintingCharsVisibility%28%29" title="Returns which non-printing characters are drawn using symbols">NonPrintingCharsVisibility()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aNotifyTerminateBackgroundFormatting%28%29" title="CTextView calls this function when background formatting has ended">NotifyTerminateBackgroundFormatting()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aNumFormattedLines%28%29" title="Gets the number of formatted lines">NumFormattedLines()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aPageDownL%28%29" title="Scrolls down by a page (that is the band height as set by SetBandHeight(), or half that amount if scrolling over lines taller than this), moving the text upwards">PageDownL()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aPageUpL%28%29" title="Scrolls up by a page (that is the band height as set by SetBandHeight(), or half that amount if scrolling over lines taller than this), moving the text downwards">PageUpL()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aParagraphHeight%28%29" title="Returns the height of the paragraph containing aDocPos">ParagraphHeight()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aParagraphRectL%28%29" title="Returns the rectangle enclosing the paragraph containing aDocPos">ParagraphRectL()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aPictureRectangleL%28%29" title="Gets the bounding rectangle of the picture, if any, located at the document position or coordinates specified, and returns it in aPictureRect">PictureRectangleL()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aPixelsAboveBand%28%29" title="Returns the height in pixels of any formatted text above the visible region">PixelsAboveBand()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aPosInBand%28%29" title="Tests whether the document position aDocPos is fully or partially visible">PosInBand()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aPosIsFormatted%28%29" title="Tests whether the character aDocPos is formatted">PosIsFormatted()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aPosRangeInBand%28%29" title="Returns the number of fully or partially visible characters in the visible band">PosRangeInBand()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aReformatVerticalSpaceL%28%29" title="Reformats to reflect changes to the space above and below paragraphs (CParaFormat::iSpaceBeforeInTwips and iSpaceAfterInTwips)">ReformatVerticalSpaceL()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aScrollLinesL%28%29" title="Scrolls the text up or down by aNumLines lines, disallowing blank space at the bottom of the visible area if aScrollBlankSpace is CTextLayout::EFDisallowScrollingBlankSpace">ScrollLinesL()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aScrollParagraphsL%28%29" title="Scrolls the text up or down by aNumParas paragraphs, disallowing blank space at the bottom of the visible area if aScrollBlankSpace is CTextLayout::EFDisallowScrollingBlankSpace">ScrollParagraphsL()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aSetAmountToFormat%28%29" title="Sets whether to format all the text (if aAmountOfFormat is EFFormatAllText), or just the visible band (if aAmountOfFormat is EFFormatBand)">SetAmountToFormat()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aSetBandHeight%28%29" title="Sets the height of the band in pixels or twips">SetBandHeight()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aSetCustomDraw%28%29" title="Sets the custom drawing object, for customising the way text and its background are drawn">SetCustomDraw()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aSetExcludePartialLines%28%29" title="Specifies whether partially displayed lines (at the top and bottom of the view) are to be prevented from being drawn, and whether the top of the display is to be aligned to the nearest line">SetExcludePartialLines()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aSetFontHeightIncreaseFactor%28%29" title="Sets the percentage by which font heights are increased in order to provide automatic extra spacing (leading) between lines">SetFontHeightIncreaseFactor()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aSetFormatMode%28%29" title="Sets the format mode and wrap width and (for certain format modes only) sets the formatting device">SetFormatMode()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aSetImageDeviceMap%28%29" title="Sets the device map used for drawing and formatting">SetImageDeviceMap()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aSetLabelsDeviceMap%28%29" title="Sets the device map used for formatting and drawing paragraph labels">SetLabelsDeviceMap()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aSetLabelsMarginWidth%28%29" title="Sets the width in pixels of the margin in which labels are drawn">SetLabelsMarginWidth()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aSetLayDoc%28%29" title="Sets the layout object's source text to aDoc">SetLayDoc()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aSetMinimumLineDescent%28%29" title="Sets the minimum line descent in pixels">SetMinimumLineDescent()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aSetNonPrintingCharsVisibility%28%29" title="Specifies which non-printing characters (e.g">SetNonPrintingCharsVisibility()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aSetTruncating%28%29" title="Sets the truncation mode">SetTruncating()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aSetTruncatingEllipsis%28%29" title="Sets the ellipsis character to be used if truncation is on">SetTruncatingEllipsis()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aSetViewL%28%29" title="Changes the top of the visible area so that the line containing aDocPos is vertically positioned at aYPos">SetViewL()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aSetWrapWidth%28%29" title="Sets the wrap width">SetWrapWidth()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aTAllowDisallow" title="Indicates whether blank space should scroll">TAllowDisallow</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aTAmountFormatted" title="Amount to format">TAmountFormatted</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aTCurrentFormat" title="Formatting information">TCurrentFormat</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aTDiscard" title="Flags used by CTextLayout::SetViewL()">TDiscard</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aToParagraphStart%28%29" title="Sets aDocPos to the paragraph start and returns the amount by which aDocPos has changed, as a non-negative number">ToParagraphStart()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aTruncating%28%29" title="Tests whether truncation is on (as set by SetTruncating())">Truncating()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aTruncatingEllipsis%28%29" title="Returns the ellipsis character used when truncation is on">TruncatingEllipsis()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aXyPosToDocPosL%28%29" title="Returns the document position of the nearest character edge to aPos">XyPosToDocPosL()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3aYBottomLastFormattedLine%28%29" title="Returns the y coordinate of the bottom of the last formatted line, relative to the top of the visible region">YBottomLastFormattedLine()</a></code>, <code class="ApiItem"><a href="CTextLayoutClass.html#%3a%3aCTextLayout%3a%3a%7eCTextLayout%28%29" title="The destructor frees all resources owned by the object, prior to its destruction">~CTextLayout()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap">CBase</a></code>:
+<br><code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase%3a%3aoperator%20new%28%29" title="Allocates the object from the heap and then initialises its contents to binary zeroes">operator new()</a></code></p>
+<a name="2.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction and destruction</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aNewL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NewL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static CTextLayout *NewL(MLayDoc *aDoc,TInt aWrapWidth);</code></p><h4 class="subheading">Description</h4>
+<p>Allocates and constructs a <code>CTextLayout</code> object. By
+default, the formatting is set to the entire document
+(<code>EFFormatAllText</code>).</p>
+<p>Reformat needed.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> MLayDoc *aDoc </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the <code>MLayDoc</code> implementation that is the
+source of the text and formatting information. Must not be NULL or a panic
+occurs. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aWrapWidth </code></td>
+<td class="Cell"><p class="ValueDesc"> The wrapping width in pixels. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CTextLayout * </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the new <code>CTextLayout</code> object. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3a%7eCTextLayout%28%29"></a>
+<hr size="1" noshade>
+<h3><code>~CTextLayout()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>~CTextLayout();</code></p><h4 class="subheading">Description</h4>
+<p>The destructor frees all resources owned by the object, prior to
+its destruction.</p>
+<a name="2.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>The band</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aSetBandHeight%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetBandHeight()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetBandHeight(TInt aHeight);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the height of the band in pixels or twips. This is the height
+of the visible text, or the view window, and it is also the page height for the
+purposes of scrolling up and down by page. If <code>aHeight</code> is less than
+1 the value 1 is used. If the current mode is screen mode
+(<code>CLayoutData::EFScreenMode</code>) or what-you-see-is-what-you-get mode
+(<code>CLayoutData::EFWysiwygMode</code>), <code>aHeight</code> is in pixels,
+otherwise it is in twips.</p>
+<p>Reformat needed.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aHeight </code></td>
+<td class="Cell"><p class="ValueDesc"> The band height in pixels or twips. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aBandHeight%28%29"></a>
+<hr size="1" noshade>
+<h3><code>BandHeight()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt BandHeight() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the height of the band in pixels or twips.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The height of the band in pixels or twips. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.4"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aSetAmountToFormat%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetAmountToFormat()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetAmountToFormat(TAmountFormatted aAmountOfFormat=EFFormatBand);</code></p><h4 class="subheading">Description</h4>
+<p>Sets whether to format all the text (if <code>aAmountOfFormat</code>
+is <code>EFFormatAllText</code>), or just the visible band (if
+<code>aAmountOfFormat</code> is <code>EFFormatBand</code>). If band formatting
+is selected, enough text is formatted to fill the visible height.</p>
+<p>Reformat needed.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TAmountFormatted aAmountOfFormat </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>CTextLayout::EFFormatBand</code> (the default) to format the
+visible text only. <code>CTextLayout::EFFormatAllText</code> to format all the
+text in the document. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.5"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aIsFormattingBand%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IsFormattingBand()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool IsFormattingBand() const;</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether band formatting is on, as set by
+<code>CTextLayout::SetAmountToFormat()</code>.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool </code></td>
+<td class="Cell"><p class="ValueDesc"> True if band formatting is on, false if not. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.6"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aPosRangeInBand%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PosRangeInBand()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt PosRangeInBand(TInt&amp; aDocPos) const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns the number of fully or partially visible characters in the
+visible band.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aDocPos </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, contains the document position of the first fully or
+partially visible character in the band. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The total number of characters in the band. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.7"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aPosInBand%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PosInBand()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool PosInBand(TInt aDocPos,TPoint&amp; aXyPos) const;</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether the document position <code>aDocPos</code> is fully or
+partially visible. If it is, puts the y coordinate of the left-hand end of the
+baseline of the line
+containing <code>aDocPos</code> into <code>aXyPos</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aDocPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position of interest. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TPoint&amp; aXyPos </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, contains the y coordinate of the left-hand end of the
+baseline of the line containing <code>aDocPos</code>. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool </code></td>
+<td class="Cell"><p class="ValueDesc"> True if the position is visible. False if the position is not
+visible.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.8"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aFirstLineInBand%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FirstLineInBand()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt FirstLineInBand() const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns the line number, counting from 0, of the first fully visible
+line.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The line number of the first fully visible line. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.9"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aFirstDocPosFullyInBand%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FirstDocPosFullyInBand()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt FirstDocPosFullyInBand() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the first document position in a line that starts at or below the
+top of the visible area. If there is no such line, returns the position after
+the last formatted character.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position of the first character in a line within the
+visible area. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.10"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aPixelsAboveBand%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PixelsAboveBand()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt PixelsAboveBand() const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns the height in pixels of any formatted text above the visible
+region.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The height in pixels of any formatted text above the visible
+region.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Wrapping and truncation</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aSetWrapWidth%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetWrapWidth()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetWrapWidth(TInt aWrapWidth);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the wrap width. If the current format mode is screen mode
+(<code>CLayoutData::EFScreenMode</code>) <code>aWrapWidth</code> is in pixels,
+otherwise it is in twips. </p>
+<p>Reformat needed.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aWrapWidth </code></td>
+<td class="Cell"><p class="ValueDesc"> The wrap width in pixels or twips. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aForceNoWrapping%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ForceNoWrapping()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ForceNoWrapping(TBool aNoWrapping=EFAllParagraphsNotWrapped);</code></p><h4 class="subheading">Description</h4>
+<p>Turns wrapping on
+(if <code>aNoWrapping</code> is <code>EFParagraphsWrappedByDefault</code>) or off
+(if <code>aNoWrapping</code> is <code>EFAllParagraphsNotWrapped</code>).
+Overrides the paragraph format when wrapping is turned off&nbsp;&#8212;
+paragraphs are not broken into lines even if the <code>iWrap</code> member
+of <code>CParaFormat</code> is true. If wrapping is turned
+on, <code>CParaFormat::iWrap</code> is honoured.</p>
+<p>Reformat needed.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool aNoWrapping </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>EFAllParagraphsNotWrapped</code> (the default) to turn wrapping
+off, <code>EFParagraphsWrappedByDefault</code> to turn wrapping on. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.4"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aIsWrapping%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IsWrapping()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool IsWrapping() const;</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether wrapping is on or off.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool </code></td>
+<td class="Cell"><p class="ValueDesc"> True if wrapping is on, false if off. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.5"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aSetTruncating%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetTruncating()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetTruncating(TBool aOn);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Sets the truncation mode. If truncation is on, lines that exceed the wrap
+width, either because they have no legal line break, or because wrapping is
+off, are truncated, and an ellipsis is inserted.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool aOn </code></td>
+<td class="Cell"><p class="ValueDesc"> If <code>ETrue</code>, lines which extend beyond the wrap width are
+truncated with an ellipsis character. If <code>EFalse</code>, no ellipsis is
+used. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.6"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aTruncating%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Truncating()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool Truncating() const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Tests whether truncation is on (as set
+by <code>SetTruncating()</code>).</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool </code></td>
+<td class="Cell"><p class="ValueDesc"> True if truncation is on, false if not. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.7"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aSetTruncatingEllipsis%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetTruncatingEllipsis()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetTruncatingEllipsis(TChar aEllipsis);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Sets the ellipsis character to be used if truncation is on. Specify the
+value 0xFFFF&nbsp;(the illegal Unicode character) if no ellipsis character
+should be used. By default, the ellipsis character is 0x2026, the ordinary
+horizontal ellipsis.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TChar aEllipsis </code></td>
+<td class="Cell"><p class="ValueDesc"> The Unicode value of the truncating ellipsis character. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.8"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aTruncatingEllipsis%28%29"></a>
+<hr size="1" noshade>
+<h3><code>TruncatingEllipsis()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TChar TruncatingEllipsis() const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Returns the ellipsis character used when truncation is on. The value
+0xFFFF (the illegal Unicode character) means that no ellipsis character is
+appended to truncated text.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TChar </code></td>
+<td class="Cell"><p class="ValueDesc"> The Unicode value of the truncating ellipsis character. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.9"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aGetMinimumSizeL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetMinimumSizeL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void GetMinimumSizeL(TInt aWrapWidth,TSize&amp; aSize);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Gets the width and height of the bounding box of the text, including
+indents and margins, when formatted to the specified wrap width.</p>
+<p>This is useful for applications like a web browser that need to determine
+the minimum width for a piece of text: if you specify zero as the wrap width,
+the returned <code>aSize.iWidth</code> contains the minimum width that could be
+used for the text without illegal line breaks, and if you
+specify <code>KMaxTInt</code> for <code>aWrapWidth</code>, the
+returned <code>aSize.iHeight</code> contains the minimum height: the height when
+each paragraph is a single line of unlimited length.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aWrapWidth </code></td>
+<td class="Cell"><p class="ValueDesc"> The wrap width for the bounding box. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TSize&amp; aSize </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, contains the width and height of the bounding box. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Formatting</h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aDiscardFormat%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DiscardFormat()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void DiscardFormat();</code></p><h4 class="subheading">Description</h4>
+<p>Discards all formatting information. This function is used by
+the <code>CTextView</code> and the printing classes, but should be called by
+higher-level classes that need to clean up after
+any <code>CTextLayout</code> function has caused an out-of-memory
+exception.</p>
+<a name="2.9.3"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aSetFormatMode%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetFormatMode()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetFormatMode(CLayoutData::TFormatMode aFormatMode,TInt aWrapWidth,MGraphicsDeviceMap* aFormatDevice);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the format mode and wrap width and (for certain format modes only)
+sets the formatting device.</p>
+<p>Reformat needed.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>If <code>aFormatMode</code> is <code>CLayoutData::EFWysiwygMode</code> or <code>CLayoutData::EFPrintPreviewMode</code>, the
+format device is set to <code>aFormatDevice</code>, which must not be
+NULL.</p>
+</li>
+<li>
+<p>If <code>aFormatMode</code> is <code>CLayoutData::EFScreenMode</code> or
+<code>CLayoutData::EFPrintMode</code>, <code>aFormatDevice</code> is ignored and
+should be NULL; the format device is set to the image device.</p>
+</li>
+<li>
+<p>The wrap width is set in either twips or pixels using the same rule as
+for <code>SetWrapWidth()</code>.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CLayoutData::TFormatMode aFormatMode </code></td>
+<td class="Cell"><p class="ValueDesc"> The format mode. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aWrapWidth </code></td>
+<td class="Cell"><p class="ValueDesc"> The wrap width in pixels or twips. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> MGraphicsDeviceMap* aFormatDevice </code></td>
+<td class="Cell"><p class="ValueDesc"> The formatting device or NULL, depending on the format mode. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.4"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aIsBackgroundFormatting%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IsBackgroundFormatting()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool IsBackgroundFormatting() const;</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether background formatting is currently taking place. Background
+formatting is managed by <code>CTextView</code>, using an active object, when
+the <code>CTextLayout</code> object is owned by
+a <code>CTextView</code> object.</p>
+<p>Not generally useful.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool </code></td>
+<td class="Cell"><p class="ValueDesc"> True if background formatting is currently taking place. False if
+not.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.5"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aNotifyTerminateBackgroundFormatting%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NotifyTerminateBackgroundFormatting()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void NotifyTerminateBackgroundFormatting();</code></p><h4 class="subheading">Description</h4>
+<p><code>CTextView</code> calls this function when background formatting has
+ended. It allows the <code>CTextLayout</code> object to discard information
+used only during background formatting.</p>
+<p>Not generally useful.</p>
+<a name="2.9.6"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aFormattedHeightInPixels%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FormattedHeightInPixels()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt FormattedHeightInPixels() const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns the height in pixels of the formatted text.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The height in pixels of all the formatted text. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.7"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aFirstFormattedPos%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FirstFormattedPos()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt FirstFormattedPos() const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Returns the document position of the first formatted character.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position of the first formatted character. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.8"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aPosIsFormatted%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PosIsFormatted()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool PosIsFormatted(TInt aDocPos) const;</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether the character <code>aDocPos</code> is formatted.</p>
+<p>Note:</p>
+<p>If a section of text contains characters p to q, it contains document
+positions p to q + 1; but this function returns true for positions p to q only,
+so it refers to characters, not positions. However, it will return true for q
+if q is the end of the document.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aDocPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position of interest. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool </code></td>
+<td class="Cell"><p class="ValueDesc"> True if the character at the document position specified is formatted.
+False if not. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.9"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aFormattedLength%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FormattedLength()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt FormattedLength() const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns the number of formatted characters. This will be one more than
+expected if the formatted text runs to the end of the document, because it will
+include the end-of-text character.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of formatted characters in the document. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.10"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aNumFormattedLines%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NumFormattedLines()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt NumFormattedLines() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the number of formatted lines.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of formatted lines in the document. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Device map</h2>
+</div><div class="Bodytext">
+<a name="2.10.2"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aSetImageDeviceMap%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetImageDeviceMap()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetImageDeviceMap(MGraphicsDeviceMap *aGd);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the device map used for drawing and formatting. This device map is
+also used for formatting and drawing paragraph labels unless a separate label
+device map has been set (see <code>SetLabelsDeviceMap()</code>).</p>
+<p>Reformat needed.</p>
+<p>Note:</p>
+<p>Although the name of the function suggests that only the image device is
+set, the formatting device is also set.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> MGraphicsDeviceMap *aGd </code></td>
+<td class="Cell"><p class="ValueDesc"> The device map used for drawing and formatting. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.3"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aSetLabelsDeviceMap%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetLabelsDeviceMap()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetLabelsDeviceMap(MGraphicsDeviceMap *aDeviceMap);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the device map used for formatting and drawing paragraph labels. If
+not set, the device map used for labels will be the same as that used for the
+text.</p>
+<p>Reformat needed.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> MGraphicsDeviceMap *aDeviceMap </code></td>
+<td class="Cell"><p class="ValueDesc"> The device map used for formatting and drawing paragraph labels. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Convert coordinates</h2>
+</div><div class="Bodytext">
+<a name="2.11.2"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aDocPosToXyPosL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DocPosToXyPosL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool DocPosToXyPosL(TInt aDocPos,TPoint&amp; aPos,TUint aFlags=CLayoutData::EFIndividualChars) const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns the x-y coordinates of the document
+position <code>aDocPos</code> in <code>aPos</code>. The return value is true if
+the postion is formatted, or false if it is not, in which
+case <code>aPos</code> is undefined.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aDocPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TPoint&amp; aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, contains the x-y coordinates of <code>aDocPos</code>. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUint aFlags </code></td>
+<td class="Cell"><p class="ValueDesc"> Two possible values: <code>CLayoutData::EFIndividualChars</code> is the
+default, and performs the task at full accuracy,
+and <code>CLayoutData::EFWholeLinesOnly</code>, which examines lines only and
+sets <code>aXyPos.iY</code> only, and cannot leave. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool </code></td>
+<td class="Cell"><p class="ValueDesc"> True if the document position is formatted, false if not. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.3"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aXyPosToDocPosL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>XyPosToDocPosL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt XyPosToDocPosL(TPoint &amp;aPos,TUint aFlags=CLayoutData::EFIndividualChars) const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns the document position of the nearest character edge
+to <code>aPos</code>. Sets <code>aPos</code> to the actual position of the
+intersection of the line's baseline with the character's edge.
+If <code>aPos</code> is before the start of the formatted area, returns the
+first formatted character; if it is after the end of the formatted area,
+returns the position after the last formatted character, or the end of the
+document, whichever is less.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TPoint &amp;aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> Contains coordinates to convert to a document position. On return,
+contains the exact coordinates of the intersection of the line's baseline with
+the character edge at the document position. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUint aFlags </code></td>
+<td class="Cell"><p class="ValueDesc"> Two possible values: <code>CLayoutData::EFIndividualChars</code> is the
+default, and performs the task at full accuracy (the function returns the
+document position of the character edge nearest to the
+coordinates).<code>CLayoutData::EFWholeLinesOnly</code> examines lines only and
+returns the position at the right end of the line if <code>aPos.iX</code> >
+0, otherwise the position at the left end. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position of the nearest character to the coordinates, or of
+the start or end of the line, depending on the value
+of <code>aFlags</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Line, paragraph and document enquiry</h2>
+</div><div class="Bodytext">
+<a name="2.12.2"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aFirstCharOnLine%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FirstCharOnLine()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt FirstCharOnLine(TInt aLineNo) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the document position of the first character in the specified line,
+counting the first line as line one (not zero) in the band. If the line is
+after the band, returns the last character position of the band. If there is no
+formatted text, returns <code>CTextLayout::EFNoCurrentFormat</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLineNo </code></td>
+<td class="Cell"><p class="ValueDesc"> Line number in formatted text, counting the first line as line
+one.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position of the first character on the line. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.3"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aGetLineRect%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetLineRect()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt GetLineRect(TInt aYPos,TRect&amp; aLine) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the rectangle enclosing the formatted line that contains or is
+closest to y coordinate <code>aYPos</code>. If <code>aYPos</code> is above the
+first formatted line, the rectangle returned is that of the first formatted
+line. If <code>aYPos</code> is below the last formatted line the rectangle
+returned is that of the last formatted line. If there is no formatted text,
+returns <code>CTextLayout::EFNoCurrentFormat</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aYPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The y coordinate of the line of interest. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TRect&amp; aLine </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, contains the rectangle which encloses the line
+at <code>aYPos</code>. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The line width in pixels. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.4"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aGetLineRectL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetLineRectL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TRect GetLineRectL(TInt aDocPos1,TInt aDocPos2) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a rectangle enclosing two formatted document positions on the same
+line. If the second position is less than the first, or on a different line, it
+is taken to indicate the end of the line. This function panics if either
+position is unformatted.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aDocPos1 </code></td>
+<td class="Cell"><p class="ValueDesc"> The first document position on the line. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aDocPos2 </code></td>
+<td class="Cell"><p class="ValueDesc"> The second document position on the line. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TRect </code></td>
+<td class="Cell"><p class="ValueDesc"> The minimal rectangle, which bounds both positions. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.5"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aPictureRectangleL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PictureRectangleL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool PictureRectangleL(TInt aDocPos,TRect&amp; aPictureRect,TBool* const aCanScaleOrCrop=NULL) const;<br>TBool PictureRectangleL(const TPoint&amp; aXyPos,TRect&amp; aPictureRect,TBool* const aCanScaleOrCrop=NULL) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the bounding rectangle of the picture, if any, located at the
+document position or coordinates specified, and returns it
+in <code>aPictureRect</code>. If <code>aCanScaleOrCrop</code> is non-null,
+sets <code>aCanScaleOrCrop</code> to indicate whether the picture can be scaled
+or cropped. Returns true if the operation was successful. Returns false
+otherwise; that is, if there is no picture at the position, or if the position
+is unformatted.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aDocPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position of interest. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TPoint aXyPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The layout coordinates of interest. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TRect&amp; aPictureRect </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, contains the rectangle which encloses the picture located at
+the position specified. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool* const aCanScaleOrCrop </code></td>
+<td class="Cell"><p class="ValueDesc"> If non-NULL and the function returns true, on return, indicates whether
+the picture can be scaled or cropped. By default, NULL. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool </code></td>
+<td class="Cell"><p class="ValueDesc"> True if the operation was successful, (i.e. there is a picture character
+at the position, it has been loaded into memory, and the position is
+formatted). False if any of these conditions are not met. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.6"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aToParagraphStart%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ToParagraphStart()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt ToParagraphStart(TInt&amp; aDocPos) const;</code></p><h4 class="subheading">Description</h4>
+<p>Sets <code>aDocPos</code> to the paragraph start and returns the amount
+by which <code>aDocPos</code> has changed, as a non-negative number.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aDocPos </code></td>
+<td class="Cell"><p class="ValueDesc"> A document position. On return, contains the document position of the
+first character in the paragraph. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of characters skipped in moving to the new document
+position.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.7"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aParagraphHeight%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ParagraphHeight()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt ParagraphHeight(TInt aDocPos) const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns the height of the paragraph containing <code>aDocPos</code>. If
+the paragraph is not formatted, returns zero. If the paragraph is partially
+formatted, returns the height of the formatted part.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aDocPos </code></td>
+<td class="Cell"><p class="ValueDesc"> A document position within the paragraph of interest. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The height in pixels of the paragraph. Zero if the paragraph is not
+formatted. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.8"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aParagraphRectL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ParagraphRectL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TRect ParagraphRectL(TInt aDocPos) const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns the rectangle enclosing the paragraph
+containing <code>aDocPos</code>. If the paragraph is not formatted, returns an
+empty rectangle. If the paragraph is partially formatted, returns the rectangle
+enclosing the formatted part.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aDocPos </code></td>
+<td class="Cell"><p class="ValueDesc"> A document position within the paragraph. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TRect </code></td>
+<td class="Cell"><p class="ValueDesc"> The rectangle which encloses the paragraph
+containing <code>aDocPos</code>. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.9"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aDocumentLength%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DocumentLength()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt DocumentLength() const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns the document length in characters, including all the text, not
+just the formatted portion, but not including the final paragraph delimiter
+(the &quot;end-of-text character&quot;) if any. Thus the length of an empty document is
+zero.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of characters in the document </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.10"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aYBottomLastFormattedLine%28%29"></a>
+<hr size="1" noshade>
+<h3><code>YBottomLastFormattedLine()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt YBottomLastFormattedLine() const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns the y coordinate of the bottom of the last formatted line,
+relative to the top of the visible region.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The y coordinate of the bottom of the last formatted line. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.11"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aCalculateHorizontalExtremesL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CalculateHorizontalExtremesL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool CalculateHorizontalExtremesL(TInt&amp; aLeftX,TInt&amp; aRightX,TBool aOnlyVisibleLines,TBool aIgnoreWrapCharacters=EFalse) const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns the left and right extremes, in layout coordinates, of the
+formatted text.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aLeftX </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, contains the x coordinate of the leftmost point of the
+formatted text. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aRightX </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, contains the x coordinate of the rightmost point of the
+formatted text. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool aOnlyVisibleLines </code></td>
+<td class="Cell"><p class="ValueDesc"> If <code>ETrue</code>, only scans partially or fully visible lines.
+If <code>EFalse</code>, scans all the formatted text. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool aIgnoreWrapCharacters </code></td>
+<td class="Cell"><p class="ValueDesc"> If <code>ETrue</code>, doesn&#8217;t include wrap characters in the
+measurement (paragraph delimiters, forced line breaks, etc.).
+If <code>EFalse</code>, includes them. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool </code></td>
+<td class="Cell"><p class="ValueDesc"> False if there is no formatted text, otherwise true. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Font height</h2>
+</div><div class="Bodytext">
+<a name="2.13.2"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aGetCharacterHeightAndAscentL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetCharacterHeightAndAscentL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void GetCharacterHeightAndAscentL(TInt aDocPos,TInt&amp; aHeight,TInt&amp; aAscent) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the height (ascent + descent) and ascent of the font of the
+character at <code>aDocPos</code>, as created using the graphics device map
+used for drawing (the &quot;image device&quot;) and returns them
+in <code>aHeight</code> and <code>aAscent</code>, after
+increasing <code>aHeight</code> by the font height increase factor
+(see <code>SetFontHeightIncreaseFactor()</code>).</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aDocPos </code></td>
+<td class="Cell"><p class="ValueDesc"> A document position. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aHeight </code></td>
+<td class="Cell"><p class="ValueDesc"> On return contains the height in pixels of the character
+at <code>aDocPos</code>. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aAscent </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, contains the ascent in pixels of the character
+at <code>aDocPos</code>. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.3"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aGetFontHeightAndAscentL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetFontHeightAndAscentL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void GetFontHeightAndAscentL(const TFontSpec&amp; aFontSpec,TInt&amp; aHeight,TInt&amp; aAscent) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the height (ascent + descent) and ascent of the font specified
+by <code>aFontSpec</code>, as created using the graphics device map used for
+drawing (the &quot;image device&quot;) and puts them
+into <code>aHeight</code> and <code>aAscent</code>, after
+increasing <code>aHeight</code> by the font height increase factor
+(see <code>SetFontHeightIncreaseFactor()</code>).</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TFontSpec&amp; aFontSpec </code></td>
+<td class="Cell"><p class="ValueDesc"> Font specification. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aHeight </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, contains the height in pixels of the font. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aAscent </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, contains the ascent in pixels of the font. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.4"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aSetFontHeightIncreaseFactor%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetFontHeightIncreaseFactor()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetFontHeightIncreaseFactor(TInt aPercentage);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Sets the percentage by which font heights are increased in order to
+provide automatic extra spacing (leading) between lines. This amount is set
+to <code>CLayoutData::EFFontHeightIncreaseFactor</code>, which is 7, when
+a <code>CTextLayout</code> object is created.</p>
+<p>Reformat needed.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPercentage </code></td>
+<td class="Cell"><p class="ValueDesc"> Factor by which to increase font heights. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.5"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aFontHeightIncreaseFactor%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FontHeightIncreaseFactor()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt FontHeightIncreaseFactor() const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Returns the font height increase factor as a percentage (i.e. a return
+value of 7 means that font heights are increased by 7% to provide automatic
+extra spacing between lines).</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> Factor by which font heights are increased. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.6"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aSetMinimumLineDescent%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetMinimumLineDescent()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetMinimumLineDescent(TInt aPixels);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Sets the minimum line descent in pixels. This amount is set
+to <code>CLayoutData::EFMinimumLineDescent</code>, which is 3, when
+a <code>CTextLayout</code> object is created.</p>
+<p>Reformat needed.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPixels </code></td>
+<td class="Cell"><p class="ValueDesc"> The minimum line descent in pixels. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.7"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aMinimumLineDescent%28%29"></a>
+<hr size="1" noshade>
+<h3><code>MinimumLineDescent()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt MinimumLineDescent() const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Returns the minimum line descent in pixels.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The minimum line descent in pixels. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Source text</h2>
+</div><div class="Bodytext">
+<a name="2.14.2"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aSetLayDoc%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetLayDoc()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetLayDoc(MLayDoc *aDoc);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the layout object's source text to <code>aDoc</code>. </p>
+<p>Reformat needed.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> MLayDoc *aDoc </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the <code>MLayDoc</code> implementation that is the source of
+the text and formatting information. Must not be NULL or a panic occurs.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Labels margin width</h2>
+</div><div class="Bodytext">
+<a name="2.15.2"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aSetLabelsMarginWidth%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetLabelsMarginWidth()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetLabelsMarginWidth(TInt aWidth);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the width in pixels of the margin in which labels are drawn.</p>
+<p>Reformat needed.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aWidth </code></td>
+<td class="Cell"><p class="ValueDesc"> The width in pixels of the labels margin. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Non-printing characters</h2>
+</div><div class="Bodytext">
+<a name="2.16.2"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aSetNonPrintingCharsVisibility%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetNonPrintingCharsVisibility()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetNonPrintingCharsVisibility(TNonPrintingCharVisibility aVisibility);</code></p><h4 class="subheading">Description</h4>
+<p>Specifies which non-printing characters (e.g. space, paragraph break,
+etc.) are to be drawn using symbols.</p>
+<p>Reformat needed (because non-printing characters may differ in width from
+their visible representations).</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TNonPrintingCharVisibility aVisibility </code></td>
+<td class="Cell"><p class="ValueDesc"> Indicates which non-printing characters are drawn using symbols. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16.3"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aNonPrintingCharsVisibility%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NonPrintingCharsVisibility()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TNonPrintingCharVisibility NonPrintingCharsVisibility() const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns which non-printing characters are drawn using symbols.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TNonPrintingCharVisibility </code></td>
+<td class="Cell"><p class="ValueDesc"> Indicates which non-printing characters are drawn using symbols. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.17"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Partial lines</h2>
+</div><div class="Bodytext">
+<a name="2.17.2"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aSetExcludePartialLines%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetExcludePartialLines()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetExcludePartialLines(TBool aExcludePartialLines=ETrue);</code></p><h4 class="subheading">Description</h4>
+<p>Specifies whether partially displayed lines (at the top and bottom of the
+view) are to be prevented from being drawn, and whether the top of the display
+is to be aligned to the nearest line. This function takes effect only when the
+text is next formatted or scrolled.</p>
+<p>Note:</p>
+<p>This function was designed for non-editable text in the Agenda
+application, and there is an important restriction:<code>CTextView</code> functions
+that reformat the text after editing must not be used while partial lines are
+excluded; these functions are <code>CTextView::HandleCharEditL()</code>, <code>CTextView::HandleInsertDeleteL()</code> and <code>CTextView::HandleRangeFormatChangeL()</code>.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool aExcludePartialLines </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue</code> (the default) to exclude partially displayed lines
+from the view. <code>EFalse</code> to include them. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.17.3"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aExcludingPartialLines%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ExcludingPartialLines()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool ExcludingPartialLines() const;</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether partial lines at the top and bottom of the view are
+currently excluded.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool </code></td>
+<td class="Cell"><p class="ValueDesc"> True if partial lines are excluded, false if they are displayed. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.18"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Formatting</h2>
+</div><div class="Bodytext">
+<a name="2.18.2"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aFormatBandL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FormatBandL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void FormatBandL();</code></p><h4 class="subheading">Description</h4>
+<p>Formats enough text to fill the visible band.</p>
+<p>Note:</p>
+<p>Do not use if a <code>CTextView</code> object owns
+this <code>CTextLayout</code> object.</p>
+<a name="2.18.3"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aFormatCharRangeL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FormatCharRangeL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void FormatCharRangeL(TInt aStartDocPos,TInt aEndDocPos);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the formatted text to begin at the start of the paragraph
+including <code>aStartPos</code> and end at <code>aEndPos</code>. Moves the line
+containing <code>aStartDocPos</code> to the top of the visible area.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>This function is not generally useful; it exists for the convenience of
+the printing system. </p>
+</li>
+<li>
+<p>Do not use if a <code>CTextView</code> object owns
+this <code>CTextLayout</code> object.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aStartDocPos </code></td>
+<td class="Cell"><p class="ValueDesc"> A document position within the paragraph from which to begin
+formatting.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aEndDocPos </code></td>
+<td class="Cell"><p class="ValueDesc"> Document position at which to end formatting. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.18.4"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aFormatNextLineL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FormatNextLineL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool FormatNextLineL(TInt&amp; aBotPixel);</code></p><h4 class="subheading">Description</h4>
+<p>A special function to support background formatting by the higher
+level <code>CTextView</code> class. It formats the next pending line. The return
+value is true if there is more formatting to do. On
+entry, <code>aBotPixel</code> contains the y coordinate of the bottom of the
+formatted text; this is updated by the function.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>Not generally useful.</p>
+</li>
+<li>
+<p>Do not use if a <code>CTextView</code> object owns
+this <code>CTextLayout</code> object.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aBotPixel </code></td>
+<td class="Cell"><p class="ValueDesc"> On entry, contains the y coordinate of the bottom of the formatted text;
+this is updated by the function. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool </code></td>
+<td class="Cell"><p class="ValueDesc"> True if there is more formatting to do. False if not. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.18.5"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aFormatLineL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FormatLineL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool FormatLineL(CParaFormat* aParaFormat,TInt&amp; aDocPos,TInt&amp; aHeight,TBool&amp; aPageBreak);</code></p><h4 class="subheading">Description</h4>
+<p>Controls the height of a single line, for use by the pagination system
+only. Using the format supplied in <code>aParaFormat</code>, determines the
+height of the line containing <code>aDocPos</code> and returns it
+in <code>aHeight</code>. Changes <code>aDocPos</code> to the end of the line and
+returns true if that position is not the end of the paragraph.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>Not generally useful; it exists for use by the pagination system
+only.</p>
+</li>
+<li>
+<p>Do not use if a <code>CTextView</code> object owns
+this <code>CTextLayout</code> object.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CParaFormat* aParaFormat </code></td>
+<td class="Cell"><p class="ValueDesc"> Contains paragraph formatting. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aDocPos </code></td>
+<td class="Cell"><p class="ValueDesc"> A document position. On return, contains the document position of the
+end of the line. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aHeight </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, contains the height of the formatted line
+containing <code>aDocPos</code>. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool&amp; aPageBreak </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, true if the last character on the line is a page break. False
+if not. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool </code></td>
+<td class="Cell"><p class="ValueDesc"> True if the line is not the last line in the paragraph. False if it is
+the last line. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.19"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Scrolling</h2>
+</div><div class="Bodytext">
+<a name="2.19.2"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aScrollParagraphsL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ScrollParagraphsL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt ScrollParagraphsL(TInt&amp; aNumParas,TAllowDisallow aScrollBlankSpace);</code></p><h4 class="subheading">Description</h4>
+<p>Scrolls the text up or down by <code>aNumParas</code> paragraphs,
+disallowing blank space at the bottom of the visible area
+if <code>aScrollBlankSpace</code> is <code>CTextLayout::EFDisallowScrollingBlankSpace</code>.</p>
+<p>Do not use if a <code>CTextView</code> object owns
+this <code>CTextLayout</code> object.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aNumParas </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of paragraphs to scroll; may be a positive or negative value.
+On return, contains the number of paragraphs not scrolled; that is the
+difference between the requested number and the number of paragraphs actually
+scrolled. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TAllowDisallow aScrollBlankSpace </code></td>
+<td class="Cell"><p class="ValueDesc"> Only relevant when scrolling
+downwards. <code>CTextLayout::EFAllowScrollingBlankSpace</code> allows blank
+space to scroll into the visible area. <code>CTextLayout::EFDisallowScrollingBlankSpace</code> prevents
+blank space from scrolling into the visible area.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of pixels actually scrolled. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.19.3"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aScrollLinesL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ScrollLinesL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt ScrollLinesL(TInt&amp; aNumLines, TAllowDisallow aScrollBlankSpace=EFDisallowScrollingBlankSpace);</code></p><h4 class="subheading">Description</h4>
+<p>Scrolls the text up or down by <code>aNumLines</code> lines, disallowing
+blank space at the bottom of the visible area if <code>aScrollBlankSpace</code> is <code>CTextLayout::EFDisallowScrollingBlankSpace</code>.</p>
+<p>Do not use if a <code>CTextView</code> object owns
+this <code>CTextLayout</code> object.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aNumLines </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of lines to scroll; may be a positive or negative value. On
+return, contains the number of lines not scrolled; that is, the requested
+number, minus the number actually scrolled. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TAllowDisallow aScrollBlankSpace=EFDisallowScrollingBlankSpace </code></td>
+<td class="Cell"><p class="ValueDesc"> Only relevant when scrolling
+downwards. <code>CTextLayout::EFAllowScrollingBlankSpace</code> allows blank
+space to scroll into the visible area. <code>CTextLayout::EFDisallowScrollingBlankSpace</code> prevents
+blank space from scrolling into the visible area. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of pixels actually scrolled. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.19.4"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aChangeBandTopL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ChangeBandTopL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt ChangeBandTopL(TInt&amp; aPixels,TAllowDisallow aScrollBlankSpace=EFDisallowScrollingBlankSpace);</code></p><h4 class="subheading">Description</h4>
+<p>Scrolls the text up or down by <code>aPixels</code> pixels, disallowing
+blank space at the bottom of the visible area if <code>aScrollBlankSpace</code> is <code>CTextLayout::EFDisallowScrollingBlankSpace</code>.</p>
+<p>The return value (not <code>aPixels</code>, as you would expect
+from <code>ScrollParagraphsL()</code> and <code>ScrollLinesL()</code>) contains
+the number of pixels not successfully scrolled, that is, the original value
+of <code>aPixels</code>, minus the number of pixels actually scrolled. On
+return, <code>aPixels</code> is set to the number of pixels actually
+scrolled.</p>
+<p>Do not use if a <code>CTextView</code> object owns
+this <code>CTextLayout</code> object.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aPixels </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of pixels to scroll; may be a positive or negative value. On
+return, contains the number of pixels actually scrolled. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TAllowDisallow aScrollBlankSpace=EFDisallowScrollingBlankSpace </code></td>
+<td class="Cell"><p class="ValueDesc"> Only relevant when scrolling
+downwards. <code>CTextLayout::EFAllowScrollingBlankSpace</code> allows blank
+space to scroll into the visible area. <code>CTextLayout::EFDisallowScrollingBlankSpace</code> prevents
+blank space from scrolling into the visible area. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The difference between the requested number of pixels to scroll and the
+number of pixels actually scrolled. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.19.5"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aPageUpL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PageUpL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void PageUpL(TInt&amp; aYCursorPos,TInt&amp; aPixelsScrolled);</code></p><h4 class="subheading">Description</h4>
+<p>Scrolls up by a page (that is the band height as set
+by <code>SetBandHeight()</code>, or half that amount if scrolling over lines
+taller than this), moving the text downwards. The current desired vertical
+cursor position is passed in <code>aYCursorPos</code> and updated to a new
+suggested position as near as possible to it, but within the visible text and
+on a baseline.</p>
+<p>Do not use if a <code>CTextView</code> object owns
+this <code>CTextLayout</code> object.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aYCursorPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The current desired vertical cursor position. On return, updated to a
+new suggested position as near as possible to it. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aPixelsScrolled </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, contains the number of pixels scrolled. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.19.6"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aPageDownL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PageDownL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void PageDownL(TInt&amp; aYCursorPos,TInt&amp; aPixelsScrolled);</code></p><h4 class="subheading">Description</h4>
+<p>Scrolls down by a page (that is the band height as set
+by <code>SetBandHeight()</code>, or half that amount if scrolling over lines
+taller than this), moving the text upwards. The current desired vertical cursor
+position is passed in <code>aYCursorPos</code> and updated to a new suggested
+position as near as possible to it, but within the visible text and on a
+baseline.</p>
+<p>Do not use if a <code>CTextView</code> object owns
+this <code>CTextLayout</code> object.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aYCursorPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The current desired vertical cursor position. On return, updated to a
+new suggested position as near as possible to it. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aPixelsScrolled </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, contains the number of pixels scrolled&#0160;&#8212; a
+negative value. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.19.7"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aSetViewL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetViewL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt SetViewL(TInt aDocPos,TInt&amp; aYPos,TViewYPosQualifier aYPosQualifier, TDiscard aDiscardFormat=EFViewDontDiscardFormat);</code></p><h4 class="subheading">Description</h4>
+<p>Changes the top of the visible area so that the line
+containing <code>aDocPos</code> is vertically positioned at <code>aYPos</code>.
+Which part of the line is set to appear at <code>aYPos</code> (top, baseline,
+or bottom) is controlled by the <code>TViewYPosQualifier</code> argument, which
+also specifies whether the visible area is to be filled and whether the line
+should be made fully visible if possible.</p>
+<p>Do not use if a <code>CTextView</code> object owns
+this <code>CTextLayout</code> object.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aDocPos </code></td>
+<td class="Cell"><p class="ValueDesc"> A valid document position. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aYPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The y coordinate at which to display the character
+at <code>aDocPos</code>. On return, contains the actual vertical position of the
+specified part of the line. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TViewYPosQualifier aYPosQualifier </code></td>
+<td class="Cell"><p class="ValueDesc"> Controls which part of the line is set to appear
+at <code>aYPos</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TDiscard aDiscardFormat </code></td>
+<td class="Cell"><p class="ValueDesc"> If true (<code>EFViewDiscardAllFormat</code>), the text is reformatted
+to include <code>aDocPos</code>, otherwise text is formatted only as necessary
+when bringing new lines into the visible area. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of pixels the text was scrolled, may be positive or negative.
+A value of <code>CTextLayout::EFScrollRedrawWholeScreen</code> indicates that
+the entire visible area, at least, was scrolled, and so there is no point in
+blitting text; a full redraw is needed. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.20"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Reformatting</h2>
+</div><div class="Bodytext">
+<a name="2.20.2"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aHandleCharEditL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>HandleCharEditL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool HandleCharEditL(TUint aType,TInt&amp; aCursorPos,TInt&amp; aGood,TInt&amp; aFormattedUpTo,TInt&amp; aFormattedFrom,TInt&amp; aScroll,TBool aFormatChanged);</code></p><h4 class="subheading">Description</h4>
+<p>Reformats to reflect a single character edit. </p>
+<p>Do not use if a <code>CTextView</code> object owns
+this <code>CTextLayout</code> object.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUint aType </code></td>
+<td class="Cell"><p class="ValueDesc"> Indicates the type of edit which has taken
+place. <code>CTextLayout::EFCharacterInsert</code> (the default) for a character
+insertion, <code>CTextLayout::EFParagraphDelimiter</code> for a paragraph
+delimiter insertion, <code>CTextLayout::EFLeftDelete</code> or <code>CTextLayout::EFRightDelete</code> for
+a character or paragraph delimiter deletion to the left or right of the
+document position. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aCursorPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position at which the edit took place, before the edit. If
+this position is not formatted, a panic occurs; it is modified in accordance
+with the edit. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aGood </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, the y coordinate of the top of the paragraph following the
+paragraph which has been edited, before the edit. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aFormattedUpTo </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, the y coordinate of the bottom of the reformatted line or
+lines, after the edit. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aFormattedFrom </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, the vertical layout coordinate of the top of the reformatted
+line or lines, after the edit. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aScroll </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of pixels by which the text had to be scrolled (positive
+means text moved down). </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool aFormatChanged </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue</code> if text is to be reformatted from the start of the
+paragraph the cursor was on before the edit, <code>EFalse</code> if from the
+start of the line the cursor was on before the edit. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool </code></td>
+<td class="Cell"><p class="ValueDesc"> False if no more lines need to be reformatted. True if some more lines
+need to be reformatted. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.20.3"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aHandleBlockChangeL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>HandleBlockChangeL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void HandleBlockChangeL(TCursorSelection aSelection,TInt aOldCharsChanged,TViewRectChanges&amp; aViewChanges,TBool aFormatChanged);</code></p><h4 class="subheading">Description</h4>
+<p>Reformats to reflect changes to a block of text.</p>
+<p>Do not use if a <code>CTextView</code> object owns
+this <code>CTextLayout</code> object.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TCursorSelection aSelection </code></td>
+<td class="Cell"><p class="ValueDesc"> The start and new length of the changed block. When inserting, specify
+the insertion position. When deleting, specify the position of the start of the
+deletion. When reformatting, specify the start and length of the reformatted
+block.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aOldCharsChanged </code></td>
+<td class="Cell"><p class="ValueDesc"> The old length of the changed block. When inserting, specify zero. When
+deleting, specify the number of deleted characters. When reformatting, specify
+the number of reformatted characters.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TViewRectChanges&amp; aViewChanges </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, contains the top of the reformatted text
+(<code>iFormattedFrom</code>), the bottom of the reformatted text
+(<code>iFormattedTo</code>), the amount by which the text above the reformatted
+text has scrolled (<code>iScrollAtTop</code>) and the amount by which the text
+below the reformatted text has scrolled (<code>iScrollAtBottom</code>)
+(positive values mean the text moves down). </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool aFormatChanged </code></td>
+<td class="Cell"><p class="ValueDesc"> Indicates whether the paragraph format for the first or last affected
+paragraph has changed, meaning that the text to be reformatted must extend out
+to paragraph boundaries and cannot be restricted to only some lines. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.20.4"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aHandleAdditionalCharactersAtEndL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>HandleAdditionalCharactersAtEndL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void HandleAdditionalCharactersAtEndL(TInt&amp; aFirstPixel,TInt&amp; aLastPixel);</code></p><h4 class="subheading">Description</h4>
+<p>Reformats to reflect the addition of one or more complete paragraphs at
+the end of the text.</p>
+<p>Do not use if a <code>CTextView</code> object owns
+this <code>CTextLayout</code> object.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aFirstPixel </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, the top y coordinate of the added material. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aLastPixel </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, the bottom y coordinate of the added material. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.20.5"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aReformatVerticalSpaceL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ReformatVerticalSpaceL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ReformatVerticalSpaceL();</code></p><h4 class="subheading">Description</h4>
+<p>Reformats to reflect changes to the space above and below paragraphs
+(<code>CParaFormat::iSpaceBeforeInTwips</code> and <code>iSpaceAfterInTwips</code>).</p>
+<p>Do not use if a <code>CTextView</code> object owns
+this <code>CTextLayout</code> object.</p>
+<a name="2.20.6"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aAdjustVerticalAlignment%28%29"></a>
+<hr size="1" noshade>
+<h3><code>AdjustVerticalAlignment()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void AdjustVerticalAlignment(CParaFormat::TAlignment aVerticalAlignment);</code></p><h4 class="subheading">Description</h4>
+<p>Temporarily changes the vertical alignment of the text with respect to
+the visible height.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>Not generally useful; intended for the Agenda application.</p>
+</li>
+<li>
+<p>Do not use if a <code>CTextView</code> object owns
+this <code>CTextLayout</code> object.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CParaFormat::TAlignment aVerticalAlignment </code></td>
+<td class="Cell"><p class="ValueDesc"> Specifies whether the formatted text should be placed at the top
+(<code>CParaFormat::ETopAlign</code>), vertical centre (<code>CParaFormat::ECenterAlign</code> or <code>CParaFormat::EJustifiedAlign</code>)
+or bottom (<code>CParaFormat::EBottomAlign</code>) of the band. <code>CParaFormat::EUnspecifiedAlign</code> or <code>CParaFormat::ECustomAlign</code> may
+also be specified. These values cause the baseline of the first formatted line
+to be positioned 82% of the way down the band (provided for the Agenda's
+application's year view). </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.21"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Drawing</h2>
+</div><div class="Bodytext">
+<a name="2.21.2"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aDrawBorders%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DrawBorders()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static void DrawBorders(const MGraphicsDeviceMap* aGd,CGraphicsContext&amp; aGc,const TRect&amp; aRect, const TParaBorderArray&amp; aBorder,const TRgb* aBackground=NULL,TRegion *aClipRegion=NULL,const TRect* aDrawRect=NULL);</code></p><h4 class="subheading">Description</h4>
+<p>Draws paragraph borders, optionally with a background
+colour for the border and a clip region. Provided for applications that display
+a menu of border styles, like a wordprocessor.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const MGraphicsDeviceMap* aGd </code></td>
+<td class="Cell"><p class="ValueDesc"> Provides twip-to-pixel conversion. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CGraphicsContext&amp; aGc </code></td>
+<td class="Cell"><p class="ValueDesc"> Graphics context to which to draw the border. Its pen settings are
+overridden by the values specified by <code>aBorder</code> and its draw mode is
+set to <code>CGraphicsContext::EDrawModePEN</code>. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRect&amp; aRect </code></td>
+<td class="Cell"><p class="ValueDesc"> The outer bounds of the border. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TParaBorderArray&amp; aBorder </code></td>
+<td class="Cell"><p class="ValueDesc"> Specifies the four sides of the border. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRgb* aBackground </code></td>
+<td class="Cell"><p class="ValueDesc"> If not null, the background colour, (used between double border lines,
+or between dots or dashes). </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TRegion *aClipRegion </code></td>
+<td class="Cell"><p class="ValueDesc"> If non-null, specifies a clip region. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRect* aDrawRect </code></td>
+<td class="Cell"><p class="ValueDesc"> If non-null, and if <code>aClipRegion</code> is non-null, specifies a
+rectangle to be subtracted from the clip region. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.21.3"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aDrawL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DrawL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void DrawL(const TRect&amp; aDrawRect,const TDrawTextLayoutContext* aDrawTextLayoutContext,const TCursorSelection* aHighlight=NULL);</code></p><h4 class="subheading">Description</h4>
+<p>Draws the text. Draws any lines that intersect <code>aDrawRect</code>,
+which is specified in window coordinates. The drawing parameters, including the
+graphics context, are given in <code>aDrawTextLayoutContext</code>.
+If <code>aHighlight</code> is non-null, highlights (by exclusive-ORing) the
+specified range of text.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRect&amp; aDrawRect </code></td>
+<td class="Cell"><p class="ValueDesc"> The function draw the lines within the visible area, which intersect
+this rectangle (which is specified in window coordinates). </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TDrawTextLayoutContext* aDrawTextLayoutContext </code></td>
+<td class="Cell"><p class="ValueDesc"> Provides a graphics context and other parameters for the
+function.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TCursorSelection* aHighlight=NULL </code></td>
+<td class="Cell"><p class="ValueDesc"> If not NULL, this range of text is drawn highlighted. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.21.4"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aInvertRangeL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>InvertRangeL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void InvertRangeL(const TCursorSelection&amp; aHighlight,const TRect&amp; aDrawRect,const TDrawTextLayoutContext* aDrawTextLayoutContext);</code></p><h4 class="subheading">Description</h4>
+<p>Toggles the range of text in <code>aHighlight</code> by exclusive-ORing.
+Highlights only those lines that intersect <code>aDrawRect</code>, which is
+specified in window coordinates. The drawing parameters, including the graphics
+context, are given in <code>aDrawTextLayoutContext</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TCursorSelection&amp; aHighlight </code></td>
+<td class="Cell"><p class="ValueDesc"> The range of characters for which to invert the highlighting. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRect&amp; aDrawRect </code></td>
+<td class="Cell"><p class="ValueDesc"> Only lines which intersect this rectangle are affected (it is specified
+in window coordinates). </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TDrawTextLayoutContext* aDrawTextLayoutContext </code></td>
+<td class="Cell"><p class="ValueDesc"> Provides a graphics context and other parameters for the
+function.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.21.5"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aSetCustomDraw%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetCustomDraw()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetCustomDraw(const MFormCustomDraw* aCustomDraw);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Sets the custom drawing object, for customising the way text and its
+background are drawn.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const MFormCustomDraw* aCustomDraw </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to a custom drawing object. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.21.6"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aCustomDraw%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CustomDraw()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const MFormCustomDraw* CustomDraw() const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Returns a pointer to the current custom drawing implementation. Returns
+NULL if custom drawing is not in force.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> MFormCustomDraw* </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the custom drawing object. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.22"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Enumerations</h2>
+</div><div class="Bodytext">
+<a name="2.22.2"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aAnonymous"></a>
+<hr size="1" noshade>
+<h3>Enum <code>Anonymous</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>Anonymous</code></p><h4 class="subheading">Description</h4>
+<p>Amount of vertical scroll. Used by <code>CTextLayout::SetViewL()</code>.</p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCTextLayout%3a%3aEFScrollRedrawWholeScreen"><code class="Value">EFScrollRedrawWholeScreen</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>A value greater than any possible display height&#0160;&#8212;
+indicates that the entire visible area, at least, was scrolled, and so there is
+no point in blitting text; a full redraw is needed.</para>
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.22.3"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aAnonymous"></a>
+<hr size="1" noshade>
+<h3>Enum <code>Anonymous</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>Anonymous</code></p><h4 class="subheading">Description</h4>
+<p>Maximum line width.</p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCTextLayout%3a%3aEFMaximumLineWidth"><code class="Value">EFMaximumLineWidth</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>The maximum line width when wrapping is unset.</para>
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.22.4"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aTCurrentFormat"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TCurrentFormat</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TCurrentFormat</code></p><h4 class="subheading">Description</h4>
+<p>Formatting information.</p>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCTextLayout%3a%3aEFNoCurrentFormat"><code class="Value">EFNoCurrentFormat</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Returned by some <code>CTextLayout</code> enquiry functions to indicate
+that no formatting has taken place so that the requested value cannot be
+calculated.</para>
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCTextLayout%3a%3aEFNotInCurrentFormat"><code class="Value">EFNotInCurrentFormat</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Returned by <code>CTextLayout::ParagraphHeight()</code> when the
+paragraph is not formatted.</para>
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.22.5"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aTDiscard"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TDiscard</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TDiscard</code></p><h4 class="subheading">Description</h4>
+<p>Flags used by <code>CTextLayout::SetViewL()</code>.</p>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCTextLayout%3a%3aEFViewDiscardAllFormat"><code class="Value">EFViewDiscardAllFormat</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Discard all the formatting.</para>
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCTextLayout%3a%3aEFViewDontDiscardFormat"><code class="Value">EFViewDontDiscardFormat</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Do not discard formatting until it is known that it is not
+needed.</para></p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.22.6"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aAnonymous"></a>
+<hr size="1" noshade>
+<h3>Enum <code>Anonymous</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>Anonymous</code></p><h4 class="subheading">Description</h4>
+<p>Flags used by <code>CTextView::HandleCharEditL()</code>.</p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCTextLayout%3a%3aEFCharacterInsert"><code class="Value">EFCharacterInsert</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Insert a character, (not a paragraph delimiter).</para>
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCTextLayout%3a%3aEFParagraphDelimiter"><code class="Value">EFParagraphDelimiter</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Insert a paragraph delimiter.</para>
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCTextLayout%3a%3aEFLeftDelete"><code class="Value">EFLeftDelete</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Delete single character to the left.</para>
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCTextLayout%3a%3aEFRightDelete"><code class="Value">EFRightDelete</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Delete single character to the right.</para>
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.22.7"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aTAmountFormatted"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TAmountFormatted</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TAmountFormatted</code></p><h4 class="subheading">Description</h4>
+<p>Amount to format. </p><p>Used by <code>CTextLayout::SetAmountToFormat()</code>.</p>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCTextLayout%3a%3aEFFormatAllText"><code class="Value">EFFormatAllText</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Format the whole document.</para>
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCTextLayout%3a%3aEFFormatBand"><code class="Value">EFFormatBand</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Format the visible band only.</para>
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.22.8"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aTAllowDisallow"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TAllowDisallow</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TAllowDisallow</code></p><h4 class="subheading">Description</h4>
+<p>Indicates whether blank space should scroll.</p><p> Used by several <code>CTextView</code> and <code>CTextLayout</code> scrolling functions.</p>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCTextLayout%3a%3aEFAllowScrollingBlankSpace"><code class="Value">EFAllowScrollingBlankSpace</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Allow blank space to scroll.</para>
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCTextLayout%3a%3aEFDisallowScrollingBlankSpace"><code class="Value">EFDisallowScrollingBlankSpace</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Disallow blank space from scrolling.</para>
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.22.9"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aAnonymous"></a>
+<hr size="1" noshade>
+<h3>Enum <code>Anonymous</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>Anonymous</code></p><h4 class="subheading">Description</h4>
+<p>Indicates whether wrapping should be forced on or off. Used by <code>CTextLayout::ForceNoWrapping()</code>.</p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCTextLayout%3a%3aEFAllParagraphsNotWrapped"><code class="Value">EFAllParagraphsNotWrapped</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Wrapping off; overrides the paragraph format.</para>
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCTextLayout%3a%3aEFParagraphsWrappedByDefault"><code class="Value">EFParagraphsWrappedByDefault</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Wrapping on, unless <code>CParaFormat::iWrap</code> is false.</para>
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.22.10"></a></div><div class="Head3">
+<a name="%3a%3aCTextLayout%3a%3aAnonymous"></a>
+<hr size="1" noshade>
+<h3>Enum <code>Anonymous</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>Anonymous</code></p><h4 class="subheading">Description</h4>
+<p>Flags used by <code>CTextLayout::XyPosToDocPosL()</code> and <code>DocPosToXyPosL()</code>. </p>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCTextLayout%3a%3aEFIndividualChars"><code class="Value">EFIndividualChars</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Convert coordinates to nearest character.</para>
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCTextLayout%3a%3aEFWholeLinesOnly"><code class="Value">EFWholeLinesOnly</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Convert coordinates to start or end of line.</para>
+</p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

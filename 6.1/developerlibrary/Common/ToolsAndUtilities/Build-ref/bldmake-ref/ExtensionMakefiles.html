@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Extension makefiles</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="Extension%2emakefiles%2eref"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="prj_testmmpfiles.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Build&nbsp;Tools&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">bld.inf&nbsp;file&nbsp;syntax</a>&nbsp;<span class="separator">&#187;</span>
+Extension&nbsp;makefiles</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Extension makefiles</h1>
+</div><div class="Bodytext">
+<p>Extension makefiles can be used where certain build steps are required
+which are not catered for by the generated  makefiles. A
+<code class="filename">bldmake</code> extension makefile has the form:</p>
+<div class="bnf">
+<dl><dt><code class="bnfName">&lt;<em>makefile</em>&gt;</code> ::=</dt><dd><code class="bnfName">&lt;<em>target</em>&gt;</code>: <code class="bnfName">&lt;<em>target_command_1</em>&gt;</code>
+<code class="bnfName">&lt;<em>target_command_2</em>&gt;</code>...<code class="bnfName">&lt;<em>target_command_n</em>&gt;</code></dd><dt><code class="bnfName">&lt;<em>target</em>&gt;</code> ::=</dt><dd>"<code class="bnfLiteral"><strong>makmake</strong></code>" | "<code class="bnfLiteral"><strong>freeze</strong></code>" | "<code class="bnfLiteral"><strong>library</strong></code>" | "<code class="bnfLiteral"><strong>clean</strong></code>" | "<code class="bnfLiteral"><strong>final</strong></code>" | "<code class="bnfLiteral"><strong>resource</strong></code>" | "<code class="bnfLiteral"><strong>bld</strong></code>" | "<code class="bnfLiteral"><strong>savespace</strong></code>" | "<code class="bnfLiteral"><strong>releasables</strong></code>"</dd></dl>
+</div>
+<p>A <i>target</i> in the extension makefile is an
+<code class="filename">nmake.exe</code> target, and should be followed by a colon to denote it
+as such. </p>
+<p>During build activities, <code class="filename">abld</code> will call the target in the
+extension makefile corresponding to the build activity that is being carried
+out, and thus the commands listed with the target in the extension makefile
+will be executed. Note that the <code>makmake</code> target corresponds to the <code class="filename">abld</code>
+<code>makefile</code> command, <code>bld</code> to <code>target</code>, <code>savespace</code> to <code>target -savespace</code>, and <code>releasables</code> to <code>target [-what | -check]</code>.</p>
+<p><em>All</em> targets should be provided in an extension makefile. This
+should be done even if no commands are listed with a particular target, for the
+following two reasons:</p>
+<ul>
+<li>
+<p>The target will be called, during the build, whether commands are listed
+or not</p>
+</li>
+<li>
+<p><code class="filename">nmake.exe</code> will generate an error if the target cannot be
+found. </p>
+</li>
+</ul>
+<a name="1.9"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Simple example</h2>
+</div><div class="Bodytext"><p>An example of a simple extension makefile is given below:</p>
+<p class="CodeBlock"><code>MAKMAKE :<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo this is an example<br><br>FINAL FREEZE LIB CLEANLIB RESOURCE RELEASABLES CLEAN BLD SAVESPACE : </code></p>
+<p>This prints <code class="ProgramOutput">this is an example</code> to the console at the makefile construction stage of an <code class="filename">abld</code>, and does nothing for the other targets.</p><p>Note that:</p><ul><li><p>You can put multiple targets on the same line, as above.</p></li><li><p>You must have a space or a tab at the start of lines containing target commands.</p></li><li><p>Commands listed with each target can be calls to any tools or system
+commands that are available at build-time.</p></li></ul>
+<a name="1.10"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Platform-specific commands example</h2>
+</div><div class="Bodytext"><p>If different commands are required for the same target for different
+platforms, special <code class="filename">nmake.exe</code> syntax can be used in conjunction
+with the <code>$(PLATFORM)</code> and <code>$(CFG)</code> macros that
+<code class="filename">abld</code> defines to carry out the different commands. </p>
+<p><code>$(CFG)</code> is defined as UDEB or UREL. <code>$(PLATFORM)</code> is WINS, ARMI, etc.</p>
+<p>For example, the following prints <code class="ProgramOutput">ARMI MAKEMAKE COMMAND</code> at the makefile stage for the ARMI target, or <code class="ProgramOutput">NOT ARMI BUILD</code> for any other platform:</p>
+<p class="CodeBlock"><code>!IF &quot;$(PLATFORM)&quot; == &quot;ARMI&quot;<br>MAKMAKE:<br>&nbsp;&nbsp;&nbsp;&nbsp;echo ARMI MAKEMAKE COMMAND<br>!ELSE<br>MAKMAKE:<br>&nbsp;&nbsp;&nbsp;&nbsp;echo NOT ARMI BUILD<br>!ENDIF<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FINAL FREEZE LIB CLEANLIB RESOURCE RELEASABLES CLEAN BLD SAVESPACE : </code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

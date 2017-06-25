@@ -1,0 +1,298 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CAgnObserver</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CAgnMonthInstanceListClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="CAgnSymbolListClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Agenda&nbsp;File</a>&nbsp;<span class="separator">&#187;</span>
+CAgnObserver</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>agmobsrv.h</code>
+<br>Link against: <code>agnmodel.lib</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aCAgnObserver"></a>
+
+<h1>Class <code>CAgnObserver</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CAgnObserver</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>The abstract base class for agenda model observers. All types of
+agenda model observer must inherit from this class and implement the pure
+virtual functions it specifies.</p>
+<p>When an entry or to-do list is added, deleted or updated, each
+agenda model observer receives notification of the change via the model's
+observer controller.</p>
+<p>For example, after an entry has been added to the model,
+<code>CAgnEntryModel::AddEntryL()</code> calls:</p>
+<p><code>ObserverController()-&gt;Send(CAgnObserver::ENotifyAddEntry,aEntry);</code></p>
+<p>This in turn calls the <code>Send()</code> function of every
+observer which has been registered with the controller, passing it the same
+arguments (the type of operation and the to-do list or entry
+affected)&nbsp;&#8212; <code>Send()</code> is overloaded to take a
+<code>CAgnEntry</code> and a <code>CAgnTodoList</code>. The observer's
+<code>Send()</code> function implementation might carry out some processing on
+the entry or to-do list, depending on the type of
+operation.</p><h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code>CAgnObserver</code></td><td class="Cell">The abstract base class for agenda model observers</td>
+</tr>
+<tr><td class="Cell"><code><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase">CBase</a></code></td><td class="Cell">Base class for all classes to be instantiated on the heap</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>CAgnObserver</code>:
+<br><code class="ApiItem"><a href="CAgnObserverClass.html#%3a%3aCAgnObserver%3a%3aCloneL%28%29" title="Implementations should create and return a copy of the observer">CloneL()</a></code>, <code class="ApiItem"><a href="CAgnObserverClass.html#%3a%3aCAgnObserver%3a%3aENotifyAddEntry" title="An entry was added">ENotifyAddEntry</a></code>, <code class="ApiItem"><a href="CAgnObserverClass.html#%3a%3aCAgnObserver%3a%3aENotifyAddTodoList" title="A to-do list was added">ENotifyAddTodoList</a></code>, <code class="ApiItem"><a href="CAgnObserverClass.html#%3a%3aCAgnObserver%3a%3aENotifyDeleteEntry" title="An entry was deleted">ENotifyDeleteEntry</a></code>, <code class="ApiItem"><a href="CAgnObserverClass.html#%3a%3aCAgnObserver%3a%3aENotifyDeleteTodoList" title="A to-do list was deleted">ENotifyDeleteTodoList</a></code>, <code class="ApiItem"><a href="CAgnObserverClass.html#%3a%3aCAgnObserver%3a%3aENotifyUpdateEntry" title="An entry was updated">ENotifyUpdateEntry</a></code>, <code class="ApiItem"><a href="CAgnObserverClass.html#%3a%3aCAgnObserver%3a%3aENotifyUpdateTodoList" title="A to-do list was updated">ENotifyUpdateTodoList</a></code>, <code class="ApiItem"><a href="CAgnObserverClass.html#%3a%3aCAgnObserver%3a%3aExternalizeL%28%29" title="Externalises the observer data to a write stream">ExternalizeL()</a></code>, <code class="ApiItem"><a href="CAgnObserverClass.html#%3a%3aCAgnObserver%3a%3aInternalizeL%28%29" title="Internalises the observer data from a read stream">InternalizeL()</a></code>, <code class="ApiItem"><a href="CAgnObserverClass.html#%3a%3aCAgnObserver%3a%3aReadEndMarkerL%28%29" title="Reads the end of observer marker from the read stream">ReadEndMarkerL()</a></code>, <code class="ApiItem"><a href="CAgnObserverClass.html#%3a%3aCAgnObserver%3a%3aSend%28%29" title="This overloaded function is called when an entry or to-do list is added, deleted or updated by the agenda model">Send()</a></code>, <code class="ApiItem"><a href="CAgnObserverClass.html#%3a%3aCAgnObserver%3a%3aStartObserving%28%29" title="Starts observing changes">StartObserving()</a></code>, <code class="ApiItem"><a href="CAgnObserverClass.html#%3a%3aCAgnObserver%3a%3aStopObserving%28%29" title="Stops observing changes">StopObserving()</a></code>, <code class="ApiItem"><a href="CAgnObserverClass.html#%3a%3aCAgnObserver%3a%3aTFunction" title="Function type">TFunction</a></code>, <code class="ApiItem"><a href="CAgnObserverClass.html#%3a%3aCAgnObserver%3a%3aWriteEndMarkerL%28%29" title="Writes the end of observer marker to the write stream">WriteEndMarkerL()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap">CBase</a></code>:
+<br><code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase%3a%3aoperator%20new%28%29" title="Allocates the object from the heap and then initialises its contents to binary zeroes">operator new()</a></code></p>
+<a name="2.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Start/stop observing</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnObserver%3a%3aStartObserving%28%29"></a>
+<hr size="1" noshade>
+<h3><code>StartObserving()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void StartObserving()=0;</code></p><h4 class="subheading">Description</h4>
+<p>Starts observing changes. Called during
+<code>CAgnEntryModel::RegisterObserverL()</code>, after the controller has
+installed the observer.</p>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnObserver%3a%3aStopObserving%28%29"></a>
+<hr size="1" noshade>
+<h3><code>StopObserving()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void StopObserving()=0;</code></p><h4 class="subheading">Description</h4>
+<p>Stops observing changes. Called during
+<code>CAgnEntryModel::UnregisterObserverL()</code>, just before it is removed
+from the observer controller.</p>
+<a name="2.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Send</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnObserver%3a%3aSend%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Send()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void Send(TInt aFunction,CAgnEntry* aEntry)=0;<br>virtual void Send(TInt aFunction,CAgnTodoList* aTodoList)=0;</code></p><h4 class="subheading">Description</h4>
+<p>This overloaded function is called when an entry or to-do list is
+added, deleted or updated by the agenda model. It is called by the observer
+controller with which this observer is registered. The overload allows for
+changes to both agenda entries and to-do lists to be
+observed.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aFunction</code></td>
+<td class="Cell"><p class="ValueDesc">Indicates which function caused the change notification. For
+possible values, see the <code>TFunction</code> enumeration.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnEntry* aEntry</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the entry affected.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnTodoList* aTodoList</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the to-do list affected.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Stream persistence</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnObserver%3a%3aExternalizeL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ExternalizeL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void ExternalizeL(RWriteStream&amp; aStream) const=0;</code></p><h4 class="subheading">Description</h4>
+<p>Externalises the observer data to a write stream. The presence of
+this function means that the standard templated <code>operator&lt;&lt;()</code>
+is available to externalise objects of this class. The last item written to the
+write stream by this function should be the end of observer marker
+(<code>CAgnObserver::WriteEndMarkerL()</code>).</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RWriteStream&amp; aStream</code></td>
+<td class="Cell"><p class="ValueDesc">Stream to which the data should be externalised.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnObserver%3a%3aInternalizeL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>InternalizeL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void InternalizeL(RReadStream&amp; aStream)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Internalises the observer data from a read stream. The presence of this
+function means that the standard templated <code>operator&gt;&gt;()</code> is
+available to internalise objects of this class. The last item read from the
+read stream by this function should be the end of observer marker
+(<code>CAgnObserver::ReadEndMarkerL()</code>).</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RReadStream&amp; aStream</code></td>
+<td class="Cell"><p class="ValueDesc">Stream from which the data should be internalised.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.4"></a></div><div class="Head3">
+<a name="%3a%3aCAgnObserver%3a%3aWriteEndMarkerL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>WriteEndMarkerL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void WriteEndMarkerL(RWriteStream&amp; aStream) const;</code></p><h4 class="subheading">Description</h4>
+<p>Writes the end of observer marker to the write stream. Call this function
+within <code>ExternalizeL()</code>.</p>
+<p>Note that derived classes should ensure that the combination of byte
+values in the end of observer marker (<code>EEooByte1</code>,
+<code>EEooByte2</code> etc.) is not present in the data being
+externalised.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RWriteStream&amp; aStream</code></td>
+<td class="Cell"><p class="ValueDesc">The stream to write to.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.5"></a></div><div class="Head3">
+<a name="%3a%3aCAgnObserver%3a%3aReadEndMarkerL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ReadEndMarkerL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ReadEndMarkerL(RReadStream&amp; aStream) const;</code></p><h4 class="subheading">Description</h4>
+<p>Reads the end of observer marker from the read stream. This must be the
+last item read by the <code>InternalizeL()</code>
+function.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RReadStream&amp; aStream</code></td>
+<td class="Cell"><p class="ValueDesc">The stream to read from.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">The function leaves with <code>KErrCorrupt</code> unless the byte values
+in the end of observer marker are correct ( <code>EEooByte1</code> ,
+<code>EEooByte2</code> , <code>EEooByte3</code> , <code>EEooByte4</code> ).
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Clone</h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnObserver%3a%3aCloneL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CloneL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual CAgnObserver* CloneL()=0;</code></p><h4 class="subheading">Description</h4>
+<p>Implementations should create and return a copy of the observer. Called
+by the observer controller during installation of the
+observer.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnObserver*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the observer clone.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Enumerations</h2>
+</div><div class="Bodytext">
+<a name="2.10.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnObserver%3a%3aTFunction"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TFunction</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TFunction</code></p><h4 class="subheading">Description</h4>
+<p>Function type</p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnObserver%3a%3aENotifyAddEntry"><code class="Value">ENotifyAddEntry</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>An entry was added.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnObserver%3a%3aENotifyDeleteEntry"><code class="Value">ENotifyDeleteEntry</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>An entry was deleted.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnObserver%3a%3aENotifyUpdateEntry"><code class="Value">ENotifyUpdateEntry</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>An entry was updated.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnObserver%3a%3aENotifyAddTodoList"><code class="Value">ENotifyAddTodoList</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>A to-do list was added.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnObserver%3a%3aENotifyDeleteTodoList"><code class="Value">ENotifyDeleteTodoList</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>A to-do list was deleted.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnObserver%3a%3aENotifyUpdateTodoList"><code class="Value">ENotifyUpdateTodoList</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>A to-do list was updated.</para></p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

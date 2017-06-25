@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Fonts Overview</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="GraphicsOverview%2eFontsOverview%2emain"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="EmbeddingOverview.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="GraphicsOverview.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Graphics</a>&nbsp;<span class="separator">&#187;</span>
+Fonts&nbsp;Overview</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Fonts Overview</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Purpose</h2>
+</div><div class="Bodytext">
+<p>Provides fonts for drawing text to graphical devices.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Architectural relationships</h2>
+</div><div class="Bodytext">
+<p>This API provides abstract device-independent font interfaces,
+implementations of bitmap fonts for drawing on-screen, and access to scalable
+fonts provided through the Open Font System. Applications use the API to get
+the fonts they require, and use it in a graphics context to draw text.</p>
+<p>The font and bitmap server manages sharing of bitmap fonts between
+clients, though the client/server access is hidden by the API. </p>
+<p>The Uikon Core API's UI Environment (<code>CEikonEnv</code>)
+provides quick access to standard screen fonts.</p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Description</h2>
+</div><div class="Bodytext">
+<p>The API has five key concepts: font specification,
+device-independent font interface, bitmap font, typeface, and typeface store.
+</p>
+<a name="1.5.3"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Font specification</h3>
+</div><div class="Bodytext">
+<p>A font specification is used to specify a desired font in
+device-independent terms. This can include the typeface, font style (posture,
+weight, and position), and height. </p>
+<p>It is provided by <code>TFontSpec</code>. The font style is
+provided by <code>TFontStyle</code>.</p>
+<a name="1.5.4"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Device-independent font interface </h3>
+</div><div class="Bodytext">
+<p>Applications obtain font objects from a graphics device by
+providing a font specification. The interface is device-independent, and is
+implemented by providers of fonts for particular devices. </p>
+<p>The interface is <code>CFont</code>. Obtained fonts can be cached
+for quick retrieval through <code>CFontCache</code>.</p>
+<a name="1.5.5"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Bitmap font</h3>
+</div><div class="Bodytext">
+<p>The bitmap font class implements the font interface for screen
+and off-screen bitmap fonts. It includes functions to obtain information about
+scalable fonts provided through the Open Font System API. </p>
+<p>It is provided by <code>CFbsFont</code>.</p>
+<a name="1.5.6"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Typeface</h3>
+</div><div class="Bodytext">
+<p>A typeface is a group of related fonts of various sizes that
+share the same typeface name and typeface attributes (e.g.
+proportional/non-proportional, serif/sans-serif). </p>
+<p>Typeface information is encapsulated in a
+<code>TTypefaceSupport</code>, including a <code>TTypeface</code> class
+member.</p>
+<a name="1.5.7"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Typeface store</h3>
+</div><div class="Bodytext">
+<p>A typeface store allows you to discover the typefaces provided by
+a graphics device. </p>
+<p>A device-independent interface is defined by
+<code>CTypefaceStore</code>. <code>CFbsTypefaceStore</code> implements this for
+bitmap devices.</p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="../ApplicationFramework/TextAndTextAttributesOverview.guide.html#ApplicationFrameworkOverview%2eTextAndTextAttributesOverview%2emain">Text and Text Attributes Overview</a></p>
+<p><a href="../ApplicationFramework/UikonCoreOverview.guide.html#ApplicationFrameworkOverview%2eUikonOverview%2eUikonCoreOverview%2emain">Uikon Core Overview</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to use array keys</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="ArrayKeysGuide%2ehow%2dto%2earray%2dkeys"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="ArrayKeysLocation.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Arrays&nbsp;and&nbsp;Lists</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Array&nbsp;Keys</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;use&nbsp;array&nbsp;keys</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to use array keys</h1>
+</div><div class="Bodytext">
+<p>To access an array by key construct a <code>TKeyArrayFix</code>,
+<code>TKeyArrayVar</code> or <code>TKeyArrayPak</code> object. The choice
+depends on the array type used and the member function accessed.</p>
+<p>The following code fragments show how this is done. They construct and manipulate an array of <code>TBankAct</code>
+objects that contain data members representing typical bank account
+details.</p>
+<p>The  <code>TBankAct</code> class is defined
+as:</p>
+<p class="CodeBlock"><code>class TBankAct<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>public :<br>&nbsp;&nbsp;&nbsp;&nbsp;TBuf&lt;32&gt; iActName;<br>&nbsp;&nbsp;&nbsp;&nbsp;TUint    iActNum;<br>&nbsp;&nbsp;&nbsp;&nbsp;TUint    iActValue;<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>The following code builds a <code>CArrayFixFlat</code> containing three elements of
+type <code>TBankAct</code>, as follows:</p>
+<p class="CodeBlock"><code>CArrayFixFlat&lt;TBankAct&gt; *anArray;</code></p>
+<p class="CodeBlock"><code>anArray = new CArrayFixFlat&lt;TBankAct&gt;(3);<br>TBankAct bankact;<br>...<br>_LIT(KName1,&quot;A.Bloggs&quot;);<br>_LIT(KName2,&quot;F.B.Wittering&quot;);<br>_LIT(KName3,&quot;Z.Makepeace&quot;);<br>...<br>bankact.iActName  = KName1;<br>bankact.iActNum   = 3;<br>bankact.iActValue = 300;<br>anArray-&gt;AppendL(bankact);<br>...<br>bankact.iActName  = KName2;<br>bankact.iActNum   = 1;<br>bankact.iActValue = 6000;<br>anArray-&gt;AppendL(bankact);<br>...<br>bankact.iActName  = KName3;<br>bankact.iActNum   = 2;<br>bankact.iActValue = 32;<br>anArray-&gt;AppendL(bankact);<br>...</code></p>
+<a name="1.10"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Sorting the array</h2>
+</div><div class="Bodytext">
+<p>To sort the array into account number order, first construct a
+<code>TKeyArrayFix</code> object to define the location and type of key on
+which to sort the array:</p>
+<p class="CodeBlock"><code>TKeyArrayFix actNumKey(_FOFF(TBankAct,iActNum),ECmpTUint);</code></p>
+<p>In practice, a data member like <code>iActNum</code> may be private, in
+which case this statement may not be permitted by the compiler. Two solutions
+are:</p>
+<ol>
+<li>
+<p>Make the class in which <code>actNumKey</code> is declared a friend
+of <code>TBankAct</code></p>
+</li>
+<li>
+<p>Declare a public <code>const</code>
+<code>static</code>
+<code>TInt</code> data member <code>iOffset</code> (for example) in the
+<code>TBankAct</code> class and include a line of code:</p>
+</li>
+</ol>
+<ul>
+<li>
+<p><code>const TInt TBankAct::iOffset =
+_FOFF(TBankAct,iActNum);</code></p>
+</li>
+</ul>
+<p><code>actNumKey</code> can then be constructed:</p>
+<p class="CodeBlock"><code>TKeyArrayFix actNumKey(bankact.iOffset,ECmpTUint);</code></p>
+<p><code>ECmpTUint</code> is an enumerator of the
+<code>TKeyCmpNumeric</code> enumeration; this constructor defines a numeric
+key.</p>
+<p>Now use the key definition to do the sort:</p>
+<p class="CodeBlock"><code>...<br>anArray-&gt;Sort(actNumKey);<br>...</code></p>
+<p>See also:</p><ul><li><p><a href="../../../../APIReference/SystemMacros/FOFFMacro.html#_FOFF" title="Calculates the offset of member f within class c"><code class="ApiItem">_FOFF</code></a></p></li></ul>
+<a name="1.11"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Re-sort the array</h2>
+</div><div class="Bodytext">
+<p>Re-sort the array into account name order, ignoring the case of the name,
+and then insert another element into the array maintaining the same
+order.</p>
+<p>First, construct another <code>TKeyArrayFix</code> object:</p>
+<p class="CodeBlock"><code>TKeyArrayFix actNameKey(_FOFF(TBankAct,iActName),ECmpFolded);</code></p>
+<p><code>ECmpFolded</code> is an enumerator of the <code>TKeyCmpText</code>
+enumeration; this constructor defines a descriptor key.</p>
+<p>Now use the key definition to re-sort the array and insert a new element
+into the correct place:</p>
+<p class="CodeBlock"><code>...<br>anArray-&gt;Sort(actNameKey);<br>...<br>_LIT(KNewName,&quot;W.B.NewPerson&quot;);<br>...<br>bankact.iActName  = KNewName;<br>bankact.iActNum   = 69;<br>bankact.iActValue = 24;<br>...<br>anArray-&gt;InsertIsqL(bankact,actNameKey);<br>...</code></p>
+<p>Note that the function <code>InsertIsqL()</code> does not permit
+duplicates. If there is already an element with the same account name in the
+array, then the call to the function  leaves with
+<code>KErrAlreadyExists</code>.</p>
+<p>Use the key definition to find an array element with a specific name and
+change the <code>iActValue</code> data member of that element:</p>
+<p class="CodeBlock"><code>...<br>_LIT(KFindName,&quot;A.Bloggs&quot;);<br>bankact.iActName = KFindName;<br>...<br>TInt position;<br>if (anArray-&gt;FindIsq(bankact,actNameKey,position))<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;//  array element NOT found<br>&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>else<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;(*anArray)[position].iActValue = 40,000,000;<br>&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<a name="1.11.11"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Notes</h3>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>Sorting a packed array is achieved using the <code>SortL()</code>
+member function.</p>
+</li>
+<li>
+<p>Although the example uses an array of fixed length objects and a
+<code>TKeyArrayFix</code> object, the same techniques apply to variable length
+and packed arrays.</p>
+</li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

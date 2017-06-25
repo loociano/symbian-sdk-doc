@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Permanent file store</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="FileStoresGuide%2efile%2dstores%2epermanent"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="DirectFileStore.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="FileBasedDictionaryStore.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">File&nbsp;Stores</a>&nbsp;<span class="separator">&#187;</span>
+Permanent&nbsp;file&nbsp;store</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Permanent file store</h1>
+</div><div class="Bodytext">
+<p>A permanent file store implements most of the operations defined by
+the store abstract framework. Most importantly, streams in a permanent file
+store can be:</p>
+<ul>
+<li>
+<p>overwritten</p>
+</li>
+<li>
+<p>replaced</p>
+</li>
+<li>
+<p>deleted</p>
+</li>
+<li>
+<p>created in advance of being written to.</p>
+</li>
+</ul>
+<p>A permanent file store is useful for the type of application which
+treats the data in the store as its prime copy. Typically, the object network
+comprising the application’s data is structured so that sections of data can
+be loaded in, and, if changed, written back to the store. Memory is used as a
+workplace for changing data. Such an application never replaces the entire
+store. This approach requires a sophisticated structure and greater
+sophistication within the application.</p>
+<p>Typically, a permanent file store is used by an application, such as
+a database, which maintains all its data in a file, but occasionally edits some
+entries in that database.</p>
+<p> In this paradigm:</p>
+<ul>
+<li>
+<p>the database file is initially created</p>
+</li>
+<li>
+<p>when an entry is created, it as added to the database</p>
+</li>
+<li>
+<p>the program maintains an internal, non-persistent, copy of the
+indexes in the database file</p>
+</li>
+<li>
+<p>when an entry is selected for display or editing, its data is
+retrieved from the database; all such entries&#8217; data are maintained in an
+internal, non-persistent, form</p>
+</li>
+<li>
+<p>when an entry is edited and saved, just that single entry is
+replaced in the database</p>
+</li>
+<li>
+<p>when the application exits, there is nothing to do to the
+database, since there should be no data that was not already saved (except,
+perhaps, the current entry if it was being edited)</p>
+</li>
+</ul>
+<p>Such an application never replaces the entire store. The database
+file itself is permanent; it is not erased when an entry is saved. Because of
+this, much more care is needed when maintaining this type of store. All links
+within the database must be maintained without corruption, and no stream
+subnetworks in the database should become inaccessible, otherwise space is
+wasted. The order in which streams are written to a permanent file store is not
+important as streams can be changed and rewritten. </p>
+<p>Overwriting an existing stream does not change its length. However,
+attempting to write beyond the end of the stream fails and results in a leave.
+Replacing a stream can result in a stream which is longer or shorter than the
+original.</p>
+<p>Note the difference between a persistent store (one that can be
+closed and re-opened), and a permanent file store (it is not replaced
+wholesale; rather, its individual entries are edited, inserted and deleted, but
+the store itself is permanent). A permanent file store is, of course,
+persistent.</p>
+<p>When the content of a permanent file store is naturally represented
+by a relational database, it is usually much more convenient to manipulate it
+using the relational database manager.</p>
+<p>Permanent file stores are encapsulated by the
+<code>CPermanentFileStore</code> class.</p>
+<a name="1.14"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="../DBMS/index.html#DBMSGuide%2etoc">DBMS</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

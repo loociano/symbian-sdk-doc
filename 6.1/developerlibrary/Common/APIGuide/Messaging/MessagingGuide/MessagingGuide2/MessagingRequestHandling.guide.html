@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Request handling</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="MessagingGuide2%2erequest"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="MessagingClientRequests.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="MessagingServices.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Messaging</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Messaging</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">The&nbsp;Message&nbsp;Server</a>&nbsp;<span class="separator">&#187;</span>
+Request&nbsp;handling</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Request handling</h1>
+</div><div class="Bodytext">
+<p>The central purpose of the Message Server is to accept and carry out requests from clients, which include message client applications, Client-side MTMs, and User Interface MTMs. Typical requests include changing the structure/contents of the local folders, sending and receiving of messages through different services, changing the contents/structure of remote mailboxes, and MTM-specific requests. </p>
+<p>Some asynchronous requests, such as sending a fax, can take considerable time to complete. In order to be responsive, message client applications may well need to change the context (the message entry being operated on by an instance of <code>CMsvEntry</code>) while a request is being processed. To allow this to happen, the request functions return an active object, called an operation object, with base class <code>CMsvOperation</code>, that is then responsible for the request. The <code>CMsvEntry</code> object has no further interest in that request and is free to change context. A client then uses the operation active object in the standard ways, such as waiting for request completion, and cancelling the request. Additionally, the operation class supports a progress function, which returns an MTM-specific progress descriptor, containing, for example, the number of pages that have so far been sent. User Interface MTMs implement a function to display this progress information to the user. Once the client is signalled that the request has completed, it can check the final progress information, before deleting the operation object.</p>
+<p>For each request that the Message Server receives, it creates an operation object of its own. This object checks to see if a Server-side MTM is required to carry out the request, and, if so, calls the server-side registry to create it. The operation object then calls the appropriate function on the MTM object, which carries out the request asynchronously. While this is happening, the Message Server may receive further requests requiring the same Server-side MTM. The Message Server queues such requests and passes them to the MTM object consecutively. More than one instance of a server MTM may exist if the operation is being called on a different service.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

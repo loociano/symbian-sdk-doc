@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>About application resources</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="DevTools%2eTool_Guide_App_Resources_in_EPOC"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="Tool_Guide_aiftool.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Application&nbsp;Resource&nbsp;Tools&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+About&nbsp;application&nbsp;resources</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>About application resources</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Overview</h2>
+</div><div class="Bodytext">
+<p>In EPOC, much of the information that defines the appearance, behaviour and functionality of an application is stored in a <em>resource file</em>&nbsp;&#8212; external to the main body of the program. This is unlike some other programming environments, in which a single executable contains all the code and information used by the application.</p>
+<p>The two types of resource file used in EPOC are <em>application information files</em> (<code class="filename">aif</code> files) and resource files.  The difference between these file types is that application information files define application behaviour within the system context, while ordinary resource files define the appearance and behaviour within an application.</p>
+<p>The GUI tool AIF Builder provides a simple way to create <code class="filename">aif</code> files: for details see <a href="../AIFUITools/AIFBuilderIntro/index.html#AIFBuilderIntro%2etoc">Introduction to AIF Builder</a>. It is possible though to write the required source files by hand, and compile them using command-line tools, and this section contains the information to do so.</p>
+<p>This section describes some of the advantages gained by separating an application&#8217;s resources from its executable code, and provides a listing of the file types used in the resource compilation process. </p>
+<a name="1.4"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Customise the user interface</h2>
+</div><div class="Bodytext">
+<p>For C++ programs, the Uikon programming framework requires that some aspects of an application&#8217;s layout and behaviour, such as the menu, are defined in a resource file.</p>
+<p>This can have powerful implications for application development. Small changes to the resource file can change an application significantly.  </p>
+<a name="1.5"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>User resources</h2>
+</div><div class="Bodytext">
+<p>Resource files are not restricted to declaring information used by the Uikon framework.  A resource file might also, for example, define resources for dialog text, error messages, and program initialisation.</p>
+<p>Again, the advantages of declaring user information in a resource file are that information is loaded only when needed, that resource files can be compressed, and that they can be localised without recompiling the main program.</p>
+<a name="1.6"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>System resources</h2>
+</div><div class="Bodytext">
+<p>The application information file is a special type of resource file, which defines application properties within the system context.  These properties include:</p>
+<ul><li><p>the appearance of the application icon within the system shell</p></li>
+<li><p>whether the application can be embedded</p></li>
+<li><p>whether the application is visible in the system shell</p></li>
+<li><p>whether new documents for the application can be created from the system shell</p></li>
+</ul><p>In addition, some applications support MIME types, and this property is also defined in the <code class="filename">aif</code> file.</p>
+<p>The structure of the application information resource file is similar to that of the ordinary resource file. However, since the information to be contained is pre-defined, formatting of <code class="filename">aif</code> resource files is very simple.</p>
+<a name="1.7"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>File types reference</h2>
+</div><div class="Bodytext">
+<p>The resource compilation process uses a number of file types:</p>
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+<p><code class="filename">rss</code></p>
+</td>
+<td class="Cell">
+<p>resource source file, for input to Rcomp<code class="filename">
+</code>or<code class="filename">
+</code>Aiftool<code class="filename">.</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">h</code></p>
+</td>
+<td class="Cell">
+<p>header file, for inclusion in C++ file</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">rh</code></p>
+</td>
+<td class="Cell">
+<p>resource header, for inclusion in resource file</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">hrh</code></p>
+</td>
+<td class="Cell">
+<p>common C++ or resource header, for inclusion in either type of source file</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">rsg</code></p>
+</td>
+<td class="Cell">
+<p>generated resource header file, output from Rcomp</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">rsc</code></p>
+</td>
+<td class="Cell">
+<p>generated resource file, output from Rcomp</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">aif</code></p>
+</td>
+<td class="Cell">
+<p>application information file, as defined by the application architecture, output by Aiftool</p>
+</td>
+</tr>
+</table></td></tr></table><a name="1.8"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Delivering resource files</h2>
+</div><div class="Bodytext">
+<p>Resource files are usually delivered with other application files as part of an installation file&nbsp;&#8212;  see <a href="../Installing/index.html#Installing%2eToplevel%2etoc">Application Installation Guide</a>. </p>
+<p>The installation file should be configured so that the <code class="filename">aif</code> file is copied to the same directory as its associated application file. If the application is to appear on the shell, this should be the directory <code class="filename">\System\Apps\</code><code>AppName</code><code class="filename">\</code> folder in any drive.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

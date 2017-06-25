@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Constructing an embedded store</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="StoresGuide3%2eEmbedded%2dconstruction"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="EmbeddedStoresIntroduction.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Stores</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Embedded&nbsp;stores</a>&nbsp;<span class="separator">&#187;</span>
+Constructing&nbsp;an&nbsp;embedded&nbsp;store</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Constructing an embedded store</h1>
+</div><div class="Bodytext">
+<p>Embedded stores are represented by an instance of the
+<code>CEmbeddedStore</code> class.</p>
+<p>A <code>CEmbeddedStore</code> object is constructed from a host
+stream. </p>
+<p>When the <code>CEmbeddedStore</code> object represents a new embedded
+store, it is constructed from an <code>RWriteStream</code> object; for example,
+a class might include the following code fragment in one of its
+functions:</p>
+<p class="CodeBlock"><code>...<br>&nbsp;&nbsp;&nbsp;&nbsp;// create the stream to contain the embedded store<br>RStoreWriteStream childStream;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// we need to keep track of this stream id<br>iEmbeddedStoreId = childStream.CreateLC(iStore);<br>&nbsp;&nbsp;&nbsp;&nbsp;// construct the embedded store<br>CPersistentStore* embeddedStore = CEmbeddedStore::NewLC(childStream);<br>...</code></p>
+<p>Here, the code assumes that <code>iStore</code> refers to the top
+level store and <code>iEmbeddedStoreId</code> is a data member to hold the ID
+of the hosting stream.</p>
+<p>On successful construction, ownership of the host stream passes to
+the embedded store which means that the embedded store takes on the
+responsibility for closing the stream.</p>
+<p>When the <code>CEmbeddedStore</code> object represents an existing
+embedded store, it is constructed from an <code>RReadStream</code> object; for
+example, a class might include the following code fragment in one of its
+functions:</p>
+<p class="CodeBlock"><code>...<br>RStoreReadStream childStream;<br>childStream.OpenL(iStore,iEmbeddedStoreId);<br>iEmbeddedStore = CEmbeddedStore::FromL(childStream);<br>...</code></p>
+<p>Where:</p>
+<ul>
+<li>
+<p><code>iStore</code> refers to the top level store</p>
+</li>
+<li>
+<p><code>iEmbeddedStoreId</code> is a data member that holds the ID
+of the hosting stream</p>
+</li>
+<li>
+<p><code>iEmbeddedStore</code> holds a reference to the embedded
+store object.</p>
+</li>
+</ul>
+<p>When saving data, an application re-creates the embedded store by
+re-writing the complete partial object network to the embedded store, replacing
+any existing data.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

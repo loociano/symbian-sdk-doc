@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to append and insert elements</title>
+<link href="../../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="DynamicArraysGuide2%2ehow%2dto%2eappend%2dinsert"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../../_index/index.html"><img
+src="../../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../../GlobalGlossary/index.html"><img src="../../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="UsingDynamicArrays.guide.html"><img src="../../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToRemove.guide.html"><img src="../../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Arrays&nbsp;and&nbsp;Lists</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Dynamic&nbsp;Arrays</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">How&nbsp;to&nbsp;Use&nbsp;Dynamic&nbsp;Arrays</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;append&nbsp;and&nbsp;insert&nbsp;elements</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to append and insert elements</h1>
+</div><div class="Bodytext">
+<p>Elements can be added into an array by inserting them into a
+specified position.</p>
+<p>Adding elements into an array may cause memory to be allocated and
+this can fail, causing these functions to leave. User code must always be
+prepared to handle this.</p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Appending an element</h2>
+</div><div class="Bodytext">
+<p>The following code fragment appends three <code>TElement</code>
+objects to a <code>CArrayFixFlat&lt;class&nbsp;T&gt;</code> constructed with
+a granularity of four, each successive element containing the characters
+&#8220;X0&#8221;, &#8220;X1&#8221; etc. </p>
+<p class="CodeBlock"><code>_LIT(KFormatTxt,&quot;X%u&quot;);</code></p>
+<p class="CodeBlock"><code>class TElement<br>&nbsp;{<br>public :<br>&nbsp;TElement();<br>public :<br>&nbsp;TBuf&lt;4&gt; iData;<br>&nbsp;};</code></p>
+<p class="CodeBlock"><code>CArrayFixFlat&lt;TElement&gt;* fixflat;<br>fixflat = new (ELeave) CArrayFixFlat&lt;TElement&gt;(3);</code></p>
+<p class="CodeBlock"><code>TElement theElement;</code></p>
+<p class="CodeBlock"><code>for (TInt value = 0; value &lt; 3; value++)<br>&nbsp;{<br>&nbsp;theElement.iData.Format(KFormatTxt,value);<br>&nbsp;fixflat-&gt;AppendL(theElement);<br>&nbsp;}</code></p>
+<a name="1.5.8"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Notes</h3>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>Adding the first element into this array causes an array
+buffer with a capacity of 3 elements to be constructed. Attempting to add a 4th
+element causes the array buffer to be re-allocated so that it has a capacity of
+6 elements.</p>
+</li>
+<li>
+<p>In general, the granularity should be carefully chosen to
+minimise the number of calls to the memory allocator and to avoid wasted space
+within the array buffer.</p>
+</li>
+</ul>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Inserting an element</h2>
+</div><div class="Bodytext">
+<p>The following code fragment uses <code>InsertL()</code> to insert a new
+element into a definite position in
+a<code>CArrayFixFlat&lt;class&nbsp;T&gt;</code> array. For example, to
+insert a <code>TElement</code> object at the <i>beginning</i> of the
+array (position zero in the array) :</p>
+<p class="CodeBlock"><code>CArrayFixFlat&lt;TElement&gt;* fixflat;<br>fixflat = new (ELeave) CArrayFixFlat&lt;TElement&gt;(3);</code></p>
+<p class="CodeBlock"><code>TElement theElement;</code></p>
+<p class="CodeBlock"><code>_LIT(KTxtBeg,&quot;BEG&quot;);<br>theElement.iData = KTxtBeg;<br>fixflat-&gt;InsertL(0,theElement);</code></p>
+<p>To insert a new element at (what is now) position 2 of the array:</p>
+<p class="CodeBlock"><code>_LIT(KTxtMid,&quot;MID&quot;);<br>theElement.iData = KTxtMid;<br>fixflat-&gt;InsertL(2,theElement);</code></p>
+<p>To insert a new element at the back of the array:</p>
+<p class="CodeBlock"><code>_LIT(KTxtEnd,&quot;END&quot;);<br>theElement.iData = KTxtEnd;<br>fixflat-&gt;InsertL(fixflat-&gt;Count(),theElement);</code></p>
+<p>Elements can also be inserted into the array at a position determined by
+a key (i.e. inserted in key sequence) using the <code>InsertIsqL()</code>member
+function.</p>
+<a name="1.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Adding and inserting a pointer to an array of pointers</h2>
+</div><div class="Bodytext">
+<p>The following code fragment uses the <code>AppendL()</code>
+and<code>InsertL()</code> functions to append and insert a pointer into
+a<code>CArrayPtrFlat</code> array. The pointer being added is a pointer to
+a<code>CBase</code> derived objects:</p>
+<p class="CodeBlock"><code>CArrayPtrFlat&lt;TElement&gt;* ptrflat;<br>ptrflat = new (ELeave) CArrayPtrFlat&lt;TElement&gt;(3);</code></p>
+<p class="CodeBlock"><code>ptr = new (ELeave) CElement;<br>...<br>ptrflat-&gt;AppendL(ptr);<br>...<br>ptr = new (ELeave) CElement;<br>...<br>ptrflat-&gt;InsertL(0,ptr);</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

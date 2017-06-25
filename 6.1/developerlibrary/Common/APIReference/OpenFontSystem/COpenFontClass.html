@@ -1,0 +1,300 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>COpenFont</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="COpenFontFileClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Open&nbsp;Font&nbsp;System</a>&nbsp;<span class="separator">&#187;</span>
+COpenFont</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+<p>Location: <code>openfont.h</code><br>Link against: <code>fntstr.lib</code></p>
+</div><div class="Head1">
+<a name="%3a%3aCOpenFont"></a>
+
+<h1>Class <code>COpenFont</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>COpenFont</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Open Font System  font abstract base class.</p><p>Derive a class from this class to represent an instance of a typeface at a particular size, provide bitmaps of the glyphs, and determine whether characters exist in the typeface.</p><p>Writing derived classes — construction: </p><p>You must call the constructor of this class when creating your derived object, passing the arguments <code>aHeap</code> and <code>aSessionCacheList</code> supplied to <code>COpenFontFile::GetNearestFontInPixelsL()</code>, and  the address of the <code>COpenFontFile</code> object that creates the object  as <code>aFile</code>.</p><p>The derived object must be created on the shared heap <code>aHeap</code> because it is shared by several processes —  the font and bitmap server and its clients. To do this, use <code>aHeap-&gt;AllocL()</code> to obtain memory, then construct in place using a placement argument to <code>new</code>.</p><p>Writing derived classes — implement the pure virtual functions:</p><p>Devived classes must  implement the  pure virtual function   <code>RasterizeL()</code>. Information about  this function is provided in the function  definition below. </p><p>Information about deriving from this class is also provided  in the API guide.</p>
+<h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase">CBase</a></code></td><td class="Cell">Base class for all classes to be instantiated on the heap</td>
+</tr>
+<tr><td class="Cell"><code>COpenFont</code></td><td class="Cell">Open Font System font abstract base class</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>COpenFont</code>:
+<br><code class="ApiItem"><a href="COpenFontClass.html#%3a%3aCOpenFont%3a%3aCOpenFont%28%29" title="C++ constructor taking shared heap, session cache list, font file and face index as parameters">COpenFont()</a></code>, <code class="ApiItem"><a href="COpenFontClass.html#%3a%3aCOpenFont%3a%3aCharacterNeedsToBeRasterized%28%29" title="Tests whether or not a character needs to be rasterized">CharacterNeedsToBeRasterized()</a></code>, <code class="ApiItem"><a href="COpenFontClass.html#%3a%3aCOpenFont%3a%3aFaceAttrib%28%29" title="Gets the typeface attributes">FaceAttrib()</a></code>, <code class="ApiItem"><a href="COpenFontClass.html#%3a%3aCOpenFont%3a%3aFaceIndex%28%29" title="Gets the index of this typeface within the font file">FaceIndex()</a></code>, <code class="ApiItem"><a href="COpenFontClass.html#%3a%3aCOpenFont%3a%3aFile%28%29" title="Gets a pointer to the COpenFontFile which created this object">File()</a></code>, <code class="ApiItem"><a href="COpenFontClass.html#%3a%3aCOpenFont%3a%3aMetrics%28%29" title="Gets the character metrics for this font">Metrics()</a></code>, <code class="ApiItem"><a href="COpenFontClass.html#%3a%3aCOpenFont%3a%3aRasterizeL%28%29" title="Creates a bitmap for the specified Unicode character">RasterizeL()</a></code>, <code class="ApiItem"><a href="COpenFontClass.html#%3a%3aCOpenFont%3a%3adelete%28%29" title="Delete operator">delete()</a></code>, <code class="ApiItem"><a href="COpenFontClass.html#%3a%3aCOpenFont%3a%3a%7eCOpenFont%28%29" title="Destructor">~COpenFont()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap">CBase</a></code>:
+<br><code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase%3a%3aoperator%20new%28%29" title="Allocates the object from the heap and then initialises its contents to binary zeroes">operator new()</a></code></p>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="COpenFontFileClass.html#%3a%3aCOpenFontFile%3a%3aGetNearestFontInPixelsL%28%29" title="Gets the nearest font in pixels"><code class="ApiItem">COpenFontFile::GetNearestFontInPixelsL()</code></a></li>
+</ul>
+<a name="2.7"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction and destruction</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aCOpenFont%3a%3aCOpenFont%28%29"></a>
+<hr size="1" noshade>
+<h3><code>COpenFont()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>COpenFont(RHeap* aHeap,COpenFontSessionCacheList* aSessionCacheList,COpenFontFile* aFile);</code></p><h4 class="subheading">Description</h4>
+<p>C++ constructor taking shared heap, session cache list and font file as parameters.</p><p>You must either use this, or the other constructor,  when creating your derived object. This constructor might be used, in preference to the other, if there is only a single typeface in the font file.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+RHeap* aHeap</code></td>
+<td class="Cell"><p class="ValueDesc">The shared heap.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+COpenFontSessionCacheList* aSessionCacheList</code></td>
+<td class="Cell"><p class="ValueDesc">
+The session cache list.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+COpenFontFile* aFile</code></td>
+<td class="Cell"><p class="ValueDesc">
+A pointer to the <code>COpenFontFile</code> object creating this <code>COpenFont</code>. e.g. when creating a  <code>COpenFont</code> the <code>COpenFontFile</code> derived object would pass it <code>this</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aCOpenFont%3a%3aCOpenFont%28%29"></a>
+<hr size="1" noshade>
+<h3><code>COpenFont()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>COpenFont(RHeap* aHeap,COpenFontSessionCacheList* aSessionCacheList,COpenFontFile* aFile,TInt aFaceIndex);</code></p><h4 class="subheading">Description</h4>
+<p>C++ constructor taking shared heap, session cache list, font file and face index as parameters.</p><p>You must either use this, or the other constructor,  when creating your derived object. This constructor would be used if the font file contains more than one typeface.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+RHeap* aHeap</code></td>
+<td class="Cell"><p class="ValueDesc">
+The shared heap.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+COpenFontSessionCacheList* aSessionCacheList</code></td>
+<td class="Cell"><p class="ValueDesc">The session cache list.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+COpenFontFile* aFile</code></td>
+<td class="Cell"><p class="ValueDesc">
+A pointer to the <code>COpenFontFile</code> object creating this <code>COpenFont</code>. e.g. when creating a  <code>COpenFont</code> the <code>COpenFontFile</code> derived object would pass it <code>this</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt aFaceIndex</code></td>
+<td class="Cell"><p class="ValueDesc">
+The index of the typeface within the font file <code>aFile</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.4"></a></div><div class="Head3">
+<a name="%3a%3aCOpenFont%3a%3a%7eCOpenFont%28%29"></a>
+<hr size="1" noshade>
+<h3><code>~COpenFont()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>~COpenFont();</code></p><h4 class="subheading">Description</h4>
+<p>Destructor.</p><p>This function frees all memory owned by the object, including the session cache list and the glyph list, prior to its destruction.</p>
+<a name="2.8"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Pure virtual functions</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aCOpenFont%3a%3aRasterizeL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RasterizeL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void RasterizeL(TInt aCode,TOpenFontGlyphData* aGlyphData)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Creates a bitmap for the specified Unicode character.</p><p>Implementations of this function should put the bitmap in <code>aGlyphData-&gt;iBitmapBuffer</code>, and the character metrics are placed in <code>aGlyphData-&gt;iMetricsBuffer</code>. The other parts of <code>aGlyphData</code> should be left alone.
+</p><p>There are a number of strategies for achieving this, e.g. pass the rasterization task all the way up to the rasterizer engine. These are discussed in the API guide.</p><p>At present you must write the bitmap in the Symbian platform's run-length-encoded format. This is a packed binary format starting on a byte boundary and made up of a number of sections. Each section starts with a five-bit header. If the first bit of the header is 0 the next four bits are a repeat count, starting with the least significant bit, and a single row of bits (the number of bits in a row is specified by <code>aGlyphData-&gt;iMetricsBuffer.Width()</code>) follows. If the first bit of the header is 1 the next four bits are a count of non-repeating rows, again starting with the least significant bit, and that many rows of bits follow.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt aCode</code></td>
+<td class="Cell"><p class="ValueDesc">The  character code
+of the Unicode character for which the bitmap is required.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TOpenFontGlyphData* aGlyphData</code></td>
+<td class="Cell"><p class="ValueDesc">
+On return, contains a pointer to a TOpenFontGlyphData containing the character's bitmap and metrics.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Member functions</h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aCOpenFont%3a%3aCharacterNeedsToBeRasterized%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CharacterNeedsToBeRasterized()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool CharacterNeedsToBeRasterized(TInt aSessionHandle,TInt aCode) const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Tests whether or not a character needs to be rasterized.</p><p>Characters that have been rasterized are cached — there is no need to regenerate the character bitmap. This function should only  be called by the Font and bitmap server.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt aSessionHandle</code></td>
+<td class="Cell"><p class="ValueDesc">A handle to the font and bitmap server session.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt aCode</code></td>
+<td class="Cell"><p class="ValueDesc">The code for the Unicode character.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TBool</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue</code> if the character needs to be rasterized, otherwise <code>EFalse</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.3"></a></div><div class="Head3">
+<a name="%3a%3aCOpenFont%3a%3aFaceAttrib%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FaceAttrib()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const TOpenFontFaceAttrib* FaceAttrib() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the typeface attributes.</p><p>These are the attributes of the font represented by this object.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TOpenFontFaceAttrib*</code></td>
+<td class="Cell"><p class="ValueDesc">
+The typeface attributes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.4"></a></div><div class="Head3">
+<a name="%3a%3aCOpenFont%3a%3aFaceIndex%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FaceIndex()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt FaceIndex() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the index of this typeface within the font file.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The index of this typeface within the font file.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.5"></a></div><div class="Head3">
+<a name="%3a%3aCOpenFont%3a%3aFile%28%29"></a>
+<hr size="1" noshade>
+<h3><code>File()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>COpenFontFile* File() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a pointer to the <code>COpenFontFile</code> which created this object.</p><p>This is the <code>COpenFontFile</code> which owns the file that contains the definition of the typeface. It can be used to get information about the typeface, or to access the rasterizer context (engine).</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+COpenFontFile*</code></td>
+<td class="Cell"><p class="ValueDesc">
+The <code>COpenFontFile</code> which created this object.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.6"></a></div><div class="Head3">
+<a name="%3a%3aCOpenFont%3a%3aMetrics%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Metrics()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const TOpenFontMetrics&amp; Metrics() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the character metrics for this font.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TOpenFontMetrics&amp;</code></td>
+<td class="Cell"><p class="ValueDesc">
+The character metrics for this font.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.7"></a></div><div class="Head3">
+<a name="%3a%3aCOpenFont%3a%3adelete%28%29"></a>
+<hr size="1" noshade>
+<h3><code>delete()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void operator delete(TAny*);</code></p><h4 class="subheading">Description</h4>
+<p>Delete operator.</p><p>This delete operator overload removes <code>COpenFont</code> objects from the shared heap.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TAny*</code></td>
+<td class="Cell"><p class="ValueDesc">
+The object to be deleted.</p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

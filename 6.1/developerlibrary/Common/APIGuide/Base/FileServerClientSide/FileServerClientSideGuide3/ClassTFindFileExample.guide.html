@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to search for files with TFindFile</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="FileServerClientSideGuide3%2ehow%2dto%2eimplement%2dclass%2dTFindFile"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="Notification.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">File&nbsp;Server&nbsp;Client&nbsp;Side</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">File&nbsp;management&nbsp;and&nbsp;searching</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;search&nbsp;for&nbsp;files&nbsp;with&nbsp;TFindFile</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to search for files with
+<code>TFindFile</code></h1>
+</div><div class="Bodytext">
+<p>The following example accumulates a list of all the files on any
+drive which are in a particular directory and which match a name with
+wildcards, for example, all files matching <code class="filename">\System\Fonts\*.gdr</code>.
+</p>
+<p>To start a search, use <code>TFindFile::FindWildByDir()</code>. You
+can then call <code>TFindFile::FindWild()</code> to perform the same search on
+another drive. </p>
+<p> To retrieve the fully qualified path of the matching files, class
+<code>TParse</code> is used to combine the filename with the drive letter and
+directory which contains the file. The example works as follows:</p>
+<ol>
+<li>
+<p>Construct a <code>TFindFile</code> object.</p>
+</li>
+<li>
+<p>Use <code>FindWildByDir()</code> to start the search for matching
+files. There is considerable flexibility in the handling of
+<code>aWildName</code> and <code>aScanDir</code>, but the simplest and most
+common case is where <code>aWildName</code> is the filename and extension (for
+example, <code class="filename">*.gdr</code>) and <code>aScanDir</code> is the directory name,
+without a drive letter, but including a trailing directory separator (for
+example, <code class="filename">\System\Fonts\</code>).</p>
+</li>
+<li>
+<p>The list of matching files is returned in a <code>CDir</code>
+object, which is implemented as an array. <code>Count()</code> retrieves the
+number of items in the list.</p>
+</li>
+<li>
+<p>Use <code>file_finder.File()</code> to retrieve the drive and
+path of the folder containing the files in the <code>CDir</code>, (for example
+<code class="filename">Z:\System\Fonts\</code>).</p>
+</li>
+<li>
+<p>Use <code>TParse::Set()</code> to combine the file name and path
+into a full filename.</p>
+</li>
+<li>
+<p> Use <code>TFindFile::FindWild()</code> to continue the search on
+the next drive in the search sequence.</p>
+</li>
+</ol>
+<p class="CodeBlock"><code>void ForAllMatchingFiles(RFs&amp; aSession, const TDesC&amp; aWildName, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const TDesC&amp; aScanDir)<br>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;TFindFile file_finder(aSession);<br>&nbsp;&nbsp;&nbsp;&nbsp;CDir* file_list;        <br>&nbsp;&nbsp;&nbsp;&nbsp;TInt err = file_finder.FindWildByDir(aWildname,aScanDir, file_list);<br>&nbsp;&nbsp;&nbsp;&nbsp;while (err==KErrNone)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TInt i;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for (i=0; i&lt;file_list-&gt;Count(); i++)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TParse fullentry;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fullentry.Set((*file_list)[i].iName,&amp; file_finder.File(),NULL);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Do something with the full filename...<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// ...<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delete file_list;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;err=file_finder.FindWild(file_list);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<a name="1.8"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Notes</h2>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p><code>(*file_list)[i].iName</code> is the name of a file
+matching the pattern specified (e.g. <code class="filename">Eon.gdr</code>).</p>
+</li>
+<li>
+<p>It is your responsibility to delete the <code>CDir</code>
+object when you have finished with it.</p>
+</li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CEchoEngine class</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="TcpipGuide3%2eCechoengine"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="Echoeng.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="CechoreadClass.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Networking</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;TCP/IP</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Echo&nbsp;Example&nbsp;Program</a>&nbsp;<span class="separator">&#187;</span>
+CEchoEngine&nbsp;class</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1><code>CEchoEngine</code> class</h1>
+</div><div class="Bodytext">
+<p><code>CEchoEngine</code> serves three purposes:</p>
+<ul><li><p>It wraps asynchronous connection and shutdown operations in an active object.</p></li>
+<li><p>It controls the creation and deletion of the active objects that read to and write from a socket (<code>CEchoRead</code> and <code>CEchoWrite</code> respectively). This is because these objects are only required from when a connection is a made until the socket is shutdown. </p></li>
+<li><p>It gathers into a single interface all the functions that users of the engine require to access the engine&#8217;s functionality. This means that users do not call functions on <code>CEchoRead</code> and <code>CEchoWrite</code> directly. Instead, they use the exported wrapper functions defined by <code>CEchoEngine</code>.</p></li>
+</ul><p>The public exported functions can be divided to follow these groups, plus construction and destruction:</p>
+<a name="1.6"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction and destruction functions</h2>
+</div><div class="Bodytext">
+<p><code>CEchoEngine</code> has the usual two-phase construction functions. </p>
+<p class="CodeBlock"><code>IMPORT_C CEchoEngine();</code></p>
+<p class="CodeBlock"><code>IMPORT_C static CEchoEngine* NewL(MUINotify* aConsole);</code></p>
+<p class="CodeBlock"><code>IMPORT_C static CEchoEngine* NewLC(MUINotify* aConsole);</code></p>
+<p class="CodeBlock"><code>IMPORT_C void ConstructL(MUINotify* aConsole);</code></p>
+<p class="CodeBlock"><code>~CEchoEngine();</code></p>
+<p>Note that the creation functions take a <code>MUINotify</code>-type argument. This is passed to the <code>CEchoRead</code> and <code>CEchoWrite</code> objects when they are created, and so allows all the engine classes to make up-calls to a user interface object.</p>
+<p>The <code>ConstructL()</code> function initialises the objects required to serve the three purposes noted.  </p>
+<p class="CodeBlock"><code>EXPORT_C void CEchoEngine::ConstructL(MUINotify* aConsole)<br>// Construct object, and open a socket <br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;iConsole = aConsole;<br>&nbsp;&nbsp;&nbsp;&nbsp;iEngineStatus = EComplete;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;iTimeOut = KTimeOut; <br>&nbsp;&nbsp;&nbsp;&nbsp;iTimer = CTimeOutTimer::NewL(EPriorityHigh, *this);<br><br>&nbsp;&nbsp;&nbsp;&nbsp;CActiveScheduler::Add(this); <br><br>&nbsp;&nbsp;&nbsp;&nbsp;// Open channel to Socket Server<br>&nbsp;&nbsp;&nbsp;&nbsp;User::LeaveIfError(iSocketServ.Connect());<br>&nbsp;&nbsp;&nbsp;&nbsp;// Open a TCP socket<br>&nbsp;&nbsp;&nbsp;&nbsp;User::LeaveIfError(iEchoSocket.Open(iSocketServ, KAfInet, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KSockStream, KProtocolInetTcp));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iEchoRead = CEchoRead::NewL(&amp;iEchoSocket, aConsole);<br>&nbsp;&nbsp;&nbsp;&nbsp;iEchoWrite = CEchoWrite::NewL(&amp;iEchoSocket, aConsole);<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>It takes the following steps:</p>
+<ul><li><p>The engine needs a way to store its current state. <code>iEngineStatus</code> does this.</p></li>
+<li><p>We will want to place a limit on the time spent attempting to make a connection. To do this, we define a timer class <code>CTimeOutTimer</code>, and a <code>CEchoEngine</code> data member of this type, <code>iTimer</code>. We can make an asynchronous request to this timer to raise an event after a certain time. If this timer handler is called before the handler for the connection request, we know that this limit has been reached. </p></li>
+<li><p>The object adds itself to the active scheduler. </p></li>
+<li><p>A connection to the socket server is made, and a TCP socket initialised. <code>CEchoEngine::iEchoSocket</code> is an <code>RSocket</code> data member; <code>CEchoEngine::iSocketServ</code> is an <code>RSocketServ</code> data member; <code>KAfInet</code> indicates the TCP/IP protocol family, while <code>KSockStream</code> and <code>KProtocolInetTcp</code> specify TCP. If an error occurs here, it suggests that there is an unrecoverable configuration problem, such as TCP/IP not being installed. We therefore choose to leave on an error.</p></li>
+<li><p>The active objects that read to and write from a socket are created.</p></li>
+</ul><a name="1.7"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Connection and shutdown functions</h2>
+</div><div class="Bodytext">
+<p>The following functions provide the three type of connections that we want (using an IP address, using a hostname, and using an IP address, obtaining the symbolic name for this IP address first, respectively), and a function to shutdown the current connection.</p>
+<p class="CodeBlock"><code>IMPORT_C void ConnectL(TUint32 aAddr);</code></p>
+<p class="CodeBlock"><code>IMPORT_C void ConnectL(const TDesC&amp; aServerName);</code></p>
+<p class="CodeBlock"><code>IMPORT_C void TestGetByAddr(const TInetAddr&amp; aInetAddr);</code></p>
+<p class="CodeBlock"><code>IMPORT_C void Stop();</code></p>
+<a name="1.8"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Reading and writing functions</h2>
+</div><div class="Bodytext">
+<p>The following functions allow users of the engine to read and write data respectively. </p>
+<p class="CodeBlock"><code>IMPORT_C void Read();</code></p>
+<p class="CodeBlock"><code>IMPORT_C void Write(TChar aChar);</code></p>
+<p>As noted, these functions in turn call the <code>CEchoRead</code> and <code>CEchoWrite</code> functions that make the actual read and write calls to <code>RSocket</code>.</p>
+<a name="1.9"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Connection code</h2>
+</div><div class="Bodytext">
+<p>We can now look in more detail at a connection method. Below is the code for the connect by IP address request function.</p>
+<p class="CodeBlock"><code>EXPORT_C void CEchoEngine::ConnectL(TUint32 aAddr)<br>// Connect to an Echo Socket by IP address    <br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;iAddress.SetPort(7);<br>&nbsp;&nbsp;&nbsp;&nbsp;iAddress.SetAddress(aAddr);<br>&nbsp;&nbsp;&nbsp;&nbsp;iEchoSocket.Connect(iAddress, iStatus);<br>&nbsp;&nbsp;&nbsp;&nbsp;iEngineStatus = EConnecting;<br>&nbsp;&nbsp;&nbsp;&nbsp;SetActive();<br>&nbsp;&nbsp;&nbsp;&nbsp;iTimer-&gt;After(iTimeOut);<br>&nbsp;&nbsp;&nbsp;&nbsp;};</code></p>
+<p>It takes the following steps:</p>
+<ul><li><p>The <code>RSocket::Connect()</code> function requires a <code>TInetAddr</code> object holding the destination address and port. The first two lines set up this object (port 7 being the Echo server port, <code>aAddr</code> being the IP address). </p></li>
+<li><p>A asynchronous connection call is then made with <code>RSocket::Connect()</code>.</p></li>
+<li><p>The engine status is updated appropriately.</p></li>
+<li><p><code>SetActive()</code> is called to inform the active scheduler that a request has been issued. </p></li>
+<li><p>Finally, we make an asynchronous timer request, to put a limit on the time waited for a connection to be made. </p></li>
+</ul><p>As an active object, <code>CEchoEngine</code> defines a <code>RunL()</code> function to be called by the active scheduler when a request completes. The section of this function that handles the connection request just discussed is as follows:</p>
+<p class="CodeBlock"><code>iTimer-&gt;Cancel(); <br>switch(iEngineStatus)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>case EConnecting:<br>&nbsp;&nbsp;&nbsp;&nbsp;if (iStatus == KErrNone)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iConsole-&gt;PrintNotify(KConnecting);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iEngineStatus = EConnected;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Read(); //Start CEchoRead Active object<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;else<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iConsole-&gt;ErrorNotify(KConnectionFailed, iStatus.Int());<br>&nbsp;&nbsp;&nbsp;&nbsp;break;</code></p>
+<p>The steps are as follows:</p>
+<ul><li><p>As the request has completed, we no longer need the timer, and so it is cancelled. </p></li>
+<li><p>The switch statement then takes appropriate action based on the engine state variable <code>iEngineStatus</code>.  </p></li>
+<li><p>If the connection is successful, then we ask the user interface to print a message, update the state, and make the first request to read data from the socket.</p></li>
+<li><p>In the case of an error, we inform the user interface of this. </p></li>
+</ul>
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

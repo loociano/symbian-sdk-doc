@@ -1,0 +1,239 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>The WINS platform</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="PracticalGuide%2eusingWins"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="ArmPlatform.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="bc.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Build&nbsp;Tools&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+The&nbsp;WINS&nbsp;platform</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>The WINS platform</h1>
+</div><div class="Bodytext">
+<p>
+The Emulator is the primary development environment for the Symbian
+platform. Programs are initially developed under the Emulator and are then
+ported to their target platform.</p>
+<p>The Emulator runs in a single process environment, known as WINS.
+This section details the differences between this environment, and the ARMI,
+ARM4, THUMB environments used in real Symbian devices.</p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Single process &amp; memory protection</h2>
+</div><div class="Bodytext">
+<p>The S in WINS stands for &quot;single process&quot;. WINS supports multiple
+threads, but only a single process. This causes slight differences between WINS
+and target machines.</p>
+<p>As WINS only has a single process, then each process has access to
+each other&#8217;s memory. This means that bad pointers may cause corruption
+of another process&#8217;s memory, resulting in bugs which would not occur on
+a multi-process EPOC implementation. Also, design bugs such as using pointers
+across processes do not show until code is first run on a multi-process
+platform.</p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Types of program</h2>
+</div><div class="Bodytext">
+<a name="1.6.2"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>GUI programs</h3>
+</div><div class="Bodytext">
+<p>GUI programs should be built under WINS as <code class="filename">.app</code>
+files in a mapped directory, e.g. <code class="filename">\system\apps\</code><code>program-name</code><code class="filename">\</code><code>program-name</code><code class="filename">.app</code>. This may be on
+any mapped Emulator drive.</p>
+<p>Such programs must be run by invoking the window server
+executable, <code class="filename">\epoc32\release\wins\</code><code>variant</code><code class="filename">\epoc.exe</code>.
+This, in turn, loads a shell that can be used to run the
+<code class="filename">.app</code>.</p>
+<a name="1.6.3"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>CONE and Window Server programs</h3>
+</div><div class="Bodytext">
+<p>CONE and Window server programs are a relatively specialised kind
+of program which use graphics facilities, but do not use the standard
+GUI.</p>
+<p>They should be built as <code class="filename">.dll</code>s in
+<code class="filename">..\epoc32\release\wins\</code><code>variant</code><code class="filename">\</code>.
+They can be run by starting the window server executable, and having it start
+the window server shell.</p>
+<p>The window server executable is
+<code class="filename">..\epoc32\release\wins\</code><code>variant</code><code class="filename">\epoc.exe</code>.</p>
+<p>The window server shell will start up if the mapped file
+<code class="filename">\system\data\wsini.ini</code> either does not exist on any mapped drive,
+or does not contain a <code>shellcmd</code> line.</p>
+<p>The window server shell will only run programs listed in mapped
+file <code class="filename">\epoc32\data\dll_list.txt</code>. This file should contain lines of
+the form</p>
+<p class="CodeBlock"><code>wsdraw</code></p>
+<p>which refers to <code class="filename">wsdraw.dll</code> in the same directory as
+<code class="filename">epoc.exe</code> was started from.</p>
+<a name="1.6.4"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Command line programs and servers (.exe)</h3>
+</div><div class="Bodytext">
+<p>On target machines, <code class="filename">.exe</code>s are used for command-line
+programs, and for servers. WINS, however, cannot launch
+<code class="filename">.exe</code>s.</p>
+<p>Command-line programs are launched by having WINS start-up code
+built into them.</p>
+<p>Servers are launched by building them as DLLs under WINS, but
+<code class="filename">.exe</code>s under the ARM environments. This is controlled from a
+<code class="filename">.mmp</code> file by specifying a target type of <code>exedll</code> or
+<code>epocexe</code>. </p>
+<a name="1.6.5"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Text-mode programs</h3>
+</div><div class="Bodytext">
+<p>The Console APIs required for Text-mode programs are not part of
+the public API. However they <em>are</em> used in some of the example test
+code.</p>
+<p>Text-mode programs use the text window server&nbsp;&#8212; they
+should be built under WINS as <code class="filename">.exe</code> files in
+<code class="filename">\epoc32\release\wins\</code><code>variant</code>\.
+They should be executed by running them directly from a Windows command prompt,
+or under the Microsoft Visual C++ debugger.</p>
+<a name="PracticalGuide%2eusingWins%2dbuilding"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Building programs under WINS</h2>
+</div><div class="Bodytext">
+<p>WINS is a comprehensive emulator. There is very little difference
+between programs built to run under WINS, and those built to run on target
+machines under ARMI. In general, there are no special considerations for
+building a program under WINS. For interactive development, open the workspace
+in the Microsoft Visual C++ debugger, and iteratively edit, compile and debug
+the program.</p>
+<p>When the program has been built satisfactorily, it should recompile
+under ARMI and should function without change on a target machine. Note that
+the <code class="filename">bldmake</code> and <code class="filename">abld</code> build framework can also be used
+to efficiently build WINS and ARMI projects on the command line.</p>
+<p>You do need to note a few specific points about WINS
+development.</p>
+<h4 class="subheading">See also</h4><p><a href="UsingMakmake.guide.html#PracticalGuide%2eusing%2dmakmake%2dMSVC" title="How to use makmake / Building project files for Microsoft Developer Studio (Visual C++ 6.0)">Building project files for Microsoft Developer Studio (Visual C++ 6.0)</a></p>
+<a name="1.7.8"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3><code class="filename">.exe</code>s and <code class="filename">DLLs</code></h3>
+</div><div class="Bodytext">
+<p>Servers and other programs which must launch a separate process
+under ARMI are constructed as <code class="filename">.exe</code>s under ARMI. Under WINS, this
+is not possible: servers are therefore constructed as DLLs.</p>
+<p><code class="filename">mmp</code> files supports this using statements of the
+form</p>
+<p class="CodeBlock"><code>targettype exedll<br>target eusrv.dll</code></p>
+<p>where <code>exedll</code> indicates that the
+extension <code class="filename">.exe</code> will be used under ARMI, but the supplied extension
+(in this case, <code class="filename">.dll</code>) will be used under WINS. You need to
+conditionally compile the <code>E32Dll()</code> function under WINS only,
+because <code>E32Dll()</code> is required for DLLs, but not for
+<code class="filename">.exe</code>s. This is a minor difference which is very easy to implement
+and test.</p>
+<p><code>epocexe</code> can also be used as a <code>targettype</code>:
+unlike <code>exedll</code> programs, these are not expected to export functions
+to clients, or to be passed command-line parameters.</p>
+<a name="1.7.9"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Device-level code</h3>
+</div><div class="Bodytext">
+<p>ARMI implements drivers for real hardware; under WINS, you use Win32
+facilities to access or emulate hardware. This means that WINS device-level
+code must be substantially different from that used by ARMI.</p>
+<p>First, you will need substantial conditional compilation. Device
+drivers will need full testing under both WINS and ARMI. In general, a WINS
+device driver is best considered as a separate project from a corresponding
+ARMI device driver.</p>
+<p>Usually, in order to implement this kind of code, you will also need
+to access Win32 libraries. Specify them to makmake using <code class="filename">.mmp</code>
+specifications such as</p>
+<p class="CodeBlock"><code>start wins<br>win32_library kernel32.lib gdi.lib<br>end</code></p>
+<a name="1.7.10"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Compiler macros</h3>
+</div><div class="Bodytext">
+<p>Under WINS, the following macros are defined by
+makmake:</p><table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top"><td class="Cell">
+<p><code>__SYMBIAN32__</code></p></td><td class="Cell">
+<p>indicates EPOC code in general</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>__VC32__</code></p></td><td class="Cell">
+<p>indicates the Microsoft Visual C++
+compiler</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>__WINS__</code></p></td><td class="Cell">
+<p>indicates the WINS platform</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>__DLL__</code></p></td><td class="Cell">
+<p>if applicable, indicates that a DLL is being
+built</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>__EXE__</code></p></td><td class="Cell">
+<p>if applicable, indicates that a <code class="filename">.exe</code> is being
+built</p></td></tr></table></td></tr></table>
+<p>in addition to any macros defined by Microsoft Visual C++, and any
+specified when <code class="filename">makmake</code> is run, in the environment variable
+<code>USERDEFS</code>.</p>
+<p>These macros may be used in order to control conditional
+compilation.</p>
+<a name="1.7.11"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>UIDs</h3>
+</div><div class="Bodytext">
+<p>The scheme used to implement UIDs for executables under WINS relies on
+data in a named data segment. It is only important to include UIDs in WINS
+executables when generating a polymorphic DLL&nbsp;&#8212; such as a device
+driver, or an standard GUI application.</p>
+<p>The build tools automatically generates a stub file, eg
+<code class="filename">ikhello.uid.cpp</code>, which is built by the project and which contains
+the UID information. This stub file should not be edited, and should be
+considered as an intermediate file rather than a source file. It has a syntax such as:</p><p class="CodeBlock"><code>#pragma data_seg(&#8220;.E32_UID&#8221;)<br>__WINS_UID(0x10000079,0x1000006c,0x10000253)<br>#pragma data_seg()</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

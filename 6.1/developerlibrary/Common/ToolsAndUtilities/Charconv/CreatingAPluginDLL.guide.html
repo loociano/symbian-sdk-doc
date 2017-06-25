@@ -1,0 +1,430 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Creating a plug-in character conversion plug-in DLL</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="charconvplugin%2eguide%2eoverview"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="CnvtoolIntro.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Character&nbsp;Conversion&nbsp;Plug-in&nbsp;Creation&nbsp;Tools&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+Creating&nbsp;a&nbsp;plug-in&nbsp;character&nbsp;conversion&nbsp;plug-in&nbsp;DLL</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to create a character conversion plug-in DLL</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Summary</h2>
+</div><div class="Bodytext">
+<p>The following steps are involved in the process of creating a plug-in
+DLL. Each step is described in more detail in following sections.</p>
+<ol>
+<li>
+<p>Create the source file. This is a text file that contains pairs of hexadecimal numbers. The first number in each pair is the encoding of a character in the foreign character set, and the second is the Unicode encoding of the same character.</p>
+</li>
+<li>
+<p>Create the control file.  This is a text file that specifies the conversion algorithms to convert both ways between ranges of characters, and other information.</p>
+</li>
+<li>
+<p>Invoke <code class="filename">cnvtool</code> on the source and control files. This
+generates a cpp file referred to as the <code class="filename">cnvtool</code>-generated cpp
+file.</p>
+</li>
+<li>
+<p>Create a cpp file which implements the plug-in DLL interface
+(defined in <code class="filename">convplug.h</code>) using the global objects created in the
+<code class="filename">cnvtool</code>-generated cpp file, if necessary.</p>
+</li>
+<li>
+<p>Create an mmp file which is used to build the plug-in
+DLL. Specify
+<code class="filename">\epoc32\release\</code><i>build variant</i><code class="filename">\convplug.def</code> as the filename in the <code>deffile</code> statement.</p>
+</li>
+<li>
+<p>Build the plug-in DLL and install it into the
+<code class="filename">\system\charconv\</code> directory.</p>
+</li>
+<li>
+<p>The DLL is then available to be loaded by
+<code>CCnvCharacterSetConverter::PrepareToConvertToOrFromL()</code>.</p>
+</li>
+</ol>
+<p> The process is summarised by the following diagram:</p>
+<div class="Figure">
+<p class="Image"><img src="cnvtool_toolchain.gif" alt=""  border="0"></p>
+</div>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>The source file</h2>
+</div><div class="Bodytext">
+<p>The source file is a text file which contains a table of mappings
+between Unicode and the foreign character set. The table consists of two
+tab-separated columns. The first column lists the foreign character code. The
+second lists the corresponding Unicode character code. Both codes are in
+hexadecimal. The table can contain further hex columns if the
+<code>-columns</code> command line flag is used, (see the Running cnvtool
+section, below). Another column is optional&nbsp;&#8212; it contains the
+Unicode name following a comment sign &quot;#&quot;, provided to make the file more
+readable.</p>
+<p>In some cases, the foreign character codes that appear in the
+source file need to be processed in some way before being used in the binary
+output file. Specifying how they should be processed is done by including a
+line in the following format in the source file:</p>
+<p class="CodeBlock"><code>SET_FOREIGN_CHARACTER_CODE_PROCESSING_CODE [Perl code]</code></p>
+<p>This affects all lines in the source file beneath it until the next
+such line. If <code>SET_FOREIGN_CHARACTER_CODE_PROCESSING_CODE</code> is
+followed by whitespace only, the foreign character codes in the subsequent
+lines are not processed.</p>
+<p>The Perl code must return a number using the variable
+<code>$foreignCharacterCode</code> as its input parameter. For example, if the
+high bit of each foreign character is off in the source file but is required to
+be on in the output file, the Perl code (assuming the foreign character set
+uses only one byte for each character) would be:</p>
+<p class="CodeBlock"><code>return $foreignCharacterCode|0x80;</code></p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>The control file</h2>
+</div><div class="Bodytext">
+<a name="1.5.2"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Introduction</h3>
+</div><div class="Bodytext">
+<p>The control file is a text file which specifies the conversion
+algorithms to convert (both ways) between ranges of characters, and other
+information. It also specifies the code(s) of the character(s) to use to
+replace unconvertible Unicode characters, the endian-ness of the foreign
+character set (if single characters may be encoded by more than one byte) and
+the preferred character to use when a character has multiple equivalents in the
+target character set.</p>
+<p>The control file (like the source file) is case insensitive and permits
+comments beginning with a &quot;#&quot; and extending to the end of the line. It also
+permits blank lines and leading and trailing whitespace on non-blank
+lines.</p>
+<p>There are four sections in the control file: the header, the
+foreign variable-byte data, the foreign-to-Unicode data and the
+Unicode-to-foreign data.</p>
+<a name="1.5.3"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>The header</h3>
+</div><div class="Bodytext">
+<p>The header consists of two lines in fixed order. Their format is
+as follows (alternatives are separated by a <code>|</code>, single space
+characters represent single or multiple whitespace characters):</p>
+<p class="CodeBlock"><code>Endianness Unspecified|FixedLittleEndian|FixedBigEndian</code></p>
+<p class="CodeBlock"><code>ReplacementForUnconvertibleUnicodeCharacters &lt;see-below&gt;</code></p>
+<p>The value of <code>Endianness</code> is only an issue for foreign
+character sets where single characters may be encoded by more than one byte.
+The value of <code>ReplacementForUnconvertibleUnicodeCharacters</code> is a
+series of one or more hexadecimal numbers (not greater than 0xff) separated by
+whitespace, each prefixed with 0x. These byte values are output for each
+Unicode character that has no equivalent in the foreign character set (when
+converting from Unicode to foreign).</p>
+<a name="1.5.4"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>The foreign variable-byte data</h3>
+</div><div class="Bodytext">
+<p>This section is contained within the following lines:</p>
+<p class="CodeBlock"><code>StartForeignVariableByteData</code></p>
+<p class="CodeBlock"><code>EndForeignVariableByteData</code></p>
+<p>In between these lines are one or more lines, each consisting of
+two hexadecimal numbers (each prefixed with 0x and not greater than 0xff),
+followed by a decimal number. All three numbers are separated by whitespace.
+Each of these lines indicates how many bytes make up a foreign character code
+for a given range of values for the initial foreign byte. The two hexadecimal
+numbers are the start and end of the range of values for the initial foreign
+byte (inclusive), and the decimal number is the number of subsequent bytes. The
+way these bytes are put together to make the foreign character code is
+determined by the value of <code>Endianness</code> in the header of the control
+file. For example, if the foreign character set uses only a single byte per
+character and its first character has code 0x07 and its last character has code
+0xe6, the foreign variable-byte data would be:</p>
+<p class="CodeBlock"><code>StartForeignVariableByteData<br>0x07 0xe6 0<br>EndForeignVariableByteData</code></p>
+<a name="1.5.5"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>The foreign-to-Unicode data</h3>
+</div><div class="Bodytext">
+<p>This section is contained within the following lines:</p>
+<p class="CodeBlock"><code>StartForeignToUnicodeData</code></p>
+<p class="CodeBlock"><code>EndForeignToUnicodeData</code></p>
+<p>In between these two lines are one or more of lines in format A
+(defined below). These may be optionally followed by one or more of lines in
+format B (defined below), in which case the lines in format A and format B are
+separated by the line:</p>
+<p class="CodeBlock"><code>ConflictResolution</code></p>
+<p>Each line in format A indicates the conversion algorithm to be
+used for a particular range of foreign character codes. Lines in format A
+contain the following fields, each separated by whitespace:</p>
+<ul>
+<li>
+<p>first field (reserved for future use&nbsp;&#8212; should
+be set to zero),</p>
+</li>
+<li>
+<p>second field (reserved for future use&nbsp;&#8212; should
+be set to zero),</p>
+</li>
+<li>
+<p>first input character code in the range&nbsp;&#8212; a
+hexadecimal number prefixed with 0x,</p>
+</li>
+<li>
+<p>last input character code in the range&nbsp;&#8212; a
+hexadecimal number prefixed with 0x,</p>
+</li>
+<li>
+<p>algorithm&nbsp;&#8212; one of <code>Direct</code> |
+<code>Offset</code> | <code>IndexedTable16</code> |
+<code>KeyedTable1616</code>, as described below,</p>
+</li>
+<li>
+<p>parameters&nbsp;&#8212; (not applicable to any of the
+current choice of algorithms)&nbsp;&#8212; set this to
+<code>{}</code></p>
+</li>
+</ul>
+<p>There are four possible conversion algorithms:</p>
+<ul>
+<li>
+<p><code>Direct</code>&nbsp;&#8212; this is where each character in the
+range has the same encoding in Unicode as in the foreign character set,</p>
+</li>
+<li>
+<p><code>Offset</code>&nbsp;&#8212; this is where the offset from the
+foreign encoding to the Unicode encoding is the same for each character in the
+range,</p>
+</li>
+<li>
+<p><code>Indexed table (16)</code>&nbsp;&#8212; this is where a contiguous
+block of foreign character codes maps onto a random collection of Unicode
+character codes (the 16 refers to the fact that each Unicode character code
+must use no more than 16 bits),</p>
+</li>
+<li>
+<p><code>Keyed table (16-16)</code>&nbsp;&#8212; this is where a sparse
+collection of foreign character codes map onto a random collection of Unicode
+character codes (the 16 refers to the fact that each foreign character code and
+each Unicode character code must use no more than 16 bits).</p>
+</li>
+</ul>
+<p>Lines in format B, if present, consist of two hexadecimal
+numbers, prefixed with 0x, separated by whitespace. The first of these is a
+foreign character code which has multiple equivalents in Unicode (according to
+the data in the source file), and the second is the code of the preferred
+Unicode character to which the foreign character should be converted.</p>
+<a name="1.5.6"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>The Unicode-to-foreign data</h3>
+</div><div class="Bodytext">
+<p>This section is structured similarly to the foreign-to-Unicode
+data section. It is contained within the following lines:</p>
+<p class="CodeBlock"><code>StartUnicodeToForeignData</code></p>
+<p class="CodeBlock"><code>EndUnicodeToForeignData</code></p>
+<p>In between these two lines are one or more lines in format C
+(defined below). These may be optionally followed by one or more of lines in
+format D (defined below), in which case the lines in format C and format D are
+separated by the line:</p>
+<p class="CodeBlock"><code>ConflictResolution</code></p>
+<p>Format C is very similar to format A with one exception, which is
+an additional field to specify the size of the output character code in bytes
+(as this is a foreign character code). Each line in format C indicates the
+conversion algorithm to be used for a particular range of Unicode character
+codes. Lines in format C contains the following fields, each separated by
+whitespace:</p>
+<ul>
+<li>
+<p>first field (reserved for future use&nbsp;&#8212; should
+be set to zero),</p>
+</li>
+<li>
+<p>second field (reserved for future use&nbsp;&#8212; should
+be set to zero),</p>
+</li>
+<li>
+<p>first input character code in the range&nbsp;&#8212; a
+hexadecimal number prefixed with 0x,</p>
+</li>
+<li>
+<p>last input character code in the range&nbsp;&#8212; a
+hexadecimal number prefixed with 0x,</p>
+</li>
+<li>
+<p>algorithm&nbsp;&#8212; one of <code>Direct</code> |
+<code>Offset</code> | <code>IndexedTable16</code> |
+<code>KeyedTable1616</code>,</p>
+</li>
+<li>
+<p>size of the output character code in bytes (not present in
+format A)&nbsp;&#8212; a decimal number,</p>
+</li>
+<li>
+<p>parameters - (not applicable to any of the current choice of
+algorithms)&nbsp;&#8212; set this to <code>{}</code></p>
+</li>
+</ul>
+<p>Format D is analogous to format B (described above). Like format
+B, it consists of two hexadecimal numbers prefixed with 0x, separated by
+whitespace. However, the first of these is a Unicode character code which has
+multiple equivalents in the foreign character set (according to the data in the
+source file), and the second is the code of the preferred foreign character to
+which the Unicode character should be converted.</p>
+<a name="1.5.7"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Generating multiple SCnvConversionData data
+structures</h3>
+</div><div class="Bodytext">
+<p>It is sometimes desirable for further objects to be generated
+which provide a view of a subset of the main <code>SCnvConversionData</code>
+object. This is possible by inserting an extra pair of lines of the following
+form in both the foreign-to-Unicode data and the Unicode-to-foreign data
+sections in the control file:</p>
+<p class="CodeBlock"><code>StartAdditionalSubsetTable &lt;name-of-SCnvConversionData-object&gt;</code></p>
+<p class="CodeBlock"><code>EndAdditionalSubsetTable &lt;name-of-SCnvConversionData-object&gt;</code></p>
+<p>These lines should be placed around the block of lines to be
+included in the named <code>SCnvConversionData</code> object. Note that only
+one pair of these lines can occur in each of the foreign-to-Unicode data and
+the Unicode-to-foreign data sections, and if a pair occurs in one, it must also
+occur in the other. Accessing one of these <code>SCnvConversionData</code>
+objects from handwritten C++ files is done by putting a line of the following
+form at the top of the relevant C++ file.</p>
+<p class="CodeBlock"><code>GLREF_D const SCnvConversionData &lt;name-of-SCnvConversionData-object&gt;;</code></p>
+<p>The named object can then be used as required.</p>
+<p>Using this technique means that two (or more) foreign character
+sets&nbsp;&#8212; where one is a subset of the other(s)&nbsp;&#8212; can
+share the same conversion data. This conversion data would need to be in a
+shared-library DLL which the two (or more) plug-in DLLs would both link to.
+</p>
+<a name="1.5.8"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Choosing an appropriate algorithm for a range of character
+codes</h3>
+</div><div class="Bodytext">
+<p>Of the four conversion algorithms listed above, the keyed table
+is the most general and can be used for any foreign character set. However, it
+is the algorithm requiring the most storage space, as well as being the slowest
+(a binary search is required), therefore it is best avoided if possible. The
+indexed table also requires storage space (although less than the keyed table),
+but is much faster. The direct and offset algorithms are the fastest and
+require negligible storage. It is thus necessary to choose appropriate
+algorithms to minimize storage and to maximize speed of conversion.</p>
+<p>Ranges of characters in the control file are permitted to
+overlap. This is useful as it means that a keyed table whose range is the
+entire range of the foreign character set (or the Unicode character set) can be
+used at the end of the foreign-to-Unicode data (or Unicode-to-foreign data) to
+&#8220;catch&#8221; all the characters that were not
+&#8220;caught&#8221; by the preceding ranges, which will have used better
+algorithms.</p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Running <code class="filename">cnvtool</code></h2>
+</div><div class="Bodytext">
+<p>Invoke <code class="filename">cnvtool</code> on the source and control files to
+generate a cpp file that implements the
+interface defined by <code class="filename">convgeneratedcpp.h</code>. For information on the syntax for invoking <code class="filename">cnvtool</code>, see <a href="../Charconv-ref/CnvtoolRef.guide.html#cnvtool%2esyntax">cnvtool command syntax</a>.</p>
+<a name="1.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Implementing the plug-in DLL interface</h2>
+</div><div class="Bodytext">
+<p>The plug-in DLL interface is defined in convplug.h. The cpp file
+which implements this interface should <code>#include</code>
+<code class="filename">convgeneratedcpp.h</code> so that it can access the two (const) global
+objects implemented in the <code class="filename">cnvtool</code>-generated cpp file. The
+<code>SCnvConversionData</code> object is useful for implementing the second
+and third functions of the plug-in DLL interface
+(<code>ConvertFromUnicode()</code> and <code>ConvertToUnicode()</code>). This
+is because the <code>CCnvCharacterSetConverter</code> class provides some
+static functions taking <code>SCnvConversionData</code> parameters
+(<code>DoConvertFromUnicode()</code> and <code>DoConvertToUnicode()</code>).
+These utility functions make the implementation of the second and third
+functions of the plug-in interface trivial for non-complex character sets.
+</p>
+<p>All eleven functions prototyped in convplug.h need to be
+implemented by the plug-in DLL. The implementations of the reserved
+functions should do nothing, i.e. have empty function bodies.</p>
+<p>The implementations of <code>ConvertFromUnicode()</code> and
+<code>ConvertToUnicode()</code> must fulfil the following behavioural
+requirements. They must return either a negative error code (see
+<code>CCnvCharacterSetConverter::TError</code>), or the number of elements at
+the end of the input descriptor which have not been converted, either because
+the output descriptor is full, or because there is a truncated sequence at the
+end of the input descriptor, e.g. only the first half of a Unicode surrogate
+pair, or only the first byte of a multi-byte foreign character set character
+code, or a truncated escape sequence of a modal foreign character set. The
+functions should be able to cope with the situation where the output descriptor
+is too short or if there is a truncated sequence at the end of the input
+descriptor, without returning an error, although if the input descriptor
+consists purely of a truncated sequence, they should return
+<code>CCnvCharacterSetConverter::EErrorIllFormedInput</code>.</p>
+<p>The <code>CnvUtilities</code> class provides some other utility
+functions which are of use for more complex foreign character sets, for
+instance modal character sets. Modal character sets are those where the
+interpretation of a given byte of data is dependent on the current mode, mode
+changing being performed by certain defined escape sequences which occur in the
+byte stream.</p>
+<a name="1.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>The mmp file</h2>
+</div><div class="Bodytext">
+<p>The mmp file used to build the plug-in DLL should specify the
+<code>targetpath</code>, <code>targettype</code>, <code>uid</code> and
+<code>deffile</code> keywords as follows:</p>
+<p class="CodeBlock"><code>targetpath        \system\charconv<br>targettype        dll<br>uid                0x1000601a 0x&lt;UID-in-hexadecimal&gt;<br>#if defined(WINS)<br>deffile            \epoc32\release\wins\CONVPLUG.DEF<br>#elif defined(MARM)<br>deffile            \epoc32\release\marm\CONVPLUG.DEF<br>#else<br>error<br>#endif</code></p>
+<p>The second of the two UIDs (Universal Identifiers) specified in the
+.mmp file must be a unique number allocated by Symbian specifically for the
+required foreign character set. It should be requested in the normal way for
+EPOC UIDs (by email to the Symbian Developer Network). The first UID should
+always have the value 0x1000601a.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

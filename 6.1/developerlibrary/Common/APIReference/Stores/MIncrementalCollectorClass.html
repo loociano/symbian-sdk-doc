@@ -1,0 +1,344 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>MIncrementalCollector</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CStreamStoreClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="RDictionaryReadStreamClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Stores</a>&nbsp;<span class="separator">&#187;</span>
+MIncrementalCollector</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>s32stor.h</code>
+<br>Link against: <code>N/A</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aMIncrementalCollector"></a>
+
+<h1>Class <code>MIncrementalCollector</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>MIncrementalCollector</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Interface for incrementally reclaiming or compacting space in a
+stream store. The interface allows these actions to be performed in small
+steps, so that applications can remain responsive while doing these potentially
+long-running tasks.</p>
+<p>An instance of a class derived from this interface is returned by
+<code>StreamStore::DoReclaimL()</code> and <code>DoCompactL()</code>. Each step
+is carried out in response to a call of <code>DoNextL()</code> and the object
+is released on completion of the last step.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>One-step reclaim using <code>CStreamStore::ReclaimL()</code> is
+actually implemented in terms of the incremental collector.</p>
+</li>
+<li>
+<p>A <code>CStreamStore</code> implementation will only need to
+implement a collector class if it supports reclamation or compaction.</p>
+</li>
+</ul><p>Defined in <code>MIncrementalCollector</code>:
+<br><code class="ApiItem"><a href="MIncrementalCollectorClass.html#%3a%3aMIncrementalCollector%3a%3aClose%28%29" title="Closes the collector after it is no longer required">Close()</a></code>, <code class="ApiItem"><a href="MIncrementalCollectorClass.html#%3a%3aMIncrementalCollector%3a%3aDoNextL%28%29" title="Implementation of the public asynchronous NextL() function">DoNextL()</a></code>, <code class="ApiItem"><a href="MIncrementalCollectorClass.html#%3a%3aMIncrementalCollector%3a%3aDoRelease%28%29" title="Implementation of the public Release() function">DoRelease()</a></code>, <code class="ApiItem"><a href="MIncrementalCollectorClass.html#%3a%3aMIncrementalCollector%3a%3aDoResetL%28%29" title="Implementation of the public ResetL() function">DoResetL()</a></code>, <code class="ApiItem"><a href="MIncrementalCollectorClass.html#%3a%3aMIncrementalCollector%3a%3aMIncrementalCollector%28%29" title="Private copy constructor">MIncrementalCollector()</a></code>, <code class="ApiItem"><a href="MIncrementalCollectorClass.html#%3a%3aMIncrementalCollector%3a%3aNextL%28%29" title="Does the next step in the reclaim asynchronously">NextL()</a></code>, <code class="ApiItem"><a href="MIncrementalCollectorClass.html#%3a%3aMIncrementalCollector%3a%3aRelease%28%29" title="Releases the collector after it is no longer required">Release()</a></code>, <code class="ApiItem"><a href="MIncrementalCollectorClass.html#%3a%3aMIncrementalCollector%3a%3aResetL%28%29" title="Resets the collector">ResetL()</a></code>, <code class="ApiItem"><a href="MIncrementalCollectorClass.html#%3a%3aMIncrementalCollector%3a%3aoperator%3d%28%29" title="Copy assignment operator">operator=()</a></code>
+</p>
+<a name="2.5"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction and destruction</h2>
+</div><div class="Bodytext">
+<a name="2.5.2"></a></div><div class="Head3">
+<a name="%3a%3aMIncrementalCollector%3a%3aMIncrementalCollector%28%29"></a>
+<hr size="1" noshade>
+<h3><code>MIncrementalCollector()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: MIncrementalCollector();</code></p><h4 class="subheading">Description</h4>
+<p>Protected constructor. Protecting the constructor ensures that
+this abstract class cannot be instantiated.</p>
+<p>MIncrementalCollector(const MIncrementalCollector&amp;);</p>
+<p>MIncrementalCollector&amp; operator=(const
+MIncrementalCollector&amp;);</p>
+<p>Private copy constructor and copy assignment to prevent
+</p>
+<a name="2.5.3"></a></div><div class="Head3">
+<a name="%3a%3aMIncrementalCollector%3a%3aMIncrementalCollector%28%29"></a>
+<hr size="1" noshade>
+<h3><code>MIncrementalCollector()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>private: MIncrementalCollector(const MIncrementalCollector&amp;);</code></p><h4 class="subheading">Description</h4>
+<p>Private copy constructor. This prevents the operation being done
+on derived classes.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const MIncrementalCollector&amp;</code></td>
+<td class="Cell"><p class="ValueDesc">The object which this class is to copy.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.5.4"></a></div><div class="Head3">
+<a name="%3a%3aMIncrementalCollector%3a%3aoperator%3d%28%29"></a>
+<hr size="1" noshade>
+<h3><code>operator=()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>private:    MIncrementalCollector&amp; operator=(const MIncrementalCollector&amp;);</code></p><h4 class="subheading">Description</h4>
+<p>Copy assignment operator. This prevents the operation being done on
+derived classes.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const MIncrementalCollector&amp;</code></td>
+<td class="Cell"><p class="ValueDesc">The class which is to be equal to the specified class.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">MIncrementalCollector&amp;</code></td>
+<td class="Cell"><p class="ValueDesc">This class.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Member functions</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aMIncrementalCollector%3a%3aClose%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Close()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Close();</code></p><h4 class="subheading">Description</h4>
+<p>Closes the collector after it is no longer required. The object
+should not be referenced after calling this function. The semantics for this
+function and <code>Release()</code> are effectively the
+same.</p>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aMIncrementalCollector%3a%3aNextL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NextL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void NextL(TInt&amp; aStep,TInt&amp; aTotal);</code></p><h4 class="subheading">Description</h4>
+<p>Does the next step in the reclaim synchronously.</p>
+<p><code>aStep</code> contains a progress value, which decreases every
+time the function is called. <code>aTotal</code> contains the running total of
+free-space that remains in the store.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aStep</code></td>
+<td class="Cell"><p class="ValueDesc">The progress value from either the last <code>NextL()</code> increment
+of from <code>ResetL()</code>&#0160;&#8212; if the reclamation/compaction was
+restarted. On return, contains the new progress value, which can be used in
+subsequent calls to <code>NextL()</code>. This will be equal to, or less than,
+the previous value&#0160;&#8212; a zero value indicates that the operation is
+complete.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aTotal</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the total amount of free space in the store. This
+should increase every time the function is called.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MIncrementalCollectorClass.html#%3a%3aMIncrementalCollector%3a%3aDoNextL%28%29" title="Implementation of the public asynchronous NextL() function"><code class="ApiItem">DoNextL()</code></a></li>
+</ul>
+<a name="2.6.4"></a></div><div class="Head3">
+<a name="%3a%3aMIncrementalCollector%3a%3aNextL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NextL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void NextL(TPckgBuf&lt;TInt&gt;&amp; aStep,TRequestStatus&amp; aStatus,TPckgBuf&lt;TInt&gt;&amp; aTotal);</code></p><h4 class="subheading">Description</h4>
+<p>Does the next step in the reclaim asynchronously. </p>
+<p><code>aStep</code> contains a progress value, which decreases every time
+the function is called. <code>aTotal</code> contains the running total of
+free-space that remains in the store. These parameters are asynchronous
+equivalents of the other <code>NextL()</code> overload.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TPckgBuf&lt;TInt&gt;&amp; aStep</code></td>
+<td class="Cell"><p class="ValueDesc">The progress value from either the last <code>NextL()</code> increment of
+from <code>ResetL()</code>&#0160;&#8212; if the reclamation/compaction was
+restarted. On return, contains the new progress value, which can be used in
+subsequent calls to <code>NextL()</code>. This will be equal to, or less than,
+the previous value&#0160;&#8212; a zero value indicates that the operation is
+complete.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStatus</code></td>
+<td class="Cell"><p class="ValueDesc">A status variable. <code>KErrNone</code> on successful completion,
+otherwise another of the system-wide error codes.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TPckgBuf&lt;TInt&gt;&amp; aTotal</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the total amount of free space in the store. This
+should increase every time the function is called.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MIncrementalCollectorClass.html#%3a%3aMIncrementalCollector%3a%3aDoNextL%28%29" title="Implementation of the public asynchronous NextL() function"><code class="ApiItem">DoNextL()</code></a></li>
+</ul>
+<a name="2.6.5"></a></div><div class="Head3">
+<a name="%3a%3aMIncrementalCollector%3a%3aRelease%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Release()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Release();</code></p><h4 class="subheading">Description</h4>
+<p>Releases the collector after it is no longer required. The object should
+not be referenced after calling this function. The semantics for this function
+and <code>Close()</code> are effectively the same.</p>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MIncrementalCollectorClass.html#%3a%3aMIncrementalCollector%3a%3aDoRelease%28%29" title="Implementation of the public Release() function"><code class="ApiItem">DoRelease()</code></a></li>
+</ul>
+<a name="2.6.6"></a></div><div class="Head3">
+<a name="%3a%3aMIncrementalCollector%3a%3aResetL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ResetL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ResetL(TInt&amp; aCount);</code></p><h4 class="subheading">Description</h4>
+<p>Resets the collector. This leaves the collector in a state ready to start
+or restart reclaiming/compacting. On return <code>aCount</code> contains a
+value that can be used to determine the progress of the
+operation&nbsp;&#8212; the same value should be passed in to subsequent
+calls to <code>NextL()</code> until it reaches 0.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aCount</code></td>
+<td class="Cell"><p class="ValueDesc">A progress count for the reclamation/compaction process.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MIncrementalCollectorClass.html#%3a%3aMIncrementalCollector%3a%3aDoResetL%28%29" title="Implementation of the public ResetL() function"><code class="ApiItem">DoResetL()</code></a></li>
+</ul>
+<a name="2.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Implementation functions</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aMIncrementalCollector%3a%3aDoRelease%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DoRelease()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>private: virtual void DoRelease()=0;</code></p><h4 class="subheading">Description</h4>
+<p>Implementation of the public <code>Release()</code> function. This
+signals that client has no further need of the object and all necessary
+clean-up should be done. e.g. if the implementation object is allocated on the
+heap, it could be deleted.</p>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aMIncrementalCollector%3a%3aDoResetL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DoResetL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>private: virtual void DoResetL(TInt&amp; aCount)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Implementation of the public <code>ResetL()</code> function. This signals
+that the client wants to start or retsart the operation from the beginning. A
+new progress count should be returned in aCount.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aCount</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains a progress count for the reclamation/compaction
+process.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.4"></a></div><div class="Head3">
+<a name="%3a%3aMIncrementalCollector%3a%3aDoNextL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DoNextL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>private: virtual void DoNextL(TInt&amp; aStep,TInt&amp; aTotal)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Implementation of the public synchronous <code>NextL()</code> function.
+The next step in the reclamation should be done, reporting progress in
+<code>aStep</code> and <code>aTotal</code>.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aStep</code></td>
+<td class="Cell"><p class="ValueDesc">The progress value from either the last <code>NextL()</code> increment of
+from <code>ResetL()</code>&#0160;&#8212; if the reclamation/compaction was
+restarted. On return, should contain the new progress value, which can be used
+in subsequent calls to <code>NextL()</code>. This must be equal to, or less
+than, the previous value&#0160;&#8212; a zero value must be used to indicate
+that the operation is complete.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aTotal</code></td>
+<td class="Cell"><p class="ValueDesc">On return, should contain the total amount of free space in the
+store.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.5"></a></div><div class="Head3">
+<a name="%3a%3aMIncrementalCollector%3a%3aDoNextL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DoNextL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>private: virtual void DoNextL(TPckgBuf&lt;TInt&gt;&amp; aStep,TRequestStatus&amp; aStatus,TPckgBuf&lt;TInt&gt;&amp; aTotal)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Implementation of the public asynchronous <code>NextL()</code> function.
+The default implementation invokes the synchronous form of
+<code>DoNextL()</code> and then reports the result by signalling the request
+status.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TPckgBuf&lt;TInt&gt;&amp; aStep</code></td>
+<td class="Cell"><p class="ValueDesc">The progress value from either the last <code>NextL()</code> increment of
+from <code>ResetL()</code>&#0160;&#8212; if the reclamation/compaction was
+restarted. On return, should contain the new progress value, which can be used
+in subsequent calls to <code>NextL()</code>. This must be equal to, or less
+than, the previous value&#0160;&#8212; a zero value must be used to indicate
+that the operation is complete.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStatus</code></td>
+<td class="Cell"><p class="ValueDesc">A status variable. <code>KErrNone</code> on successful completion,
+otherwise another of the system-wide error codes.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TPckgBuf&lt;TInt&gt;&amp; aTotal</code></td>
+<td class="Cell"><p class="ValueDesc">On return, should contain the total amount of free space in the
+store.</p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

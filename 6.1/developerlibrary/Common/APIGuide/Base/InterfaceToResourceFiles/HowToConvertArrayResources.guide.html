@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to convert data from a resource containing an array of structs</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="InterfaceToResourcesGuide%2ehow%2dto%2earray"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToConvertSimpleResources.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToSupportMultipleResourceFiles.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Interface&nbsp;to&nbsp;Resource&nbsp;Files</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;convert&nbsp;data&nbsp;from&nbsp;a&nbsp;resource&nbsp;containing&nbsp;an&nbsp;array&nbsp;of&nbsp;structs</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to convert data from a resource containing an array of
+structs</h1>
+</div><div class="Bodytext">
+<p>An application often needs to convert data from a resource defined as
+an array of structs. The example code here shows how this can be done.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Defining the resource</h2>
+</div><div class="Bodytext">
+<p>The following code fragment defines a simple struct that forms an
+element of the resource array.</p>
+<p class="CodeBlock"><code>// for defining a single data resource<br>STRUCT DATA<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;WORD      wrd=16;<br>&nbsp;&nbsp;&nbsp;&nbsp;WORD      flags=0;<br>&nbsp;&nbsp;&nbsp;&nbsp;LONG      lng;<br>&nbsp;&nbsp;&nbsp;&nbsp;BYTE      byt; <br>&nbsp;&nbsp;&nbsp;&nbsp;DOUBLE    dbl=0.0;<br>&nbsp;&nbsp;&nbsp;&nbsp;LTEXT     ltxt;        // variable length<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>The resource itself is defined in terms of an array, in this
+example, the <code>DATAARRAY</code> struct. This is defined as:</p>
+<p class="CodeBlock"><code>// for defining an array of data<br>STRUCT DATAARRAY<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;STRUCT dataments[];<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>The resource is composed of a number of <code>DATA</code> struct
+elements.</p>
+<p> The convention is to place such struct definitions in resource
+header files that, by convention, have the <code class="filename">.rh</code> extension. Resource
+header files are included in resource definition files, that have a
+<code class="filename">.rss</code> extension. This is analogous to the conventions for C++
+header and source files.</p>
+<p>The resource itself is defined within the resource file, the
+<code class="filename">.rss</code> file, and must include the resource header file, the
+<code class="filename">.rh</code> file, so that the resource compiler can find the definition of
+the <code>DATA</code> and <code>DATAARRAY</code> structs. In this example, the
+resource header file is called <code class="filename">ReadArray.rh</code>.</p>
+<p class="CodeBlock"><code>#include &quot;ReadArray.rh&quot;<br><br>RESOURCE DATA first<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>RESOURCE DATAARRAY second<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;dataments=<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flags=EFlagItem1;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lng=654;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;byt=-1;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltxt=&#8221;This text has a leading byte count&#8221;;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wrd=999;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flags=EFlagItem1+EFlagItem2;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lng=3;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;byt=255;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dbl=1.0;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltxt=&#8221;Extremely large text indeed abcd efghijklm&#8221;;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wrd=0;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flags=EFlagItem16;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lng=-1;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;byt=127;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dbl=12.34;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltxt=&#8221;&#8221;;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wrd=-1;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flags=EFlagItem1+EFlagItem8+EFlagItem16;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lng=2147483647;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;byt=128;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dbl=-3.4e+3;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltxt=&#8221;{[@@@@@@@@@@@@@@]}&#8221;;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;};<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>After resource compilation, the generated <code class="filename">.rsg</code> header
+file contains:</p>
+<p class="CodeBlock"><code>#define SECOND 2</code></p>
+<p>Note that in the example from which this is taken, this resource is
+the second resource definition. </p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Converting from the array resource</h2>
+</div><div class="Bodytext">
+<p>The following code fragment defines an example
+class,<code>CResDataArray</code>, that uses the resource data as a construction
+parameter. The class definition is placed in a C++ header file,
+a<code class="filename">.h</code> file. This header file also includes a definition of
+the<code>CResData</code> class.</p>
+<p>The <code>CResData</code> class is defined as:</p>
+<p class="CodeBlock"><code>class CResData : public CBase<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>public:<br>&nbsp;&nbsp;&nbsp;&nbsp;~CResData()<br>&nbsp;&nbsp;&nbsp;&nbsp;static    CResData* NewLC(TResourceReader&amp; aReader);<br>&nbsp;&nbsp;&nbsp;&nbsp;void      ShowData(const TInt aStructNum = 0);<br>private:<br>&nbsp;&nbsp;&nbsp;&nbsp;void      ConstructL(TResourceReader&amp; aReader);<br>private:<br>&nbsp;&nbsp;&nbsp;&nbsp;TInt           iWrd;   // STRUCT member type: WORD,<br>&nbsp;&nbsp;&nbsp;&nbsp;TInt           iFlags; // WORD<br>&nbsp;&nbsp;&nbsp;&nbsp;TInt           iLng;   // LONG,<br>&nbsp;&nbsp;&nbsp;&nbsp;TInt           iByt;   // BYTE,<br>&nbsp;&nbsp;&nbsp;&nbsp;TReal          iDbl;   // DOUBLE,<br>&nbsp;&nbsp;&nbsp;&nbsp;HBufC*         iLtxt;  // LTEXT<br>&nbsp;&nbsp;&nbsp;&nbsp;};</code></p>
+<p>The <code>CResDataArray</code> class acts as a container for an array of
+pointers to <code>CResData</code> objects, where each
+<code>CResData</code>object corresponds to a <code>DATA</code> struct within
+the<code>DATAARRAY</code> type resource. The <code>CResDataArray</code> class
+is defined as:</p>
+<p class="CodeBlock"><code>class CResDataArray : public CBase<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>public:<br>&nbsp;&nbsp;&nbsp;&nbsp;~CResDataArray();<br>&nbsp;&nbsp;&nbsp;&nbsp;static    CResDataArray* NewLC(TResourceReader&amp; aReader);<br>&nbsp;&nbsp;&nbsp;&nbsp;void      AddDataL(TResourceReader&amp; aReader);<br>&nbsp;&nbsp;&nbsp;&nbsp;void      ShowAllData();<br>private:<br>&nbsp;&nbsp;&nbsp;&nbsp;void      ConstructL(TResourceReader&amp; aReader);<br>private:<br>&nbsp;&nbsp;&nbsp;&nbsp;CArrayPtrFlat&lt;CResData&gt;* iDataArray;<br>&nbsp;&nbsp;&nbsp;&nbsp;};</code></p>
+<p>The following example code fragment loads the resource with
+id<code>SECOND</code> and constructs the
+<code>CResDataArray</code>object.</p>
+<p class="CodeBlock"><code>    // Read the second resource<br>HBufC8* res = resourceFile.AllocReadLC(SECOND);<br>TResourceReader theReader;<br>theReader.SetBuffer(res);<br><br>&nbsp;&nbsp;&nbsp;&nbsp;// Construct a CResDataArray object to contain<br>&nbsp;&nbsp;&nbsp;&nbsp;// the array of CResData objects, and add the elements to it<br>CResDataArray* resDataArray = CResDataArray::NewLC(theReader);</code></p>
+<p><code>CResDataArray::NewLC()</code> allocates
+the<code>CResDataArray</code> object and calls <code>ConstructL()</code> to
+complete the construction process.</p>
+<p><code>ConstructL()</code> takes a reference to
+the<code>TResourceReader</code> that refers to the resource data itself. It
+constructs the array object before starting the process of creating
+the<code>CResData</code> elements using the <code>AddDataL()</code> member
+function.</p>
+<p>Note that raw resource data is always treated as general binary
+data.</p>
+<p class="CodeBlock"><code>void CResDataArray::ConstructL(TResourceReader&amp; aReader)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;iDataArray = new (ELeave) CArrayPtrFlat&lt;CResData&gt; (3);<br>&nbsp;&nbsp;&nbsp;&nbsp;TRAPD(error,AddDataL(aReader));<br>&nbsp;&nbsp;&nbsp;&nbsp;if (error)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iDataArray-&gt;ResetAndDestroy();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delete iDataArray;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;User::Leave(error);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p><code>AddDataL()</code> interprets the first two bytes of the resource
+data as the number of elements in the array.</p>
+<p>On construction, each new <code>CResData</code> object is passed a
+reference to the <code>TResourceReader</code> object.
+The<code>TResourceReader</code> refers to that part of the resource data
+corresponding to the <em>start</em> of a struct.</p>
+<p>As each <code>CResData</code> object constructs its own data members from
+the resource data using the services of the <code>TResourceReader</code>,
+the<code>TResourceReader</code> object updates its internal pointers to the
+resource data.</p>
+<p class="CodeBlock"><code>void CResDataArray::AddDataL(TResourceReader&amp; aReader)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;TInt index;<br>&nbsp;&nbsp;&nbsp;&nbsp;TInt number;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// The first WORD contains the number <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// of DATA structs within the resource<br>&nbsp;&nbsp;&nbsp;&nbsp;number = aReader.ReadInt16();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Add all newly created CResData objects <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// to the cleanup stack before adding <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// to the array<br>&nbsp;&nbsp;&nbsp;&nbsp;for (index = 0; index &lt; number ; index++)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CResData* resData = CResData::NewLC(aReader);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iDataArray-&gt;AppendL(resData);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CleanupStack::Pop(); // now resData safely in array<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<a name="1.5.17"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>See also</h3>
+</div><div class="Bodytext">
+<p><a href="HowToConvertSimpleResources.guide.html#InterfaceToResourceFilesGuide%2ehow%2dto%2econvert" title="How to convert data from a simple resource">Converting data from a simple resource</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

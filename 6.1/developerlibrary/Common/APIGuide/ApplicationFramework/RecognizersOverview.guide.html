@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Recognizers overview</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="ApplicationFrameworkOverview%2eRecognizersOverview%2emain"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="PrintPreviewOverview.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="SystemSoundsOverview.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Application&nbsp;Framework</a>&nbsp;<span class="separator">&#187;</span>
+Recognizers&nbsp;overview</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Recognizers Overview</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Purpose</h2>
+</div><div class="Bodytext">
+<p>Plug-in  code that can examine data in a file, or sample data  supplied in a buffer, and return, if recognized, the data type of that data. A data type is also commonly known as a MIME type.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Architectural relationships</h2>
+</div><div class="Bodytext">
+<p>A Recognizer is a plug-in DLL that is loaded by the Application Architecture server. The exported ordinal 1 function constructs and returns an instance of a <a href="../../APIReference/Recognizers/CApaDataRecognizerTypeClass.html#%3a%3aCApaDataRecognizerType" title="Abstract base class for a recognizer"><code class="ApiItem">CApaDataRecognizerType</code></a> derived class.</p><p> All Recognizer DLLs have  0x10003A19 as the 2nd UID of their UID type. Individual Recognizers are uniquely  identified by the 3rd UID. All Recognizer DLLs have a <code class="filename">.mdl</code> file extension and are loaded from <code class="filename">\system\recogs</code>.</p><p>When building a Recognizer DLL, the target type encoded in the <code class="filename">.mmp</code> project file is always MDL.</p><p> See also <a href="../Base/DynamicallyLoadingLinkLibraries/UIDProtection.guide.html#DynamicallyLoadingLinkLibrariesGuide%2euidprotection">UID protection</a> for  <a href="../Base/DynamicallyLoadingLinkLibraries/PolymorphicInterfaceDLL.guide.html#DynamicallyLoadingLinkLibrariesGuide%2epolymorphic">the polymorphic interface DLL</a>.</p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Description</h2>
+</div><div class="Bodytext">
+<p>The API has 4 key concepts: data type, abstract Recognizer type base class, Recognizer priority, confidence of recognition.</p><a name="1.5.3"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Data type</h3>
+</div><div class="Bodytext">
+<p>The data type, which is also referred to as a MIME type, gives identity to a piece of data and can be used to find a suitable application that can handle that data. The general form of a  data type is an ASCII string containing two fields separated by a &quot;/&quot; character, for example, &quot;text/html&quot;.</p><p>Native Symbian data is identified by the string &quot;x-epoc/x-app&quot; appended  by the decimal character representation of the associated application UID.</p><p>A Recognizer can recognize more than one data type.</p><p>The data type is represented by <a href="../../APIReference/Recognizers/TDataTypeClass.html#%3a%3aTDataType" title="A data type"><code class="ApiItem">TDataType</code></a>.</p>
+<a name="1.5.4"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Abstract recognizer type base class</h3>
+</div><div class="Bodytext"><p>All Recognizer DLLs export an ordinal 1 function that constructs and returns an instance of a <a href="../../APIReference/Recognizers/CApaDataRecognizerTypeClass.html#%3a%3aCApaDataRecognizerType" title="Abstract base class for a recognizer"><code class="ApiItem">CApaDataRecognizerType</code></a> derived class. The class has three virtual functions that implementors must provide: <code>DoRecognizeL()</code>, <code>SupportedDataTypeL()</code> and   <code>PreferredBufSize()</code>.</p><p>The main functionality of data recognition is implemented in <code>DoRecognizeL()</code>.</p><a name="1.5.5"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Recognizer priority</h3>
+</div><div class="Bodytext"><p>All Recognizers define a Recognizer priority, as defined by <a href="../../APIReference/Recognizers/CApaDataRecognizerTypeClass.html#%3a%3aCApaDataRecognizerType%3a%3aTRecognizerPriority" title="A set of values used to indicate the probability that the recognizer will successfully identify data"><code class="ApiItem">CApaDataRecognizerType::TRecognizerPriority</code></a>. This is  a value that expresses the likelihood that a Recognizer will successfully identify  data as having a specific data type. In effect, it is a confidence rating in the Recognizer's  ability to perform recognition.</p><p>The Application Architecture server uses this priority value to order its list of Recognizers. When making an attempt to recognize data, it selects those Recognizers with the highest Recognizer priority before those with a lower  priority.</p><a name="1.5.6"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Confidence of recognition</h3>
+</div><div class="Bodytext"><p>Recognizers can express  confidence in the  outcome of their attempt to recognize  data by reporting one of 5 possible confidence levels, as defined by <a href="../../APIReference/Recognizers/CApaDataRecognizerTypeClass.html#%3a%3aCApaDataRecognizerType%3a%3aTRecognitionConfidence" title="A set of values describing the probability that the recognizer assigns to its belief that the most recently sampled data is of the type ascribed to it"><code class="ApiItem">CApaDataRecognizerType::TRecognitionConfidence</code></a>. These  range from certainty  to unrecognized.</p><p> The Application Architecture server passes  sample data to each  recognizer in its list. For data to be accepted as having a specific  data type, the Application Architecture server defines a minimum acceptable confidence level. The data type assigned to the sample data is that which is assigned by the first Recognizer to exceed that minimum.</p><p>It is always possible that no Recognizer on a device can recognize a data sample.</p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="../../ToolsAndUtilities/DevTools/Tool_Guide_aiftool.guide.html#DevTools%2eaif">Application information files (AIF)</a></p><p><a href="../Base/DynamicallyLoadingLinkLibraries/index.html#DynamicallyLoadingLinkLibrariesOverview%2etoc">Dynamically loading DLLs</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Exception handling</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="ThreadsAndProcessesGuide%2eException%2dHandling"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="FixedProcesses.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="ThreadTermination.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Thread&nbsp;And&nbsp;Process&nbsp;Management</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Threads&nbsp;and&nbsp;Processes</a>&nbsp;<span class="separator">&#187;</span>
+Exception&nbsp;handling</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Exception handling</h1>
+</div><div class="Bodytext">
+<p>When an exception occurs, such as dividing by zero or an access
+violation, the result depends on whether the thread has an exception
+handler.</p>
+<p>If a thread has no exception handler or has an exception handler
+which will not handle the type of exception identified by the TExcType
+enumeration, then the exception is passed to the Kernel for handling. The
+default action is to panic the offending thread.</p>
+<p>If a thread has an exception handler, then the handler is executed in
+the context of the thread on which the exception is raised; control returns to
+the point of exception.</p>
+<p>The result of an unhandled exception caused by calling
+RThread::RaiseException() depends on whether the exception is being raised on
+the caller's own thread or another thread. If a thread calls
+<code>RaiseException()</code> on itself and there is no handler for that type
+of exception, then a KERN-EXEC 3 panic is raised. If a thread calls
+<code>RaiseException()</code> on another thread, then that thread ends with
+reason code <code>KErrDied</code>.</p>
+<p>The following functions are involved in exception handling:</p>
+<ul>
+<li>
+<p><code>RThread::ExceptionHandler()</code></p>
+</li>
+<li>
+<p><code>RThread::SetExceptionHandler()</code></p>
+</li>
+<li>
+<p><code>RThread::ModifyExceptionMask()</code></p>
+</li>
+<li>
+<p><code>RThread::RaiseException()</code></p>
+</li>
+<li>
+<p><code>RThread::IsExceptionHandled()</code></p>
+</li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

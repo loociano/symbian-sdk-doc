@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>File Stores Overview</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="FileStoresOverview%2emain"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="FileStoresIntroduction.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">File&nbsp;Stores</a>&nbsp;<span class="separator">&#187;</span>
+File&nbsp;Stores&nbsp;Overview</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>File Stores Overview</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Purpose</h2>
+</div><div class="Bodytext">
+<p>Provides file-based structured data storage, using networks of
+streams.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Architectural relationships</h2>
+</div><div class="Bodytext">
+<p>The File Stores API is based on the abstract store types defined by
+the Stores API. The underlying file handling is provided by the File
+Server.</p>
+<p>The permanent file stores defined in this API are used by the
+relational database API, DBMS, for data storage.</p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Description</h2>
+</div><div class="Bodytext">
+<p>The API has five key concepts: file store base (<code>CFileStore</code>), direct file store (<code>CDirectFileStore</code>),
+permanent file store (<code>CPermanentFileStore</code>), dictionary file store (<code>CDictionaryFileStore</code>), and file streams (<code>RFileWriteStream</code> and <code>RFileReadStream</code>).</p>
+<a name="1.5.3"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>File store base</h3>
+</div><div class="Bodytext">
+<p>This abstract base class provides basic behaviour for file
+stores, such as reading a store from a specified file. </p>
+<p>File stores are derived from the persistent store base
+(<code>CPersistentStore</code>) provided by the Stores API. This means that
+they have a root stream, from which all other streams within the store can be
+found.</p>
+<p>The file store base class is <code>CFileStore</code>.</p>
+<a name="1.5.4"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Direct file store</h3>
+</div><div class="Bodytext">
+<p>A direct file store implements a file store in which once the
+streams have been committed and closed, they cannot subsequently be changed.
+They are used by the type of application that treats the in-memory copy of its
+data as its prime copy, and on saving, replaces the entire store. </p>
+<p>The direct file store is a concrete type, derived from
+<code>CFileStore</code>, and is provided by
+<code>CDirectFileStore</code>.</p>
+<a name="1.5.5"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Permanent file store</h3>
+</div><div class="Bodytext">
+<p>A permanent file store implements a file store in which existing
+streams within the store can be changed. They are used by the type of
+application which treats the data in the store as its prime copy. Typically,
+the object network comprising the application&#8217;s data is structured so
+that sections of data can be loaded in, and, if changed, written back to the
+store. Memory is used as a workplace for changing data.</p>
+<p>The permanent file store is a concrete type, derived from
+<code>CFileStore</code>, and is provided by
+<code>CPermanentFileStore</code>.</p>
+<a name="1.5.6"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Dictionary file store</h3>
+</div><div class="Bodytext">
+<p>The dictionary file store implements a dictionary store, a
+network of streams each of which can be accessed via a UID, in file
+storage.</p>
+<p>The dictionary file store is a concrete type, derived from
+<code>CDictionaryStore</code>, and is provided by
+<code>CDictionaryFileStore</code>.</p>
+<a name="1.5.7"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>File streams</h3>
+</div><div class="Bodytext">
+<p>File streams allow standard files (<a href="../../../APIReference/FileServerClientSide/RFileClass.html#%3a%3aRFile" title="Creates and opens a file, and performs all operations on a single open file"><code class="ApiItem">RFile</code></a>
+objects as defined in the File Server Client Side API), not file stores, to be
+written to as streams. This can be simpler and more efficient than using the
+equivalent <a href="../../../APIReference/FileServerClientSide/RFileClass.html#%3a%3aRFile" title="Creates and opens a file, and performs all operations on a single open file"><code class="ApiItem">RFile</code></a> functions. </p>
+<p>The file stream classes are <code>RFileReadStream</code> and
+<code>RFileWriteStream</code>.</p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="../DBMS/DBMSOverview.guide.html#DBMSGuide%2eOverview">DBMS Overview</a></p>
+<p><a href="../FileServerClientSide/FileServerClientSideOverview.guide.html#FileServerClientSideOverview%2emain">File Server Client Side Overview</a></p>
+<p><a href="../Streaming/StreamingOverview.guide.html#StreamingOverview%2emain">Streaming Overview</a></p>
+<p><a href="../StoreStreams/StoreStreamsOverview.guide.html#StoreStreamsOverview%2emain">Store Streams Overview</a></p>
+<p><a href="../Stores/StoresOverview.guide.html#StoresOverview%2emain">Stores Overview</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

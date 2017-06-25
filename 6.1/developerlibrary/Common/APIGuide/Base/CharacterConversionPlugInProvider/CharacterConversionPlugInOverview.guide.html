@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Character Conversion Plug-In Provider Overview</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="CharacterConversionPlugInGuide%2eOverview"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Character&nbsp;Conversion&nbsp;Plug-In&nbsp;Provider</a>&nbsp;<span class="separator">&#187;</span>
+Character&nbsp;Conversion&nbsp;Plug-In&nbsp;Provider&nbsp;Overview</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Character Conversion Plug-In Provider Overview</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Purpose</h2>
+</div><div class="Bodytext">
+<p>A character conversion plug-in DLL implements conversion between
+Unicode and another character set. Conversion between Unicode and several
+common non-Unicode (or &quot;foreign&quot;) character sets is built into EPOC. Some of
+the conversion data is hard-coded and some is provided by plug-in DLLs.</p>
+<p>For v6.1, the complete list of character sets for which conversion
+has been implemented in EPOC is as follows: UTF-7, UTF-8, ImapUTF-7, Java
+Conformant UTF-8, Code Page 1252, ISO-8859-1, ASCII, SMS 7-Bit, EUC-JP, GB
+12345, GB 2312, GBK, HZ, ISO-2022-JP, ISO-2022-JP1, JIS, Shift-JIS, Big Five.
+It is important to note that some of these character sets may not be available
+at run-time, but others (e.g. those written by 3rd parties) may be
+available.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Architectural relationships</h2>
+</div><div class="Bodytext">
+<p>When preparing to convert to or from Unicode, the <code>CCnvCharacterSetConverter</code> class  searches for and loads the plug-in DLL which implements the
+required conversion. The DLL's implementations of the plug-in interface
+(<code>ConvertFromUnicode()</code> and <code>ConvertToUnicode()</code>) can
+then be called by <code>CCnvCharacterSetConverter</code>'s member functions
+<code>ConvertFromUnicode()</code> and <code>ConvertToUnicode()</code>.</p>
+<p>Contents of snm files are read by the
+<code>CCnvCharacterSetConverter</code> class. This information is used to
+convert between the character set's internet-standard name or its MIB enum
+value and its Symbian-specific UID value.</p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Description</h2>
+</div><div class="Bodytext">
+<p>The following tools are involved in the creation of a character
+conversion plug-in.</p>
+<a name="1.5.3"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3><code class="filename">cnvtool</code></h3>
+</div><div class="Bodytext">
+<p>Creating a plug-in character conversion DLL is a two-stage
+process&nbsp;&#8212; <code class="filename">cnvtool</code> is invoked to generate a C++ file
+from two text files which are known as the source file and the control file.
+Then, the generated C++ file is compiled along with another (hand-written) C++
+file to produce the DLL. For information on <code class="filename">cnvtool</code> syntax see the Tools and Utilities documentation, at <a href="../../../ToolsAndUtilities/Charconv-ref/CnvtoolRef.guide.html#cnvtool%2esyntax">cnvtool command syntax</a>.</p>
+<a name="1.5.4"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3><code class="filename">snmtool</code></h3>
+</div><div class="Bodytext">
+<p>A standard names and MIB enums (<i>snm</i>) file should also be created
+if there are any standard names and/or MIB enums for the character set being
+implemented (see
+<a href="ftp://ftp.isi.edu/in-notes/iana/assignments/character-sets">ftp://ftp.isi.edu/in-notes/iana/assignments/character-sets</a>).
+This is a data file which contains mappings between Internet standard
+identifiers of character sets (which may either be names or MIB enums) and
+their equivalent Symbian UID. It is generated by a tool called
+<code class="filename">snmtool</code>. Information about <code class="filename">snmtool</code> syntax is provided
+in the Tools and Utilities documentation, at <a href="../../../ToolsAndUtilities/Charconv-ref/SnmtoolRef.guide.html#snmtool%2esyntax">snmtool command syntax</a>.</p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="../CharacterConversion/index.html#CharconvGuide%2etoc">Character Conversion Overview</a></p>
+<p><a href="../../../ToolsAndUtilities/Charconv/index.html#charconvguide%2etoc">Character conversion plug-in creation tools guide</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

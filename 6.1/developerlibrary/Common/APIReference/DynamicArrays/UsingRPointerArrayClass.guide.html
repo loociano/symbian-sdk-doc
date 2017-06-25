@@ -1,0 +1,135 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Using RPointerArray&lt;class T&gt;</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="dynamicarrays%2eusing%2eRPointerArrayClass"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="UsingRArrayClass.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="UsingTArray.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Dynamic&nbsp;Arrays</a>&nbsp;<span class="separator">&#187;</span>
+Using&nbsp;RPointerArray&lt;class&nbsp;T&gt;</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Using <code>RPointerArray&lt;class T&gt;</code></h1>
+</div><div class="Bodytext">
+<a name="dynamicarrays%2eusing%2eRPointerArrayClass%2ebeforeoutofscope"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Before the array before it goes out of scope</h2>
+</div><div class="Bodytext">
+<p>By convention, class names starting with the letter <code>R</code>
+do not allocate memory on the heap. <code>RPointerArray&lt;class T&gt;</code>
+is an <i>exception</i> and this should be remembered when using the
+class.</p>
+<p>If an array is declared on the program stack, then its
+<code>Close()</code> or <code>Reset()</code> member function must be called to
+ensure that allocated memory is freed.</p>
+<p>Similarly, if <code>RPointerArray&lt;class T&gt;</code> is a data
+member of another class, then the destructor of that class must call
+<code>Close()</code> or <code>Reset()</code>.</p>
+<p>Another issue to remember is the ownership of objects whose
+pointers are contained within an <code>RPointerArray&lt;class T&gt;</code>
+array. If ownership of the objects lies elsewhere, then calling
+<code>Close()</code> or <code>Reset()</code> before the array goes out of scope
+is sufficient. If, however, ownership of these objects is vested in the array,
+and it is the intention that these objects be destroyed when the array is
+destroyed, then <code>ResetAndDestroy()</code> must be called before the array
+goes out of scope.</p>
+<a name="dynamicarrays%2eusing%2eRArrayClass%2eorderalogorithm"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Packaging the algorithm for ordering array
+objects</h2>
+</div><div class="Bodytext">
+<p>A <code>RPointerArray&lt;class T&gt;</code> array allows its
+contained pointers to be ordered so that the objects themselves are in object
+order. The array provides the behaviour for inserting and sorting instances of
+pointers to the template class. To help with this, the template class must
+provide an algorithm for deciding how two template class objects are ordered.
+This algorithm is implemented by a function which must be wrapped in a
+<code>TLinearOrder&lt;class T&gt;</code> package.</p>
+<p>The function implementing the algorithm can be a static member of
+the class but need not necessarily be so.</p>
+<p>Here, we aim to build an array of <code>CMyTest</code> objects
+ordered in a way which makes sense for the <code>CTMyTest</code> class.</p>
+<p class="CodeBlock"><code>class CMyTest<br>&nbsp;{ <br>public <br>&nbsp;~CMyTest();<br>&nbsp;Static CMytest* NewL(const TDesC&amp; aText);<br>&nbsp;static TInt Compare(const CMyTest&amp; aFirst, const CMyTest&amp; Second);<br>public:<br>&nbsp;HBufC* iText;<br>&nbsp;};</code></p>
+<p>In this example, the algorithm is implemented by a static function
+called <code>Compare()</code>. It takes const references to two
+<code>CMyTest</code> objects and returns zero if the objects are equal, a
+negative value if <code>aFirst</code> is less than <code>aSecond</code> and a
+positive value if <code>aFirst</code> is greater than
+<code>aSecond</code>.</p>
+<p class="CodeBlock"><code>TInt CMyTest::Compare(const CMyTest&amp; aFirst,const CMyTest&amp; aSecond)<br>&nbsp;{<br>&nbsp;TInt ret = (aFirst.iText)-&gt;Compare(*aSecond.iText);<br>&nbsp;if (ret &gt; 0)<br>&nbsp;&nbsp;return 1;<br>&nbsp;if (ret &lt; 0)<br>&nbsp;&nbsp;return -1;<br>&nbsp;return 0;<br>&nbsp;}</code></p>
+<p>Construct three <code>CMyTest</code> objects and then construct an
+array object for an array of pointers to <code>CMyTest</code> objects; the
+array has default granularity.</p>
+<p class="CodeBlock"><code>_LIT(KTextOne,&quot;First Text&quot;);<br>_LIT(KTextTwo,&quot;Second Text&quot;);<br>_LIT(KTextThree,&quot;Third Text&quot;);<br>...<br>CMyTest* one   = CMyTest::NewL(KTextOne);<br>CMyTest* two   = CMyTest::NewL(KTextTwo);<br>CMyTest* three = CMyTest::NewL(KTextThree);<br>...<br>RPointerArray&lt;CMyTest&gt; x;</code></p>
+<p>There are at least three ways of proceeding, some of which are more
+efficient than others.</p>
+<ul>
+<li>
+<p>Explicitly build a <code>TLinearOrder&lt;CMyTest&gt;</code> and
+pass this as a parameter to <code>InsertInOrder()</code>.</p>
+</li>
+</ul>
+<p class="CodeBlock"><code>...<br>TLinearOrder&lt;CMyTest&gt; order(CMyTest::Compare);<br>...<br>x.InsertInOrder(one,order);<br>...</code></p>
+<ul>
+<li>
+<p>Construct a temporary <code>TLinearOrder&lt;CMyTest&gt;</code>
+on the call to <code>InsertInOrder()</code>.</p>
+</li>
+</ul>
+<p class="CodeBlock"><code>...<br>x.InsertInOrder(one,TLinearOrder&lt;CMyTest&gt;(CMyTest::Compare));<br>...</code></p>
+<ul>
+<li>
+<p>Implicitly construct a temporary
+<code>TLinearOrder&lt;CMyTest&gt;</code> on the call to
+<code>InsertOrder()</code>.</p>
+</li>
+</ul>
+<p class="CodeBlock"><code>...<br>x.InsertInOrder(one,CMyTest::Compare);<br>...</code></p>
+<p>This applies to all member functions of
+<code>RPointerArray&lt;class T&gt;</code> which take a
+<code>TLinearOrder&lt;class T&gt;</code> argument.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

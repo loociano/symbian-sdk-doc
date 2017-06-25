@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to construct a descriptor array</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="DescriptorArraysGuide%2eHowTo%2eConstruct"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="ClassDerivation.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="Mixin.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Descriptor&nbsp;Arrays</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;construct&nbsp;a&nbsp;descriptor&nbsp;array</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to construct a descriptor array</h1>
+</div><div class="Bodytext">
+<p>The following code fragments show construction of a
+<a href="../../../APIReference/DescriptorArrays/CDesCArrayFlatTypedef.html#%3a%3aCDesCArrayFlat" title="Build independent array of descriptors implemented using a flat buffer"><code class="ApiItem">CDesCArrayFlat</code></a> and a <a href="../../../APIReference/DescriptorArrays/CPtrCArrayTypedef.html#%3a%3aCPtrCArray" title="Build independent array of non-modifiable pointer descriptors"><code class="ApiItem">CPtrCArray</code></a>. Both
+array types can take any type of descriptor as source when adding a new array
+element.</p>
+<p>Constructing and using a <a href="../../../APIReference/DescriptorArrays/CDesCArraySegTypedef.html#%3a%3aCDesCArraySeg" title="Build independent array of descriptors implemented using a segmented buffer"><code class="ApiItem">CDesCArraySeg</code></a> is the
+same as the same as a <a href="../../../APIReference/DescriptorArrays/CDesCArrayFlatTypedef.html#%3a%3aCDesCArrayFlat" title="Build independent array of descriptors implemented using a flat buffer"><code class="ApiItem">CDesCArrayFlat</code></a>.</p>
+<p>First, construct a set of descriptors:</p>
+<p class="CodeBlock"><code>_LIT(KText1,&quot;abcdefg&quot;);<br>_LIT(KText2,&quot;hijk&quot;);<br>_LIT(KText3,&quot;lmnopqr&quot;);<br>_LIT(KText4,&quot;stuvwxyz&quot;);<br>...<br>TBufC&lt;8&gt; buffer1(KText1);  // a non-modifiable buffer descriptor<br>TBuf&lt;8&gt;  buffer2(Ktext2);  // a modifiable buffer descriptor<br>...<br>TPtrC    ptr1(Ktext3);     // a non-modifiable pointer descriptor<br>TPtr     ptr2;             // a modifiable pointer descriptor <br>ptr2 =   buffer1.Des();    // pointing to the data in buffer1<br>...<br>HBufC* heapbuff = HBufC::NewL(8);  // a heap descriptor<br>*heapbuff = KText4;</code></p>
+<p>Now add the five descriptors to a
+<a href="../../../APIReference/DescriptorArrays/CDesCArrayFlatTypedef.html#%3a%3aCDesCArrayFlat" title="Build independent array of descriptors implemented using a flat buffer"><code class="ApiItem">CDesCArrayFlat</code></a></p>
+<p class="CodeBlock"><code>CDesCArrayFlat* descarray;<br>...<br>descarray = new (ELeave) CDesCArrayFlat(5);<br>...<br>descarray-&gt;AppendL(buffer1);<br>descarray-&gt;AppendL(buffer2);<br>descarray-&gt;AppendL(ptr1);<br>descarray-&gt;AppendL(ptr2);<br>descarray-&gt;AppendL(*heapbuff);<br>...<br>TInt len = descarray-&gt;MdcaPoint(2).Length();// information about<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// the third element<br>...</code></p>
+<p>and add the five descriptors to a
+<a href="../../../APIReference/DescriptorArrays/CPtrCArrayTypedef.html#%3a%3aCPtrCArray" title="Build independent array of non-modifiable pointer descriptors"><code class="ApiItem">CPtrCArray</code></a></p>
+<p class="CodeBlock"><code>CPtrCArray* ptrcarray;<br>...<br>ptrcarray = new (ELeave) CPtrCArray(5);<br>...<br>ptrcarray-&gt;AppendL(buffer1);<br>ptrcarray-&gt;AppendL(buffer2);<br>ptrcarray-&gt;AppendL(ptr1);<br>ptrcarray-&gt;AppendL(ptr2);<br>ptrcarray-&gt;AppendL(*heapbuff);<br>...<br>TInt len = ptrcarray-&gt;MdcaPoint(2).Length();// information about<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// the third element<br>...</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

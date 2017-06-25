@@ -1,0 +1,162 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to implement two-phase construction</title>
+<link href="../../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="CleanupSupportGuide3%2ehow%2dto%2etwo%2dphase%2dconstruct"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../../_index/index.html"><img
+src="../../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../../GlobalGlossary/index.html"><img src="../../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CBaseAndTwoPhase.guide.html"><img src="../../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToNewLC.guide.html"><img src="../../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Memory&nbsp;Management</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Cleanup&nbsp;Support</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Two&nbsp;Phase&nbsp;Construction</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;implement&nbsp;two-phase&nbsp;construction</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to implement two-phase construction</h1>
+</div><div class="Bodytext">
+<p>The example code shown below illustrates the provision of cleanup
+stack support for <code>CBase</code>-derived classes, and specifically details
+the motivation behind using a two-phase construction strategy for creating
+compound objects. It presents two implementations of a <code>CCompound</code>
+class, one which uses the usual C++ construction strategy, and a second which
+uses two-phase construction. </p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Example classes</h2>
+</div><div class="Bodytext">
+<p>This section will use the following classes as examples.</p>
+<p><code>CSimple</code> is a simple class whose members do not refer
+to external resources:</p>
+<p class="CodeBlock"><code>class CSimple : public CBase<br>&nbsp;&nbsp;&nbsp;{<br>public: <br>&nbsp;CSimple(TInt); <br>&nbsp;void Display();<br>private:<br>&nbsp;TInt iVal;<br>&nbsp;};</code></p>
+<p><code>CCompound</code> owns other objects:</p>
+<p class="CodeBlock"><code>class CCompound : public CBase<br>&nbsp;&nbsp;&nbsp;{<br>public:<br>&nbsp;void Display();<br>&nbsp;~CCompound();<br>&nbsp;&nbsp;static CCompound* NewL(TInt aVal);<br>&nbsp;&nbsp;static CCompound* NewLC(TInt aVal); <br>protected:<br>&nbsp;CCompound(TInt aVal);<br>&nbsp;ConstructL();<br>private:<br>&nbsp;TInt iVal;<br>&nbsp;CSimple* iChild;<br>&nbsp;};</code></p>
+<p>Note that the constructor is <code>protected</code>, so that
+<code>CCompound</code> objects can only be created through the public static
+<code>NewL()</code> and <code>NewLC()</code> functions.</p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Incorrect construction allowing a memory leak</h2>
+</div><div class="Bodytext">
+<p>First consider what would happen if the <code>CSimple</code> object
+owned by the <code>CCompound</code> were allocated and constructed by the
+<code>CCompound</code>&#8217;s constructor:</p>
+<p class="CodeBlock"><code>CCompound::CCompound(TInt aVal)<br>&nbsp;{<br>&nbsp;iVal=aVal;<br>&nbsp;iChild = new (ELeave) CSimple(aVal);  <br>&nbsp;}</code></p>
+<p>The problem with this approach is that, if the <code>new</code> in the
+<code>CCompound</code>&#8217;s constructor leaves, then:</p>
+<ul>
+<li>
+<p>memory has already been allocated for the
+<code>CCompound</code></p>
+</li>
+<li>
+<p>because of the leave, there is no valid pointer for the
+partially-constructed <code>CCompound</code></p>
+</li>
+<li>
+<p>without a valid pointer, there is no way to clean up the
+<code>CCompound</code></p>
+</li>
+</ul>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Two-phase construction</h2>
+</div><div class="Bodytext">
+<p>The solution is to allocate the <code>CCompound</code>, push a pointer to
+the clean-up stack, and then complete its construction. Any construction which
+might leave must be performed after the partially-constructed object&#8217;s
+address has been pushed to the clean-up stack. </p>
+<ol>
+<li>
+<p>Push the object to the clean-up stack after it has been
+allocated.</p>
+</li>
+<li>
+<p>Call the <code>ConstructL()</code> function to complete construction.
+</p>
+</li>
+</ol>
+<a name="1.6.4"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3><code>NewLC()</code> example</h3>
+</div><div class="Bodytext">
+<p class="CodeBlock"><code>// NewLC with two stage construction<br>CCompound* CCompound::NewLC(TInt aVal) <br>&nbsp;{ <br>&nbsp;// get new, leave if can't<br>&nbsp;CCompound* self=new (ELeave) CCompound(aVal);<br>&nbsp;// push onto cleanup stack in case self-&gt;ConstructL leaves<br>&nbsp;CleanupStack::PushL(self);<br>&nbsp;// complete construction with second phase constructor<br>&nbsp;self-&gt;ConstructL();<br>&nbsp;return self;<br>&nbsp;}</code></p>
+<p>Now the <code>ConstructL()</code> function is defined instead of the
+C++ constructor. It performs essentially the same functions as the C++
+constructor in the single-phase case:</p>
+<a name="1.6.5"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3><code>ConstructL()</code> example</h3>
+</div><div class="Bodytext">
+<p class="CodeBlock"><code>void CCompound::ConstructL() <br>&nbsp;{ <br>&nbsp;// NB. function may leave, as CSimple::NewL may leave<br>&nbsp;iChild = new (ELeave) CSimple (iVal);  <br>&nbsp;}</code></p>
+<p>Implement <code>NewL()</code> by doing a <code>NewLC()</code>, followed
+by popping the pushed pointer from the cleanup stack:</p>
+<a name="1.6.6"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3><code>NewL()</code> example</h3>
+</div><div class="Bodytext">
+<p class="CodeBlock"><code>CCompound* CCompound::NewL(TInt aVal) <br>&nbsp;{<br>&nbsp;CCompound* self=NewLC(aVal);<br>&nbsp;CleanupStack::Pop();<br>&nbsp;return self;<br>&nbsp;}</code></p>
+<a name="1.6.7"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Note</h3>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>Two-stage construction for a class could be avoided by including a
+<code>CleanupStack::PushL(this)</code> at the start of the class&#8217;s C++
+constructor. This would achieve the same effect as using
+<code>ConstructL()</code>. However if the class is to be used as a base class,
+the constructor of any classes derived from it will incur the overhead of one
+push and pop in the constructor called at each level in the inheritance
+hierarchy, rather than one pop and push in its own <code>NewLC()</code>.</p>
+</li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

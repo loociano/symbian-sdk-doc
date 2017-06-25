@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Chunks</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="MemoryAllocationGuide%2echunks"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="MemoryAllocation.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="Heaps.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Memory&nbsp;Management</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Memory&nbsp;Allocation</a>&nbsp;<span class="separator">&#187;</span>
+Chunks</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Chunks</h1>
+</div><div class="Bodytext">
+<p>Chunks map RAM into contiguous linear addresses.</p>
+<p>A chunk consists of a reserved region and a committed region. The
+reserved region is the contiguous set of linear addresses which may be occupied
+by the chunk. The committed region is the region in which RAM is actually
+mapped. The size of a chunk is dynamically alterable, allowing the committed
+region to vary in size from zero up to the reserved region size, in integer
+multiples of the processor page size. This allows processes to obtain more
+memory on demand. Generally the committed region starts at the bottom of the
+reserved region.</p>
+<p>It is also possible to create <em>double-ended</em> chunks, where
+the committed region is any contiguous subset of the reserved region, with size
+equal to an integer multiple of the processor page size. These chunks can have
+both the bottom and top of the committed region altered dynamically.</p>
+<p>The following diagram illustrates the mapping of linear addresses to
+RAM.</p>
+<div class="Figure">
+<p class="Image"><img src="MappingToRAM.gif" alt="Mapping a linear address range to RAM."  border="0"></p>
+<p class="Caption">Mapping a linear address range to RAM.</p>
+</div>
+<p>A chunk has a maximum size, which is defined when the chunk is
+created. The reserved region can be smaller than the maximum size. However, if
+the chunk is required to grow to a larger size than the reserved region size,
+the reserved region can be reallocated to allow it to grow; The reserved region
+can grow up to the maximum size of the chunk.</p>
+<a name="1.9"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Local chunks</h2>
+</div><div class="Bodytext">
+<p>A chunk is local if it is private to the process creating it and is
+not intended for access by other user processes.</p>
+<p>A local chunk does not have a name.</p>
+<a name="1.10"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Global chunks</h2>
+</div><div class="Bodytext">
+<p>A chunk is global if it is intended to be accessed by other
+processes.</p>
+<p>Global chunks have names that can be used to identify the chunk to
+another process wishing to access it. A process can open a global chunk by
+name; this maps the chunk into the process address space, allowing direct
+access and enabling the sharing of data between processes.</p>
+<p>If the name of the global chunk to be opened is known, use
+<code>RChunk::OpenGlobal()</code>. If a part of the name is known, use the
+<code>RChunk::Open()</code> variant that takes a
+<code>TFindChunk</code>.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

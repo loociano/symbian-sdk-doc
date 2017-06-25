@@ -1,0 +1,1723 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CCnvCharacterSetConverter</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="CCnvCharacterSetNamesClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Character&nbsp;Conversion</a>&nbsp;<span class="separator">&#187;</span>
+CCnvCharacterSetConverter</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>charconv.h</code>
+<br>Link against: <code>charconv.lib</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aCCnvCharacterSetConverter"></a>
+
+<h1>Class <code>CCnvCharacterSetConverter</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CCnvCharacterSetConverter</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Converts text between Unicode and other character sets. The first
+stage of the conversion is to specify the non-Unicode character set being
+converted to or from. This is done by calling one of the overloads of
+<code>PrepareToConvertToOrFromL()</code>.</p>
+<p>The second stage is to convert the text&nbsp;— using one
+of the overloads of <code>ConvertFromUnicode()</code> or
+<code>ConvertToUnicode()</code>.</p>
+<p>Where possible the first documented overload of
+<code>PrepareToConvertToOrFromL()</code> should be used because the second
+overload panics if the specified character set is not available&nbsp;—
+the first overload simply returns whether the character set is available or not
+available. However if the conversions are to be performed often, or if the user
+must select the character set for the conversion from a list, the second
+overload may be more appropriate.</p>
+<p>The first overload is less efficient than the second, because it
+searches through the file system for the selected character set every time it
+is invoked. The second overload searches through an array of all available
+character sets. In this method, the file system need only be searched
+once&nbsp;— when <code>CreateArrayOfCharacterSetsAvailableLC()</code>
+or <code>CreateArrayOfCharacterSetsAvailableL()</code> is used to create the
+array.</p>
+<p>The conversion functions allow users of this class to perform
+partial conversions on an input descriptor&nbsp;— handling the
+situation where the input descriptor is truncated mid way through a multi-byte
+character. This means that you do not have to guess how big to make the output
+descriptor for a given input descriptor&nbsp;— you can simply do the
+conversion in a loop using a small output descriptor. The ability to handle
+truncated descriptors also allows users of the class to convert information
+received in chunks from an external source.</p>
+<p>The class also provides a number of utility
+functions.</p><h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase">CBase</a></code></td><td class="Cell">Base class for all classes to be instantiated on the heap</td>
+</tr>
+<tr><td class="Cell"><code>CCnvCharacterSetConverter</code></td><td class="Cell">Converts text between Unicode and other character sets</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>CCnvCharacterSetConverter</code>:
+<br><code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aAnonymous" title="Output flag used to indicate whether or not a character in the source descriptor is the first half of a surrogate pair, but is the last character in the descriptor to convert">Anonymous</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aAsciiConversionData%28%29" title="Returns a ready-made SCnvConversionData object for converting between Unicode and ASCII">AsciiConversionData()</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aAutoDetectCharacterSetL%28%29" title="Attempts to determine the non-Unicode character set of the sample text from those supported on the phone">AutoDetectCharacterSetL()</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aConvertCharacterSetIdentifierToMibEnumL%28%29" title="Converts the UID of a character set to its MIB enum value">ConvertCharacterSetIdentifierToMibEnumL()</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aConvertCharacterSetIdentifierToStandardNameL%28%29" title="Returns the Internet-standard name of a character set identified in EPOC by a UID">ConvertCharacterSetIdentifierToStandardNameL()</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aConvertFromUnicode%28%29" title="Converts Unicode text into another character set">ConvertFromUnicode()</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aConvertMibEnumOfCharacterSetToIdentifierL%28%29" title="Converts a MIB enum value to the UID value of the character set">ConvertMibEnumOfCharacterSetToIdentifierL()</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aConvertStandardNameOfCharacterSetToIdentifier%28%29" title="Gets the UID of a character set for a given Internet-standard name">ConvertStandardNameOfCharacterSetToIdentifier()</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aConvertStandardNameOfCharacterSetToIdentifierL%28%29" title="Gets the UID of a character set identified by its Internet-standard name (the matching is case-insensitive)">ConvertStandardNameOfCharacterSetToIdentifierL()</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aConvertToUnicode%28%29" title="Converts text encoded in a non-Unicode character set into the Unicode character set (UCS-2)">ConvertToUnicode()</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aCreateArrayOfCharacterSetsAvailableL%28%29" title="Creates an array identifying all the character sets for which conversion is available">CreateArrayOfCharacterSetsAvailableL()</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aCreateArrayOfCharacterSetsAvailableLC%28%29" title="Creates an array identifying all the character sets for which conversion is available and pushes a pointer to it onto the cleanup stack">CreateArrayOfCharacterSetsAvailableLC()</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aDoConvertFromUnicode%28%29" title="Converts Unicode text into another character set">DoConvertFromUnicode()</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aDoConvertToUnicode%28%29" title="Converts non-Unicode text into Unicode">DoConvertToUnicode()</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aEAvailable" title="The requested character set can be converted">EAvailable</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aEBigEndian" title="The character set is little-endian">EBigEndian</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aEDowngradeExoticLineTerminatingCharactersToCarriageReturnLineFeed" title="Paragraph/line separators should be downgraded (if necessary) into carriage return and line feed pairs">EDowngradeExoticLineTerminatingCharactersToCarriageReturnLineFeed</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aEDowngradeExoticLineTerminatingCharactersToJustLineFeed" title="Paragraph/line separators should be downgraded (if necessary) into a line feed only">EDowngradeExoticLineTerminatingCharactersToJustLineFeed</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aEErrorIllFormedInput" title="The input descriptor contains a single corrupt character">EErrorIllFormedInput</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aEInputConversionFlagAllowTruncatedInputNotEvenPartlyConsumable" title="By default, when the input descriptor passed to DoConvertFromUnicode() or DoConvertToUnicode() consists of nothing but a truncated sequence, the error-code EErrorIllFormedInput is returned">EInputConversionFlagAllowTruncatedInputNotEvenPartlyConsumable</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aEInputConversionFlagAppend" title="Appends the converted text to the output descriptor">EInputConversionFlagAppend</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aEInputConversionFlagStopAtFirstUnconvertibleCharacter" title="Stops converting when the first unconvertible character is reached">EInputConversionFlagStopAtFirstUnconvertibleCharacter</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aELittleEndian" title="The character set is big-endian">ELittleEndian</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aENotAvailable" title="The requested character set cannot be converted">ENotAvailable</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aEOutputConversionFlagInputIsTruncated" title="Indicates whether or not the source descriptor ends in a truncated sequence, e.g">EOutputConversionFlagInputIsTruncated</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aKStateDefault" title="Initial value for the state argument in a set of related calls to ConvertToUnicode()">KStateDefault</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aNewL%28%29" title="Allocates and constructs a CCnvCharacterSetConverter object">NewL()</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aNewLC%28%29" title="Allocates and constructs a CCnvCharacterSetConverter object, and leaves the object on the cleanup stack">NewLC()</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aPrepareToConvertToOrFromL%28%29" title="Specifies the character set to convert to or from">PrepareToConvertToOrFromL()</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aSCharacterSet" title="Stores information about a non-Unicode character set">SCharacterSet</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aSetDefaultEndiannessOfForeignCharacters%28%29" title="Sets the default endian-ness used by the ConvertFromUnicode() and ConvertToUnicode() functions to convert between Unicode and non-Unicode character sets">SetDefaultEndiannessOfForeignCharacters()</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aSetDowngradeForExoticLineTerminatingCharacters%28%29" title="Sets whether the Unicode 'line separator' and 'paragraph separator' characters (0x2028 and 0x2029 respectively) should be converted into a carriage return / line feed pair, or into a line feed only when converting from Unicode into a foreign character set">SetDowngradeForExoticLineTerminatingCharacters()</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aSetReplacementForUnconvertibleUnicodeCharactersL%28%29" title="Sets the character used to replace unconvertible characters in the output descriptor, when converting from Unicode into another character set">SetReplacementForUnconvertibleUnicodeCharactersL()</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aTArrayOfAscendingIndices" title="Holds an ascending array of the indices of the characters in the source Unicode text which could not be converted by CCnvCharacterSetConverter::ConvertFromUnicode() into the foreign character set">TArrayOfAscendingIndices</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aTAvailability" title="Indicates whether a character set is available or unavailable for conversion">TAvailability</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aTDowngradeForExoticLineTerminatingCharacters" title="Downgrade for line and paragraph separators">TDowngradeForExoticLineTerminatingCharacters</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aTEndianness" title="Specifies the default endian-ness of the current character set">TEndianness</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aTError" title="Flags conversion errors">TError</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3a%7eCCnvCharacterSetConverter%28%29" title="The destructor frees all resources owned by the object, prior to its destruction">~CCnvCharacterSetConverter()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap">CBase</a></code>:
+<br><code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase%3a%3aoperator%20new%28%29" title="Allocates the object from the heap and then initialises its contents to binary zeroes">operator new()</a></code></p>
+<a name="2.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction and destruction</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aCCnvCharacterSetConverter%3a%3aNewL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NewL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static CCnvCharacterSetConverter* NewL();</code></p><h4 class="subheading">Description</h4>
+<p>Allocates and constructs a
+<code>CCnvCharacterSetConverter</code> object. If there is insufficient memory
+to create the object, the function leaves.</p>
+<p>Since the memory is allocated on the heap, objects of this type
+should be destroyed using the <code>delete</code> operator when the required
+conversions are complete.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CCnvCharacterSetConverter*</code></td>
+<td class="Cell"><p class="ValueDesc">The newly created object.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aCCnvCharacterSetConverter%3a%3aNewLC%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NewLC()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static CCnvCharacterSetConverter* NewLC();</code></p><h4 class="subheading">Description</h4>
+<p>Allocates and constructs a
+<code>CCnvCharacterSetConverter</code> object, and leaves the object on the
+cleanup stack. If there is insufficient memory to create the object, the
+function leaves.</p>
+<p>Since the memory is allocated on the heap, objects of this type
+should be destroyed using either the <code>CleanupStack::Pop()</code> function
+and then the delete operator, or the <code>CleanupStack::PopAndDestroy()</code>
+function.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CCnvCharacterSetConverter*</code></td>
+<td class="Cell"><p class="ValueDesc">The newly created object.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.4"></a></div><div class="Head3">
+<a name="%3a%3aCCnvCharacterSetConverter%3a%3a%7eCCnvCharacterSetConverter%28%29"></a>
+<hr size="1" noshade>
+<h3><code>~CCnvCharacterSetConverter()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual ~CCnvCharacterSetConverter();</code></p><h4 class="subheading">Description</h4>
+<p>The destructor frees all resources owned by the object, prior
+to its destruction.</p>
+<a name="2.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Preparing to convert</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aCCnvCharacterSetConverter%3a%3aPrepareToConvertToOrFromL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PrepareToConvertToOrFromL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TAvailability PrepareToConvertToOrFromL(TUint aCharacterSetIdentifier, RFs&amp; aFileServerSession);</code></p><h4 class="subheading">Description</h4>
+<p>Specifies the character set to convert to or from.
+<code>aCharacterSetIdentifier</code> is a UID which identifies a character set.
+It can be one of the character sets for which conversion is built into EPOC, or
+it may be a character set for which conversion is implemented by a plug-in DLL.
+In the latter case, the function searches through the file system for the DLL
+which implements the character conversion.</p>
+<p>Either this function or its overload must be called before
+using the conversion functions <code>ConvertFromUnicode()</code> or
+<code>ConvertToUnicode()</code>.</p>
+<p>This overload of the function is simpler to use than the other
+and does not panic if the character set with the specified UID is not available
+at run time&nbsp;— it simply returns <code>ENotAvailable</code>. It
+should be used when the conversion character set is specified within the text
+object being converted, e.g. an email message, or an HTML document. If the
+character set is not specified, the user must be presented with a list of all
+available sets, so it makes sense to use the other overload.</p>
+<p>The function may need to search the file system each time it is
+called. If conversion takes place repeatedly over a short period, it may be
+more efficient to use the other overload.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>The file server session argument is used for locating and
+opening the required character set conversion DLL.</p>
+</li>
+<li>
+<p>Although the other overload of this function is more
+efficient, if the character set is one for which conversion is built into EPOC,
+the difference in speed is negligible.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aCharacterSetIdentifier</code></td>
+<td class="Cell"><p class="ValueDesc">The UID of the non-Unicode character set from or to which to
+convert. Must not be zero, or a panic occurs.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">RFs&amp; aFileServerSession</code></td>
+<td class="Cell"><p class="ValueDesc">A file server session.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAvailability</code></td>
+<td class="Cell"><p class="ValueDesc">The availability of the specified character set. If
+<code>EAvailable</code> is returned, then the conversion functions
+<code>ConvertToUnicode()</code> and <code>ConvertFromUnicode()</code> will use
+<code>aCharacterSetIdentifier</code> as the foreign character set. If
+<code>ENotAvailable</code> is returned, then the foreign character set will
+either be undefined (and trying to use the conversion functions will cause a
+panic), or if it has previously been set, it will remain unchanged.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="Globals.html#CharacterConversion%2econstants" title="Constants">Character conversion constants</a></li>
+</ul>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aCCnvCharacterSetConverter%3a%3aPrepareToConvertToOrFromL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PrepareToConvertToOrFromL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void PrepareToConvertToOrFromL(TUint aCharacterSetIdentifier, const CArrayFix&lt;SCharacterSet&gt;&amp; aArrayOfCharacterSetsAvailable, RFs&amp; aFileServerSession);</code></p><h4 class="subheading">Description</h4>
+<p>Specifies the character set to convert to or from.
+<code>aCharacterSetIdentifier</code> is a UID which identifies a character set.
+It can be one of the character sets for which conversion is built into EPOC, or
+it may be a character set for which the conversion is implemented by a plug-in
+DLL.</p>
+<p>The function searches the character set array specified
+(<code>aArrayOfCharacterSetsAvailable</code>). This is an array containing all
+of the character sets for which conversion is available. It is created by
+calling <code>CreateArrayOfCharacterSetsAvailableL()</code> or
+<code>CreateArrayOfCharacterSetsAvailableLC()</code>. You should be sure that
+conversion is available for <code>aCharacterSetIdentifier</code>, because if
+not, a panic occurs. Otherwise, use the other overload of this function.</p>
+<p>Either this function or its overload, must be called before
+using the conversion functions <code>ConvertFromUnicode()</code> or
+<code>ConvertToUnicode()</code>.</p>
+<p>Unlike the other overload, this function does not search the
+file system for plug-in conversion DLLs, (unless
+<code>aArrayOfCharacterSetsAvailable</code> is NULL). This function should be
+used if conversions are to be performed often, or if the conversion character
+set is to be selected by the user. Generating the array of all the available
+character sets once and searching though it is more efficient than the method
+used by the other overload, in which the file system may be searched every time
+it is invoked.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>The file server session argument is used to open the
+required character set conversion data file.</p>
+</li>
+<li>
+<p>The array passed to this function can also be used to
+provide a list from which a user can select the desired conversion character
+set.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aCharacterSetIdentifier</code></td>
+<td class="Cell"><p class="ValueDesc">The UID of the non-Unicode character set from or to which to
+convert. Must not be zero, or a panic occurs.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CArrayFix&lt;SCharacterSet&gt;&amp;
+aArrayOfCharacterSetsAvailable</code></td>
+<td class="Cell"><p class="ValueDesc">Array of all character sets for which conversion is
+available&#0160;&#8212; created by either
+<code>CreateArrayOfCharacterSetsAvailableLC()</code> or
+<code>CreateArrayOfCharacterSetsAvailableL()</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">RFs&amp; aFileServerSession</code></td>
+<td class="Cell"><p class="ValueDesc">A file server session.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="Globals.html#CharacterConversion%2econstants" title="Constants">Character conversion constants</a></li>
+</ul>
+<a name="2.7.4"></a></div><div class="Head3">
+<a name="%3a%3aCCnvCharacterSetConverter%3a%3aCreateArrayOfCharacterSetsAvailableL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CreateArrayOfCharacterSetsAvailableL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static CArrayFix&lt;SCharacterSet&gt;* CreateArrayOfCharacterSetsAvailableL(RFs&amp; aFileServerSession);</code></p><h4 class="subheading">Description</h4>
+<p>Creates an array identifying all the character sets for which
+conversion is available. These can be character sets for which conversion is
+built into EPOC, or they may be character sets for which conversion is
+implemented by a plug-in DLL.</p>
+<p>The array returned can be used by one of the
+<code>PrepareToConvertToOrFromL()</code> overloads to provide a list of
+all the character sets available for conversion. The caller of this function is responsible for deleting the array, and should not modify it.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RFs&amp; aFileServerSession</code></td>
+<td class="Cell"><p class="ValueDesc">A file server session. This is used for searching for character
+conversion plug-in DLLs.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CArrayFix&lt;SCharacterSet&gt;*</code></td>
+<td class="Cell"><p class="ValueDesc">An array identifying all supported character sets.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.5"></a></div><div class="Head3">
+<a name="%3a%3aCCnvCharacterSetConverter%3a%3aCreateArrayOfCharacterSetsAvailableLC%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CreateArrayOfCharacterSetsAvailableLC()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static CArrayFix&lt;SCharacterSet&gt;* CreateArrayOfCharacterSetsAvailableLC(RFs&amp; aFileServerSession);</code></p><h4 class="subheading">Description</h4>
+<p>Creates an array identifying all the character sets for which
+conversion is available and pushes a pointer to it onto the cleanup stack.
+These can be character sets for which conversion is built into EPOC, or they
+may be character sets for which conversion is implemented by a plug-in
+DLL.</p>
+<p>The array returned can be used by one of the
+<code>PrepareToConvertToOrFromL()</code> overloads to provide a list of
+all the character sets available for conversion. The caller of this function is responsible for deleting the array, and should not modify it.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RFs&amp; aFileServerSession</code></td>
+<td class="Cell"><p class="ValueDesc">A file server session. This is used for searching for character
+conversion plug-in DLLs.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CArrayFix&lt;SCharacterSet&gt;*</code></td>
+<td class="Cell"><p class="ValueDesc">An array of references to all supported character sets.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Conversion functions</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aCCnvCharacterSetConverter%3a%3aConvertFromUnicode%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ConvertFromUnicode()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt ConvertFromUnicode(TDes8&amp; aForeign, const TDesC16&amp; aUnicode) const;<br>TInt ConvertFromUnicode(TDes8&amp; aForeign, const TDesC16&amp; aUnicode, TInt&amp; aNumberOfUnconvertibleCharacters) const;<br>TInt ConvertFromUnicode(TDes8&amp; aForeign, const TDesC16&amp; aUnicode, TInt&amp; aNumberOfUnconvertibleCharacters, TInt&amp; aIndexOfFirstUnconvertibleCharacter) const;</code></p><h4 class="subheading">Description</h4>
+<p>Converts text encoded in the Unicode character set (UCS-2) into
+other character sets.</p>
+<p>The first overload of the function simply performs the
+conversion. The second overload converts the text and gets the number of
+characters that could not be converted. The third overload converts the text,
+gets the number of characters that could not be converted, and also gets the
+index of the first character that could not be converted. A fourth overload was
+introduced in v6.0&nbsp;— see below.</p>
+<p>All overloads cause a panic if no target character set has been
+selected to convert to (i.e. either overload of
+<code>PrepareToConvertToOrFromL()</code>must have been successfully called
+beforehand). You may also need to call
+<code>SetDefaultEndiannessOfForeignCharacters()</code> to define the
+endian-ness of the output descriptor.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>A sixteen-bit descriptor is used to hold the source Unicode
+encoded text, and an eight-bit descriptor is used to hold the converted
+non-Unicode text. Eight-bit descriptors are used because non-Unicode character
+sets may use a single byte per character (e.g. Code Page 1252) or more than one
+byte per character (e.g. GB 2312-80) or even a variable number of bytes per
+character (e.g. Shift-JIS).</p>
+</li>
+<li>
+<p>The function will fail to convert all the input descriptor
+if the output descriptor is not long enough to hold all the text.</p>
+</li>
+<li>
+<p>Unicode characters cannot be converted if there is no
+equivalent for them in the target character set. This does not stop the
+conversion, the missing character is simply replaced by the character in the
+target character set which represents unknown characters. This default unknown
+character can be changed using
+<code>SetReplacementForUnconvertibleUnicodeCharactersL()</code>.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes8&amp; aForeign</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the converted text in a non-Unicode
+character set.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC16&amp; aUnicode</code></td>
+<td class="Cell"><p class="ValueDesc">The source Unicode text to be converted.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aNumberOfUnconvertibleCharacters</code></td>
+<td class="Cell"><p class="ValueDesc">On return contains the number of characters which could not be
+converted.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aIndexOfFirstUnconvertibleCharacter</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the index of the first character in the
+input text that could not be converted. The value is negative if all characters
+were converted.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The number of unconverted characters left at the end of the
+input descriptor (e.g. because the output descriptor is not long enough to hold
+all the text), or one of the error values defined in
+<code>TError</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aCCnvCharacterSetConverter%3a%3aConvertFromUnicode%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ConvertFromUnicode()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt ConvertFromUnicode(TDes8&amp; aForeign, const TDesC16&amp; aUnicode, TArrayOfAscendingIndices&amp; aIndicesOfUnconvertibleCharacters) const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Converts Unicode text into another character set.</p>
+<p>Differs from the other overloads of this function by returning
+the indices of all of the characters in the source Unicode text which could not
+be converted.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes8&amp; aForeign</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the converted text in a non-Unicode
+character set.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC16&amp; aUnicode</code></td>
+<td class="Cell"><p class="ValueDesc">The source Unicode text to be converted.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TArrayOfAscendingIndices&amp;
+aIndicesOfUnconvertibleCharacters</code></td>
+<td class="Cell"><p class="ValueDesc">On return, holds the indices of each Unicode character in the
+source text which could not be converted.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The number of unconverted characters left at the end of the
+input descriptor (e.g. because the output descriptor is not long enough to hold
+all the text), or one of the error values defined in
+<code>TError</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.4"></a></div><div class="Head3">
+<a name="%3a%3aCCnvCharacterSetConverter%3a%3aConvertToUnicode%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ConvertToUnicode()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt ConvertToUnicode(TDes16&amp; aUnicode, const TDesC8&amp; aForeign, TInt&amp; aState) const;<br>TInt ConvertToUnicode(TDes16&amp; aUnicode, const TDesC8&amp; aForeign, TInt&amp; aState, TInt&amp; aNumberOfUnconvertibleCharacters) const;<br>TInt ConvertToUnicode(TDes16&amp; aUnicode, const TDesC8&amp; aForeign, TInt&amp; aState, TInt&amp; aNumberOfUnconvertibleCharacters, TInt&amp; aIndexOfFirstByteOfFirstUnconvertibleCharacter) const;</code></p><h4 class="subheading">Description</h4>
+<p>Converts text encoded in a non-Unicode character set into the
+Unicode character set (UCS-2).</p>
+<p>The first overload of the function simply performs the
+conversion. The second overload converts the text and gets the number of bytes
+in the input string that could not be converted. The third overload converts
+the text, gets the number of bytes that could not be converted, and also gets
+the index of the first byte that could not be converted.</p>
+<p>All overloads cause a panic if no source character set has been
+selected to convert from (i.e. either overload of
+<code>PrepareToConvertToOrFromL()</code> must have been successfully called
+beforehand). You may also need to call
+<code>SetDefaultEndiannessOfForeignCharacters()</code> to define the
+endian-ness of the input descriptor.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>Since Unicode is intended to be the superset of all
+character sets, the function should usually report zero unconverted characters.
+Unconvertible characters will exist if the input descriptor contains illegal
+characters, i.e. values not in the selected non-Unicode character set.</p>
+</li>
+<li>
+<p>The presence of illegal characters does not stop the
+conversion. The missing character is simply replaced by the Unicode character
+which represents unknown characters (0xFFFD).</p>
+</li>
+<li>
+<p>If the source text consists solely of an incomplete
+character, the function returns <code>EErrorIllFormedInput</code>. The reason
+for this is to prevent the possibility of the calling code getting into a
+infinite loop.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes16&amp; aUnicode</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the converted text in the Unicode
+character set.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC8&amp; aForeign</code></td>
+<td class="Cell"><p class="ValueDesc">The non-Unicode source text to be converted.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aState</code></td>
+<td class="Cell"><p class="ValueDesc">This is used to save state information across multiple calls to
+<code>ConvertToUnicode()</code>. You should initialise the value to
+<code>KStateDefault</code>, and then do not change it in a series of related
+calls.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aNumberOfUnconvertibleCharacters</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the number of bytes which were not
+converted.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp;
+aIndexOfFirstByteOfFirstUnconvertibleCharacter</code></td>
+<td class="Cell"><p class="ValueDesc">On return, the index of the first byte of the first
+unconvertible character. For instance if the first character in the input
+descriptor (<code>aForeign</code>) could not be converted, then this parameter
+is set to the first byte of that character, i.e. zero. A negative value is
+returned if all the characters were converted.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The number of unconverted bytes left at the end of the input
+descriptor (e.g. because the output descriptor is not long enough to hold all
+the text), or one of the error values defined in <code>TError</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.5"></a></div><div class="Head3">
+<a name="%3a%3aCCnvCharacterSetConverter%3a%3aDoConvertFromUnicode%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DoConvertFromUnicode()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static TInt DoConvertFromUnicode(const SCnvConversionData&amp; aConversionData, TEndianness aDefaultEndiannessOfForeignCharacters, const TDesC8&amp; aReplacementForUnconvertibleUnicodeCharacters, TDes8&amp; aForeign, const TDesC16&amp; aUnicode, TArrayOfAscendingIndices&amp; aIndicesOfUnconvertibleCharacters);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Converts Unicode text into another character set. The Unicode
+text specified in <code>aUnicode</code> is converted using the conversion data
+object (<code>aConversionData</code>) provided by the plug-in for the foreign
+character set, and the converted text is returned in
+<code>aForeign</code>.</p>
+<p>Note</p>
+<p>This is a utility function that should only be called from a
+plug-in conversion library's implementation of
+<code>ConvertFromUnicode()</code>. Users of the character conversion API should
+use one of the overloads of <code>ConvertFromUnicode()</code>
+instead.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const SCnvConversionData&amp; aConversionData</code></td>
+<td class="Cell"><p class="ValueDesc">The conversion data object. Typically, you should specify
+<code>conversionData</code>, as declared in convgeneratedcpp.h. This is the
+<code>SCnvConversionData</code> object which is created in the
+cnvtool-generated .cpp file (although for some complex character sets you may
+want to pass other <code>SCnvConversionData</code> objects into this
+parameter).</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TEndianness aDefaultEndiannessOfForeignCharacters</code></td>
+<td class="Cell"><p class="ValueDesc">The default endian-ness to use when writing the characters in
+the foreign character set. If an endian-ness for foreign characters is
+specified in <code>aConversionData</code> (i.e. not
+<code>SCnvConversionData::EUnspecified</code>), then that value is used and the
+value of <code>aDefaultEndiannessOfForeignCharacters</code> is ignored.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC8&amp;
+aReplacementForUnconvertibleUnicodeCharacters</code></td>
+<td class="Cell"><p class="ValueDesc">The single character which is to be used to replace
+unconvertible characters.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes8&amp; aForeign</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the converted text&#0160;in a non-Unicode
+character set.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC16&amp; aUnicode</code></td>
+<td class="Cell"><p class="ValueDesc">The source Unicode text to be converted.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TArrayOfAscendingIndices&amp;
+aIndicesOfUnconvertibleCharacters</code></td>
+<td class="Cell"><p class="ValueDesc">On return holds the indices of each Unicode character in the
+source text which could not be converted (because the target character set does
+not have an equivalent character).</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The number of unconverted characters left at the end of the
+input descriptor (e.g. because <code>aForeign</code> was not long enough to
+hold all the text), or a negative error value, as defined in
+<code>TError</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../CharacterConversionPlugInProvider/index.html#CharacterConversionPlugInProvider%2etoc">Character Conversion Plug-ins</a></li>
+</ul>
+<a name="2.8.6"></a></div><div class="Head3">
+<a name="%3a%3aCCnvCharacterSetConverter%3a%3aDoConvertFromUnicode%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DoConvertFromUnicode()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static TInt DoConvertFromUnicode(const SCnvConversionData&amp; aConversionData, TEndianness aDefaultEndiannessOfForeignCharacters, const TDesC8&amp; aReplacementForUnconvertibleUnicodeCharacters, TDes8&amp; aForeign, const TDesC16&amp; aUnicode, TArrayOfAscendingIndices&amp; aIndicesOfUnconvertibleCharacters, TUint&amp; aOutputConversionFlags, TUint aInputConversionFlags);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Converts Unicode text into another character set. The Unicode
+text specified in <code>aUnicode</code> is converted using the conversion data
+object (<code>aConversionData</code>) provided by the plug-in for the foreign
+character set, and the converted text is returned in
+<code>aForeign</code>.</p>
+<p>This overload differs from the previous one in that it allows
+the caller to specify flags which give more control over the conversion.</p>
+<p>Note</p>
+<p>This is a utility function that should only be called from a
+plug-in conversion library's implementation of
+<code>ConvertFromUnicode()</code>. Users of the character conversion API should
+use one of the overloads of <code>ConvertFromUnicode()</code>
+instead.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const SCnvConversionData&amp; aConversionData</code></td>
+<td class="Cell"><p class="ValueDesc">The conversion data object. Typically, you should specify
+<code>conversionData</code>, as declared in convgeneratedcpp.h. This is the
+<code>SCnvConversionData</code> object which is created in the
+cnvtool-generated .cpp file (although for some complex character sets you may
+want to pass other <code>SCnvConversionData</code> objects into this
+parameter).</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TEndianness aDefaultEndiannessOfForeignCharacters</code></td>
+<td class="Cell"><p class="ValueDesc">The default endian-ness to use when writing the characters in
+the foreign character set. If an endian-ness for foreign characters is
+specified in <code>aConversionData</code> (i.e. not
+<code>SCnvConversionData::EUnspecified</code>), then that value is used and the
+value of <code>aDefaultEndiannessOfForeignCharacters</code> is ignored.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC8&amp;
+aReplacementForUnconvertibleUnicodeCharacters</code></td>
+<td class="Cell"><p class="ValueDesc">The single character which is to be used to replace
+unconvertible characters. If <code>aInputConversionFlags</code> is set to
+<code>EInputConversionFlagStopAtFirstUnconvertibleCharacter</code>, this
+replacement character is used to replace the first unconvertible character,
+then the conversion will stop.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes8&amp; aForeign</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the converted text&#0160;in a non-Unicode
+character set. This may already contain some text. If it does, and if
+<code>aInputConversionFlags</code> specifies
+<code>EInputConversionFlagAppend</code>, then the converted text is appended to
+this descriptor.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC16&amp; aUnicode</code></td>
+<td class="Cell"><p class="ValueDesc">The source Unicode text to be converted.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TArrayOfAscendingIndices&amp;
+aIndicesOfUnconvertibleCharacters</code></td>
+<td class="Cell"><p class="ValueDesc">On return holds the indices of each Unicode character in the
+source descriptor <code>aUnicode</code> which could not be converted (because
+the target character set does not have an equivalent character).</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint&amp; aOutputConversionFlags</code></td>
+<td class="Cell"><p class="ValueDesc">If the input descriptor ended in a truncated sequence, e.g. the
+first half of a Unicode surrogate pair, <code>aOutputConversionFlags</code>
+returns with the <code>EOutputConversionFlagInputIsTruncated</code> flag
+set.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aInputConversionFlags</code></td>
+<td class="Cell"><p class="ValueDesc">Specify <code>EInputConversionFlagAppend</code> to append the
+text in <code>aUnicode</code> to <code>aForeign</code>. Specify
+<code>EInputConversionFlagStopAtFirstUnconvertibleCharacter</code> to stop
+converting when the first unconvertible character is reached. Specify
+<code>EInputConversionFlagAllowTruncatedInputNotEvenPartlyConsumable</code> to
+prevent the function from returning the error-code
+<code>EErrorIllFormedInput</code> when the input descriptor consists of nothing
+but a truncated sequence. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The number of unconverted characters left at the end of the
+input descriptor (e.g. because <code>aForeign</code> was not long enough to
+hold all the text), or a negative error value, as defined in
+<code>TError</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../CharacterConversionPlugInProvider/index.html#CharacterConversionPlugInProvider%2etoc">Character Conversion Plug-ins</a></li>
+</ul>
+<a name="2.8.7"></a></div><div class="Head3">
+<a name="%3a%3aCCnvCharacterSetConverter%3a%3aDoConvertToUnicode%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DoConvertToUnicode()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static TInt DoConvertToUnicode(const SCnvConversionData&amp; aConversionData, TEndianness aDefaultEndiannessOfForeignCharacters, TDes16&amp; aUnicode, const TDesC8&amp; aForeign, TInt&amp; aNumberOfUnconvertibleCharacters, TInt&amp; aIndexOfFirstByteOfFirstUnconvertibleCharacter);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Converts non-Unicode text into Unicode. The non-Unicode text
+specified in <code>aForeign</code> is converted using the conversion data
+object (<code>aConversionData</code>) provided by the plug-in for the foreign
+character set, and the converted text is returned in
+<code>aUnicode</code>.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>This is a utility function that should only be called from
+a plug-in conversion library's implementation of
+<code>ConvertToUnicode()</code>. Ordinary users of the character conversion API
+should use one of the overloads of <code>ConvertToUnicode()</code>
+instead.</p>
+</li>
+<li>
+<p>The last two arguments return information about unconverted
+characters. Because Unicode is intended to cover all possible characters, these
+rarely report anything other than zero characters. However they report the
+existence of unconvertible characters if the input descriptor
+<code>aForeign</code> contains illegal characters, i.e. values not in the
+foreign character set.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const SCnvConversionData&amp; aConversionData</code></td>
+<td class="Cell"><p class="ValueDesc">The conversion data object. Typically, you should specify
+<code>conversionData</code>, as declared in convgeneratedcpp.h. This is the
+<code>SCnvConversionData</code> object which is created in the
+cnvtool-generated .cpp file (although for some complex character sets you may
+want to pass other <code>SCnvConversionData</code> objects into this
+parameter).</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TEndianness aDefaultEndiannessOfForeignCharacters</code></td>
+<td class="Cell"><p class="ValueDesc">The default endian-ness of the foreign characters. If an
+endian-ness for foreign characters is specified in
+<code>aConversionData</code>, then that is used instead and the value of
+<code>aDefaultEndiannessOfForeignCharacters</code>is ignored.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes16&amp; aUnicode</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the text&#0160;converted into
+Unicode.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC8&amp; aForeign</code></td>
+<td class="Cell"><p class="ValueDesc">The non-Unicode source text to be converted.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aNumberOfUnconvertibleCharacters</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the number of characters in
+<code>aForeign</code> which were not converted. Characters which cannot be
+converted are output as Unicode replacement characters (0xFFFD).</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp;
+aIndexOfFirstByteOfFirstUnconvertibleCharacter</code></td>
+<td class="Cell"><p class="ValueDesc">On return, the index of the first byte of the first
+unconvertible character. For instance if the first character in the input
+descriptor (<code>aForeign</code>) could not be converted, then this parameter
+is set to the first byte of that character, i.e. zero. A negative value is
+returned if all the characters were converted.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The number of unconverted bytes left at the end of the input
+descriptor, or a negative error value, as defined in
+<code>TError</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../CharacterConversionPlugInProvider/index.html#CharacterConversionPlugInProvider%2etoc">Character Conversion Plug-ins</a></li>
+</ul>
+<a name="2.8.8"></a></div><div class="Head3">
+<a name="%3a%3aCCnvCharacterSetConverter%3a%3aDoConvertToUnicode%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DoConvertToUnicode()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static TInt DoConvertToUnicode(const SCnvConversionData&amp; aConversionData, TEndianness aDefaultEndiannessOfForeignCharacters, TDes16&amp; aUnicode, const TDesC8&amp; aForeign, TInt&amp; aNumberOfUnconvertibleCharacters, TInt&amp; aIndexOfFirstByteOfFirstUnconvertibleCharacter, TUint&amp; aOutputConversionFlags, TUint aInputConversionFlags);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Converts non-Unicode text into Unicode. The non-Unicode text
+specified in <code>aForeign</code> is converted using the conversion data
+object (<code>aConversionData</code>) provided by the plug-in for the foreign
+character set, and the converted text is returned in
+<code>aUnicode</code>.</p>
+<p>This overload differs from the previous one in that it allows
+the caller to specify flags which give more control over the conversion.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>This is a utility function that should only be called from
+a plug-in conversion library's implementation of
+<code>ConvertToUnicode()</code>. Ordinary users of the character conversion API
+should use one of the overloads of <code>ConvertToUnicode()</code>
+instead.</p>
+</li>
+<li>
+<p>The <code>aNumberOfUnconvertibleCharacters</code> and
+<code>aIndexOfFirstByteOfFirstUnconvertibleCharacter</code>arguments return
+information about unconverted characters. Because Unicode is intended to cover
+all possible characters, these rarely report anything other than zero
+characters. However they report the existence of unconvertible characters if
+the input descriptor <code>aForeign</code> contains illegal characters, i.e.
+values not in the foreign character set.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const SCnvConversionData&amp; aConversionData</code></td>
+<td class="Cell"><p class="ValueDesc">The conversion data object. Typically, you should specify
+<code>conversionData</code>, as declared in convgeneratedcpp.h. This is the
+<code>SCnvConversionData</code> object which is created in the
+cnvtool-generated .cpp file (although for some complex character sets you may
+want to pass other <code>SCnvConversionData</code> objects into this
+parameter).</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TEndianness aDefaultEndiannessOfForeignCharacters</code></td>
+<td class="Cell"><p class="ValueDesc">The default endian-ness of the foreign characters. If an
+endian-ness for foreign characters is specified in
+<code>aConversionData</code>, then that is used instead and the value of
+<code>aDefaultEndiannessOfForeignCharacters</code> is ignored.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes16&amp; aUnicode</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the text&#0160;converted into
+Unicode.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC8&amp; aForeign</code></td>
+<td class="Cell"><p class="ValueDesc">The non-Unicode source text to be converted.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aNumberOfUnconvertibleCharacters</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the number of characters in
+<code>aForeign</code> which were not converted. Characters which cannot be
+converted are output as Unicode replacement characters (0xFFFD).</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp;
+aIndexOfFirstByteOfFirstUnconvertibleCharacter</code></td>
+<td class="Cell"><p class="ValueDesc">On return, the index of the first byte of the first
+unconvertible character. For instance if the first character in the input
+descriptor (<code>aForeign</code>) could not be converted, then this parameter
+is set to the first byte of that character, i.e. zero. A negative value is
+returned if all the characters were converted.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint&amp; aOutputConversionFlags</code></td>
+<td class="Cell"><p class="ValueDesc">If the input descriptor ended in a truncated sequence, e.g. an
+incomplete multi-byte character, <code>aOutputConversionFlags</code> returns
+with the <code>EOutputConversionFlagInputIsTruncated</code> flag set.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aInputConversionFlags</code></td>
+<td class="Cell"><p class="ValueDesc">Specify <code>EInputConversionFlagAppend</code> to append the
+converted text to <code>aUnicode</code>, otherwise the contents of
+<code>aUnicode</code> are overwritten. Specify
+<code>EInputConversionFlagStopAtFirstUnconvertibleCharacter</code> to stop
+converting when the first unconvertible character is reached. Specify
+<code>EInputConversionFlagAllowTruncatedInputNotEvenPartlyConsumable</code> to
+prevent the function from returning the error-code
+<code>EErrorIllFormedInput</code> when the input descriptor consists of nothing
+but a truncated sequence.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The number of unconverted bytes left at the end of the input
+descriptor, or a negative error value defined in <code>TError</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../CharacterConversionPlugInProvider/index.html#CharacterConversionPlugInProvider%2etoc">Character Conversion Plug-ins</a></li>
+</ul>
+<a name="2.8.9"></a></div><div class="Head3">
+<a name="%3a%3aCCnvCharacterSetConverter%3a%3aAsciiConversionData%28%29"></a>
+<hr size="1" noshade>
+<h3><code>AsciiConversionData()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static const SCnvConversionData&amp; AsciiConversionData();</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Returns a ready-made <code>SCnvConversionData</code> object for
+converting between Unicode and ASCII. This can be passed into the
+<code>aConversionData</code> parameter to <code>DoConvertFromUnicode()</code>
+or <code>DoConvertToUnicode()</code>.</p>
+<p>Note</p>
+<p>This utility function should only be called by a plug-in
+conversion library.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">SCnvConversionData&amp;</code></td>
+<td class="Cell"><p class="ValueDesc">ASCII conversion data object.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../CharacterConversionPlugInProvider/index.html#CharacterConversionPlugInProvider%2etoc">Character Conversion Plug-ins</a></li>
+</ul>
+<a name="2.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Utility functions</h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aCCnvCharacterSetConverter%3a%3aAutoDetectCharacterSetL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>AutoDetectCharacterSetL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static void AutoDetectCharacterSetL(TInt&amp; aConfidenceLevel, TUint&amp; aCharacterSetIdentifier, const CArrayFix&lt;SCharacterSet&gt;&amp; aArrayOfCharacterSetsAvailable, const TDesC8&amp; aSample);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.1
+</p><h4 class="subheading">Description</h4>
+<p>Attempts to determine the non-Unicode character set of the sample text from those supported on the phone.</p>
+<p>For each of the available character sets, its implementation of
+<code>IsInThisCharacterSetL()</code> is called. The character set which returns
+the highest confidence level (i.e. which generates the fewest
+<code>0xFFFD</code> Unicode replacement characters) is returned in
+<code>aCharacterSetIdentifier</code>.</p><p>This function merely determines if the sample text is convertible with this converter: it does no textual analysis on the result. Therefore, this function is not capable of differentiating between very similar encodings (for example the different ISO 8859 variants).</p><p>Any code making use of this function should provide a way for the user to override the selection that this function makes.</p><p>Please note that the operation of this function is slow, and takes no account of the usual context that would be used in guessing a character set (for example, the language that is expected to be encoded or the transport used). For situations where such context is known, a faster, more accurate solution is advisable.
+</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aConfidenceLevel</code></td>
+<td class="Cell"><p class="ValueDesc">Set by the function to a value between 0 and 100. 0 indicates the function has no idea what character set  <code>aSample</code> is encoded in. In this case, <code>aCharacterSetIdentifier</code> is undefined. 100 indicates total confidence that <code>aCharacterSetIdentifier</code> is the character set of <code>aSample</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint&amp; aCharacterSetIdentifier</code></td>
+<td class="Cell"><p class="ValueDesc">On return, the UID of the best available character set for the sample text <code>aSample</code>. Character set UIDs are defined in charconv.h.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CArrayFix&lt;SCharacterSet&gt;&amp; aArrayOfCharacterSetsAvailable</code></td>
+<td class="Cell"><p class="ValueDesc">The array of character sets available on the device. If this is not already available, it can be created using <code>CreateArrayOfCharacterSetsAvailableL()</code> or
+<code>CreateArrayOfCharacterSetsAvailableLC()</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC8&amp; aSample</code></td>
+<td class="Cell"><p class="ValueDesc">The non-Unicode sample text string.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.3"></a></div><div class="Head3">
+<a name="%3a%3aCCnvCharacterSetConverter%3a%3aConvertCharacterSetIdentifierToStandardNameL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ConvertCharacterSetIdentifierToStandardNameL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>HBufC8* ConvertCharacterSetIdentifierToStandardNameL(TUint aCharacterSetIdentifier) const;</code></p><h4 class="subheading">Support</h4>
+<p>Withdrawn in 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Gets the Internet-standard name of a character set, which is
+identified in EPOC by its UID. The function can be called at any time in the
+<code>CCnvCharacterSetConverter</code> object&#8217;s lifetime.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>This function uses a hard-coded list of names.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aCharacterSetIdentifier</code></td>
+<td class="Cell"><p class="ValueDesc">The UID of the character set.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">HBufC8*</code></td>
+<td class="Cell"><p class="ValueDesc">The Internet-standard name or MIME name of the character set,
+or <code>NULL</code> if the set is not known. The name is encoded in 8 bit
+ASCII.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="Globals.html#CharacterConversion%2econstants" title="Constants">Character conversion constants</a></li>
+</ul>
+<a name="2.9.4"></a></div><div class="Head3">
+<a name="%3a%3aCCnvCharacterSetConverter%3a%3aConvertCharacterSetIdentifierToStandardNameL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ConvertCharacterSetIdentifierToStandardNameL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>HBufC8* ConvertCharacterSetIdentifierToStandardNameL(TUint aCharacterSetIdentifier, RFs&amp; aFileServerSession);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Returns the Internet-standard name of a character set
+identified in EPOC by a UID.</p>
+<p>If the character set specified is not one for which EPOC
+provides built-in conversion, the file system is searched for plug-ins which
+implement the conversion, hence the need for a file server
+session.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aCharacterSetIdentifier</code></td>
+<td class="Cell"><p class="ValueDesc">The UID of the character set.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">RFs&amp; aFileServerSession</code></td>
+<td class="Cell"><p class="ValueDesc">A file server session.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">HBufC8*</code></td>
+<td class="Cell"><p class="ValueDesc">The Internet-standard name of the character set.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="Globals.html#CharacterConversion%2econstants" title="Constants">Character conversion constants</a></li>
+</ul>
+<a name="2.9.5"></a></div><div class="Head3">
+<a name="%3a%3aCCnvCharacterSetConverter%3a%3aConvertStandardNameOfCharacterSetToIdentifier%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ConvertStandardNameOfCharacterSetToIdentifier()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TUint ConvertStandardNameOfCharacterSetToIdentifier(const TDesC8&amp; aStandardNameOfCharacterSet) const;</code></p><h4 class="subheading">Support</h4>
+<p>Withdrawn in 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Gets the UID of a character set for a given Internet-standard
+name.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>This function uses a hard-coded list of names.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC8&amp; aStandardNameOfCharacterSet</code></td>
+<td class="Cell"><p class="ValueDesc">Internet-standard name of a character set.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint</code></td>
+<td class="Cell"><p class="ValueDesc">The UID for the character set. If the name is not known, zero
+is returned.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="Globals.html#CharacterConversion%2econstants" title="Constants">Character conversion constants</a></li>
+</ul>
+<a name="2.9.6"></a></div><div class="Head3">
+<a name="%3a%3aCCnvCharacterSetConverter%3a%3aConvertStandardNameOfCharacterSetToIdentifierL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ConvertStandardNameOfCharacterSetToIdentifierL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TUint ConvertStandardNameOfCharacterSetToIdentifierL(const TDesC8&amp; aStandardNameOfCharacterSet, RFs&amp; aFileServerSession);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Gets the UID of a character set identified by its
+Internet-standard name (the matching is case-insensitive).</p>
+<p>If the character set specified is not one for which EPOC
+provides built-in conversion, the function searches the file system for
+plug-ins which implement the conversion and which provide the name-to-UID
+mapping information.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC8&amp; aStandardNameOfCharacterSet</code></td>
+<td class="Cell"><p class="ValueDesc">Internet-standard name of a character set.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">RFs&amp; aFileServerSession</code></td>
+<td class="Cell"><p class="ValueDesc">Connection to a file server session.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint</code></td>
+<td class="Cell"><p class="ValueDesc">The UID for the character set.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="Globals.html#CharacterConversion%2econstants" title="Constants">Character conversion constants</a></li>
+</ul>
+<a name="2.9.7"></a></div><div class="Head3">
+<a name="%3a%3aCCnvCharacterSetConverter%3a%3aConvertMibEnumOfCharacterSetToIdentifierL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ConvertMibEnumOfCharacterSetToIdentifierL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TUint ConvertMibEnumOfCharacterSetToIdentifierL(TInt aMibEnumOfCharacterSet, RFs&amp; aFileServerSession);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Converts a MIB enum value to the UID value of the character
+set.</p>
+<p>If the character set identified is not one for which EPOC
+provides built-in conversion, the function searches the file system for
+plug-ins which implement the conversion and which provide the MIB enum-to-UID
+mapping information.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aMibEnumOfCharacterSet</code></td>
+<td class="Cell"><p class="ValueDesc">The MIB enum value of the character set.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">RFs&amp; aFileServerSession</code></td>
+<td class="Cell"><p class="ValueDesc">Connection to a file server session.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint</code></td>
+<td class="Cell"><p class="ValueDesc">The UID of the character set.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.8"></a></div><div class="Head3">
+<a name="%3a%3aCCnvCharacterSetConverter%3a%3aConvertCharacterSetIdentifierToMibEnumL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ConvertCharacterSetIdentifierToMibEnumL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt ConvertCharacterSetIdentifierToMibEnumL(TUint aCharacterSetIdentifier, RFs&amp; aFileServerSession);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Converts the UID of a character set to its MIB enum
+value.</p>
+<p>If the character set identified is not one for which EPOC
+provides built-in conversion, the function searches the file system for
+plug-ins which implement the conversion and which provide the UID-to-MIB enum
+mapping information.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aCharacterSetIdentifier</code></td>
+<td class="Cell"><p class="ValueDesc">The UID of the character set.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">RFs&amp; aFileServerSession</code></td>
+<td class="Cell"><p class="ValueDesc">Connection to a file server session.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The MIB enum value of the character set.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.9"></a></div><div class="Head3">
+<a name="%3a%3aCCnvCharacterSetConverter%3a%3aSetDefaultEndiannessOfForeignCharacters%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetDefaultEndiannessOfForeignCharacters()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetDefaultEndiannessOfForeignCharacters(TEndianness aEndianness);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the default endian-ness used by the
+<code>ConvertFromUnicode()</code> and <code>ConvertToUnicode()</code> functions
+to convert between Unicode and non-Unicode character sets.</p>
+<p>The endian-ness of a multi-byte character set may be defined in
+the character set definition or, as in the case of UCS-2, be operating system
+dependent. If the endian-ness of the current character set is defined by the
+character set itself, then the default endian-ness specified by this function
+is ignored.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>The issue of endian-ness does not apply to single byte
+character sets&nbsp;— as there is no byte order.</p>
+</li><li><p>This function should be called (if at all) after calling <code>PrepareToConvertToOrFromL()</code> and before calling <code>ConvertFromUnicode()</code> and/or <code>ConvertToUnicode()</code>.</p></li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TEndianness aEndianness</code></td>
+<td class="Cell"><p class="ValueDesc">The default endian-ness of the current character set.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.10"></a></div><div class="Head3">
+<a name="%3a%3aCCnvCharacterSetConverter%3a%3aSetDowngradeForExoticLineTerminatingCharacters%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetDowngradeForExoticLineTerminatingCharacters()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetDowngradeForExoticLineTerminatingCharacters(TDowngradeForExoticLineTerminatingCharacters aDowngradeForExoticLineTerminatingCharacters);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Sets whether the Unicode 'line separator' and 'paragraph
+separator' characters (0x2028 and 0x2029 respectively) should be converted into
+a carriage return / line feed pair, or into a line feed only when converting
+from Unicode into a foreign character set. This applies to all foreign
+character sets that do not contain a direct equivalent of these Unicode
+character codes.</p>
+<p>By default, line and paragraph separators are converted into a
+CR/LF pair. This function should be called (if at all) after calling
+<code>PrepareToConvertToOrFromL()</code> and before calling
+<code>ConvertFromUnicode()</code> and/or
+<code>ConvertToUnicode()</code>.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDowngradeForExoticLineTerminatingCharacters
+aDowngradeForExoticLineTerminatingCharacters</code></td>
+<td class="Cell"><p class="ValueDesc">Specify
+<code>EDowngradeExoticLineTerminatingCharactersToCarriageReturnLineFeed</code>
+if line/paragraph separators should be converted into a carriage return and
+line feed combination and
+<code>EDowngradeExoticLineTerminatingCharactersToJustLineFeed</code> if they
+should be converted into line feeds only. Any other value causes the function
+to panic.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.11"></a></div><div class="Head3">
+<a name="%3a%3aCCnvCharacterSetConverter%3a%3aSetReplacementForUnconvertibleUnicodeCharactersL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetReplacementForUnconvertibleUnicodeCharactersL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetReplacementForUnconvertibleUnicodeCharactersL(const TDesC8&amp; aReplacementForUnconvertibleUnicodeCharacters);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the character used to replace unconvertible characters in
+the output descriptor, when converting from Unicode into another character
+set.</p>
+<p>The default replacement for unconvertible Unicode characters is
+specified in the conversion data for the character set. The replacement text
+which is set using this function overrides the default value.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>If the replacement character is multi-byte, and its
+endian-ness is undefined in the character set, then its byte order is taken by
+default to be little-endian.</p>
+</li>
+<li>
+<p><code>PrepareToConvertToOrFromL()</code> undoes the effect
+of any previous calls to this function. So, to have any effect, this
+function should be called between the <code>PrepareToConvertToOrFromL()</code>
+call and the subsequent <code>ConvertFromUnicode()</code> call or calls.</p>
+</li>
+<li>
+<p>The value only applies when converting from Unicode to
+another character set. In Unicode, the code for &#8220;unknown
+character&#8221; is always 0xFFFD.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC8&amp;
+aReplacementForUnconvertibleUnicodeCharacters</code></td>
+<td class="Cell"><p class="ValueDesc">The single character which is to be used to replace
+unconvertible characters.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Enumerations</h2>
+</div><div class="Bodytext">
+<a name="2.10.2"></a></div><div class="Head3">
+<a name="%3a%3aCCnvCharacterSetConverter%3a%3aTEndianness"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TEndianness</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TEndianness</code></p><h4 class="subheading">Description</h4>
+<p>Specifies the default endian-ness of the current character set.
+Used by
+<code>SetDefaultEndiannessOfForeignCharacters()</code>.</p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCCnvCharacterSetConverter%3a%3aELittleEndian"><code class="Value">ELittleEndian</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>The character set is big-endian.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCCnvCharacterSetConverter%3a%3aEBigEndian"><code class="Value">EBigEndian</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>The character set is little-endian.</para></p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.3"></a></div><div class="Head3">
+<a name="%3a%3aCCnvCharacterSetConverter%3a%3aTAvailability"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TAvailability</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TAvailability</code></p><h4 class="subheading">Description</h4>
+<p>Indicates whether a character set is available or
+unavailable&nbsp;for conversion. Used by the second overload of
+<code>PrepareToConvertToOrFromL()</code>.</p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCCnvCharacterSetConverter%3a%3aEAvailable"><code class="Value">EAvailable</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>The requested character set can be converted.
+</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCCnvCharacterSetConverter%3a%3aENotAvailable"><code class="Value">ENotAvailable</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>The requested character set cannot be
+converted.</para></p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.4"></a></div><div class="Head3">
+<a name="%3a%3aCCnvCharacterSetConverter%3a%3aTError"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TError</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TError</code></p><h4 class="subheading">Description</h4>
+<p>Flags conversion errors. At this stage there is only one error
+flag&nbsp;— others may be added in the future.</p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCCnvCharacterSetConverter%3a%3aEErrorIllFormedInput"><code class="Value">EErrorIllFormedInput</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>The input descriptor contains a single corrupt character.
+This error might be returned if the input descriptor only contains some of the
+bytes of a single multi-byte character. </para></p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.5"></a></div><div class="Head3">
+<a name="%3a%3aCCnvCharacterSetConverter%3a%3aAnonymous"></a>
+<hr size="1" noshade>
+<h3>Enum <code>Anonymous</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>Anonymous</code></p><h4 class="subheading">Description</h4>
+<p>Sets the initial state of the conversion variable in the
+<code>ConvertToUnicode()</code> function.</p>
+<p></p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCCnvCharacterSetConverter%3a%3aKStateDefault"><code class="Value">KStateDefault</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Initial value for the state argument in a set of related
+calls to <code>ConvertToUnicode()</code>.</para></p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.6"></a></div><div class="Head3">
+<a name="%3a%3aCCnvCharacterSetConverter%3a%3aTDowngradeForExoticLineTerminatingCharacters"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TDowngradeForExoticLineTerminatingCharacters</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TDowngradeForExoticLineTerminatingCharacters</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Downgrade for line and paragraph
+separators</p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCCnvCharacterSetConverter%3a%3aEDowngradeExoticLineTerminatingCharactersToCarriageReturnLineFeed"><code class="Value">EDowngradeExoticLineTerminatingCharactersToCarriageReturnLineFeed</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Paragraph/line separators should be downgraded (if necessary)
+into carriage return and line feed pairs.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCCnvCharacterSetConverter%3a%3aEDowngradeExoticLineTerminatingCharactersToJustLineFeed"><code class="Value">EDowngradeExoticLineTerminatingCharactersToJustLineFeed</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Paragraph/line separators should be downgraded (if necessary)
+into a line feed only.</para></p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.7"></a></div><div class="Head3">
+<a name="%3a%3aCCnvCharacterSetConverter%3a%3aAnonymous"></a>
+<hr size="1" noshade>
+<h3>Enum <code>Anonymous</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>Anonymous</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p></p>
+<p>Input flags used to control a character set conversion.</p>
+<p>Note</p>
+<p>This enumeration can be used in the
+<code>DoConvertToUnicode()</code> and <code>DoConvertFromUnicode()</code>
+functions. These are part of the Character Conversion Plug-in Provider API and
+are for use by plug-in conversion libraries only.</p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCCnvCharacterSetConverter%3a%3aEInputConversionFlagAppend"><code class="Value">EInputConversionFlagAppend</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Appends the converted text to the output
+descriptor.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCCnvCharacterSetConverter%3a%3aEInputConversionFlagAllowTruncatedInputNotEvenPartlyConsumable"><code class="Value">EInputConversionFlagAllowTruncatedInputNotEvenPartlyConsumable</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>By default, when the input descriptor passed to
+<code>DoConvertFromUnicode()</code> or <code>DoConvertToUnicode()</code>
+consists of nothing but a truncated sequence, the error-code
+<code>EErrorIllFormedInput</code> is returned. If this behaviour is
+undesirable, the input flag
+<code>EInputConversionFlagAllowTruncatedInputNotEvenPartlyConsumable</code>
+should be set. </para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCCnvCharacterSetConverter%3a%3aEInputConversionFlagStopAtFirstUnconvertibleCharacter"><code class="Value">EInputConversionFlagStopAtFirstUnconvertibleCharacter</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Stops converting when the first unconvertible character is
+reached.</para></p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.8"></a></div><div class="Head3">
+<a name="%3a%3aCCnvCharacterSetConverter%3a%3aAnonymous"></a>
+<hr size="1" noshade>
+<h3>Enum <code>Anonymous</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>Anonymous</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Output flag used to indicate whether or not a character in the
+source descriptor is the first half of a surrogate pair, but is the last
+character in the descriptor to convert.</p>
+<p>Note</p>
+<p>This enumeration can be used in the
+<code>DoConvertToUnicode()</code> and <code>DoConvertFromUnicode()</code>
+functions. These are part of the Character Conversion Plug-in Provider API and
+are for use by plug-in conversion libraries only.</p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCCnvCharacterSetConverter%3a%3aEOutputConversionFlagInputIsTruncated"><code class="Value">EOutputConversionFlagInputIsTruncated</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Indicates whether or not the source descriptor ends in a
+truncated sequence, e.g. the first half only of a surrogate
+pair.</para></p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Structs</h2>
+</div><div class="Bodytext">
+<a name="2.11.2"></a></div><div class="Head3">
+<a name="%3a%3aCCnvCharacterSetConverter%3a%3aSCharacterSet"></a>
+<hr size="1" noshade>
+<h3>Struct <code>SCharacterSet</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>SCharacterSet</code></p><h4 class="subheading">Description</h4>
+<p>Stores information about a non-Unicode character set. The
+information is used to locate the conversion information required by
+<code>ConvertFromUnicode()</code> and <code>ConvertToUnicode()</code>.</p>
+<p>An array of these <code>struct</code>s&nbsp;— which
+contains all available character sets — can be generated by
+<code>CreateArrayOfCharacterSetsAvailableLC()</code> and
+<code>CreateArrayOfCharacterSetsAvailableL()</code>, and is used by one of the
+overloads of <code>PrepareToConvertToOrFromL()</code>.</p><p>Defined in <code>CCnvCharacterSetConverter::SCharacterSet</code>:
+<br><code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aSCharacterSet%3a%3aIdentifier%28%29" title="Gets the character set's UID">Identifier()</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aSCharacterSet%3a%3aName%28%29" title="Gets the full path and filename of the DLL which implements conversion for the character set">Name()</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aSCharacterSet%3a%3aNameIsFileName%28%29" title="Tests whether a filename given by the function SCharacterSet::Name() is a real file name (i.e">NameIsFileName()</a></code>
+</p>
+<a name="2.11.2.4"></a><a name="%3a%3aCCnvCharacterSetConverter%3a%3aSCharacterSet%3a%3aIdentifier%28%29"></a>
+<h4><code>Identifier()</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>TUint Identifier() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the character set&#8217;s UID.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint</code></td>
+<td class="Cell"><p class="ValueDesc">The UID of the character set.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.2.5"></a><a name="%3a%3aCCnvCharacterSetConverter%3a%3aSCharacterSet%3a%3aName%28%29"></a>
+<h4><code>Name()</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>TPtrC Name() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the full path and filename of the DLL which implements
+conversion for the character set. </p>
+<p>If the character set is one for which conversion is built
+into EPOC rather than implemented by a plug in DLL, the function just returns
+the name of the character set. The <code>NameIsFileName()</code> function can
+be used to determine whether or not it is legal to create a
+<code>TParsePtrC</code> object over the descriptor returned by
+<code>Name()</code>.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>The name returned cannot be treated as an
+Internet-standard name, it is locale-independent and should be mapped to the
+locale-dependent name by software at a higher level before being shown to the
+user. Conversion from Internet-standard names of character sets to the UID
+identifiers is provided by the member function
+<code>ConvertStandardNameOfCharacterSetToIdentifierL()</code>.</p>
+</li>
+<li>
+<p>Typically, to find the user-displayable name (as opposed
+to the internet-standard name) of a character set, you would do something like
+this:</p>
+<p class="CodeBlock"><code>const CCnvCharacterSetConverter::SCharacterSet&amp; characterSet=...;<br>const TPtrC userDisplayable(characterSet.NameIsFileName()? TParsePtrC(characterSet.Name()).Name(): characterSet.Name());</code></p>
+</li>
+</ul><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TPtrC</code></td>
+<td class="Cell"><p class="ValueDesc">Full path and filename of the character set converter plug in
+DLL, or just the name of the character set.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.2.6"></a><a name="%3a%3aCCnvCharacterSetConverter%3a%3aSCharacterSet%3a%3aNameIsFileName%28%29"></a>
+<h4><code>NameIsFileName()</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>TBool NameIsFileName() const;</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether a filename given by the function
+<code>SCharacterSet::Name()</code> is a real file name (i.e. conversion is
+provided by a plug in DLL), or just the character set name (i.e. conversion is
+built into EPOC).</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>If the function returns <code>ETrue</code> then the path
+and filename can be parsed using <code>TParse</code> or <code>TParsePtrC</code>
+functions to obtain just the filename.</p>
+</li>
+</ul><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> if the name is a real filename.
+<code>EFalse</code> if it is just the character set name.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Classes</h2>
+</div><div class="Bodytext">
+<a name="2.12.2"></a></div><div class="Head3">
+<a name="%3a%3aCCnvCharacterSetConverter%3a%3aTArrayOfAscendingIndices"></a>
+<hr size="1" noshade>
+<h3>Class <code>TArrayOfAscendingIndices</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TArrayOfAscendingIndices</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Holds an ascending array of the indices of the characters in
+the source Unicode text which could not be converted by
+<code>CCnvCharacterSetConverter::ConvertFromUnicode()</code> into the foreign
+character set</p><p>Defined in <code>CCnvCharacterSetConverter::TArrayOfAscendingIndices</code>:
+<br><code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aTArrayOfAscendingIndices%3a%3aAppendIndex%28%29" title="Appends an index to the array of indices">AppendIndex()</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aTArrayOfAscendingIndices%3a%3aEAppendFailed" title="The append failed">EAppendFailed</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aTArrayOfAscendingIndices%3a%3aEAppendSuccessful" title="The append succeeded">EAppendSuccessful</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aTArrayOfAscendingIndices%3a%3aNumberOfIndices%28%29" title="Returns the number of indices in the array">NumberOfIndices()</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aTArrayOfAscendingIndices%3a%3aRemove%28%29" title="Deletes a single index from the array">Remove()</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aTArrayOfAscendingIndices%3a%3aRemoveAll%28%29" title="Deletes all indices from the array">RemoveAll()</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aTArrayOfAscendingIndices%3a%3aTAppendResult" title="The return value of CCnvCharacterSetConverter::AppendIndex()">TAppendResult</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aTArrayOfAscendingIndices%3a%3aTArrayOfAscendingIndices%28%29" title="C++ constructor">TArrayOfAscendingIndices()</a></code>, <code class="ApiItem"><a href="CCnvCharacterSetConverterClass.html#%3a%3aCCnvCharacterSetConverter%3a%3aTArrayOfAscendingIndices%3a%3aoperator%5b%5d%28%29" title="Gets the value of the specified index">operator[]()</a></code>
+</p>
+<a name="2.12.2.5"></a>
+<h4>Construction</h4>
+<a name="2.12.2.5.2"></a><a name="%3a%3aCCnvCharacterSetConverter%3a%3aTArrayOfAscendingIndices%3a%3aTArrayOfAscendingIndices%28%29"></a>
+<h4><code>TArrayOfAscendingIndices()</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>TArrayOfAscendingIndices()</code></p><h4 class="subheading">Description</h4>
+<p>C++ constructor. The array is initialised to be of length
+zero.</p>
+<a name="2.12.2.6"></a>
+<h4>Append/delete</h4>
+<a name="2.12.2.6.2"></a><a name="%3a%3aCCnvCharacterSetConverter%3a%3aTArrayOfAscendingIndices%3a%3aAppendIndex%28%29"></a>
+<h4><code>AppendIndex()</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>TAppendResult AppendIndex(TInt aIndex);</code></p><h4 class="subheading">Description</h4>
+<p>Appends an index to the array of indices. The value of
+<code>aIndex</code> should be greater than that of the last index in the array,
+to maintain an ascending array. The return value should be tested to see
+whether the function succeeded or not.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aIndex</code></td>
+<td class="Cell"><p class="ValueDesc">The index to append to the array.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAppendResult</code></td>
+<td class="Cell"><p class="ValueDesc"><code>EAppendFailed</code> if the append failed, or
+<code>EAppendSuccessful</code> if it succeeded.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.2.6.3"></a><a name="%3a%3aCCnvCharacterSetConverter%3a%3aTArrayOfAscendingIndices%3a%3aRemove%28%29"></a>
+<h4><code>Remove()</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>void Remove(TInt aIndexOfIndex)</code></p><h4 class="subheading">Description</h4>
+<p>Deletes a single index from the array.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aIndexOfIndex</code></td>
+<td class="Cell"><p class="ValueDesc">The index of the index to delete. Must not be negative and
+must not be greater than the length of the array, or a panic occurs.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.2.6.4"></a><a name="%3a%3aCCnvCharacterSetConverter%3a%3aTArrayOfAscendingIndices%3a%3aRemoveAll%28%29"></a>
+<h4><code>RemoveAll()</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>void RemoveAll()</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.1
+</p><h4 class="subheading">Description</h4>
+<p>Deletes all indices from the array.</p>
+<a name="2.12.2.7"></a>
+<h4>Enquiry</h4>
+<a name="2.12.2.7.2"></a><a name="%3a%3aCCnvCharacterSetConverter%3a%3aTArrayOfAscendingIndices%3a%3aNumberOfIndices%28%29"></a>
+<h4><code>NumberOfIndices()</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>TInt NumberOfIndices() const</code></p><h4 class="subheading">Description</h4>
+<p>Returns the number of indices in the
+array.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The number of indices in the array.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.2.7.3"></a><a name="%3a%3aCCnvCharacterSetConverter%3a%3aTArrayOfAscendingIndices%3a%3aoperator%5b%5d%28%29"></a>
+<h4><code>operator[]()</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>TInt operator[](TInt aIndexOfIndex) const</code></p><h4 class="subheading">Description</h4>
+<p>Gets the value of the specified index.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aIndexOfIndex</code></td>
+<td class="Cell"><p class="ValueDesc">Index into the array.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The value of the index.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.2.8"></a>
+<h4>Enumerations</h4>
+<a name="2.12.2.8.2"></a><a name="%3a%3aCCnvCharacterSetConverter%3a%3aTArrayOfAscendingIndices%3a%3aTAppendResult"></a>
+<h4>Enum <code>TAppendResult</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>TAppendResult</code></p><h4 class="subheading">Description</h4>
+<p>The return value of
+<code>CCnvCharacterSetConverter::AppendIndex()</code>.</p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCCnvCharacterSetConverter%3a%3aTArrayOfAscendingIndices%3a%3aEAppendFailed"><code class="Value">EAppendFailed</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>The append failed. </para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCCnvCharacterSetConverter%3a%3aTArrayOfAscendingIndices%3a%3aEAppendSuccessful"><code class="Value">EAppendSuccessful</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>The append succeeded.</para></p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

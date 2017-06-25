@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Protocol modules and families</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="SocketServerProtocolsGuide%2eProtocolModulesFamilies"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="SocketServerIntroduction.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="ProtocolsBinding.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Comms&nbsp;Infrastructure</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Socket&nbsp;Server&nbsp;Protocols</a>&nbsp;<span class="separator">&#187;</span>
+Protocol&nbsp;modules&nbsp;and&nbsp;families</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Protocol modules and families</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Protocol modules</h2>
+</div><div class="Bodytext">
+<p>Protocol modules are dynamic link libraries with a
+<code class="filename">.PRT</code> extension and a UID2 of <code>KUidProtocolModule</code>
+(<code>0x1000004A</code>). They export one function as ordinal 1. This function
+is called to create a single instance of a <code>CProtocolFamilyBase</code>
+derived object.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Protocol families</h2>
+</div><div class="Bodytext">
+<p>Protocol families are used to group together various related
+protocols, such as TCP, UDP and IP. A <code>CProtocolFamilyBase</code>-derived
+object is created for each protocol module when the socket server is started.
+To achieve this, the socket server parses all <code class="filename">.esk</code> files in the
+<code class="filename">System\Data</code> directory, and firstly looks up the
+<code>[sockman]</code> sections. Then, for each protocol named there, the
+section of the same name is examined to find the filename of that protocol. The
+dynamic link library given by that file is loaded, and the function at ordinal
+1 is called to create the protocol family.</p>
+<p>After the protocol family has been created in this way, the socket
+server calls its <code>ProtocolList()</code> functions. The socket server
+caches the information gathered from calling <code>ProtocolList()</code> and
+unloads the protocol module when it is needed. Thus the socket server has an
+up-to-date list of all protocols which can be run, without the memory overhead
+of having them loaded at all times. </p>
+<p>When a request comes in to create a socket of a particular type,
+the socket server re-loads the protocol module and calls first
+<code>Install()</code>, and then <code>Open()</code> and
+<code>NewProtocolL()</code> of the protocol family. The latter function
+instantiates the new protocol.</p>
+<p>The protocol family object should allocate memory to hold an array
+of <code>TServerProtocolDesc</code> structures. This function should then fill
+them in and return the pointer and a count of the number of protocols
+supported.</p>
+<p>The socket server caches this information, so that it does not need
+to keep the protocol module loaded.</p>
+<p>The protocol family should not attempt to use static data (which it
+can’t) or to free this memory later as the socket server will automatically
+free this storage.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

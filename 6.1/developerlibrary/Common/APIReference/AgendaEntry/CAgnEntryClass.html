@@ -1,0 +1,1272 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CAgnEntry</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CAgnCategoryClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="CAgnEventClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Agenda&nbsp;Entry&nbsp;and&nbsp;Instance</a>&nbsp;<span class="separator">&#187;</span>
+CAgnEntry</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>agmentry.h</code>
+<br>Link against: <code>agnmodel.lib</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aCAgnEntry"></a>
+
+<h1>Class <code>CAgnEntry</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CAgnEntry</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Abstract base class for the concrete agenda entry classes. It is
+derived from <code>CAgnBasicEntry</code> which provides alarm and repeat
+information and entry attributes. <code>CAgnEntry</code> adds other common
+entry information including entry IDs, persistence and synchronisation
+information.</p>
+<p>Synchronisation information includes a record of the date/time the
+entry was last modified &nbsp;&#8212; the last changed date/time. Most
+agenda entry functions which change an entry&#8217;s details or attributes
+call the <code>SetLastChangedDate()</code> function.</p>
+<p>Agenda entries are identified by an entry ID. Instances are
+identified by an instance ID, which consists of an entry ID and a date. IDs are
+used so that lists of entries can be efficiently processed and passed as
+function arguments and return values.</p>
+<p>This class also provides casting functions. An entry or instance is
+retrieved into a <code>CAgnEntry</code> because its type is not yet known. To
+find the type of a retrieved entry or instance, use
+<code>CAgnEntry::Type()</code>, which is implemented by each concrete entry
+class. The return value is one of <code>EAnniv</code>, <code>EAppt</code>,
+<code>EEvent</code> or <code>ETodo</code>. Then use <code>CastToAnniv()</code>,
+<code>CastToAppt()</code>, <code>CastToEvent()</code> or
+<code>CastToTodo()</code> respectively to cast the entry or instance to a
+pointer to the appropriate class.</p><h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry">CAgnBasicEntry</a></code></td><td class="Cell">Abstract base class for the entry classes CAgnAppt, CAgnTodo, CAgnEvent and CAgnAnniv</td>
+</tr>
+<tr><td class="Cell"><code>CAgnEntry</code></td><td class="Cell">Abstract base class for the concrete agenda entry classes</td>
+</tr>
+<tr><td class="Cell"><code><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase">CBase</a></code></td><td class="Cell">Base class for all classes to be instantiated on the heap</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>CAgnEntry</code>:
+<br><code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aAddAttendeeL%28%29" title="Appends an attendee to the entry's list of attendees">AddAttendeeL()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aAddCategoryL%28%29" title="Appends a category to the entry's list of categories">AddCategoryL()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aAlarmSoundName%28%29" title="Returns the name of the alarm sound as set bySetAlarmSoundName(), or null if the entry isn't alarmed">AlarmSoundName()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aAttendeeCount%28%29" title="Retrieves the number of attendees that have been added to the entry">AttendeeCount()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aCastToAnniv%28%29" title="Casts an entry or instance to a CAgnAnniv* in order to use the functions provided by the CAgnAnniv class">CastToAnniv()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aCastToAppt%28%29" title="Casts an entry or instance to a CAgnAppt* in order to use the functions provided by the CAgnAppt class">CastToAppt()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aCastToEvent%28%29" title="Casts an entry or instance to a CAgnEvent* in order to use the functions provided by the CAgnEvent class">CastToEvent()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aCastToTodo%28%29" title="Casts an entry or instance to a CAgnTodo* in order to use the functions provided by the CAgnTodo class">CastToTodo()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aCategoryCount%28%29" title="Returns the number of categories owned by the entry">CategoryCount()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aClearAlarm%28%29" title="Removes the alarm from an entry">ClearAlarm()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aCloseEmbeddedStore%28%29" title="Deletes the embedded store">CloseEmbeddedStore()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aCompareL%28%29" title="Compares the entry aEntry with this entry and returns true if they are equal, false if not">CompareL()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aCopyFromL%28%29" title="Requirements:">CopyFromL()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aCreationDate%28%29" title="Retrieves the entry's creation date (as set bySetCreationDateL()), or the last modified date if no creation date has been set">CreationDate()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aDeleteAttendee%28%29" title="Deletes the attendee at the index specified from the entry's list of attendees">DeleteAttendee()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aDeleteCategory%28%29" title="Deletes the category at aIndex">DeleteCategory()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aDisplayTime%28%29" title="Requirements:">DisplayTime()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aEAnniv" title="Anniversary entry type">EAnniv</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aEAppt" title="Appointment entry type">EAppt</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aEDeepCopy" title="When copying an agenda entry, indicates that the source entry's rich text object is stored inline, so that the copy needs to create a new stream and copy the rich text object into it">EDeepCopy</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aEEvent" title="Event entry type">EEvent</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aEShallowCopy" title="When copying an agenda entry, indicates that the source entry's rich text object is large, and so is stored out of line">EShallowCopy</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aETodo" title="To-do entry type">ETodo</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aEmbeddedStore%28%29" title="If the entry's rich text object is stored out of line, returns a pointer to the embedded store in which the entry's rich text is stored">EmbeddedStore()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aEntryId%28%29" title="Retrieves the entry's ID">EntryId()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aExternalizeL%28%29" title="Externalises an entry's details and attributes, but not its rich text to a write stream">ExternalizeL()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aFetchAttendee%28%29" title="Retrieves the attendee at the specified index within the entry's list of attendees">FetchAttendee()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aFetchCategory%28%29" title="Fetches the category at aIndex">FetchCategory()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aGetBackgroundColor%28%29" title="Returns the background colour for the agenda entry's symbol, as set bySetBackgroundColorL()">GetBackgroundColor()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aHasAttendees%28%29" title="Returns true if one or more attendees have been added to the entry, false if not">HasAttendees()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aHasCategory%28%29" title="Returns a Boolean to indicate whether the entry has any categories">HasCategory()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aInstanceDate%28%29" title="Retrieves the instance date">InstanceDate()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aInstanceEndDate%28%29" title="Requirements:">InstanceEndDate()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aInstanceId%28%29" title="Retrieves the instance ID">InstanceId()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aInstanceStartDate%28%29" title="Requirements:">InstanceStartDate()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aInternalizeL%28%29" title="Internalises an entry's details and attributes, but not its rich text from a read stream">InternalizeL()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aLoadAllComponentsL%28%29" title="Loads all of an entry's components, e.g">LoadAllComponentsL()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aLocation%28%29" title="Retrieves the contents of the entry's location field">Location()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aMakeInstanceNonRepeating%28%29" title="Converts an instance of a repeating entry into a non-repeating entry">MakeInstanceNonRepeating()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aOpenEmbeddedStoreL%28%29" title="If the entry's rich text is stored out of line, this function opens and returns a pointer to the embedded store in which the entry's rich text object is stored">OpenEmbeddedStoreL()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aOpenRichTextStoreL%28%29" title="If the entry's rich text is stored out of line, this function opens and returns a pointer to the embedded store in which the entry's rich text object is stored">OpenRichTextStoreL()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aReplicationData%28%29" title="Retrieves the entry's replication data as set bySetReplicationData()">ReplicationData()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aRestoreComponentsL%28%29" title="Restores the entry's rich text object from an embedded store (only necessary if the entry's rich text object is stored out of line)">RestoreComponentsL()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aRichTextL%28%29" title="Returns a pointer to the rich text owned by the entry">RichTextL()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aRichTextStreamId%28%29" title="Retrieves the ID for the embedded stream store in which the entry's rich text has been stored">RichTextStreamId()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aSetAlarmSoundNameL%28%29" title="Sets the name of the alarm sound">SetAlarmSoundNameL()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aSetBackgroundColorL%28%29" title="Sets the background colour for the agenda entry's symbol">SetBackgroundColorL()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aSetCreationDateL%28%29" title="Sets the entry's creation date">SetCreationDateL()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aSetId%28%29" title="Sets the entry ID">SetId()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aSetIdAndInstanceDate%28%29" title="Sets the instance ID">SetIdAndInstanceDate()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aSetInstanceDate%28%29" title="Sets the instance date">SetInstanceDate()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aSetInstanceId%28%29" title="Sets the instance ID">SetInstanceId()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aSetLastChangedDate%28%29" title="Sets the entry's last changed date/time to the current universal time">SetLastChangedDate()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aSetLocationL%28%29" title="Sets the contents of the entry's location field">SetLocationL()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aSetReplicationData%28%29" title="Sets the entry's replication data">SetReplicationData()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aSetRichTextStreamId%28%29" title="For a rich text object which is stored out of line, this function sets the ID for the embedded stream store in which the object has been stored">SetRichTextStreamId()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aSetRptDefL%28%29" title="Sets the entry's repeat definition">SetRptDefL()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aSetUniqueId%28%29" title="Sets the entry's unique ID">SetUniqueId()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aStoreComponentsL%28%29" title="Stores the entry's rich text object to an embedded store -- only necessary if the entry's rich text object is stored out of line">StoreComponentsL()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aTCopyHow" title="How entry's rich text object should be copied">TCopyHow</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aTType" title="Agenda entry type">TType</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3aUniqueId%28%29" title="Retrieves the entry's unique ID">UniqueId()</a></code>, <code class="ApiItem"><a href="CAgnEntryClass.html#%3a%3aCAgnEntry%3a%3a%7eCAgnEntry%28%29" title="The destructor frees all resources owned by the entry, prior to its destruction">~CAgnEntry()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry" title="Abstract base class for the entry classes CAgnAppt, CAgnTodo, CAgnEvent and CAgnAnniv">CAgnBasicEntry</a></code>:
+<br><code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aAddExceptionL%28%29" title="For a repeating entry, adds an exception to the list of repeat exceptions">AddExceptionL()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aAlarmDaysWarning%28%29" title="Returns the number of days warning for the entry's alarm, as set by CAgnBasicEntry::SetAlarm()">AlarmDaysWarning()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aAlarmInstanceDateTime%28%29" title="Returns the due date/time of the alarm for the current instance if the entry is repeating or just its normal due date/time if it's non-repeating">AlarmInstanceDateTime()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aAlarmTime%28%29" title="Returns the time of the alarm as a time interval in minutes from midnight">AlarmTime()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aClearAllAttributes%28%29" title="Clears all entry attributes, for instance whether the entry is tentative and whether it is crossed out">ClearAllAttributes()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aClearRepeat%28%29" title="Clears the repeat details including exceptions and unsets the entry's repeating property">ClearRepeat()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aDisplayInYearView%28%29" title="Returns whether the entry is displayed in the application's year view">DisplayInYearView()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aEntrySymbol%28%29" title="Returns the entry symbol">EntrySymbol()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aExceptions%28%29" title="For a repeating entry, returns a pointer to a list of the exceptions">Exceptions()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aFindException%28%29" title="Searches for an exception in the exceptions list">FindException()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aHasAlarm%28%29" title="Tests whether the entry is alarmed">HasAlarm()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aHasDefaultDisplayTime%28%29" title="Does the entry use the default display time?">HasDefaultDisplayTime()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aHasEntrySymbol%28%29" title="Tests whether the entry has an entry symbol">HasEntrySymbol()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aHasExceptions%28%29" title="Returns whether or not the entry has repeat exceptions, as set by SetHasExceptions()">HasExceptions()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aHasExtended%28%29" title="This function indicates whether the entry has extended attributes (added in EPOC Release 5 and later)">HasExtended()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aIsADayNote%28%29" title="Tests whether the entry is a day note">IsADayNote()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aIsCrossedOut%28%29" title="Tests whether the entry is crossed out">IsCrossedOut()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aIsRepeating%28%29" title="Is the entry repeating?">IsRepeating()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aIsSketch%28%29" title="Tests whether the entry is a sketch">IsSketch()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aIsStoredInline%28%29" title="Tests whether the entry's rich text object is stored inline or out of line">IsStoredInline()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aIsTentative%28%29" title="Tests whether the entry is tentative (not yet confirmed)">IsTentative()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aPruneExceptions%28%29" title="Compares the entry's exceptions with the repeat start and end dates">PruneExceptions()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aRemoveAllExceptions%28%29" title="Removes all exceptions from the exception list">RemoveAllExceptions()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aRemoveException%28%29" title="Removes an exception from the exception list if it can be found and if so, returns ETrue">RemoveException()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aRptDef%28%29" title="Returns a pointer to the entry's repeat details, including exceptions">RptDef()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aSetAlarm%28%29" title="Set the alarm's due date/time">SetAlarm()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aSetDisplayInYearView%28%29" title="Sets whether the entry should be displayed in the application's year view">SetDisplayInYearView()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aSetEntrySymbol%28%29" title="Sets the entry symbol">SetEntrySymbol()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aSetHasAlarm%28%29" title="Set the entry's alarm property">SetHasAlarm()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aSetHasDefaultDisplayTime%28%29" title="Sets the entry's has default display time property">SetHasDefaultDisplayTime()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aSetHasEntrySymbol%28%29" title="Sets whether or not the entry has an entry symbol">SetHasEntrySymbol()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aSetHasExceptions%28%29" title="Sets the entry's has exceptions property">SetHasExceptions()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aSetHasExtended%28%29" title="This function sets a flag to indicate whether the entry has extended attributes (added in EPOC Release 5 and later)">SetHasExtended()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aSetIsADayNote%28%29" title="Sets the entry's is a day note property">SetIsADayNote()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aSetIsCrossedOut%28%29" title="Sets the entry's crossed out property">SetIsCrossedOut()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aSetIsRepeating%28%29" title="Sets the entry's is repeating property">SetIsRepeating()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aSetIsSketch%28%29" title="Set the entry's sketch property">SetIsSketch()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aSetIsStoredInline%28%29" title="Sets whether the entry's rich text object is stored inline or out of line">SetIsStoredInline()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aSetIsTentative%28%29" title="Sets the entry's tentative property">SetIsTentative()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aSetRptEndDate%28%29" title="For a repeating entry, sets the repeat end date">SetRptEndDate()</a></code>,
+<code class="ApiItem"><a href="CAgnBasicEntryClass.html#%3a%3aCAgnBasicEntry%3a%3aSetRptStartDate%28%29" title="For a repeating entry, sets the repeat start date">SetRptStartDate()</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap">CBase</a></code>:
+<br><code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase%3a%3aoperator%20new%28%29" title="Allocates the object from the heap and then initialises its contents to binary zeroes">operator new()</a></code></p>
+<a name="2.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Pure virtual functions</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aCopyFromL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CopyFromL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void CopyFromL(CAgnEntry* aSource,const MPictureFactory* aPictureFactory,TCopyHow aCopyHow)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Requirements:</p>
+<p>An implementation of this function should copy the entry
+details from <code>aSource</code> into this object.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnEntry* aSource</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to an agenda entry object to copy.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const MPictureFactory* aPictureFactory</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to a picture header factory. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TCopyHow aCopyHow</code></td>
+<td class="Cell"><p class="ValueDesc">Specifies whether the copy should be deep
+(<code>EDeepCopy</code>) or shallow (<code>EShallowCopy</code>).</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aCopyFromL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CopyFromL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void CopyFromL(CAgnEntry* aSource,const MPictureFactory* aPictureFactory)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Requirements:</p>
+<p>An implementation of this function should copy the entry details
+from <code>aSource</code> into this object.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnEntry* aSource</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to an agenda entry object to copy.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const MPictureFactory* aPictureFactory</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to a picture header factory.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.4"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aInstanceStartDate%28%29"></a>
+<hr size="1" noshade>
+<h3><code>InstanceStartDate()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TTime InstanceStartDate() const=0;</code></p><h4 class="subheading">Description</h4>
+<p>Requirements:</p>
+<p>An implementation of this function should return the start
+date/time of an instance of the entry.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTime</code></td>
+<td class="Cell"><p class="ValueDesc">The instance&#8217;s start date/time.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.5"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aInstanceEndDate%28%29"></a>
+<hr size="1" noshade>
+<h3><code>InstanceEndDate()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TTime InstanceEndDate() const=0;</code></p><h4 class="subheading">Description</h4>
+<p>Requirements:</p>
+<p>An implementation of this function should return the end date/time of
+an instance of the entry.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTime</code></td>
+<td class="Cell"><p class="ValueDesc">The instance&#8217;s end date/time. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.6"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aDisplayTime%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DisplayTime()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TTimeIntervalMinutes DisplayTime() const=0;</code></p><h4 class="subheading">Description</h4>
+<p>Requirements:</p>
+<p>An implementation of this function should return the entry's display
+time.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTimeIntervalMinutes</code></td>
+<td class="Cell"><p class="ValueDesc">The entry&#8217;s display time. If the entry is timed, this will be
+the same as its start time.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Destructor</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3a%7eCAgnEntry%28%29"></a>
+<hr size="1" noshade>
+<h3><code>~CAgnEntry()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>~CAgnEntry();</code></p><h4 class="subheading">Description</h4>
+<p>The destructor frees all resources owned by the entry, prior to its
+destruction.</p>
+<a name="2.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Casting</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aCastToAnniv%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CastToAnniv()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const CAgnAnniv* CastToAnniv() const;<br>CAgnAnniv* CastToAnniv();</code></p><h4 class="subheading">Description</h4>
+<p>Casts an entry or instance to a <code>CAgnAnniv</code>* in order to use
+the functions provided by the <code>CAgnAnniv</code> class. The entry must be
+of type <code>CAgnAnniv</code> or a panic occurs.</p>
+<p>Two versions of the function are supplied. The compiler chooses the
+appropriate version based on the use made of the returned pointer. If the
+returned pointer is used in an expression where that pointer can be modified,
+then the non-const version is chosen.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CAgnAnniv*</code></td>
+<td class="Cell"><p class="ValueDesc">A const pointer to an anniversary entry.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnAnniv*</code></td>
+<td class="Cell"><p class="ValueDesc">A non-const pointer to an anniversary entry.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aCastToAppt%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CastToAppt()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const CAgnAppt* CastToAppt() const;<br>CAgnAppt* CastToAppt();</code></p><h4 class="subheading">Description</h4>
+<p>Casts an entry or instance to a <code>CAgnAppt</code>* in order to use
+the functions provided by the <code>CAgnAppt</code> class. The entry must be of
+type <code>CAgnAppt</code> or a panic occurs.</p>
+<p>Two versions of the function are supplied. The compiler chooses the
+appropriate version based on the use made of the returned pointer. If the
+returned pointer is used in an expression where that pointer can be modified,
+then the non-const version is chosen.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CAgnAppt*</code></td>
+<td class="Cell"><p class="ValueDesc">A const pointer to an appointment entry.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnAppt*</code></td>
+<td class="Cell"><p class="ValueDesc">A non-const pointer to an appointment entry.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.4"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aCastToEvent%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CastToEvent()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const CAgnEvent* CastToEvent() const;</code></p><h4 class="subheading">Description</h4>
+<p>Casts an entry or instance to a <code>CAgnEvent</code>* in order to use
+the functions provided by the <code>CAgnEvent</code> class. The entry must be
+of type <code>CAgnEvent</code> or a panic occurs.</p>
+<p>Two versions of the function are supplied. The compiler chooses the
+appropriate version based on the use made of the returned pointer. If the
+returned pointer is used in an expression where that pointer can be modified,
+then the non-const version is chosen.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CAgnEvent*</code></td>
+<td class="Cell"><p class="ValueDesc">A const pointer to an event entry.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnEvent*</code></td>
+<td class="Cell"><p class="ValueDesc">A non-const pointer to an even entry.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.5"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aCastToTodo%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CastToTodo()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const CAgnTodo* CastToTodo() const;</code></p><h4 class="subheading">Description</h4>
+<p>Casts an entry or instance to a <code>CAgnTodo</code>* in order to use
+the functions provided by the <code>CAgnTodo</code> class. The entry must be of
+type <code>CAgnTodo</code> or a panic will occur.</p>
+<p>Two versions of the function are supplied. The compiler chooses the
+appropriate version based on the use made of the returned pointer. If the
+returned pointer is used in an expression where that pointer can be modified,
+then the non-const version is chosen.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CAgnTodo*</code></td>
+<td class="Cell"><p class="ValueDesc">A const pointer to a to-do entry.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnTodo*</code></td>
+<td class="Cell"><p class="ValueDesc">A non-const pointer to a to-do entry.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Alarm information</h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aClearAlarm%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ClearAlarm()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ClearAlarm();</code></p><h4 class="subheading">Description</h4>
+<p>Removes the alarm from an entry. Any alarm sound name which has been set
+using <code>SetAlarmSoundNameL()</code> is deleted.</p>
+<a name="2.9.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aAlarmSoundName%28%29"></a>
+<hr size="1" noshade>
+<h3><code>AlarmSoundName()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TPtrC AlarmSoundName() const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns the name of the alarm sound as set
+by<code>SetAlarmSoundName()</code>, or null if the entry isn't
+alarmed.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TPtrC</code></td>
+<td class="Cell"><p class="ValueDesc">The current name of the alarm sound.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.4"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aSetAlarmSoundNameL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetAlarmSoundNameL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetAlarmSoundNameL(const TDesC&amp; aAlarmSoundName);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the name of the alarm sound.</p>
+<p>Note</p>
+<p>If the length of the new alarm sound name is greater
+than<code>KMaxAlarmSoundName</code> (=32) characters, it will be truncated
+to<code>KMaxAlarmSoundName</code> characters.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aAlarmSoundName</code></td>
+<td class="Cell"><p class="ValueDesc">Const reference to the name of the alarm sound.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Synchronisation information</h2>
+</div><div class="Bodytext">
+<a name="2.10.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aSetLastChangedDate%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetLastChangedDate()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void SetLastChangedDate();</code></p><h4 class="subheading">Description</h4>
+<p>Sets the entry&#8217;s last changed date/time to the current universal
+time. This date/time is used when the agenda is synchronised with other
+systems, to check whether any changes have taken place since the last
+synchronisation. Most functions which change an entry's details or attributes
+call this function.</p>
+<a name="2.10.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aUniqueId%28%29"></a>
+<hr size="1" noshade>
+<h3><code>UniqueId()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TAgnUniqueId UniqueId() const;</code></p><h4 class="subheading">Description</h4>
+<p>Retrieves the entry&#8217;s unique ID. The unique ID uniquely identifies
+the agenda entry in an agenda file. This value is assigned when the entry is
+created, and is preserved during updates. Because of this, it can be used to
+identify the entry during synchronisation.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnUniqueId</code></td>
+<td class="Cell"><p class="ValueDesc">The entry&#8217;s unique ID.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.4"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aSetUniqueId%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetUniqueId()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetUniqueId(TAgnUniqueId aUId);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the entry&#8217;s unique ID.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnUniqueId aUId</code></td>
+<td class="Cell"><p class="ValueDesc">The entry&#8217;s unique ID.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.5"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aReplicationData%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ReplicationData()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const TAgnReplicationData&amp; ReplicationData() const;</code></p><h4 class="subheading">Description</h4>
+<p>Retrieves the entry&#8217;s replication data as set
+by<code>SetReplicationData()</code>. </p>
+<p>Two versions of the function are supplied. The compiler chooses the
+appropriate version based on the use made of the returned pointer. If the
+returned pointer is used in an expression where that pointer can be modified,
+then the non-const version is chosen.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TAgnReplicationData&amp;</code></td>
+<td class="Cell"><p class="ValueDesc">A const reference to the entry&#8217;s replication data.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnReplicationData&amp;</code></td>
+<td class="Cell"><p class="ValueDesc">A non-const reference to the entry&#8217;s replication data.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.6"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aSetReplicationData%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetReplicationData()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetReplicationData(const TAgnReplicationData&amp; aReplicationData);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the entry&#8217;s replication data.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TAgnReplicationData&amp; aReplicationData</code></td>
+<td class="Cell"><p class="ValueDesc">A reference to the entry&#8217;s replication data.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Persistence</h2>
+</div><div class="Bodytext">
+<a name="2.11.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aStoreComponentsL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>StoreComponentsL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TStreamId StoreComponentsL(CStreamStore&amp; aStore);</code></p><h4 class="subheading">Description</h4>
+<p>Stores the entry&#8217;s rich text object to an embedded
+store&nbsp;&#8212; only necessary if the entry's rich text object is stored
+out of line.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CStreamStore&amp; aStore</code></td>
+<td class="Cell"><p class="ValueDesc">A reference to the stream store which contains the entry and the embedded
+store for the entry's rich text.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamId</code></td>
+<td class="Cell"><p class="ValueDesc">The ID for the embedded store in which the entry&#8217;s rich text is
+stored.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aRestoreComponentsL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RestoreComponentsL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void RestoreComponentsL(const CStreamStore&amp; aStore);</code></p><h4 class="subheading">Description</h4>
+<p>Restores the entry's rich text object from an embedded store (only
+necessary if the entry's rich text object is stored out of
+line).</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CStreamStore&amp; aStore</code></td>
+<td class="Cell"><p class="ValueDesc">A reference to the stream store which contains the entry and the embedded
+store for the entry's rich text.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.4"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aExternalizeL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ExternalizeL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ExternalizeL(RWriteStream&amp; aStream)const;</code></p><h4 class="subheading">Description</h4>
+<p>Externalises an entry's details and attributes, but not its rich text to
+a write stream. The presence of this function means that the standard
+templated<code>operator&lt;&lt;()</code> (defined in s32strm.h)
+is available to externalise objects of this class.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RWriteStream&amp; aStream</code></td>
+<td class="Cell"><p class="ValueDesc">Stream to which the object should be externalised.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.5"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aInternalizeL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>InternalizeL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void InternalizeL(RReadStream&amp; aStream);</code></p><h4 class="subheading">Description</h4>
+<p>Internalises an entry's details and attributes, but not its rich text
+from a read stream. The presence of this function means that the standard
+templated <code>operator&gt;&gt;()</code> (defined in s32strm.h)
+is available to internalise objects of this class.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RReadStream&amp; aStream</code></td>
+<td class="Cell"><p class="ValueDesc">Stream from which the object should be internalised.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.6"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aOpenRichTextStoreL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>OpenRichTextStoreL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CStreamStore* OpenRichTextStoreL();</code></p><h4 class="subheading">Description</h4>
+<p>If the entry's rich text is stored out of line, this function opens and
+returns a pointer to the embedded store in which the entry&#8217;s rich text
+object is stored.</p>
+<p>Note</p>
+<p>Out of line means that the entry's rich text object is stored in an
+embedded store in the entry's stream. An agenda entry is set to be stored out
+of line if its rich text object is large.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CStreamStore*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the stream store from which the entry's rich text object can
+be restored.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.7"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aOpenEmbeddedStoreL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>OpenEmbeddedStoreL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CStreamStore* OpenEmbeddedStoreL();</code></p><h4 class="subheading">Description</h4>
+<p>If the entry's rich text is stored out of line, this function opens and
+returns a pointer to the embedded store in which the entry&#8217;s rich text
+object is stored. If the agenda model is in client mode, this function uses the
+server.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CStreamStore*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the stream store from which the entry's rich text object can
+be restored.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.8"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aCloseEmbeddedStore%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CloseEmbeddedStore()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void CloseEmbeddedStore();</code></p><h4 class="subheading">Description</h4>
+<p>Deletes the embedded store. If the agenda model is in client mode, just
+sets the store to NULL.</p>
+<a name="2.11.9"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aEmbeddedStore%28%29"></a>
+<hr size="1" noshade>
+<h3><code>EmbeddedStore()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CStreamStore* EmbeddedStore() const;</code></p><h4 class="subheading">Description</h4>
+<p>If the entry's rich text object is stored out of line, returns a pointer
+to the embedded store in which the entry&#8217;s rich text is
+stored.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CStreamStore*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the embedded store which contains the entry's rich
+text.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.10"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aLoadAllComponentsL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>LoadAllComponentsL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void LoadAllComponentsL(const MPictureFactory* aPictureFactory);</code></p><h4 class="subheading">Description</h4>
+<p>Loads all of an entry's components, e.g. rich text stored out of line.
+This function would be called when you need to load the entry's rich text from
+file to memory, e.g. when an entry is placed on the
+clipboard.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const MPictureFactory* aPictureFactory</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to a picture header factory.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.11"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aSetRichTextStreamId%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetRichTextStreamId()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetRichTextStreamId(TStreamId aId);</code></p><h4 class="subheading">Description</h4>
+<p>For a rich text object which is stored out of line, this function sets
+the ID for the embedded stream store in which the object has been
+stored.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamId aId</code></td>
+<td class="Cell"><p class="ValueDesc">The ID for the stream store in which the entry&#8217;s rich text object
+has been stored.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.12"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aRichTextStreamId%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RichTextStreamId()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TStreamId RichTextStreamId() const;</code></p><h4 class="subheading">Description</h4>
+<p>Retrieves the ID for the embedded stream store in which the
+entry&#8217;s rich text has been stored.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamId</code></td>
+<td class="Cell"><p class="ValueDesc">The ID for the stream store in which the entry&#8217;s rich text has
+been stored.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>ID information</h2>
+</div><div class="Bodytext">
+<a name="2.12.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aInstanceDate%28%29"></a>
+<hr size="1" noshade>
+<h3><code>InstanceDate()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TAgnDate InstanceDate() const;</code></p><h4 class="subheading">Description</h4>
+<p>Retrieves the instance date. The instance&#8217;s entry ID
+(<code>TAgnEntryId</code>) together with the instance date
+(<code>TAgnDate</code>) make up the instance ID (<code>TAgnInstanceId</code>).
+These two components of the instance ID can be retrieved individually or
+together.</p>
+<p>By default, the instance date for all entries is NULL
+(<code>AgnDateTime::NullDate()</code>).</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnDate</code></td>
+<td class="Cell"><p class="ValueDesc">The instance date.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aSetInstanceDate%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetInstanceDate()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetInstanceDate(TAgnDate aDate);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the instance date.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnDate aDate</code></td>
+<td class="Cell"><p class="ValueDesc">The instance date.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.4"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aEntryId%28%29"></a>
+<hr size="1" noshade>
+<h3><code>EntryId()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TAgnEntryId EntryId() const;</code></p><h4 class="subheading">Description</h4>
+<p>Retrieves the entry&#8217;s ID. </p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnEntryId</code></td>
+<td class="Cell"><p class="ValueDesc">Uniquely identifies an entry, but for an instance, you also need to
+consider the instance date.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.5"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aSetId%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetId()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetId(TAgnEntryId aId);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the entry ID. </p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnEntryId aId</code></td>
+<td class="Cell"><p class="ValueDesc">The ID to assign to the entry.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.6"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aInstanceId%28%29"></a>
+<hr size="1" noshade>
+<h3><code>InstanceId()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TAgnInstanceId InstanceId() const;</code></p><h4 class="subheading">Description</h4>
+<p>Retrieves the instance ID.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnInstanceId</code></td>
+<td class="Cell"><p class="ValueDesc">The instance ID (the entry ID plus the instance date).</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.7"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aSetIdAndInstanceDate%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetIdAndInstanceDate()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetIdAndInstanceDate(TAgnEntryId aId,TAgnDate aDate);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the entry ID and the instance date. Together these two details make
+up the instance ID.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnEntryId aId</code></td>
+<td class="Cell"><p class="ValueDesc">Uniquely identifies an entry.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnDate aDate</code></td>
+<td class="Cell"><p class="ValueDesc">The instance date.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.8"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aSetIdAndInstanceDate%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetIdAndInstanceDate()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetIdAndInstanceDate(const TAgnInstanceId&amp; aInstanceId);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the instance ID. </p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TAgnInstanceId&amp; aInstanceId</code></td>
+<td class="Cell"><p class="ValueDesc">The instance ID, which is the entry ID plus the instance date.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.9"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aSetInstanceId%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetInstanceId()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetInstanceId(const TAgnInstanceId&amp; aInstanceId);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the instance ID. </p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TAgnInstanceId&amp; aInstanceId</code></td>
+<td class="Cell"><p class="ValueDesc">Const reference to the instance ID, which is the entry ID plus the
+instance date.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Repeat information</h2>
+</div><div class="Bodytext">
+<a name="2.13.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aSetRptDefL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetRptDefL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetRptDefL(const CAgnRptDef* aRptDef);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the entry&#8217;s repeat definition. The repeat definition includes
+daily, weekly, monthly and yearly repeat details, display details, start and
+end details and exceptions. For non-to-do entries the start date/time is set to
+the start date/time of the repeat, and the end date/time is set
+correspondingly. For to-do entries the due date is set. For day notes, the
+display date/time is set.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CAgnRptDef* aRptDef</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the new repeat definition.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aMakeInstanceNonRepeating%28%29"></a>
+<hr size="1" noshade>
+<h3><code>MakeInstanceNonRepeating()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void MakeInstanceNonRepeating();</code></p><h4 class="subheading">Description</h4>
+<p>Converts an instance of a repeating entry into a non-repeating entry. The
+entry's start and end date/times (or due date for a to-do entry) are set
+according to the instance's start and end date. If the entry is a day note, its
+display date/time is set according to the instance start date/time. If the
+entry is a to-do, its due date is set according to the instance end
+date.</p>
+<a name="2.14"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Text content</h2>
+</div><div class="Bodytext">
+<a name="2.14.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aRichTextL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RichTextL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CRichText* RichTextL();</code></p><h4 class="subheading">Description</h4>
+<p>Returns a pointer to the rich text owned by the
+entry.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CRichText*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the rich text object.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Comparison</h2>
+</div><div class="Bodytext">
+<a name="2.15.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aCompareL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CompareL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool CompareL(CAgnEntry* aEntry,TIncludeIdWhenComparing aCompareId);</code></p><h4 class="subheading">Description</h4>
+<p>Compares the entry <code>aEntry</code> with this entry and returns true
+if they are equal, false if not. The entries&#8217; instance IDs and unique
+IDs are also compared.</p>
+<p>The function casts the entry to its respective type
+using<code>CastToAppt()</code>, <code>CastToAnniv()</code>,<code>CastToEvent()</code>or<code>CastToTodo()</code>as
+appropriate.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnEntry* aEntry</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to an agenda entry.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TIncludeIdWhenComparing aCompareId</code></td>
+<td class="Cell"><p class="ValueDesc">This argument is used internally, for test purposes only. As it has a
+default value, it should be ignored by developers.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> if <code>aEntry</code> is the same as this
+entry,<code>EFalse</code> if not. Note. Replication data is not included in the
+comparison, except for the replication status.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Location </h2>
+</div><div class="Bodytext">
+<a name="2.16.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aLocation%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Location()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TPtrC Location();</code></p><h4 class="subheading">Description</h4>
+<p>Retrieves the contents of the entry&#8217;s location
+field.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TPtrC</code></td>
+<td class="Cell"><p class="ValueDesc">The location. NULL if the entry has no location field.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aSetLocationL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetLocationL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetLocationL(const TDesC&amp; aLocation);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the contents of the entry&#8217;s location field. Sets the entry's
+has extended property.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aLocation</code></td>
+<td class="Cell"><p class="ValueDesc">Descriptor containing a location, e.g. of a meeting.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.17"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Attendee details</h2>
+</div><div class="Bodytext">
+<a name="2.17.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aHasAttendees%28%29"></a>
+<hr size="1" noshade>
+<h3><code>HasAttendees()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool HasAttendees();</code></p><h4 class="subheading">Description</h4>
+<p>Returns true if one or more attendees have been added to the entry, false
+if not.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> if one or more attendees have been added to the
+entry,<code>EFalse</code> if not.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.17.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aAttendeeCount%28%29"></a>
+<hr size="1" noshade>
+<h3><code>AttendeeCount()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt AttendeeCount();</code></p><h4 class="subheading">Description</h4>
+<p>Retrieves the number of attendees that have been added to the
+entry.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">Number of attendees added.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.17.4"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aFetchAttendee%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FetchAttendee()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CAgnAttendee* FetchAttendee(TInt aIndex);</code></p><h4 class="subheading">Description</h4>
+<p>Retrieves the attendee at the specified index within the entry&#8217;s
+list of attendees. Make sure that you specify a valid index (between zero
+and<code>AttendeeCount()</code>&#0160;&#8211; 1), otherwise a panic
+occurs.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aIndex</code></td>
+<td class="Cell"><p class="ValueDesc">Index to identify the specified attendee.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnAttendee*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the object containing attendee details. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.17.5"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aAddAttendeeL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>AddAttendeeL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void AddAttendeeL(CAgnAttendee* aAttendee);</code></p><h4 class="subheading">Description</h4>
+<p>Appends an attendee to the entry&#8217;s list of
+attendees.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnAttendee* aAttendee</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the object containing attendee details.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.17.6"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aDeleteAttendee%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DeleteAttendee()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void DeleteAttendee(TInt aIndex);</code></p><h4 class="subheading">Description</h4>
+<p>Deletes the attendee at the index specified from the entry&#8217;s list
+of attendees. If there is no attendee at the index specified, a panic will
+occur.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aIndex</code></td>
+<td class="Cell"><p class="ValueDesc">Index to identify the specified attendee.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.18"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Categories</h2>
+</div><div class="Bodytext">
+<a name="2.18.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aHasCategory%28%29"></a>
+<hr size="1" noshade>
+<h3><code>HasCategory()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool HasCategory();</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Returns a Boolean to indicate whether the entry has any
+categories.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> if it has any categories, <code>EFalse</code> if
+not.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.18.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aCategoryCount%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CategoryCount()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt CategoryCount();</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Returns the number of categories owned by the entry.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The number of categories.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.18.4"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aAddCategoryL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>AddCategoryL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void AddCategoryL(CAgnCategory* aCategory);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Appends a category to the entry's list of categories. The entry takes
+ownership of the category specified.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnCategory* aCategory</code></td>
+<td class="Cell"><p class="ValueDesc">The category to be added.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.18.5"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aFetchCategory%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FetchCategory()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CAgnCategory* FetchCategory(TInt aIndex);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Fetches the category at <code>aIndex</code>.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aIndex</code></td>
+<td class="Cell"><p class="ValueDesc">Index into the entry's list of categories. Must be a valid array index or
+a panic occurs.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnCategory*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the category located at the index specified.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.18.6"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aDeleteCategory%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DeleteCategory()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void DeleteCategory(TInt aIndex);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Deletes the category at <code>aIndex</code>.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aIndex</code></td>
+<td class="Cell"><p class="ValueDesc">Index into the entry's list of categories. Must be a valid array index or
+a panic occurs.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.19"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Colour</h2>
+</div><div class="Bodytext">
+<a name="2.19.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aSetBackgroundColorL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetBackgroundColorL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetBackgroundColorL(const TRgb&amp; aColor);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Sets the background colour for the agenda entry's symbol.</p>
+<p>Note</p>
+<p>The entry symbol's background colour is used by the entry model when
+populating a symbol list (<code>CAgnEntryModel::GetSymbolInstanceListL()</code>).
+It is used as the background colour for the first symbol in each list
+item.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TRgb&amp; aColor</code></td>
+<td class="Cell"><p class="ValueDesc">The background colour for the agenda entry's symbol.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../AgendaFile/CAgnSymbolListClass.html#%3a%3aCAgnSymbolList%3a%3aTListItem" title="A single item in a symbol list"><code class="ApiItem">CAgnSymbolList::TListItem</code></a></li>
+</ul>
+<a name="2.19.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aGetBackgroundColor%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetBackgroundColor()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TRgb GetBackgroundColor();</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Returns the background colour for the agenda entry's symbol, as set
+by<code>SetBackgroundColorL()</code>.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRgb</code></td>
+<td class="Cell"><p class="ValueDesc">The background colour for the agenda entry's symbol.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.20"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Creation date</h2>
+</div><div class="Bodytext">
+<a name="2.20.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aSetCreationDateL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetCreationDateL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetCreationDateL(TAgnDate aCreationDate);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the entry&#8217;s creation date. This corresponds to the DCREATED
+property in the vCalendar standard.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnDate aCreationDate</code></td>
+<td class="Cell"><p class="ValueDesc">The entry&#8217;s creation date.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.20.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aCreationDate%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CreationDate()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TAgnDate CreationDate();</code></p><h4 class="subheading">Description</h4>
+<p>Retrieves the entry&#8217;s creation date (as set
+by<code>SetCreationDateL()</code>), or the last modified date if no creation
+date has been set.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnDate</code></td>
+<td class="Cell"><p class="ValueDesc">The entry&#8217;s creation date, or the last modified date if no
+creation date has been set. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.21"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Enumerations</h2>
+</div><div class="Bodytext">
+<a name="2.21.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aTType"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TType</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TType</code></p><h4 class="subheading">Description</h4>
+<p>Agenda entry type</p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnEntry%3a%3aEAppt"><code class="Value">EAppt</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Appointment entry type.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnEntry%3a%3aETodo"><code class="Value">ETodo</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>To-do entry type.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnEntry%3a%3aEEvent"><code class="Value">EEvent</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Event entry type.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnEntry%3a%3aEAnniv"><code class="Value">EAnniv</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Anniversary entry type.</para></p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.21.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntry%3a%3aTCopyHow"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TCopyHow</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TCopyHow</code></p><h4 class="subheading">Description</h4>
+<p>How entry's rich text object should be copied</p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnEntry%3a%3aEShallowCopy"><code class="Value">EShallowCopy</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>When copying an agenda entry, indicates that the source entry's rich text
+object is large, and so is stored out of line. In this case, the copy only
+needs to copy the stream ID of the rich text object stored in the
+source.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnEntry%3a%3aEDeepCopy"><code class="Value">EDeepCopy</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>When copying an agenda entry, indicates that the source entry's rich text
+object is stored inline, so that the copy needs to create a new stream and copy
+the rich text object into it.</para></p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,867 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Aiftool resource file format .rss</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="DevTools%2dref%2eaiftool%2drss%2dformat"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="Tool_Ref_aiftool.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="Tool_Ref_epocrc.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Application&nbsp;Resource&nbsp;Tools&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+Aiftool&nbsp;resource&nbsp;file&nbsp;format&nbsp;.rss</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Aiftool resource file format <code class="filename">.rss</code></h1>
+</div><div class="Bodytext">
+<a name="1.3"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Overview </h2>
+</div><div class="Bodytext">
+<p>The resource file used by Aiftool specifies the application UID, captions, capabilities, the number of icons to be incorporated in the final <code class="filename">aif</code> file, and the priorities of supported MIME types. The structure of the resource file is as shown below.  Each element of the file is described in its own section.  </p>
+<p class="CodeBlock"><code>// include file - contains enumerations and resource structure<br>#include &lt;aiftool.rh&gt;<br><br>RESOURCE AIF_DATA<br>{<br>// Application UID<br>app_uid=application_uid;<br><br>// Application Captions list (captions in supported languages)<br>caption_list=<br>&nbsp;{ <br>&nbsp;CAPTION { code=[ELangEnglish]; caption=&quot;Caption in English&quot;; }, ..., <br>&nbsp;CAPTION { code=[Enumeration_for_selected_language_n]; caption=&quot;Caption_in_selected_language_n&quot;; },<br>&nbsp;};<br><br>// number of icons to be loaded from the .mbm file<br>[num_icons=0; ]<br><br>// Application Capabilities<br>[embeddability= KAppNotEmbeddable | KAppEmbeddable | KAppEmbeddableOnly;]<br>[hidden= KAppNotHidden | KAppIsHidden ;]<br>[newfile= KAppDoesNotSupportNewFile | KAppSupportsNewFile;]<br><br>// MIME type priorities<br>[datatype_list=<br>&nbsp;{<br>&nbsp;DATATYPE { priority= EDataTypePriorityHigh | EDataTypePriorityNormal | EDataTypePriorityLow | EDataTypePriorityLastResort; type=&quot;MIME_type&quot;; },<br>&nbsp;DATATYPE { priority=priority_enumeration; type=&quot;another_MIME_type&quot;; }<br>&nbsp;};]<br>}</code></p>
+<a name="1.4"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Changes since v5</h2>
+</div><div class="Bodytext">
+<p>Note the following changes since v5:</p>
+<ul><li><p>Narrow builds are not available, so all application UIDs identify Unicode builds</p></li>
+<li><p>There is now a wider range of languages supported: the full list is given in the discussion of Captions. </p></li>
+</ul><a name="1.5"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>File details</h2>
+</div><div class="Bodytext">
+<a name="1.5.2"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Include file</h3>
+</div><div class="Bodytext">
+<p>The resource file <em>includes</em> a header file <code class="filename">aiftool.rh</code>.  Aiftool expects the file to be located in <code class="filename">\Epoc32\Include\</code>, when it is installed as part of an SDK. </p>
+<p class="CodeBlock"><code>#include &lt;aiftool.rh&gt;</code></p>
+<p>The file specifies:</p>
+<ul><li><p>an enumeration for the supported language codes</p></li>
+<li><p>an enumeration for the supported application capabilities</p></li>
+<li><p>an enumeration for the different MIME type priorities</p></li>
+<li><p>a definition of the <code class="ProgramOutput">AIF_DATA</code> resource structure, including default <code class="filename">aif</code> properties.</p></li>
+</ul><a name="1.5.3"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Application UIDs</h3>
+</div><div class="Bodytext">
+<p>The application UID associates the <code class="filename">.aif</code> file with its parent application.</p>
+<p class="CodeBlock"><code>app_uid=application_uid;</code></p>
+<p>For C++ SDK developers, the UID should match that specified in the project <code class="filename">mmp</code> file.</p>
+<a name="1.5.4"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Caption list</h3>
+</div><div class="Bodytext">
+<p>A caption is the line of text, typically the application&#8217;s name, which appears below the application icon in the system shell.</p>
+<p>Captions are specified in the <code>caption_list</code> section of the resource file. Captions are typically specified for each language supported by the application.</p>
+<p><code>caption_list=
+{</code>
+<code>CAPTION</code>
+<code>{</code>
+<code>code=</code>[<code>ELangEnglish</code>]<code>;</code>
+<code>caption=&quot;</code><code>Caption in English</code><code>&quot;;</code>
+<code>}</code>, ...,
+<code>CAPTION</code>
+<code>{</code>
+<code>code=</code>[<code>Enumeration_for_selected_language_n</code>]<code>;</code>
+<code>caption=&quot;</code><code>Caption_in_selected_language_n</code><code>&quot;;</code>
+<code>}</code>,
+<code>};</code></p>
+<p>The enumerators for supported languages, as defined in the included file, are given below. The <code>code=[</code><code>language_enumeration</code><code>]</code> definition associates each caption with a particular system language setting.</p>
+<a name="1.5.4.6"></a><h4>Supported language enumeration</h4>
+<p>The following codes are defined in an enumeration in <code class="filename">aiftool.rh</code>.</p>
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+<p><b>Code</b></p>
+</td>
+<td class="Cell">
+<p><b>Language</b></p>
+</td>
+<td class="Cell">
+<p><b>Code</b></p>
+</td>
+<td class="Cell">
+<p><b>Language</b></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangTest</code></p>
+</td>
+<td class="Cell">
+<p>Test</p>
+</td>
+<td class="Cell">
+<p><code>ELangFarsi</code></p>
+</td>
+<td class="Cell">
+<p>Persian</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangEnglish</code></p>
+</td>
+<td class="Cell">
+<p>British English</p>
+</td>
+<td class="Cell">
+<p><code>ELangCanadianFrench</code></p>
+</td>
+<td class="Cell">
+<p>Canadian French</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangFrench</code></p>
+</td>
+<td class="Cell">
+<p>French</p>
+</td>
+<td class="Cell">
+<p><code>ELangScotsGaelic</code></p>
+</td>
+<td class="Cell">
+<p>Scottish Gaelic</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangGerman</code></p>
+</td>
+<td class="Cell">
+<p>German</p>
+</td>
+<td class="Cell">
+<p><code>ELangGeorgian</code></p>
+</td>
+<td class="Cell">
+<p>Georgian</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangSpanish</code></p>
+</td>
+<td class="Cell">
+<p>Spanish</p>
+</td>
+<td class="Cell">
+<p><code>ELangGreek</code></p>
+</td>
+<td class="Cell">
+<p>Greek</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangItalian</code></p>
+</td>
+<td class="Cell">
+<p>Italian</p>
+</td>
+<td class="Cell">
+<p><code>ELangCyprusGreek</code></p>
+</td>
+<td class="Cell">
+<p>Cyprus Greek</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangSwedish</code></p>
+</td>
+<td class="Cell">
+<p>Swedish</p>
+</td>
+<td class="Cell">
+<p><code>ELangGujarati</code></p>
+</td>
+<td class="Cell">
+<p>Gujarati</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangDanish</code></p>
+</td>
+<td class="Cell">
+<p>Danish</p>
+</td>
+<td class="Cell">
+<p><code>ELangHebrew</code></p>
+</td>
+<td class="Cell">
+<p>Hebrew</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangNorwegian</code></p>
+</td>
+<td class="Cell">
+<p>Norwegian</p>
+</td>
+<td class="Cell">
+<p><code>ELangHindi</code></p>
+</td>
+<td class="Cell">
+<p>Hindi</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangFinnish</code></p>
+</td>
+<td class="Cell">
+<p>Finnish</p>
+</td>
+<td class="Cell">
+<p><code>ELangIndonesian</code></p>
+</td>
+<td class="Cell">
+<p>Indonesian</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangAmerican</code></p>
+</td>
+<td class="Cell">
+<p>American English</p>
+</td>
+<td class="Cell">
+<p><code>ELangIrish</code></p>
+</td>
+<td class="Cell">
+<p>Irish</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangSwissFrench</code></p>
+</td>
+<td class="Cell">
+<p>Swiss French</p>
+</td>
+<td class="Cell">
+<p><code>ELangSwissItalian</code></p>
+</td>
+<td class="Cell">
+<p>Swiss Italian</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangSwissGerman</code></p>
+</td>
+<td class="Cell">
+<p>Swiss German</p>
+</td>
+<td class="Cell">
+<p><code>ELangKannada</code></p>
+</td>
+<td class="Cell">
+<p>Kannada</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangPortuguese</code></p>
+</td>
+<td class="Cell">
+<p>Portuguese</p>
+</td>
+<td class="Cell">
+<p><code>ELangKazakh</code></p>
+</td>
+<td class="Cell">
+<p>Kazakh</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangTurkish</code></p>
+</td>
+<td class="Cell">
+<p>Turkish</p>
+</td>
+<td class="Cell">
+<p><code>ELangKhmer</code></p>
+</td>
+<td class="Cell">
+<p>Khmer</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangIcelandic</code></p>
+</td>
+<td class="Cell">
+<p>Icelandic</p>
+</td>
+<td class="Cell">
+<p><code>ELangKorean</code></p>
+</td>
+<td class="Cell">
+<p>Korean</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangRussian</code></p>
+</td>
+<td class="Cell">
+<p>Russian</p>
+</td>
+<td class="Cell">
+<p><code>ELangLao</code></p>
+</td>
+<td class="Cell">
+<p>ELangLao</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangHungarian</code></p>
+</td>
+<td class="Cell">
+<p>Hungarian</p>
+</td>
+<td class="Cell">
+<p><code>ELangLatvian</code></p>
+</td>
+<td class="Cell">
+<p>Latvian</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangDutch</code></p>
+</td>
+<td class="Cell">
+<p>Dutch</p>
+</td>
+<td class="Cell">
+<p><code>ELangLithuanian</code></p>
+</td>
+<td class="Cell">
+<p>Lithuanian</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangBelgianFlemish</code></p>
+</td>
+<td class="Cell">
+<p>Belgian Flemish</p>
+</td>
+<td class="Cell">
+<p><code>ELangMacedonian</code></p>
+</td>
+<td class="Cell">
+<p>Macedonian</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangAustralian</code></p>
+</td>
+<td class="Cell">
+<p>Australian English</p>
+</td>
+<td class="Cell">
+<p><code>ELangMalay</code></p>
+</td>
+<td class="Cell">
+<p>Malay</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangBelgianFrench</code></p>
+</td>
+<td class="Cell">
+<p>Belgian French</p>
+</td>
+<td class="Cell">
+<p><code>ELangMalayalam</code></p>
+</td>
+<td class="Cell">
+<p>Malayalam</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangAustrian</code></p>
+</td>
+<td class="Cell">
+<p>Austrian German</p>
+</td>
+<td class="Cell">
+<p><code>ELangMarathi</code></p>
+</td>
+<td class="Cell">
+<p>Marathi</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangNewZealand</code></p>
+</td>
+<td class="Cell">
+<p>New Zealand English</p>
+</td>
+<td class="Cell">
+<p><code>ELangMoldavian</code></p>
+</td>
+<td class="Cell">
+<p>Moldavian</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangInternationalFrench</code></p>
+</td>
+<td class="Cell">
+<p>International French</p>
+</td>
+<td class="Cell">
+<p><code>ELangMongolian</code></p>
+</td>
+<td class="Cell">
+<p>Mongolian</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangCzech</code></p>
+</td>
+<td class="Cell">
+<p>Czech</p>
+</td>
+<td class="Cell">
+<p><code>ELangNorwegianNynorsk</code></p>
+</td>
+<td class="Cell">
+<p>Norwegian Nynorsk</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangSlovak</code></p>
+</td>
+<td class="Cell">
+<p>Slovak</p>
+</td>
+<td class="Cell">
+<p><code>ELangBrazilianPortuguese</code></p>
+</td>
+<td class="Cell">
+<p>Brazilian Portuguese</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangPolish</code></p>
+</td>
+<td class="Cell">
+<p>Polish</p>
+</td>
+<td class="Cell">
+<p><code>ELangPunjabi</code></p>
+</td>
+<td class="Cell">
+<p>Panjabi</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangSlovenian</code></p>
+</td>
+<td class="Cell">
+<p>Slovenian</p>
+</td>
+<td class="Cell">
+<p><code>ELangRomanian</code></p>
+</td>
+<td class="Cell">
+<p>Romanian</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangTaiwanChinese</code></p>
+</td>
+<td class="Cell">
+<p>Taiwan Chinese</p>
+</td>
+<td class="Cell">
+<p><code>ELangSerbian</code></p>
+</td>
+<td class="Cell">
+<p>Serbian</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangHongKongChinese</code></p>
+</td>
+<td class="Cell">
+<p>Hong Kong Chinese</p>
+</td>
+<td class="Cell">
+<p><code>ELangSinhalese</code></p>
+</td>
+<td class="Cell">
+<p>Sinhalese</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangPrcChinese</code></p>
+</td>
+<td class="Cell">
+<p>PRC Chinese</p>
+</td>
+<td class="Cell">
+<p><code>ELangSomali</code></p>
+</td>
+<td class="Cell">
+<p>Somali</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangJapanese</code></p>
+</td>
+<td class="Cell">
+<p>Japanese</p>
+</td>
+<td class="Cell">
+<p><code>ELangInternationalSpanish</code></p>
+</td>
+<td class="Cell">
+<p>International Spanish</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangThai</code></p>
+</td>
+<td class="Cell">
+<p>Thai</p>
+</td>
+<td class="Cell">
+<p><code>ELangLatinAmericanSpanish</code></p>
+</td>
+<td class="Cell">
+<p>Latin American Spanish</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangAfrikaans</code></p>
+</td>
+<td class="Cell">
+<p>Afrikaans</p>
+</td>
+<td class="Cell">
+<p><code>ELangSwahili</code></p>
+</td>
+<td class="Cell">
+<p>Swahili</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangAlbanian</code></p>
+</td>
+<td class="Cell">
+<p>Albanian</p>
+</td>
+<td class="Cell">
+<p><code>ELangFinlandSwedish</code></p>
+</td>
+<td class="Cell">
+<p>Finland-Swedish</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangAmharic</code></p>
+</td>
+<td class="Cell">
+<p>Amharic</p>
+</td>
+<td class="Cell">
+<p><code>ELangTajik</code></p>
+</td>
+<td class="Cell">
+<p>Tajik</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangArabic</code></p>
+</td>
+<td class="Cell">
+<p>Arabic</p>
+</td>
+<td class="Cell">
+<p><code>ELangTamil</code></p>
+</td>
+<td class="Cell">
+<p>Tamil</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangArmenian</code></p>
+</td>
+<td class="Cell">
+<p>Armenian</p>
+</td>
+<td class="Cell">
+<p><code>ELangTelugu</code></p>
+</td>
+<td class="Cell">
+<p>Telugu</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangAzerbaijani</code></p>
+</td>
+<td class="Cell">
+<p>Azerbaijani</p>
+</td>
+<td class="Cell">
+<p><code>ELangTibetan</code></p>
+</td>
+<td class="Cell">
+<p>Tibetan</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangBelarussian</code></p>
+</td>
+<td class="Cell">
+<p>Belarussian</p>
+</td>
+<td class="Cell">
+<p><code>ELangTigrinya</code></p>
+</td>
+<td class="Cell">
+<p>Tigrinya</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangBengali</code></p>
+</td>
+<td class="Cell">
+<p>Bengali</p>
+</td>
+<td class="Cell">
+<p><code>ELangCyprusTurkish</code></p>
+</td>
+<td class="Cell">
+<p>Cyprus Turkish</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangBulgarian</code></p>
+</td>
+<td class="Cell">
+<p>Bulgarian</p>
+</td>
+<td class="Cell">
+<p><code>ELangTurkmen</code></p>
+</td>
+<td class="Cell">
+<p>Turkmen</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangBurmese</code></p>
+</td>
+<td class="Cell">
+<p>Burmese</p>
+</td>
+<td class="Cell">
+<p><code>ELangUkrainian</code></p>
+</td>
+<td class="Cell">
+<p>Ukrainian</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangCatalan</code></p>
+</td>
+<td class="Cell">
+<p>Catalan</p>
+</td>
+<td class="Cell">
+<p><code>ELangUrdu</code></p>
+</td>
+<td class="Cell">
+<p>Urdu</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangCroatian</code></p>
+</td>
+<td class="Cell">
+<p>Croatian</p>
+</td>
+<td class="Cell">
+<p><code>ELangUzbek</code></p>
+</td>
+<td class="Cell">
+<p>Uzbek</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangCanadianEnglish</code></p>
+</td>
+<td class="Cell">
+<p>Canadian English</p>
+</td>
+<td class="Cell">
+<p><code>ELangVietnamese</code></p>
+</td>
+<td class="Cell">
+<p>Vietnamese</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangInternationalEnglish</code></p>
+</td>
+<td class="Cell">
+<p>International English</p>
+</td>
+<td class="Cell">
+<p><code>ELangWelsh</code></p>
+</td>
+<td class="Cell">
+<p>Welsh</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangSouthAfricanEnglish</code></p>
+</td>
+<td class="Cell">
+<p>South African English</p>
+</td>
+<td class="Cell">
+<p><code>ELangZulu</code></p>
+</td>
+<td class="Cell">
+<p>Zulu</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>ELangEstonian</code></p>
+</td>
+<td class="Cell">
+<p>Estonian</p>
+</td>
+<td class="Cell">
+<p><code>ELangOther</code></p>
+</td>
+<td class="Cell">
+<p>Other</p>
+</td>
+</tr>
+</table></td></tr></table><a name="1.5.5"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Number of icons</h3>
+</div><div class="Bodytext">
+<p>The <code>num_icons</code> field defines the number of bitmaps to be included in the final <code class="filename">aif</code> file.  If not specified, the number defaults to zero, and the <code class="filename">aif</code> file is displayed with the default icon. The default icon is typically a question mark.</p>
+<p class="CodeBlock"><code>[num_icons=0;]</code></p>
+<a name="1.5.6"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Embeddability capability</h3>
+</div><div class="Bodytext">
+<p>The file can take one of three enumerated Embeddability values, as defined in the topic <a href="../DevTools/Tool_Guide_aiftool.guide.html#DevTools%2eaif%2dcapabilities">Application capabilities</a>.  If undefined, the Embeddability property defaults to <code>KAppNotEmbeddable</code>.</p>
+<p class="CodeBlock"><code>[embeddability= KAppNotEmbeddable | KAppEmbeddable | KAppEmbeddableOnly;]</code></p>
+<a name="1.5.7"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Hidden capability</h3>
+</div><div class="Bodytext">
+<p>The file can take one of two enumerated hidden states, as defined in the topic <a href="../DevTools/Tool_Guide_aiftool.guide.html#DevTools%2eaif%2dcapabilities">Application capabilities</a>.  If undefined, the Hidden property defaults to <code>KAppNotHidden</code>.</p>
+<p class="CodeBlock"><code>[hidden= KAppNotHidden | KAppIsHidden;]</code></p>
+<a name="1.5.8"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>New file capability</h3>
+</div><div class="Bodytext">
+<p>The file can have one of two enumerated new file creation properties, as defined in the topic <a href="../DevTools/Tool_Guide_aiftool.guide.html#DevTools%2eaif%2dcapabilities">Application capabilities</a>.  If undefined, the New File property defaults to <code>KAppDoesNotSupportNewFile</code>.</p>
+<p class="CodeBlock"><code>[newfile= KAppDoesNotSupportNewFile | KAppSupportsNewFile];</code></p>
+<a name="1.5.9"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Data-type list</h3>
+</div><div class="Bodytext">
+<p>MIME type priorities are specified in the <code>datatype_list</code> section of the resource file.  The priority for each type, e.g. text/html, determines which application is launched to display a particular document.  Priorities can take one of four enumerated levels, as described in the topic <a href="../DevTools/Tool_Guide_aiftool.guide.html#DevTools%2eaif%2dmime%2dtype">MIME support</a>.</p>
+<p>[<code>datatype_list=
+{
+DATATYPE { priority=</code>
+<code>EDataTypePriorityHigh</code> | <code>EDataTypePriorityNormal</code> | <code>EDataTypePriorityLow</code> | <code>EDataTypePriorityLastResort</code><code>;</code>
+<code>type=&quot;</code><code>MIME_type</code><code>&quot;;},
+</code>
+<code>DATATYPE { priority=</code><code>priority_enumeration</code><code>; type=&quot;</code><code>another_MIME_type</code><code>&quot;; }
+};</code>]</p>
+<a name="1.5.9.4"></a><h4>Notes:</h4>
+<ul><li><p>Developers should only use <code>EDataTypePriorityNormal</code> or <code>EDataTypePriorityLow</code>, unless there is a very good reason to do otherwise.</p></li>
+</ul>
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to restore pictures</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="EmbeddingGuide%2erestore%2dexample"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToStorePictures.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Graphics</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Embedding</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;restore&nbsp;pictures</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to restore pictures</h1>
+</div><div class="Bodytext">
+<p>Pictures can be restored in two different ways:</p>
+<ul>
+<li>
+<p>the picture header can be restored, and the picture data restored
+immediately after</p>
+</li>
+<li>
+<p>the picture header can be restored, and the loading of the
+picture data deferred until a later time</p>
+</li>
+</ul>
+<p>This second case is commonly used when loading rich-text documents
+that include pictures. Using a deferred loading scheme, pictures that occur
+towards the end of a document need not be loaded until they are needed to be
+displayed, thus economising on memory use.</p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Restoring the picture header</h2>
+</div><div class="Bodytext">
+<p>This fragment assumes that the picture header is stored in the root
+stream of the store, making it easy to restore:</p>
+<p class="CodeBlock"><code>// The file used in the example<br>_LIT(KFileName,&quot;C:\\grpict.dat&quot;);<br><br>// Open the direct file store<br>CDirectFileStore* store = CDirectFileStore::OpenLC(fsSession,KFileName,EFileRead);<br><br>// Read the header stream<br>RStoreReadStream stream;<br>stream.OpenLC(*store,store-&gt;Root());<br>TPictureHeader header;<br>header.InternalizeL(stream);</code></p>
+<p class="CodeBlock"><code>// Close store<br>CleanupStack::PopAndDestroy(2); // stream, store</code></p>
+<ol>
+<li>
+<p>Open the direct file store containing the picture.</p>
+</li>
+<li>
+<p>Open the root stream of the store, and internalise the picture
+header.</p>
+</li>
+<li>
+<p>Close the stream and store.</p>
+</li>
+</ol>
+<a name="1.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Restoring the picture data: an example of a
+<code>MPictureFactory</code>-derived class</h2>
+</div><div class="Bodytext">
+<p>To restore the picture data itself, it must have an associated entry in
+a picture factory. The picture factory ensures that the picture data in the
+store is restored to the correct picture type, which is specified by a UID in
+the picture header. A picture factory can allow a number of different types of
+picture to be restored, calling the correct constructor for the class indicated
+by the UID. In the following example code the picture factory allows only
+pictures of type <code>CSmileyPicture</code> to be restored, and panics if the
+picture data in the store is of another type.</p>
+<a name="1.7.3"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Restoring the picture</h3>
+</div><div class="Bodytext">
+<p class="CodeBlock"><code>// The file used in the example<br>_LIT(KFileName,&quot;C:\\grpict.dat&quot;);<br><br>// Open the direct file store<br>CDirectFileStore* store = CDirectFileStore::OpenLC(fsSession,KFileName,EFileRead);<br><br>// Read the picture<br>TExamplePictureFactory factory;<br>TPictureHeader header;<br>factory.NewPictureL(header,*store);<br>iPicture = (CSmileyPicture *) header.iPicture.AsPtr();<br><br>// Close store<br>CleanupStack::PopAndDestroy();</code></p>
+<a name="1.7.4"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3> Picture factory</h3>
+</div><div class="Bodytext">
+<p class="CodeBlock"><code>class TExamplePictureFactory: public MPictureFactory<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>public:<br>&nbsp;&nbsp;&nbsp;&nbsp;void NewPictureL(TPictureHeader&amp; aHeader,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const CStreamStore&amp; aDeferredPictureStore) const;<br>&nbsp;&nbsp;&nbsp;&nbsp;};</code></p>
+<p class="CodeBlock"><code>void TExamplePictureFactory::NewPictureL(TPictureHeader&amp; aHeader,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const CStreamStore&amp; aDeferredPictureStore) const<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;if (aHeader.iPictureType == KUidExampleSmileyPicture)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Restore new picture from store into <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// the TSwizzle, which changes from<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// stream id to pointer.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Construct CSmileyPicture object and <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// restore from stream.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (aHeader.iPicture.IsId())<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aHeader.iPicture = CSmileyPicture::NewL(aDeferredPictureStore,aHeader.iPicture.AsId());<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;else<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Leave<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;User::Leave(KErrNoMemory);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

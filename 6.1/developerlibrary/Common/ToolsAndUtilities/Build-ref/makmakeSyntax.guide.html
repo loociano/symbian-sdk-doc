@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>makmake command syntax</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="PracticalGuide%2esyntax%2dmakmake"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="abld-syntax-ref/index.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="bldmake-ref/index.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Build&nbsp;Tools&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+makmake&nbsp;command&nbsp;syntax</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1><code class="filename">makmake</code> command syntax</h1>
+</div><div class="Bodytext">
+<p>Symbian projects are defined by an <code class="filename">.mmp</code> file which specifies the essential elements of the project. The <code class="filename">makmake</code> tool then uses this environment neutral file to build makefiles for use in various environments. These makefiles are then used for project development. </p><p>Normally, <code class="filename">makmake</code> generates a makefile whose extension depends on the platform:</p>
+<ul><li><p>for <code>wins</code>, the extension is <code class="filename">.wins</code></p></li>
+<li><p>for <code>armi</code>, the extension is <code class="filename">.armi</code></p></li>
+<li><p>for <code>vc6</code>, the extension is <code class="filename">.dsp</code></p></li>
+</ul><h4 class="subheading">Invocation syntax</h4><p><code>makmake</code> [ <em class="metasyntactic">options</em> ] [ <em class="metasyntactic">source-path</em> ] <em class="metasyntactic">project</em>
+<em class="metasyntactic">platform</em></p>
+<p>Details of <em class="metasyntactic">options</em>, <em class="metasyntactic">source-path</em>, <em class="metasyntactic">project</em>, and <em class="metasyntactic">platform</em> are given below.</p>
+<h4 class="subheading"><em class="metasyntactic">options</em></h4><table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0">
+<tr valign="top">
+<td class="Cell">
+<p><code>    -d</code></p>
+</td>
+<td class="Cell">
+<p>Indicates that the makefile is to be created in directory <code class="filename">epoc32\build\</code><em class="metasyntactic">path_to_mmp_file</em><code class="filename">\</code><code>mmp_basename</code><code class="filename">\</code><em class="metasyntactic">platform</em> rather than the directory in which <code class="filename">makmake</code> was invoked. </p>
+<p>Note that relative paths within the created makefile will be relative to the directory in which <code class="filename">makmake </code> was invoked so <code class="filename">nmake</code> should be invoked from that directory too if the project is to build correctly.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>    -v</code></p>
+</td>
+<td class="Cell">
+<p>Indicates verbose operation</p>
+<p>When this flag is specified, <code class="filename">makmake</code> prints many progress messages.  The default is to give error messages only.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>    -mmp</code></p>
+</td>
+<td class="Cell">
+<p>Provides basic syntax guide to writing <code class="filename">.mmp</code> files instead of making the makefile.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>    -plat </code>
+<em class="metasyntactic">platform</em></p>
+</td>
+<td class="Cell">
+<p>Provides syntax guide to writing platform-specific sections of <code class="filename">.mmp</code> files, and information about which macros are defined for preprocessing the <code class="filename">.mmp</code> files.</p>
+</td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading"><em class="metasyntactic">source-path</em></h4><p>This specifies the path of the source <code class="filename">.mmp</code> file, relative to the current directory.</p>
+<p>If omitted, the source <code class="filename">.mmp</code> file is <code>project</code><code class="filename">.mmp</code> in the current directory.</p>
+<p>Whether or not the <em class="metasyntactic">source-path</em> is specified, the generated makefile is always written into the current directory.</p><h4 class="subheading"><em class="metasyntactic">project</em></h4><p>This specifies the project for which to create the makefile.</p>
+<h4 class="subheading"><em class="metasyntactic">platform</em></h4><p>This specifies the target platform. Possible platforms are:</p><table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top"><td class="Cell"><p><code>armi</code></p></td><td class="Cell"><p>ARMI</p></td></tr><tr valign="top"><td class="Cell"><p><code>wins</code></p></td><td class="Cell"><p>WINS</p></td></tr><tr valign="top"><td class="Cell"><p><code>vc6</code></p></td><td class="Cell"><p>Microsoft VC++ 6 workspace</p></td></tr></table></td></tr></table>
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

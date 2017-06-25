@@ -1,0 +1,779 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>E32USER-CBase</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="Panics%2ee32user%2dcbase"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="AllocCountPanics.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="KernPanics.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Panic&nbsp;categories&nbsp;and&nbsp;numbers</a>&nbsp;<span class="separator">&#187;</span>
+E32USER-CBase</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Category: E32USER-CBase</h1>
+</div><div class="Bodytext">
+<p>Panics with this category are raised in user side code by member functions of <code>CBase</code> derived classes that reside in <code class="filename">euser.dll</code>. Typically, they are caused by passing bad or contradictory values to class constructors or member functions.</p><p>The thread causing the panic is terminated.</p>
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0">
+<tr valign="top">
+<td class="Cell">
+<p><code>1</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Set()</code> member function of <code>CAsyncCallBack</code>, if this active object is already active when the function is called.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>2</code></p>
+</td>
+<td class="Cell">
+<p><i>This panic is raised in debug builds only.</i></p>
+<p>This panic is raised by the <code>Call()</code> member function of <code>CAsyncOneShot</code> if the active object has
+not already been added to the active scheduler.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>3</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised during construction of a dynamic buffer (a <a href="../DynamicBuffers/CBufFlatClass.html#%3a%3aCBufFlat" title="Provides a flat storage dynamic buffer"><code class="ApiItem">CBufFlat</code></a> or a <a href="../DynamicBuffers/CBufSegClass.html#%3a%3aCBufSeg" title="Segmented dynamic buffer"><code class="ApiItem">CBufSeg</code></a>) when
+the value of the granularity passed to the constructors is negative.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>4</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when reading from a dynamic buffer (a <a href="../DynamicBuffers/CBufFlatClass.html#%3a%3aCBufFlat" title="Provides a flat storage dynamic buffer"><code class="ApiItem">CBufFlat</code></a> or a <a href="../DynamicBuffers/CBufSegClass.html#%3a%3aCBufSeg" title="Segmented dynamic buffer"><code class="ApiItem">CBufSeg</code></a>) using the
+<code>Read()</code> member function. It is caused by attempting to read beyond the end of the buffer.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>5</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when writing to a dynamic buffer (a <a href="../DynamicBuffers/CBufFlatClass.html#%3a%3aCBufFlat" title="Provides a flat storage dynamic buffer"><code class="ApiItem">CBufFlat</code></a> or a <a href="../DynamicBuffers/CBufSegClass.html#%3a%3aCBufSeg" title="Segmented dynamic buffer"><code class="ApiItem">CBufSeg</code></a>) using the
+<code>Write()</code> member function. It is caused by attempting to write beyond the end of the buffer.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>6</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when reading from a dynamic buffer (a <a href="../DynamicBuffers/CBufFlatClass.html#%3a%3aCBufFlat" title="Provides a flat storage dynamic buffer"><code class="ApiItem">CBufFlat</code></a> or a <a href="../DynamicBuffers/CBufSegClass.html#%3a%3aCBufSeg" title="Segmented dynamic buffer"><code class="ApiItem">CBufSeg</code></a>) using the   <code>Read()</code> member function. It is caused by specifying a negative length for the amount of data to be
+read</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>7</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when writing to a dynamic buffer (a <a href="../DynamicBuffers/CBufFlatClass.html#%3a%3aCBufFlat" title="Provides a flat storage dynamic buffer"><code class="ApiItem">CBufFlat</code></a> or a <a href="../DynamicBuffers/CBufSegClass.html#%3a%3aCBufSeg" title="Segmented dynamic buffer"><code class="ApiItem">CBufSeg</code></a>) using the
+<code>Write()</code> member function. It is caused by specifying a negative length for the amount of data to be
+written.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>8</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when inserting data into a dynamic buffer (a <a href="../DynamicBuffers/CBufFlatClass.html#%3a%3aCBufFlat" title="Provides a flat storage dynamic buffer"><code class="ApiItem">CBufFlat</code></a> or a <a href="../DynamicBuffers/CBufSegClass.html#%3a%3aCBufSeg" title="Segmented dynamic buffer"><code class="ApiItem">CBufSeg</code></a>) using
+the <code>InsertL()</code> member function or when inserting an uninitialized region into the dynamic buffer
+using the <code>ExpandL()</code> member function. It is caused by passing a negative length value to these
+functions.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>9</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when inserting data into a dynamic buffer (a <a href="../DynamicBuffers/CBufFlatClass.html#%3a%3aCBufFlat" title="Provides a flat storage dynamic buffer"><code class="ApiItem">CBufFlat</code></a> or a <a href="../DynamicBuffers/CBufSegClass.html#%3a%3aCBufSeg" title="Segmented dynamic buffer"><code class="ApiItem">CBufSeg</code></a>) using
+the <code>InsertL()</code> member function. It is caused when the variant of <code>InsertL()</code> which takes a
+pointer to <code>TAny</code>, is passed a NULL pointer value.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>10</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when specifying the minimum amount of space which a flat dynamic buffer (a
+<a href="../DynamicBuffers/CBufFlatClass.html#%3a%3aCBufFlat" title="Provides a flat storage dynamic buffer"><code class="ApiItem">CBufFlat</code></a>) should occupy using the <code>SetReserveL()</code> member function. It is caused when the
+size value passed to the function is negative.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>11</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when specifying the minimum amount of space which a flat dynamic buffer (a
+<a href="../DynamicBuffers/CBufFlatClass.html#%3a%3aCBufFlat" title="Provides a flat storage dynamic buffer"><code class="ApiItem">CBufFlat</code></a>) should occupy using the <code>SetReserveL()</code> member function. It is caused when the
+size value passed to the function is less than the current size of the buffer.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>12</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Delete()</code>, <code>Ptr()</code>, <code>BackPtr()</code> member functions of a flat dynamic
+buffer (a <a href="../DynamicBuffers/CBufFlatClass.html#%3a%3aCBufFlat" title="Provides a flat storage dynamic buffer"><code class="ApiItem">CBufFlat</code></a>); the panic can also be raised by <code>InsertL()</code> and <code>ExpandL()</code>. It is caused
+when the position value passed to these functions is either negative or represents a position beyond the
+end of the current buffer.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>13</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Delete()</code> member function of a flat dynamic buffer (a <a href="../DynamicBuffers/CBufFlatClass.html#%3a%3aCBufFlat" title="Provides a flat storage dynamic buffer"><code class="ApiItem">CBufFlat</code></a>). It
+is caused when the combination of position and length values passed to the function implies an attempt
+to delete data beyond the end of the flat buffer.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>14</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Delete()</code>, <code>Ptr()</code>, <code>BackPtr()</code> member functions of a segmented
+dynamic buffer (a <a href="../DynamicBuffers/CBufSegClass.html#%3a%3aCBufSeg" title="Segmented dynamic buffer"><code class="ApiItem">CBufSeg</code></a>); the panic can also be raised by <code>InsertL()</code> and <code>ExpandL()</code>. It is
+caused when the position value passed to these functions is either negative or represents a position
+beyond the end of the current buffer.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>15</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the Delete() member function of a segmented dynamic buffer (a
+<a href="../DynamicBuffers/CBufSegClass.html#%3a%3aCBufSeg" title="Segmented dynamic buffer"><code class="ApiItem">CBufSeg</code></a>). It is caused when the combination of position and length values passed to the function
+implies an attempt to delete data beyond the end of the segmented buffer.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>16</code></p>
+</td>
+<td class="Cell">
+<p><i>This panic is raised in debug builds only.</i></p>
+<p>This panic is raised by the <code>InsertL()</code>, <code>Delete()</code>, <code>Ptr()</code> and <code>BackPtr()</code> member functions
+as implemented for segmented buffers (<a href="../DynamicBuffers/CBufSegClass.html#%3a%3aCBufSeg" title="Segmented dynamic buffer"><code class="ApiItem">CBufSeg</code></a>), when the offset within a segment, where data is
+to be inserted or removed, is greater than the buffer granularity.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>17</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the constructors of arrays of fixed length objects as represented, for example, by the
+classes <a href="../DynamicArrays/CArrayFixFlatClass.html#%3a%3aCArrayFixFlat" title="Array of fixed length objects contained within a flat dynamic buffer"><code class="ApiItem">CArrayFixFlat</code></a>, <a href="../DynamicArrays/CArrayFixSegClass.html#%3a%3aCArrayFixSeg" title="Array of fixed length objects contained within a segmented buffer"><code class="ApiItem">CArrayFixSeg</code></a> and
+<a href="../DynamicArrays/CArrayFixFlatTAnyClass.html#%3a%3aCArrayFixFlat%3cTAny%3e" title="An array of fixed length untyped objects using a flat dynamic buffer"><code class="ApiItem">CArrayFixFlat&lt;TAny&gt;</code></a>. It is caused when the record length is either negative or zero.</p>
+<p>The record length is either explicitly specified as in the case of the <a href="../DynamicArrays/CArrayFixFlatTAnyClass.html#%3a%3aCArrayFixFlat%3cTAny%3e" title="An array of fixed length untyped objects using a flat dynamic buffer"><code class="ApiItem">CArrayFixFlat&lt;TAny&gt;</code></a> class
+or is implied by the length of the template class as in the case of the <a href="../DynamicArrays/CArrayFixFlatClass.html#%3a%3aCArrayFixFlat" title="Array of fixed length objects contained within a flat dynamic buffer"><code class="ApiItem">CArrayFixFlat</code></a>
+class.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>18</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the constructors of arrays of fixed length objects as represented, for example, by the
+classes: <a href="../DynamicArrays/CArrayFixFlatClass.html#%3a%3aCArrayFixFlat" title="Array of fixed length objects contained within a flat dynamic buffer"><code class="ApiItem">CArrayFixFlat</code></a> and <a href="../DynamicArrays/CArrayFixSegClass.html#%3a%3aCArrayFixSeg" title="Array of fixed length objects contained within a segmented buffer"><code class="ApiItem">CArrayFixSeg</code></a>.  It is caused when the granularity passed to the constructors is either
+negative or zero.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>19</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the constructors of arrays of variable length objects as represented, for example, by the
+classes: <a href="../DynamicArrays/CArrayVarFlatClass.html#%3a%3aCArrayVarFlat" title="Array of variable length objects implemented using a flat dynamic buffer"><code class="ApiItem">CArrayVarFlat</code></a> and <a href="../DynamicArrays/CArrayVarSegClass.html#%3a%3aCArrayVarSeg" title="Array of variable length objects implemented using a segmented dynamic buffer"><code class="ApiItem">CArrayVarSeg</code></a>. It is caused when the granularity passed to the constructors is either
+negative or zero.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>20</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the constructors of packed arrays as represented, for example, by the class
+<a href="../DynamicArrays/CArrayPakFlatClass.html#%3a%3aCArrayPakFlat" title="Array of variable length objects packed into a flat buffer"><code class="ApiItem">CArrayPakFlat</code></a>.  It is caused when the granularity passed to the constructors is either
+negative or zero.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>21</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by any operation which accesses an element of an array by explicit reference to an
+index number, for example, the <code>Delete()</code>, <code>InsertL()</code> and <code>At()</code> member functions or the
+operator <code>Operator[]</code>. It is caused by specifying an index value which is either negative or is
+greater than or equal to the number of objects currently within the array.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>22</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when deleting contiguous elements from an array of fixed  length objects  (derived from
+<a href="../DynamicArrays/CArrayFixBaseClass.html#%3a%3aCArrayFixBase" title="Base class for arrays of fixed length objects"><code class="ApiItem">CArrayFixBase</code></a>) using the <code>Delete()</code> member function. It is caused by specifying the
+number of contiguous elements as a zero or negative value.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>23</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when inserting contiguous elements into an array of  fixed length objects (derived from
+<a href="../DynamicArrays/CArrayFixBaseClass.html#%3a%3aCArrayFixBase" title="Base class for arrays of fixed length objects"><code class="ApiItem">CArrayFixBase</code></a>) using the <code>InsertL()</code> member function. It is caused by specifying the
+number of contiguous elements as a zero or negative value.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>24</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when resizing an array of  fixed length objects (derived from <a href="../DynamicArrays/CArrayFixBaseClass.html#%3a%3aCArrayFixBase" title="Base class for arrays of fixed length objects"><code class="ApiItem">CArrayFixBase</code></a>) using
+the <code>ResizeL()</code> member function. It is caused by specifying the number of contiguous elements as a
+zero or negative value.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>25</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when deleting contiguous elements from an array of  variable length objects (derived from
+<a href="../DynamicArrays/CArrayVarBaseClass.html#%3a%3aCArrayVarBase" title="An implementation base class for variable length arrays"><code class="ApiItem">CArrayVarBase</code></a>) using the <code>Delete()</code> member function. It is caused by specifying the number
+of contiguous elements as a zero or negative value.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>26</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when deleting contiguous elements from a packed array (derived from
+<a href="../DynamicArrays/CArrayPakBaseClass.html#%3a%3aCArrayPakBase" title="An implementation base class for variable length, packed, arrays"><code class="ApiItem">CArrayPakBase</code></a>) using the <code>Delete()</code> member function. It is caused by specifying the number
+of contiguous elements as a zero or negative value.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>27</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when reserving space in flat arrays of fixed length objects, (the
+<a href="../DynamicArrays/CArrayFixFlatClass.html#%3a%3aCArrayFixFlat" title="Array of fixed length objects contained within a flat dynamic buffer"><code class="ApiItem">CArrayFixFlat</code></a>,<a href="../DynamicArrays/CArrayFixFlatTAnyClass.html#%3a%3aCArrayFixFlat%3cTAny%3e" title="An array of fixed length untyped objects using a flat dynamic buffer"><code class="ApiItem">CArrayFixFlat&lt;TAny&gt;</code></a> and <a href="../DynamicArrays/CArrayPtrFlatClass.html#%3a%3aCArrayPtrFlat" title="Array of pointers to objects implemented using a flat dynamic buffer"><code class="ApiItem">CArrayPtrFlat</code></a> classes ) using the <code>SetReserveL()</code> member function. It is caused by specifying the number of
+elements, for which space is to be reserved, as less than the current number of elements in the array.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>28</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when inserting or appending replicated elements to the arrays of fixed length objects <a href="../DynamicArrays/CArrayFixFlatClass.html#%3a%3aCArrayFixFlat" title="Array of fixed length objects contained within a flat dynamic buffer"><code class="ApiItem">CArrayFixFlat</code></a> and  <a href="../DynamicArrays/CArrayFixSegClass.html#%3a%3aCArrayFixSeg" title="Array of fixed length objects contained within a segmented buffer"><code class="ApiItem">CArrayFixSeg</code></a> using the <code>InsertL()</code> or
+<code>AppendL()</code> functions. It is caused by specifying the number of replicas as negative or zero.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>29</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when deleting elements from a fixed length, variable length or packed array
+(derived from <a href="../DynamicArrays/CArrayFixBaseClass.html#%3a%3aCArrayFixBase" title="Base class for arrays of fixed length objects"><code class="ApiItem">CArrayFixBase</code></a>, <a href="../DynamicArrays/CArrayVarBaseClass.html#%3a%3aCArrayVarBase" title="An implementation base class for variable length arrays"><code class="ApiItem">CArrayVarBase</code></a> and <a href="../DynamicArrays/CArrayPakBaseClass.html#%3a%3aCArrayPakBase" title="An implementation base class for variable length, packed, arrays"><code class="ApiItem">CArrayPakBase</code></a>) using the
+<code>Delete()</code> function. It is caused when the specification of the position of the first element to be
+deleted and the number of contiguous elements to be deleted refers to elements which are outside the
+bounds of the array.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>30</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when inserting into, appending onto, expanding or extending a variable length
+array or a packed array (i.e. arrays derived from <a href="../DynamicArrays/CArrayVarClass.html#%3a%3aCArrayVar" title="A thin templated base class for variable length arrays"><code class="ApiItem">CArrayVar</code></a> or <a href="../DynamicArrays/CArrayPakClass.html#%3a%3aCArrayPak" title="A thin templated base class for variable length, packed, arrays"><code class="ApiItem">CArrayPak</code></a>) using the <code>InsertL()</code>, <code>AppendL()</code>, <code>ExpandL()</code> or
+<code>ExtendL()</code> functions respectively. It is caused by specifying the length of the element as a negative
+value.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>33</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the destructor of a <a href="../ReferenceCountingObjects/CObjectClass.html#%3a%3aCObject" title="Implements reference counting to track concurrent references to itself"><code class="ApiItem">CObject</code></a>. It is caused, if an attempt is made to delete the
+<a href="../ReferenceCountingObjects/CObjectClass.html#%3a%3aCObject" title="Implements reference counting to track concurrent references to itself"><code class="ApiItem">CObject</code></a> when the reference count is not zero.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>34</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Close()</code> member function of a <a href="../ReferenceCountingObjects/CObjectClass.html#%3a%3aCObject" title="Implements reference counting to track concurrent references to itself"><code class="ApiItem">CObject</code></a>. It is caused, if the reference
+count is negative.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>35</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Remove()</code> member function of an object container, a <a href="../ReferenceCountingObjects/CObjectConClass.html#%3a%3aCObjectCon" title="An object container"><code class="ApiItem">CObjectCon</code></a>. It
+is caused when the <a href="../ReferenceCountingObjects/CObjectClass.html#%3a%3aCObject" title="Implements reference counting to track concurrent references to itself"><code class="ApiItem">CObject</code></a> to be removed from the container is not contained by the container.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>36</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Remove()</code> member function of a container index, a <a href="../ReferenceCountingObjects/CObjectConIxClass.html#%3a%3aCObjectConIx" title="A container for object containers"><code class="ApiItem">CObjectConIx</code></a>. It
+is caused when the object container, a <a href="../ReferenceCountingObjects/CObjectConClass.html#%3a%3aCObjectCon" title="An object container"><code class="ApiItem">CObjectCon</code></a>, to be removed from the index is not contained
+by the index.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>37</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Remove()</code> member function of an object index, a <a href="../ReferenceCountingObjects/CObjectIxClass.html#%3a%3aCObjectIx" title="Generates handle numbers for reference counting objects"><code class="ApiItem">CObjectIx</code></a>. It is
+caused when the handle passed to the <code>Remove()</code> function does not represent a <a href="../ReferenceCountingObjects/CObjectClass.html#%3a%3aCObject" title="Implements reference counting to track concurrent references to itself"><code class="ApiItem">CObject</code></a> known to
+the object index.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>38</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>At()</code>, <code>FindByName()</code> and <code>FindByFullName()</code> member
+functions of an object container, a <a href="../ReferenceCountingObjects/CObjectConClass.html#%3a%3aCObjectCon" title="An object container"><code class="ApiItem">CObjectCon</code></a>. It is caused when the unique ID as derived from
+the handle is not the same as the unique ID held by the object container.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>39</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>At()</code> member function of an object container, a <a href="../ReferenceCountingObjects/CObjectConClass.html#%3a%3aCObjectCon" title="An object container"><code class="ApiItem">CObjectCon</code></a>. It is
+caused when the index represented by the handle is outside the permitted range. In effect, the handle is bad.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>40</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the destructor of an active object, a <a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive" title="The core class of the active object abstraction"><code class="ApiItem">CActive</code></a>. It is caused by an attempt to
+delete the active object while it still has a request outstanding.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>41</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Add()</code> member function of an active scheduler, a
+<a href="../AsynchronousServices/CActiveSchedulerClass.html#%3a%3aCActiveScheduler" title="Controls the handling of asynchronous requests as represented by active objects"><code class="ApiItem">CActiveScheduler</code></a>. It is caused by an attempt to add an active object to the active scheduler
+when it has already been added to the active scheduler</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>42</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>SetActive()</code> member function of an active object, a <a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive" title="The core class of the active object abstraction"><code class="ApiItem">CActive</code></a>. It is
+caused by an attempt to flag the active object as active when it is already active, i.e. a request is still
+outstanding.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>43</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Install()</code> member function of an active scheduler, a
+<a href="../AsynchronousServices/CActiveSchedulerClass.html#%3a%3aCActiveScheduler" title="Controls the handling of asynchronous requests as represented by active objects"><code class="ApiItem">CActiveScheduler</code></a>. It is caused by attempting to install this active scheduler as the current active
+scheduler when there is already a current active scheduler; i.e. an active scheduler has already been
+installed.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>44</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Start()</code>, <code>Stop()</code> and <code>Add()</code> member functions of an active
+scheduler, a <a href="../AsynchronousServices/CActiveSchedulerClass.html#%3a%3aCActiveScheduler" title="Controls the handling of asynchronous requests as represented by active objects"><code class="ApiItem">CActiveScheduler</code></a>. It is caused by attempting to start or stop an active scheduler or
+by attempting to add an active object, a <a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive" title="The core class of the active object abstraction"><code class="ApiItem">CActive</code></a>, to the active scheduler.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>45</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Stop()</code> member function of an active scheduler, a
+<a href="../AsynchronousServices/CActiveSchedulerClass.html#%3a%3aCActiveScheduler" title="Controls the handling of asynchronous requests as represented by active objects"><code class="ApiItem">CActiveScheduler</code></a>. Calling <code>Stop()</code> terminates the wait loop started by the most recent call to
+<code>Start()</code>. The panic is caused by a call to <code>Stop()</code> which is not matched by a corresponding call to
+<code>Start()</code>.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>46</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by an active scheduler, a <a href="../AsynchronousServices/CActiveSchedulerClass.html#%3a%3aCActiveScheduler" title="Controls the handling of asynchronous requests as represented by active objects"><code class="ApiItem">CActiveScheduler</code></a>. It is caused by a stray signal.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>47</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Error()</code> virtual member function of an active scheduler, a
+<a href="../AsynchronousServices/CActiveSchedulerClass.html#%3a%3aCActiveScheduler" title="Controls the handling of asynchronous requests as represented by active objects"><code class="ApiItem">CActiveScheduler</code></a>. This function is called when an active object’s <code>RunL()</code> function leaves.
+Applications always replace the <code>Error()</code> function in a class derived from <code>CActiveScheduler</code>;
+the default behaviour provided by <code>CActiveScheduler</code> raises this panic.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>48</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Add()</code> member function of an active scheduler, a
+<a href="../AsynchronousServices/CActiveSchedulerClass.html#%3a%3aCActiveScheduler" title="Controls the handling of asynchronous requests as represented by active objects"><code class="ApiItem">CActiveScheduler</code></a>, when a NULL pointer is passed to the function.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>49</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>SetActive()</code> and <code>Deque()</code> member functions of an active object, a
+<a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive" title="The core class of the active object abstraction"><code class="ApiItem">CActive</code></a>. It is raised if the active object has not been added to the active scheduler.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>50</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>SetPriority()</code> member function of an active object, a <a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive" title="The core class of the active object abstraction"><code class="ApiItem">CActive</code></a>. It
+is caused by an attempt to change the priority of the active object while it is active, i.e. while a request
+is outstanding).</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>51</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>At()</code>, <code>After()</code> and <code>Lock()</code> member functions of the <a href="../TimersAndTimingServices/CTimerClass.html#%3a%3aCTimer" title="Base class for a timer active object"><code class="ApiItem">CTimer</code></a> active
+object. It is caused by an attempt to request a timer event when the <code>CTimer</code> active object has not been
+added to the active scheduler.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>52</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Start()</code> member function of the periodic timer active object, a
+<a href="../TimersAndTimingServices/CPeriodicClass.html#%3a%3aCPeriodic" title="Periodic timer active object"><code class="ApiItem">CPeriodic</code></a>, when a negative time interval is passed to the function.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>53</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Start()</code> member function of the periodic timer active object, a
+<a href="../TimersAndTimingServices/CPeriodicClass.html#%3a%3aCPeriodic" title="Periodic timer active object"><code class="ApiItem">CPeriodic</code></a>, when a negative delay time interval is passed to the function.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>54</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>RunL()</code> member function of the <a href="../ClientServer/CServerClass.html#%3a%3aCServer" title="Abstract base class for servers"><code class="ApiItem">CServer</code></a> active object base class
+responsible for handling asynchronous requests from a client thread when the client passes a negative
+function code in <a href="../ClientServer/RMessageClass.html#%3a%3aRMessage" title="An object which encapsulates a client request"><code class="ApiItem">RMessage</code></a>. The only negative values permitted are RMessage::EConnect
+and RMessage::EDisConnect.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>55</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Start()</code> member function of the <a href="../ClientServer/CServerClass.html#%3a%3aCServer" title="Abstract base class for servers"><code class="ApiItem">CServer</code></a> active object base class
+responsible for handling asynchronous requests from a client thread. It is caused by the server having
+no name.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>56</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>New()</code> and <code>NewL()</code> member functions of <code>CBitMapAllocator</code>
+when a negative or zero size is passed to them.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>57</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Free(TInt aPos)</code> member function of <code>CBitMapAllocator</code>
+when a position value is passed which is out of bounds.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>58</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>IsFree(TInt aPos)</code> member function of <code>CBitMapAllocator</code>
+when a position value is passed which is out of bounds.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>59</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>AllocFromTopFrom(TInt aPos)</code> member function of
+<code>CBitMapAllocator</code> when a position value is passed which is out of bounds.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>62</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>AllocAt()</code> member function of <code>CBitMapAllocator</code> when the
+implied position has already been allocated.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>63</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised as a result of a call to the <code>Pop()</code> and <code>PopAndDestroy()</code> static member
+functions of the <a href="../CleanupSupport/CleanupStackClass.html#%3a%3aCleanupStack" title="A collection of static functions that are used to add resources to and remove resources from the cleanup stack"><code class="ApiItem">CleanupStack</code></a> class. The panic occurs when TRAPs have been nested and an
+attempt is made to pop too many items from the cleanup stack for the current nest level.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>64</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised as a result of a call to the <code>Pop()</code> and <code>PopAndDestroy()</code> static member
+functions of the <a href="../CleanupSupport/CleanupStackClass.html#%3a%3aCleanupStack" title="A collection of static functions that are used to add resources to and remove resources from the cleanup stack"><code class="ApiItem">CleanupStack</code></a> class. The panic occurs when attempt is made to pop more items
+from the cleanup stack than are on the cleanup stack.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>65</code></p>
+</td>
+<td class="Cell">
+<p>The panic is raised as a result of a call to the <code>Pop()</code> and <code>PopAndDestroy()</code> static member
+functions of the <code>CleanupStack</code> class. The panic occurs when an attempt is made to pop more items
+from the cleanup stack than are on the cleanup stack.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>66</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised if an attempt is being made to insert a cleanup item into a position on the cleanup
+stack reserved for marking the current <a href="../CleanupSupport/TRAPMacro.html#TRAP" title="Executes the set of C++ statements _s under a trap harness -- use this macro as a C++ statement"><code class="ApiItem">TRAP</code></a> nest level. In practice this error occurs if the call to <a href="../CleanupSupport/CleanupStackClass.html#%3a%3aCleanupStack%3a%3aPushL%28%29" title="Pushes a pointer to an object onto the cleanup stack"><code class="ApiItem">CleanupStack::PushL()</code></a> happens when  there has been no call to <code>TRAP()</code>.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>67</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when building a <code>TCleanupStackItem</code> which is to be added to the cleanup
+stack. The building of the <code>TCleanupStackItem</code> needs a <a href="../CleanupSupport/TCleanupItemClass.html#%3a%3aTCleanupItem" title="Constructs a TCleanupItem object to be added to the cleanup stack"><code class="ApiItem">TCleanupItem</code></a> and this has been
+constructed with a NULL cleanup operation (a <a href="../CleanupSupport/TCleanupOperationTypedef.html#%3a%3aTCleanupOperation" title="Defines a function which takes a single argument of type TAny* and returns void"><code class="ApiItem">TCleanupOperation</code></a>).</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>68</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised if there are no free slots available on the cleanup stack to insert a cleanup item</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>69</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised if no trap handler has been installed. In practice, this occurs if
+<a href="../CleanupSupport/CTrapCleanupClass.html#%3a%3aCTrapCleanup" title="Cleanup stack interface"><code class="ApiItem">CTrapCleanup</code></a><code>::New()</code> has not been called before using the cleanup stack.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>70</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised as a result of a call to the versions of the <code>Pop()</code> and <code>PopAndDestroy()</code> static
+member functions of the <a href="../CleanupSupport/CleanupStackClass.html#%3a%3aCleanupStack" title="A collection of static functions that are used to add resources to and remove resources from the cleanup stack"><code class="ApiItem">CleanupStack</code></a> class which take an explicit count of the items to be
+popped. The panic is caused by passing a negative value for the number of items to be popped.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>71</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when <a href="../CleanupSupport/TRAPMacro.html#TRAP" title="Executes the set of C++ statements _s under a trap harness -- use this macro as a C++ statement"><code class="ApiItem">TRAP</code></a>s have been nested and an attempt is made to exit from a <a href="../CleanupSupport/TRAPMacro.html#TRAP" title="Executes the set of C++ statements _s under a trap harness -- use this macro as a C++ statement"><code class="ApiItem">TRAP</code></a> nest
+level before all the cleanup items belonging to that level have been popped off the cleanup stack.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>72</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the constructor of the circular buffer base class, a <a href="../CircularBuffers/CCirBufBaseClass.html#%3a%3aCCirBufBase" title="Base class for circular buffers"><code class="ApiItem">CCirBufBase</code></a>, when the
+size value passed is zero or negative.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>73</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by a call to the <code>SetLengthL()</code> member function of of the circular buffer base
+class, a <a href="../CircularBuffers/CCirBufBaseClass.html#%3a%3aCCirBufBase" title="Base class for circular buffers"><code class="ApiItem">CCirBufBase</code></a>, by passing a length value which is zero or negative.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>74</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by a call to the <code>Add()</code> member function of a circular buffer, a
+<a href="../CircularBuffers/CCirBufClass.html#%3a%3aCCirBuf" title="A circular buffer containing objects of a type defined by the template parameter"><code class="ApiItem">CCirBuf</code></a> when the pointer to the item to be added is NULL.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>75</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by a call to the <code>Add()</code> member function of a circular buffer, a
+<a href="../CircularBuffers/CCirBufClass.html#%3a%3aCCirBuf" title="A circular buffer containing objects of a type defined by the template parameter"><code class="ApiItem">CCirBuf</code></a> when the number of items to be added is zero or negative</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>76</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by a call to the <code>Remove()</code> member function of a circular buffer, a
+<a href="../CircularBuffers/CCirBufClass.html#%3a%3aCCirBuf" title="A circular buffer containing objects of a type defined by the template parameter"><code class="ApiItem">CCirBuf</code></a> when the number of items to be removed is zero or negative.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>89</code></p>
+</td>
+<td class="Cell">
+<p>Introduced in 6.0: This panic is raised by  call to the <code>Replace()</code> member function of <a href="../AsynchronousServices/CActiveSchedulerClass.html#%3a%3aCActiveScheduler" title="Controls the handling of asynchronous requests as represented by active objects"><code class="ApiItem">CActiveScheduler</code></a> when the replacement active scheduler is the same as the existing active scheduler.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>90</code></p>
+</td>
+<td class="Cell">
+<p>Introduced in 6.0: The panic is raised as a result of a call to the <code>Pop()</code> and <code>PopAndDestroy()</code> static member
+functions of the <code>CleanupStack</code> class. The panic occurs when an the item to be popped is not the expected item.</p>
+</td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

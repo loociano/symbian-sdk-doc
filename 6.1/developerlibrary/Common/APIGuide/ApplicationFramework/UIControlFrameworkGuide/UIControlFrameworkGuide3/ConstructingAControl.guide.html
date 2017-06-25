@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to construct a control</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="UIControlFrameworkGuide3%2econstruct"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="WritingNewControl.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="SizingPositioningAControl.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Application&nbsp;Framework</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;UI&nbsp;Control&nbsp;Framework</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">How&nbsp;to&nbsp;Write&nbsp;Controls</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;construct&nbsp;a&nbsp;control</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to construct a control</h1>
+</div><div class="Bodytext">
+<p>This section describes the functions that a concrete control class
+should implement so that it can be constructed.</p>
+<p>Different functions are used to construct a control, depending on if
+it is:</p>
+<ul>
+<li>
+<p>a window-owning control</p>
+</li>
+<li>
+<p>a compound control or a simple control</p>
+</li>
+</ul>
+<p>The following sections describe each of the different cases. Each
+section begins by describing how the control is created by the application, and
+uses this to list the functions that the control needs to implement.</p>
+<p>Note that device families may impose other requirements on control
+creation for use in dialogs.</p>
+<a name="1.8"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Constructing a simple non-window-owning control</h2>
+</div><div class="Bodytext">
+<p>To do this, an application has to:</p>
+<ol>
+<li>
+<p>Allocate memory for the control, and call its C++ constructor
+— this is done by calling <code>new(ELeave)</code> on the control
+class.</p>
+</li>
+<li>
+<p>Set the control's <em>associated
+window</em> — this is done using
+<code>SetContainerWindowL()</code>.</p>
+</li>
+</ol>
+<p>The only construction function the control needs to implement in
+this case is its C++ constructor. This can be used to initialise
+control-specific data, and to call non-leaving functions that affect the
+control for its whole lifetime, such as <code>SetNonFocusing()</code>.</p>
+<p>A control of this type, whose construction involves functions that
+can leave, should also code a <code>ConstructL()</code> function to handle all
+aspects of initialisation that can leave.</p>
+<a name="1.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Constructing a compound control or a window-owning
+control</h2>
+</div><div class="Bodytext">
+<p>To do this, the application has to:</p>
+<ol>
+<li>
+<p>Allocate memory for the control, and call its C++
+constructor.</p>
+</li>
+<li>
+<p>If the control is a non-window-owning control, set its
+<em>associated window</em>, by calling
+<code>SetContainerWindow()</code> or <code>SetContainerWindowL()</code>.</p>
+</li>
+<li>
+<p>Complete the control's construction by calling
+<code>ConstructL()</code>.</p>
+</li>
+<li>
+<p>Activate the control by calling <code>ActivateL()</code>,
+unless the control is a component inside a compound control. In this case,
+there is no need to call <code>ActivateL()</code> explicitly, because when a
+compound control is activated, it also activates all its component
+controls.</p>
+</li>
+</ol>
+<p>The functions that the control needs to implement are its C++
+constructor, and <code>ConstructL()</code>. <code>ConstructL()</code> is the
+control's second-phase constructor and should contain all initialisation that
+might leave. Typically, <code>ConstructL()</code> will:</p>
+<ul>
+<li>
+<p>call <code>CreateWindowL()</code> or
+<code>CreateBackedUpWindowL()</code> if the control is a window-owning
+control</p>
+</li>
+<li>
+<p>initialise the control's <em>extent</em>,
+unless this is done by the control's container</p>
+</li>
+<li>
+<p>create its component controls, if it is a compound
+control</p>
+</li>
+</ul>
+<p>The derived control class may optionally override
+<code>ActivateL()</code>.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

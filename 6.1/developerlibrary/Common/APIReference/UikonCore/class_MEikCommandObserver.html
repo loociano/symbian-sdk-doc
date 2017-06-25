@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>MEikCommandObserver</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="MEikAutoMenuObserverClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="class_MEikMenuObserver.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Uikon&nbsp;Core</a>&nbsp;<span class="separator">&#187;</span>
+MEikCommandObserver</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code> eikcmobs.h </code>
+<br>Link against: <code> eikcoctl.lib </code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aMEikCommandObserver"></a>
+
+<h1>Class <code>MEikCommandObserver</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>MEikCommandObserver</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Command observers respond to user commands, and have the secondary
+function of creating custom controls on request for classes such as
+<code>CEikToolbar</code>, or user-defined classes.</p>
+<p>An implementation of the pure virtual function
+<code>ProcessCommandL()</code> must be provided for each concrete class derived
+from <code>MEikCommandObserver</code>.
+<code>CreateCustomCommandControlL()</code> may also be re-implemented. </p>
+<p>Defined in <code>MEikCommandObserver</code>:
+<br><code class="ApiItem"><a href="class_MEikCommandObserver.html#%3a%3aMEikCommandObserver%3a%3aCreateCustomCommandControlL%28%29" title="Glue for creating custom controls">CreateCustomCommandControlL()</a></code>, <code class="ApiItem"><a href="class_MEikCommandObserver.html#%3a%3aMEikCommandObserver%3a%3aProcessCommandL%28%29" title="Processes user commands">ProcessCommandL()</a></code>
+</p>
+<a name="2.5"></a></div><div class="Head2">
+<a name="%3a%3aMEikCommandObserver%3a%3aProcessCommandL%28%29"></a>
+<hr size="2" noshade>
+<h2><code>ProcessCommandL()</code></h2>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void ProcessCommandL (TInt aCommandId) = 0;</code></p><h4 class="subheading">Description</h4>
+<p>Processes user commands.</p>
+<p>Derived classes must provide an implementation of this function which responds to user commands appropriately based on a user-defined ID for the command.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aCommandId </code></td>
+<td class="Cell"><p class="ValueDesc"> ID of the command to respond to. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><a name="%3a%3aMEikCommandObserver%3a%3aCreateCustomCommandControlL%28%29"></a>
+<hr size="2" noshade>
+<h2><code>CreateCustomCommandControlL()</code></h2>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual CCoeControl* CreateCustomCommandControlL(TInt aControlType);</code></p><h4 class="subheading">Description</h4>
+<p>Glue for creating custom controls.</p>
+<p>This function can be called to create custom controls on
+request from their control ID. Custom controls are user-supplied control
+classes.</p>
+<p>Given the ID of a custom control, this function should return a pointer to a newly-instantiated and fully constructed control. If the ID is unrecognised, <code>NULL</code> should be returned. The control returned will be owned by the caller.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aControlType </code></td>
+<td class="Cell"><p class="ValueDesc"> A custom control ID. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CCoeControl* </code></td>
+<td class="Cell"><p class="ValueDesc"> By default, <code>NULL</code>. </p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

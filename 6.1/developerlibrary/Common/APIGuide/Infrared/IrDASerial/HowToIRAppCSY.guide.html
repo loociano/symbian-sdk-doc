@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to implement a simple IR printing application</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="IrDAGuide4%2eHowto%2dIR%2dprinting%2dapp"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="IrDACSYIntroduction.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Infrared</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;IrDA&nbsp;Serial</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;implement&nbsp;a&nbsp;simple&nbsp;IR&nbsp;printing&nbsp;application</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to implement a simple IR printing application</h1>
+</div><div class="Bodytext">
+<p>The following code illustrates a simple program that pipes data
+chunks read from a file to the EPOC implementation of IrCOMM.</p>
+<p>When the first write is queued, internally, an IrLAP connection is
+established and an IAS query made on the class &#8220;IrDA:IrCOMM&#8221;
+and attribute &#8220;Parameters&#8221;.</p>
+<p>The course of action taken by the IrCOMM module is then determined by
+the level of IrCOMM support found in the remote device. If a cooked service is
+supported remotely, then the next IAS query is on class
+&#8220;IrDA:IrCOMM&#8221;, attribute &#8220;IrDA:TinyTP:LsapSel&#8221;.
+If 3WireRaw is supported remotely, the class remains the same but the attribute
+changes to &#8220;IrDA:IrLMP:LsapSel&#8221;. If no IrCOMM implementation is
+found, then a query is made on class &#8220;IrLPT&#8221; and attribute
+&#8220;IrDA:IrLMP:LsapSel&#8221; as IrCOMM assumes the remote device must
+be a printer. If that fails, the IrCOMM CSY tries to go ahead and connect to
+port 2 anyway (which gets around the Extended Systems JetEye 9580
+miscapitalisation stack bug). The write does not successfully complete until
+the corresponding MUX connection succeeds and the data is transmitted as either
+a TinyTP data frame (if the level of service is cooked) or an LM-MUX data frame
+(if the level of service is raw). </p>
+<p class="CodeBlock"><code>_LIT8(KTxtIRCOMM,&quot;IRCOMM&quot;);<br>_LIT8(KTxt0,&quot;IrCOMM::0&quot;);<br>TInt           ret;<br>TRequestStatus stat;<br>RCommServ      cs;<br>//<br>// CONNECT TO COMMSERV<br>//<br>cs.Connect();<br><br>//<br>// LOAD IRCOMM.CSY<br>//<br>cs.LoadCommModule(KTxtIRCOMM);             // Should return KErrNone<br><br>//<br>// OPEN IrCOMM SERIAL PORT<br>//<br>RComm irlpt;<br>ret = irlpt.Open(cs,KTxt0,ECommExclusive);<br>if (ret!=KErrNone &amp;&amp; ret!=KErrAlreadyExists)<br>&nbsp;{<br>&nbsp;cs.Close();                           // Open failed<br>&nbsp;return;<br>&nbsp;}<br><br>//<br>// CONNECT TO FILE SERVER<br>//<br>RFs fs;<br>ret = fs.Connect();<br>if (ret!=KErrNone)<br>&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Connect failed<br>&nbsp;}<br><br>//<br>// OPEN DEFAULT FILE CALLED IRCOMM.CPP<br>//<br>file.Open(fs,TEST_FILE_NAME,EFileStreamText);<br>TInt filelen=0;<br>ret=file.Size(filelen);                    // Should return KErrNone<br><br>//<br>// READ 2000 BYTE CHUNKS FROM THIS FILE<br>//<br>TBuf&lt;2000&gt; abuf;<br>TInt len=0;<br>while ((file.Read(abuf)==KErrNone))<br>&nbsp;{<br>&nbsp;irlpt.Write(stat,abuf);               // write chunks to IrCOMM<br>&nbsp;User::WaitForRequest(stat);<br>&nbsp;if (stat.Int()!=KErrNone)<br>&nbsp;&nbsp;{<br>&nbsp;&nbsp;goto finished;                   // Failed<br>&nbsp;&nbsp;}<br>&nbsp;len+=abuf.Length();<br>&nbsp;if (len&gt;=filelen)<br>&nbsp;&nbsp;break;<br>&nbsp;}<br>_LIT8(KTxtF,&quot;\f&quot;);<br>irlpt.Write(stat,KTxtF);<br>User::WaitForRequest(stat);<br>finished:<br><br>//<br>// CLOSE FILE<br>//<br>file.Close();<br><br>//<br>// CLOSE FILE SERVER SESSION<br>//<br>fs.Close();<br><br>//<br>// CLOSE IrCOMM PORT<br>//<br>irlpt.Close();<br><br>//<br>// CLOSE COMM SERVER CONNNECTION<br>//<br>cs.Close();</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

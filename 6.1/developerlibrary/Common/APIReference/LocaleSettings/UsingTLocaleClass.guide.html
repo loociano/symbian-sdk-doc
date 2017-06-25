@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Using TLocale</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="localesettings%2eusing%2eTLocale"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="LocaleSettingsConstants.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Locale&nbsp;Settings</a>&nbsp;<span class="separator">&#187;</span>
+Using&nbsp;TLocale</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Using <code>TLocale</code></h1>
+</div><div class="Bodytext">
+<a name="localesettings%2eusing%2eTLocale%2einitialization"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Initialization</h2>
+</div><div class="Bodytext">
+<p>The <code>TLocale</code> class is used to set and get the system&#8217;s locale information.  The operating system maintains the locale information internally.  On construction, a <code>TLocale</code> object is initialized with the system information for all locale items:</p>
+<p class="CodeBlock"><code>TLocale locale; // locale object<br>TInt code=locale.CountryCode(); // get country code<br>TChar thouSep=locale.ThousandsSeparator(); // get thousands separator<br>// ... etc</code></p>
+<a name="localesettings%2eusing%2eTLocale%2echanging"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Changing locale information</h2>
+</div><div class="Bodytext">
+<p>If you wish to have an application change the locale information used by that application alone, it may do so with one of the setter calls.  Subsequent requests for locale information will return the newly-set values. The system wide settings will not be affected however:</p>
+<p class="CodeBlock"><code>locale.SetThousandsSeparator(TChar('.')); // change setting<br>// ...<br>TChar thouSep=locale.ThousandsSeparator(); // get current value</code></p>
+<p>If you wish the changes to affect all other applications, <code>TLocale::Set()</code> should be called to set the locale settings of the entire system:</p>
+<p class="CodeBlock"><code>locale.SetThousandsSeparator(TChar('.')); // change setting<br>locale.Set(); // transfer settings to the system copy</code></p>
+<p>Normally, this would not be carried out from within an application program, but from within a shell.</p>
+<p>If the system settings have changed, and you wish to have your application use the new ones, use <code>Refresh()</code>:</p>
+<p class="CodeBlock"><code>locale.Refresh(); // refresh our values from system settings<br>TChar thouSep=locale.GetThousandsSeparator(); // get current value</code></p>
+<a name="localesettings%2eusing%2eTLocale%2eworkdays"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Workdays</h2>
+</div><div class="Bodytext">
+<p>In the following example, on return, <code>result</code> indicates whether Monday is a workday:&nbsp;&#8212;</p>
+<p class="CodeBlock"><code>TBool result=locale.Workdays()&amp;(1&lt;&lt;EMonday);</code></p>
+<p>For a list of day name constants, see the <code>TDay</code> enumeration.</p>
+<a name="localesettings%2eusing%2eTLocale%2edaylightsaving"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>DaylightSaving</h2>
+</div><div class="Bodytext">
+<p>In the following example, on return, <code>result</code> indicates whether daylight saving is in operation in the Southern daylight saving zone:&nbsp;&#8212;</p>
+<p class="CodeBlock"><code>TUint daylightSaving=locale.DaylightSaving();<br>TBool result=daylightSaving&EDstSouthern;</code></p>
+<p>Use <code>QueryHomeHasDaylightSavingOn()</code> rather than <code>DaylightSaving()</code> to get whether daylight saving is in effect for the home city. This is because the daylight saving setting for the home city may differ from that of the zone in which home is located. See the example below.</p>
+<a name="localesettings%2eusing%2eTLocale%2edaylight%2dsaving%2dexample"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Setting and retrieving daylight saving settings </h2>
+</div><div class="Bodytext">
+<p>The following code demonstrates how to set and retrieve daylight saving settings.</p>
+<p>First, the daylight saving zone for the home city is set to be the Southern hemisphere, and then daylight saving in the Southern hemisphere is set. In this case, home daylight saving is automatically set also (<code>result1</code> returns true):&nbsp;&#8212;  </p>
+<p class="CodeBlock"><code>locale.SetHomeDaylightSavingZone(EDstSouthern);<br>locale.SetDaylightSaving(EDstSouthern);<br>TBool result1=locale.QueryHomeHasDaylightSavingOn(); <br>&nbsp;&nbsp;// result1 returns true</code></p>
+<p>If the user wants to unset daylight saving for the home city, while daylight saving remains in effect in the Southern hemisphere, this can only be done by removing home from the Southern daylight saving zone:&nbsp;&#8212;  </p>
+<p class="CodeBlock"><code>locale.SetHomeDaylightSavingZone(EDstNone); <br>&nbsp;&nbsp;// remove home from Southern daylight saving zone</code></p>
+<p>Now, Southern daylight saving remains set (<code>result2</code> returns true) but home daylight saving is now unset (<code>result3</code> returns false):&nbsp;&#8212;</p>
+<p class="CodeBlock"><code>TUint daylightSaving=locale.DaylightSaving();<br>TBool result2=(daylightSaving&amp;EDstSouthern)<br>&nbsp;&nbsp;// result2 returns true<br>TBool result3=locale.QueryHomeHasDaylightSavingOn();<br>&nbsp;&nbsp;// result3 returns false</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

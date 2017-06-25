@@ -1,0 +1,1685 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CPlainText</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CParagraphStyleClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="CRichTextClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Text&nbsp;and&nbsp;Text&nbsp;Attributes</a>&nbsp;<span class="separator">&#187;</span>
+CPlainText</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code> txtetext.h </code>
+<br>Link against: <code> etext.lib </code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aCPlainText"></a>
+
+<h1>Class <code>CPlainText</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CPlainText</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Stores and manipulates plain text.
+</p><p>Plain text cannot be
+displayed, so this class provides no support for formatting. It is purely an in-memory buffer for text, and provides
+services that act upon it. These services include the following: import from and export to streams,  optionally
+translating between Unicode and other encodings; reading and writing of field data; extraction
+of text; finding word and paragraph boundaries.</p>
+<p>The type and size of in-memory buffer can be specified upon object
+construction. However, if no specification is provided a buffer is provided
+with default settings. There are two  types of storage buffer:
+segmented buffers and flat buffers. The default buffer for plain text is
+segmented (<code>CBufSeg</code>). This is most efficient when a large quantity
+of text is to be stored, or will have a large dynamic range. A flat buffer
+(<code>CBufFlat</code>) is most appropriate for storing small quantities of
+text of bounded length. For most uses, however, a segmented buffer is
+sufficient.</p>
+<h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase">CBase</a></code></td><td class="Cell">Base class for all classes to be instantiated on the heap</td>
+</tr>
+<tr><td class="Cell"><code><a href="CEditableTextClass.html#%3a%3aCEditableText">CEditableText</a></code></td><td class="Cell">An abstract base class which defines the behaviour that all classes in the editable text class hierarchy (CPlainText, CGlobalText and CRichText) must provide</td>
+</tr>
+<tr><td class="Cell"><code>CPlainText</code></td><td class="Cell">Stores and manipulates plain text</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>CPlainText</code>:
+<br><code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aAnonymous" title="Scan mask values">Anonymous</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aCharPosOfParagraph%28%29" title="Finds the length and the start position of a paragraph identified by its paragraph number -- the first paragraph is numbered zero">CharPosOfParagraph()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aComponentInfo%28%29" title="Gets information about the number of components contained in the text object">ComponentInfo()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aConvertAllFieldsToText%28%29" title="Removes all fields from the text object's field set, leaving their current text value in the text object">ConvertAllFieldsToText()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aConvertFieldToText%28%29" title="Converts the field containing the specified document position into text, leaving its current value in the text object">ConvertFieldToText()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aCopyToStoreL%28%29" title="Copies plain text including fields, if present, to the clipboard">CopyToStoreL()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aDeleteL%28%29" title="Deletes one or more characters beginning at, and including, the character at a specified document position">DeleteL()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aDocumentLength%28%29" title="Gets the the number of characters in the text object">DocumentLength()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aEOrganiseByLine" title="When importing text from a text file, a single line feed or a line feed followed by a carriage return is converted into a space character">EOrganiseByLine</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aEOrganiseByParagraph" title="When importing text from a text file, all line feeds are converted into paragraph delimiters">EOrganiseByParagraph</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aEScanBackwards" title="Scan direction is backwards">EScanBackwards</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aEScanEndOfData" title="Indicates that a scan has passed the end of text paragraph delimiter">EScanEndOfData</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aEScanJoinDelimiters" title="Treat adjacent word or paragraph delimiters as a single delimiter">EScanJoinDelimiters</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aEScanPictureIsDelimiter" title="Picture characters are considered to be word delimiters">EScanPictureIsDelimiter</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aEScanPunctuationIsDelimiter" title="Punctuation characters, except hyphens and apostrophes, are considered to be word delimiters">EScanPunctuationIsDelimiter</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aEScanStayIfBoundary" title="If the current document position is a word or paragraph boundary, no scan occurs">EScanStayIfBoundary</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aEScanToUnitEnd" title="Scan to the last character in the word or paragraph">EScanToUnitEnd</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aEScanToUnitStart" title="Scan to the first character in the word or paragraph">EScanToUnitStart</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aExportAsTextL%28%29" title="Writes the contents of the plain text object to a text file">ExportAsTextL()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aExportTextL%28%29" title="Writes plain text to a stream, optionally converting it from Unicode into a foreign encoding">ExportTextL()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aExternalizeFieldDataL%28%29" title="Externalises the plain text object's field set">ExternalizeFieldDataL()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aExternalizeL%28%29" title="Externalises a plain text object to a write stream">ExternalizeL()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aExternalizePlainTextL%28%29" title="Externalises the plain text object's text content (preceded by a length count) to a write stream">ExternalizePlainTextL()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aExternalizePlainTextNoLengthCountL%28%29" title="Externalises the plain text object's text content to a write stream">ExternalizePlainTextNoLengthCountL()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aExtract%28%29" title="Copies the contents of the text object into a descriptor -- overloaded function">Extract()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aFieldCount%28%29" title="Gets a count of the number of fields in the text object's field set">FieldCount()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aFieldFactory%28%29" title="Gets a pointer to the field factory used by the text object">FieldFactory()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aFindFields%28%29" title="Tests whether a document position is located within a field -- overloaded function">FindFields()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aGetWordInfo%28%29" title="Gets the start position and length of the word that contains the document position specified">GetWordInfo()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aImportTextFileL%28%29" title="Imports a plain text file into this text object">ImportTextFileL()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aImportTextL%28%29" title="Imports plain text from a stream into this text object, optionally converting it from a foreign encoding into Unicode">ImportTextL()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aInsertFieldL%28%29" title="Inserts a field into the text object at a specified document position">InsertFieldL()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aInsertL%28%29" title="Inserts either a single character or a descriptor into the text object at a specified document position">InsertL()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aInternalizeFieldDataL%28%29" title="Internalizes the field set">InternalizeFieldDataL()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aInternalizeL%28%29" title="Internalises the text object's text content and field set from a read stream">InternalizeL()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aInternalizePlainTextL%28%29" title="Internalises an empty text object's text content from a read stream -- overloaded function">InternalizePlainTextL()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aNewL%28%29" title="Allocates and constructs a plain text object -- overloaded function">NewL()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aNewTextFieldL%28%29" title="Creates and returns a new field">NewTextFieldL()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aPageContainingPos%28%29" title="Gets the number of the page which contains the specified document position">PageContainingPos()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aParagraphCount%28%29" title="Gets a count of the number of paragraphs in the text object">ParagraphCount()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aParagraphNumberForPos%28%29" title="Gets the number of the paragraph which contains a document position">ParagraphNumberForPos()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aPasteFromStoreL%28%29" title="Pastes plain text and fields, if present, from the clipboard into the current text object at the specified document position">PasteFromStoreL()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aRead%28%29" title="Gets a read-only view of a portion of the text object">Read()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aRemoveField%28%29" title="Removes the field covering the document position specified from the field set, and deletes all text content associated with the field from the text object">RemoveField()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aReset%28%29" title="Deletes all text content, formatting and fields from the document, leaving the single paragraph delimiter which terminates the text object">Reset()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aRestoreComponentsL%28%29" title="Restores the plain text object's field set from a stream store">RestoreComponentsL()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aRestoreFieldComponentsL%28%29" title="Restores the plain text object's field set">RestoreFieldComponentsL()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aScanParas%28%29" title="Scans from a document position to the beginning or end of a paragraph">ScanParas()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aScanWords%28%29" title="Scans from a document position to the beginning or end of a word">ScanWords()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aSetFieldFactory%28%29" title="Sets up a field factory">SetFieldFactory()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aSetPageTable%28%29" title="Links the text object to a page table">SetPageTable()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aStoreComponentsL%28%29" title="Stores the plain text object's components to the stream store specified">StoreComponentsL()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aStoreFieldComponentsL%28%29" title="Stores the plain text object's field components to a stream store">StoreFieldComponentsL()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aTImportExportParam" title="Parameters for importing or exporting text using CPlainText::ImportTextL() or CPlainText::ExportTextL()">TImportExportParam</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aTImportExportResult" title="Results of importing or exporting text using CPlainText::ImportTextL() or CPlainText::ExportTextL()">TImportExportResult</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aTScanDataEnd" title="Used in text scanning functions to indicate the end of the document has been passed">TScanDataEnd</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aTTextOrganisation" title="Line delimiter translation">TTextOrganisation</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aTextField%28%29" title="Returns a pointer to the field located at the specified document position">TextField()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aToParagraphStart%28%29" title="Gets the document position of the start of the paragraph containing the specified document position">ToParagraphStart()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aUpdateAllFieldsL%28%29" title="Re-evaluates all of the fields in the text object">UpdateAllFieldsL()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aUpdateFieldL%28%29" title="Re-evaluates the field which covers the document position specified">UpdateFieldL()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aWordCount%28%29" title="Gets a count of the number of words in the text object">WordCount()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3a%7eCPlainText%28%29" title="The destructor frees the object's text storage and field set, prior to its destruction">~CPlainText()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap">CBase</a></code>:
+<br><code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase%3a%3aoperator%20new%28%29" title="Allocates the object from the heap and then initialises its contents to binary zeroes">operator new()</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText" title="An abstract base class which defines the behaviour that all classes in the editable text class hierarchy (CPlainText, CGlobalText and CRichText) must provide">CEditableText</a></code>:
+<br><code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aEDefaultTextGranularity" title="Granularity of the buffer, default 256 characters">EDefaultTextGranularity</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aEFlatStorage" title="Storage uses a flat buffer (CBufFlat)">EFlatStorage</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aELineBreak" title="Forced line break">ELineBreak</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aENonBreakingHyphen" title="A hard (non-breaking) hyphen">ENonBreakingHyphen</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aENonBreakingSpace" title="A hard (non-breaking) space">ENonBreakingSpace</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aENonBreakingTab" title="Non-breaking tab stop (ensures that the words on either side of the tab stop remain on the same line)">ENonBreakingTab</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aEPageBreak" title="New page">EPageBreak</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aEParagraphDelimiter" title="Paragraph delimiter">EParagraphDelimiter</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aEPictureCharacter" title="Represents a picture inserted into the text object">EPictureCharacter</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aEPotentialHyphen" title="A soft hyphen (ensures that a hyphen followed by a new line will be inserted at that point should a line break be required anywhere within the word)">EPotentialHyphen</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aESegmentedStorage" title="Storage uses a segmented buffer (CBufSeg)">ESegmentedStorage</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aETabCharacter" title="Tab stop">ETabCharacter</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aEVisibleSpaceCharacter" title="Visible space character">EVisibleSpaceCharacter</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aHasChanged%28%29" title="Tests whether the editable text object has been changed by an operation on it, as set by SetHasChanged()">HasChanged()</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aRestoreL%28%29" title="Restores the text and its components from a stream store">RestoreL()</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aSetHasChanged%28%29" title="Sets whether a change has occurred to the editable text object">SetHasChanged()</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aStoreL%28%29" title="Stores the text and its components">StoreL()</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aTDocumentStorage" title="Storage type">TDocumentStorage</a></code></p>
+<a name="2.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction and destruction</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aNewL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NewL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static CPlainText* NewL(TDocumentStorage aStorage=ESegmentedStorage,TInt aDefaultTextGranularity=EDefaultTextGranularity);<br>static CPlainText* NewL(const CStreamStore&amp; aStore,TStreamId aStreamId,<br>MTextFieldFactory* aFieldFactory=NULL,TDocumentStorage aStorage=ESegmentedStorage);</code></p><h4 class="subheading">Description</h4>
+<p>Allocates and constructs a plain text object&nbsp;&#8212;
+overloaded function. The text object's contents may be restored from a stream
+store. If the text object supports fields, a field factory should be
+specified.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TDocumentStorage aStorage=ESegmentedStorage </code></td>
+<td class="Cell"><p class="ValueDesc"> The type of in-memory buffer to use. Defaults to
+<code>ESegmentedStorage</code>. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aDefaultTextGranularity=EDefaultTextGranularity </code></td>
+<td class="Cell"><p class="ValueDesc"> Specifies the granularity of the in-memory buffer. Default is
+<code>EDefaultTextGranularity</code> bytes (=256). </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CStreamStore&amp; aStore </code></td>
+<td class="Cell"><p class="ValueDesc"> Stream store from which the object is restored. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TStreamId aStreamId </code></td>
+<td class="Cell"><p class="ValueDesc"> ID of the stream store. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> MTextFieldFactory* aFieldFactory=NULL </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to a field factory. A field factory must be provided
+if the text object supports the addition of fields. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CPlainText* </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the new plain text object. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3a%7eCPlainText%28%29"></a>
+<hr size="1" noshade>
+<h3><code>~CPlainText()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual ~CPlainText();</code></p><h4 class="subheading">Description</h4>
+<p>The destructor frees the object's text storage and field set,
+prior to its destruction.</p>
+<a name="2.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Primary persistence functions</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aInternalizeL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>InternalizeL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void InternalizeL(RReadStream&amp; aStream);</code></p><h4 class="subheading">Description</h4>
+<p>Internalises the text object's text content and field set from a
+read stream. The presence of this function means that the standard templated
+<code>operator&gt;&gt;()</code> (defined in s32strm.h)
+is available to internalise objects of this class. <code>InternalizeL()</code>
+has construct rather than assignment semantics. You should not use it for fully
+initialised objects.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> RReadStream&amp; aStream </code></td>
+<td class="Cell"><p class="ValueDesc"> Stream from which the object should be internalised. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aExternalizeL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ExternalizeL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void ExternalizeL(RWriteStream&amp; aStream)const;</code></p><h4 class="subheading">Description</h4>
+<p>Externalises a plain text object to a write stream. The presence of
+this function means that the standard templated <code>operator&lt;&lt;()</code>
+(defined in s32strm.h) is available to
+externalise objects of this class.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> RWriteStream&amp; aStream </code></td>
+<td class="Cell"><p class="ValueDesc"> Stream to which the object should be externalised. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.4"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aStoreComponentsL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>StoreComponentsL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void StoreComponentsL(CStreamStore&amp; aStore,CStoreMap&amp; aMap)const;</code></p><h4 class="subheading">Description</h4>
+<p>Stores the plain text object's components to the stream store
+specified.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CStreamStore&amp; aStore </code></td>
+<td class="Cell"><p class="ValueDesc"> Stream store to which the text object's components are written.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CStoreMap&amp; aMap </code></td>
+<td class="Cell"><p class="ValueDesc"> A store map. This binds the address of each component to the stream ID
+of <code>aStore</code>. This is needed to support the deferred loading of
+pictures in rich text. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.5"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aRestoreComponentsL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RestoreComponentsL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void RestoreComponentsL(const CStreamStore&amp; aStore);</code></p><h4 class="subheading">Description</h4>
+<p>Restores the plain text object's field set from a stream store.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CStreamStore&amp; aStore </code></td>
+<td class="Cell"><p class="ValueDesc"> The stream store from which the field set is restored. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Secondary persistence functions</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aInternalizePlainTextL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>InternalizePlainTextL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void InternalizePlainTextL(RReadStream&amp; aStream);<br>void InternalizePlainTextL(RReadStream&amp; aStream,TInt aLength);</code></p><h4 class="subheading">Description</h4>
+<p>Internalises an empty text object's text content from a read
+stream&nbsp;&#8212; overloaded function.</p>
+<p>This function has construct rather than assignment semantics. You should
+not use it for fully initialised objects.</p>
+<p>Note</p>
+<p>The overload which takes a length argument is not intended for general
+use and its use is deprecated. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> RReadStream&amp; aStream </code></td>
+<td class="Cell"><p class="ValueDesc"> Stream from which the object should be internalised. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLength </code></td>
+<td class="Cell"><p class="ValueDesc"> Indicates the number of characters which should be read, after expansion
+from their compressed format. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aExternalizePlainTextL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ExternalizePlainTextL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ExternalizePlainTextL(RWriteStream&amp; aStream)const;</code></p><h4 class="subheading">Description</h4>
+<p>Externalises the plain text object's text content (preceded by a length
+count) to a write stream.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> RWriteStream&amp; aStream </code></td>
+<td class="Cell"><p class="ValueDesc"> Stream to which the text content should be externalised. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.4"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aExternalizePlainTextNoLengthCountL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ExternalizePlainTextNoLengthCountL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ExternalizePlainTextNoLengthCountL(RWriteStream&amp; aStream)const;</code></p><h4 class="subheading">Description</h4>
+<p>Externalises the plain text object's text content to a write stream. This
+function differs from <code>ExternalizePlainTextL()</code> in that it does not
+precede the text content with a length count.</p>
+<p>This function is not intended for general use and is
+deprecated.</p>
+<a name="2.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Import and export</h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aImportTextFileL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ImportTextFileL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt ImportTextFileL(TInt aPos,const TDes&amp; aFileName,TTextOrganisation aTextOrganisation);</code></p><h4 class="subheading">Description</h4>
+<p>Imports a plain text file into this text object.</p>
+<p>Translates non-printing characters in the source text file into EPOC special characters,
+for instance tabs are converted into
+<code>CEditableText::ETabCharacter</code>s, and form feeds into
+<code>CEditableText::EPageBreak</code>s. Line feeds in the source text file are
+translated according to the <code>aTextOrganisation</code> argument.</p><p>The function leaves if there is any problem in opening the file.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> Document position at which to insert the text. Must be a valid position,
+or a panic occurs.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TDes&amp; aFileName </code></td>
+<td class="Cell"><p class="ValueDesc"> The name of the text file to import.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TTextOrganisation aTextOrganisation </code></td>
+<td class="Cell"><p class="ValueDesc"> If <code>EOrganiseByLine</code>, a single line feed or a line feed
+and carriage return is converted into a space character. A line feed
+which is followed by another line feed is converted into a paragraph delimiter. If
+<code>EOrganiseByParagraph</code>, all line feeds are converted into paragraph delimiters. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of characters imported.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.3"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aImportTextL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ImportTextL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ImportTextL(TInt aPos,RReadStream&amp; aInput,TTextOrganisation aTextOrganisation,TInt aMaxOutputChars = KMaxTInt,TInt aMaxInputChars = KMaxTInt, TInt* aOutputChars = NULL,TInt* aInputChars = NULL);</code></p><h4 class="subheading">Description</h4>
+<p>Imports plain text from a stream into this text object.</p>
+<p>Translates line feeds in the source text according to the <code>aTextOrganisation</code> argument.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> Document position at which to insert the text. Must be a valid position,
+or a panic occurs. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> RReadStream&amp; aInput </code></td>
+<td class="Cell"><p class="ValueDesc"> Stream from which to read the text. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TTextOrganisation aTextOrganisation </code></td>
+<td class="Cell"><p class="ValueDesc"> If <code>EOrganiseByLine</code>, a single line feed or a line feed
+and carriage return is converted into a space character. A line feed
+which is followed by another line feed is converted into a paragraph delimiter. If
+<code>EOrganiseByParagraph</code>, all line feeds are converted into paragraph delimiters.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aMaxOutputChars = KMaxTInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The maximum number of characters to write to the text object.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aMaxInputChars = KMaxTInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The maximum number of characters to read from the stream.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt* aOutputChars = NULL </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, the number of characters written to the text object.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt* aInputChars = NULL </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, the number of characters read from the stream.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.4"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aImportTextL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ImportTextL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ImportTextL(TInt aPos,RReadStream&amp; aInput,const TImportExportParam&amp; aParam,TImportExportResult&amp; aResult);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.1
+</p><h4 class="subheading">Description</h4>
+<p>Imports plain text from a stream into this text object, optionally converting it from a foreign encoding into Unicode.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aPos</code></td>
+<td class="Cell"><p class="ValueDesc">Document position at which to insert the text. Must be a valid position,
+or a panic occurs.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">RReadStream&amp; aInput</code></td>
+<td class="Cell"><p class="ValueDesc">Stream from which to read the text.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TImportExportParam&amp; aParam</code></td>
+<td class="Cell"><p class="ValueDesc">Import parameters, including the foreign encoding to convert from, whether to guess the foreign encoding and the maximum number of characters to import.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TImportExportResult&amp; aResult</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains  the number of characters read and written and the foreign encoding used by the imported text.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aTImportExportParam" title="Parameters for importing or exporting text using CPlainText::ImportTextL() or CPlainText::ExportTextL()"><code class="ApiItem">CPlainText::TImportExportParam</code></a></li>
+<li><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aTImportExportResult" title="Results of importing or exporting text using CPlainText::ImportTextL() or CPlainText::ExportTextL()"><code class="ApiItem">CPlainText::TImportExportResult</code></a></li>
+</ul>
+<a name="2.9.5"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aExportAsTextL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ExportAsTextL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void ExportAsTextL(const TDes&amp; aFileName,TTextOrganisation aTextOrganisation,TInt aMaxLineLength)const;</code></p><h4 class="subheading">Description</h4>
+<p>Writes  the contents of the plain text object to a text file.</p><p>The filename is given by <code>aFileName</code>. Any existing file with that name is replaced. A wrap width can be specified. This is only used when exporting by line (<code>aTextOrganisation</code> is
+<code>EOrganiseByLine</code>).</p>
+<p>The function leaves if there is any problem in creating or replacing the file.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TDes&amp; aFileName </code></td>
+<td class="Cell"><p class="ValueDesc"> The name of the file to export the text to. If a file with this name
+already exists, it is replaced. Otherwise, a new file is created.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TTextOrganisation aTextOrganisation </code></td>
+<td class="Cell"><p class="ValueDesc"> Defines how to translate line delimiters. If
+<code>EOrganiseByLine</code>, lines wrap at the wrap width, as specified in
+<code>aMaxLineLength</code>.
+If <code>EOrganiseByParagraph</code>, lines do not wrap and paragraph
+delimiters are converted into CR/LF pairs.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aMaxLineLength </code></td>
+<td class="Cell"><p class="ValueDesc"> The maximum number of characters in each line, (only relevant if the text organisation
+is <code>EOrganiseByLine</code>).</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.6"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aExportTextL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ExportTextL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ExportTextL(TInt aPos,RWriteStream&amp; aOutput,TTextOrganisation aTextOrganisation, TInt aMaxOutputChars = KMaxTInt,TInt aMaxInputChars = KMaxTInt, TInt aMaxLineLength = KMaxTInt, TInt* aOutputChars = NULL,TInt* aInputChars = NULL) const;</code></p><h4 class="subheading">Description</h4>
+<p>Writes plain text to a stream.</p>
+<p>A wrap width can be specified. This is only relevant when exporting by line, (<code>aTextOrganisation</code> is <code>CPlainText::EOrganiseByLine</code>). When the line length reaches the wrap width, a
+carriage return/line feed is inserted. When exporting text by paragraph, the
+wrap width is disregarded.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> A document position in this plain text object from which to start reading the text to export.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> RWriteStream&amp; aOutput </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, the write stream to which the text is written.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TTextOrganisation aTextOrganisation </code></td>
+<td class="Cell"><p class="ValueDesc"> Defines how to translate line delimiters. If
+<code>EOrganiseByLine</code>, lines wrap at the wrap width, as specified in
+<code>aMaxLineLength</code>.
+If <code>EOrganiseByParagraph</code>, lines do not wrap and paragraph
+delimiters are converted into a CR/LF pair.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aMaxOutputChars = KMaxTInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The maximum number of characters to write to the stream&#0160;&#8212; you may have
+a limited size buffer. By default, no limit.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aMaxInputChars = KMaxTInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The maximum number of characters to read from this plain text object. By default, no limit.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aMaxLineLength = KMaxTInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The maximum length of each line in characters, (only relevant if the text organisation
+is <code>EOrganiseByLine</code>). By default, no limit.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt* aOutputChars = NULL </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, the number of characters written to the stream. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt* aInputChars = NULL </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, the number of characters read from the source plain text object. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.7"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aExportTextL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ExportTextL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ExportTextL(TInt aPos,RWriteStream&amp; aOutput,const TImportExportParam&amp; aParam,TImportExportResult&amp; aResult) const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.1
+</p><h4 class="subheading">Description</h4>
+<p>Writes plain text to a stream, optionally converting it from Unicode into a foreign encoding.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aPos</code></td>
+<td class="Cell"><p class="ValueDesc">A document position in the source plain text object from which to start reading the text to export.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">RWriteStream&amp; aOutput</code></td>
+<td class="Cell"><p class="ValueDesc">On return, the write stream to which the text is written.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TImportExportParam&amp; aParam</code></td>
+<td class="Cell"><p class="ValueDesc">Export parameters, including an optional foreign encoding to convert the Unicode text into, a file server connection, (this is needed for the character conversion&#0160;&#8212;   if not specified, one will be created), a line wrap width, and the maximum number of characters to export.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TImportExportResult&amp; aResult</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains  the number of characters read and written.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aTImportExportParam" title="Parameters for importing or exporting text using CPlainText::ImportTextL() or CPlainText::ExportTextL()"><code class="ApiItem">CPlainText::TImportExportParam</code></a></li>
+<li><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aTImportExportResult" title="Results of importing or exporting text using CPlainText::ImportTextL() or CPlainText::ExportTextL()"><code class="ApiItem">CPlainText::TImportExportResult</code></a></li>
+</ul>
+<a name="2.9.8"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aStoreFieldComponentsL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>StoreFieldComponentsL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void StoreFieldComponentsL(CStreamStore&amp; aStore,CStoreMap&amp; aMap)const;</code></p><h4 class="subheading">Description</h4>
+<p>Stores the plain text object's field components to a stream store.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CStreamStore&amp; aStore </code></td>
+<td class="Cell"><p class="ValueDesc"> Stream store to which the fields are written. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CStoreMap&amp; aMap </code></td>
+<td class="Cell"><p class="ValueDesc"> A store map. This binds the address of each text component to the stream
+ID of <code>aStore</code>. This is needed to support the deferred loading of
+pictures in rich text. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.9"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aRestoreFieldComponentsL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RestoreFieldComponentsL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void RestoreFieldComponentsL(const CStreamStore&amp; aStore);</code></p><h4 class="subheading">Description</h4>
+<p>Restores the plain text object's field set.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CStreamStore&amp; aStore </code></td>
+<td class="Cell"><p class="ValueDesc"> The stream store from which the fields are restored. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.10"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aExternalizeFieldDataL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ExternalizeFieldDataL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ExternalizeFieldDataL(RWriteStream&amp; aStream)const;</code></p><h4 class="subheading">Description</h4>
+<p>Externalises the plain text object's field set.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> RWriteStream&amp; aStream </code></td>
+<td class="Cell"><p class="ValueDesc"> The stream to which the field set should be written. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.11"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aInternalizeFieldDataL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>InternalizeFieldDataL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void InternalizeFieldDataL(RReadStream&amp; aStream);</code></p><h4 class="subheading">Description</h4>
+<p>Internalizes the field set.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> RReadStream&amp; aStream </code></td>
+<td class="Cell"><p class="ValueDesc"> The read stream from which the field set is read. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Copy and paste</h2>
+</div><div class="Bodytext">
+<a name="2.10.2"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aCopyToStoreL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CopyToStoreL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void CopyToStoreL(CStreamStore&amp; aStore,CStreamDictionary&amp; aDictionary,TInt aPos,TInt aLength)const;</code></p><h4 class="subheading">Description</h4>
+<p>Copies  plain text including fields, if  present, to the
+clipboard.</p>
+<p>A  panic occurs in any of the following circumstances:</p>
+<ul>
+<li>
+<p><code>aPos</code> is invalid</p>
+</li>
+<li>
+<p><code>aLength</code> is invalid (zero or less)</p>
+</li>
+<li>
+<p>the sum of <code>aPos</code> and <code>aLength</code> is greater than or
+equal to the number of characters in the document</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CStreamStore&amp; aStore </code></td>
+<td class="Cell"><p class="ValueDesc"> Stream store to which the text is written. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CStreamDictionary&amp; aDictionary </code></td>
+<td class="Cell"><p class="ValueDesc"> The stream dictionary. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position from which to begin copying. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLength </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of characters to copy. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.3"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aPasteFromStoreL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PasteFromStoreL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt PasteFromStoreL(const CStreamStore&amp; aStore,const CStreamDictionary&amp; aDictionary,TInt aPos);</code></p><h4 class="subheading">Description</h4>
+<p>Pastes plain text and fields, if present, from the clipboard into
+the current text object at the specified document position. The entire contents
+of the store are pasted.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CStreamStore&amp; aStore </code></td>
+<td class="Cell"><p class="ValueDesc"> The steam store from which to paste the text. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CStreamDictionary&amp; aDictionary </code></td>
+<td class="Cell"><p class="ValueDesc"> The stream dictionary. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> Document position at which to paste. Must be valid or the function
+raises a panic. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of characters pasted. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Text scanning</h2>
+</div><div class="Bodytext">
+<a name="2.11.2"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aDocumentLength%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DocumentLength()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt DocumentLength()const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the the number of characters in the text object.</p>
+<p>Note: the count includes all non-printing characters but excludes the end
+of text paragraph delimiter, so that the smallest possible return value is
+zero.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of characters in the text object. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.3"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aWordCount%28%29"></a>
+<hr size="1" noshade>
+<h3><code>WordCount()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt WordCount()const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a count of the number of words in the text object.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of words in the text object. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.4"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aParagraphCount%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ParagraphCount()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt ParagraphCount()const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a count of the number of paragraphs in the text object.</p>
+<p>Note: the paragraph delimiter which terminates every text object means
+this function always returns a count of at least one.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of paragraphs contained in the text object. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.5"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aScanWords%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ScanWords()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt ScanWords(TInt&amp; aPos,TUint&amp; aScanMask)const;</code></p><h4 class="subheading">Description</h4>
+<p>Scans from a document position to the beginning or end of a word. The destination is  determined by a scan mask. The scan can either be forwards (the
+default) or backwards, and the destination may be the first or last character
+in the word containing the position, or the first character in the next
+word.</p>
+<p>Note:</p><p>If an attempt is made to scan beyond the end of text delimiter, on return, <code>aPos</code> is set to
+<code>EScanEndOfData</code> (=&#0160;&#8211; 1) and the function&#8217;s return value
+indicates the number of characters skipped in passing the end of text
+delimiter.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position from which to scan. Must be valid, or a panic
+occurs. On return, contains the new document position. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUint&amp; aScanMask </code></td>
+<td class="Cell"><p class="ValueDesc"> The scan mask. See the enumeration whose values begin with
+<code>CPlainText::EScanBackwards</code>. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of characters skipped to reach the new document position.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.6"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aScanParas%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ScanParas()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt ScanParas(TInt&amp; aPos,TUint&amp; aScanMask)const;</code></p><h4 class="subheading">Description</h4>
+<p>Scans from a document position to the beginning or end of a paragraph. The destination is  determined by a scan mask. The scan can either be forwards (the
+default) or backwards, and the destination may be the first or last character
+in the paragraph containing the position, or the first character in the next
+paragraph. </p>
+<p>Note: if an attempt is made to scan beyond the end of text delimiter, on return, <code>aPos</code> is set to
+<code>EScanEndOfData</code> (=&#0160;&#8211; 1) and the function&#8217;s return value
+indicates the number of characters skipped in passing the end of text
+delimiter.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position to scan from. Must be valid or a panic occurs. On
+return, contains the new document position. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUint&amp; aScanMask </code></td>
+<td class="Cell"><p class="ValueDesc"> The scan mask. See the enumeration whose values begin with
+<code>CPlainText::EScanBackwards</code>. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of characters skipped to reach the new document position.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.7"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aToParagraphStart%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ToParagraphStart()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt ToParagraphStart(TInt&amp; aPos)const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the document position of the start of the paragraph containing the
+specified document position.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> A document position. Must be valid or a panic occurs. On
+return, contains the document position of the first character in the paragraph
+in which it is located.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of characters skipped in scanning to the start of the
+paragraph. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.8"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aGetWordInfo%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetWordInfo()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void GetWordInfo(TInt aCurrentPos,TInt&amp; aStartPos,TInt&amp; aLength,TBool aPictureIsDelimiter,TBool aPunctuationIsDelimiter)const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the start position and length of the word that contains the
+document position specified.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aCurrentPos </code></td>
+<td class="Cell"><p class="ValueDesc"> A document position. Must be valid or a panic occurs. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aStartPos </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, the document position of the first character in the word
+containing the  position <code>aCurrentPos</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aLength </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, the length of the word containing document position
+<code>aCurrentPos</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool aPictureIsDelimiter </code></td>
+<td class="Cell"><p class="ValueDesc"> True if picture characters should be treated as word delimiters,
+false if not. For example, when navigating text, this might be
+<code>EFalse</code>, but when spell checking, it might be <code>ETrue</code>.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool aPunctuationIsDelimiter </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue</code> if punctuation characters should be treated as
+word delimiters, <code>EFalse</code> if not.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.9"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aComponentInfo%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ComponentInfo()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TEtextComponentInfo ComponentInfo()const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets information about the number of components contained in the text
+object. For plain text, only the field count has relevance.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TEtextComponentInfo </code></td>
+<td class="Cell"><p class="ValueDesc"> Contains the field count. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Pagination</h2>
+</div><div class="Bodytext">
+<a name="2.12.2"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aSetPageTable%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetPageTable()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetPageTable(TPageTable* aPageTable);</code></p><h4 class="subheading">Description</h4>
+<p>Links the text object to a page table. A page table is an array of
+integers; each integer represents the number of characters on a page. It is
+required for pagination. The page table is updated when changes are made to the
+document, e.g. after pasting from the clipboard, inserting, importing or
+deleting text.</p>
+<p>The text object does not take ownership of the page table
+specified.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TPageTable* aPageTable </code></td>
+<td class="Cell"><p class="ValueDesc"> The page table to be referenced by the text object. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.3"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aPageContainingPos%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PageContainingPos()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt PageContainingPos(TInt aPos)const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the number of the page which contains the specified document
+position. If no page table has been set up, the function returns a value of
+zero. Use <code>SetPageTable()</code> to set up the page table.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> A document position. Must be valid or a panic occurs. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The page number containing document position <code>aPos</code>. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Paragraph enquiry</h2>
+</div><div class="Bodytext">
+<a name="2.13.2"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aCharPosOfParagraph%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CharPosOfParagraph()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt CharPosOfParagraph(TInt&amp; aLength,TInt aParaOffset)const;</code></p><h4 class="subheading">Description</h4>
+<p>Finds the length and the start position of a paragraph identified by its
+paragraph number&nbsp;&#8212; the first paragraph is numbered zero.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>if <code>aParaOffset</code> is invalid, (equal to or greater than the
+total number of paragraphs), the function&#8217;s return value is
+<code>EScanEndOfData</code> (=&#0160;&#8211; 1)</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aLength </code></td>
+<td class="Cell"><p class="ValueDesc"> On return contains the length of the specified paragraph. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aParaOffset </code></td>
+<td class="Cell"><p class="ValueDesc"> The paragraph number. The first paragraph is numbered zero. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position of the first character in the paragraph. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.3"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aParagraphNumberForPos%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ParagraphNumberForPos()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt ParagraphNumberForPos(TInt&amp; aPos)const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the number of the paragraph which contains a document position.
+Paragraph numbering begins at zero.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> A document position. Must be valid or a panic occurs. On return,
+contains the document position of the first character in the paragraph in which
+it is located. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of the paragraph containing the specified document
+position.&#0160;The first paragraph is numbered zero. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Fields</h2>
+</div><div class="Bodytext">
+<a name="2.14.2"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aConvertAllFieldsToText%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ConvertAllFieldsToText()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ConvertAllFieldsToText();</code></p><h4 class="subheading">Description</h4>
+<p>Removes all fields from the text object's field set, leaving their
+current text value in the text object. Does not update the fields
+beforehand.</p>
+<a name="2.14.3"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aConvertFieldToText%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ConvertFieldToText()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool ConvertFieldToText(TInt aPos);</code></p><h4 class="subheading">Description</h4>
+<p>Converts the field containing the specified document position into text,
+leaving its current value in the text object. Does not update the field
+beforehand.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> A document position within the field to convert. Must be a valid
+position or a panic occurs. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue</code> if there was a field located at <code>aPos</code>.
+<code>EFalse</code> if there was no field located at <code>aPos</code>. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.4"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aFieldCount%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FieldCount()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt FieldCount() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a count of the number of fields in the text object's field
+set.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of fields in the field set. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.5"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aFieldFactory%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FieldFactory()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const MTextFieldFactory* FieldFactory()const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a pointer to the field factory used by the text object. The field
+factory may be set up using <code>SetFieldFactory()</code>, or may be specified
+in the <code>NewL()</code>.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> MTextFieldFactory* </code></td>
+<td class="Cell"><p class="ValueDesc"> The field factory. NULL if no field factory has been set up. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.6"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aSetFieldFactory%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetFieldFactory()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetFieldFactory(MTextFieldFactory* aFactory);</code></p><h4 class="subheading">Description</h4>
+<p>Sets up a field factory. A field factory is an instance of a class
+deriving from <code>MTextFieldFactory</code>. It must implement a
+<code>NewFieldL()</code> function to create and return fields of the desired
+type. The field factory's <code>NewFieldL()</code> function is called by
+<code>CPlainText::NewTextFieldL()</code>. A field factory must be set up if you
+intend to add any fields to the text object.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> MTextFieldFactory* aFactory </code></td>
+<td class="Cell"><p class="ValueDesc"> The field factory. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.7"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aFindFields%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FindFields()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool FindFields(TInt aPos) const;<br>TBool FindFields(TFindFieldInfo&amp; aInfo,TInt aPos,TInt aRange=0) const;</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether a document position is located within a
+field&nbsp;&#8212; overloaded function.</p>
+<p>The second overload extracts information about all fields located within
+a range of characters.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position. Must be valid or a panic occurs. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TFindFieldInfo&amp; aInfo </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, contains the number of fields fully or partially within the
+range of characters specified and the start position and length of the first
+field found. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aRange=0 </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of characters to search, beginning at <code>aPos</code>. Must
+not be negative, or a panic occurs. The sum of <code>aPos</code> and
+<code>aRange</code> must be less than the document length, or a panic occurs.
+The default range is zero. In this case the function just returns information
+about the single field located at the position specified. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue</code> if <code>aPos</code> is located within a field, or if
+there were one or more fields found in the range. <code>EFalse</code> if not.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.8"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aInsertFieldL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>InsertFieldL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void InsertFieldL(TInt aPos,CTextField* aField,TUid aFieldType);</code></p><h4 class="subheading">Description</h4>
+<p>Inserts a field into the text object at a specified document
+position.</p>
+<p>Note: </p>
+<p>After insertion, the field should be evaluated in order to make its
+contents visible; use <code>UpdateFieldL()</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position at which to insert the field. Must be valid, or a
+panic occurs. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CTextField* aField </code></td>
+<td class="Cell"><p class="ValueDesc"> The field to insert, created by <code>NewTextFieldL()</code>. Must not
+be NULL, or a panic occurs. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUid aFieldType </code></td>
+<td class="Cell"><p class="ValueDesc"> Identifies the type of field to insert. For the built in field types,
+see the UID values defined in flddef.h. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.9"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aRemoveField%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RemoveField()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool RemoveField(TInt aPos);</code></p><h4 class="subheading">Description</h4>
+<p>Removes the field covering the document position specified from the field
+set, and deletes all text content associated with the field from the text
+object.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> A document position within the field to be deleted. Must be a valid
+position or a panic occurs. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue</code> if a field was located at <code>aPos</code>.
+<code>EFalse</code> if no field was located at <code>aPos</code>. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.10"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aNewTextFieldL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NewTextFieldL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CTextField* NewTextFieldL(TUid aFieldType)const;</code></p><h4 class="subheading">Description</h4>
+<p>Creates and returns a new field. Before calling this function, a field
+factory should have been set up, either by calling
+<code>SetFieldFactory()</code>, or by specifying one in the
+<code>NewL()</code>. The field factory's <code>NewFieldL()</code> function is
+called to create a field of the type specified in the argument. A NULL field is
+returned if no field factory has been set up.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUid aFieldType </code></td>
+<td class="Cell"><p class="ValueDesc"> Identifies the field type. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CTextField* </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the new text field. NULL if no field factory has been set up.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.11"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aTextField%28%29"></a>
+<hr size="1" noshade>
+<h3><code>TextField()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const CTextField* TextField(TInt aPos)const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns a pointer to the field located at the specified document
+position.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> A document position within the field. Must be a valid document position,
+or a panic occurs. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CTextField* </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the field which covers position <code>aPos</code>. NULL if
+there is no field at the specified position. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.12"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aUpdateAllFieldsL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>UpdateAllFieldsL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void UpdateAllFieldsL();</code></p><h4 class="subheading">Description</h4>
+<p>Re-evaluates all of the fields in the text object. Re-evaluating a field
+means calculating the field's new value, then inserting that value into the
+text object, replacing the previous value.</p>
+<p>Note:</p>
+<p>Fields have a maximum length of 20 characters.</p>
+<a name="2.14.13"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aUpdateFieldL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>UpdateFieldL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void UpdateFieldL(TInt aPos);</code></p><h4 class="subheading">Description</h4>
+<p>Re-evaluates the field which covers the document position specified.
+Re-evaluating a field means calculating the field's new value, then inserting
+that value into the text object, replacing the previous value.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>fields have a maximum length of 20 characters</p>
+</li>
+<li>
+<p>the first time a field is updated, the position specified should be the
+position at which the field was inserted</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> A document position in the field to be updated. Must be a valid
+position, or a panic occurs. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Insert/delete</h2>
+</div><div class="Bodytext">
+<a name="2.15.2"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aReset%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Reset()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void Reset();</code></p><h4 class="subheading">Description</h4>
+<p>Deletes all text content, formatting and fields from the document,
+leaving the single paragraph delimiter which terminates the text object.</p>
+<a name="2.15.3"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aInsertL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>InsertL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void InsertL(TInt aPos,const TChar&amp; aChar);<br>virtual void InsertL(TInt aPos,const TDesC&amp; aBuf);</code></p><h4 class="subheading">Description</h4>
+<p>Inserts either a single character or a descriptor into the text object at
+a specified document position. Updates the page table.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position at which to insert the character/descriptor. Must
+be valid, or a panic occurs. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TChar&amp; aChar </code></td>
+<td class="Cell"><p class="ValueDesc"> The character to insert. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TDesC&amp; aBuf </code></td>
+<td class="Cell"><p class="ValueDesc"> The descriptor to insert. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15.4"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aDeleteL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DeleteL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TBool DeleteL(TInt aPos,TInt aLength);</code></p><h4 class="subheading">Description</h4>
+<p>Deletes one or more characters beginning at, and including, the character
+at a specified document position. Updates the page table. Any fields wholly
+contained in the range of characters to delete are removed from the field
+set.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position from which to begin deleting. Must be valid or a
+panic occurs. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLength </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of characters to delete. Must be positive or a panic occurs.
+The sum of <code>aPos</code> and <code>aLength</code> must be less than the
+document length, or a panic occurs. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool </code></td>
+<td class="Cell"><p class="ValueDesc"> Indicates whether two paragraphs have been merged together as a result
+of the delete, indicating that the resulting paragraph must be reformatted. Has
+no meaning for plain text, so always <code>EFalse</code>. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Read/extract</h2>
+</div><div class="Bodytext">
+<a name="2.16.2"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aRead%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Read()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TPtrC Read(TInt aStartPos)const;<br>virtual TPtrC Read(TInt aStartPos,TInt aLength)const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a read-only view of a portion of the text object.</p>
+<p>The extent of the view is the range of characters starting at
+<code>aStartPos</code> and ending at whichever of the following document
+positions is reached first:</p>
+<ul>
+<li>
+<p>the end of the document</p>
+</li>
+<li>
+<p>the end of the segment if using segmented storage (the storage type is
+specified in the <code>NewL()</code>)</p>
+</li>
+<li>
+<p>if <code>aLength</code> is specified, the sum of <code>aStartPos</code>
+and (<code>aLength</code>&#8211;1)</p>
+</li>
+</ul>
+<p>Therefore, when using a segmented buffer to store the document, the
+length of the resultant view may be less than the requested length. In this
+case multiple calls to <code>Read()</code> may be necessary.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aStartPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position at which to begin reading. Must be valid or a
+panic occurs. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLength </code></td>
+<td class="Cell"><p class="ValueDesc"> If specified, the number of characters to read, inclusive of the
+character at position <code>aStartPos</code>. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TPtrC </code></td>
+<td class="Cell"><p class="ValueDesc"> Constant pointer to a section of the text object. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16.3"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aExtract%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Extract()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void Extract(TDes&amp; aBuf,TInt aPos=0)const;<br>virtual void Extract(TDes&amp; aBuf,TInt aPos,TInt aLength)const;</code></p><h4 class="subheading">Description</h4>
+<p>Copies the contents of the text object into a descriptor&nbsp;&#8212;
+overloaded function. The function copies all characters from and including the
+document position specified, to the end of the document or the end of the range
+of characters, if specified.</p>
+<p>Notes:</p>
+<p>For the two parameter overload, the buffer's maximum length must be
+greater than or equal to the number of characters to extract, or a panic
+occurs.</p>
+<p>For the three parameter variant, the buffer's maximum length must be
+greater than or equal to <code>aLength</code>, or a panic ocurs.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TDes&amp; aBuf </code></td>
+<td class="Cell"><p class="ValueDesc"> A buffer; on return contains the extracted text. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos=0 </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position from which to copy. Must be valid or a panic
+occurs. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLength </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of characters to copy. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.17"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Classes</h2>
+</div><div class="Bodytext">
+<a name="2.17.2"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aTImportExportParam"></a>
+<hr size="1" noshade>
+<h3>Class <code>TImportExportParam</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TImportExportParam</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.1
+</p><h4 class="subheading">Description</h4>
+<p>Parameters for importing or exporting text using <code>CPlainText::ImportTextL()</code> or <code>CPlainText::ExportTextL()</code>.</p><p>Defined in <code>CPlainText::TImportExportParam</code>:
+<br><code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aTImportExportParam%3a%3aTImportExportParam%28%29" title="Default constructor">TImportExportParam()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aTImportExportParam%3a%3aiFileSession" title="If non-null, a connected file server session used to load character conversion data">iFileSession</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aTImportExportParam%3a%3aiForeignEncoding" title="The identifier of the foreign character set encoding to be used to convert from or to">iForeignEncoding</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aTImportExportParam%3a%3aiGuessForeignEncoding" title="If true, an attempt is made to guess the encoding of the foreign text being imported before converting it into Unicode">iGuessForeignEncoding</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aTImportExportParam%3a%3aiInputInternal" title="If true, input is in internal format, so is read according to native endianness">iInputInternal</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aTImportExportParam%3a%3aiMaxInputChars" title="The maximum number of characters to read from the stream (when importing) or to read from the text object (when exporting)">iMaxInputChars</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aTImportExportParam%3a%3aiMaxLineLength" title="The wrap width as a number of characters">iMaxLineLength</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aTImportExportParam%3a%3aiMaxOutputChars" title="The maximum number of characters to write to the stream (when exporting) or to write to the text object (when importing)">iMaxOutputChars</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aTImportExportParam%3a%3aiOrganisation" title="Controls how line delimiters are translated">iOrganisation</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aTImportExportParam%3a%3aiOutputInternal" title="If true, output is in internal format, so is written according to native endianness">iOutputInternal</a></code>
+</p>
+<a name="2.17.2.5"></a><h4>Construction</h4>
+<a name="2.17.2.5.2"></a><a name="%3a%3aCPlainText%3a%3aTImportExportParam%3a%3aTImportExportParam%28%29"></a>
+<h4><code>TImportExportParam()</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>TImportExportParam();</code></p><h4 class="subheading">Description</h4>
+<p>Default constructor.  All member data is assigned default values. For details, see the member data.</p>
+<a name="2.17.2.6"></a><h4>Member data</h4>
+<a name="2.17.2.6.2"></a><a name="%3a%3aCPlainText%3a%3aTImportExportParam%3a%3aiOrganisation"></a>
+<h4><code>iOrganisation</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>TTextOrganisation iOrganisation</code></p><h4 class="subheading">Description</h4>
+<p>Controls how line delimiters are translated. By default, <code>EOrganiseByParagraph</code>.</p><h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aTTextOrganisation" title="Line delimiter translation"><code class="ApiItem">CPlainText::TTextOrganisation</code></a></li>
+</ul>
+<a name="2.17.2.6.3"></a><a name="%3a%3aCPlainText%3a%3aTImportExportParam%3a%3aiMaxOutputChars"></a>
+<h4><code>iMaxOutputChars</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>TInt iMaxOutputChars</code></p><h4 class="subheading">Description</h4>
+<p>The maximum number of characters to write to the stream (when exporting) or to write to the text object (when importing). By default, <code>KMaxTInt</code>.</p>
+<a name="2.17.2.6.4"></a><a name="%3a%3aCPlainText%3a%3aTImportExportParam%3a%3aiMaxInputChars"></a>
+<h4><code>iMaxInputChars</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>TInt iMaxInputChars</code></p><h4 class="subheading">Description</h4>
+<p>The maximum number of characters to read from the stream (when importing) or to read from the text object (when exporting). By default, <code>KMaxTInt</code>.</p>
+<a name="2.17.2.6.5"></a><a name="%3a%3aCPlainText%3a%3aTImportExportParam%3a%3aiMaxLineLength"></a>
+<h4><code>iMaxLineLength</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>TInt iMaxLineLength</code></p><h4 class="subheading">Description</h4>
+<p>The wrap width as a number of characters. </p><p>Only relevant when exporting by line, (<code>iOrganisation</code> is <code>CPlainText::EOrganiseByLine</code>). Not used in <code>CPlainText::ImportTextL()</code>. By default, <code>KMaxTInt</code>.</p>
+<a name="2.17.2.6.6"></a><a name="%3a%3aCPlainText%3a%3aTImportExportParam%3a%3aiOutputInternal"></a>
+<h4><code>iOutputInternal</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>TBool iOutputInternal</code></p><h4 class="subheading">Description</h4>
+<p>If true, output is in internal format, so is written according to native endianness. Used in <code>CPlainText::ExportTextL()</code>. By default, false.</p>
+<a name="2.17.2.6.7"></a><a name="%3a%3aCPlainText%3a%3aTImportExportParam%3a%3aiInputInternal"></a>
+<h4><code>iInputInternal</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>TBool iInputInternal</code></p><h4 class="subheading">Description</h4>
+<p>If true, input is in internal format, so is read according to native endianness. Used in <code>CPlainText::ImportTextL()</code>. By default, false.</p>
+<a name="2.17.2.6.8"></a><a name="%3a%3aCPlainText%3a%3aTImportExportParam%3a%3aiForeignEncoding"></a>
+<h4><code>iForeignEncoding</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>TUint iForeignEncoding</code></p><h4 class="subheading">Description</h4>
+<p> The identifier of the foreign character set encoding to be used to convert from or to. </p><p>Not used  if <code>iGuessForeignEncoding</code> is true. If conversion to/from <code>iForeignEncoding</code> is not available on the device, the function leaves with <code>KErrNotSupported</code>. By default, zero.</p><h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../CharacterConversion/Globals.html#CharacterConversion%2econstants">Character set identifiers</a></li>
+</ul>
+<a name="2.17.2.6.9"></a><a name="%3a%3aCPlainText%3a%3aTImportExportParam%3a%3aiGuessForeignEncoding"></a>
+<h4><code>iGuessForeignEncoding</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>TBool iGuessForeignEncoding</code></p><h4 class="subheading">Description</h4>
+<p>If true, an attempt is made to guess the encoding of the foreign text being imported before converting it into Unicode. Used in <code>CPlainText::ImportTextL()</code>. If false, the value specified in  <code>iForeignEncoding</code> (if any) is used. If none of the available character conversion plug-ins on the device  return a confidence level greater than 50%, <code>CPlainText::ImportTextL()</code> leaves with <code>KErrNotSupported</code>. By default, false.</p>
+<a name="2.17.2.6.10"></a><a name="%3a%3aCPlainText%3a%3aTImportExportParam%3a%3aiFileSession"></a>
+<h4><code>iFileSession</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>RFs* iFileSession</code></p><h4 class="subheading">Description</h4>
+<p>If non-null, a connected file server session used  to load character conversion data. Only relevant  if the text needs to be converted to or from Unicode. By default, null.</p>
+<a name="2.17.3"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aTImportExportResult"></a>
+<hr size="1" noshade>
+<h3>Class <code>TImportExportResult</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TImportExportResult</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.1
+</p><h4 class="subheading">Description</h4>
+<p>Results of importing or exporting text using <code>CPlainText::ImportTextL()</code> or <code>CPlainText::ExportTextL()</code>.</p><p>Defined in <code>CPlainText::TImportExportResult</code>:
+<br><code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aTImportExportResult%3a%3aTImportExportResult%28%29" title="Default constructor">TImportExportResult()</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aTImportExportResult%3a%3aiForeignEncoding" title="The identifier for the character set encoding selected when importing text whose encoding is guessed (iGuessForeignEncoding was true)">iForeignEncoding</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aTImportExportResult%3a%3aiInputChars" title="The number of characters read from the stream (when importing) or read from this text object (when exporting)">iInputChars</a></code>, <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aTImportExportResult%3a%3aiOutputChars" title="The number of characters written to the stream (when exporting) or written to this text object (when importing)">iOutputChars</a></code>
+</p>
+<a name="2.17.3.5"></a><h4>Construction</h4>
+<a name="2.17.3.5.2"></a><a name="%3a%3aCPlainText%3a%3aTImportExportResult%3a%3aTImportExportResult%28%29"></a>
+<h4><code>TImportExportResult()</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>TImportExportResult()</code></p><h4 class="subheading">Description</h4>
+<p>Default constructor.  All member data is initialised to zero.</p>
+<a name="2.17.3.6"></a><h4>Member data</h4>
+<a name="2.17.3.6.2"></a><a name="%3a%3aCPlainText%3a%3aTImportExportResult%3a%3aiOutputChars"></a>
+<h4><code>iOutputChars</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>TInt iOutputChars</code></p><h4 class="subheading">Description</h4>
+<p>The number of characters written to the stream (when exporting) or written to this text object (when importing).</p>
+<a name="2.17.3.6.3"></a><a name="%3a%3aCPlainText%3a%3aTImportExportResult%3a%3aiInputChars"></a>
+<h4><code>iInputChars</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>TInt iInputChars</code></p><h4 class="subheading">Description</h4>
+<p>The number of characters read from the stream (when importing) or read from this text object (when exporting).</p>
+<a name="2.17.3.6.4"></a><a name="%3a%3aCPlainText%3a%3aTImportExportResult%3a%3aiForeignEncoding"></a>
+<h4><code>iForeignEncoding</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>TUint iForeignEncoding</code></p><h4 class="subheading">Description</h4>
+<p>The identifier for the character set encoding selected when importing text whose encoding is guessed (<code>iGuessForeignEncoding</code> was true).</p><h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../CharacterConversion/Globals.html#CharacterConversion%2econstants">Character set identifiers</a></li>
+</ul>
+<a name="2.18"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Enumerations</h2>
+</div><div class="Bodytext">
+<a name="2.18.2"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aTScanDataEnd"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TScanDataEnd</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TScanDataEnd</code></p><h4 class="subheading">Description</h4>
+<p>Used in text scanning functions to indicate the end of the document has been passed.</p>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCPlainText%3a%3aEScanEndOfData"><code class="Value">EScanEndOfData</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Indicates that a scan has passed the end of text paragraph
+delimiter.</para>
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.18.3"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aTTextOrganisation"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TTextOrganisation</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TTextOrganisation</code></p><h4 class="subheading">Description</h4>
+<p>Line delimiter translation.</p>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCPlainText%3a%3aEOrganiseByParagraph"><code class="Value">EOrganiseByParagraph</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>When importing text from a text file, all line feeds are converted into
+paragraph delimiters.</para>
+<para>When exporting text to a text file, lines do not wrap and paragraph
+delimiters are converted into CR/LF pairs.</para>
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCPlainText%3a%3aEOrganiseByLine"><code class="Value">EOrganiseByLine</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>When importing text from a text file, a single line feed or a line feed
+followed by a carriage return is converted into a space character. A line feed
+which is followed by another line feed is converted into a
+<code>CEditableText::EParagraphDelimiter</code>.</para>
+<para>When exporting text to a text file, lines wrap at the specified wrap
+width and paragraph delimiters are converted into CR/LFs pairs.</para>
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.18.4"></a></div><div class="Head3">
+<a name="%3a%3aCPlainText%3a%3aAnonymous"></a>
+<hr size="1" noshade>
+<h3>Enum <code>Anonymous</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>N/A</code></p><h4 class="subheading">Description</h4>
+<p>Scan mask values.</p>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCPlainText%3a%3aEScanBackwards"><code class="Value">EScanBackwards</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Scan direction is backwards. The default is forwards.</para>
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCPlainText%3a%3aEScanStayIfBoundary"><code class="Value">EScanStayIfBoundary</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>If the current document position is a word or paragraph boundary, no scan
+occurs.</para>
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCPlainText%3a%3aEScanToUnitStart"><code class="Value">EScanToUnitStart</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Scan to the first character in the word or paragraph.</para>
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCPlainText%3a%3aEScanToUnitEnd"><code class="Value">EScanToUnitEnd</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Scan to the last character in the word or paragraph.</para>
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCPlainText%3a%3aEScanJoinDelimiters"><code class="Value">EScanJoinDelimiters</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Treat adjacent word or paragraph delimiters as a single delimiter.
+Required when performing a word count, for example.</para>
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCPlainText%3a%3aEScanPictureIsDelimiter"><code class="Value">EScanPictureIsDelimiter</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Picture characters are considered to be word delimiters.</para>
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCPlainText%3a%3aEScanPunctuationIsDelimiter"><code class="Value">EScanPunctuationIsDelimiter</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Punctuation characters, except hyphens and apostrophes, are considered to
+be word delimiters.</para>
+</p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

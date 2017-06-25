@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to implement a client interface with subsessions</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="ClientServerGuide%2ehow%2dto%2eclient%2dsubsession"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="SharableSessions.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToClientSideSessionWithCountServer.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Inter&nbsp;Process&nbsp;Communciation</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Client/Server</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;implement&nbsp;a&nbsp;client&nbsp;interface&nbsp;with&nbsp;subsessions</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to implement a client interface with
+subsessions</h1>
+</div><div class="Bodytext">
+<p>A client side subsession is represented by an instance of a class
+derived from <code>RSubSessionBase</code> which provides the behaviour
+for:</p>
+<ul>
+<li>
+<p>creating a subsession in the server</p>
+</li>
+<li>
+<p>sending messages to the subsession.</p>
+</li>
+</ul>
+<p>In the following code fragment, the class <code>RCounter</code>,
+derived from <code>RSubSessionBase</code>, represents the client side
+subsession with a server, called the count server in this example. The
+assumption is made that the client has already established a session with the
+server as represented by the <code>RCountServ</code> class.</p>
+<p class="CodeBlock"><code>class RCounter : public RSubSessionBase<br>&nbsp;{<br>public:<br>&nbsp;TInt Open(RCountServ &amp;aServer);<br>&nbsp;void SetFromString(TDesC&amp; aString);<br>&nbsp;void Close();<br>&nbsp;void Increase();<br>&nbsp;void Decrease();<br>&nbsp;void IncreaseBy(TInt anInt);<br>&nbsp;void DecreaseBy(TInt anInt);<br>&nbsp;void Reset();<br>&nbsp;TInt CounterValue();<br>&nbsp;};</code></p>
+<p class="CodeBlock"><code>class RCountServ : public RSessionBase<br>&nbsp;{<br>public:<br>&nbsp;RCountServ();<br>&nbsp;TInt Connect();<br>&nbsp;...<br>&nbsp;TVersion Version() const;<br>&nbsp;void Close();<br>&nbsp;};</code></p>
+<p>The important points in this example are:</p>
+<ul>
+<li>
+<p><code>Open()</code> creates a subsession within the client-side
+session. A reference to the client-side session is specified as the
+function&#8217;s single argument. The function calls
+<code>RSubSessionBase::CreateSubSession()</code> which, in turn, causes a
+server side subsession object to be created and its handle number to be
+returned.</p>
+</li>
+<li>
+<p>Client subsession interface functions, such as
+<code>CounterValue()</code>, send a specific message to the server.</p>
+</li>
+</ul>
+<p class="CodeBlock"><code>TInt RCounter::CounterValue()<br>&nbsp;{<br>&nbsp;TInt res=0;<br>&nbsp;TPckgBuf&lt;TInt&gt; pckg;<br>&nbsp;if (SubSessionHandle())<br>&nbsp;&nbsp;{<br>&nbsp;&nbsp;TAny *p[KMaxMessageArguments];<br>&nbsp;&nbsp;p[0]=(TAny *) &amp;pckg;<br>&nbsp;&nbsp;SendReceive(ECountServValue,&amp;p[0]);<br>&nbsp;&nbsp;res = pckg();<br>&nbsp;&nbsp;}<br>&nbsp;return res;</code></p>
+<p class="CodeBlock"><code> }</code></p>
+<ul>
+<li>
+<p><code>Close()</code> closes the subsession.</p>
+</li>
+</ul>
+<a name="1.13"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Notes</h2>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>The operation code passed to
+<code>RSubSessionBase::CreateSubSession()</code> must be interpreted by the
+server as a request to create a subsession.</p>
+</li>
+<li>
+<p>When sending a message to the server with a call to
+<code>RSubSessionBase::SendReceive()</code>, only three elements in the message
+argument array can be used. This function always uses the fourth argument to
+hold the client subsession handle number which is used to identify the
+corresponding server side subsession object. The message argument array is
+subsequently passed to a call to
+<code>RSessionBase::SendReceive()</code>.</p>
+</li>
+<li>
+<p>The operation code passed to
+<code>RSubSessionBase::CloseSubSession()</code> must be interpreted by the
+server as a request to close the subsession.</p>
+</li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

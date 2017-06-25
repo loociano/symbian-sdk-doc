@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Character conversion to and from Unicode</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="CharconvGuide%2eConversionToFromUnicode"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CharacterSetsAndUnicode.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="TransformationFormats.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Character&nbsp;Conversion</a>&nbsp;<span class="separator">&#187;</span>
+Character&nbsp;conversion&nbsp;to&nbsp;and&nbsp;from&nbsp;Unicode</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Character conversion to and from Unicode</h1>
+</div><div class="Bodytext">
+<p>The class <code>CCnvCharacterSetConverter</code> is used for
+converting text between Unicode (UCS-2) and other character sets. Sixteen-bit
+descriptors are used to hold text encoded in UCS-2, and eight-bit descriptors
+are used to hold text encoded in all other character sets — whether these are
+encoded as a single byte per character, multiple bytes, or a variable number of
+bytes.</p>
+<p>The first stage of the conversion is to define the non-Unicode
+character set to be converted to or from, and the second is to convert the
+text. Selecting the character set to be converted to or from is done using one
+of the overloads of <code>PrepareToConvertToOrFromL()</code>. Text conversion
+itself is done using one of the overloads of <code>ConvertFromUnicode()</code>
+or <code>ConvertToUnicode()</code>.</p>
+<p>The conversion functions allow piece-by-piece conversion of input
+strings. Callers do not have to try to guess how big to make the output
+descriptor for a given input descriptor; they can simply do the conversion in a
+loop using a small output descriptor. The ability to cope with an input
+descriptor being truncated is useful if the caller cannot guarantee whether the
+input descriptor will be complete, e.g. if they themselves are receiving it in
+chunks from an external source.</p>
+<p>The conversion does not fail if characters are unknown, which may
+happen if the input character is not valid in its own character set —
+unlikely in the case of Unicode — or because there is no equivalent in the
+selected output character set. Instead, unknown characters are replaced with a
+default character, or a character which may be specified using one of the
+utility functions.</p>
+<p>There is no direct way to convert between two non-Unicode character
+sets. Though it is possible to convert from one character set to Unicode and
+then from Unicode to another character set.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

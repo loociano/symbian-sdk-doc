@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>MMdaObjectEventListener</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CMdaServerClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="TMdaPackageClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Media&nbsp;Server&nbsp;Common&nbsp;Classes</a>&nbsp;<span class="separator">&#187;</span>
+MMdaObjectEventListener</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>mda\client\utility.h</code>
+<br>Link against: <code>n/a</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aMMdaObjectEventListener"></a>
+
+<h1>Class <code>MMdaObjectEventListener</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>MMdaObjectEventListener</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Interface class for receiving events from the media server.</p><p>Objects that implement this interface can be passed to <code>CMdaServer::AddListenerL()</code> or <code>RemoveListener()</code>. The media server calls the appropriate listener's <code>MoelEventMissed()</code> or <code>MoelEvent()</code> function on receiving an event from the media server, for example the audio output device signalling that it has finished playing the data passed to it.</p><p>Defined in <code>MMdaObjectEventListener</code>:
+<br><code class="ApiItem"><a href="MMdaObjectEventListenerClass.html#%3a%3aMMdaObjectEventListener%3a%3aMoelEvent%28%29" title="Handles an event that occurred in the media server">MoelEvent()</a></code>, <code class="ApiItem"><a href="MMdaObjectEventListenerClass.html#%3a%3aMMdaObjectEventListener%3a%3aMoelEventMissed%28%29" title="This function, rather than MoelEvent() is called if the event's ID is EMdaEventMissed">MoelEventMissed()</a></code>, <code class="ApiItem"><a href="MMdaObjectEventListenerClass.html#%3a%3aMMdaObjectEventListener%3a%3aMoelObject%28%29" title="Returns the client-side handle to the object the listener can receive events from">MoelObject()</a></code>
+</p>
+<a name="2.5"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Member functions</h2>
+</div><div class="Bodytext">
+<a name="2.5.2"></a></div><div class="Head3">
+<a name="%3a%3aMMdaObjectEventListener%3a%3aMoelObject%28%29"></a>
+<hr size="1" noshade>
+<h3><code>MoelObject()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual const RMdaObject&amp; MoelObject() const =0;</code></p><h4 class="subheading">Description</h4>
+<p>Returns the client-side handle to the object the listener can receive events from.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RMdaObject&amp;</code></td>
+<td class="Cell"><p class="ValueDesc">The client side handle of the <code>RMdaObject</code>&#8211;derived class, for instance an <code>RMdaController</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.5.3"></a></div><div class="Head3">
+<a name="%3a%3aMMdaObjectEventListener%3a%3aMoelEvent%28%29"></a>
+<hr size="1" noshade>
+<h3><code>MoelEvent()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void MoelEvent(const TMdaEvent&amp; aEvent) =0;</code></p><h4 class="subheading">Description</h4>
+<p>Handles an event that occurred in the media server. Called by the <code>CMdaServer</code> object that the listener has been added to.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TMdaEvent&amp; aEvent</code></td>
+<td class="Cell"><p class="ValueDesc">A single event that occurred in the media server.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CMdaServerClass.html#%3a%3aCMdaServer%3a%3aAddListenerL%28%29" title="Adds an object event listener, so that events can be passed to it"><code class="ApiItem">CMdaServer::AddListenerL()</code></a></li>
+</ul>
+<a name="2.5.4"></a></div><div class="Head3">
+<a name="%3a%3aMMdaObjectEventListener%3a%3aMoelEventMissed%28%29"></a>
+<hr size="1" noshade>
+<h3><code>MoelEventMissed()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void MoelEventMissed() =0;</code></p><h4 class="subheading">Description</h4>
+<p>This function, rather than <code>MoelEvent()</code> is called if the event's ID is <code>EMdaEventMissed</code>. Events are stored when they are received and a missed event occurs when there are no spare slots.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

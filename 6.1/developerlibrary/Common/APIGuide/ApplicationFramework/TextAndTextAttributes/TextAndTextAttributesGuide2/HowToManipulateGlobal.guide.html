@@ -1,0 +1,247 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to manipulate simple global text</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="TextAndTextAttributesGuide3%2eHowToManipulateGlobal"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToTextStyles.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToManipulateRichText.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Application&nbsp;Framework</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Text&nbsp;and&nbsp;Text&nbsp;Attributes</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Formatting</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;manipulate&nbsp;simple&nbsp;global&nbsp;text</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to manipulate simple global text</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Creating a global text object</h2>
+</div><div class="Bodytext">
+<p>A <em>global text object</em> has global
+<em>paragraph</em> and
+<em>character</em> formatting. Its formatting is stored
+in a paragraph and a character <em>format layer</em>. To
+create a global text object, you need to create these layers, and pass them as
+parameters to the <a href="../../../../APIReference/TextAndTextAttributes/CGlobalTextClass.html#%3a%3aCGlobalText" title="Text with globally applied formatting"><code class="ApiItem">CGlobalText</code></a> constructor:</p>
+<p class="CodeBlock"><code>CGlobalText* iglobalText; // global text document<br>CParaFormatLayer* iparaFormatLayer;<br>CCharFormatLayer* icharFormatLayer; <br>iparaFormatLayer=CParaFormatLayer::NewL(); // required para format<br>icharFormatLayer=CCharFormatLayer::NewL(); // required char format<br>iglobalText=CGlobalText::NewL(iparaFormatLayer, icharFormatLayer);</code></p>
+<a name="1.3.4"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Notes</h3>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>The code above constructs a global text object which uses default paragraph
+and character formatting.</p>
+</li><li><p>Rich text is formatted in exactly the same way as global text,
+except that the length and position arguments now are relevant and must specify
+a valid range of characters. Only characters in the range specified are
+affected.</p></li>
+<li>
+<p>The global text object does <i>not</i> take on
+ownership of these <em>format layers</em>. This allows
+several global text objects to share the same format layers. Therefore, if you
+have only a single global text object, you must destroy not only it, but the
+format layers also:</p>
+</li>
+</ul>
+<p class="CodeBlock"><code>delete iglobalText; // delete contained document<br>delete icharFormatLayer; // delete char format layer<br>delete iparaFormatLayer; // and para format layer</code></p>
+<p>If you had several global text objects sharing the same
+format layers, you would destroy the format layers only after all the text
+objects had been destroyed.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Inserting text and paragraphs</h2>
+</div><div class="Bodytext">
+<p>Text may be inserted using <code>InsertL()</code>, specifying a
+<em>document position</em> and the text to insert.</p>
+<p class="CodeBlock"><code>iGlobalText-&gt;InsertL(0,_L(&quot;Hello!&quot;));<br>iGlobalText-&gt;InsertL(5,_L(&quot; World&quot;));<br>iGlobalText-&gt;InsertL(12,CEditableText::EParagraphDelimiter);<br>&nbsp;&nbsp;&nbsp;&nbsp;// insert paragraph marker<br>iGlobalText-&gt;InsertL(13,_L(&quot;And hello again!&quot;));<br>&nbsp;&nbsp;&nbsp;&nbsp;// insert text to follow this marker</code></p>
+<a name="1.4.4"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Note</h3>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>The code inserts two character strings into the text at document
+positions 0 and 5. Position 5 is the position between the fifth and sixth
+characters. A new <em>paragraph delimiter</em> and some
+more text is then inserted.</p>
+</li>
+</ul>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Extracting information and text</h2>
+</div><div class="Bodytext">
+<p>The following example code extracts information about a text object and
+about a word within the text object and reads the word at a document position.
+The status message <code>iMessage</code> (a <code>TBuf&lt;80&gt;</code>) is
+used to display the number of <em>characters</em>,
+<em>words</em> and
+<em>paragraphs</em> in the global text object.</p>
+<p>ParagraphCount<code>()</code> always returns a count of at least one due
+to the existence of the terminating <em>paragraph
+delimiter</em> at the end of every text object.</p>
+<p class="CodeBlock"><code>iMessage.Format(_L(&quot;chars=%d, words=%d, paras=%d&quot;),<br>iGlobalText-&gt;DocumentLength(),<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// length up to and excluding final para mark<br>iGlobalText-&gt;WordCount(), // white-space delimited words<br>iGlobalText-&gt;ParagraphCount()); // paras including the final one</code></p>
+<p>In the following example information about the word containing the
+character at a specified document position, and the word itself, are extracted
+and printed.</p>
+<p><code>CGlobalText::GetWordInfo()</code> is used to extract information
+about a word and<code> CGlobalText::Read()</code> to obtain a read-only pointer
+to the word. </p>
+<p class="CodeBlock"><code>TInt pos=65; // Choose an arbitrary document position<br>TInt startPos, length; // results of function<br>iGlobalText-&gt;GetWordInfo(pos,startPos,length,EFalse,ETrue);<br>// Read length (the length of the word at position pos) number of <br>// characters beginning at startPos (start of word at pos). <br>TPtrC pointer=iGlobalText-&gt;Read(startPos,length);<br>// Print word and word info<br>iMessage.Format(_L(&quot;Word at pos %d (\&quot;%S\&quot;) has&quot;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot; %d characters, starts at position %d&quot;),<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pos, &amp;pointer, length, startPos);</code></p>
+<p class="CodeBlock"><code>// insert huge amounts of text<br>...</code></p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Using fields</h2>
+</div><div class="Bodytext">
+<p>Before any field, apart from the page number field in a
+<em>header</em> or <em>footer</em>,
+can be inserted into a document, a field factory must be declared. A field
+factory is a class which derives from the <a href="../../../../APIReference/TextAndTextAttributes/MTextFieldFactoryClass.html#%3a%3aMTextFieldFactory" title="Abstract base class for field factories"><code class="ApiItem">MTextFieldFactory</code></a>
+class, and which defines a <code class="ApiItem">NewFieldL()</code> function.
+<code>NewFieldL()</code> constructs new fields according to a
+<em>UID</em> passed into the function. </p>
+<p> The steps involved before the field
+factory can be used to create and insert a  field are as follwows</p>
+<ol>
+<li>
+<p>Instantiate a field factory. </p>
+</li>
+<li>
+<p>Set that factory to be the text object's field factory</p>
+</li>
+<li>
+<p>Construct a field using <code>CPlainText::NewTextFieldL()</code></p>
+</li>
+<li>
+<p>If, for example, a date/time field is to be inserted, format it as required. By
+default, the date/time is formatted as dd/mm/yyyy.  </p>
+</li>
+<li>
+<p>Insert the field at the desired document position</p>
+</li>
+<li>
+<p>Update the field. Until this is done, no field text will be visible.
+Also, care must be taken that the field length is not greater than 20
+characters (the maximum field length), otherwise <code>UpdateFieldL()</code>
+will panic. The first time the field is updated, the position specified must be
+the position at which the field was inserted. Subsequent updates may specify
+any position within the field.</p>
+</li><li><p><a href="../../../../APIReference/TextAndTextAttributes/CPlainTextClass.html#%3a%3aCPlainText%3a%3aFindFields%28%29" title="Tests whether a document position is located within a field -- overloaded function"><code class="ApiItem">CPlainText::FindFields()</code></a> may be used to get information
+about a field, including its start position and length.</p></li>
+</ol>
+<a name="1.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Paragraph formatting</h2>
+</div><div class="Bodytext">
+<p>The following code centre aligns the text. Alignment is a
+<em>paragraph format attribute</em> and is a member of
+the <a href="../../../../APIReference/TextAndTextAttributes/CParaFormatClass.html#%3a%3aCParaFormat" title="A transient container of paragraph format attributes, including tab stops, bullet points and paragraph borders"><code class="ApiItem">CParaFormat</code></a> class. All paragraph format attributes which are
+not explicitly set are taken from the system-provided default settings. </p>
+<p>Use <a href="../../../../APIReference/TextAndTextAttributes/CGlobalTextClass.html#%3a%3aCGlobalText%3a%3aApplyParaFormatL%28%29" title="Changes the text object's paragraph formatting"><code class="ApiItem">CGlobalText::ApplyParaFormatL()</code></a> to globally change the
+paragraph formatting. In this example, the position and the length arguments
+are redundant because the formatting is applied globally. However, they must be
+specified, although their values are irrelevant. </p>
+<p>To set or clear paragraph format attributes, use a
+<a href="../../../../APIReference/TextAndTextAttributes/TParaFormatMaskClass.html#%3a%3aTParaFormatMask" title="Used in conjunction with an object of class CParaFormat to mask the paragraph format attributes which are involved when setting and sensing paragraph formatting"><code class="ApiItem">TParaFormatMask</code></a> in conjunction with an object of class
+<code>CParaFormat</code>. The attributes specified in the mask are set
+according to the corresponding value contained in <code>CParaFormat</code>. Any
+attributes not specified in the mask are unaffected.</p>
+<p class="CodeBlock"><code>CParaFormat* paraFormat=CParaFormat::NewLC();<br>TParaFormatMask paraFormatMask; <br>paraFormat-&gt;iHorizontalAlignment=CParaFormat::ECenterAlign; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// set centered<br>paraFormatMask.SetAttrib(EAttAlignment); // interested in alignment<br>iglobalText-&gt;ApplyParaFormatL(paraFormat,paraFormatMask,0,0);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// apply format under mask - pos and length irrelevant<br>CleanupStack::PopAndDestroy();  // paraFormat </code></p>
+<a name="1.7.6"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Note</h3>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>An alternative method to using <code>ApplyParaFormatL()</code> for global
+text is to directly set the formatting of the global <em>paragraph
+format layer</em> upon which the object's paragraph formatting is
+based. This may be done by using either <a href="../../../../APIReference/TextAndTextAttributes/CParaFormatLayerClass.html#%3a%3aCParaFormatLayer%3a%3aSetL%28%29" title="Sets the layer's format attributes"><code class="ApiItem">CParaFormatLayer::SetL()</code></a>,
+to reset the formatting of the existing layer, or
+<a href="../../../../APIReference/TextAndTextAttributes/CGlobalTextClass.html#%3a%3aCGlobalText%3a%3aSetGlobalParaFormat%28%29" title="Replaces the paragraph format layer referenced by the global text object"><code class="ApiItem">CGlobalText::SetGlobalParaFormat()</code></a> which sets a new layer. Both
+methods cause all attributes to be reset&nbsp;&#8212; no mask is
+specified.</p>
+</li>
+</ul>
+<a name="1.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Character formatting</h2>
+</div><div class="Bodytext">
+<p>The following code globally sets the bold, italic and underline
+<em>character format attributes</em>. These attributes
+are accessed through the <code>iFontPresentation</code> and
+<code>iFontStyle</code> members of the <a href="../../../../APIReference/TextAndTextAttributes/TCharFormatClass.html#%3a%3aTCharFormat" title="A transient container of character format attributes, including font-dependent and font-independent attributes"><code class="ApiItem">TCharFormat</code></a> class. Any
+attributes not explicitly set are taken from the system-provided default
+settings. </p>
+<p>Global character formatting is applied in a similar manner to paragraph
+formatting, using a <a href="../../../../APIReference/TextAndTextAttributes/TCharFormatMaskClass.html#%3a%3aTCharFormatMask" title="Used in conjunction with an object of class TCharFormat to mask the character format attributes which are involved when setting and sensing character formatting"><code class="ApiItem">TCharFormatMask</code></a> in conjunction with a
+<code>TCharFormat</code>, then calling
+<code>CGlobalText::ApplyCharFormatL()</code>.</p>
+<p class="CodeBlock"><code>charFormatMask.SetAttrib(EAttFontUnderline); // set underline<br>charFormatMask.SetAttrib(EAttFontPosture); // and posture (for italic)<br>charFormatMask.SetAttrib(EAttFontStrokeWeight); // and weight (for <br>&nbsp;&nbsp;&nbsp;&nbsp;// bold)<br>charFormat.iFontPresentation.iUnderline=EUnderlineOn;<br>charFormat.iFontSpec.iFontStyle.SetPosture(EPostureItalic);<br>charFormat.iFontSpec.iFontStyle.SetStrokeWeight(EStrokeWeightBold);<br>// apply format under mask<br>iGlobalText-&gt;ApplyCharFormatL(charFormat,charFormatMask,0,0);</code></p>
+<a name="1.8.5"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Note</h3>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>No more than one attribute can be specified in the argument to
+<a href="../../../../APIReference/TextAndTextAttributes/TCharFormatMaskClass.html#%3a%3aTCharFormatMask%3a%3aSetAttrib%28%29" title="Sets a single attribute flag in the character format mask"><code class="ApiItem">TCharFormatMask::SetAttrib()</code></a>. To set more than one attribute in a
+single call to <code>ApplyCharFormatL()</code>, either use several calls to
+<code>SetAttrib()</code>, as above, or use
+<a href="../../../../APIReference/TextAndTextAttributes/TCharFormatMaskClass.html#%3a%3aTCharFormatMask%3a%3aSetAll%28%29" title="Sets all attribute flags in the character format mask"><code class="ApiItem">TCharFormatMask::SetAll()</code></a> to set all attributes in the
+mask.</p>
+</li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

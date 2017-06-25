@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to implement a client-side session with subsessions</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="ClientServerGuide%2ehow%2dto%2eclient%2dsubsession%2dcomplex"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToClientSideSessionWithCountServer.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToServerInterfaceSubsessions.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Inter&nbsp;Process&nbsp;Communciation</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Client/Server</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;implement&nbsp;a&nbsp;client-side&nbsp;session&nbsp;with&nbsp;subsessions</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to implement a client-side session with
+subsessions</h1>
+</div><div class="Bodytext">
+<p>A typical session with the count server is illustrated in this
+section.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Creating a session with the server</h2>
+</div><div class="Bodytext">
+<p>Implement a session between the client and count server as
+follows:</p>
+<p class="CodeBlock"><code>RCountServ countserv;<br>User::LeaveIfError(countserv.Connect());</code></p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Creating a subsession</h2>
+</div><div class="Bodytext">
+<p>The following code creates a subsession with the count server. Use
+<code>Open()</code> to call <code>RSubSessionBase::CreateSubSession()</code>
+which creates a corresponding <code>CCounter</code>
+<i>subsession
+object</i> in the server. </p>
+<p class="CodeBlock"><code>RCounter counterA;<br>counterA.Open(countserv);</code></p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Communication via a subsession</h2>
+</div><div class="Bodytext">
+<p><i>Client interface functions</i> are called for each client
+subsession. The subsessions are completely independent; changing the counter
+value in one has no effect on the other.</p>
+<p class="CodeBlock"><code>counterA.Increase();<br>counterA.IncreaseBy(2);<br>counterB.Increase();<br>counterA.IncreaseBy(7);<br>counterB.IncreaseBy(5);<br>counterA.Decrease();<br>counterB.DecreaseBy(3);<br>console-&gt;Printf(_L(&quot;counterA value: %d \n&quot;), counterA.CounterValue());<br>console-&gt;Printf(_L(&quot;counterB value: %d \n&quot;), counterB.CounterValue());</code></p>
+<a name="1.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Closing subsessions</h2>
+</div><div class="Bodytext">
+<p>Before terminating a session its subsessions should be closed with
+<code>Close()</code>.</p>
+<p class="CodeBlock"><code> counterA.Close();</code></p>
+<a name="1.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Resource tracking</h2>
+</div><div class="Bodytext">
+<p>The server keeps track of counter resources within a session. Opening a
+subsession increases the resource count; closing a subsession decreases
+it.</p>
+<p>Before creating the first subsession the client
+calls<code>ResourceCountMarkStart()</code> to start server resource tracking.
+Before closing the session the client calls
+<code>ResourceCountMarkEnd()</code>; the server will panic the client at this
+point if the resource count is greater than 0; indicating that a resource has
+not been closed.</p>
+<p class="CodeBlock"><code>LOCAL_C void doExampleL()<br>&nbsp;{<br>&nbsp;RCountServ countserv;<br>&nbsp;User::LeaveIfError(countserv.Connect());<br>&nbsp;countserv.ResourceCountMarkStart();<br>&nbsp;RCounter counterA;<br>&nbsp;counterA.Open(countserv);<br>&nbsp;RCounter counterB;<br>&nbsp;counterB.Open(countserv);<br>&nbsp;...................... // increase, decrease counters here.<br>&nbsp;TInt iSubsessions = countserv.ResourceCount();<br>&nbsp;&nbsp;&nbsp;_LIT(KTxtResCount,&quot;Resource count is.. %d \n&quot;);<br>&nbsp;console-&gt;Printf(KTxtResCount, iSubsessions);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//close subsessions<br>&nbsp;&nbsp;&nbsp;_LIT(KTxtClosing,&quot;Closing counterA..\n&quot;);<br>&nbsp;console-&gt;Printf(KTxtClosing);<br>&nbsp;counterA.Close();<br>&nbsp;&nbsp;&nbsp;_LIT(KTxtEnd,&quot;Press END to see what happens when a subsession is left open \n&quot;);<br>&nbsp;console-&gt;Printf(KTxtEnd);<br>&nbsp;&nbsp;&nbsp;_LIT(KTxtAnother,&quot;[press another key to continue normally]&quot;);<br>&nbsp;console-&gt;Printf(KTxtAnother);<br>&nbsp;TKeyCode code =console-&gt;Getch();<br>&nbsp;&nbsp;&nbsp;_LIT(KTxtNewLine,&quot;\n&quot;)<br>&nbsp;console-&gt;Printf(KTxtNewLine);<br>&nbsp;if (code != EKeyEnd)<br>&nbsp;&nbsp;{<br>&nbsp;&nbsp;counterB.Close();<br>&nbsp;&nbsp;}<br>&nbsp;countserv.ResourceCountMarkEnd();<br>&nbsp;countserv.Close();<br>&nbsp;}</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

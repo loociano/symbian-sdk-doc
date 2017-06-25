@@ -1,0 +1,672 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CGlobalText</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CFormatLayerClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="CNumPagesFieldClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Text&nbsp;and&nbsp;Text&nbsp;Attributes</a>&nbsp;<span class="separator">&#187;</span>
+CGlobalText</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code> txtglobl.h </code>
+<br>Link against: <code> etext.lib </code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aCGlobalText"></a>
+
+<h1>Class <code>CGlobalText</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CGlobalText</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Text with globally applied formatting. Global text uses a single
+set of paragraph format attributes to describe the appearance of every
+paragraph and a single set of character format attributes to describe the
+appearance of every character.</p>
+<p>The paragraph formatting is stored in a
+<code>CParaFormatLayer</code> and the character formatting is stored in a
+<code>CCharFormatLayer</code>. A format layer is a set of character or
+paragraph format attributes, which may own a pointer to another format layer.
+This pointer is called a based-on link. The effective formatting of a global
+text object is the set of attributes specified in its two format layers, as
+well as any attributes inherited from the layers' chain of based-on links. To
+get the effective formatting, the links are read in turn, so that each
+attribute's value is taken from the first layer in the chain in which it has
+been set. Use <code>GetCharFormat()</code> and <code>GetParaFormatL()</code> to
+get the text object's effective formatting.</p>
+<p>A global text object references the two format layers; it does not
+own them. This allows more than one global text object to use the same
+formatting. The format layers may be modified (see
+<code>ApplyParaFormatL()</code> and <code>ApplyCharFormatL()</code>) or
+replaced (see <code>SetGlobalParaFormat()</code> and
+<code>SetGlobalCharFormat()</code>) during the text object's lifetime.</p>
+<h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase">CBase</a></code></td><td class="Cell">Base class for all classes to be instantiated on the heap</td>
+</tr>
+<tr><td class="Cell"><code><a href="CEditableTextClass.html#%3a%3aCEditableText">CEditableText</a></code></td><td class="Cell">An abstract base class which defines the behaviour that all classes in the editable text class hierarchy (CPlainText, CGlobalText and CRichText) must provide</td>
+</tr>
+<tr><td class="Cell"><code>CGlobalText</code></td><td class="Cell">Text with globally applied formatting</td>
+</tr>
+<tr><td class="Cell"><code><a href="CPlainTextClass.html#%3a%3aCPlainText">CPlainText</a></code></td><td class="Cell">Stores and manipulates plain text</td>
+</tr>
+<tr><td class="Cell"><code><a href="MFormatTextClass.html#%3a%3aMFormatText">MFormatText</a></code></td><td class="Cell">Specifies the mixin protocol for getting and setting character and paragraph format attributes</td>
+</tr>
+<tr><td class="Cell"><code><a href="MLayDocClass.html#%3a%3aMLayDoc">MLayDoc</a></code></td><td class="Cell">This class specifies the mixin protocol for providing the information needed by the text layout engine to lay out a text object</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>CGlobalText</code>:
+<br><code class="ApiItem"><a href="CGlobalTextClass.html#%3a%3aCGlobalText%3a%3aApplyCharFormatL%28%29" title="Changes the text object's character formatting">ApplyCharFormatL()</a></code>, <code class="ApiItem"><a href="CGlobalTextClass.html#%3a%3aCGlobalText%3a%3aApplyParaFormatL%28%29" title="Changes the text object's paragraph formatting">ApplyParaFormatL()</a></code>, <code class="ApiItem"><a href="CGlobalTextClass.html#%3a%3aCGlobalText%3a%3aCancelSelectLabel%28%29" title="Not supported">CancelSelectLabel()</a></code>, <code class="ApiItem"><a href="CGlobalTextClass.html#%3a%3aCGlobalText%3a%3aEnquirePageBreak%28%29" title="Tests whether a page break occurs within a range of characters">EnquirePageBreak()</a></code>, <code class="ApiItem"><a href="CGlobalTextClass.html#%3a%3aCGlobalText%3a%3aGetCharFormat%28%29" title="Gets the global text object's effective character formatting">GetCharFormat()</a></code>, <code class="ApiItem"><a href="CGlobalTextClass.html#%3a%3aCGlobalText%3a%3aGetChars%28%29" title="Gets a constant pointer descriptor to a portion of the text object">GetChars()</a></code>, <code class="ApiItem"><a href="CGlobalTextClass.html#%3a%3aCGlobalText%3a%3aGetParaFormatL%28%29" title="Gets the the global text object's effective paragraph formatting">GetParaFormatL()</a></code>, <code class="ApiItem"><a href="CGlobalTextClass.html#%3a%3aCGlobalText%3a%3aGetParagraphFormatL%28%29" title="Gets the text object's effective paragraph formatting">GetParagraphFormatL()</a></code>, <code class="ApiItem"><a href="CGlobalTextClass.html#%3a%3aCGlobalText%3a%3aGetPictureSizeInTwips%28%29" title="Global text provides no support for pictures, so this implementation of the function returns KErrNotFound">GetPictureSizeInTwips()</a></code>, <code class="ApiItem"><a href="CGlobalTextClass.html#%3a%3aCGlobalText%3a%3aGlobalCharFormatLayer%28%29" title="Gets the character format layer referenced by the global text object">GlobalCharFormatLayer()</a></code>, <code class="ApiItem"><a href="CGlobalTextClass.html#%3a%3aCGlobalText%3a%3aGlobalParaFormatLayer%28%29" title="Gets the paragraph format layer referenced by the global text object">GlobalParaFormatLayer()</a></code>, <code class="ApiItem"><a href="CGlobalTextClass.html#%3a%3aCGlobalText%3a%3aLdDocumentLength%28%29" title="Gets the the number of characters in the document">LdDocumentLength()</a></code>, <code class="ApiItem"><a href="CGlobalTextClass.html#%3a%3aCGlobalText%3a%3aLdToParagraphStart%28%29" title="Gets the document position of the start of the paragraph containing a specified document position">LdToParagraphStart()</a></code>, <code class="ApiItem"><a href="CGlobalTextClass.html#%3a%3aCGlobalText%3a%3aNewL%28%29" title="Allocates and constructs a new global text object with a paragraph and a character format layer">NewL()</a></code>, <code class="ApiItem"><a href="CGlobalTextClass.html#%3a%3aCGlobalText%3a%3aPictureHandleL%28%29" title="Global text provides no support for pictures, so this implementation of the function returns NULL">PictureHandleL()</a></code>, <code class="ApiItem"><a href="CGlobalTextClass.html#%3a%3aCGlobalText%3a%3aSelectParagraphLabel%28%29" title="Global text does not support paragraph labels, so this function returns EFalse">SelectParagraphLabel()</a></code>, <code class="ApiItem"><a href="CGlobalTextClass.html#%3a%3aCGlobalText%3a%3aSetGlobalCharFormat%28%29" title="Replaces the character format layer referenced by the global text object">SetGlobalCharFormat()</a></code>, <code class="ApiItem"><a href="CGlobalTextClass.html#%3a%3aCGlobalText%3a%3aSetGlobalParaFormat%28%29" title="Replaces the paragraph format layer referenced by the global text object">SetGlobalParaFormat()</a></code>, <code class="ApiItem"><a href="CGlobalTextClass.html#%3a%3aCGlobalText%3a%3a%7eCGlobalText%28%29" title="The destructor is empty, and is present only to cause the virtual function table to be defined in a unique module">~CGlobalText()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap">CBase</a></code>:
+<br><code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase%3a%3aoperator%20new%28%29" title="Allocates the object from the heap and then initialises its contents to binary zeroes">operator new()</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText" title="An abstract base class which defines the behaviour that all classes in the editable text class hierarchy (CPlainText, CGlobalText and CRichText) must provide">CEditableText</a></code>:
+<br><code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aEDefaultTextGranularity" title="Granularity of the buffer, default 256 characters">EDefaultTextGranularity</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aEFlatStorage" title="Storage uses a flat buffer (CBufFlat)">EFlatStorage</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aELineBreak" title="Forced line break">ELineBreak</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aENonBreakingHyphen" title="A hard (non-breaking) hyphen">ENonBreakingHyphen</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aENonBreakingSpace" title="A hard (non-breaking) space">ENonBreakingSpace</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aENonBreakingTab" title="Non-breaking tab stop (ensures that the words on either side of the tab stop remain on the same line)">ENonBreakingTab</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aEPageBreak" title="New page">EPageBreak</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aEParagraphDelimiter" title="Paragraph delimiter">EParagraphDelimiter</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aEPictureCharacter" title="Represents a picture inserted into the text object">EPictureCharacter</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aEPotentialHyphen" title="A soft hyphen (ensures that a hyphen followed by a new line will be inserted at that point should a line break be required anywhere within the word)">EPotentialHyphen</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aESegmentedStorage" title="Storage uses a segmented buffer (CBufSeg)">ESegmentedStorage</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aETabCharacter" title="Tab stop">ETabCharacter</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aEVisibleSpaceCharacter" title="Visible space character">EVisibleSpaceCharacter</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aHasChanged%28%29" title="Tests whether the editable text object has been changed by an operation on it, as set by SetHasChanged()">HasChanged()</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aRestoreL%28%29" title="Restores the text and its components from a stream store">RestoreL()</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aSetHasChanged%28%29" title="Sets whether a change has occurred to the editable text object">SetHasChanged()</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aStoreL%28%29" title="Stores the text and its components">StoreL()</a></code>,
+<code class="ApiItem"><a href="CEditableTextClass.html#%3a%3aCEditableText%3a%3aTDocumentStorage" title="Storage type">TDocumentStorage</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText" title="Stores and manipulates plain text">CPlainText</a></code>:
+<br><code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aAnonymous" title="Scan mask values">Anonymous</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aCharPosOfParagraph%28%29" title="Finds the length and the start position of a paragraph identified by its paragraph number -- the first paragraph is numbered zero">CharPosOfParagraph()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aComponentInfo%28%29" title="Gets information about the number of components contained in the text object">ComponentInfo()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aConvertAllFieldsToText%28%29" title="Removes all fields from the text object's field set, leaving their current text value in the text object">ConvertAllFieldsToText()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aConvertFieldToText%28%29" title="Converts the field containing the specified document position into text, leaving its current value in the text object">ConvertFieldToText()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aCopyToStoreL%28%29" title="Copies plain text including fields, if present, to the clipboard">CopyToStoreL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aDeleteL%28%29" title="Deletes one or more characters beginning at, and including, the character at a specified document position">DeleteL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aDocumentLength%28%29" title="Gets the the number of characters in the text object">DocumentLength()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aEOrganiseByLine" title="When importing text from a text file, a single line feed or a line feed followed by a carriage return is converted into a space character">EOrganiseByLine</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aEOrganiseByParagraph" title="When importing text from a text file, all line feeds are converted into paragraph delimiters">EOrganiseByParagraph</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aEScanBackwards" title="Scan direction is backwards">EScanBackwards</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aEScanEndOfData" title="Indicates that a scan has passed the end of text paragraph delimiter">EScanEndOfData</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aEScanJoinDelimiters" title="Treat adjacent word or paragraph delimiters as a single delimiter">EScanJoinDelimiters</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aEScanPictureIsDelimiter" title="Picture characters are considered to be word delimiters">EScanPictureIsDelimiter</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aEScanPunctuationIsDelimiter" title="Punctuation characters, except hyphens and apostrophes, are considered to be word delimiters">EScanPunctuationIsDelimiter</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aEScanStayIfBoundary" title="If the current document position is a word or paragraph boundary, no scan occurs">EScanStayIfBoundary</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aEScanToUnitEnd" title="Scan to the last character in the word or paragraph">EScanToUnitEnd</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aEScanToUnitStart" title="Scan to the first character in the word or paragraph">EScanToUnitStart</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aExportAsTextL%28%29" title="Writes the contents of the plain text object to a text file">ExportAsTextL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aExportTextL%28%29" title="Writes plain text to a stream, optionally converting it from Unicode into a foreign encoding">ExportTextL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aExternalizeFieldDataL%28%29" title="Externalises the plain text object's field set">ExternalizeFieldDataL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aExternalizeL%28%29" title="Externalises a plain text object to a write stream">ExternalizeL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aExternalizePlainTextL%28%29" title="Externalises the plain text object's text content (preceded by a length count) to a write stream">ExternalizePlainTextL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aExternalizePlainTextNoLengthCountL%28%29" title="Externalises the plain text object's text content to a write stream">ExternalizePlainTextNoLengthCountL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aExtract%28%29" title="Copies the contents of the text object into a descriptor -- overloaded function">Extract()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aFieldCount%28%29" title="Gets a count of the number of fields in the text object's field set">FieldCount()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aFieldFactory%28%29" title="Gets a pointer to the field factory used by the text object">FieldFactory()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aFindFields%28%29" title="Tests whether a document position is located within a field -- overloaded function">FindFields()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aGetWordInfo%28%29" title="Gets the start position and length of the word that contains the document position specified">GetWordInfo()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aImportTextFileL%28%29" title="Imports a plain text file into this text object">ImportTextFileL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aImportTextL%28%29" title="Imports plain text from a stream into this text object, optionally converting it from a foreign encoding into Unicode">ImportTextL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aInsertFieldL%28%29" title="Inserts a field into the text object at a specified document position">InsertFieldL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aInsertL%28%29" title="Inserts either a single character or a descriptor into the text object at a specified document position">InsertL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aInternalizeFieldDataL%28%29" title="Internalizes the field set">InternalizeFieldDataL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aInternalizeL%28%29" title="Internalises the text object's text content and field set from a read stream">InternalizeL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aInternalizePlainTextL%28%29" title="Internalises an empty text object's text content from a read stream -- overloaded function">InternalizePlainTextL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aNewTextFieldL%28%29" title="Creates and returns a new field">NewTextFieldL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aPageContainingPos%28%29" title="Gets the number of the page which contains the specified document position">PageContainingPos()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aParagraphCount%28%29" title="Gets a count of the number of paragraphs in the text object">ParagraphCount()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aParagraphNumberForPos%28%29" title="Gets the number of the paragraph which contains a document position">ParagraphNumberForPos()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aPasteFromStoreL%28%29" title="Pastes plain text and fields, if present, from the clipboard into the current text object at the specified document position">PasteFromStoreL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aRead%28%29" title="Gets a read-only view of a portion of the text object">Read()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aRemoveField%28%29" title="Removes the field covering the document position specified from the field set, and deletes all text content associated with the field from the text object">RemoveField()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aReset%28%29" title="Deletes all text content, formatting and fields from the document, leaving the single paragraph delimiter which terminates the text object">Reset()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aRestoreComponentsL%28%29" title="Restores the plain text object's field set from a stream store">RestoreComponentsL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aRestoreFieldComponentsL%28%29" title="Restores the plain text object's field set">RestoreFieldComponentsL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aScanParas%28%29" title="Scans from a document position to the beginning or end of a paragraph">ScanParas()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aScanWords%28%29" title="Scans from a document position to the beginning or end of a word">ScanWords()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aSetFieldFactory%28%29" title="Sets up a field factory">SetFieldFactory()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aSetPageTable%28%29" title="Links the text object to a page table">SetPageTable()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aStoreComponentsL%28%29" title="Stores the plain text object's components to the stream store specified">StoreComponentsL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aStoreFieldComponentsL%28%29" title="Stores the plain text object's field components to a stream store">StoreFieldComponentsL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aTImportExportParam" title="Parameters for importing or exporting text using CPlainText::ImportTextL() or CPlainText::ExportTextL()">TImportExportParam</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aTImportExportResult" title="Results of importing or exporting text using CPlainText::ImportTextL() or CPlainText::ExportTextL()">TImportExportResult</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aTScanDataEnd" title="Used in text scanning functions to indicate the end of the document has been passed">TScanDataEnd</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aTTextOrganisation" title="Line delimiter translation">TTextOrganisation</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aTextField%28%29" title="Returns a pointer to the field located at the specified document position">TextField()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aToParagraphStart%28%29" title="Gets the document position of the start of the paragraph containing the specified document position">ToParagraphStart()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aUpdateAllFieldsL%28%29" title="Re-evaluates all of the fields in the text object">UpdateAllFieldsL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aUpdateFieldL%28%29" title="Re-evaluates the field which covers the document position specified">UpdateFieldL()</a></code>,
+<code class="ApiItem"><a href="CPlainTextClass.html#%3a%3aCPlainText%3a%3aWordCount%28%29" title="Gets a count of the number of words in the text object">WordCount()</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="MLayDocClass.html#%3a%3aMLayDoc" title="This class specifies the mixin protocol for providing the information needed by the text layout engine to lay out a text object">MLayDoc</a></code>:
+<br><code class="ApiItem"><a href="MLayDocClass.html#%3a%3aMLayDoc%3a%3aEForceLoadFalse" title="Do not load the picture data into memory">EForceLoadFalse</a></code>,
+<code class="ApiItem"><a href="MLayDocClass.html#%3a%3aMLayDoc%3a%3aEForceLoadTrue" title="Load the picture data into memory">EForceLoadTrue</a></code>,
+<code class="ApiItem"><a href="MLayDocClass.html#%3a%3aMLayDoc%3a%3aTForcePictureLoad" title="Used as a parameter to the PictureHandleL() function to control whether picture data should be loaded into memory or not">TForcePictureLoad</a></code></p>
+<a name="2.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction and destruction</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aCGlobalText%3a%3aNewL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NewL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static CGlobalText* NewL(const CParaFormatLayer* aGlobalParaLayer,const CCharFormatLayer* aGlobalCharLayer, TDocumentStorage aStorage=ESegmentedStorage,TInt aDefaultTextGranularity=EDefaultTextGranularity);</code></p><h4 class="subheading">Description</h4>
+<p>Allocates and constructs an empty global text object with a
+paragraph and a character format layer. A single end-of-document delimiter is
+inserted.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CParaFormatLayer* aGlobalParaLayer </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the paragraph format layer referenced by the text
+object. Must not be NULL, or a panic occurs. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CCharFormatLayer* aGlobalCharLayer </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the character format layer referenced by the text
+object. Must not be NULL, or a panic occurs. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TDocumentStorage aStorage=ESegmentedStorage </code></td>
+<td class="Cell"><p class="ValueDesc"> The type of in-memory buffer to use. Defaults to
+<code>ESegmentedStorage</code>. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aDefaultTextGranularity=EDefaultTextGranularity </code></td>
+<td class="Cell"><p class="ValueDesc"> Specifies the granularity of the in-memory buffer. Default is
+<code>EDefaultTextGranularity</code> bytes (=256). </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CGlobalText* </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the global text object. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aCGlobalText%3a%3aNewL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NewL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static CGlobalText* NewL(const CStreamStore&amp; aStore,TStreamId aStreamId, const CParaFormatLayer* aGlobalParaLayer,const CCharFormatLayer* aGlobalCharLayer, MTextFieldFactory* aFieldFactory=NULL, TDocumentStorage=ESegmentedStorage);</code></p><h4 class="subheading">Description</h4>
+<p>Allocates and constructs a new global text object with a
+paragraph and a character format layer. Its text content and field set are
+restored from the stream store specified.</p>
+<p>Note</p>
+<p>If the text object supports fields, a field factory should be
+specified.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CStreamStore&amp; aStore </code></td>
+<td class="Cell"><p class="ValueDesc"> Stream store from which the object is restored. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TStreamId aStreamId </code></td>
+<td class="Cell"><p class="ValueDesc"> ID of the stream store. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CParaFormatLayer* aGlobalParaLayer </code></td>
+<td class="Cell"><p class="ValueDesc"> The global paragraph format layer to be referenced by the global
+text object. Must not be NULL or a panic occurs. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> aGlobalParaLayer,const CCharFormatLayer* aGlobalCharLayer
+</code></td>
+<td class="Cell"><p class="ValueDesc"> The global character format layer to be referenced by the global
+text object. Must not be NULL or a panic occurs. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CCharFormatLayer* aGlobalCharLayer, MTextFieldFactory </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to a field factory. A field factory must be provided if
+the text object supports the addition of fields. Default is NULL. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TDocumentStorage=ESegmentedStorage </code></td>
+<td class="Cell"><p class="ValueDesc"> The type of in-memory buffer to use. Defaults to
+<code>ESegmentedStorage</code>. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CGlobalText* </code></td>
+<td class="Cell"><p class="ValueDesc"> The new global text object. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.4"></a></div><div class="Head3">
+<a name="%3a%3aCGlobalText%3a%3a%7eCGlobalText%28%29"></a>
+<hr size="1" noshade>
+<h3><code>~CGlobalText()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>~CGlobalText();</code></p><h4 class="subheading">Description</h4>
+<p>The destructor is empty, and is present only to cause the virtual
+function table to be defined in a unique module.</p>
+<a name="2.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Global format layers</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aCGlobalText%3a%3aGlobalCharFormatLayer%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GlobalCharFormatLayer()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const CCharFormatLayer* GlobalCharFormatLayer()const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the character format layer referenced by the global text
+object.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CCharFormatLayer* </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the character format layer referenced by the global text
+object. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aCGlobalText%3a%3aGlobalParaFormatLayer%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GlobalParaFormatLayer()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const CParaFormatLayer* GlobalParaFormatLayer()const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the paragraph format layer referenced by the global text
+object.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CParaFormatLayer* </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the paragraph format layer referenced by the global text
+object. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.4"></a></div><div class="Head3">
+<a name="%3a%3aCGlobalText%3a%3aSetGlobalCharFormat%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetGlobalCharFormat()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetGlobalCharFormat(const CCharFormatLayer* aCharFormatLayer);</code></p><h4 class="subheading">Description</h4>
+<p>Replaces the character format layer referenced by the global text
+object.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CCharFormatLayer* aCharFormatLayer </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the character format layer to be referenced by the global
+text object. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.5"></a></div><div class="Head3">
+<a name="%3a%3aCGlobalText%3a%3aSetGlobalParaFormat%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetGlobalParaFormat()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetGlobalParaFormat(const CParaFormatLayer* aParaFormatLayer);</code></p><h4 class="subheading">Description</h4>
+<p>Replaces the paragraph format layer referenced by the global text
+object.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CParaFormatLayer* aParaFormatLayer </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the paragraph format layer to be referenced by the global
+text object. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Character and paragraph formatting</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aCGlobalText%3a%3aGetCharFormat%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetCharFormat()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void GetCharFormat(TCharFormat&amp; aFormat,TCharFormatMask&amp; aVaries,TInt aPos,TInt aLength)const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the global text object's effective character formatting. Note that
+the last three arguments are not relevant to the global text implementation of
+this function.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TCharFormat&amp; aFormat </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, contains the effective character formatting for the global
+text object. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TCharFormatMask&amp; aVaries </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, a bitmask indicating which character format attributes vary
+over the range of characters selected. This is only relevant for rich text, so
+for global text returns a value of zero for all attributes. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> This argument is not used for global text. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLength </code></td>
+<td class="Cell"><p class="ValueDesc"> This argument is not used for global text. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aCGlobalText%3a%3aGetParaFormatL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetParaFormatL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void GetParaFormatL(CParaFormat* aFormat,TParaFormatMask&amp; aVaries,TInt aPos,TInt aLength, CParaFormat::TParaFormatGetMode aMode=CParaFormat::EAllAttributes)const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the the global text object's effective paragraph formatting. Note
+that the position and length arguments are only used in the rich text
+implementation of this function.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CParaFormat* aFormat </code></td>
+<td class="Cell"><p class="ValueDesc"> Must not be NULL or a panic occurs. On return, contains the effective
+paragraph formatting for the global text object. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TParaFormatMask&amp; aVaries </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, a bitmask indicating which paragraph format attributes vary
+over the range of characters selected. This is only relevant for rich text, so
+for global text returns a value of zero for all attributes. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> This argument is not used for global text. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLength </code></td>
+<td class="Cell"><p class="ValueDesc"> This argument is not used for global text. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CParaFormat::TParaFormatGetMode aMode=CParaFormat::EAllAttributes
+</code></td>
+<td class="Cell"><p class="ValueDesc"> The default, <code>EAllAttributes</code> indicates that values for all
+paragraph format attributes are written to <code>aFormat</code>.
+<code>EFixedAttributes</code> indicates that tabs, bullets and borders are not
+written to <code>aFormat</code>. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.4"></a></div><div class="Head3">
+<a name="%3a%3aCGlobalText%3a%3aApplyCharFormatL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ApplyCharFormatL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void ApplyCharFormatL(const TCharFormat&amp; aFormat,const TCharFormatMask&amp; aMask,TInt aPos,TInt aLength);</code></p><h4 class="subheading">Description</h4>
+<p>Changes the text object's character formatting. The attributes which are
+set in the mask are read from <code>aFormat</code> into the text object's
+character format layer. The attributes which are not set in the mask are not
+changed. Note that the position and length arguments are only used in the rich
+text implementation of this function.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TCharFormat&amp; aFormat </code></td>
+<td class="Cell"><p class="ValueDesc"> Contains the character format attribute values to apply. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TCharFormatMask&amp; aMask </code></td>
+<td class="Cell"><p class="ValueDesc"> Bitmask specifying the character format attributes to change. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> This argument is not used for global text. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLength </code></td>
+<td class="Cell"><p class="ValueDesc"> This argument is not used for global text. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.5"></a></div><div class="Head3">
+<a name="%3a%3aCGlobalText%3a%3aApplyParaFormatL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ApplyParaFormatL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void ApplyParaFormatL(const CParaFormat* aFormat,const TParaFormatMask&amp; aMask,TInt aPos,TInt aLength);</code></p><h4 class="subheading">Description</h4>
+<p>Changes the text object's paragraph formatting. The attributes which are
+set in the mask are read from <code>aFormat</code> into the text object's
+paragraph format layer. The attributes which are not set in the mask are not
+changed. Note that the position and length arguments are only used in the rich
+text implementation of this function.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CParaFormat* aFormat </code></td>
+<td class="Cell"><p class="ValueDesc"> Contains the paragraph format attribute values to apply. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TParaFormatMask&amp; aMask </code></td>
+<td class="Cell"><p class="ValueDesc"> Bitmask specifying the paragraph format attributes to change. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> This argument is not used for global text. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLength </code></td>
+<td class="Cell"><p class="ValueDesc"> This argument is not used for global text. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Document enquiry</h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aCGlobalText%3a%3aEnquirePageBreak%28%29"></a>
+<hr size="1" noshade>
+<h3><code>EnquirePageBreak()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TBool EnquirePageBreak(TInt aPos,TInt aLength=0)const;</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether a page break occurs within a range of characters. Returns
+false if no page table has been set up: see
+<code>CPlainText::SetPageTable()</code>. The start and end of the range must be
+valid document positions, or a panic occurs.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position from which to begin searching for a page break.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLength=0 </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of characters to search for a page break, beginning at
+<code>aPos</code>. The default is zero. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool </code></td>
+<td class="Cell"><p class="ValueDesc"> True if a page break occurs within the specified range, otherwise false.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.3"></a></div><div class="Head3">
+<a name="%3a%3aCGlobalText%3a%3aGetChars%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetChars()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void GetChars(TPtrC&amp; aView,TCharFormat&amp; aFormat,TInt aStartPos)const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a constant pointer descriptor to a portion of the text object. The
+portion starts at document position <code>aStartPos</code>, and ends at the end
+of the document, or the end of the segment, if segmented storage is being used.
+Also fills a character format object with the text object's effective character
+formatting. The start position must be valid, or a panic occurs.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TPtrC&amp; aView </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, a constant pointer to a portion of the text. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TCharFormat&amp; aFormat </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, contains the text object's effective character formatting.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aStartPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The start position for the view. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.4"></a></div><div class="Head3">
+<a name="%3a%3aCGlobalText%3a%3aGetParagraphFormatL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetParagraphFormatL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void GetParagraphFormatL(CParaFormat* aFormat,TInt aPos)const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the text object's effective paragraph formatting. The
+<code>aPos</code> value is only used in the rich text implementation of this
+function.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CParaFormat* aFormat </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, filled with the text object's effective paragraph formatting.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> This argument is not used for global text. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.5"></a></div><div class="Head3">
+<a name="%3a%3aCGlobalText%3a%3aLdDocumentLength%28%29"></a>
+<hr size="1" noshade>
+<h3><code>LdDocumentLength()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt LdDocumentLength()const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the the number of characters in the document.</p>
+<p>Note: the count includes all non-printing characters but excludes the end
+of text paragraph delimiter, so that the smallest return value is always
+zero.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of characters contained in the document. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.6"></a></div><div class="Head3">
+<a name="%3a%3aCGlobalText%3a%3aLdToParagraphStart%28%29"></a>
+<hr size="1" noshade>
+<h3><code>LdToParagraphStart()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt LdToParagraphStart(TInt&amp; aCurrentPos)const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the document position of the start of the paragraph containing a
+specified document position.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aCurrentPos </code></td>
+<td class="Cell"><p class="ValueDesc"> Specifies a document position: must be valid or a panic occurs. On
+return, specifies the document position of the first character in the paragraph
+in which it is located. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of characters skipped in scanning to the start of the
+paragraph. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.7"></a></div><div class="Head3">
+<a name="%3a%3aCGlobalText%3a%3aGetPictureSizeInTwips%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetPictureSizeInTwips()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt GetPictureSizeInTwips(TSize&amp; aSize, TInt aPos)const;</code></p><h4 class="subheading">Description</h4>
+<p>Global text provides no support for pictures, so this implementation of
+the function returns <code>KErrNotFound</code>.</p>
+<a name="2.9.8"></a></div><div class="Head3">
+<a name="%3a%3aCGlobalText%3a%3aPictureHandleL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PictureHandleL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual CPicture* PictureHandleL(TInt aPos,MLayDoc::TForcePictureLoad aForceLoad)const;</code></p><h4 class="subheading">Description</h4>
+<p>Global text provides no support for pictures, so this implementation of
+the function returns NULL.</p>
+<a name="2.9.9"></a></div><div class="Head3">
+<a name="%3a%3aCGlobalText%3a%3aSelectParagraphLabel%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SelectParagraphLabel()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TBool SelectParagraphLabel(TInt aPos);</code></p><h4 class="subheading">Description</h4>
+<p>Global text does not support paragraph labels, so this function returns
+<code>EFalse</code>.</p>
+<a name="2.9.10"></a></div><div class="Head3">
+<a name="%3a%3aCGlobalText%3a%3aCancelSelectLabel%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CancelSelectLabel()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void CancelSelectLabel();</code></p><h4 class="subheading">Description</h4>
+<p>Not supported.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>MFormatText</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="MFieldPageNumInfoClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="MLayDocClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Text&nbsp;and&nbsp;Text&nbsp;Attributes</a>&nbsp;<span class="separator">&#187;</span>
+MFormatText</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code> txtmfmtx.h </code><br>Link against: <code></code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aMFormatText"></a>
+
+<h1>Class <code>MFormatText</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>MFormatText</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Specifies the mixin protocol for getting and setting character and
+paragraph format attributes. It is inherited by classes which support character
+and paragraph formatting, e.g. rich and global text (<code>CRichText</code> and
+<code>CGlobalText</code>). Its purpose is to allow developers to apply and
+retrieve formatting without needing to know which type of editable text is
+involved.</p>
+<p>All functions defined in this class use a document position and a
+length. These values are only relevant to rich text. In general, they must be
+valid (i.e. the range must not extend beyond the bounds of the document), or a
+panic occurs. In global text, formatting is applied globally, so that the
+length and position values are ignored.</p>
+<p>Defined in <code>MFormatText</code>:
+<br><code class="ApiItem"><a href="MFormatTextClass.html#%3a%3aMFormatText%3a%3aApplyCharFormatL%28%29" title="Applies character formatting to a range of characters">ApplyCharFormatL()</a></code>, <code class="ApiItem"><a href="MFormatTextClass.html#%3a%3aMFormatText%3a%3aApplyParaFormatL%28%29" title="Applies paragraph formatting to a range of paragraphs">ApplyParaFormatL()</a></code>, <code class="ApiItem"><a href="MFormatTextClass.html#%3a%3aMFormatText%3a%3aGetCharFormat%28%29" title="Gets the effective character formatting which applies to a range of characters">GetCharFormat()</a></code>, <code class="ApiItem"><a href="MFormatTextClass.html#%3a%3aMFormatText%3a%3aGetParaFormatL%28%29" title="Gets the effective paragraph formatting which applies to a range of paragraphs">GetParaFormatL()</a></code>
+</p>
+<a name="2.5"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Paragraph formatting</h2>
+</div><div class="Bodytext">
+<a name="2.5.2"></a></div><div class="Head3">
+<a name="%3a%3aMFormatText%3a%3aGetParaFormatL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetParaFormatL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual&nbsp;void&nbsp;GetParaFormatL(CParaFormat*&nbsp;aFormat, TParaFormatMask&amp;&nbsp;aVaries,TInt&nbsp;aPos,TInt&nbsp;aLength, CParaFormat::TParaFormatGetMode aMode=CParaFormat::EAllAttributes)const=0;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the effective paragraph formatting which applies to a
+range of paragraphs. Also gets a bit mask which indicates which values change
+over the region, and whose value is therefore indeterminate.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CParaFormat* aFormat </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, contains the effective paragraph formatting for the
+range of paragraphs. For global text, this is the paragraph formatting of the
+entire text object. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TParaFormatMask&amp; aVaries </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, a bitmask indicating which paragraph format
+attributes vary over the range of characters selected. For global text, this
+mask contains a value of zero for every attribute because formatting is applied
+globally. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position of the start of the range. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLength </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of characters in the range. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CParaFormat::TParaFormatGetMode aMode </code></td>
+<td class="Cell"><p class="ValueDesc"> The default, <code>EAllAttributes</code> means that values for
+all paragraph format attributes are written to <code>aFormat</code>.
+<code>EFixedAttributes</code> means that tabs, bullets and borders are not
+written to <code>aFormat</code>. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.5.3"></a></div><div class="Head3">
+<a name="%3a%3aMFormatText%3a%3aApplyParaFormatL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ApplyParaFormatL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void ApplyParaFormatL(const CParaFormat*&nbsp;aFormat,const TParaFormatMask&amp;&nbsp;aMask, TInt aPos,TInt aLength)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Applies paragraph formatting to a range of paragraphs. The
+attributes which are set in the mask are taken from <code>aFormat</code> and
+applied. The attributes which are not set in the mask are not applied.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CParaFormat* aFormat </code></td>
+<td class="Cell"><p class="ValueDesc"> Contains the paragraph format attribute values to apply. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TParaFormatMask&amp; aMask </code></td>
+<td class="Cell"><p class="ValueDesc"> Specifies which paragraph format attributes should be applied.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position of the start of the range. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLength </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of characters in the range. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Character formatting</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aMFormatText%3a%3aGetCharFormat%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetCharFormat()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual&nbsp;void&nbsp;GetCharFormat(TCharFormat&amp;&nbsp;aFormat, TCharFormatMask&amp;&nbsp;aVaries,TInt&nbsp;aPos,TInt&nbsp;aLength)const=0;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the effective character formatting which applies to a range of
+characters. Also gets a bit mask which indicates which values change over the
+region, and whose value is therefore indeterminate. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TCharFormat&amp; aFormat </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, contains the character format values for the range of
+characters. For global text, this is the character formatting of the entire
+text object. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TCharFormatMask&amp; aVaries </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, indicates which character format attributes vary over
+the range and whose values are therefore indeterminate. For global text, this
+mask contains a value of zero for every attribute because formatting is applied
+globally. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position of the start of the range. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLength </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of characters in the range. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aMFormatText%3a%3aApplyCharFormatL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ApplyCharFormatL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void ApplyCharFormatL(const TCharFormat&amp;&nbsp;aFormat,const TCharFormatMask&amp;&nbsp;aMask, TInt&nbsp;aPos,TInt&nbsp;aLength)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Applies character formatting to a range of characters. The attributes
+which are set in the mask are taken from <code>aFormat</code> and applied. The
+attributes which are not set in the mask are not applied.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TCharFormat&amp; aFormat </code></td>
+<td class="Cell"><p class="ValueDesc"> Contains the character format attribute values to apply. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TCharFormatMask&amp; aMask </code></td>
+<td class="Cell"><p class="ValueDesc"> Bitmask specifying which character format attributes should be
+applied. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> Document position from which to apply the new character formatting.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLength </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of characters to which the new formatting should be
+applied. </p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

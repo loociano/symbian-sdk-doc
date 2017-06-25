@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to prompt the user to select a remote device</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="bt%2eguide%2eui%2edevselect"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Bluetooth</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Bluetooth&nbsp;UI</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;prompt&nbsp;the&nbsp;user&nbsp;to&nbsp;select&nbsp;a&nbsp;remote&nbsp;device</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>How to prompt the user to select a remote device</h1>
+</div><div class="Bodytext">
+<p>When there are several suitable remote devices, you can want to prompt the user to pick the one to which a connection should be made. A dialog to do this is supplied. Note that the dialog is not provided by a standard dialog class as this would require a Bluetooth client to have its own UI, and for this to be brought to the foreground. Instead, clients request a background thread called the notifier server to create the dialog: the server can put a dialog over the UI of whatever application happens to have the foreground.</p><p>To use the dialog:</p><ol><li><p>Create an <a href="../../../APIReference/NotificationServices/RNotifierClass.html#%3a%3aRNotifier" title="A handle to a session with the extended notifier server that provides support for plug-in notifiers"><code class="ApiItem">RNotifier</code></a> object, and connect it with <a href="../../../APIReference/NotificationServices/RNotifierClass.html#%3a%3aRNotifier%3a%3aConnect%28%29" title="Connects to the extended notifier server, creating a session with that server"><code class="ApiItem">RNotifier::Connect()</code></a></p></li><li><p>Call <a href="../../../APIReference/NotificationServices/RNotifierClass.html#%3a%3aRNotifier%3a%3aStartNotifierAndGetResponse%28%29" title="Requests the extended notifier server to start the plug-in notifier identified by the specified UID"><code class="ApiItem">RNotifier::StartNotifierAndGetResponse()</code></a> passing in:</p><ul><li><p>the UID of the authorisation plug-in (<a href="../../../APIReference/BluetoothDeviceSelectionUI/ConstantsNotifierUIDs.html#%3a%3aKDeviceSelectionNotifierUid" title="Device selection plug-in: allows the user to select a device from a list of the devices present in the surrounding environment"><code class="ApiItem">KDeviceSelectionNotifierUid</code></a>)</p></li><li><p>the device and/or service classes by which to filter suitable remote devices; these are packaged in a <a href="../../../APIReference/BluetoothDeviceSelectionUI/TBTDeviceSelectionParamsPckgTypedef.html#%3a%3aTBTDeviceSelectionParamsPckg" title="Packages a TBTDeviceSelectionParams for transfer over an IPC boundary"><code class="ApiItem">TBTDeviceSelectionParamsPckg</code></a></p></li><li><p>a Bluetooth address object that on completion of the dialog will hold information about  the device the user selected in a packaged <a href="../../../APIReference/BluetoothDeviceSelectionUI/TBTDeviceResponseParamsClass.html#%3a%3aTBTDeviceResponseParams" title="Information about the device selected by a user from a Device Selection dialog"><code class="ApiItem">TBTDeviceResponseParams</code></a>.</p></li></ul></li><li><p>When the <code>StartNotifierAndGetResponse()</code> calls completes, extract the device information returned from its buffer.</p></li><li><p>Clean up by cancelling and closing the notifier.</p></li></ol>
+<h4 class="subheading">Example</h4><p class="CodeBlock"><code>// 1. Create a notifier<br>RNotifier not;<br>User::LeaveIfError(not.Connect());<br><br>// 2. Start the device selection plug-in<br>TBTDeviceSelectionParams selectionFilter;<br>TUUID targetServiceClass(0x2345);<br>selectionFilter.SetUUID(targetServiceClass);<br>TBTDeviceSelectionParamsPckg pckg(selectionFilter);<br>TBTDeviceResponseParams result;<br>TBTDeviceResponseParamsPckg resultPckg(result);<br>TRequestStatus status;<br>not.StartNotifierAndGetResponse(status, KDeviceSelectionNotifierUid, pckg, resultPckg);<br>User::After(2000000);<br><br>// 3. Extract device name if it was returned<br>User::WaitForRequest(status);<br>TPtrC name;<br>if (status.Int() == KErrNone)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;if (resultPckg.IsValidDeviceName())<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name.Set(resultPckg().DeviceName());<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// 4. Clean up<br>not.CancelNotifier(KDeviceSelectionNotifierUid);<br>not.Close();</code></p><a name="1.8"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext"><p><a href="../../../APIReference/NotificationServices/index.html#NotificationServices%2etoc">Notification Services</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

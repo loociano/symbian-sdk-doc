@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Using CBaseServerMtm</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="Messaging%2eusing%2eCBaseServerMtm"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="MessagingPanics.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Messaging&nbsp;Architecture</a>&nbsp;<span class="separator">&#187;</span>
+Using&nbsp;CBaseServerMtm</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Using <code>CBaseServerMtm</code></h1>
+</div><div class="Bodytext">
+<p><code>CBaseServerMtm</code> implementations should define a factory function that is called by the Message Server to create a new instance of the Server-side MTM.</p>
+<p>The definition varies between ER5 and later versions.</p><a name="1.5"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Factory function</h2>
+</div><div class="Bodytext">
+<p class="CodeBlock"><code>&lt;concrete-type&gt;* &lt;concrete-type&gt;::&lt;function-name&gt;(CRegisteredMtmDll&amp; aRegisteredMtmDll, CMsvServerEntry* aInitialEntry);</code></p>
+<a name="1.5.3"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Requirements</h3>
+</div><div class="Bodytext">
+<p>A concrete Server-side MTM must implement an exported factory function conforming to this signature. This function is not declared in the base class. It is typically named <code>NewL()</code>, to conform to the general pattern for EPOC two-phase construction functions. It is called by the Server-side MTM registry when a client requests this Server-side MTM.</p>
+<p>The function should create a new instance of the <code>CBaseServerMtm</code>-derived class that provides the implementation, and perform any dynamic allocation required. The arguments received should be passed to the constructor.</p>
+<p>The function is called by ordinal. The ordinal of the function must match that recorded in the MTM&#8217;s registry information. See <code>CMtmDllInfo</code> for details.</p>
+<p>For pre-Unicode variants see the previous factory function definition.</p>
+<a name="1.5.4"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Arguments</h3>
+</div><div class="Bodytext">
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+<p><code>CRegisteredMtmDll&amp; aRegisteredMtmDll</code></p>
+</td>
+<td class="Cell">
+<p>Registration data for the MTM DLL</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>CMsvServerEntry* aInitialEntry</code></p>
+</td>
+<td class="Cell">
+<p>Context on which to operate</p>
+</td>
+</tr>
+</table></td></tr></table><a name="1.5.5"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Return value</h3>
+</div><div class="Bodytext">
+<p>A newly-created instance of the <code>CBaseServerMtm</code>-derived class for the Server-side MTM.</p>
+<a name="1.5.6"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Leave considerations</h3>
+</div><div class="Bodytext">
+<p>The factory function should leave if it cannot create the object.</p>
+<a name="1.5.7"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Example</h3>
+</div><div class="Bodytext">
+<p>For example, a Server-side MTM whose concrete class was <code>CEgMtmServ</code> could define a suitable factory function as:</p>
+<p class="CodeBlock"><code>EXPORT_C CEgMtmServ* CEgMtmServ::NewL(CRegisteredMtmDll&amp; aRegisteredMtmDll,CMsvServerEntry* aInitialEntry)<br>&nbsp;{<br>&nbsp;CleanupStack::PushL(aInitialEntry);<br>&nbsp;CEgMtmServ* egSvrMtm=new(ELeave) CEgMtmServ<br>&nbsp;&nbsp;(aRegisteredMtmDll, aInitialEntry);<br>&nbsp;CleanupStack::Pop();<br><br>&nbsp;CleanupStack::PushL(egSvrMtm);<br>&nbsp;egSvrMtm-&gt;ConstructL();<br>&nbsp;CleanupStack::Pop();<br>&nbsp;return egSvrMtm;<br>&nbsp;}</code></p>
+<a name="1.6"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>EPOC R5 factory function</h2>
+</div><div class="Bodytext">
+<p class="CodeBlock"><code>&lt;concrete-type&gt;* &lt;concrete-type&gt;::&lt;function-name&gt;(CRegisteredMtmDll&amp; aRegisteredMtmDll);</code></p>
+<a name="1.6.3"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Requirements</h3>
+</div><div class="Bodytext">
+<p>A concrete Server-side MTM must implement an exported factory function conforming to this signature. This function is not declared in the base class. It is typically named <code>NewL()</code>, to conform to the general pattern for EPOC two-phase construction functions. It is called by the Server-side MTM registry when a client requests this Server-side MTM.</p>
+<p>The function should create a new instance of the <code>CBaseServerMtm</code>-derived class that provides the implementation, and perform any dynamic allocation required. The argument received should be passed to the constructor.</p>
+<p>The function is called by ordinal. The ordinal of the function must match that recorded in the MTM&#8217;s registry information. See <code>CMtmDllInfo</code> for details.</p>
+<a name="1.6.4"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Arguments</h3>
+</div><div class="Bodytext">
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+<p><code>CRegisteredMtmDll&amp; aRegisteredMtmDll</code></p>
+</td>
+<td class="Cell">
+<p>Registration data for the MTM DLL</p>
+</td>
+</tr>
+</table></td></tr></table><a name="1.6.5"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Return value</h3>
+</div><div class="Bodytext">
+<p>A newly-created instance of the <code>CBaseServerMtm</code>-derived class for the Server-side MTM.</p>
+<a name="1.6.6"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Leave considerations</h3>
+</div><div class="Bodytext">
+<p>The factory function should leave if it cannot create the object.</p>
+<a name="1.6.7"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Example</h3>
+</div><div class="Bodytext">
+<p>For example, a Server-side MTM whose concrete class was <code>CEgMtmServ</code> could define a suitable factory function as:</p>
+<p class="CodeBlock"><code>EXPORT_C CEgMtmServ* CEgMtmServ::NewL(CRegisteredMtmDll&amp; aRegisteredMtmDll)<br>&nbsp;{<br>&nbsp;CEgMtmServ* egSvrMtm=new(ELeave) CEgMtmServ(aRegisteredMtmDll);<br>&nbsp;CleanupStack::PushL(egSvrMtm);<br>&nbsp;egSvrMtm-&gt;ConstructL();<br>&nbsp;CleanupStack::Pop();<br>&nbsp;return egSvrMtm;<br>&nbsp;}</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

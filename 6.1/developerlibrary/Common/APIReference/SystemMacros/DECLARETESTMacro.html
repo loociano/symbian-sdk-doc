@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>__DECLARE_TEST</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CONSTCASTMacro.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="EXPORTCMacro.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">System&nbsp;Macros</a>&nbsp;<span class="separator">&#187;</span>
+__DECLARE_TEST</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>e32def.h</code>
+<br>Link against: <code></code>
+</p>
+</div><div class="Head1">
+<a name="__DECLARE_TEST"></a>
+
+<h1><code>__DECLARE_TEST</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>__DECLARE_TEST public: void __DbgTestInvariant() const; void __DbgTest(TAny *aPtr) const</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Declares a function for testing object invariance.</p>
+<p>For complex classes, it is often useful to provide a function that
+can be called to check that the object is in a valid state. The
+<code>__DECLARE_TEST</code> macro supplies a standard prototype for such a
+function named <code>__DbgTestInvariant()</code>. A companion macro
+<code>__TEST_INVARIANT</code> is provided to call the function.</p>
+<p>For DLLs, as opposed to EXEs, <code>__DbgTestInvariant()</code> is
+exported. That is, the macro expands to:</p>
+<p><code>public: IMPORT_C void __DbgTestInvariant() const; void
+__DbgTest(TAny *aPtr) const</code></p>
+<p>This macro should placed as the last item in a class declaration (as
+it switches back to <code>public</code> access). Note that a terminating
+semi-colon must be used.</p>
+<p>You should define the <code>__DbgTestInvariant()</code> function to
+check that the object is in a healthy state. If it finds an error, it should
+call <code>User::Invariant()</code>, which will cause a panic. </p>
+<p>If a class is derived from a base class, then the base class
+<code>__DbgTestInvariant()</code> should be called first, and then any further
+checking done. </p>
+<p>The second function declared, <code>__DbgTest()</code>, is intended
+to allow test code a way of directly accessing non-public members of a class.
+The function is implemented by any test code that requires it, rather than in
+the class&#8217;s own source code. The function is therefore not
+exported.</p>
+<p><code>__DECLARE_TEST</code> is defined for both debug and release
+builds. This point is particularly important for DLLs, as otherwise the
+exported interfaces would differ between the build versions, giving potential
+binary compatibility problems. To avoid using memory unnecessarily in release
+builds, you can, however, use preprocessor directives to define the code within
+<code>__DbgTestInvariant()</code> only for debug builds.
+<code>__DbgTestInvariant()</code> is never called in release
+builds.</p>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="UsingDECLARETEST.guide.html#SystemMacros%2eusing%2dDECLARE_TEST">Using __DECLARE_TEST</a></li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

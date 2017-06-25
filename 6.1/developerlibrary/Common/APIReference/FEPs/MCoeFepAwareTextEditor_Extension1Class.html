@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>MCoeFepAwareTextEditor_Extension1</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="MCoeFepAwareTextEditorClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="MCoeFepObserverClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Front&nbsp;End&nbsp;Processors</a>&nbsp;<span class="separator">&#187;</span>
+MCoeFepAwareTextEditor_Extension1</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>fepbase.h</code>
+<br>Link against: <code>fepbase.lib</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aMCoeFepAwareTextEditor_Extension1"></a>
+
+<h1>Class <code>MCoeFepAwareTextEditor_Extension1</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>MCoeFepAwareTextEditor_Extension1</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.1
+</p><h4 class="subheading">Description</h4>
+<p>An interface class which may be derived from by text editors to enable FEPs to store state information inside the editor.</p><p>The <code>CState</code> class,  defined within the scope of <code>MCoeFepAwareTextEditor_Extension1</code> represents the state information. This is information specific to the control which is only of interest to the FEP.</p><p>A class which implements this interface must implement the pure virtual functions  <code>State()</code> and <code>SetStateTransferingOwnershipL()</code>, to get and set the state. The class should also implement the <code>MCoeFepAwareTextEditor</code> interface. It must override the private virtual <code>MCoeFepAwareTextEditor::Extension1()</code> to return a pointer to itself (the default implementation returns NULL).  The private virtual <code>MCoeFepAwareTextEditor::Extension1()</code> function is called by the public, non-virtual <code>MCoeFepAwareTextEditor::Extension1()</code> function.</p><p>For example, if a FEP wants to set some state information in a text editor which is about to lose focus, the FEP  should first call the editor's <code>Extension1()</code> function. If this returns non-NULL, the FEP should call the editor's implementation of <code>SetStateTransferingOwnershipL()</code>, passing in an object  of a class derived from <code>CState</code>, which holds the state information. It should also pass in a UID which uniquely identifies the FEP. Later, when focus returns to the editor, the FEP can call <code>State()</code> to retrieve the state information it previously set. Note that <code>CState</code> has several reserved functions, to enable it to be extended in future, while retaining backwards compatibility.</p>
+<p>Defined in <code>MCoeFepAwareTextEditor_Extension1</code>:
+<br><code class="ApiItem"><a href="MCoeFepAwareTextEditor_Extension1Class.html#%3a%3aMCoeFepAwareTextEditor_Extension1%3a%3aCState" title="State information for a text editor control">CState</a></code>, <code class="ApiItem"><a href="MCoeFepAwareTextEditor_Extension1Class.html#%3a%3aMCoeFepAwareTextEditor_Extension1%3a%3aSetStateTransferingOwnershipL%28%29" title="Sets state information in the text editor">SetStateTransferingOwnershipL()</a></code>, <code class="ApiItem"><a href="MCoeFepAwareTextEditor_Extension1Class.html#%3a%3aMCoeFepAwareTextEditor_Extension1%3a%3aState%28%29" title="Gets the state information previously set using SetStateTransferingOwnershipL()">State()</a></code>
+</p>
+<a name="2.5"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Set/get state</h2>
+</div><div class="Bodytext">
+<a name="2.5.2"></a></div><div class="Head3">
+<a name="%3a%3aMCoeFepAwareTextEditor_Extension1%3a%3aSetStateTransferingOwnershipL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetStateTransferingOwnershipL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void SetStateTransferingOwnershipL(CState* aState, TUid aTypeSafetyUid)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Sets state information in the text editor. </p><p>This function must only transfer ownership of the state object after it has successfully done everything that can leave.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CState* aState</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the state information object.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUid aTypeSafetyUid</code></td>
+<td class="Cell"><p class="ValueDesc">A UID which uniquely identifies  the FEP which is calling this function. The text editor should store this value for use by the <code>State()</code> function.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.5.3"></a></div><div class="Head3">
+<a name="%3a%3aMCoeFepAwareTextEditor_Extension1%3a%3aState%28%29"></a>
+<hr size="1" noshade>
+<h3><code>State()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual CState* State(TUid aTypeSafetyUid)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the state information previously set using <code>SetStateTransferingOwnershipL()</code>. This function does not transfer ownership. The function should first check that <code>aTypeSafetyUid</code> matches the UID value previously specified  by <code>SetStateTransferingOwnershipL()</code>. If it doesn't match, the function should return NULL.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUid aTypeSafetyUid</code></td>
+<td class="Cell"><p class="ValueDesc">A UID which uniquely identifies  the FEP which is calling this function. The purpose of this is to enable the FEP to safely downcast the <code>CState</code> pointer returned by this function to a pointer to a derived class known about by the FEP.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CState*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the state information object.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Classes</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aMCoeFepAwareTextEditor_Extension1%3a%3aCState"></a>
+<hr size="1" noshade>
+<h3>Class <code>CState</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CState</code></p><h4 class="subheading">Description</h4>
+<p>State information for a text editor control. This is information specific to the control which is only of interest to the FEP which sets it.</p><h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase">CBase</a></code></td><td class="Cell">Base class for all classes to be instantiated on the heap</td>
+</tr>
+<tr><td class="Cell"><code>MCoeFepAwareTextEditor_Extension1::CState</code></td><td class="Cell">State information for a text editor control</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>MCoeFepAwareTextEditor_Extension1::CState</code>:
+<br><code class="ApiItem"><a href="MCoeFepAwareTextEditor_Extension1Class.html#%3a%3aMCoeFepAwareTextEditor_Extension1%3a%3aCState%3a%3a%20%7eCState%28%29" title="Empty virtual destructor"> ~CState()</a></code>, <code class="ApiItem"><a href="MCoeFepAwareTextEditor_Extension1Class.html#%3a%3aMCoeFepAwareTextEditor_Extension1%3a%3aCState%3a%3aBaseConstructL%28%29" title="Empty second phase base class constructor">BaseConstructL()</a></code>, <code class="ApiItem"><a href="MCoeFepAwareTextEditor_Extension1Class.html#%3a%3aMCoeFepAwareTextEditor_Extension1%3a%3aCState%3a%3aCState%28%29" title="Empty default constructor">CState()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap">CBase</a></code>:
+<br><code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase%3a%3aoperator%20new%28%29" title="Allocates the object from the heap and then initialises its contents to binary zeroes">operator new()</a></code></p>
+<a name="2.6.2.5"></a><a name="%3a%3aMCoeFepAwareTextEditor_Extension1%3a%3aCState%3a%3aCState%28%29"></a>
+<h4><code>CState()</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>protected: CState();</code></p><h4 class="subheading">Description</h4>
+<p>Empty default constructor.</p>
+<a name="2.6.2.6"></a><a name="%3a%3aMCoeFepAwareTextEditor_Extension1%3a%3aCState%3a%3aBaseConstructL%28%29"></a>
+<h4><code>BaseConstructL()</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>protected: void BaseConstructL();</code></p><h4 class="subheading">Description</h4>
+<p>Empty second phase base class constructor. This function should be called from derived classes at the beginning  of their <code>ConstructL()</code> even though it is  currently empty. This is because this class may be extended in future to  own resources, which will be allocated in <code>BaseConstructL()</code>.</p>
+<a name="2.6.2.7"></a><a name="%3a%3aMCoeFepAwareTextEditor_Extension1%3a%3aCState%3a%3a%20%7eCState%28%29"></a>
+<h4><code> ~CState()</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>virtual ~CState();</code></p><h4 class="subheading">Description</h4>
+<p>Empty virtual destructor. This is present because the class may be extended in the future to own resources.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

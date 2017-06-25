@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Pointer handling</title>
+<link href="../../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="WindowServerGuide6%2ePointerHandling"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../../_index/index.html"><img
+src="../../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../../GlobalGlossary/index.html"><img src="../../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="PriorityKeyEvents.html"><img src="../../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToDeclareEventHandlingClass.html"><img src="../../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../index.html">Graphics</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Using&nbsp;Window&nbsp;Server</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Window&nbsp;server&nbsp;architecture</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Window&nbsp;server&nbsp;events</a>&nbsp;<span class="separator">&#187;</span>
+Pointer&nbsp;handling</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Pointer handling</h1>
+</div><div class="Bodytext">
+<p>Pointer events may be associated with any <a href="../../../../../APIReference/WindowServerClientSide/RWindowBaseClass.html#%3a%3aRWindowBase" title="Client-side handle to a server-side window"><code class="ApiItem">RWindowBase</code></a> derived class.  At the simplest, pointer down, drag and up events are generated, associated with the window in which the down occurred.</p>
+<p>The window server allows applications to control pointer handling much more finely than this.</p>
+<ul><li><p>Multiple drag events which the window server receives from the pointer device driver are usually translated into a single drag event for the client application, incorporating all movement occurring between one pointer-related <a href="../../../../../APIReference/WindowServerClientSide/RWsSessionClass.html#%3a%3aRWsSession%3a%3aGetEvent%28%29" title="Gets a standard event from the session for processing"><code class="ApiItem">RWsSession::GetEvent()</code></a> and the next <a href="../../../../../APIReference/WindowServerClientSide/RWsSessionClass.html#%3a%3aRWsSession%3a%3aEventReady%28%29" title="Requests standard events from the window server"><code class="ApiItem">RWsSession::EventReady()</code></a>.  This behaviour is appropriate for a typical application, and ensures that pointer events are delivered precisely at a rate which the application can handle.</p></li>
+<li><p>If required, an application may request the window server to store all pointer events in a pointer buffer, and then deliver that entire buffer when it is full.  This behaviour is useful for freehand drawing, or for handwriting recognition.</p></li>
+<li><p>Double-click may be detected by the window server: the interval between double clicks is supported as a system-wide setting.</p></li>
+<li><p>Repeated pointer-down events may be generated when the pointer is held still is a particular place — similar to keyboard auto-repeat.</p></li>
+<li><p>Designated areas of a window may be designated as key areas, so that a pointer event in that window is turned into a key event, and delivered to the window’s owning client application as a key event: this is intended to support on-screen pseudo-keyboards.</p></li>
+<li><p>The pointer may be grabbed by a particular window so that events generated outside that window's extent are associated with that window.</p></li><li><p>A window can capture pointer clicks from outsides it's visible area.  In
+order to do so it has to call the function <a href="../../../../../APIReference/WindowServerClientSide/RWindowBaseClass.html#%3a%3aRWindowBase%3a%3aSetPointerCapture%28%29" title="Sets the pointer capture state"><code class="ApiItem">RWindowBase::SetPointerCapture()</code></a>. Various  values can be passed as a parameter to this
+function allowing for example: no capturing to take place, capturing of all events from within the
+windows window group,
+capturing of all events from within all
+groups.
+If several windows request events to be captured then the window server
+will do some arbitration.</p></li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

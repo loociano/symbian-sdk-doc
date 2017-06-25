@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>System Sounds overview</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="ApplicationFrameworkOverview%2eSystemSoundsOverview%2emain"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="RecognizersOverview.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="TextAndTextAttributesOverview.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Application&nbsp;Framework</a>&nbsp;<span class="separator">&#187;</span>
+System&nbsp;Sounds&nbsp;overview</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>System Sounds Overview</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Purpose</h2>
+</div><div class="Bodytext">
+<p>Provides a simple and consistent way for applications to produce
+sounds for common events such as messages and errors.</p>
+<p>Sounds are specified logically, so that the actual corresponding
+physical sounds produced can vary with device configuration. Sounds can be file
+based (e.g. WAV), tones, or a fixed tone sequences.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Architectural relationships</h2>
+</div><div class="Bodytext">
+<p>This API is a layer over the Media Server, which handles playing
+the audio.</p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Description</h2>
+</div><div class="Bodytext">
+<p>The API has three key concepts: logical sound, sound player, and
+system sound information. </p>
+<a name="1.5.3"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Logical sound</h3>
+</div><div class="Bodytext">
+<p>A sound to play is specified logically using two UIDs. The first
+specifies the category of the sound, such as rings, alarms, errors, and
+messages; the second, which is optional, specifies an instance of that
+category, such as new SMS arrived, or battery low. </p>
+<p>The pair of UIDs is encapsulated in
+<a href="../../APIReference/SystemSounds/TBaSystemSoundTypeClass.html#%3a%3aTBaSystemSoundType" title="Provides a logical sound wrapper"><code class="ApiItem">TBaSystemSoundType</code></a>.</p>
+<a name="1.5.4"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Sound player</h3>
+</div><div class="Bodytext">
+<p>The sound player plays the sound specified by a
+<a href="../../APIReference/SystemSounds/TBaSystemSoundTypeClass.html#%3a%3aTBaSystemSoundType" title="Provides a logical sound wrapper"><code class="ApiItem">TBaSystemSoundType</code></a>. The caller can request the sound to be
+repeated, and the time between repeats. </p>
+<p>If the exact sound cannot be found on a particular device, a
+match only by category (first UID) is used. A default sound is used if no match
+at all is found.</p>
+<p>The sound player class is
+<a href="../../APIReference/SystemSounds/CoeSoundPlayerClass.html#%3a%3aCoeSoundPlayer" title="Utility class for simple sound playing"><code class="ApiItem">CoeSoundPlayer</code></a>.</p>
+<a name="1.5.5"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>System sound information</h3>
+</div><div class="Bodytext">
+<p>The characteristics of a physical sound that corresponds to a
+logical sound are encapsulated in a
+<a href="../../APIReference/SystemSounds/TBaSystemSoundInfoClass.html#%3a%3aTBaSystemSoundInfo" title="Provides functions that contain the information for a system sound"><code class="ApiItem">TBaSystemSoundInfo</code></a>.</p>
+<p>You can get and set the physical sound for a logical sound
+through <a href="../../APIReference/SystemSounds/BaSystemSoundClass.html#%3a%3aBaSystemSound" title="Utility class to handle system sounds"><code class="ApiItem">BaSystemSound</code></a>.</p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="../MediaServer/MediaServerOverview.guide.html#MediaServerOverview%2emain">Media Server Overview</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

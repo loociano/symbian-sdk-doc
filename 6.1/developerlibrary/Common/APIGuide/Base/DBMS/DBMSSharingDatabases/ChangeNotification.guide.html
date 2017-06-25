@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Change notification</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="DBMSSharingDatabasesGuide%2echange%2dnotification"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="TransactionsAndLocks.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="DatabaseCompaction.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">DBMS</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">DBMS&nbsp;sharing&nbsp;databases</a>&nbsp;<span class="separator">&#187;</span>
+Change&nbsp;notification</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Change notification</h1>
+</div><div class="Bodytext">
+<p>Clients can be notified of changes to a database through an <code>RDbNotifier</code> object. This class is particularly useful for shared databases.</p>
+<p>A client makes an asynchronous request for notification, and this request  completes when:</p>
+<ul><li><p>a transaction is committed</p></li>
+<li><p>a transaction is rolled back</p></li>
+<li><p>the database has been recovered</p></li>
+<li><p>the database is closed</p></li>
+<li><p>all read-locks are removed</p></li>
+</ul><p>Any number of notifiers can be opened by a client on the same database and they all act identically.</p>
+<p>The lifetime of a notifier object is independent of the database that it is observing. For example, a client can close a database <em>before</em> closing a notifier which is observing that database. In this case, the notifier continues to report all activity on the database caused by other clients. Once the last client has closed the database, the notifier reports the status <code>RDbNotifier::EClose</code>; any further requests for change notification complete immediately with the same status, i.e. <code>RDbNotifier::EClose</code>.</p>
+<p>Notifiers cannot be opened on client-side databases.</p>
+<p>Only one request can be outstanding on a single notifier at any one time. If further database events occur while a client is handling the completion of a previous database event, the notifier remembers the most significant event; this is determined as:</p>
+<ul><li><p>a database recovery event (<code>RDbNotifier::ERecover</code>) is more important than a transaction rollback event (<code>RDbNotifier::ERollback</code>)</p></li>
+<li><p>a transaction rollback event (<code>RDbNotifier::ERollback</code>)is more important than a transaction committed event (<code>RDbNotifier::ECommit</code>)</p></li>
+</ul><p>Read-locks removed events (<code>RDbNotifier::EUnlock</code>) are not remembered in this way.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

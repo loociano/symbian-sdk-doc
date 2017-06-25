@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Introduction to Printing</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="PrintingGuide%2eintroduction"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="PrintClasses.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Graphics</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Printing</a>&nbsp;<span class="separator">&#187;</span>
+Introduction&nbsp;to&nbsp;Printing</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Introduction to Printing</h1>
+</div><div class="Bodytext">
+<p>Printing is similar to drawing graphics and text to a graphics
+context, with the printer represented by a graphics device. The picture is
+complicated by several factors:</p>
+<ul>
+<li>
+<p>A print job may consist of one or more pages: the order of pages,
+and their headings and footings, is important.</p>
+</li>
+<li>
+<p>Even a single page cannot be printed in a single operation on
+most printers: this would require too much memory. Pages are printed in bands.
+Each band is a region of a page. The fundamental class involved in printing is
+therefore <code>MPageRegionPrinter</code>, an interface class whose
+<code>PrintBandL()</code> function is used to print a band. </p>
+</li>
+<li>
+<p>Print jobs may take a long time, and users appreciate both
+notification of progress, and the opportunity to interrupt the job. These
+requirements are represented by the <code>MPrintProcessObserver</code> mixin.
+</p>
+</li>
+<li>
+<p>Printing uses an active object which allows other processing to
+be interleaved with it, on the same thread. </p>
+</li>
+<li>
+<p>It is vital that text and graphics are the correct size in pixels
+when printed. All draw operations to a graphics context are specified in
+pixels. However, the size of a pixel is device-dependent. The absolute,
+device-independent unit of size supported by the GDI, is the twip&#0160;&#8212;
+1/20th of a point, or 1/1440th of an inch. In order to achieve
+device-independence, a program which supports printing should store its
+internal model in twips, and convert it into pixels whenever it draws to either
+a screen-based graphics context, or a printer. </p>
+</li>
+<li>
+<p>Users like to be able to preview their print jobs before
+committing them to paper: a print preview facility is therefore provided.
+</p>
+</li>
+<li>
+<p>The fonts available on the target printer may be different from
+those available on the screen. This makes text printing significantly more
+complex than graphics printing. Much of the complexity is encapsulated by the
+text layout engine. </p>
+</li>
+<li>
+<p>There are various models of printers, size of paper, margin
+specifications etc: an integral part of printing involves setting up these
+parameters. </p>
+</li>
+</ul>
+<p>The treatment of printing as a graphics-only operation means that
+printing to text-only printers is not supported (except by direct output to a
+printer port).</p>
+<p>Device families may provide stock printing dialogs for users to
+initiate and control print jobs. It is normal for applications that provide
+printing to supply print job setup (from the Print Framework API) and their
+printing implementation to these dialogs.</p>
+<a name="1.7"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="../../ApplicationFramework/PrintFrameworkGuide/index.html#PrintFrameworkGuide%2etoc">Print Framework</a>.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

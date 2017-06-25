@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to access elements</title>
+<link href="../../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="DynamicArraysGuide2%2ehow%2dto%2eaccess"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../../_index/index.html"><img
+src="../../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../../GlobalGlossary/index.html"><img src="../../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToFindElements.guide.html"><img src="../../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToDestroyArray.guide.html"><img src="../../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Arrays&nbsp;and&nbsp;Lists</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Dynamic&nbsp;Arrays</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">How&nbsp;to&nbsp;Use&nbsp;Dynamic&nbsp;Arrays</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;access&nbsp;elements</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to access elements</h1>
+</div><div class="Bodytext">
+<p>The elements of an array can be referenced using the indexing
+<code>operator[]</code> and specifying the position of the element.</p>
+<p>For all arrays <i>except</i> the
+<code>RArray&lt;class&nbsp;T&gt;</code> and
+<code>RPointerArray&lt;class&nbsp;T&gt;</code> types, the <code>At()</code>
+member function can also be used.</p>
+<p>All of the following code fragments use a
+<code>CArrayFixFlat&lt;class&nbsp;T&gt;</code> array.</p>
+<p>This code constructs a fixed flat array containing the required
+number of <code>TInt</code> type elements - in this case four.</p>
+<p>The indexing operator is used to fetch the value of the second
+element and this element is then changed using both the <code>At()</code>
+function and the <code>[]</code> operator.</p>
+<p class="CodeBlock"><code>CArrayFixFlat&lt;TInt&gt;* array;<br>array = new CArrayFixFlat&lt;TInt&gt;(4);<br>...<br>for (TInt value = 0; value &lt; 4; value++)<br>&nbsp;array-&gt;AppendL(value);<br>...<br>TInt somevalue = (*array)[1];  //fetch the element<br>TInt somevalue = array-&gt;At(1);  //... alternative way<br>(*array)[1]    = 21;    //change the element<br>array-&gt;At(1)   = 21;    // ... alternative way</code></p>
+<a name="1.9"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Accessing functions</h2>
+</div><div class="Bodytext">
+<p>If the array elements are objects of a class with member functions,
+these functions can be easily accessed as shown in the following code
+fragment:</p>
+<p class="CodeBlock"><code>class TMyClass<br>&nbsp;{<br>public :<br>&nbsp;void SetValue(TInt aval);<br>&nbsp;TInt GetValue();<br>private<br>&nbsp;TUint iValue;<br>&nbsp;};</code></p>
+<p class="CodeBlock"><code>CArrayFixFlat&lt;TMyClass&gt;* array;          // an array of<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// TMyClass objects<br>TMyClass myclass;<br>array = new CArrayFixFlat&lt;TMyClass&gt;(1);<br>array-&gt;AppendL(myclass);<br>(*array)[0].SetValue(21);</code></p>
+<a name="1.10"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Accessing functions of <code>CBase</code> derived objects</h2>
+</div><div class="Bodytext">
+<p>Where the elements are pointers to <code>CBase</code> derived objects
+(i.e. elements of an array of type <code>CArrayPtrFlat</code> or
+<code>CArrayPtrSeg</code>), the members of those <code>CBase</code> derived
+objects can easily be accessed. For example, an array of pointers to
+<code>CElement</code> objects can be accessed as follows:</p>
+<p class="CodeBlock"><code>CArrayPtrFlat&lt;CElement&gt;* ptrflat;<br>...<br>ptrflat = new (ELeave) CArrayPtrFlat&lt;CElement&gt;(16)<br>...<br>...   // add elements to ptrflat<br>...<br>(*ptrflat)[0]-&gt;SetTextL(_LIT(&quot;New text for the first CElement&quot;));<br>ptrflat-&gt;At(1)-&gt;SetTextL(_LIT(&quot;New text for the second CElement&quot;));</code></p>
+<p>(where <code>SetTextL()</code> is a member function of
+<code>Celement)</code>.</p>
+<p>Note that both <code>At()</code> and the index <code>operator[]</code>
+return a reference to the object in the array. </p>
+<a name="1.11"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Refreshing the pointer</h2>
+</div><div class="Bodytext">
+<p>If a pointer to the referenced object is taken, be aware that the pointer
+value may become invalid once elements are added to, or removed from the array.
+In this event, always refresh the pointer. </p>
+<p class="CodeBlock"><code>class TMyClass<br>&nbsp;{<br>public :<br>&nbsp;void SetValue(TInt aval);<br>&nbsp;TInt GetValue();<br>private<br>&nbsp;TUint iValue;<br>&nbsp;};</code></p>
+<p class="CodeBlock"><code>CArrayFixFlat&lt;TMyClass&gt;* array;<br>...<br>TMyClass myclass;<br>array = new CArrayFixFlat&lt;TMyClass&gt;(16);<br>...<br>for (TInt val = 0; val &lt; 10; val++)<br>&nbsp;{<br>&nbsp;myclass.SetValue(val)<br>&nbsp;array-&gt;AppendL(myclass;<br>&nbsp;}<br>...<br>TMyClass* myptr;<br>myptr = &amp;(array-&gt;At(9));<br>myptr-&gt;GetValue();  // references the tenth element<br>array-&gt;Delete(0,4); // Delete first four elements<br>array-&gt;Compress();  <br>myptr-&gt;GetValue();  // myptr is invalid. An exception may occur<br>...</code></p>
+<p>After deleting the first four elements, <code>myptr</code> points to a
+location outside the logical array. Once the array has been compressed, the
+pointer is invalid. </p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>MCoeCaptionRetrieverForFep</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="FEP_START_KEY_EVENT_HANDLER_NO_DOWN_UP_FILTER_LMacro.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="MCoeFepAwareTextEditorClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Front&nbsp;End&nbsp;Processors</a>&nbsp;<span class="separator">&#187;</span>
+MCoeCaptionRetrieverForFep</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>fepbase.h</code>
+<br>Link against: <code>fepbase.lib</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aMCoeCaptionRetrieverForFep"></a>
+
+<h1>Class <code>MCoeCaptionRetrieverForFep</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>MCoeCaptionRetrieverForFep</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Retrieves a control's caption for use by a FEP. An example of a
+caption is the non-editable text description displayed alongside each item in a
+dialog.</p>
+<p><code>TCoeInputCapabilities::CaptionRetrieverForFep()</code>
+returns a pointer to an object of this class. A NULL return value indicates
+that the interface is not supported by any of the currently focused controls.
+If not NULL, call <code>GetCaptionForFep()</code>, which fills the supplied
+buffer with the control's caption, truncating it if the supplied buffer is too
+small for the whole caption.</p><p>Defined in <code>MCoeCaptionRetrieverForFep</code>:
+<br><code class="ApiItem"><a href="MCoeCaptionRetrieverForFepClass.html#%3a%3aMCoeCaptionRetrieverForFep%3a%3aGetCaptionForFep%28%29" title="An implementation of this function should fill aCaption with the target control's caption (or as much of the caption as will fit)">GetCaptionForFep()</a></code>
+</p>
+<a name="2.5"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Get caption</h2>
+</div><div class="Bodytext">
+<a name="2.5.2"></a></div><div class="Head3">
+<a name="%3a%3aMCoeCaptionRetrieverForFep%3a%3aGetCaptionForFep%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetCaptionForFep()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void GetCaptionForFep(TDes&amp; aCaption) const=0;</code></p><h4 class="subheading">Description</h4>
+<p>An implementation of this function should fill
+<code>aCaption</code> with the target control's caption (or as much of the
+caption as will fit).</p>
+<p>Example</p>
+<p>Code similar to the following might be used (assuming that your
+caption is stored internally in <code>iCaption</code>):&nbsp;&#8212; </p>
+<p class="CodeBlock"><code>const TInt maximumLength=aCaption.MaxLength();<br>if (iCaption.Length()&gt;maximumLength)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;aCaption=iCaption.Left(maximumLength);<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>else<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;aCaption=iCaption;<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes&amp; aCaption</code></td>
+<td class="Cell"><p class="ValueDesc">On return, this should be set to the caption of the target
+control.</p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

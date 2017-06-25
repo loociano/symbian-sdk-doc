@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Connection preferences</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="CommDbGuide%2econn%2dpref%2eguide"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="NotificationService.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="TemplateRecords.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Comms&nbsp;Infrastructure</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;CommDb</a>&nbsp;<span class="separator">&#187;</span>
+Connection&nbsp;preferences</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Connection preferences</h1>
+</div><div class="Bodytext">
+<p>A communications database can store multiple records of the same type, such as multiple IAPs. It can be useful to try a different connection after a first connection has failed: for example, to try a GSM connection if a GRPS connection is not available. To set the preferred order in which connections are attempted, the <a href="../../../APIReference/CommDb/ConnPreferencesTable.html#commdb%2econnprefs%2dtable">Connection preferences</a> table is provided. </p>
+<a name="1.4"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Opening the table</h2>
+</div><div class="Bodytext"><p>The table is accessed through a specialist class <a href="../../../APIReference/CommDb/CCommsDbConnectionPrefTableViewClass.html#%3a%3aCCommsDbConnectionPrefTableView" title="Provides access to the Connection preferences table, to allow clients to set the preferred order in which connections are attempted"><code class="ApiItem">CCommsDbConnectionPrefTableView</code></a>, rather than a general <a href="../../../APIReference/CommDb/CCommsDbTableViewclass.html#%3a%3aCCommsDbTableView" title="The view on a specific table"><code class="ApiItem">CCommsDbTableView</code></a>. To obtain a <code>CCommsDbConnectionPrefTableView</code> object, use one of the following <a href="../../../APIReference/CommDb/CCommsDatabaseClass.html#%3a%3aCCommsDatabase" title="Accesses the communications database through the DBMS"><code class="ApiItem">CCommsDatabase</code></a> functions:</p>
+<ul><li><p><a href="../../../APIReference/CommDb/CCommsDatabaseClass.html#%3a%3aCCommsDatabase%3a%3aOpenConnectionPrefTableLC%28%29" title="Opens a view on the records in the Connection Preferences table with a specified direction"><code class="ApiItem">OpenConnectionPrefTableLC()</code></a></p>
+</li>
+<li><p><a href="../../../APIReference/CommDb/CCommsDatabaseClass.html#%3a%3aCCommsDatabase%3a%3aOpenConnectionPrefTableInRankOrderLC%28%29" title="Opens a view on the records in the Connection Preferences table with a specified direction, and with records sorted into ranking order"><code class="ApiItem">OpenConnectionPrefTableInRankOrderLC()</code></a></p>
+</li>
+<li><p><a href="../../../APIReference/CommDb/CCommsDatabaseClass.html#%3a%3aCCommsDatabase%3a%3aOpenConnectionPrefTableViewOnRankLC%28%29" title="Opens a view on the records in the Connection Preferences table with a specified direction and ranking"><code class="ApiItem">OpenConnectionPrefTableViewOnRankLC()</code></a></p>
+</li>
+</ul><a name="1.5"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Using the table</h2>
+</div><div class="Bodytext"><p>The table has a number of fields:</p>
+<ul><li><p>a ranking number that determines if the record is the first, or a lower, preference for making a connection</p>
+</li>
+<li><p>a flag that determines whether the system, on a connection attempt being started, should: a) offer the user a menu of the available connection options; b) warn that a connection is about to take place; or c) connect without further notifying the user.</p>
+</li>
+<li>
+<p>the bearer to use</p>
+</li>
+<li><p>the direction of the connection (outgoing or incoming)</p>
+</li>
+</ul><p>These settings are encapsulated in a <a href="../../../APIReference/CommDb/CCommsDbConnectionPrefTableViewClass.html#%3a%3aCCommsDbConnectionPrefTableView%3a%3aTCommDbIapConnectionPref" title="Encapsulates the rank (CONNECT_PREF_RANKING), direction (CONNECTION_PREF_DIRECTION), and dialog preference (CONNECT_PREF_DIALOG_PREF) fields, plus a TCommDbIapBearer object"><code class="ApiItem">CCommsDbConnectionPrefTableView::TCommDbIapConnectionPref</code></a> class.</p>
+<h4 class="subheading">Note</h4><p>In versions of CommDb before 6.1, instead of ranked preferences, there was a concept of a default connection setting, stored in the Global table.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

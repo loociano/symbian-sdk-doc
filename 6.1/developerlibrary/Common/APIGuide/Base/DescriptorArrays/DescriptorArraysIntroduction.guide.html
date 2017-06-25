@@ -1,0 +1,191 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Using descriptor arrays</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="DescriptorArraysGuide%2eIntroduction"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="DescriptorArraysOverview.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="VariantsAndBuildIndependence.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Descriptor&nbsp;Arrays</a>&nbsp;<span class="separator">&#187;</span>
+Using&nbsp;descriptor&nbsp;arrays</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Using descriptor arrays</h1>
+</div><div class="Bodytext">
+<p>A descriptor array is a mechanism which allows descriptors to be
+aggregated in a convenient way.</p>
+<p>Descriptor arrays are specialised arrays which build on the behaviour
+supplied by dynamic arrays. Descriptors can be inserted, appended, deleted, and
+accessed in the usual way.</p>
+<p>There are two types of descriptor array, based on the way data is
+represented by the array:</p>
+<ul>
+<li>
+<p>an array whose elements consist of non-modifiable pointer
+descriptors.</p>
+</li>
+<li>
+<p>an array whose elements consist of memory pointers.</p>
+</li>
+</ul>
+<p>Either array can be used to represent descriptor data. The difference
+between them is based on the way they are implemented and this determines which
+one is most suitable for a given situation.</p>
+<a name="1.8"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Array of non-modifiable pointer descriptor elements</h2>
+</div><div class="Bodytext">
+<p>The array is supplied in two variants:</p>
+<ul>
+<li>
+<p>the 16 bit variant <a href="../../../APIReference/DescriptorArrays/CPtrC16ArrayClass.html#%3a%3aCPtrC16Array" title="An array of 16 bit non-modifiable pointer descriptors, TPtrC16, implemented using a flat buffer"><code class="ApiItem">CPtrC16Array</code></a> containing
+<a href="../../../APIReference/Descriptors/TPtrC16Class.html#%3a%3aTPtrC16" title="16 bit non-modifiable pointer descriptor"><code class="ApiItem">TPtrC16</code></a> types.</p>
+</li>
+<li>
+<p>the 8 bit variant <a href="../../../APIReference/DescriptorArrays/CPtrC8ArrayClass.html#%3a%3aCPtrC8Array" title="Array of 8 bit non-modifiable pointer descriptors, TPtrC8, implemented using a flat buffer"><code class="ApiItem">CPtrC8Array</code></a> containing
+<a href="../../../APIReference/Descriptors/TPtrC8Class.html#%3a%3aTPtrC8" title="8 bit non-modifiable pointer descriptor"><code class="ApiItem">TPtrC8</code></a> types.</p>
+</li>
+</ul>
+<p>The array is also supplied as a build independent type,
+<a href="../../../APIReference/DescriptorArrays/CPtrCArrayTypedef.html#%3a%3aCPtrCArray" title="Build independent array of non-modifiable pointer descriptors"><code class="ApiItem">CPtrCArray</code></a>. This is used whenever the descriptor elements
+are used to represent text strings. By using the build independent type, the
+appropriate variant, either 16 bit or 8 bit, is selected at build time
+depending on whether the <code>_UNICODE</code> macro has been defined or
+not.</p>
+<p>Binary data always requires the 8 bit variant, regardless of the
+build, and this should be explicitly used in program code.</p>
+<p>Explicit use of the 16 bit variant is rare.</p>
+<p>The elements of this type of array consist of non-modifiable
+pointer descriptors. These pointer descriptors represent the data of the
+descriptors added to the array. The diagram below illustrates this. The diagram
+is also true for <a href="../../../APIReference/Descriptors/TPtrC8Class.html#%3a%3aTPtrC8" title="8 bit non-modifiable pointer descriptor"><code class="ApiItem">TPtrC8</code></a> and
+<a href="../../../APIReference/Descriptors/TPtrC16Class.html#%3a%3aTPtrC16" title="16 bit non-modifiable pointer descriptor"><code class="ApiItem">TPtrC16</code></a>.</p>
+<div class="Figure">
+<p class="Image"><img src="ArrayOfPointerDescriptors.gif" alt=""  border="0"></p>
+</div>
+<a name="1.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Array of pointer elements</h2>
+</div><div class="Bodytext">
+<p>The elements of this type of array consist of
+<i>pointers</i> to heap descriptors.</p>
+<p>When a descriptor is added to this type of array, a heap descriptor
+is allocated, taking its data from the supplied descriptor. The pointer to this
+heap descriptor is added as an array element. The diagram below illustrates
+this. The diagram is also true for <a href="../../../APIReference/Descriptors/HBufC8Class.html#%3a%3aHBufC8" title="8 bit heap descriptor"><code class="ApiItem">HBufC8</code></a> and
+<a href="../../../APIReference/Descriptors/HBufC16Class.html#%3a%3aHBufC16" title="16 bit heap descriptor"><code class="ApiItem">HBufC16</code></a>.</p>
+<div class="Figure">
+<p class="Image"><img src="ArrayOfDescriptors.gif" alt=""  border="0"></p>
+</div>
+<p>There are two implementations of the array, one using a flat buffer
+and the other using a segmented buffer.</p>
+<p>The flat buffer implementation is supplied in two variants:</p>
+<ul>
+<li>
+<p>the 16 bit variant implemented using a flat buffer, a
+<a href="../../../APIReference/DescriptorArrays/CDesC16ArrayFlatClass.html#%3a%3aCDesC16ArrayFlat" title="Array of 16 bit descriptors implemented using a flat buffer"><code class="ApiItem">CDesC16ArrayFlat</code></a>, constructed from
+<a href="../../../APIReference/Descriptors/TDesC16Class.html#%3a%3aTDesC16" title="Abstract base class for 16 bit descriptors"><code class="ApiItem">TDesC16</code></a> types.</p>
+</li>
+<li>
+<p>the 8 bit variant implemented using a flat buffer, a
+<a href="../../../APIReference/DescriptorArrays/CDesC8ArrayFlatClass.html#%3a%3aCDesC8ArrayFlat" title="An array of 8 bit descriptors implemented using a flat buffer"><code class="ApiItem">CDesC8ArrayFlat</code></a>, constructed from
+<a href="../../../APIReference/Descriptors/TDesC8Class.html#%3a%3aTDesC8" title="Abstract base class for 8 bit non-modifiable descriptors"><code class="ApiItem">TDesC8</code></a> types.</p>
+</li>
+</ul>
+<p>The segmented buffer implementation is supplied in two
+variants:</p>
+<ul>
+<li>
+<p>the 16 bit variant implemented using a segmented buffer, a
+<a href="../../../APIReference/DescriptorArrays/CDesC16ArraySegClass.html#%3a%3aCDesC16ArraySeg" title="An array of 16 bit descriptors implemented using a segmented buffer"><code class="ApiItem">CDesC16ArraySeg</code></a>, constructed from
+<a href="../../../APIReference/Descriptors/TDesC16Class.html#%3a%3aTDesC16" title="Abstract base class for 16 bit descriptors"><code class="ApiItem">TDesC16</code></a> types.</p>
+</li>
+<li>
+<p>the 8 bit variant implemented using a segmented buffer, a
+<a href="../../../APIReference/DescriptorArrays/CDesC8ArraySegClass.html#%3a%3aCDesC8ArraySeg" title="An array of 8 bit descriptors implemented using a segmented buffer"><code class="ApiItem">CDesC8ArraySeg</code></a>, constructed from
+<a href="../../../APIReference/Descriptors/TDesC8Class.html#%3a%3aTDesC8" title="Abstract base class for 8 bit non-modifiable descriptors"><code class="ApiItem">TDesC8</code></a> types.</p>
+</li>
+</ul>
+<p>Both array implementations are also supplied as build independent
+types, <a href="../../../APIReference/DescriptorArrays/CDesCArrayFlatTypedef.html#%3a%3aCDesCArrayFlat" title="Build independent array of descriptors implemented using a flat buffer"><code class="ApiItem">CDesCArrayFlat</code></a> and
+<a href="../../../APIReference/DescriptorArrays/CDesCArraySegTypedef.html#%3a%3aCDesCArraySeg" title="Build independent array of descriptors implemented using a segmented buffer"><code class="ApiItem">CDesCArraySeg</code></a>. These are used whenever the descriptors are
+used to represent text strings. By using the build independent types, the
+appropriate variants, either 16 bit or 8 bit, are selected at build time
+depending on whether the <code>_UNICODE</code> macro has been defined or
+not.</p>
+<p>Binary data always requires the 8 bit variants, regardless of the
+build, and this should be explicitly used in program code.</p>
+<p>Explicit use of the 16 bit variants is rare.</p>
+<a name="1.10"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Which type of array to use</h2>
+</div><div class="Bodytext">
+<p>The advantages of using one type over the other are subtle.</p>
+<p>When using an array of non-modifiable pointer descriptors, the data
+represented by each <a href="../../../APIReference/Descriptors/TPtrCTypedef.html#%3a%3aTPtrC" title="Build-independent non-modifiable pointer descriptor"><code class="ApiItem">TPtrC</code></a> exists independently of the
+<a href="../../../APIReference/Descriptors/TPtrCTypedef.html#%3a%3aTPtrC" title="Build-independent non-modifiable pointer descriptor"><code class="ApiItem">TPtrC</code></a> itself. The memory required by the array is simply
+that needed to contain the <a href="../../../APIReference/Descriptors/TPtrCTypedef.html#%3a%3aTPtrC" title="Build-independent non-modifiable pointer descriptor"><code class="ApiItem">TPtrC</code></a> elements. The data
+represented by the <a href="../../../APIReference/Descriptors/TPtrCTypedef.html#%3a%3aTPtrC" title="Build-independent non-modifiable pointer descriptor"><code class="ApiItem">TPtrC</code></a> descriptors is not copied or
+moved. On the other hand, that same data must be guaranteed to remain in memory
+if the array is to have any purpose.</p>
+<p>When using an array of pointers, a new heap descriptor is allocated
+for each descriptor to be added to the array. This increases the total memory
+requirements of the array; on the other hand, each array element is smaller
+because the size of a pointer is slightly smaller than the size of a
+<a href="../../../APIReference/Descriptors/TPtrCTypedef.html#%3a%3aTPtrC" title="Build-independent non-modifiable pointer descriptor"><code class="ApiItem">TPtrC</code></a> object. The original descriptor data can also be
+safely discarded once it has been added to the array.</p>
+<p>This type also has the advantage that there is no commitment to a
+concrete descriptor type.</p>
+<a name="1.11"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="../BuffersAndStrings/Descriptors/DescriptorsGuide1/index.html#DescriptorsGuide1%2etoc">Descriptor concepts</a></p>
+<p><a href="../ArraysAndLists/DynamicArrays/index.html#DynamicArraysGuide%2etoc">Using Dynamic Arrays</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

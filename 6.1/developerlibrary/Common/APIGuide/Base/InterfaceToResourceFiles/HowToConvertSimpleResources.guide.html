@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to convert data from a simple resource into a C++ program </title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="InterfaceToResourceFilesGuide%2ehow%2dto%2econvert"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToReadStrings.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToConvertArrayResources.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Interface&nbsp;to&nbsp;Resource&nbsp;Files</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;convert&nbsp;data&nbsp;from&nbsp;a&nbsp;simple&nbsp;resource&nbsp;into&nbsp;a&nbsp;C++&nbsp;program&nbsp;</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to convert data from a simple resource</h1>
+</div><div class="Bodytext">
+<p>An application often needs to convert the individual items within a
+resource into data which can be stored within the data members of a
+class.</p>
+<p>A resource is defined in terms of a struct; this struct might be
+defined in terms of other structs, or arrays of structs.</p>
+<p>The following code fragments show how a simple resource can be used
+to initialise an instance C++ class. The TResourceReader class provides a safe
+way to interpret individual items within the resource.</p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Defining a simple resource</h2>
+</div><div class="Bodytext">
+<p>The following code fragment defines a simple struct. The convention
+is to define such structs in resource header files that, by convention, have
+the <code class="filename">.rh</code> extension. Resource header files are included in resource
+definition files, that have a <code class="filename">.rss</code> extension. This is analogous to
+the conventions for C++ header and source files.</p>
+<p class="CodeBlock"><code>// for defining a single data resource<br>STRUCT DATA<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;WORD      wrd=16;<br>&nbsp;&nbsp;&nbsp;&nbsp;WORD      flags=0;<br>&nbsp;&nbsp;&nbsp;&nbsp;LONG      lng;<br>&nbsp;&nbsp;&nbsp;&nbsp;BYTE      byt; <br>&nbsp;&nbsp;&nbsp;&nbsp;DOUBLE    dbl=0.0;<br>&nbsp;&nbsp;&nbsp;&nbsp;LTEXT     ltxt;        // variable length<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>The <code>WORD</code> item labelled <code>flags</code> is used to
+contain flag bit settings. Each bit setting is defined by a corresponding
+symbol. Such symbols are almost always needed both by the resource and the C++
+code, and are placed in a file with a <code class="filename">.hrh</code> extension. The
+<code class="filename">.hrh</code> file is included in both the resource files and the C++ files
+at the appropriate locations.</p>
+<p>So, in the <code class="filename">.hrh</code> file, we might have: </p>
+<p class="CodeBlock"><code>                // define some flags<br>#define EFlagItem1  0x0001<br>#define EFlagItem2  0x0002<br>#define EFlagItem3  0x0004<br>...</code></p>
+<p>The resource itself is defined within the resource file, the
+<code class="filename">.rss</code> file, and must include the resource header, the
+<code class="filename">.rh</code> file, so that the resource compiler can find the definition of
+the <code>DATA</code> struct. In this example, the resource header file is
+called <code class="filename">ReadData.rh</code>.</p>
+<p class="CodeBlock"><code>#include &quot;ReadData.rh&quot;<br><br>RESOURCE DATA first<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;wrd=0;<br>&nbsp;&nbsp;&nbsp;&nbsp;flags=EFlagItem1+EFlagItem2;<br>&nbsp;&nbsp;&nbsp;&nbsp;lng=2; <br>&nbsp;&nbsp;&nbsp;&nbsp;byt=255;<br>&nbsp;&nbsp;&nbsp;&nbsp;dbl=99.9;<br>&nbsp;&nbsp;&nbsp;&nbsp;ltxt=&#8221;This is LTEXT type (leading byte count)&#8221;;<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>After resource compilation, the generated <code class="filename">.rsg </code> header
+file contains:</p>
+<p class="CodeBlock"><code>#define FIRST 1</code></p>
+<a name="1.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Converting from the array resource</h2>
+</div><div class="Bodytext">
+<p>The following code fragment defines an example class,
+<code>CResData</code>, that uses the resource data as a construction parameter.
+The class definition is placed in its own C++ header file, a <code class="filename">.h</code>
+file.</p>
+<p class="CodeBlock"><code>class CResData : public CBase<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>public:<br>&nbsp;&nbsp;&nbsp;&nbsp;~CResData()<br>&nbsp;&nbsp;&nbsp;&nbsp;static    CResData* NewLC(TResourceReader&amp; aReader);<br>&nbsp;&nbsp;&nbsp;&nbsp;void      ShowData(const TInt aStructNum = 0);<br>private:<br>&nbsp;&nbsp;&nbsp;&nbsp;void      ConstructL(TResourceReader&amp; aReader);<br>private:<br>&nbsp;&nbsp;&nbsp;&nbsp;TInt           iWrd;   // STRUCT member type: WORD,<br>&nbsp;&nbsp;&nbsp;&nbsp;TInt           iFlags; // WORD<br>&nbsp;&nbsp;&nbsp;&nbsp;TInt           iLng;   // LONG,<br>&nbsp;&nbsp;&nbsp;&nbsp;TInt           iByt;   // BYTE,<br>&nbsp;&nbsp;&nbsp;&nbsp;TReal          iDbl;   // DOUBLE,<br>&nbsp;&nbsp;&nbsp;&nbsp;HBufC*         iLtxt;  // LTEXT<br>&nbsp;&nbsp;&nbsp;&nbsp;};</code></p>
+<p>The data members of the <code>CResData</code> class correspond to the
+individual data items within the resource as defined by the
+<code>DATA</code>struct.</p>
+<p>The following example code fragment loads the resource, with id
+<code>FIRST</code>, into a descriptor and constructs the <code>CResData</code>
+object from that data using a <code>TResourceReader</code> object to interpret
+the component items:</p>
+<p class="CodeBlock"><code>    // Read the first resource<br>HBufC8* res = resourceFile.AllocReadLC(FIRST);<br>TResourceReader theReader;<br>theReader.setBuffer(res);</code></p>
+<p class="CodeBlock"><code>    // construct a CResData object to contain<br>&nbsp;&nbsp;&nbsp;&nbsp;// the simple resource of type DATA.<br>CResData* resData = CResData::NewLC(theReader);</code></p>
+<p><code>CResData::NewLC()</code> allocates the <code>CResData</code> object
+and calls <code>ConstructL()</code> to complete the construction
+process.</p>
+<p><code>ConstructL()</code> takes a reference to a
+<code>TResourceReader</code> that refers to the resource data itself.</p>
+<p>Note that raw resource data is always treated as general binary
+data.</p>
+<p>The construction process of a <code>CResData</code> object, implemented
+by the <code>ConstructL()</code> function, extracts the individual members from
+the resource and stores them within the corresponding data members of the C++
+class. Thus, the <code>wrd</code> member, whose type is <code>WORD</code>, is
+copied to <code>iWrd</code> and the <code>flags</code> member, whose type is
+also <code>WORD</code>, is copied to <code>iFlags</code> and so on.</p>
+<p class="CodeBlock"><code>void CResData::ConstructL(TResourceReader&amp; aReader)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Interpret next bytes as a TInt16<br>&nbsp;&nbsp;&nbsp;&nbsp;iWrd   = aReader.ReadInt16();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Interpret next bytes as a TInt16<br>&nbsp;&nbsp;&nbsp;&nbsp;iFlags = aReader.ReadInt16();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Interpret next bytes as a TInt32<br>&nbsp;&nbsp;&nbsp;&nbsp;iLng   = aReader.ReadInt32();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Interpret the next byte as a TInt8<br>&nbsp;&nbsp;&nbsp;&nbsp;iByt   = aReader.ReadInt8();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Interpret next bytes as a TReal<br>&nbsp;&nbsp;&nbsp;&nbsp;iDbl   = aReader.ReadReal64();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Interpret the next byte as the length<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// of text. The text itself follows<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// this byte.<br>&nbsp;&nbsp;&nbsp;&nbsp;iLtxt  = aReader.ReadHBufCL();<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>This code uses the <code>TResourceReader</code> object to interpret and
+extract the component items of the resource data. The extracted component items
+are copied into the members of the <code>CResData</code> class.</p>
+<p>The resource data is expected to be described by the <code>DATA</code>
+struct. It is important to note that if the <code>DATA</code> struct were
+altered, then this code would also need to be altered. Supplying a resource
+that does not follow the pattern described by the <code>DATA</code> struct,
+would not prevent the C++ code from compiling successfully. However, the
+results of execution would be unpredictable. Thus, the resource loading system
+is not type safe in the same way that C++ programming is.</p>
+<p>The integers in the C++ class are specified as <code>TInt</code> values.
+This means that they are the natural word size of the machine&nbsp;&#8212;
+at least 32 bits. The corresponding resource data, however, is specified as
+either <code>BYTE</code>, <code>WORD</code> or <code>LONG</code>
+members&nbsp;&#8212; 8, 16 or 32 bits. The data is broadened as it is read
+into the C++ variables. As a rule, resource data should be stored in as compact
+a form as possible, taking into account the variation in possible
+values.</p>
+<h4 class="subheading">See also</h4>
+<p><a href="../BasicTypes/IntegralTypes.guide.html#BasicTypesGuide%2ebasic%2dtypes%2eintegers">Integral types</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

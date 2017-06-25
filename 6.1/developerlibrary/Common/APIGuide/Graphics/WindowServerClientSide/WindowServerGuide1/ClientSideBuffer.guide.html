@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Client-side buffer</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="WindowServerGuide6%2eClientSideBuffer"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="WindowServerEvents/index.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="ScreenHandling.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Graphics</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Window&nbsp;Server</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Window&nbsp;server&nbsp;architecture</a>&nbsp;<span class="separator">&#187;</span>
+Client-side&nbsp;buffer</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Client-side buffer</h1>
+</div><div class="Bodytext">
+<p>The window server handles many application function calls in the following way:</p>
+<ol><li><p>client interface packages the information for sending to server</p></li>
+<li><p>a context switch to the server</p></li>
+<li><p>processing in the window server&nbsp;&#8212; with possible inter-thread communication to and from the client</p></li>
+<li><p>a context switch back to the client</p></li>
+</ol><p>This guarantees that operations are performed in the right sequence, and that operations have been performed when control returns to the application program.</p>
+<p>However, in the case of drawing and many other function calls, this approach is too slow, and is not strictly necessary.</p>
+<ul><li><p>  The overheads of the client/server communication swamp the time needed for drawing, and cause severe system degradation.</p></li>
+<li><p>it is unnecessary because the client program does not need a result from drawing functions.  This is also the case with other, non-drawing, functions.</p></li>
+</ul><p>Because of this, drawing functions, and other functions that do not need a synchronous response, are buffered by the client interface in an application&#8217;s <em>window server buffer</em>.  When necessary, this buffer is <em>flushed</em> by a call to the window server, which executes all the drawing functions in sequence.  Thus, two context switches are sufficient for an entire buffer full of drawing requests.</p>
+<p>The window server buffer is flushed when</p>
+<ul><li><p>it is full</p></li>
+<li><p>a function requiring a result is called</p></li>
+<li><p>one of the event-request functions is called (<a href="../../../../APIReference/WindowServerClientSide/RWsSessionClass.html#%3a%3aRWsSession%3a%3aEventReady%28%29" title="Requests standard events from the window server"><code class="ApiItem">RWsSession::EventReady()</code></a>, <code class="ApiItem">RedrawReady()</code>, <code class="ApiItem">PriorityKeyReady()</code>)</p></li>
+<li><p>certain high-level functions are called by the client, such as <code class="ApiItem">CWindowGC::DrawPolyLine()</code>, which involve mass data transfer which would overflow the buffer, and which may fail</p></li>
+<li><p>an explicit <a href="../../../../APIReference/WindowServerClientSide/RWsSessionClass.html#%3a%3aRWsSession%3a%3aFlush%28%29" title="Sends all pending commands in the buffer to the window server"><code class="ApiItem">RWsSession::Flush()</code></a> call is made</p></li><li><p>after any function call  if the <a href="../../../../APIReference/WindowServerClientSide/RWsSessionClass.html#%3a%3aRWsSession%3a%3aSetAutoFlush%28%29" title="Sets a session's auto-flush state"><code class="ApiItem">RWsSession::SetAutoFlush()</code></a>
+auto flushing function is set on</p></li>
+</ul><p>It is desirable that the buffer be flushed when the application has finished a unit of drawing.  This is usually done as a natural consequence of calling the function to wait for the next event from the window server.  This covers all cases where drawing is initiated in response to a window server event.  There are a few cases where drawing is initiated in response to other events: in these cases, an explicit <code>Flush()</code> call must be made.</p>
+<p>The use of a buffer has two main impacts on drawing logic:</p>
+<ul><li><p>while debugging, client requests will not immediately result in screen updates: this can make debugging confusing at times</p></li>
+<li><p>If this is a problem, the application program can turn on auto-flushing, which causes flushing after each function call.  The Uikon UI provides a hot-key, ctrl+alt+shift+F, to turn on auto-flushing.  (The resulting degradation in performance is a convincing demonstration of the need for the buffer)</p></li>
+<li><p>the BITGDI is so fast that most drawing activity that takes place within the context of a single flush will appear as an almost instantaneous update.  If, however, a drawing sequence is interrupted by a flush, there may be a perceptible delay.  In some circumstances, this may result in flicker.</p></li>
+<li><p>The aesthetics of a program can be badly affected by flicker during drawing.  Applications should use flicker-free functions (such as <code>DrawText()</code> with a rectangle), and try to minimise flushing during critical redraw sequences.  If completely flicker-free drawing is impossible, short drawing sequences which are flush-free may sometimes be an acceptable alternative.</p></li>
+</ul><p>The window server manages the buffer intelligently so as to minimise flushing.  The opcodes stored in the buffer are short, and repeated use of the same graphics context is indicated by a single bit rather than repeated reference to the graphics context.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

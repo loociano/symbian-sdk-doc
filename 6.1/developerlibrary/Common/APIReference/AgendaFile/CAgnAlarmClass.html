@@ -1,0 +1,288 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CAgnAlarm</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="CAgnDayDateTimeInstanceListClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Agenda&nbsp;File</a>&nbsp;<span class="separator">&#187;</span>
+CAgnAlarm</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>agmalarm.h</code>
+<br>Link against: <code>agnmodel.lib</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aCAgnAlarm"></a>
+
+<h1>Class <code>CAgnAlarm</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CAgnAlarm</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Represents the interface between the agenda model and the alarm
+server.</p>
+<p>A session with the alarm server is created in the
+<code>NewL()</code> function. The agenda model's next due alarm is retrieved
+and set as the session alarm (using <code>FindAndQueueNextAlarmL()</code>).
+This is added to the alarm server's pending alarm queue and is handled by the
+alarm server when its due time is reached. At ER5.1, a new function
+<code>FindAndQueueNextFewAlarmsL()</code> was added. This allows the queuing of
+several alarms with the alarm server.</p>
+<p>If the session with the alarm server is disconnected, the session
+alarm is cancelled. If you want the alarm to run after the session has been
+disconnected, the alarm must be orphaned.</p>
+<p>Optionally, a callback may be passed to the object on construction.
+This callback defines a single function <code>AlarmServerTerminated()</code>.
+This function is called if notification is requested (using
+<code>RequestServerTerminationNotification()</code>) when the session is
+disconnected from the alarm server.</p>
+<p>After disconnection occurs, an attempt may be made to reconnect to
+the server using <code>Connect()</code>. Once a connection has been
+re-established you should call <code>RestartL()</code> to re-queue the agenda
+model's next outstanding alarm with the alarm server.</p><h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code>CAgnAlarm</code></td><td class="Cell">Represents the interface between the agenda model and the alarm server</td>
+</tr>
+<tr><td class="Cell"><code><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase">CBase</a></code></td><td class="Cell">Base class for all classes to be instantiated on the heap</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>CAgnAlarm</code>:
+<br><code class="ApiItem"><a href="CAgnAlarmClass.html#%3a%3aCAgnAlarm%3a%3aCancelServerTerminationNotification%28%29" title="Cancels an outstanding asynchronous RequestServerTerminationNotification() request">CancelServerTerminationNotification()</a></code>, <code class="ApiItem"><a href="CAgnAlarmClass.html#%3a%3aCAgnAlarm%3a%3aConnect%28%29" title="Re-connects to the alarm server">Connect()</a></code>, <code class="ApiItem"><a href="CAgnAlarmClass.html#%3a%3aCAgnAlarm%3a%3aDefaultTitle%28%29" title="Gets the text message which is associated with the session alarm, as set by SetDefaultTitleL()">DefaultTitle()</a></code>, <code class="ApiItem"><a href="CAgnAlarmClass.html#%3a%3aCAgnAlarm%3a%3aFindAndQueueNextAlarmL%28%29" title="Finds the agenda model's next due alarm">FindAndQueueNextAlarmL()</a></code>, <code class="ApiItem"><a href="CAgnAlarmClass.html#%3a%3aCAgnAlarm%3a%3aFindAndQueueNextFewAlarmsL%28%29" title="Finds the agenda model's next few alarms">FindAndQueueNextFewAlarmsL()</a></code>, <code class="ApiItem"><a href="CAgnAlarmClass.html#%3a%3aCAgnAlarm%3a%3aNewL%28%29" title="Allocates and constructs a CAgnAlarm object with an agenda model and a callback">NewL()</a></code>, <code class="ApiItem"><a href="CAgnAlarmClass.html#%3a%3aCAgnAlarm%3a%3aOrphanAlarm%28%29" title="Orphans the session alarm">OrphanAlarm()</a></code>, <code class="ApiItem"><a href="CAgnAlarmClass.html#%3a%3aCAgnAlarm%3a%3aRequestServerTerminationNotification%28%29" title="Requests notification using the callback object specified in the NewL() when the alarm server terminates">RequestServerTerminationNotification()</a></code>, <code class="ApiItem"><a href="CAgnAlarmClass.html#%3a%3aCAgnAlarm%3a%3aSetDefaultTitleL%28%29" title="Sets the default text message which is associated with the session alarm">SetDefaultTitleL()</a></code>, <code class="ApiItem"><a href="CAgnAlarmClass.html#%3a%3aCAgnAlarm%3a%3aSetModel%28%29" title="Sets the agenda model">SetModel()</a></code>, <code class="ApiItem"><a href="CAgnAlarmClass.html#%3a%3aCAgnAlarm%3a%3a%7eCAgnAlarm%28%29" title="The destructor frees all resources owned by the object, prior to its destruction, and ends the session with the alarm server">~CAgnAlarm()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap">CBase</a></code>:
+<br><code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase%3a%3aoperator%20new%28%29" title="Allocates the object from the heap and then initialises its contents to binary zeroes">operator new()</a></code></p>
+<a name="2.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction and destruction</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnAlarm%3a%3aNewL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NewL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static CAgnAlarm* NewL(CAgnModel* aModel,MAgnAlarmServerTerminationCallBack* aCallBack=NULL);</code></p><h4 class="subheading">Description</h4>
+<p>Allocates and constructs a <code>CAgnAlarm</code> object with
+an agenda model and a callback. Makes a connection to the alarm
+server.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnModel* aModel</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the agenda model object the alarm server connection
+is being set up for.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">MAgnAlarmServerTerminationCallBack* aCallBack=NULL</code></td>
+<td class="Cell"><p class="ValueDesc">The alarm server termination callback routine. May be NULL if
+no notification is required.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnAlarm*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the newly created alarm server interface
+object.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnAlarm%3a%3a%7eCAgnAlarm%28%29"></a>
+<hr size="1" noshade>
+<h3><code>~CAgnAlarm()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual ~CAgnAlarm();</code></p><h4 class="subheading">Description</h4>
+<p>The destructor frees all resources owned by the object, prior to
+its destruction, and ends the session with the alarm
+server.</p>
+<a name="2.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Alarm server and model</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnAlarm%3a%3aConnect%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Connect()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Connect();</code></p><h4 class="subheading">Description</h4>
+<p>Re-connects to the alarm server. Note that a connection is made to
+the alarm server in the <code>NewL()</code>. The return value indicates the
+success or failure of the connection. After calling this function to
+re-establish the connection to the alarm server, you should call
+<code>RestartL()</code> to re-queue the next outstanding alarm with the alarm
+server.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if connection is successful, otherwise one of
+the system error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnAlarm%3a%3aFindAndQueueNextAlarmL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FindAndQueueNextAlarmL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void FindAndQueueNextAlarmL();</code></p><h4 class="subheading">Description</h4>
+<p>Finds the agenda model's next due alarm. If a due alarm is found, it
+is set as the session alarm and queued with the alarm
+server.</p>
+<a name="2.7.4"></a></div><div class="Head3">
+<a name="%3a%3aCAgnAlarm%3a%3aFindAndQueueNextFewAlarmsL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FindAndQueueNextFewAlarmsL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void FindAndQueueNextFewAlarmsL(const TInt aMaxNumberOfAlarms=10,const TInt aMaxNumberOfDays=31);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Finds the agenda model's next few alarms. If one or more due alarms are
+found, they are set as session alarms and queued with the alarm
+server.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">aMaxNumberOfAlarms</code></td>
+<td class="Cell"><p class="ValueDesc">The maximum number of alarms to be queued. The default value is
+10.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">aMaxNumberOfDays</code></td>
+<td class="Cell"><p class="ValueDesc">The maximum number of days to be scanned for alarms. The default value
+is 31.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.5"></a></div><div class="Head3">
+<a name="%3a%3aCAgnAlarm%3a%3aOrphanAlarm%28%29"></a>
+<hr size="1" noshade>
+<h3><code>OrphanAlarm()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void OrphanAlarm();</code></p><h4 class="subheading">Description</h4>
+<p>Orphans the session alarm. This allows the alarm to be serviced after the
+session is closed. This function should be called by the user of the model
+before a currently open agenda file is closed.</p>
+<a name="2.7.6"></a></div><div class="Head3">
+<a name="%3a%3aCAgnAlarm%3a%3aSetModel%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetModel()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetModel(CAgnModel* aModel);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the agenda model. Note that the model is set in the
+<code>NewL()</code>. </p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnModel* aModel</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the agenda model object.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Notification of disconnection</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnAlarm%3a%3aRequestServerTerminationNotification%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RequestServerTerminationNotification()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void RequestServerTerminationNotification(TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Requests notification using the callback object specified in the
+<code>NewL()</code> when the alarm server terminates. A panic is raised (with a
+value of <code>EAgnErrAlarmRequestWithCallbackSet</code>) if no callback object
+was specified in the <code>NewL()</code>.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStatus</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the completion status.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnAlarm%3a%3aCancelServerTerminationNotification%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CancelServerTerminationNotification()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void CancelServerTerminationNotification();</code></p><h4 class="subheading">Description</h4>
+<p>Cancels an outstanding asynchronous
+<code>RequestServerTerminationNotification()</code>
+request.</p>
+<a name="2.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Default title</h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnAlarm%3a%3aSetDefaultTitleL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetDefaultTitleL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetDefaultTitleL(const TDesC&amp; aDefaultTitle);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the default text message which is associated with the session alarm.
+This text string is used if the entry which contains the alarm has no
+text.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aDefaultTitle</code></td>
+<td class="Cell"><p class="ValueDesc">The default text message which is associated with the session
+alarm.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnAlarm%3a%3aDefaultTitle%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DefaultTitle()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TPtrC DefaultTitle() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the text message which is associated with the session alarm, as set
+by <code>SetDefaultTitleL()</code>.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TPtrC</code></td>
+<td class="Cell"><p class="ValueDesc">The text message which is associated with the session alarm.</p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

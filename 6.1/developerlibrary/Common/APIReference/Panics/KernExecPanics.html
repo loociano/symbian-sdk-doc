@@ -1,0 +1,252 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>KERN-EXEC</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="Panics%2ekern%2dexec"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="KernPanics.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="KernSvrPanics.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Panic&nbsp;categories&nbsp;and&nbsp;numbers</a>&nbsp;<span class="separator">&#187;</span>
+KERN-EXEC</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Category: KERN-EXEC</h1>
+</div><div class="Bodytext">
+<p>These panics represent program errors which are detected by the Kernel Executive. Typically, they are caused
+by passing bad or contradictory parameters to functions. Threads which cause exceptions also raise a KERN-EXEC panic.</p><p>The thread causing the panic is terminated.</p>
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0">
+<tr valign="top">
+<td class="Cell">
+<p><code>0</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when the Kernel Executive cannot find an object in the object index for the current
+process or current thread using the specified object index number (the raw handle number).</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>1</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised as a result of trying to suspend a thread, set the priority of a thread or set the priority
+of a process. The panic occurs when:</p><ul><li><p>the process, which is the target of the set priority operation, is protected and is not the same as the
+process invoking the set priority operation</p></li><li><p>the thread, which is the target of the suspend or set priority operation, is protected and is not the same
+as the thread invoking the suspend or set priority operation.</p></li></ul>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>3</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when an unhandled exception occurs.
+Exceptions have many causes, but the most common are access violations caused, for example, by
+dreferencing NULL. Among other possible causes are: general protection faults, executing an invalid
+instruction, alignment checks, etc.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>4</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when the Kernel attempts to free a message, an <a href="../ClientServer/RMessageClass.html#%3a%3aRMessage" title="An object which encapsulates a client request"><code class="ApiItem">RMessage</code></a>, when that message is not
+in the accepted state.
+This panic is probably caused by a breakdown in client/server relations.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>6</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the Kernel when the current thread attempts to read from a chunk using <a href="../MemoryAllocation/RChunkClass.html#%3a%3aRChunk%3a%3aRead%28%29" title="Reads 16 bit data from the chunk, specifying the length to which the target descriptor is to be re-sized"><code class="ApiItem">RChunk::Read()</code></a> and the specified start position is one of:</p><ul><li><p>
+negative</p></li><li><p>greater than or equal to the current number of bytes committed to the chunk. i.e. the  value returned by
+the <a href="../MemoryAllocation/RChunkClass.html#%3a%3aRChunk%3a%3aSize%28%29" title="Returns the current size of this chunk's committed region to this chunk"><code class="ApiItem">RChunk::Size()</code></a>.</p></li></ul>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>7</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the Kernel when the current thread attempts to write to a chunk using <a href="../MemoryAllocation/RChunkClass.html#%3a%3aRChunk%3a%3aWrite%28%29" title="Writes 16 bit data into the chunk"><code class="ApiItem">RChunk::Write()</code></a> and one of the following is true:</p><ul><li><p>
+the specified start position is negative</p></li><li><p>the specified start position is greater than or equal to the current number of bytes committed to the
+chunk, i.e. the value returned by <a href="../MemoryAllocation/RChunkClass.html#%3a%3aRChunk%3a%3aSize%28%29" title="Returns the current size of this chunk's committed region to this chunk"><code class="ApiItem">RChunk::Size()</code></a></p></li><li><p>the specified start position plus the length of the descriptor passed to <a href="../MemoryAllocation/RChunkClass.html#%3a%3aRChunk%3a%3aWrite%28%29" title="Writes 16 bit data into the chunk"><code class="ApiItem">RChunk::Write()</code></a> is greater than the
+current number of bytes committed to the chunk, i.e. the value returned by <a href="../MemoryAllocation/RChunkClass.html#%3a%3aRChunk%3a%3aSize%28%29" title="Returns the current size of this chunk's committed region to this chunk"><code class="ApiItem">RChunk::Size()</code></a>.</p></li></ul>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>9</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Request()</code> member function of the <code>DLogicalChannel()</code> Kernel
+object, which issues asynchronous requests to a device. The panic is caused when a request, as identified
+by the specified request number, has previously been made and this request is still outstanding.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>10</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Request()</code> member function of the <code>DLogicalChannel()</code> Kernel
+object, which issues asynchronous requests to a device. The panic is caused when the specified request
+number is greater than or equal to the maximum number of requests supported per device driver (defined
+by the constant <code>KMaxRequests</code> in <code class="filename">k32std.h</code>).
+The panic also occurs if the request is invalid.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>12</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by <code>Kern::EventCaptureHook()</code> if an event capture hook has already been
+designated.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>13</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by <code>Kern::EventReleaseHook()</code> if the current thread is not the designated
+event capture hook.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>14</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when an attempt is made to set the priority of a user process to an illegal value, or to
+set the priority of a user thread to an illegal value.
+</p><p>The permitted priority values for a user process are a subset of the values defined by the
+<a href="../ThreadsAndProcesses/TProcessPriorityEnum.html#%3a%3aTProcessPriority" title="Defines process priorities"><code class="ApiItem">TProcessPriority</code></a> enum. The permitted values are:</p><ul><li><p><code>
+EPriorityLow</code></p></li><li><p><code>EPriorityBackground</code></p></li><li><p>
+<code>EPriorityForeground</code></p></li><li><p><code>EPriorityHigh</code></p></li></ul><p>
+The permitted priority values for a user thread are a subset of the values defined by the
+<a href="../ThreadsAndProcesses/TThreadPriorityEnum.html#%3a%3aTThreadPriority" title="Defines thread priorities"><code class="ApiItem">TThreadPriority</code></a> enum. The permitted values are:</p><ul><li><p><code>
+EPriorityMuchLess</code></p></li><li><p><code>
+EPriorityLess</code></p></li><li><p><code>
+EPriorityNormal</code></p></li><li><p><code>EPriorityMore</code></p></li><li><p><code>
+EPriorityMuchMore</code></p></li><li><p><code>EPriorityRealTime</code></p></li><li><p><code>EPriorityAbsoluteVeryLow</code></p></li><li><p><code>
+EPriorityAbsoluteLow</code></p></li><li><p><code>
+EPriorityAbsoluteBackground</code></p></li><li><p><code>
+EPriorityAbsoluteForeground</code></p></li><li><p><code>
+EPriorityAbsoluteHigh</code></p></li></ul>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>15</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when a timer event is requested from an asynchronous timer service, an <a href="../TimersAndTimingServices/RTimerClass.html#%3a%3aRTimer" title="Asynchronous timer services"><code class="ApiItem">RTimer</code></a>, and
+a timer event is already outstanding. It is caused by calling either the <code>At()</code>, <code>After() </code>or <code>Lock()</code>
+member functions after a previous call to any of these functions but before the timer event requested by
+those functions has completed.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>17</code></p>
+</td>
+<td class="Cell">
+<p>The panic is raised when the Kernel tries to close a thread's heap and finds that the access count is
+negative. As the heap may be shared, the owning process is panicked.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>18</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Request()</code> member function of the <code>DLogicalChannel()</code> Kernel
+object, which issues asynchronous requests to a device. The panic is caused when the current thread is
+different from the thread which created the channel.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>19</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the Kernel when a server program makes a request to receive a message, i.e. when
+it calls the <code>Receive()</code> member function of <code>RServer</code>, the handle to the Kernel side server object. The
+panic occurs when a receive message request has previously been made and is still outstanding.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>20</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the Kernel when a request for an event (as originated by a call to
+<code>UserSvr::RequestEvent()</code>, defined in <code class="filename">e32svr.h</code>) is made while a previously made request is
+still outstanding.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>21</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when registering the screen-switch-on handler; the panic occurs when the handler is
+not the window server.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>24</code></p>
+</td>
+<td class="Cell">
+<p><em>Introduced in 6.0:</em> This panic is raised when the maximum length of the descriptor passed to  <a href="../ThreadsAndProcesses/RProcessClass.html#%3a%3aRProcess%3a%3aCommandLine%28%29" title="Gets a copy of the data which is passed as an argument to the thread function of the new process's main thread when it is first scheduled to run"><code class="ApiItem">RProcess::CommandLine()</code></a> is smaller than tbe length of the command line data.</p>
+</td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

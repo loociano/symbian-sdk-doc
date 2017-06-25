@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to display Unicode descriptors</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="OnTargetDebugging%2eHowToDisplayDescriptors"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToUseGDB.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">On-target&nbsp;Debugging&nbsp;using&nbsp;GDB&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;display&nbsp;Unicode&nbsp;descriptors</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>How to display Unicode descriptors</h1>
+</div><div class="Bodytext">
+<p>The GDB script <code class="filename">\epoc32\gcc\share\epoc-des.ini</code> defines a new command <b>epoc-print-des16</b> that can be  used to display  type, length and content information about a given descriptor. More information about the command,  and its shorter alias <b>pd16</b>, is provided in the  <a href="../OnTargetDebugging-ref/SymbianGDBCommandReference.guide.html#OnTargetDebugging%2eSymbianGDBCommandReference">Symbian specific GDB command reference</a>.</p><p>Before using the new command, the  script must be loaded into GDB. Note that this need only be done once every debugging session, and may be incorporated into the GDB initialisation file.</p><p>To add the script into GDB and to print the contents of a descriptor:</p><ol><li><p>Add the GDB script for descriptor debugging into GDB. </p><p>The GDB <b>source</b> command is used to add the descriptor GDB script. For example, if x is the root of the SDK installation:</p><p class="CodeBlock"><code>source //x/shared/epoc32/gcc/share/epoc-des.ini</code></p><p> The command may be used at the <b>(gdb)</b> command prompt or in the Insight console. However it is more usual to include  the command within the <code class="filename">gdb.ini</code> initialisation file so that it doesn't have to be invoked for every debugging session.</p></li>
+<li><p> At the <b>(gdb)</b> command prompt, or in the Insight console, enter:</p><p class="CodeBlock"><code>epoc-print-des16 DescriptorName</code></p><p>or</p><p class="CodeBlock"><code>pd16 DescriptorName</code></p></li></ol><p>Note:</p><ul><li><p>It is not possible to use this command to debug the contents of a literal descriptor.</p></li><li><p>Use <b>help epoc-print-des16</b> at the <b>(gdb)</b> command prompt to get more information about the command.</p></li><li><p>Printable ASCII characters are printed directly — except the double quote
+character which is printed prefixed by a backslash.
+Other characters are printed as \uXXXX where XXXX is an hexadecimal
+number.</p></li></ul><a name="1.9"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Example</h2>
+</div><div class="Bodytext"><p>Given the following set of descriptors:</p><p class="CodeBlock"><code>TBufC16&lt;32&gt; bufC16(_L16(&quot;UNICODE STRING&quot;));<br>TText16 a16[] = { 'h', 'e', 'l', 'l', 'o', 3, 127, '&quot;', 0x666 };<br>TPtr16 ptr16(a16, sizeof a16/2, sizeof a16/2);</code></p><p>Below is a transcript showing how the descriptors are debugged within a GDB session:</p><p class="CodeBlock"><code>(gdb) epoc-print-des16 bufC16<br>Type: TBufC16 or HBufC16<br>Length = 14<br>Content = &quot;UNICODE STRING&quot;<br><br>(gdb) pd16 ptr16<br>Type: TPtr16<br>Length = 9<br>Content = &quot;hello\u0003\u007F\&quot;\u0666&quot;</code></p>
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Timers And Timing Services overview</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="TimersAndTimingServicesOverview%2emain"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="TimersAndTimingServicesGuide1/index.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Timers&nbsp;And&nbsp;Timing&nbsp;Services</a>&nbsp;<span class="separator">&#187;</span>
+Timers&nbsp;And&nbsp;Timing&nbsp;Services&nbsp;overview</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Timers And Timing Services Overview</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Purpose</h2>
+</div><div class="Bodytext">
+<p>Provides timers that asynchronously notify an application after an
+interval or at a specific time.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Architectural relationships</h2>
+</div><div class="Bodytext">
+<p>The <a href="../../../APIReference/SystemStaticFunctions/UserClass.html#%3a%3aUser" title="Set of static user functions"><code class="ApiItem">User</code></a> class in the System Static Functions
+API provides simple functions to suspend a thread for a given interval or until
+a specific time.</p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Description</h2>
+</div><div class="Bodytext">
+<p>The API has three key concepts: simple timer, periodic timer, and
+heartbeat timer. </p>
+<a name="1.5.3"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Simple timer</h3>
+</div><div class="Bodytext">
+<p>The simple timer produces an event at a given system time or
+after a given interval. It is provided by <a href="../../../APIReference/TimersAndTimingServices/RTimerClass.html#%3a%3aRTimer" title="Asynchronous timer services"><code class="ApiItem">RTimer</code></a>. This
+service is wrapped in an active object by <a href="../../../APIReference/TimersAndTimingServices/CTimerClass.html#%3a%3aCTimer" title="Base class for a timer active object"><code class="ApiItem">CTimer</code></a>.</p>
+<a name="1.5.4"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Periodic timer</h3>
+</div><div class="Bodytext">
+<p>A periodic timer produces a sequence of events at a specified
+interval. The application is called through a callback
+(<a href="../../../APIReference/AsynchronousServices/TCallBackClass.html#%3a%3aTCallBack" title="Encapsulates a general call-back function"><code class="ApiItem">TCallBack</code></a>) when they occur. It is provided by
+<a href="../../../APIReference/TimersAndTimingServices/CPeriodicClass.html#%3a%3aCPeriodic" title="Periodic timer active object"><code class="ApiItem">CPeriodic</code></a>.</p>
+<a name="1.5.5"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Heartbeat timer</h3>
+</div><div class="Bodytext">
+<p>A heartbeat timer is similar to a periodic timer. However, if the
+application is busy handling another event when the timer event occurs, a
+periodic timer simple delays delivering the event, while a heartbeat timer will
+inform the application that it has missed the event. </p>
+<p>It is provided by <a href="../../../APIReference/TimersAndTimingServices/CHeartbeatClass.html#%3a%3aCHeartbeat" title="Heatbeat timer"><code class="ApiItem">CHeartbeat</code></a>. Applications
+are alerted to timer events through implementing an interface
+<a href="../../../APIReference/TimersAndTimingServices/MBeatingClass.html#%3a%3aMBeating" title="Heartbeat timer call-back handling interface"><code class="ApiItem">MBeating</code></a>.</p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="../InterProcessCommunication/AsynchronousServicesOverview.guide.html#InterProcessCommunicationOverview%2eAsynchronousServicesOverview%2emain">Asynchronous Services Overview</a></p>
+<p><a href="../SystemStaticFunctions/SystemStaticFunctionsOverview.guide.html#SystemStaticFunctionsOverview%2emain">System Static Functions Overview</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CLogWrapper</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CLogViewRecentClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="Flags.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Log&nbsp;Engine</a>&nbsp;<span class="separator">&#187;</span>
+CLogWrapper</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>logwrap.h</code>
+<br>Link against: <code>logwrap.lib</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aCLogWrapper"></a>
+
+<h1>Class <code>CLogWrapper</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CLogWrapper</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>The log wrapper.</p>
+<p>As some DFRDs do not use a Log Engine, the log wrapper provides a
+consistent interface to clients that need to work, without being changed, with
+multiple DFRDs.</p>
+<p>The log wrapper is provided in its own DLL, the logwrap.dll.</p>
+<p>If a Log Engine is not installed on a device, the log wrapper
+creates an instance of the <code>CLogBase</code> class, whose event handling
+requests complete with <code>KErrNotSupported</code> and whose functions return
+<code>KErrNotSupported</code>.</p>
+<p>If a Log Engine is installed on a device, the log wrapper creates
+an instance of the <code>CLogClient</code> class, provided in a separate DLL,
+the logcli.dll . The <code>CLogClient</code> class derives from
+<code>CLogBase</code> and provides implementations for the event handling
+requests and functions.</p><h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase">CBase</a></code></td><td class="Cell">Base class for all classes to be instantiated on the heap</td>
+</tr>
+<tr><td class="Cell"><code>CLogWrapper</code></td><td class="Cell">The log wrapper</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>CLogWrapper</code>:
+<br><code class="ApiItem"><a href="CLogWrapperClass.html#%3a%3aCLogWrapper%3a%3aClientAvailable%28%29" title="Determines whether the Log Engine is installed">ClientAvailable()</a></code>, <code class="ApiItem"><a href="CLogWrapperClass.html#%3a%3aCLogWrapper%3a%3aLog%28%29" title="Gets a reference to the Log Engine object">Log()</a></code>, <code class="ApiItem"><a href="CLogWrapperClass.html#%3a%3aCLogWrapper%3a%3aNewL%28%29" title="Creates a new instance of the log wrapper">NewL()</a></code>, <code class="ApiItem"><a href="CLogWrapperClass.html#%3a%3aCLogWrapper%3a%3a%7eCLogWrapper%28%29" title="Frees all resources owned by the log wrapper prior to its destruction">~CLogWrapper()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap">CBase</a></code>:
+<br><code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase%3a%3aoperator%20new%28%29" title="Allocates the object from the heap and then initialises its contents to binary zeroes">operator new()</a></code></p>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CLogBaseClass.html#%3a%3aCLogBase" title="Base class for the log engine implementation"><code class="ApiItem">CLogBase</code></a></li>
+<li><a href="CLogClientClass.html#%3a%3aCLogClient" title="Log Engine implementation"><code class="ApiItem">CLogClient</code></a></li>
+</ul>
+<a name="2.7"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction and destruction</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aCLogWrapper%3a%3aNewL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NewL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static CLogWrapper* NewL(RFs&amp; aFs, TInt aPriority = CActive::EPriorityStandard);</code></p><h4 class="subheading">Description</h4>
+<p>Creates a new instance of the log wrapper.</p>
+<p>The function attempts to create an instance of the Log Engine
+class, <code>CLogClient</code>, from the client DLL, logcli.dll.
+If this is not possible, an instance of the Log Engine Base class,
+<code>CLogBase</code>, is created.</p>
+<p>Provided that there is sufficient memory, the log wrapper is
+always created, whether or not the Log Engine exists.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RFs&amp; aFs</code></td>
+<td class="Cell"><p class="ValueDesc">Handle to a file server session</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aPriority = CActive::EPriorityStandard</code></td>
+<td class="Cell"><p class="ValueDesc">The priority of this active object. By default, this is the
+standard active object priority.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CLogWrapper*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the new log wrapper object.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CLogClientClass.html#%3a%3aCLogClient" title="Log Engine implementation"><code class="ApiItem">CLogClient</code></a></li>
+<li><a href="CLogBaseClass.html#%3a%3aCLogBase" title="Base class for the log engine implementation"><code class="ApiItem">CLogBase</code></a></li>
+<li><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aTPriority" title="Defines standard priorities for active objects"><code class="ApiItem">CActive::TPriority</code></a></li>
+</ul>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aCLogWrapper%3a%3a%7eCLogWrapper%28%29"></a>
+<hr size="1" noshade>
+<h3><code>~CLogWrapper()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>~CLogWrapper();</code></p><h4 class="subheading">Description</h4>
+<p>Frees all resources owned by the log wrapper prior to its
+destruction. Specifically, it deletes the Log Engine (or the instance of the
+Log Engine base class, if the DFRD does not have a Log Engine
+installed).</p>
+<a name="2.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Logging</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aCLogWrapper%3a%3aClientAvailable%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ClientAvailable()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool ClientAvailable() const;</code></p><h4 class="subheading">Description</h4>
+<p>Determines whether the Log Engine is
+installed.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc">True if there is a Log Engine, False, otherwise.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aCLogWrapper%3a%3aLog%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Log()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CLogBase&amp; Log();</code></p><h4 class="subheading">Description</h4>
+<p>Gets a reference to the Log Engine object.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CLogBase&amp;</code></td>
+<td class="Cell"><p class="ValueDesc">If the Log Engine is installed, this is a reference to a
+<code>CLogClient</code> object. If there is no Log Engine, this is a reference
+to an instance of the Log Engine base class, <code>CLogBase</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CLogClientClass.html#%3a%3aCLogClient" title="Log Engine implementation"><code class="ApiItem">CLogClient</code></a></li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

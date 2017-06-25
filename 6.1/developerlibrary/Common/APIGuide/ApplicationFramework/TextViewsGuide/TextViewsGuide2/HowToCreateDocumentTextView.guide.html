@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to handle changes to the text view</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="TextViewsGuide2%2eHowToCreateDocumentTextView"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToSetUpTextView.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToSelectText.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Application&nbsp;Framework</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Text&nbsp;Views</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Text&nbsp;Views</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;handle&nbsp;changes&nbsp;to&nbsp;the&nbsp;text&nbsp;view</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to handle changes to the text view</h1>
+</div><div class="Bodytext">
+<p>After a change has been made to the text layout, a reformat and redraw should normally take place, otherwise a panic will occur, as the text view needs to be kept up to date with changes to the text content. The following examples demonstrate which handling functions should be used to carry out the necessary reformatting.</p><a name="1.4"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Reformatting and redrawing  after changes to  the formatting of a block of text. </h2>
+</div><div class="Bodytext"><p> To reformat  either from the start of the line or the start of the paragraph containing the cursor position and redraw the view, after changes to the formatting of a block of text, use the <code class="ApiItem">HandleRangeFormatChangeL()</code> function.
+</p><p>In the following example, the code  retrieves the current selection and formats
+it. </p>
+<p class="CodeBlock"><code>// Apply italics to the selected region<br>TCursorSelection cursorSelection;<br>charFormat.iFontSpec.iFontStyle.SetPosture(EPostureItalic); <br>charFormatMask.SetAttrib(EAttFontPosture); // Want to set posture</code></p>
+<p>When formatting text, set the attribute's value in the
+<a href="../../../../APIReference/TextAndTextAttributes/TCharFormatClass.html#%3a%3aTCharFormat" title="A transient container of character format attributes, including font-dependent and font-independent attributes"><code class="ApiItem">TCharFormat</code></a> object and set the corresponding bit in the format
+mask.</p><ul>
+<li>
+<p>Use <a href="../../../../APIReference/TextViews/CTextViewClass.html#%3a%3aCTextView%3a%3aSelection%28%29" title="Gets the current selection"><code class="ApiItem">CTextView::Selection()</code></a> to get the start position
+and length of the selected region.</p>
+</li>
+<li>
+<p>Apply character formatting to the selection using
+<a href="../../../../APIReference/TextAndTextAttributes/CRichTextClass.html#%3a%3aCRichText%3a%3aApplyCharFormatL%28%29" title="Applies character formatting to a range of characters"><code class="ApiItem">CRichText::ApplyCharFormatL()</code></a>.</p>
+</li>
+<li>
+<p>After reformatting text, handle changes to the layout of the
+document by an appropriate change handling function.
+<code class="ApiItem">HandleRangeFormatChangeL()</code> deals with block reformatting and
+redraws the view, and is the appropriate change handling function here.</p>
+</li>
+</ul>
+<p class="CodeBlock"><code>cursorSelection=iTextView-&gt;Selection(); // get limits of selection<br>TInt lowerPos=cursorSelection.LowerPos();<br>TInt length=cursorSelection.Length();<br>// Apply format to selected region<br>iRichText-&gt;ApplyCharFormatL(charFormat,charFormatMask,lowerPos,length);<br>// Ensure selection is cancelled after reformatting<br>TInt cursorPos=cursorSelection.iCursorPos; // Get new cursor position<br>// Set pending selection of length zero<br>TCursorSelection pendingSelection(cursorPos,cursorPos);<br>// Zero length selection, beginning and ending at new cursor position<br>iTextView-&gt;SetPendingSelection(pendingSelection);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Cancels selection after reformatting complete <br>iTextView-&gt;HandleRangeFormatChangeL(cursorSelection); // reformat everything from here</code></p>
+<a name="1.4.8"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Notes</h3>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p><code>CTextView</code>'s change handling functions do not
+cancel an existing selection. To do so, either of two functions can be
+used — <code>CancelSelectionL()</code>, or, as demonstrated
+above, <code>SetPendingSelection()</code>. <code>SetPendingSelection()</code>
+sets the selection which should take effect after
+<code>HandleRangeFormatChangeL()</code> or <code>HandleInsertDeleteL()</code>
+has returned. If the selection's anchor and cursor positions are set to the new
+cursor position, this has the effect of cancelling any selection. This method
+has the advantage over calling <code>CancelSelectionL()</code> in that the
+selected region is only drawn once, reducing the likelihood of flicker.</p>
+</li><li>
+<p>Formatting can either be applied to the entire document (the
+default), or just to the visible part of it (the band). Setting the formatting
+to the band may be desirable when the document has expanded over a certain
+size. </p>
+</li>
+</ul>
+<a name="1.5"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Reformatting and redrawing  after inserting, deleting or replacing text</h2>
+</div><div class="Bodytext"><p>To Reformat and redraw the view after inserting, deleting or replacing a block of text, use the <code class="ApiItem">CTextView::HandleInsertDelete()</code> function.</p><p>In the following example the  code inserts several lines of text into the document,
+followed by a paragraph delimiter.</p>
+<ul>
+<li>
+<p>Before inserting a paragraph delimiter at the end of the text,
+use <a href="../../../../APIReference/TextAndTextAttributes/CEditableTextClass.html#%3a%3aCEditableText%3a%3aDocumentLength%28%29" title="Returns a count of the number of characters in the document, excluding the end-of-text paragraph delimiter"><code class="ApiItem">CEditableText::DocumentLength()</code></a> to find the document position
+of the final character in the document.</p>
+</li>
+<li>
+<p>Call <code class="ApiItem">HandleInsertDeleteL()</code> to handle the block
+insertion and cause a redraw.</p>
+</li>
+<li>
+<p>Use an object of class <a href="../../../../APIReference/TextViews/TCursorSelectionClass.html#%3a%3aTCursorSelection" title="The cursor or cursor selection within a document"><code class="ApiItem">TCursorSelection</code></a> to indicate
+the start position and length of the inserted text. The second argument has a
+value of zero because no characters were deleted.</p>
+</li>
+</ul>
+<p class="CodeBlock"><code>// Insert lots of text<br>iRichText-&gt;InsertL(iRichText-&gt;DocumentLength(),_L(<br>&nbsp;&nbsp;&nbsp;&nbsp;&quot;To be, or not to be, that is the question &quot;<br>&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;...&quot;));<br>iRichText-&gt;InsertL(iRichText-&gt;DocumentLength(),<br>&nbsp;&nbsp;&nbsp;&nbsp;CEditableText::EParagraphDelimiter); // end para<br>TCursorSelection cursorSelection(0,iRichText-&gt;DocumentLength());<br>iTextView-&gt;HandleInsertDeleteL(cursorSelection,0); // Handle insertion</code></p>
+<a name="1.6"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Reformatting and redrawing  after a global change</h2>
+</div><div class="Bodytext"><p>To reformat and redraw the view after a global change has been made to the layout, use the <a href="../../../../APIReference/TextViews/CTextViewClass.html#%3a%3aCTextView%3a%3aHandleGlobalChangeL%28%29" title="Reformats and redraws the view after a global change has been made to the layout"><code class="ApiItem">CTextView::HandleGlobalChangeL()</code></a> function. </p><p>In the following example, the code sets the <em>formatted
+band</em> to the part of the document displayed in the view
+rectangle. </p>
+<p class="CodeBlock"><code>TBuf&lt;80&gt; message;<br>iLayout-&gt;SetAmountToFormat(CTextLayout::EFFormatBand);<br>iTextView-&gt;HandleGlobalChangeL(); // Global document change </code></p>
+<a name="1.7"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Reformatting the whole document or visible text</h2>
+</div><div class="Bodytext"><p>To  reformat the whole document, or just the visible text if formatting is set to the band only,  use the <a href="../../../../APIReference/TextViews/CTextViewClass.html#%3a%3aCTextView%3a%3aFormatTextL%28%29" title="Reformats the whole document, or just the visible text, if formatting is set to the band only (see CTextLayout::SetAmountToFormat())"><code class="ApiItem">CTextView::FormatTextL()</code></a> function. </p><p>In the following example, the code inserts several lines of text, with
+increased height to aid visibility, then sets the <em>formatted
+band</em>.</p>
+<ul>
+<li>
+<p>The following code sets the font height to 200 twips and ensures
+that this height will be applied to all text subsequently inserted. All other
+character and paragraph formatting is taken from the system-provided default
+settings. </p>
+</li><li>
+<p>Apply character formatting to the selection using
+<a href="../../../../APIReference/TextAndTextAttributes/CRichTextClass.html#%3a%3aCRichText%3a%3aApplyCharFormatL%28%29" title="Applies character formatting to a range of characters"><code class="ApiItem">CRichText::ApplyCharFormatL()</code></a>.</p>
+</li>
+<li>
+<p>Use <code class="ApiItem">FormatTextL()</code> to global reformat the document.
+Note that this function does not cause a redraw, which is appropriate here because the
+document contains no text.</p>
+</li>
+</ul>
+<p class="CodeBlock"><code>TCharFormat charFormat;<br>TCharFormatMask charFormatMask;<br>charFormatMask.SetAttrib(EAttFontHeight); // want to set height to 10 point (200 twips)<br>charFormat.iFontSpec.iHeight=200;    <br>iRichText-&gt;ApplyCharFormatL(charFormat,charFormatMask,0,1);<br>&nbsp;&nbsp;&nbsp;&nbsp;// apply format from position 0, for 1 character<br>iTextView-&gt;FormatTextL();</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to use makmake</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="PracticalGuide%2eusing%2dmakmake"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="UsingAbld.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="BuildFAQ.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Build&nbsp;Tools&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;use&nbsp;makmake</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to use <code class="filename">makmake</code></h1>
+</div><div class="Bodytext">
+<p>
+Symbian projects are defined by an <code class="filename">.mmp</code> file which
+specifies the essential elements of the project. The <code class="filename">makmake</code> tool
+then uses this environment-neutral file to build makefiles for use in various
+environments. These makefiles are then used for project development. </p>
+<p>Some makefiles are built for use in building the project from the
+command-line, while others are for use with the MSVC++ IDE. Command-line
+makefiles created by <code class="filename">makmake</code> contain syntax which it is not
+possible to incorporate into makefiles intended for the MSVC
+IDE&nbsp;&#8212; these are discussed in the following topic &#8220;Using
+makmake&#8221;.</p>
+<h4 class="subheading">See also</h4><p><a href="../Build-ref/Mmp-ref/index.html#PracticalGuide%2eusing%2dmmpfiles">mmp file syntax</a></p>
+<a name="1.7"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Building and running a file for wins</h2>
+</div><div class="Bodytext">
+<p>Starting with <code class="filename">hello.mmp</code>, you can build the makefile
+file <code class="filename">hello.wins</code> using:</p>
+<p><code>makmake hello wins</code></p>
+<p>You then build the project from the command line by
+running:</p>
+<p><code>nmake -f hello.wins</code></p>
+<a name="1.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Building and running for the ARMI environment</h2>
+</div><div class="Bodytext">
+<p>For the ARMI environment, you can build the makefile file
+<code class="filename">hello.armi</code> using:</p>
+<p><code>makmake hello armi</code></p>
+<p>You can then build the project from the command
+line by running:</p>
+<ul>
+<li>
+<p><code>nmake -f hello.armi</code></p>
+</li>
+</ul>
+<a name="PracticalGuide%2eusing%2dmakmake%2dMSVC"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Building project files for Microsoft Developer Studio (Visual
+C++ 6.0)</h2>
+</div><div class="Bodytext">
+<p>To build the <code class="filename">.dsp</code> and <code class="filename">.dsw</code> files,
+designed for Microsoft Developer Studio (Visual C++ 6.0), you can do:</p>
+<p><code>makmake hello vc6</code></p>
+<h4 class="subheading">Note</h4><p>Support for creating VC4 and VC5 IDE workspaces is no longer
+provided, only workspaces for VC6 can be created.</p>
+<a name="1.10"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Building debug and release variants</h2>
+</div><div class="Bodytext">
+<p>A command line makefile produced by <code class="filename">makmake</code> allows
+the executable (an EXE or any type of DLL) to be produced in one
+of two variants:</p>
+<ul>
+<li>
+<p><code class="filename">udeb</code> - wide (UNICODE), debug mode</p>
+</li>
+<li>
+<p><code class="filename">urel</code> - wide (UNICODE), release mode</p>
+</li>
+</ul>
+<p>which may be selected by specifying the variant as a target.
+</p>
+<p>For example, to build the <code class="filename">udeb</code> variant of the
+executable, you can do:</p>
+<p><code>nmake -f hello.armi udeb</code></p>
+<p>If <code class="filename">nmake</code> is invoked with no target specified, then
+the following default targets will be built:</p>
+<p>the default for ARM is wide, release mode</p>
+<p>the default for WINS  is wide, debug mode. </p>
+<p>If you build the executable using the MSVC++ IDE makefile, you
+may also need to run tools such as the bitmap and application information
+compilers, to build other aspects of the project. Command line makefiles will
+invoke these tools for you.</p>
+<p>You may use path specifications to locate the <code class="filename">.mmp</code>
+file in any directory.</p>
+<p>For example:</p>
+<p><code>makmake ..\..\epoc32ex\e32\hello
+armi</code></p>
+<p>or</p>
+<p><code>makmake ..\..\epoc32ex\e32\hello
+vc6</code></p>
+<p>will locate the specified <code class="filename">.mmp</code> file. However, the
+generated <code class="filename">makmake</code>  files are always written into the current
+directory.</p>
+<a name="1.11"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Command line makefile utilities</h2>
+</div><div class="Bodytext">
+<p>Command-line makefiles created by <code class="filename">makmake</code> contain
+syntax which it is not possible to incorporate into makefiles intended for the
+MSVC IDE. </p>
+<p>Command-line makefiles provide extra makefile targets which enable
+you to use <code class="filename">nmake</code> to create work directories and erase non-source
+files for a particular build variant of a project. </p>
+<p>For example, WINS command-line makefiles provide the targets <code>makework</code>, <code>makeworkudeb</code>, <code>makeworkurel</code>, <code>clean</code>, <code>cleanudeb</code>, <code>cleanurel</code>.</p>
+<ul>
+<li>
+<p>The following
+<code>nmake -f hello.wins clean</code> will attempt to
+delete the non-source files created during a build of all variants of the
+project <code class="filename">hello</code>, while
+<code>nmake -f hello.wins cleanudeb</code> for example,
+will attempt only to delete non-source files created by a wide debug build of
+the project. </p>
+</li>
+<li>
+<p>The following <code>nmake -f hello.wins makework</code> will
+create the work directories for a build of all variants of the project hello,
+while <code>nmake -f hello.wins makeworkurel</code> will create the work
+directories for a wide release build of the project.</p>
+</li>
+</ul>
+<p>The build-specific <code>makework</code>
+targets are listed as dependencies of the main build-specific targets in
+command-line makefiles, so work directories will automatically be created when
+a target is built with a command-line makefile if these directories do not
+already exist.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

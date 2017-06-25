@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Basic Types Overview</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="BasicTypesOverview%2emain"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="IntegralTypes.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Basic&nbsp;Types</a>&nbsp;<span class="separator">&#187;</span>
+Basic&nbsp;Types&nbsp;Overview</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Basic Types Overview</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Purpose</h2>
+</div><div class="Bodytext">
+<p>Provides implementation-independent versions of the C++ built-in
+types, defines the EPOC standard base class for all heap-allocated classes, and
+provides some useful yet simple global functions.</p>
+<p>You should avoid using the C++ built-in types directly: always use
+the EPOC types instead.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Description</h2>
+</div><div class="Bodytext">
+<p>The API defines classes and typedefs for integer, text, Boolean,
+and floating point types. Additionally, a utility class to help with reference
+arguments in variable argument functions is provided.</p>
+<a name="1.4.3"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Heap-allocated classes base</h3>
+</div><div class="Bodytext">
+<p>EPOC requires that all classes that own dynamically allocated
+resources derive from a standard base class, CBase<a href="../../../APIReference/BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap"><code class="ApiItem">CBase</code></a>.
+Such classes by conventions have a C prefix to their name, and so are referred
+to as C classes. C classes, and their associated allocation and cleanup idioms,
+are fundamental to EPOC. </p>
+<a name="1.4.4"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Integral types</h3>
+</div><div class="Bodytext">
+<p><a href="../../../APIReference/BasicTypes/TIntTypedef.html#%3a%3aTInt" title="Signed integer type of the natural machine word length"><code class="ApiItem">TInt</code></a> is the natural machine word integer and
+should be used in all general contexts where integer arithmetic is
+desired.</p>
+<p><a href="../../../APIReference/BasicTypes/TInt32Typedef.html#%3a%3aTInt32" title="32-bit signed integer type -- used in EPOC to mean a 32-bit unsigned integer, independent of the implementation"><code class="ApiItem">TInt32</code></a>, <a href="../../../APIReference/BasicTypes/TInt16Typedef.html#%3a%3aTInt16" title="16-bit signed integer type -- used in EPOC to mean a 16-bit unsigned integer, independent of the implementation"><code class="ApiItem">TInt16</code></a> and
+<a href="../../../APIReference/BasicTypes/TInt8Typedef.html#%3a%3aTInt8" title="8-bit signed integer type -- used in EPOC to mean an 8-bit unsigned integer, independent of the implementation"><code class="ApiItem">TInt8</code></a> map onto C++ built-in types in most implementations.
+These types should only be used where the size of the integer is of first
+importance.</p>
+<p><a href="../../../APIReference/BasicTypes/TUintTypedef.html#%3a%3aTUint" title="Unsigned integer type of the natural machine word length"><code class="ApiItem">TUint</code></a> is an unsigned integer of the natural
+machine word size. It should be used for flag and handle words, which are
+manipulated using bitwise and equality-comparison operations rather than
+arithmetic. </p>
+<p><a href="../../../APIReference/BasicTypes/TUint32Typedef.html#%3a%3aTUint32" title="32-bit unsigned integer type -- used to mean a 32-bit unsigned integer, independent of the implementation"><code class="ApiItem">TUint32</code></a>, <a href="../../../APIReference/BasicTypes/TUint16Typedef.html#%3a%3aTUint16" title="16-bit unsigned integer type -- used to mean a 16-bit unsigned integer, independent of the implementation"><code class="ApiItem">TUint16</code></a> and
+<a href="../../../APIReference/BasicTypes/TUint8Typedef.html#%3a%3aTUint8" title="8-bit unsigned integer -- used to mean an 8-bit unsigned integer, independent of the implementation"><code class="ApiItem">TUint8</code></a> are available where the specific representation
+width is important.</p>
+<a name="1.4.5"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Text types</h3>
+</div><div class="Bodytext">
+<p><a href="../../../APIReference/BasicTypes/TTextTypedef.html#%3a%3aTText" title="Build independent general text character"><code class="ApiItem">TText</code></a> represents a character in the natural
+character width for the EPOC build. For Unicode builds, this is 16 bits.</p>
+<p><a href="../../../APIReference/BasicTypes/TText8Typedef.html#%3a%3aTText8" title="8-bit unsigned character"><code class="ApiItem">TText8</code></a> is available for build-independent
+8-bit characters, and <a href="../../../APIReference/BasicTypes/TText16Typedef.html#%3a%3aTText16" title="16-bit unsigned character"><code class="ApiItem">TText16</code></a> for build-independent 16-bit
+characters. </p>
+<p>The <a href="../../../APIReference/BasicTypes/TCharClass.html#%3a%3aTChar" title="Holds a character value and provides a number of utility functions to manipulate it and test its properties"><code class="ApiItem">TChar</code></a> class wraps a character value and
+provides a number of utility functions to operate upon it.</p>
+<a name="1.4.6"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Boolean type</h3>
+</div><div class="Bodytext">
+<p><a href="../../../APIReference/BasicTypes/TBoolTypedef.html#%3a%3aTBool" title="Boolean type which takes the value either ETrue or EFalse"><code class="ApiItem">TBool</code></a> represents a Boolean whose value may
+be true or false. It is implemented as a natural machine-word integer.</p>
+<a name="1.4.7"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Floating-point types</h3>
+</div><div class="Bodytext">
+<p><a href="../../../APIReference/BasicTypes/TRealTypedef.html#%3a%3aTReal" title="64-bit floating point number -- identical to TReal64"><code class="ApiItem">TReal</code></a> is a 64-bit double-precision type,
+used as the argument type for all math functions, and the default type of
+floating-point literals.</p>
+<p><a href="../../../APIReference/BasicTypes/TReal64Typedef.html#%3a%3aTReal64" title="64-bit floating point number, providing IEEE754 double precision on all EPOC implementations"><code class="ApiItem">TReal64</code></a> and <a href="../../../APIReference/BasicTypes/TReal32Typedef.html#%3a%3aTReal32" title="32-bit floating point number, providing IEEE754 single precision on all EPOC implementations"><code class="ApiItem">TReal32</code></a> are
+available when the precise size is important.</p>
+<a name="1.4.8"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Value reference type</h3>
+</div><div class="Bodytext">
+<p>The value reference type is a utility that is provided to
+overcome problems with specifying a C++ reference argument before the ellipsis
+argument in variable argument functions.</p>
+<p>The value reference type is provided by
+<a href="../../../APIReference/BasicTypes/TRefByValueClass.html#%3a%3aTRefByValue" title="A templated class which encapsulates a reference to an object within a wrapper"><code class="ApiItem">TRefByValue</code></a>&lt;T&gt;.</p>
+<a name="1.4.9"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Global functions</h3>
+</div><div class="Bodytext">
+<p><a href="TemplatedFunctions.guide.html#BasicTypesGuide%2etemplated%2dfunctions" title="Templated functions">Max()</a>,
+<a href="TemplatedFunctions.guide.html#BasicTypesGuide%2etemplated%2dfunctions" title="Templated functions">Min()</a>,
+<a href="TemplatedFunctions.guide.html#BasicTypesGuide%2etemplated%2dfunctions" title="Templated functions">Rng()</a> and
+<a href="TemplatedFunctions.guide.html#BasicTypesGuide%2etemplated%2dfunctions" title="Templated functions">Abs()</a> are simple
+global functions that are useful in many contexts.</p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="../Maths/MathsOverview.guide.html#MathsOverview%2emain">Maths Overview</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

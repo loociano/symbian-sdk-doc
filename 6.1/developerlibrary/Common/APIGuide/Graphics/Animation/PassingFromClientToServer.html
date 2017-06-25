@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to pass arguments from client to server classes</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="WindowServerGuide%2ePassingFromClientToServer"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToCreateAnimationDLL.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Graphics</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Animation</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;pass&nbsp;arguments&nbsp;from&nbsp;client&nbsp;to&nbsp;server&nbsp;classes</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>How to pass arguments from client to  server classes</h1>
+</div><div class="Bodytext">
+<p>To make the animation architecture work, some mechanism is required to pass arguments across the client/server boundary. The window server acts as courier, but a packaging mechanism is still required if arbitrary information is to be passed through it. The following example is taken from an Anim DLL, which deals with handwriting.</p>
+<p>On the client side,  a struct (<code>THandwritingDrawData</code>) is packaged in a  <a href="../../../APIReference/PackageBuffers/TPckgBufClass.html#%3a%3aTPckgBuf" title="Packages an object into a modifiable buffer descriptor"><code class="ApiItem">TPckgBuf</code></a> templated argument descriptor and passed   to the server-side <a href="../../../APIReference/Animation/CAnimClass.html#%3a%3aCAnim" title="Server side animated object base interface"><code class="ApiItem">CAnim</code></a> instance via the <a href="../../../APIReference/WindowServerClientSide/RAnimClass.html#%3a%3aRAnim%3a%3aCommand%28%29" title="Sends a command to the server-side CAnim instance, and returns immediately"><code class="ApiItem">RAnim::Command()</code></a> function. </p><p>An opcode, <code>EHwOpSetDrawData</code>,   is used by the server-side <code>CAnim</code> derived class to carry out some functionality.</p><p>The  <code>param()=</code> expression  sets the value of the <code>THandwritingDrawData</code> object inside the package to <code>aDrawData</code>.
+</p><p class="CodeBlock"><code>void RHandWritingAnim::SetDrawData(const THandwritingDrawData&amp; aDrawData)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;TPckgBuf&lt;THandwritingDrawData&gt; param;<br>&nbsp;&nbsp;&nbsp;&nbsp;param()=aDrawData;<br>&nbsp;&nbsp;&nbsp;&nbsp;Command(EHwOpSetDrawData,param);<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p><p>
+The window server calls the <a href="../../../APIReference/Animation/CAnimClass.html#%3a%3aCAnim%3a%3aCommand%28%29" title="Implements client-side initiated commands"><code class="ApiItem">CAnim::Command()</code></a> function in response to application calls to the client side command function <code>RAnim::Command()</code>. The arguments passed to the function by the window server are the same as were used on the client side function call.</p><p class="CodeBlock"><code>void CHandWritingAnim::Command(TInt aOpcode,TAny *aParams)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;switch (aOpcode)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case EHwOpActivate:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Activate();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case EHwOpDeactivate:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deactivate();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case EHwOpSetDrawData:;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetDrawData(STATIC_CAST(THandwritingDrawData*,aParams));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;default:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iFunctions-&gt;Panic();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<a name="2"></a></div><div class="Head1">
+<hr size="3" noshade>
+<h1>See also</h1>
+</div><div class="Bodytext"><p><a href="../../../APIReference/PackageBuffers/UsingTPckgBuf.guide.html#PackageBuffers%2eusing%2eTPckgBuf">How to use the packaged modifiable buffer descriptor TPckgBuf</a></p>
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

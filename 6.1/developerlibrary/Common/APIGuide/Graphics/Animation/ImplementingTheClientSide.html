@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Implementing the client side</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="WindowServeGuide%2eImplementingTheClientSide"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="IntroAnimation.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="ServerSide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Graphics</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Animation</a>&nbsp;<span class="separator">&#187;</span>
+Implementing&nbsp;the&nbsp;client&nbsp;side</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Implementing the client side</h1>
+</div><div class="Bodytext">
+<p>The animation framework requires implementers to write server side and client side code. On the client side, provided by the Window Server Client-Side API, <a href="../../../APIReference/WindowServerClientSide/RAnimDllClass.html#%3a%3aRAnimDll" title="Client-side interface to the server-side animation DLL"><code class="ApiItem">RAnimDll</code></a> should be derived from for DLL level functionality, and for each animation an <a href="../../../APIReference/WindowServerClientSide/RAnimClass.html#%3a%3aRAnim" title="Client-side handle to a server-side animation class"><code class="ApiItem">RAnim</code></a> class should be derived. The client side classes can be thought of as thin layers of code which are used to pass information through to the matching server side classes, where the detailed logic is implemented.
+</p><p> Clients must request an animation DLL to be loaded before the animations provided by it can be used. This is done using the  <code>RAnimDll</code>.
+</p><p><code>RAnim</code> provides functions for implementing client side behaviour. Generally, the client side code will be concerned with setting up and initialising the server side classes which implement the actual animation graphics. The mechanisms which allow information to be packaged on the client side, passed through the window server, and recovered on the server side, are described in <a href="PassingFromClientToServer.html#WindowServerGuide%2ePassingFromClientToServer">How to pass arguments from client to server classes</a>.
+</p>
+<p>Two kinds of command function are provided —<a href="../../../APIReference/WindowServerClientSide/RAnimClass.html#%3a%3aRAnim%3a%3aCommand%28%29" title="Sends a command to the server-side CAnim instance, and returns immediately"><code class="ApiItem">RAnim::Command()</code></a> and <a href="../../../APIReference/WindowServerClientSide/RAnimClass.html#%3a%3aRAnim%3a%3aCommandReply%28%29" title="Sends a command and its arguments to the server-side CAnim instance, and waits for a response"><code class="ApiItem">RAnim::CommandReply()</code></a>. Choice of which function to use depends on whether a return value is required, and on whether the command must take effect immediately or can be cached to the window server queue. If leaves are possible in code either within or called from a command function, a return code should always be tested and errors should be handled appropriately.
+</p><p>The <code>CommandReply()</code>  function forces immediate action. In general by the time these functions return, window server requests will have been carried out. The background to this behaviour is window server buffering of the requests it receives. In effect the behaviour of these commands is to put a request to the window server queue and then flush the queue to ensure immediate action.
+The <code>Command()</code> function is buffered by the window server. Although these functions will return immediately, there is no guarantee when the window server request will actually be carried out.
+</p>
+<a name="1.8"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext"><p><a href="../../../APIReference/WindowServerClientSide/RWsSessionClass.html#%3a%3aRWsSession%3a%3aFlush%28%29" title="Sends all pending commands in the buffer to the window server"><code class="ApiItem">RWsSession::Flush()</code></a></p><p><a href="../WindowServerClientSide/WindowServerGuide1/ClientSideBuffer.guide.html#WindowServerGuide6%2eClientSideBuffer">Client-side buffer</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

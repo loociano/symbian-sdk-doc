@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>COpenFontRasterizer</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="COpenFontFileClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="COpenFontRasterizerContextClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Open&nbsp;Font&nbsp;System</a>&nbsp;<span class="separator">&#187;</span>
+COpenFontRasterizer</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+<p>Location: <code>openfont.h</code><br>Link against: <code>fntstr.lib</code></p>
+</div><div class="Head1">
+<a name="%3a%3aCOpenFontRasterizer"></a>
+
+<h1>Class <code>COpenFontRasterizer</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>COpenFontRasterizer</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Font rasterizer abstract base class.</p><p>An Open Font System rasterizer is a polymorphic DLL.  It contains a single exported factory  function which creates rasterizer objects for a specific font type — these objects are derived from <code>COpenFontRasterizer</code>. This function is called just once,  when the Font and Bitmap Server loads the DLL.</p><p>The rasterizer also implements, but does not export, the single pure virtual function declared in this class. The function  reads font files, and creates a <code>COpenFontFile</code> object if the font file is of the right type.</p><p>Writing derived classes:</p><p>Open font rasterizers should derive from this class and implement the <code>NewFontFileL()</code> function.</p><p>Derived classes should also define   the factory function.  It is a static function which takes no arguments, and it is the only function exported from the class. It   creates a <code>COpenFontRasterizer</code> derived  object on the heap, and returns it to the caller — the caller is responsible for deleting the object. The name of the function does not matter because it is loaded by ordinal, however it is good practice to name it <code>NewL()</code>. As the name of the example function suggests, it is allowed to leave.</p><p>The rasterizer class may also need to store an 'engine context'. This is an object derived from <code>COpenFontRasterizerContext</code>, which provides functions that make it easier to write the glyph bitmap during rasterization.</p><p>More information on deriving from this class is provided in the API guide.</p>
+<h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase">CBase</a></code></td><td class="Cell">Base class for all classes to be instantiated on the heap</td>
+</tr>
+<tr><td class="Cell"><code>COpenFontRasterizer</code></td><td class="Cell">Font rasterizer abstract base class</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>COpenFontRasterizer</code>:
+<br><code class="ApiItem"><a href="COpenFontRasterizerClass.html#%3a%3aCOpenFontRasterizer%3a%3aNewFontFileL%28%29" title="Creates a COpenFontFile derived object for loading font files in the new format">NewFontFileL()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap">CBase</a></code>:
+<br><code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase%3a%3aoperator%20new%28%29" title="Allocates the object from the heap and then initialises its contents to binary zeroes">operator new()</a></code></p>
+<a name="2.6"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Member functions</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aCOpenFontRasterizer%3a%3aNewFontFileL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NewFontFileL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual COpenFontFile* NewFontFileL(TInt aUid,const TDesC&amp; aFileName,RFs&amp; aFileSession)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Creates a <code>COpenFontFile</code> derived object for loading font files in the  new format. </p><p>This function is called by the framework during font and bitmap server startup. It creates a font file object for font files in the  \system\fonts directory on all drives, using the default search path. The first font of a given name overrides subsequent ones. The directory search path is soft to hard: Y:, X:, W:, ..., C:, B:, A:, Z:.    Files may  also be added dynamically after startup using <code>CWsScreenDevice::AddFile()</code>, which indirectly calls this function.</p><p>Implementations of this function  should examine the  file <code>aFileName</code>, and if it is of the correct type attempt to create a <code>COpenFontFile</code> derived object to load it. The caller is responsible for deleting the  object. The function must return NULL if it cannot recognise the file, and it may also leave if there is an error.
+</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt aUid</code></td>
+<td class="Cell"><p class="ValueDesc">
+An  ID to be used for the file.
+UIDs are required by the font framework, so the font store allocates them for non Symbian-platform-native font files. This  ID persists until the font is unloaded, e.g. if the device is rebooted.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TDesC&amp; aFileName</code></td>
+<td class="Cell"><p class="ValueDesc">The full path and  filename of the file from which the <code>COpenFontFile</code> object is created, if the file is the correct type.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+RFs&amp; aFileSession</code></td>
+<td class="Cell"><p class="ValueDesc">
+The file session owned by the Font and Bitmap server. This file session should be used for any file access. If <code>COpenFontFile</code> objects need to keep files open, <code>aFileSession</code> should be stored in a place that is accessible to them.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+COpenFontFile*</code></td>
+<td class="Cell"><p class="ValueDesc">A pointer to a new  <code>COpenFontFile</code> derived object, or NULL if the file type is not recognised.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">The function can leave if there is an error.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../WindowServerClientSide/CWsScreenDeviceClass.html#%3a%3aCWsScreenDevice%3a%3aAddFile%28%29" title="Adds a font file to the device's font store"><code class="ApiItem">CWsScreenDevice::AddFile()</code></a></li>
+</ul>
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

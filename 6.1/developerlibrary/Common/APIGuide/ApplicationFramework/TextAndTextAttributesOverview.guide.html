@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Text and Text Attributes overview</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="ApplicationFrameworkOverview%2eTextAndTextAttributesOverview%2emain"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="SystemSoundsOverview.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="TextViewsOverview.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Application&nbsp;Framework</a>&nbsp;<span class="separator">&#187;</span>
+Text&nbsp;and&nbsp;Text&nbsp;Attributes&nbsp;overview</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Text and Text Attributes Overview</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Purpose</h2>
+</div><div class="Bodytext">
+<p>Stores editable text and the formatting attributes which are
+applied to it.</p>
+<p>The API does not store the layout information needed to display the
+text. This is done by a separate API called Text Views.</p>
+<p>Text content is a string of Unicode characters separated into words
+and paragraphs by space characters and paragraph delimiters. The text is stored
+in the order used to input the text. A wide range of paragraph and character
+formatting attributes is supported, including paragraph alignment and character
+font, etc.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Architectural relationships</h2>
+</div><div class="Bodytext">
+<p>Text and Text Attributes uses the Text Views API to format the text
+for display. Text Views objects contain the layout information, but not the
+text itself or the attributes. These are obtained via an abstract interface
+class.</p>
+<p>Text and Text Attributes is used by the Uikon Core Controls API for
+editable text windows. Higher-level objects like editable text windows
+typically own an editable text object to hold the rich text and attributes, and
+a Text Views object to store the layout and draw the text.</p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Description</h2>
+</div><div class="Bodytext">
+<p>The API has five key concepts: global text and rich text, document
+position and range, setting/sensing formatting, format layering and the
+<a href="../../APIReference/TextAndTextAttributes/MLayDocClass.html#%3a%3aMLayDoc" title="This class specifies the mixin protocol for providing the information needed by the text layout engine to lay out a text object"><code class="ApiItem">MLayDoc</code></a> interface.</p>
+<a name="1.5.3"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Global text and rich text</h3>
+</div><div class="Bodytext">
+<p>Global text is text in which formatting is applied globally, so
+that the same character and paragraph formatting applies throughout the
+document. Rich text is text with rich formatting, so that formatting can apply
+to any portion of the document. Paragraph styles may be applied to rich text
+but not to global text, and pictures may be inserted into rich text but not
+global text.</p>
+<p>The interface to global text is provided by
+<a href="../../APIReference/TextAndTextAttributes/CGlobalTextClass.html#%3a%3aCGlobalText" title="Text with globally applied formatting"><code class="ApiItem">CGlobalText</code></a>. The interface to rich text is provided by
+<a href="../../APIReference/TextAndTextAttributes/CRichTextClass.html#%3a%3aCRichText" title="Text with rich formatting"><code class="ApiItem">CRichText</code></a>.</p>
+<a name="1.5.4"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Document position and range</h3>
+</div><div class="Bodytext">
+<p>When editing an editable text object, many functions require a
+start position and a length to be specified. These values indicate the range of
+characters to which the function should apply. The range usually has to be
+valid: that is, it must not extend beyond the bounds of the document. Document
+position zero is before the first character in the document. If the document
+contains n characters, position n is after the last character. Valid document
+positions are therefore between zero and the length of the document,
+inclusive.</p>
+<a name="1.5.5"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Setting/sensing formatting</h3>
+</div><div class="Bodytext">
+<p>When setting or sensing a text object's formatting, a mask and a
+container are specified. The container has data members which store the value
+for every format attribute. The mask indicates which attributes are relevant to
+the operation.</p>
+<p>The paragraph and character formatting containers are provided by
+<a href="../../APIReference/TextAndTextAttributes/CParaFormatClass.html#%3a%3aCParaFormat" title="A transient container of paragraph format attributes, including tab stops, bullet points and paragraph borders"><code class="ApiItem">CParaFormat</code></a> and <a href="../../APIReference/TextAndTextAttributes/TCharFormatClass.html#%3a%3aTCharFormat" title="A transient container of character format attributes, including font-dependent and font-independent attributes"><code class="ApiItem">TCharFormat</code></a>
+respectively, and the corresponding masks are provided by
+<a href="../../APIReference/TextAndTextAttributes/TParaFormatMaskClass.html#%3a%3aTParaFormatMask" title="Used in conjunction with an object of class CParaFormat to mask the paragraph format attributes which are involved when setting and sensing paragraph formatting"><code class="ApiItem">TParaFormatMask</code></a> and by
+<a href="../../APIReference/TextAndTextAttributes/TCharFormatMaskClass.html#%3a%3aTCharFormatMask" title="Used in conjunction with an object of class TCharFormat to mask the character format attributes which are involved when setting and sensing character formatting"><code class="ApiItem">TCharFormatMask</code></a>.</p>
+<a name="1.5.6"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Format layering</h3>
+</div><div class="Bodytext">
+<p>Formatting is stored in format layers. Format layers are owned by
+the text object. A format layer may own a pointer to another format layer. This
+pointer is called a based-on link. The effective formatting of a text object is
+the set of attributes specified in its two format layers, as well as any
+attributes inherited from the layers' chain of based-on links. Note that in
+rich text, additional formatting may be applied on top of the two owned format
+layers. This additional formatting is referred to as &quot;specific
+formatting&quot;.</p>
+<p>The <a href="../../APIReference/TextAndTextAttributes/CCharFormatLayerClass.html#%3a%3aCCharFormatLayer" title="A character format layer"><code class="ApiItem">CCharFormatLayer</code></a> class represents the
+character format layer and the <a href="../../APIReference/TextAndTextAttributes/CParaFormatLayerClass.html#%3a%3aCParaFormatLayer" title="A paragraph format layer"><code class="ApiItem">CParaFormatLayer</code></a> class
+represents the paragraph format layer.</p>
+<a name="1.5.7"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>The <code>MLayDoc</code> interface</h3>
+</div><div class="Bodytext">
+<p>The text and its attributes are stored separately from the layout
+information. Text Views objects (which calculate and store the layout
+information) access the text and its attributes via an abstract interface class
+called <code>MLayDoc</code>. This class provides all the information needed by
+the text layout engine to lay out the text for display. By viewing the text
+object purely in terms of the <a href="../../APIReference/TextAndTextAttributes/MLayDocClass.html#%3a%3aMLayDoc" title="This class specifies the mixin protocol for providing the information needed by the text layout engine to lay out a text object"><code class="ApiItem">MLayDoc</code></a> interface, the
+layout engine is insulated from any editable text implementation issues.</p>
+<p>The <a href="../../APIReference/TextAndTextAttributes/MLayDocClass.html#%3a%3aMLayDoc" title="This class specifies the mixin protocol for providing the information needed by the text layout engine to lay out a text object"><code class="ApiItem">MLayDoc</code></a> interface is implemented by
+classes <a href="../../APIReference/TextAndTextAttributes/CRichTextClass.html#%3a%3aCRichText" title="Text with rich formatting"><code class="ApiItem">CRichText</code></a> and
+<a href="../../APIReference/TextAndTextAttributes/CGlobalTextClass.html#%3a%3aCGlobalText" title="Text with globally applied formatting"><code class="ApiItem">CGlobalText</code></a>.</p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="TextViewsOverview.guide.html#ApplicationFrameworkOverview%2eTextViewsOverview%2emain">Text Views Overview</a></p>
+<p><a href="UikonCoreControlsOverview.guide.html#ApplicationFrameworkOverview%2eUikonOverview%2eUikonCoreControlsOverview%2emain">Uikon Core Controls Overview</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

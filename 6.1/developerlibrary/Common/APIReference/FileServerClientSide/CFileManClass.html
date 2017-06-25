@@ -1,0 +1,944 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CFileMan</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CFileListTypedef.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="MFileManObserverClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">File&nbsp;Server&nbsp;Client&nbsp;Side</a>&nbsp;<span class="separator">&#187;</span>
+CFileMan</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>f32file.h</code>
+<br>Link against: <code>efsrv.lib</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aCFileMan"></a>
+
+<h1>Class <code>CFileMan</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CFileMan</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>File management services which accept the use of
+wildcards&nbsp;&#8212; synchronous and asynchronous. It also provides
+enquiry functions, which, like those provided by the base class
+<code>CFileBase</code>, may be used by an observer class object to provide the
+user with information about the progress of the operation.</p>
+<p>All of the file management functions provided by this class accept
+the use of wildcards, and may operate either synchronously or asynchronously.
+When <code>CFileMan</code> is operating asynchronously, the operation takes
+place in a separate thread from the calling code.</p>
+<p>A file notification observer (an instance of a class deriving from
+<code>MFileManObserver</code>) may optionally be used by <code>CFileMan</code>
+when operating synchronously or asynchronously. If provided, the appropriate
+notification function is called before or after each entry has been processed,
+or during a file copy or move. This notification can be used to provide
+information about the state of the operation, such as the number of bytes
+transferred during a large-scale file copy. It can also be used to allow the
+user to cancel, retry or continue processing an entry, or to abort the whole
+operation. If such notification is required, specify an object deriving from
+<code>MFileManObserver</code> class in the constructor, or call
+<code>SetObserver()</code>, defined in the base class,
+<code>CFileBase</code>.</p>
+<p>All of the file manipulation functions except <code>Rename()</code>
+may operate recursively, and all can operate non-recursively. When operating
+recursively, these functions will act on all matching files located throughout
+the source directory&#8217;s hierarchy. When operating non-recursively, these
+functions act upon files contained in the single top level source directory
+only. Recursion is set or unset using the switch parameter to these
+functions.</p>
+<p>This class is not intended for user
+derivation.</p><h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase">CBase</a></code></td><td class="Cell">Base class for all classes to be instantiated on the heap</td>
+</tr>
+<tr><td class="Cell"><code><a href="CFileBaseClass.html#%3a%3aCFileBase">CFileBase</a></code></td><td class="Cell">Abstract base class for file management</td>
+</tr>
+<tr><td class="Cell"><code>CFileMan</code></td><td class="Cell">File management services which accept the use of wildcards -- synchronous and asynchronous</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>CFileMan</code>:
+<br><code class="ApiItem"><a href="CFileManClass.html#%3a%3aCFileMan%3a%3aAttribs%28%29" title="Sets or clears attributes for one or more files using two bitmasks -- asynchronous overload">Attribs()</a></code>, <code class="ApiItem"><a href="CFileManClass.html#%3a%3aCFileMan%3a%3aBytesTransferredByCopyStep%28%29" title="Gets the number of bytes transferred during a copy or move operation">BytesTransferredByCopyStep()</a></code>, <code class="ApiItem"><a href="CFileManClass.html#%3a%3aCFileMan%3a%3aCopy%28%29" title="Copies one or more files -- asynchronous overload">Copy()</a></code>, <code class="ApiItem"><a href="CFileManClass.html#%3a%3aCFileMan%3a%3aCurrentAction%28%29" title="Gets the action which CFileMan is currently carrying out">CurrentAction()</a></code>, <code class="ApiItem"><a href="CFileManClass.html#%3a%3aCFileMan%3a%3aDelete%28%29" title="Deletes one or more files -- asynchronous overload">Delete()</a></code>, <code class="ApiItem"><a href="CFileManClass.html#%3a%3aCFileMan%3a%3aEAttribs" title="Setting attributes">EAttribs</a></code>, <code class="ApiItem"><a href="CFileManClass.html#%3a%3aCFileMan%3a%3aECopy" title="Copying files">ECopy</a></code>, <code class="ApiItem"><a href="CFileManClass.html#%3a%3aCFileMan%3a%3aEDelete" title="Deleting files">EDelete</a></code>, <code class="ApiItem"><a href="CFileManClass.html#%3a%3aCFileMan%3a%3aEMove" title="Moving files">EMove</a></code>, <code class="ApiItem"><a href="CFileManClass.html#%3a%3aCFileMan%3a%3aENone" title="Inactive">ENone</a></code>, <code class="ApiItem"><a href="CFileManClass.html#%3a%3aCFileMan%3a%3aEOverWrite" title="Any files in the destination directory which have the same name as the source files in a rename, move or copy operation, will be overwritten">EOverWrite</a></code>, <code class="ApiItem"><a href="CFileManClass.html#%3a%3aCFileMan%3a%3aERecurse" title="Recursive operation">ERecurse</a></code>, <code class="ApiItem"><a href="CFileManClass.html#%3a%3aCFileMan%3a%3aERename" title="Renaming files">ERename</a></code>, <code class="ApiItem"><a href="CFileManClass.html#%3a%3aCFileMan%3a%3aERenameInvalidEntry" title="Renaming component to VFAT short name (guaranteed to be unique)">ERenameInvalidEntry</a></code>, <code class="ApiItem"><a href="CFileManClass.html#%3a%3aCFileMan%3a%3aERmDir" title="Deleting a directory and all contents">ERmDir</a></code>, <code class="ApiItem"><a href="CFileManClass.html#%3a%3aCFileMan%3a%3aGetCurrentSource%28%29" title="Gets the name of the source file or directory for the CFileMan operation currently being carried out">GetCurrentSource()</a></code>, <code class="ApiItem"><a href="CFileManClass.html#%3a%3aCFileMan%3a%3aGetCurrentTarget%28%29" title="Gets the name of the target file for the CFileMan operation currently being carried out">GetCurrentTarget()</a></code>, <code class="ApiItem"><a href="CFileManClass.html#%3a%3aCFileMan%3a%3aMove%28%29" title="Moves one or more files -- asynchronous overload">Move()</a></code>, <code class="ApiItem"><a href="CFileManClass.html#%3a%3aCFileMan%3a%3aNewL%28%29" title="Constructs and allocates memory for a new CFileMan object with an observer">NewL()</a></code>, <code class="ApiItem"><a href="CFileManClass.html#%3a%3aCFileMan%3a%3aRename%28%29" title="Renames one or more files -- asynchronous overload">Rename()</a></code>, <code class="ApiItem"><a href="CFileManClass.html#%3a%3aCFileMan%3a%3aRmDir%28%29" title="Deletes a directory and all files and directories contained in the directory structure below it -- asynchronous overload">RmDir()</a></code>, <code class="ApiItem"><a href="CFileManClass.html#%3a%3aCFileMan%3a%3aTAction" title="Identify CFileMan tasks">TAction</a></code>, <code class="ApiItem"><a href="CFileManClass.html#%3a%3aCFileMan%3a%3aTSwitch" title="Overwriting and recursion switch">TSwitch</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap">CBase</a></code>:
+<br><code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase%3a%3aoperator%20new%28%29" title="Allocates the object from the heap and then initialises its contents to binary zeroes">operator new()</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="CFileBaseClass.html#%3a%3aCFileBase" title="Abstract base class for file management">CFileBase</a></code>:
+<br><code class="ApiItem"><a href="CFileBaseClass.html#%3a%3aCFileBase%3a%3aAbbreviatedPath%28%29" title="Gets the abbreviated path of the file or directory currently being processed">AbbreviatedPath()</a></code>,
+<code class="ApiItem"><a href="CFileBaseClass.html#%3a%3aCFileBase%3a%3aCurrentEntry%28%29" title="Returns the entry currently being processed">CurrentEntry()</a></code>,
+<code class="ApiItem"><a href="CFileBaseClass.html#%3a%3aCFileBase%3a%3aFullPath%28%29" title="Gets the full path of the file or directory currently being processed">FullPath()</a></code>,
+<code class="ApiItem"><a href="CFileBaseClass.html#%3a%3aCFileBase%3a%3aGetLastError%28%29" title="Gets the latest error code returned during a CFileMan operation">GetLastError()</a></code>,
+<code class="ApiItem"><a href="CFileBaseClass.html#%3a%3aCFileBase%3a%3aGetMoreInfoAboutError%28%29" title="Gets additional information about the latest error returned during aCFileMan operation">GetMoreInfoAboutError()</a></code>,
+<code class="ApiItem"><a href="CFileBaseClass.html#%3a%3aCFileBase%3a%3aSetObserver%28%29" title="Sets the observer">SetObserver()</a></code></p>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="UsingCFileMan.guide.html#FileServerClientSide%2eusing%2dCFileMan">Using CFileMan</a></li>
+</ul>
+<a name="2.7"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aCFileMan%3a%3aNewL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NewL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static CFileMan* NewL(RFs&amp; aFs);</code></p><h4 class="subheading">Description</h4>
+<p>Constructs and allocates memory for a new <code>CFileMan</code>
+object.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RFs&amp; aFs</code></td>
+<td class="Cell"><p class="ValueDesc">File server session</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CFileMan*</code></td>
+<td class="Cell"><p class="ValueDesc">Newly created <code>CFileMan</code> object.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">A leave may occur if there is insufficient memory available
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aCFileMan%3a%3aNewL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NewL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static CFileMan* NewL(RFs&amp; aFs,MFileManObserver* anObserver);</code></p><h4 class="subheading">Description</h4>
+<p>Constructs and allocates memory for a new <code>CFileMan</code>
+object with an observer.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RFs&amp; aFs</code></td>
+<td class="Cell"><p class="ValueDesc">File server session</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">MFileManObserver* anObserver</code></td>
+<td class="Cell"><p class="ValueDesc">File management observer</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CFileMan*</code></td>
+<td class="Cell"><p class="ValueDesc">Newly created <code>CFileMan</code> object.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Enquiry functions</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aCFileMan%3a%3aCurrentAction%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CurrentAction()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TAction CurrentAction();</code></p><h4 class="subheading">Description</h4>
+<p>Gets the action which <code>CFileMan</code> is currently carrying
+out.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAction</code></td>
+<td class="Cell"><p class="ValueDesc">The action which <code>CFileMan</code> is carrying out.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aCFileMan%3a%3aGetCurrentTarget%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetCurrentTarget()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void GetCurrentTarget(TFileName&amp; aFile);</code></p><h4 class="subheading">Description</h4>
+<p>Gets the name of the target file for the <code>CFileMan</code>
+operation currently being carried out. This function is relevant when copying,
+moving or renaming files.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TFileName&amp; aFile</code></td>
+<td class="Cell"><p class="ValueDesc">The full path and filename of the target file for current
+<code>CFileMan</code> operation.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.4"></a></div><div class="Head3">
+<a name="%3a%3aCFileMan%3a%3aGetCurrentSource%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetCurrentSource()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void GetCurrentSource(TFileName&amp; aFile);</code></p><h4 class="subheading">Description</h4>
+<p>Gets the name of the source file or directory for the
+<code>CFileMan</code> operation currently being carried out. The source is the
+file or directory which is being copied, deleted etc.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TFileName&amp; aFile</code></td>
+<td class="Cell"><p class="ValueDesc">The full path and filename of the source file for current
+<code>CFileMan</code> operation.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.5"></a></div><div class="Head3">
+<a name="%3a%3aCFileMan%3a%3aBytesTransferredByCopyStep%28%29"></a>
+<hr size="1" noshade>
+<h3><code>BytesTransferredByCopyStep()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt BytesTransferredByCopyStep();</code></p><h4 class="subheading">Description</h4>
+<p>Gets the number of bytes transferred during a copy or move operation.
+Large files are copied and moved in stages. After each portion of the source
+file has been copied to the target, the number of bytes transferred is updated.
+This function may be called from
+<code>MFileManObserver::NotifyFileManOperation()</code> and may be used to
+support the increment of progress bars.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The number of bytes transferred</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>File management </h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aCFileMan%3a%3aAttribs%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Attribs()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Attribs(const TDesC&amp; aName,TUint aSetMask,TUint aClearMask,const TTime&amp; aTime,TUint aSwitch=0);</code></p><h4 class="subheading">Description</h4>
+<p>Sets or clears attributes for one or more files using two
+bitmasks&nbsp;&#8212; synchronous overload. The first bitmask specifies the
+attributes to set. The second specifies the attributes to clear. The date and
+time of the files' last modification may also be changed.</p>
+<p>The function may operate recursively or non-recursively. When operating
+non-recursively, only the matching files located in the directory specified
+in<code>aName</code> are affected. When operating recursively, all matching
+files in the directory hierarchy below the directory specified in
+<code>aName</code>will be affected. </p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>A panic occurs if any attribute is specified in both bitmasks.</p>
+</li>
+<li>
+<p>Attempting to change the attributes for an open file will result in an
+error for that file, as retrieved by
+<code>CFileBase::GetLastError()</code>.</p>
+</li>
+<li>
+<p>An attempt to set or clear the <code>KEntryAttDir</code> or
+<code>KEntryAttVolume</code> attribute for a file or directory will have no
+effect.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aName</code></td>
+<td class="Cell"><p class="ValueDesc">Path indicating the file(s) whose attributes are to be changed. Any path
+components which are not specified here will be taken from the session path.
+Use wildcards to specify more than one file.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aSetMask</code></td>
+<td class="Cell"><p class="ValueDesc">Bitmask indicating the attributes to be set.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aClearMask</code></td>
+<td class="Cell"><p class="ValueDesc">Bitmask indicating the attributes to be cleared. For more information
+see<code>KEntryAttNormal</code> and the other file/directory attributes.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TTime&amp; aTime</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the new date and time that the files were
+modified.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aSwitch=0</code></td>
+<td class="Cell"><p class="ValueDesc">Specify zero for no recursion, <code>CFileMan::ERecurse</code> for
+recursion. By default, the synchronous variant of this function operates
+non-recursively.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the system-wide
+error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="UsingCFileMan.guide.html#FileServerClientSide%2eusing%2dCFileMan">Using CFileMan</a></li>
+</ul>
+<a name="2.9.3"></a></div><div class="Head3">
+<a name="%3a%3aCFileMan%3a%3aAttribs%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Attribs()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Attribs(const TDesC&amp; aName,TUint aSetMask,TUint aClearMask,const TTime&amp; aTime,TUint aSwitch,TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Sets or clears attributes for one or more files using two
+bitmasks&nbsp;&#8212; asynchronous overload.</p>
+<p>Other than being asynchronous, the behaviour of this function is the same
+as is documented in its synchronous overload.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aName</code></td>
+<td class="Cell"><p class="ValueDesc">Path indicating the file(s) whose attributes are to be changed. Any path
+components which are not specified here will be taken from the session path.
+Use wildcards to specify more than one file.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aSetMask</code></td>
+<td class="Cell"><p class="ValueDesc">Bitmask indicating the attributes to be set.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aClearMask</code></td>
+<td class="Cell"><p class="ValueDesc">Bitmask indicating the attributes to be cleared. For more information
+see<code>KEntryAttNormal</code> and the other file/directory attributes</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TTime&amp; aTime</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the new date and time that the files were
+modified.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aSwitch</code></td>
+<td class="Cell"><p class="ValueDesc">Specify <code>ERecurse</code> for recursion, zero for no
+recursion.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStatus</code></td>
+<td class="Cell"><p class="ValueDesc">A request status object. On return, indicates how the request
+completed.<code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the system-wide
+error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="UsingCFileMan.guide.html#FileServerClientSide%2eusing%2dCFileMan">Using CFileMan</a></li>
+</ul>
+<a name="2.9.4"></a></div><div class="Head3">
+<a name="%3a%3aCFileMan%3a%3aCopy%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Copy()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Copy(const TDesC&amp; anOld,const TDesC&amp; aNew,TUint aSwitch=EOverWrite);</code></p><h4 class="subheading">Description</h4>
+<p>Copies one or more files&nbsp;&#8212; synchronous overload.</p>
+<p>Optionally, this function may be set to overwrite any files with the same
+name which exist in the target directory. If the flag is set for no
+overwriting, any files with the same name will not be overwritten, and an error
+(<code>KErrAlreadyExists</code>) will be returned for that file. Error codes
+may be retrieved using <code>CFileBase::GetLastError()</code>.</p>
+<p>If recursive operation is set, all intermediate directories will be
+created, including any directories in the path specified by
+<code>aNew</code>which do not already exist.</p>
+<p>If recursive operation is not set, only the matching files located in the
+single directory specified in <code>anOld</code> are copied. No intermediate
+directories will be created&nbsp;&#8212; if any directories in the
+destination path do not exist, no files will be copied, and this function
+returns <code>KErrPathNotFound</code>.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>Files can be copied across drives.</p>
+</li>
+<li>
+<p>Open files can be copied if they have been opened using
+the<code>EFileShareReadersOnly</code> file share mode.</p>
+</li>
+<li>
+<p>Read-only, hidden and system files can be copied and the source file's
+attributes are preserved in the target file.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; anOld</code></td>
+<td class="Cell"><p class="ValueDesc">Path indicating the file(s) to be copied. Any path components which are
+not specified here will be taken from the session path.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aNew</code></td>
+<td class="Cell"><p class="ValueDesc">Path indicating the directory into which the file(s) are to be
+copied.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aSwitch=EOverWrite</code></td>
+<td class="Cell"><p class="ValueDesc">Specify zero for no overwriting and no
+recursion.<code>CFileMan::EOverWrite</code> to overwrite files with the same
+name.<code>CFileMan::ERecurse</code> for recursion. By default, synchronous
+variant of this function operates non-recursively and with overwriting.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the system-wide
+error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.5"></a></div><div class="Head3">
+<a name="%3a%3aCFileMan%3a%3aCopy%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Copy()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Copy(const TDesC&amp; anOld,const TDesC&amp; aNew,TUint Switch,TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Copies one or more files&nbsp;&#8212; asynchronous overload.</p>
+<p>Other than being asynchronous, the behaviour of this function is the same
+as is documented in its synchronous overload.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; anOld</code></td>
+<td class="Cell"><p class="ValueDesc">Path indicating the file(s) to be copied. Any path components which are
+not specified here will be taken from the session path.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aNew</code></td>
+<td class="Cell"><p class="ValueDesc">Path indicating the directory into which the file(s) are to be
+copied.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aSwitch</code></td>
+<td class="Cell"><p class="ValueDesc">Specify zero for no overwriting and no
+recursion.<code>CFileMan::EOverWrite</code> to overwrite files with the same
+name.<code>CFileMan::ERecurse</code> for recursion. By default, synchronous
+variant of this function operates non-recursively and with overwriting.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStatus</code></td>
+<td class="Cell"><p class="ValueDesc">Request status object&#0160;&#8212; on return, indicates how the
+request completed. <code>KErrNone</code> if successful, otherwise another of
+the system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the system-wide
+error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.6"></a></div><div class="Head3">
+<a name="%3a%3aCFileMan%3a%3aDelete%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Delete()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Delete(const TDesC&amp; aName,TUint aSwitch=0);</code></p><h4 class="subheading">Description</h4>
+<p>Deletes one or more files&nbsp;&#8212; synchronous overload.</p>
+<p>This function may operate recursively or non-recursively. When operating
+non-recursively, only the matching files located in the directory specified
+in<code>aName</code> are affected. When operating recursively, all matching
+files in the directory hierarchy below the directory specified in
+<code>aName</code>will be deleted. </p>
+<p>Note:</p>
+<ul>
+<li>
+<p>Read-only and open files may not be deleted. Attempting to do so will
+return an error for that file. Error codes may be retrieved
+using<code>CFileBase::GetLastError()</code>.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aName</code></td>
+<td class="Cell"><p class="ValueDesc">Path indicating the file(s) to be deleted. May either be a full path, or
+relative to the session path. Use wildcards to specify more than one
+file.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aSwitch=0</code></td>
+<td class="Cell"><p class="ValueDesc">Specify <code>ERecurse</code> for recursion, zero for no recursion. By
+default, the synchronous variant of this function operates
+non-recursively.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the system-wide
+error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.7"></a></div><div class="Head3">
+<a name="%3a%3aCFileMan%3a%3aDelete%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Delete()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Delete(const TDesC&amp; aName,TUint aSwitch,TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Deletes one or more files&nbsp;&#8212; asynchronous overload.</p>
+<p>Other than being asynchronous, the behaviour of this function is the same
+as is documented in its synchronous overload.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aName</code></td>
+<td class="Cell"><p class="ValueDesc">Path indicating the file(s) to be deleted. May either be a full path, or
+relative to the session path. Use wildcards to specify more than one
+file.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aSwitch</code></td>
+<td class="Cell"><p class="ValueDesc">Specify <code>ERecurse</code> for recursion, zero for no recursion. By
+default, the synchronous variant of this function operates
+non-recursively.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStatus</code></td>
+<td class="Cell"><p class="ValueDesc">Request status object&#0160;&#8212; on return, indicates how the
+request completed. <code>KErrNone</code> if successful, otherwise another of
+the system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the system-wide
+error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.8"></a></div><div class="Head3">
+<a name="%3a%3aCFileMan%3a%3aMove%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Move()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Move(const TDesC&amp; anOld,const TDesC&amp; aNew,TUint aSwitch=EOverWrite);</code></p><h4 class="subheading">Description</h4>
+<p>Moves one or more files&nbsp;&#8212; synchronous overload.</p>
+<p>Optionally, this function may be set to overwrite any files with the same
+name which exist in the target directory. If the flag is set for no
+overwriting, any files with the same name will not be overwritten, and an error
+(<code>KErrAlreadyExists</code>) returned for that file. Error codes may be
+retrieved using <code>CFileBase::GetLastError()</code>. By default, when the
+function is operating synchronously, files are overwritten. </p>
+<p>When this function is operating recursively, all intermediate directories
+will be created, including all directories in the destination path specified
+by<code>aNew</code> which do not already exist.</p>
+<p>If recursive operation is not set, only the matching files located in the
+single directory specified in <code>anOld</code> are moved. No intermediate
+directories will be created&nbsp;&#8212; if any directories in the
+destination path do not exist, no files will be moved, and this function will
+return <code>KErrPathNotFound</code>.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>Read-only, hidden and system files can be moved and the source file's
+attributes are preserved in the target file, but open files cannot be moved.
+Attempting to move an open file will return an error for that file, as
+retrieved by <code>CFileBase::GetLastError()</code>.</p>
+</li>
+<li>
+<p>Files may be moved across drives.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; anOld</code></td>
+<td class="Cell"><p class="ValueDesc">Path indicating the files to be moved. May be either a full path, or
+relative to the session path.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aNew</code></td>
+<td class="Cell"><p class="ValueDesc">Path indicating the directory into which the file(s) are to be
+moved.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aSwitch=EOverWrite</code></td>
+<td class="Cell"><p class="ValueDesc">Specify zero for no overwriting and no
+recursion.<code>CFileMan::EOverWrite</code> to overwrite files with the same
+name.<code>CFileMan::ERecurse</code> for recursion. By default, synchronous
+variant of function operates non-recursively and with overwriting.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the system-wide
+error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.9"></a></div><div class="Head3">
+<a name="%3a%3aCFileMan%3a%3aMove%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Move()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Move(const TDesC&amp; anOld,const TDesC&amp; aNew,TUint aSwitch, TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Moves one or more files&nbsp;&#8212; asynchronous overload.</p>
+<p>Other than being asynchronous, the behaviour of this function is the same
+as is documented in its synchronous overload.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; anOld</code></td>
+<td class="Cell"><p class="ValueDesc">Path indicating the files to be moved. May be either a full path, or
+relative to the session path.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aNew</code></td>
+<td class="Cell"><p class="ValueDesc">Path indicating the directory into which the file(s) are to be
+moved.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aSwitch</code></td>
+<td class="Cell"><p class="ValueDesc">Specify zero for no overwriting and no
+recursion.<code>CFileMan::EOverWrite</code> to overwrite files with the same
+name.<code>CFileMan::ERecurse</code> for recursion. By default, synchronous
+variant of function operates non-recursively and with overwriting.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStatus</code></td>
+<td class="Cell"><p class="ValueDesc">Request status object&#0160;&#8212; on return, indicates how the
+request completed. <code>KErrNone</code> if successful, otherwise another of
+the system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the system-wide
+error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.10"></a></div><div class="Head3">
+<a name="%3a%3aCFileMan%3a%3aRename%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Rename()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Rename(const TDesC&amp; anOld,const TDesC&amp; aNew,TUint aSwitch=EOverWrite);</code></p><h4 class="subheading">Description</h4>
+<p>Renames one or more files&nbsp;&#8212; synchronous overload. It can
+also be used to move files by specifying different destination and source
+directories. Note that the destination and source directories must be on the
+same drive.</p>
+<p>If this function is being used to move files, an option is provided to
+allow the user to overwrite any files with the same name which may exist in the
+target directory. If the flag is set for no overwriting, any files with the
+same name will not be overwritten, and an error
+(<code>KErrAlreadyExists</code>) will be returned for that file, as retrieved
+by <code>CFileBase::GetLastError()</code>.</p>
+<p>This function can only operate non-recursively, so that only the matching
+files located in the single directory specified by <code>anOld</code> may be
+renamed. </p>
+<p>Note:</p>
+<ul>
+<li>
+<p>Read-only, system and hidden files may be renamed, and the source file's
+attributes are preserved in the target file, but open files cannot be renamed.
+Attempting to rename an open file will return an error for that file, as
+retrieved by <code>CFileBase::GetLastError()</code>.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; anOld</code></td>
+<td class="Cell"><p class="ValueDesc">Path specifying the file(s) to be renamed.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aNew</code></td>
+<td class="Cell"><p class="ValueDesc">Path specifying the new name for the files and/or the new directory. Any
+directories specified in this path which do not exist will be created.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aSwitch=EOverWrite</code></td>
+<td class="Cell"><p class="ValueDesc">Specify zero for no overwriting. <code>CFileMan::EOverWrite</code> to
+overwrite files with the same name. This function cannot operate
+recursively.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the system-wide
+error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.11"></a></div><div class="Head3">
+<a name="%3a%3aCFileMan%3a%3aRename%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Rename()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Rename(const TDesC&amp; anOld,const TDesC&amp; aNew,TUint aSwitch, TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Renames one or more files&nbsp;&#8212; asynchronous overload. </p>
+<p>Other than being asynchronous, the behaviour of this function is the same
+as is documented in its synchronous overload.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; anOld</code></td>
+<td class="Cell"><p class="ValueDesc">Path specifying the file(s) to be renamed.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aNew</code></td>
+<td class="Cell"><p class="ValueDesc">Path specifying the new name for the files and/or the new directory. Any
+directories specified in this path which do not exist will be created.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aSwitch</code></td>
+<td class="Cell"><p class="ValueDesc">Specify zero for no overwriting. <code>CFileMan::EOverWrite</code> to
+overwrite files with the same name. This function cannot operate
+recursively.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStatus</code></td>
+<td class="Cell"><p class="ValueDesc">Request status object&#0160;&#8212; on return, indicates how the
+request completed. <code>KErrNone</code> if successful, otherwise another of
+the system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the system-wide
+error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.12"></a></div><div class="Head3">
+<a name="%3a%3aCFileMan%3a%3aRmDir%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RmDir()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt RmDir(const TDesC&amp; aDirName);</code></p><h4 class="subheading">Description</h4>
+<p>Deletes a directory and all files and directories contained in the
+directory structure below it&nbsp;&#8212; synchronous overload. </p>
+<p>This functions cannot be used non-recursively. For a non-recursive
+directory deletion, use <code>RFs::RmDir()</code>.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>All files in the directory hierarchy to be deleted must be closed and
+none may have the read-only attribute. Otherwise, not all of the hierarchy will
+be deleted, and this function will return <code>KErrInUse</code>.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aDirName</code></td>
+<td class="Cell"><p class="ValueDesc">Path specifying the directory to be deleted.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the system-wide
+error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.13"></a></div><div class="Head3">
+<a name="%3a%3aCFileMan%3a%3aRmDir%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RmDir()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt RmDir(const TDesC&amp; aDirName,TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Deletes a directory and all files and directories contained in the
+directory structure below it&nbsp;&#8212; asynchronous overload.</p>
+<p>Other than being asynchronous, the behaviour of this function is the same
+as is documented in its synchronous overload.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aDirName</code></td>
+<td class="Cell"><p class="ValueDesc">Path specifying the directory to be deleted.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStatus</code></td>
+<td class="Cell"><p class="ValueDesc">If specified, request status object. On return, indicates how the request
+completed. <code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the system-wide
+error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Enumerations</h2>
+</div><div class="Bodytext">
+<a name="2.10.2"></a></div><div class="Head3">
+<a name="%3a%3aCFileMan%3a%3aTAction"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TAction</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TAction</code></p><h4 class="subheading">Description</h4>
+<p>Identify <code>CFileMan</code> tasks. This enumeration is used
+by<code>CurrentAction()</code> to identify which task currently being carried
+out. </p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCFileMan%3a%3aENone"><code class="Value">ENone</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Inactive</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCFileMan%3a%3aEAttribs"><code class="Value">EAttribs</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Setting attributes</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCFileMan%3a%3aECopy"><code class="Value">ECopy</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Copying files</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCFileMan%3a%3aEDelete"><code class="Value">EDelete</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Deleting files</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCFileMan%3a%3aEMove"><code class="Value">EMove</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Moving files</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCFileMan%3a%3aERename"><code class="Value">ERename</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Renaming files</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCFileMan%3a%3aERmDir"><code class="Value">ERmDir</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Deleting a directory and all contents</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCFileMan%3a%3aERenameInvalidEntry"><code class="Value">ERenameInvalidEntry</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Renaming component to VFAT short name (guaranteed to be
+unique)</para></p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.3"></a></div><div class="Head3">
+<a name="%3a%3aCFileMan%3a%3aTSwitch"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TSwitch</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TSwitch</code></p><h4 class="subheading">Description</h4>
+<p>Overwriting and recursion switch. Used in <code>CFileMan</code> functions
+to set whether operations are applied to the specified directory and all
+directories below it, or the specified directory only. </p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCFileMan%3a%3aEOverWrite"><code class="Value">EOverWrite</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Any files in the destination directory which have the same name as the
+source files in a rename, move or copy operation, will be
+overwritten</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCFileMan%3a%3aERecurse"><code class="Value">ERecurse</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Recursive operation</para></p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

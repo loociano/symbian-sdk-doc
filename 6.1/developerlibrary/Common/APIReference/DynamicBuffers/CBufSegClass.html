@@ -1,0 +1,206 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CBufSeg</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CBufFlatClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="DynamicBuffersSeeAlso.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Dynamic&nbsp;Buffers</a>&nbsp;<span class="separator">&#187;</span>
+CBufSeg</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>e32base.h</code>
+<br>Link against: <code>euser.lib</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aCBufSeg"></a>
+
+<h1>Class <code>CBufSeg</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CBufSeg</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Segmented dynamic buffer. </p>
+<p>This class should be used when the object has a long life-time and
+an unpredictable number of insertions, or there is concern about the
+performance of insertion and deletion operations into large buffers.</p>
+<p>This class is an implementation of the abstract buffer interface
+provided by <code>CBufBase</code> and uses doubly-linked list of heap cells to
+contain the data; each cell contains a segment of the buffer.</p>
+<p>Its data members include an anchor for the doubly-linked list, and
+also a reference to the buffer position used by the last operation. This
+reference acts as a cache; if the next operation uses a similar buffer
+position, then calculation of the pointer corresponding to its buffer position
+is much faster.</p><h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase">CBase</a></code></td><td class="Cell">Base class for all classes to be instantiated on the heap</td>
+</tr>
+<tr><td class="Cell"><code><a href="CBufBaseClass.html#%3a%3aCBufBase">CBufBase</a></code></td><td class="Cell">Specifies the interface for dynamic buffers</td>
+</tr>
+<tr><td class="Cell"><code>CBufSeg</code></td><td class="Cell">Segmented dynamic buffer</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>CBufSeg</code>:
+<br><code class="ApiItem"><a href="CBufSegClass.html#%3a%3aCBufSeg%3a%3aBackPtr%28%29" title="Returns a pointer descriptor to represent the data starting at beginning of the contiguous region containing that byte through to the byte immediately preceding the specified byte">BackPtr()</a></code>, <code class="ApiItem"><a href="CBufSegClass.html#%3a%3aCBufSeg%3a%3aCompress%28%29" title="Compresses the buffer so as to occupy minimal space">Compress()</a></code>, <code class="ApiItem"><a href="CBufSegClass.html#%3a%3aCBufSeg%3a%3aDelete%28%29" title="Deletes data from the buffer">Delete()</a></code>, <code class="ApiItem"><a href="CBufSegClass.html#%3a%3aCBufSeg%3a%3aNewL%28%29" title="Allocates and constructs a segmented buffer">NewL()</a></code>, <code class="ApiItem"><a href="CBufSegClass.html#%3a%3aCBufSeg%3a%3aPtr%28%29" title="Returns a pointer descriptor to represent the data starting at the specified data byte through to the end of the contiguous region containing that byte">Ptr()</a></code>, <code class="ApiItem"><a href="CBufSegClass.html#%3a%3aCBufSeg%3a%3a%7eCBufSeg%28%29" title="Frees all resources owned by the object, prior to its destruction">~CBufSeg()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap">CBase</a></code>:
+<br><code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase%3a%3aoperator%20new%28%29" title="Allocates the object from the heap and then initialises its contents to binary zeroes">operator new()</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="CBufBaseClass.html#%3a%3aCBufBase" title="Specifies the interface for dynamic buffers">CBufBase</a></code>:
+<br><code class="ApiItem"><a href="CBufBaseClass.html#%3a%3aCBufBase%3a%3aExpandL%28%29" title="Inserts an uninitialised region into the buffer">ExpandL()</a></code>,
+<code class="ApiItem"><a href="CBufBaseClass.html#%3a%3aCBufBase%3a%3aInsertL%28%29" title="Inserts data into the buffer -- overloaded function">InsertL()</a></code>,
+<code class="ApiItem"><a href="CBufBaseClass.html#%3a%3aCBufBase%3a%3aRead%28%29" title="Reads data from the buffer into a descriptor -- overloaded function">Read()</a></code>,
+<code class="ApiItem"><a href="CBufBaseClass.html#%3a%3aCBufBase%3a%3aReset%28%29" title="Deletes all data in the buffer">Reset()</a></code>,
+<code class="ApiItem"><a href="CBufBaseClass.html#%3a%3aCBufBase%3a%3aResizeL%28%29" title="Re-sizes the buffer to the specified size">ResizeL()</a></code>,
+<code class="ApiItem"><a href="CBufBaseClass.html#%3a%3aCBufBase%3a%3aSize%28%29" title="Returns the number of data bytes in the buffer">Size()</a></code>,
+<code class="ApiItem"><a href="CBufBaseClass.html#%3a%3aCBufBase%3a%3aWrite%28%29" title="Writes data from a descriptor to the buffer -- overloaded function">Write()</a></code></p>
+<a name="2.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction and destruction</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aCBufSeg%3a%3aNewL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NewL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static CBufSeg* NewL(TInt anExpandSize);</code></p><h4 class="subheading">Description</h4>
+<p>Allocates and constructs a segmented buffer.</p>
+<p>If there is insufficient memory available to allocate the
+segmented buffer, the function leaves.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt anExpandSize</code></td>
+<td class="Cell"><p class="ValueDesc">The granularity of the buffer: each segment contains (in
+addition to 16 bytes of overhead) this number of bytes for data</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CBufSeg*</code></td>
+<td class="Cell"><p class="ValueDesc">If successful, a pointer to the allocated buffer.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aCBufSeg%3a%3a%7eCBufSeg%28%29"></a>
+<hr size="1" noshade>
+<h3><code>~CBufSeg()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>~CBufSeg();</code></p><h4 class="subheading">Description</h4>
+<p>Frees all resources owned by the object, prior to its
+destruction. Specifically, it frees all segments allocated to the
+buffer.</p>
+<a name="2.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Deleting data</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aCBufSeg%3a%3aDelete%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Delete()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void Delete(TInt aPos,TInt aLength);</code></p><h4 class="subheading">Description</h4>
+<p>Deletes data from the buffer. During deletion, shuffling is
+minimised by deleting intermediate segments and allowing segments to contain
+less data than the buffer granularity.</p>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CBufBaseClass.html#%3a%3aCBufBase%3a%3aDelete%28%29" title="Deletes data from the buffer"><code class="ApiItem">CBufBase::Delete()</code></a></li>
+</ul>
+<a name="2.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Compressing data</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aCBufSeg%3a%3aCompress%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Compress()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void Compress();</code></p><h4 class="subheading">Description</h4>
+<p>Compresses the buffer so as to occupy minimal space. This frees
+unused memory at the end of each segment. It may also optimise segment
+allocations.</p>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CBufBaseClass.html#%3a%3aCBufBase%3a%3aCompress%28%29" title="Compresses the buffer so as to occupy minimal space"><code class="ApiItem">CBufBase::Compress()</code></a></li>
+</ul>
+<a name="2.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Pointer access</h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aCBufSeg%3a%3aPtr%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Ptr()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TPtr8 Ptr(TInt aPos);</code></p><h4 class="subheading">Description</h4>
+<p>Returns a pointer descriptor to represent the data starting at the
+specified data byte through to the end of the contiguous region containing that
+byte.</p>
+<p>The time needed for calculation of the pointer depends on how many
+segments there are in the buffer, and how near the target segment is to the
+segment which was last used in the buffer.</p>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CBufBaseClass.html#%3a%3aCBufBase%3a%3aPtr%28%29" title="Returns a pointer descriptor which refers to all from the specified data byte until the end of the contiguous region containing that byte"><code class="ApiItem">CBufBase::Ptr()</code></a></li>
+</ul>
+<a name="2.9.3"></a></div><div class="Head3">
+<a name="%3a%3aCBufSeg%3a%3aBackPtr%28%29"></a>
+<hr size="1" noshade>
+<h3><code>BackPtr()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TPtr8 BackPtr(TInt aPos);</code></p><h4 class="subheading">Description</h4>
+<p>Returns a pointer descriptor to represent the data starting at beginning
+of the contiguous region containing that byte through to the byte immediately
+preceding the specified byte.</p>
+<p>The descriptor always points to the beginning of the segment containing
+the specified byte. The time needed for calculation of the pointer depends on
+how many segments there are in the buffer, and how near the target segment is
+to the segment which was last used in the buffer.</p>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CBufBaseClass.html#%3a%3aCBufBase%3a%3aBackPtr%28%29" title="Returns a pointer descriptor which refers to data from just before the specified data byte backward until the beginning of the contiguous region containing that byte"><code class="ApiItem">CBufBase::BackPtr()</code></a></li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

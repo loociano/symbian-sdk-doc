@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>deffile</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="Mmp%2dref1"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="debuglibrary.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="exportunfrozen.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Build&nbsp;Tools&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">mmp&nbsp;file&nbsp;syntax</a>&nbsp;<span class="separator">&#187;</span>
+deffile</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>deffile</h1>
+</div><div class="Bodytext">
+<p><code>deffile</code>
+<em class="metasyntactic">filename</em></p><p>Use the <code>deffile</code> statement to
+override the default linker definition file for the project.</p>
+<p>A <code class="filename">.def</code> file specifies associations between exported
+function names and their ordinal export number. It is used by the linker when
+constructing a DLL and (where applicable) when constructing its associated
+import library.</p>
+<p>The assignment of ordinals must be controlled by a <code class="filename">.def</code>
+file in two situations:</p>
+<ul>
+<li>
+<p>A polymorphic interface DLL must export a particular
+function as ordinal 1. In this case, the <code class="filename">.def</code> file is used to
+specify this association, while other exported functions may have a random
+order.</p>
+</li>
+<li>
+<p>A re-released DLL must be used by clients built
+against the old version. In this case, the <code class="filename">.def</code> file is used to
+ensure that all functions exported by the old version of the DLL
+are exported with the same ordinal by the new version.</p>
+</li>
+</ul>
+<p>For many polymorphic DLLs, a special target
+type is provided so that the build tools can ensure that the correct
+function is exported as ordinal 1. Where a special target type is provided, the
+<code class="filename">.def</code> file can be dispensed with.</p>
+<p><code class="filename">.def</code> files are sometimes colloquially referred to as
+freeze files, because they freeze the association between name and ordinal, for
+exported functions.</p>
+<p>The GNU and Microsoft tool chains use different schemes for mangling
+the names of exported functions. This means that <code class="filename">.def</code> files of the
+same name must be differentiated by storing them in separate directories.
+</p>
+<p>Conventionally, </p>
+<p><code class="filename">..\bmarm\</code> is used for ARM <code class="filename">.def</code> files,
+</p>
+<p>while </p>
+<p><code class="filename">..\bwins\</code> is used for WINS  <code class="filename">.def</code>
+files. </p>
+<p>By default, the frozen <code class="filename">.def</code> file takes its basename from
+the basename of the target for the project. </p>
+<p>Where the default frozen <code class="filename">.def</code> file is overridden by the <code>deffile</code>
+statement, a path to the file can be specified as part of the filename. </p>
+<p>If no path is specified, the file will be expected to be in:</p>
+<ul>
+<li>
+<p>directory ..<code class="filename">\bwins\</code> for platforms WINS and VC6</p>
+</li>
+<li>
+<p>directory ..<code class="filename">\bmarm\</code> for the ARM platform.</p>
+</li>
+</ul>
+<p>If a path is specified, place the <code>deffile</code>
+statement within <code>#ifdefined(</code><em class="metasyntactic">identifier</em><code>)</code>
+so that the same file will not be used during both ARM and WINS builds.
+</p>
+<p>For example:</p>
+<p class="CodeBlock"><code>#if defined(WINS)<br>deffile-stmt<br>#else if defined(ARM)<br>deffile-stmt<br>#endif</code></p>
+<p>Note that the platform name macros used with <code>#ifdefined(</code><em class="metasyntactic">identifier</em><code>)</code>
+must be in upper-case.</p>
+<p>In most cases, the functions exported from a DLL depend on the build
+variant. This is common because descriptor class names depend on whether the
+build is wide or narrow. For such DLLs, different <code class="filename">.def</code>
+files&#8212;differentiated by the <code class="filename">-u</code>
+suffix&#8212;are used.
+Although narrow builds are no longer supported, the <code class="filename">-u</code>
+suffix is still in use to maintain backward compatibility with previous
+versions of the build tools. This suffix behaviour can be removed by using <code>nostrictdef</code>.</p>
+<p>Note too that under WINS, when using an <code>exedll</code>
+target type, the first export is the one which will be called when the DLL is
+loaded, so you should use a <code class="filename">.def</code> file for the WINS variant.</p>
+<p>Makefiles create the import
+library associated with an executable (where applicable) directly from the
+frozen <code class="filename">.def</code> file, so only frozen exported functions will appear in
+the import library and only these exported functions can be linked against by
+other components. </p>
+<p>For ARM platforms, import libraries for compatible ABIs are also
+created. </p>
+<p>For example</p>
+<ul>
+<li>
+<p>if a project is built for <code>ARMI</code>,
+then <code>ARMI</code>, <code>THUMB</code>
+and <code>ARM4</code> import libraries will be
+created</p>
+</li>
+<li>
+<p>and if a project is built for <code>THUMB</code>,
+then <code>ARMI</code> and <code>THUMB</code>
+import libraries will be created. </p>
+</li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

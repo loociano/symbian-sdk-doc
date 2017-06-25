@@ -1,0 +1,320 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>RDir</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="MFileManObserverClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="RFileClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">File&nbsp;Server&nbsp;Client&nbsp;Side</a>&nbsp;<span class="separator">&#187;</span>
+RDir</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>f32file.h</code>
+<br>Link against: <code>efsrv.lib</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aRDir"></a>
+
+<h1>Class <code>RDir</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>RDir</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Reads the entries contained in a directory.</p>
+<p>You must first open the directory, specifying an attribute mask
+which is used by <code>Read()</code> calls to filter the entry types required.
+Then, use one of the <code>Read()</code> functions to read the filtered
+entries. When the operation is complete, the directory should be closed using
+<code>Close()</code>, defined in the base class <code>RFsBase</code>.</p>
+<p>There are two types of <code>Read()</code>: one works with a single
+entry at a time, requiring programs to iterate through the entries explicitly.
+The other works with an entire <code>TEntryArray</code>, allowing multiple
+entries to be read in one call. As well as making application program logic
+somewhat simpler, this type uses fewer calls to the server, and is more
+efficient.</p>
+<p>Each type of <code>Read()</code> can be performed either
+synchronously or asynchronously.</p>
+<p>It may be more convenient to use <code>RFs::GetDir()</code> than
+the <code>Read()</code> calls supported by this class.
+<code>RFs::GetDir()</code> has the advantage that it allows a
+directory&#8217;s entries to be sorted in various ways. However, it does not
+provide asynchronous as well as synchronous variants and does not allow entries
+to be read individually.</p><h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code>RDir</code></td><td class="Cell">Reads the entries contained in a directory</td>
+</tr>
+<tr><td class="Cell"><code><a href="RFsBaseClass.html#%3a%3aRFsBase">RFsBase</a></code></td><td class="Cell">Base class that provides a Close() function for file related clean-up</td>
+</tr>
+<tr><td class="Cell"><code><a href="../ClientServer/RSubSessionBaseClass.html#%3a%3aRSubSessionBase">RSubSessionBase</a></code></td><td class="Cell">Client-side handle to a sub-session</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>RDir</code>:
+<br><code class="ApiItem"><a href="RDirClass.html#%3a%3aRDir%3a%3aOpen%28%29" title="Opens a directory using the specified UID type to filter the directory entry types which will subsequently be read">Open()</a></code>, <code class="ApiItem"><a href="RDirClass.html#%3a%3aRDir%3a%3aRead%28%29" title="Reads a single directory entry -- asynchronous overload">Read()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="RFsBaseClass.html#%3a%3aRFsBase" title="Base class that provides a Close() function for file related clean-up">RFsBase</a></code>:
+<br><code class="ApiItem"><a href="RFsBaseClass.html#%3a%3aRFsBase%3a%3aClose%28%29" title="Closes the file or directory">Close()</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="../ClientServer/RSubSessionBaseClass.html#%3a%3aRSubSessionBase" title="Client-side handle to a sub-session">RSubSessionBase</a></code>:
+<br><code class="ApiItem"><a href="../ClientServer/RSubSessionBaseClass.html#%3a%3aRSubSessionBase%3a%3aCloseSubSession%28%29" title="Closes the sub-session">CloseSubSession()</a></code>,
+<code class="ApiItem"><a href="../ClientServer/RSubSessionBaseClass.html#%3a%3aRSubSessionBase%3a%3aCreateSubSession%28%29" title="Creates a new sub-session within an existing session">CreateSubSession()</a></code>,
+<code class="ApiItem"><a href="../ClientServer/RSubSessionBaseClass.html#%3a%3aRSubSessionBase%3a%3aSend%28%29" title="Sends a blind message to the server -- no reply is expected">Send()</a></code>,
+<code class="ApiItem"><a href="../ClientServer/RSubSessionBaseClass.html#%3a%3aRSubSessionBase%3a%3aSendReceive%28%29" title="Sends a message to the server and waits synchronously for a reply">SendReceive()</a></code>,
+<code class="ApiItem"><a href="../ClientServer/RSubSessionBaseClass.html#%3a%3aRSubSessionBase%3a%3aSubSessionHandle%28%29" title="Returns the sub-session handle number">SubSessionHandle()</a></code>,
+<code class="ApiItem"><a href="../ClientServer/RSubSessionBaseClass.html#%3a%3aRSubSessionBase%3a%3aoperator%3d%28%29" title="Assignment constructor">operator=()</a></code></p>
+<a name="2.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Opening and reading directories</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aRDir%3a%3aOpen%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Open()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Open(RFs&amp; aFs,const TDesC&amp; aMatchName,TUint anEntryAttMask);</code></p><h4 class="subheading">Description</h4>
+<p>Opens a directory using an attribute bitmask to filter the
+directory entry types which will subsequently be read. This function, or its
+overload, must be called before reading the entries in the directory.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>To close the directory, use <code>Close()</code>, defined
+in the base class <code>RFsBase</code>.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RFs&amp; aFs</code></td>
+<td class="Cell"><p class="ValueDesc">File server session</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aMatchName</code></td>
+<td class="Cell"><p class="ValueDesc">Name of the directory to open. Any path components which are
+not specified here will be taken from the session path.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint anEntryAttMask</code></td>
+<td class="Cell"><p class="ValueDesc">Attribute mask used by the <code>Read()</code> calls to filter
+the entry types required. Only those entries with attributes specified here
+will be read. Also see <code>KEntryAttNormal</code> and the other file or
+directory attributes.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aRDir%3a%3aOpen%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Open()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Open(RFs&amp; aFs,const TDesC&amp; aMatchName,const TUidType&amp; aUidType);</code></p><h4 class="subheading">Description</h4>
+<p>Opens a directory using the specified UID type to filter the
+directory entry types which will subsequently be read. This function, or its
+overload, must be called before reading the entries in the directory.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>To close the directory, use <code>Close()</code>, defined in
+the base class <code>RFsBase</code>.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RFs&amp; aFs</code></td>
+<td class="Cell"><p class="ValueDesc">File server session</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aMatchName</code></td>
+<td class="Cell"><p class="ValueDesc">Name of the directory to open. Any path components which are not
+specified here will be taken from the session path.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TUidType&amp; aUidType</code></td>
+<td class="Cell"><p class="ValueDesc">UID type used by the <code>Read()</code> calls to filter the
+entry types required. Only those entries with the UIDs specified here will be
+read.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.4"></a></div><div class="Head3">
+<a name="%3a%3aRDir%3a%3aRead%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Read()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Read(TEntryArray&amp; anArray) const;</code></p><h4 class="subheading">Description</h4>
+<p>Reads all filtered directory entries into the array
+specified&nbsp;&#8212; synchronous overload.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>If the directory has not been opened before an attempt is made
+to read its contents, a panic will occur. </p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TEntryArray&amp; anArray</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains filtered entries from the directory.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, <code>KErrEof</code> if all
+the entries in the directory have been read, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.5"></a></div><div class="Head3">
+<a name="%3a%3aRDir%3a%3aRead%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Read()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Read(TEntryArray&amp; anArray,TRequestStatus&amp; aStatus) const;</code></p><h4 class="subheading">Description</h4>
+<p>Reads all filtered directory entries into the array
+specified&nbsp;&#8212; asynchronous overload.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>If the directory has not been opened before an attempt is made to
+read its contents, a panic will occur. </p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TEntryArray&amp; anArray</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains filtered entries from the directory.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStatus</code></td>
+<td class="Cell"><p class="ValueDesc">Request status object. On completion, will contain an error code.
+<code>KErrNone</code> if successful, otherwise another of the system-wide error
+codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.6"></a></div><div class="Head3">
+<a name="%3a%3aRDir%3a%3aRead%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Read()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Read(TEntry&amp; anEntry) const;</code></p><h4 class="subheading">Description</h4>
+<p>Reads a single directory entry&nbsp;&#8212; synchronous
+overload.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>If the directory has not been opened before an attempt is made to
+read its contents, a panic will occur. </p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TEntry&amp; anEntry</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains a directory entry.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, <code>KErrEof</code> if all the
+entries in the directory have been read, otherwise another of the system-wide
+error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.7"></a></div><div class="Head3">
+<a name="%3a%3aRDir%3a%3aRead%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Read()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Read(TPckg&lt;TEntry&gt;&amp; anEntry,TRequestStatus&amp; aStatus) const;</code></p><h4 class="subheading">Description</h4>
+<p>Reads a single directory entry&nbsp;&#8212; asynchronous
+overload.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>If the directory has not been opened before an attempt is made to
+read its contents, a panic will occur. </p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TPckg&lt;TEntry&gt;&amp; anEntry</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains a directory entry.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStatus</code></td>
+<td class="Cell"><p class="ValueDesc">Request status object. <code>KErrNone</code> if successful,
+<code>KErrEof</code> if all the entries in the directory have been read,
+otherwise another of the system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

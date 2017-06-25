@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to set service security requirements</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="bt%2eguide%2esecman%2esettings"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="Howtoconnect.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Bluetooth</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Bluetooth&nbsp;Security&nbsp;Manager</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;set&nbsp;service&nbsp;security&nbsp;requirements</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>How to set service security requirements</h1>
+</div><div class="Bodytext">
+<p>The security requirements that can be set for a service are simple: you can only specify whether authentication,
+authorisation, and/or encryption
+are required or not. You cannot, for example, set the security algorithms used: these are the  same for all Bluetooth devices.</p><p>To set security requirements, take the following steps:</p>
+<ul><li><p> Create a security settings object, <a href="../../../APIReference/BluetoothSecurityManager/TBTServiceSecurityClass.html#%3a%3aTBTServiceSecurity" title="Security settings of a Bluetooth service"><code class="ApiItem">TBTServiceSecurity</code></a>. Initialise it with the service's Bluetooth protocol, its port, and a unique identifier for the service (this identifier is <em>not</em> related to the service class UUID).</p></li><li><p>Set in the <code>TBTServiceSecurity</code> object whether authentication, authorisation, and/or encryption are required.</p></li><li><p>Call <a href="../../../APIReference/BluetoothSecurityManager/RBTSecuritySettingsClass.html#%3a%3aRBTSecuritySettings%3a%3aRegisterService%28%29" title="Registers a service with the Security Manager"><code class="ApiItem">RBTSecuritySettings::RegisterService()</code></a> to pass the settings to the security manager.</p></li></ul><h4 class="subheading">Example</h4><p>The following example sets that authentication, authorisation, and encryption are required for a service.</p><p class="CodeBlock"><code>// Assumes secmanSubSession is an open subsession, and channel<br>// is the port on which an RFCOMM service is running<br><br>// 1. Create security settings object<br>TUid serviceUID;<br>serviceUID.iUid = 0X10008AD0;<br>TBTServiceSecurity secSettings(serviceUID, KSolBtRFCOMM, channel);<br><br>// 2. Set the security options<br>secSettings.SetAuthentication(ETrue);<br>secSettings.SetAuthorisation(ETrue);<br>secSettings.SetEncryption(ETrue);<br><br>// 3. Register the service<br>TRequestStatus status;<br>secmanSubSession.RegisterService(secSettings,status);<br>User::WaitForRequest(status);</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

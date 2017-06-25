@@ -1,0 +1,301 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>KERN</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="Panics%2ekern"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="E32UserCBasePanics.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="KernExecPanics.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Panic&nbsp;categories&nbsp;and&nbsp;numbers</a>&nbsp;<span class="separator">&#187;</span>
+KERN</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Category: KERN</h1>
+</div><div class="Bodytext">
+<p>These panics represent errors which cause the Kernel itself to panic. Many of the panics in this category are raised in
+debug builds only.</p>
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0">
+<tr valign="top">
+<td class="Cell">
+<p><code>0</code></p>
+</td>
+<td class="Cell">
+<p><em>This panic is raised in debug builds only.</em></p><p>This panic is raised when the when the current thread attempts to read from a chunk using <a href="../MemoryAllocation/RChunkClass.html#%3a%3aRChunk%3a%3aRead%28%29" title="Reads 16 bit data from the chunk, specifying the length to which the target descriptor is to be re-sized"><code class="ApiItem">RChunk::Read()</code></a>,  and the target descriptor is too small.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>1</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when a process is created; the panic occurs if the length of the file name of the executable
+being loaded, is greater than the maximum as defined by the constant <code>KMaxOsName</code>, defined in <code class="filename">e32std.h</code>.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>2</code></p>
+</td>
+<td class="Cell">
+<p><em>This panic is raised in debug builds only.</em></p><p>This panic is raised when completing an outstanding request to a logical channel; the panic occurs when the
+number of requests has been exceeded, i.e. when the number is greater than or equal to <code>KMaxRequests</code>
+defined in <code class="filename">k32std.h</code>.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>3</code></p>
+</td>
+<td class="Cell">
+<p><em>This panic is raised in debug builds only.</em></p><p>This panic is raised when completing an outstanding request to a logical channel; the panic occurs when the
+request number is invalid. Specifically, the panic occurs in a call to the <code>Complete()</code> member function of a
+<code>DLogicalChannel</code>.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>4</code></p>
+</td>
+<td class="Cell">
+<p><em>This panic is raised in debug builds only.</em></p><p>This panic is raised when completing an outstanding request to a logical channel; the panic occurs when the
+channel request is not pending. Specifically, the panic occurs in a call to the <code>Complete()</code> member function of a
+<code>DLogicalChannel</code>.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>8</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when queuing an absolute timer to the second queue; the panic occurs when a delta timer is
+already pending.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>9</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the Kernel side timer object, a <code>DTimer</code>, if a request for relative timer is being made
+through the <code>After()</code> member function and the specified time interval is negative.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>10</code></p>
+</td>
+<td class="Cell">
+<p><em>This panic is raised in debug builds only.</em></p><p>This panic is raised when an error occurs creating the second queue during boot.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>11</code></p>
+</td>
+<td class="Cell">
+<p><em>This panic is raised in debug builds only.</em></p><p>This panic is raised by the <code>WakeUp()</code> member function of <code>TTickQ</code>, called after the machine wakes up; the
+panic occurs if the second queue has counted down to zero.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>13</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when a server program makes a request to receive a message, i.e. when it calls the
+<code>Receive()</code> member function of <code>RServer</code>, the handle to the Kernel side server object. The panic occurs when
+a receive message request has previously been made and is still outstanding.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>16</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when creating a heap in the stack chunk for a user thread, from within the Kernel i.e. by
+calling <code>RUserHeap::ChunkHeapL()</code>; the panic occurs when the specified minimum heap length is greater
+than the specified maximum heap length.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>17</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when creating a heap in the stack chunk for a user thread, from within the Kernel i.e. by
+calling <code>RUserHeap::ChunkHeapL()</code>; the panic occurs when the specified minimum heap length is negative.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>18</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when creating a heap in the stack chunk for a user thread, from within the Kernel i.e. by
+calling <code>RUserHeap::ChunkHeapL()</code>; the panic occurs when the specified maximum heap length is
+negative.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>19</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when compressing all chunks which have heaps; the panic occurs when a heap compression
+fails</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>20</code></p>
+</td>
+<td class="Cell">
+<p><em>Withdrawn in 6.0:</em> This panic is raised when a server completes a client initiated DisConnect request; the panic occurs when the
+kernel side session object's access count is not equal to 1.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>25</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by the <code>Enlarge()</code>, <code>ReduceSize()</code> and the <code>MediaDriver()</code> member functions a
+<code>TLocDrv</code> when there is no media for this drive.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>26</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when enlarging or reducing the size of the media, by calling the <code>Enlarge()</code> or
+<code>ReduceSize()</code> member function of <code>DMedia</code>. The panic occurs if the driver has not been opened.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>27</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised when attempting to open a media driver for each <code>DMedia</code> object associated with the specified
+device, by calling the <code>Open()</code> member function of <code>DMedia</code>. The panic occurs if any of the drivers are already
+open.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>29</code></p>
+</td>
+<td class="Cell">
+<p><em>This panic is raised in debug builds only.</em></p><p>This panic is raised when a remote thread read/write operation fails because the specified address is not mapped
+for the target thread.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>31</code></p>
+</td>
+<td class="Cell">
+<p><em>This panic is raised in debug builds only.</em></p><p>This panic is raised by <code>Kern::SetIdleCallBack()</code> when an idle callback function has already been set.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>32</code></p>
+</td>
+<td class="Cell">
+<p>This is panic is raised when creating a <code>DMediaDriver</code> object from within <code>Kern::LocalMediaSyncRead()</code>, <code>Kern::LocalMediaSyncWrite()</code> or <code>Kern::LocalMediaSyncFormat()</code> and the  media number is out of range.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>33</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by <code>DPowerModel::RemovePowerHandler()</code> when the specified power handler's power requirement is not zero.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>34</code></p>
+</td>
+<td class="Cell">
+<p>This panic is raised by <code>Power::SetPowerModel()</code> when a power model has already been installed.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>35</code></p>
+</td>
+<td class="Cell">
+<p><em>This panic is raised in debug builds only.</em></p><p>This panic is raised when adding the power handler to the power model though a call to <code>Power::AddPowerHandler()</code>, and the power model does not exist.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>36</code></p>
+</td>
+<td class="Cell">
+<p><em>This panic is raised in debug builds only.</em></p><p>This panic is raised when removing the power handler from the power model though a call to <code>Power::RemovePowerHandler()</code>,  and the power model does not exist.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>40</code></p>
+</td>
+<td class="Cell">
+<p><em>This panic is raised in debug builds only.</em></p><p>This panic is raised by a call to <code>Kern::PBusController()</code> when there is no peripheral bus controller.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>41</code></p>
+</td>
+<td class="Cell">
+<p><em>Introduced in 6.0:</em>
+</p><p>This panic is raised by <code>Power::UnlockPowerState()</code> if the lock count becomes negative, implying more calls to this function than to <code>Power::LockPowerState()</code>.</p>
+</td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

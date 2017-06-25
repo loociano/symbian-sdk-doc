@@ -1,0 +1,933 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Package file format .pkg</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="Installing%2dref%2epkg%2dformat"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="MakekeysToolReference.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Installation&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+Package&nbsp;file&nbsp;format&nbsp;.pkg</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Package file format <code class="filename">.pkg</code></h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Overview</h2>
+</div><div class="Bodytext">
+<p>A <code class="filename">pkg</code> file is a text file which contains installation
+information for applications or files. It consists of the following parts, some
+of which may be omitted:</p>
+<ul>
+<li>
+<p>the languages supported </p>
+</li>
+<li>
+<p>the package header, including the name of the component to be
+installed and its build and version information</p>
+</li>
+<li>
+<p>package-signature details (optional)</p>
+</li>
+<li>
+<p>package-lines (optional) formed from the following:</p>
+</li>
+<ul>
+<li>
+<p>options line</p>
+</li>
+<li>
+<p>condition blocks</p>
+</li>
+<li>
+<p>language independent files to install</p>
+</li>
+<li>
+<p>language-dependent files, of which only one will be
+installed</p>
+</li>
+<li>
+<p>capabilities line</p>
+</li>
+<li>
+<p>requisite components</p>
+</li>
+<li>
+<p>embedded <code class="filename">sis</code> files</p>
+</li>
+<li>
+<p>comments</p>
+</li>
+</ul>
+</ul>
+<p>The first item in the <code class="filename">pkg</code> file should detail the
+languages provided within the <code class="filename">sis</code> file followed by the package
+header which details the name of the component to be installed in all supported
+languages, the UID of the component, and version information. An optional
+digital signature line may be specified which gives the name of the private key
+file and associated certificates to be used to digitally sign the
+<code class="filename">sis</code> file. The remainder of the file lists the files and components
+to be included in the <code class="filename">sis</code> file or dependencies upon other
+installed components.</p>
+<a name="1.3.5"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Notes:</h3>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>With respect to v5, arguments in <code class="filename">pkg</code> files no
+longer have to be abbreviated — longer variants of the same options are
+supported, e.g. FILETEXT rather than &quot;FT&quot;.</p>
+</li>
+<li>
+<p>All <code class="filename">pkg </code>files parsed by the Installation File
+Generator may be in either UTF8 or Unicode format. UTF8 text is converted to
+Unicode when creating a <code class="filename">sis </code>file. Both little-endian and
+big-endian Unicode files may be used; automatic conversion is performed by the
+Installation File Generator as appropriate. </p>
+</li>
+<li>
+<p>Characters may be included within strings using an escape
+syntax. The following samples demonstrate the use of a character code to
+include a &quot;™&quot; symbol at the end of the application name:</p>
+</li>
+</ul>
+<p class="CodeBlock"><code>&quot;MyApp&lt;153&gt;&quot;</code></p>
+<p class="CodeBlock"><code>&quot;MyApp&lt;0x99&gt;&quot;</code></p>
+<ul>
+<li>
+<p>Numeric character codes should be entered outside double
+quotes and bounded by &quot;&lt;&quot; and &quot;&gt;&quot;. The value may be in the range
+0-65535.</p>
+</li>
+<li>
+<p>A single PKG command line may be spread over multiple lines
+if desired, it does not all have to appear on a single line.</p>
+</li>
+</ul>
+<a name="Installing%2dref%2elanguages"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Languages</h2>
+</div><div class="Bodytext">
+<p>The language line specifies which languages are supported by the
+component. Languages are identified by a two character code. The line may be
+omitted; if so, UK English is assumed by default. The language line must be
+specified before any other section. Its format is as follows:</p>
+<p><code>&amp;</code><code>Language_1</code><code>,</code><code>...</code><code>,</code><code>
+Language_n</code></p>
+<p>For example:</p>
+<p class="CodeBlock"><code>&amp;EN,FR,IT</code></p>
+<p>The following languages are supported:</p><table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top"><td class="Cell">
+<p><code>EN</code></p></td><td class="Cell">
+<p>UK English</p></td><td class="Cell">
+<p><code>SG</code></p></td><td class="Cell">
+<p>Swiss German</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>FR</code></p></td><td class="Cell">
+<p>French</p></td><td class="Cell">
+<p><code>PO</code></p></td><td class="Cell">
+<p>Portuguese</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>GE</code></p></td><td class="Cell">
+<p>German</p></td><td class="Cell">
+<p><code>TU</code></p></td><td class="Cell">
+<p>Turkish</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>SP</code></p></td><td class="Cell">
+<p>Spanish</p></td><td class="Cell">
+<p><code>IC</code></p></td><td class="Cell">
+<p>Icelandic</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>IT</code></p></td><td class="Cell">
+<p>Italian</p></td><td class="Cell">
+<p><code>RU</code></p></td><td class="Cell">
+<p>Russian</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>SW</code></p></td><td class="Cell">
+<p>Swedish</p></td><td class="Cell">
+<p><code>HU</code></p></td><td class="Cell">
+<p>Hungarian</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>DA</code></p></td><td class="Cell">
+<p>Danish</p></td><td class="Cell">
+<p><code>DU</code></p></td><td class="Cell">
+<p>Dutch</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>NO</code></p></td><td class="Cell">
+<p>Norwegian</p></td><td class="Cell">
+<p><code>BL</code></p></td><td class="Cell">
+<p>Belgian Flemish</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>FI</code></p></td><td class="Cell">
+<p>Finnish</p></td><td class="Cell">
+<p><code>AU</code></p></td><td class="Cell">
+<p>Australian English</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>AM</code></p></td><td class="Cell">
+<p>US English</p></td><td class="Cell">
+<p><code>BF</code></p></td><td class="Cell">
+<p>Belgian French</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>SF</code></p></td><td class="Cell">
+<p>Swiss French</p></td><td class="Cell">
+<p><code>AS</code></p></td><td class="Cell">
+<p>Austrian German</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>IF</code></p></td><td class="Cell">
+<p>International French</p></td><td class="Cell">
+<p><code>NZ</code></p></td><td class="Cell">
+<p>New Zealand</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>CS</code></p></td><td class="Cell">
+<p>Czech</p></td><td class="Cell">
+<p><code>SK</code></p></td><td class="Cell">
+<p>Slovak</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>PL</code></p></td><td class="Cell">
+<p>Polish</p></td><td class="Cell">
+<p><code>SL</code></p></td><td class="Cell">
+<p>Slovenian</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>TC</code></p></td><td class="Cell">
+<p>Taiwan Chinese</p></td><td class="Cell">
+<p><code>HK</code></p></td><td class="Cell">
+<p>Hong Kong Chinese</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>ZH</code></p></td><td class="Cell">
+<p>Prc Chinese</p></td><td class="Cell">
+<p><code>JA</code></p></td><td class="Cell">
+<p>Japanese</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>TH</code></p></td><td class="Cell">
+<p>Thai</p></td><td class="Cell"></td><td class="Cell"></td></tr></table></td></tr></table>
+<a name="1.4.9"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Note:</h3>
+</div><div class="Bodytext">
+<p>The number of text strings in the following line types should match
+the number of languages specified in the languages line and be in the same
+order:</p>
+<ul>
+<li>
+<p>package header</p>
+</li>
+<li>
+<p>option lines</p>
+</li>
+<li>
+<p>language dependent files</p>
+</li>
+<li>
+<p>requisites</p>
+</li>
+</ul>
+<a name="Installing%2dref%2epkg%2dinsthdr"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Package header</h2>
+</div><div class="Bodytext">
+<p>The package header must be included before all other items, except the
+language line, if one is specified. Its format is:</p>
+<p><code>#{&quot;</code><code>Component Name for language1</code><code>&quot;,</code>
+<code>&quot;</code><code>Component Name for language
+n</code><code>&quot;},(</code><code>ComponentUID</code><code>),</code><code>Major</code><code>,</code><code>Minor</code><code>,</code><code>Build-Number[,Package
+Options] [,</code><code>TYPE=</code><code>Package Type]</code></p>
+<p>The package header contains the component name in each of the supported
+languages, the UID of the component, the major and minor version number and
+build number, and package options. </p>
+<p>For example:</p>
+<p class="CodeBlock"><code>#{&quot;MyApp&quot;},(0x10000001),1,0,0,TYPE=SISAPP</code></p>
+<a name="1.5.8"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Notes:</h3>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>All <code class="filename">sis </code>files require a UID, even if the installed
+files do not require one. </p>
+</li>
+<li>
+<p>The application's major and minor version numbers are required for
+version control (eg. <code class="filename">AppName 3.1</code> specifies a major build 3, and
+minor build 1.)</p>
+</li>
+<li>
+<p>The build-number replaces the variant value which was unimplemented
+in ER5 and previous versions of the Installation File Generator.</p>
+</li>
+<li>
+<p>All numbers can be hexadecimal.</p>
+</li>
+<li>
+<p>The component name is language dependent. It is used to identify
+the component in the installation dialogs and in the list of installed programs
+in the control panel's <code class="ProgramOutput">Add\remove</code> program.</p>
+</li>
+<li>
+<p>The number of component names must equal the number of languages
+specified in the languages line, and should be in the same order.</p>
+</li>
+</ul>
+<p>One or both of the following package options can be
+specified:</p><table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top"><td class="Cell">
+<p><b>Abbrev. option</b></p></td><td class="Cell">
+<p><b>Full option name</b></p></td></tr><tr valign="top"><td class="Cell">
+<p><code>SH</code></p></td><td class="Cell">
+<p><code>SHUTDOWNAPPS</code></p></td></tr><tr valign="top"><td class="Cell">
+<p><code>NC</code></p></td><td class="Cell">
+<p><code>NOCOMPRESS</code></p></td></tr></table></td></tr></table>
+<p>The package type allows the user to easily identify the main installed
+applications, distinct from any system components. They also let the add/remove
+control panel item distinguish the packages which the user may not remove. For
+example, installing an application is installed using the SYSAPP type:
+#{&quot;MyApp&quot;},(0X100000001),1,0,0,SH,NC,TYPE=SYSAPP</p>
+<p>The package type may be followed with only one of the package type
+arguments;</p><table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top"><td class="Cell">
+<p><b>Abbrev. option</b></p></td><td class="Cell">
+<p><b>Full option name</b></p></td><td class="Cell">
+<p><b>Description</b></p></td></tr><tr valign="top"><td class="Cell">
+<p><code>SA</code></p></td><td class="Cell">
+<p><code>SISAPP</code></p></td><td class="Cell">
+<p>Contains an application (the default
+type).</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>SY</code></p></td><td class="Cell">
+<p><code>SISSYSTEM</code></p></td><td class="Cell">
+<p>Contains a shared/system component such as a DLL or OPX which may
+be used by a number of applications. The component will be removed when the
+last application is removed which uses it.</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>SO</code></p></td><td class="Cell">
+<p><code>SISOPTION</code></p></td><td class="Cell">
+<p>Contains an add-on or optional component, (dynamically loaded
+code, data files,…). The user may choose whether to install the component and
+may later remove the component independent of the main application it works
+with.</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>SC</code></p></td><td class="Cell">
+<p><code>SISCONFIG</code></p></td><td class="Cell">
+<p>Configures an existing application or service. The package should
+not contain any new files, only files which are either run or displayed during
+installation, or added to an existing component, e.g. settings. The package
+will not appear as a removable component after
+installation.</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>SP</code></p></td><td class="Cell">
+<p><code>SISPATCH</code></p></td><td class="Cell">
+<p>Patches an existing component. It may be removed by the
+user.</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>SU</code></p></td><td class="Cell">
+<p><code>SISUPGRADE</code></p></td><td class="Cell">
+<p>Upgrades an existing component. The package is not listed as a
+removable component after installation, the user will need to remove or
+reinstall the associated application to remove the
+changes.</p></td></tr></table></td></tr></table>
+<a name="1.5.9"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Notes:</h3>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>The ID and I8 (non-Unicode <code class="filename">sis</code> files) flags have been
+dropped from post ER5 releases</p>
+</li>
+<li>
+<p>The UID value should be unique for the following types of <code class="filename">sis
+</code>file: Applications (SISAPP), System/shared components (SISSYSTEM),
+Add-on/optional components (SISOPTION).</p>
+</li>
+<li>
+<p>The UID for the following types of SIS files should be identical to
+the UID for the main app or system component with which they are associated:
+Configuration components (SISCONFIG), Patches (SISPATCH), Upgrade components
+(SISUPGRADE).</p>
+</li>
+</ul>
+<a name="Installing%2dref%2epkg%2dsignature"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Package signature</h2>
+</div><div class="Bodytext">
+<p>The package signature line is used when creating a digitally signed
+installation file. The signature will be checked when the package is installed
+and details of the certificate will be available to the user at install time
+and when listing installed components. The signature line format is: </p>
+<p><code>*</code><code>private-key-file</code><code>,</code><code>public-key-cert[</code><code>,KEY=</code><code>privatekey-password]</code></p>
+<a name="1.6.5"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Notes:</h3>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>The <i>private-key-file </i>refers to the name of a
+<i>private key</i> file used to create a <i>digital
+signature</i>. The <i>private key</i> is used only when creating
+the <code class="filename">sis</code> file, the name of the file is not embedded within the
+resultant <code class="filename">sis</code> file. If no package-signature line appears in the
+<code class="filename">pkg</code> file the package will be unsigned.</p>
+</li>
+</ul>
+<p>The optional KEY parameter specifies the password used to access the
+private key file if it has been encrypted. If the key is encrypted, but the KEY
+parameter has not been specified then the Installation File Generator will
+prompt the user for the access password</p>
+<ul>
+<li>
+<p>The <code>public-key-cert</code> refers to a single file containing
+either the corresponding public key<i> certificate</i> (.cer file) or
+a <i>certificate chain</i> file (.p7c) containing the corresponding
+public key certificate and its associated certificates (necessary to form a
+certificate chain to a trusted root certificate). </p>
+</li>
+</ul>
+<a name="1.6.6"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>See also</h3>
+</div><div class="Bodytext">
+<p><a href="MakekeysToolReference.guide.html#Installing%2dref%2emakekeys%2dsyntax" title="Certification Generator syntax: makekeys.exe">Certification Generator syntax makekeys.exe</a>
+</p>
+<a name="1.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Condition Blocks</h2>
+</div><div class="Bodytext">
+<p>Condition blocks may be used to control the installer according to
+various attributes. The syntax is as follows:</p>
+<p>
+<code>IF</code>
+<code>condition package-lines</code>
+<code>[
+ELSEIF</code>
+<code>condition package-lines</code>
+<code>] [ ELSE</code>
+<code>package-lines</code>
+<code>] ENDIF</code></p>
+<p>For example, two sets of files may be included within the install
+package, one set for an ARM processor and one set for an M-CORE processor. An
+<code>IF/ELSEIF</code> block may be used with the CPU-type attribute to ensure
+the correct files are installed on the target device.</p>
+<p>For example:</p>
+<p class="CodeBlock"><code>IF cpu=0 ; ARM<br>&nbsp;&quot;marm\myapp.app&quot;-&quot;!:\System\Apps\MyApp\Myapp.app&quot;<br>ELSEIF cpu=1 ; MCORE<br>&quot;mcore\myapp.app&quot;-&quot;!:\System\Apps\MyApp\Myapp.app&quot;<br>ELSE<br>&nbsp;; unsupported cpu type, display a message &amp; exit!<br>&nbsp;&quot;nosupport.txt&quot;-&quot;&quot;, FILETEXT, TEXTEXIT<br>ENDIF</code></p>
+<a name="1.7.7"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Notes:</h3>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>Most <code class="filename">pkg</code> lines are valid within a condition block,
+however the following line types may not be used: languages, package-header,
+package signature, requisites, capabilities.</p>
+</li>
+<li>
+<p>The use of an <code>IF…ELSE</code> construct and conditions allows
+a single installation file to support any number of different Symbian OS phones.</p>
+</li>
+</ul>
+<a name="1.7.8"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Condition </h3>
+</div><div class="Bodytext"><table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top"><td class="Cell">
+<p><code>condition-primitive</code></p></td></tr><tr valign="top"><td class="Cell">
+<p><code>(</code><code>condition</code><code>) AND
+(</code><code>condition</code><code>)</code></p></td></tr><tr valign="top"><td class="Cell">
+<p><code>(</code><code>condition</code><code>) OR
+(</code><code>condition</code><code>)</code></p></td></tr><tr valign="top"><td class="Cell">
+<p><code>NOT(</code><code>condition</code><code>)</code></p></td></tr></table></td></tr></table>
+<a name="1.7.9"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Condition-primitive</h3>
+</div><div class="Bodytext"><table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top"><td class="Cell">
+<p><code>attrib</code><code>=</code><code>value</code><code></code></p></td></tr><tr valign="top"><td class="Cell">
+<p><code>attrib</code><code>&lt;&gt;</code><code>value</code></p></td></tr><tr valign="top"><td class="Cell">
+<p><code>attrib</code><code>&gt;</code><code>value</code></p></td></tr><tr valign="top"><td class="Cell">
+<p><code>attrib</code><code>&lt;</code><code>value</code></p></td></tr><tr valign="top"><td class="Cell">
+<p><code>attrib</code><code>&gt;=</code><code>value</code></p></td></tr><tr valign="top"><td class="Cell">
+<p><code>attrib</code><code>&lt;=</code><code>value</code></p></td></tr><tr valign="top"><td class="Cell">
+<p><code>exists</code><code>(</code><code>filename</code><code>)</code></p></td></tr><tr valign="top"><td class="Cell">
+<p><code>appcap</code><code>(</code><code>uid</code><code>,</code><code>capid</code><code>)</code></p></td></tr><tr valign="top"><td class="Cell">
+<p><code>devcap</code><code>(</code><code>capid</code><code>)</code></p></td></tr></table></td></tr></table>
+<ul>
+<li>
+<p>The <code>exists()</code> function may be used to test for the
+existence of a given file. The <code>devcap() </code>and <code>appcap()</code>
+functions may be used to test for device and application capabilites.</p>
+</li>
+</ul>
+<a name="Installing%2dref%2epkg%2dattribs"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Attributes</h3>
+</div><div class="Bodytext"><table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top"><td class="Cell">
+<p><b>Attributes</b></p></td><td class="Cell">
+<p><b>Value</b></p></td></tr><tr valign="top"><td class="Cell">
+<p><code>Manufacturer</code></p></td><td class="Cell">
+<p>0=Ericsson, 1=Motorola, 2=Nokia, 3=Panasonic, 4=Psion 5=Intel
+6=Cogent 7=Cirrus 8=…</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>ManufacturerHardwareRev </code></p></td><td class="Cell">
+<p>Manufacturer-specific: 0x100=1.00 etc</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>ManufacturerSoftwareRev</code></p></td><td class="Cell">
+<p>Manufacturer-specific: 0x100=1.00 etc</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>ManufacturerSoftwareBuild</code></p></td><td class="Cell">
+<p>Manufacturer-specific: 257 etc</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>MachineUID</code></p></td><td class="Cell">
+<p>Device specific values for products (see epoc32\include\hal_data.h):</p><p>EMachineUid_Series5mx=0x1000118a,
+EMachineUid_Brutus=0x10005f60,
+EMachineUid_Cogent=0x10005f61,
+EMachineUid_Win32Emulator=0x10005f62,
+EMachineUid_WinC=0x10005f63,
+EMachineUid_CL7211_Eval=0x1000604f</p>
+</td></tr><tr valign="top"><td class="Cell">
+<p><code>DeviceFamily</code></p></td><td class="Cell">
+<p>0=Crystal, 1=Pearl, 2=Quartz</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>DeviceFamilyRev</code></p></td><td class="Cell">
+<p>0x600=6.0, 0x610=6.1 etc</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>CPU</code></p></td><td class="Cell">
+<p>0=ARM, 1=MCORE, 2=x86</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>CPUArch</code></p></td><td class="Cell">
+<p>0x400=ARM4, 0x410=ARM4T, 0x500=ARM5, 0x300=M340,
+???=x86</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>CPUABI</code></p></td><td class="Cell">
+<p>0=ARM4, 1=ARMI, 2=THUMB, 3=MCORE, 4=MSVC</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>CPUSpeed</code></p></td><td class="Cell">
+<p>CPU clock speed/1024: eg 36864=36MHz</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>SystemTickPeriod</code></p></td><td class="Cell">
+<p>Tick period in microseconds</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>SystemSpeed</code></p></td><td class="Cell">
+<p>Approximate speed relative to Series5=100</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>MemoryRAM</code></p></td><td class="Cell">
+<p>eg 0x800000</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>MemoryROM</code></p></td><td class="Cell">
+<p>eg 0xC00000</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>MemoryPageSize</code></p></td><td class="Cell">
+<p>eg 0x1000</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>PowerBackup</code></p></td><td class="Cell">
+<p>0=none, 1=supported</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>Keyboard </code></p></td><td class="Cell">
+<p>0=none, or bitmask of: 1=EKeyboard_Keypad,
+2=EKeyboard_Full</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>KeyboardDeviceKeys </code></p></td><td class="Cell">
+<p>Number of device-specific keys: e.g. 5</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>KeyboardAppKeys </code></p></td><td class="Cell">
+<p>Number of application keys: e.g. 8</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>KeyboardClick</code></p></td><td class="Cell">
+<p>0=none, 1=supported</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>KeyboardClickVolumeMax</code></p></td><td class="Cell">
+<p>eg 1</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>DisplayXPixels</code></p></td><td class="Cell">
+<p>eg 640</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>DisplayYPixels</code></p></td><td class="Cell">
+<p>eg 200</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>DisplayXTwips</code></p></td><td class="Cell">
+<p>eg 3200</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>DisplayYTwips</code></p></td><td class="Cell">
+<p>eg 1440</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>DisplayColors</code></p></td><td class="Cell">
+<p>2, 4, 16, 256, 65535 etc.</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>DisplayContrastMax</code></p></td><td class="Cell">
+<p>e.g. 37</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>Backlight</code></p></td><td class="Cell">
+<p>0=none, 1=supported</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>Pen</code></p></td><td class="Cell">
+<p>0=none, 1=supported</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>PenX</code></p></td><td class="Cell">
+<p>e.g. 695</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>PenY</code></p></td><td class="Cell">
+<p>e.g. 280</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>PenDisplayOn</code></p></td><td class="Cell">
+<p>0=no, 1=yes</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>PenClick</code></p></td><td class="Cell">
+<p>0=none, 1=supported</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>PenClickVolumeMax</code></p></td><td class="Cell">
+<p>e.g. 1</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>Mouse</code></p></td><td class="Cell">
+<p>0=none, 1=supported</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>MouseX</code></p></td><td class="Cell">
+<p>e.g. 640</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>MouseY</code></p></td><td class="Cell">
+<p>e.g. 200</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>MouseButtons</code></p></td><td class="Cell">
+<p>e.g. 2</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>CaseSwitch</code></p></td><td class="Cell">
+<p>0=none, 1=supported</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>LEDs</code></p></td><td class="Cell">
+<p>e.g. 2</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>IntegratedPhone</code></p></td><td class="Cell">
+<p>0=none, 1=supported</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>NumHalAttributes</code></p></td><td class="Cell">
+<p>Number of supported HAL attributes</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>Language</code></p></td><td class="Cell">
+<p>Machine language</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>RemoteInstall</code></p></td><td class="Cell">
+<p>0=Symbian OS based install, 1=installation via a
+PC</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>Option&lt;n&gt;</code></p></td><td class="Cell">
+<p>0=option not selected, 1=option selected</p></td></tr></table></td></tr></table>
+<a name="1.7.11"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Note:</h3>
+</div><div class="Bodytext">
+<p>Option&lt;n&gt; attributes behave as global variables, which is
+significant if there is an options line both in a main <code class="filename">sis</code> file
+and an embedded <code class="filename">sis</code> file. </p>
+<a name="1.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Options Line</h2>
+</div><div class="Bodytext">
+<p>Option lines are used to display a list of options to the user. The
+option required is selected and will usually control the installation of
+optional components later on in the<code class="filename"> .sis</code> file. The syntax of the
+options line is as follows:</p>
+<p><code>!(</code><code>{</code><code>&#8220;</code><code>Option1 string
+language 1</code><code>&#8221;,…, &#8220;</code><code>Option1 string
+language n }, …,{</code><code>&#8220;</code><code>Option m string
+language1</code><code>&#8221;</code><code>,…,</code><code>
+&#8220;</code><code>Option m string language
+n</code><code>&#8221;</code><code>}</code><code>)</code></p>
+<p>For example:</p>
+<p class="CodeBlock"><code>!({&quot;Add-on 1 (20KB)&quot;},{&quot;Add-on 2 (75KB)&quot;}, {&quot;Add-on 3 (80KB)&quot;},{&quot;Add-on 4 (20KB)&quot;})</code></p>
+<p>Selection affects the values of special built-in attributes (option1,
+option2, option3,…). If option 1 is selected then the value of the option1
+attribute will be 1, otherwise it would be 0. Condition-block statements that
+follow the option-line may test and act upon these selections. For
+example:</p>
+<p class="CodeBlock"><code>IF option1<br>&nbsp;&quot;addon1.opo&quot;-&quot;!:\System\Apps\MyApp\addon1.opo&quot;<br>ENDIF</code></p>
+<p>Ideally these lines should appear towards the start of the
+<code class="filename">pkg</code> file so that the user is prompted at the start of
+installation, however this is not required and the options may be displayed at
+any point in the installation</p>
+<a name="1.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Language independent files</h2>
+</div><div class="Bodytext">
+<p>Files which will be installed regardless of the language variant selected
+by the end user, are specified as follows;</p>
+<p><code>&quot;</code><code>Source</code><code>&quot;-&quot;</code><code>Destination</code><code>&quot;</code>[<code>,</code><code>Arguments</code>]</p>
+<p>For example: </p>
+<p class="CodeBlock"><code>&quot;epoc32ex\ToolsAndUtilities\HelloWorld.app&quot;-&quot;!:\system\apps\HelloWorld\HelloWorld.app&quot;</code></p>
+<p>The source is the path and filename for the source file on the PC. The
+destination is the target path and filename on the Symbian OS phone. A destination
+must be specified unless the file is a text file displayed at install time —
+text files are not installed. Consequently their destination is irrelevant, and
+may consist of empty quotes. </p>
+<p>A &#8220;!&#8221; character may be used in place of the drive letter
+if the user is to be given the choice of the drive to install the file to.
+</p>
+<p>Applications must be installed to
+<code class="filename">\system\apps\appname\appname.app</code>. Other component files which form
+part of the application, for example resource files and application information
+files, should reside in the same directory as the application. If the
+<code class="filename">\appname\</code> directory does not exist, it will be created.</p>
+<p>Files are installed in the order in which they are specified in the
+<code class="filename">pkg</code> file.</p>
+<p>If the file is used by other components, e.g. if it is a shared DLL for
+instance, you may want to avoid the possibility of it being overwritten by an
+earlier version. In this case, do not specify the file in this section.
+Instead, create a separate <code class="filename">sis</code> file for the shared file, including
+appropriate major, minor build numbers in the package header, and include the
+new <code class="filename">sis</code> file in the <code class="filename">sis</code> Component Files
+section.</p>
+<p>An optional comma-separated list of arguments following the destination
+file may be specified, to describe the type of file and how it will affect the
+installation or removal process.</p>
+<p>Use one of the following arguments to describe the type of file to
+install:</p><table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top"><td class="Cell">
+<p><code>FF</code></p></td><td class="Cell">
+<p><code>FILE</code></p></td><td class="Cell">
+<p>Standard file. This is the default.</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>FT</code></p></td><td class="Cell">
+<p><code>FILETEXT</code></p></td><td class="Cell">
+<p>A text file whose contents will be displayed in a dialog box during
+installation. The dialog will display either the default
+<code class="ProgramOutput">Continue</code> button, or <code class="ProgramOutput">Yes</code> and
+<code class="ProgramOutput">No</code> buttons, depending on other arguments specified. Text files
+are not installed on the target machine.</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>FN</code></p></td><td class="Cell">
+<p><code>FILENULL</code></p></td><td class="Cell">
+<p>A file which does not yet exist, so is not included in the
+<code class="filename">sis</code> file. It is created by the running application and will be
+deleted when the application is removed. The name assigned to the source file
+is unimportant and should be empty, i.e. &#8220;&#8221;. Note that such
+files will <em>not</em> be deleted when upgrading to a later version. This
+ensures that such files as <code class="filename">.ini</code> files, which store application
+preferences, are not lost in an upgrade.</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>FM</code></p></td><td class="Cell">
+<p><code>FILEMIME</code></p></td><td class="Cell">
+<p>A file which instructs the installer to pass the given file to the
+default application associated with the given mime type, e.g. a vcf for contact
+details. </p></td></tr><tr valign="top"><td class="Cell">
+<p>
+<code>FR</code></p></td><td class="Cell">
+<p><code>FILERUN</code></p></td><td class="Cell">
+<p>A file which will be installed on the Symbian OS phone, and run during
+installation and/or removal — depending on arguments <code>RI</code>,
+<code>RR</code>, <code>RB</code> described later. The file could be an
+executable, a document or an application. </p></td></tr></table></td></tr></table>
+<a name="1.9.14"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Notes:</h3>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>Text files displayed during install (using the FT option) should be in
+UTF8 or Unicode format and will be converted by the Installation File Generator
+to the correct format, i.e. Unicode.</p>
+</li>
+<li>
+<p>Note that where installation is controlled from a connected PC, and FR or
+FM options are used, the application will be started on the Symbian OS phone, not the
+PC and therefore if the application displays anything it will be on the Symbian OS phone, not the PC.</p>
+</li>
+</ul>
+<p>Use one of the following arguments for a text file, i.e. after
+<code>FT</code> has been specified, to determine how the text file dialog
+should be cancelled, and how cancellation should affect the
+installation:</p><table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top"><td class="Cell">
+<p><code>TC</code></p></td><td class="Cell">
+<p><code>TEXTCONTINUE</code></p></td><td class="Cell">
+<p>Use a <code class="ProgramOutput">Continue</code> button in the text file dialog. When the
+user presses this button the dialog is cancelled and the installation
+continues. This is the default.</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>TS</code></p></td><td class="Cell">
+<p><code>TEXTSKIP</code></p></td><td class="Cell">
+<p>Use <code class="ProgramOutput">Yes</code> and <code class="ProgramOutput">No</code> buttons in the text file
+dialog. If <code class="ProgramOutput">Yes</code> is pressed, the dialog is cancelled and the
+installation continues. If <code class="ProgramOutput">No</code> is pressed, the dialog is
+cancelled, and the installation will continue, but the next file or component
+specified in the <code class="filename">pkg</code> file will <em>not</em> be
+installed.</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>TE</code></p></td><td class="Cell">
+<p><code>TEXTEXIT</code></p></td><td class="Cell">
+<p>Use <code class="ProgramOutput">Yes</code> and <code class="ProgramOutput">No</code> buttons in the text file
+dialog. If <code class="ProgramOutput">Yes</code> is pressed, the dialog is cancelled and the
+installation continues. If <code class="ProgramOutput">No</code> is pressed, the installation is
+aborted and any installed files are removed.</p></td></tr><tr valign="top"><td class="Cell">
+<p>
+<code>TA</code></p></td><td class="Cell">
+<p><code>TEXTABORT</code></p></td><td class="Cell">
+<p>Use <code class="ProgramOutput">Yes</code> and <code class="ProgramOutput">No</code> buttons in the text file
+dialog. If <code class="ProgramOutput">Yes</code> is pressed, the dialog is cancelled and the
+installation continues. If <code class="ProgramOutput">No</code> is pressed, the installation is
+aborted — normally resulting in a partial
+installation.</p></td></tr></table></td></tr></table>
+<p>One of the following arguments may be specified for a file which will be
+run during the installation or removal process, i.e. after <code>FR</code> has
+been specified. If the file is a document, the appropriate application will be
+launched. For example, on installation, you may want to open a Word document
+providing information about the new application.</p><table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top"><td class="Cell">
+<p><code>RI</code></p></td><td class="Cell">
+<p><code>RUNINSTALL</code></p></td><td class="Cell">
+<p>Run the file during installation only. This is the
+default.</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>RR</code></p></td><td class="Cell">
+<p><code>RUNREMOVE</code></p></td><td class="Cell">
+<p>Run the file during removal only.</p>
+</td></tr><tr valign="top"><td class="Cell">
+<p><code>RB</code></p></td><td class="Cell">
+<p><code>RUNBOTH</code></p></td><td class="Cell">
+<p>Run the file during both installation and removal.</p>
+</td></tr></table></td></tr></table>
+<p>Use the following argument after RI, RR or RB has been
+specified.</p><table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top"><td class="Cell">
+<p><code>RE</code></p></td><td class="Cell">
+<p><code>RUNSENDEND</code></p></td><td class="Cell">
+<p>Indicates that the installer should send a shutdown message to the
+started program in order to shut it down when the installation is
+complete.</p></td></tr></table></td></tr></table>
+<a name="1.9.15"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Note</h3>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>If  RE is not specified, then the installer runs the file and
+continues with the installation. It does not wait for the started program to
+complete.</p>
+</li>
+</ul>
+<a name="Installing%2dref%2epkg%2dfdlang"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Language dependent files</h2>
+</div><div class="Bodytext">
+<p>This format is used to specify a list of files, of which only one will be
+installed, depending on the language selected by the user during
+installation:</p>
+<p><code>{ &quot;</code><code>Source
+FileName</code><code>&quot;</code>...<code>&quot;</code><code>Source
+FileName</code><code>&quot;</code><code>}-&quot;</code><code>Destination</code><code>&quot;</code>[<code>,</code><code>Arguments</code>]</p>
+<p>This format will commonly be used to specify lists of resource files.
+Like applications, resource files must be installed to
+<code class="filename">\system\apps\appname\appname.rsc</code>. If the <code class="filename">appname</code>
+directory does not exist, it will be created.</p>
+<p>For example;</p>
+<p class="CodeBlock"><code>{<br>&quot;\epoc32ex\ToolsAndUtilities\HelloWorld.ruk&quot;<br>&quot;\epoc32ex\ToolsAndUtilities\HelloWorld.rfr&quot;<br>&quot;\epoc32ex\ToolsAndUtilities\HelloWorld.rit&quot;<br>}-&quot;!:\system\apps\HelloWorld\HelloWorld.rsc&quot;</code></p>
+<p>Here, three compiled resource files are specified, but only one will be
+installed on the target machine. Whichever language is chosen, the resource
+file will be installed as <code class="filename">ikhello.rsc</code>.</p>
+<a name="1.10.9"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Notes</h3>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>The opening brace denotes the start of the block of language-dependent
+files.</p>
+</li>
+<li>
+<p>The order of the files should be the same as the order in which the
+languages were specified in the languages line</p>
+</li>
+<li>
+<p>The number of files specified must be the same as the number of languages
+supported.</p>
+</li>
+<li>
+<p>Options may appear after the destination name — as for the previous
+section, e.g. use FT to display a language specific dialog.</p>
+</li>
+</ul>
+<a name="Installing%2dref%2epkg%2drequisite"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Requisites</h2>
+</div><div class="Bodytext">
+<p>A requisite component is one that is required by the component which is
+being installed. It must be present on the target machine and its major and
+minor build numbers must be the same as, or greater than, those specified —
+otherwise installation will fail. Its name does not need to match the name
+specified, as it is identified by UID. However the name will be displayed to
+the user if there is a problem, e.g. the component is missing. </p>
+<p>A requisite component is specified in the following way;</p>
+<p><code>(</code><code>UID</code><code>),</code><code>Major</code><code>,</code><code>Minor</code><code>,</code><code>Build-Number</code><code>,{&quot;</code><code>Requisite
+Name1</code><code>&quot;, &quot;</code><code> Requisite
+Name2</code><code>&quot;}</code></p>
+<p>For example;</p>
+<p class="CodeBlock"><code>; Depends on STDLIB being installed<br>(0x100002c3), 1, 0, 14, {&quot;Standard C Library&quot;}</code></p>
+<a name="1.11.8"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Notes:</h3>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>When de-installation of a component involves the removal of another
+component's requisite files, the user is warned that continuing may prevent
+other programs from working.</p>
+</li>
+<li>
+<p>When the installer checks for the presence of requisites it uses the
+information specified in the package header of the target component's<code class="filename">
+pkg</code> file, see the Package header section.</p>
+</li>
+<li>
+<p>Installation files of type SISCONFIG, SISPATCH, and SISUPGRADE, must
+declare a dependency on the main component which they are affecting.</p>
+</li>
+</ul>
+<a name="Installing%2dref%2epkg%2dsiscomp"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2><code class="filename">Embedded sis</code> files</h2>
+</div><div class="Bodytext">
+<p>One or more embedded <code class="filename">sis</code> files may be specified, to be
+installed as part of the installation of the main component. Embedded
+<code class="filename">sis</code> files are removed when the component within which they were
+embedded is removed, provided no other component has a dependency upon
+them.</p>
+<p>They are specified in the following way;</p>
+<p><code>@</code>
+<code>source-filename</code><code>,(</code><code>component-uid</code><code>)</code></p>
+<p>For example;</p>
+<p class="CodeBlock"><code>@&quot;CsHelpExample.sis&quot;,(0x100002c3)</code></p>
+<a name="1.13"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Capabilities</h2>
+</div><div class="Bodytext">
+<p>A capabilities line is used in conjunction with the Symbian OS Connect
+capabilities manager, or with the <code class="filename">pkg</code>
+<code>appcap()</code>
+function in a condition block. The capabilities manager may be used to
+determine the capabilities of a device or installed applications. The
+capabilities line is specified in the following way;</p>
+<p><code>+(</code><code>capid</code><code>=</code><code>value</code><code>,…)</code></p>
+<p>Device and application capabilities may be used to control specific
+behaviour when software is installed via a <code class="filename">sis</code> file or PC based
+software.</p>
+<p>Device capabilities (hardware related) may also be set when the Symbian OS phone's ROM is built. The <code class="filename">pkg </code>file <code>devcap()</code> function
+may be used to query device capability values within a condition block. </p>
+<p>Application capabilities are defined when a <code class="filename">sis</code> file is
+created and stored on the device in the <code class="filename">sis</code> stub files.
+Application capabilities are key/value pairs whose meaning is application
+specific. The capid value is a unique application specific value and the
+associated value is an integer which may be queried via the capabilities
+manager PC based interface or using the <code>appcap()</code>
+<code class="filename">pkg</code>
+file syntax in an <code>IF…ENDIF</code> construct.</p>
+<a name="1.14"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Comments</h2>
+</div><div class="Bodytext">
+<p>Lines of comment are preceded by a semicolon. They are ignored by the
+Installation File Generator</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

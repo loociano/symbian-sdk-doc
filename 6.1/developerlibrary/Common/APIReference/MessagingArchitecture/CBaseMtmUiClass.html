@@ -1,0 +1,1765 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CBaseMtmUi</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CBaseMtmClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="CBaseMtmUiDataClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Messaging&nbsp;Architecture</a>&nbsp;<span class="separator">&#187;</span>
+CBaseMtmUi</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+<p>Location: <code>
+mtmuibas.h
+</code><br>Link against: <code>
+mtur.lib
+</code></p>
+</div><div class="Head1">
+<a name="%3a%3aCBaseMtmUi"></a>
+
+<h1>Class <code>CBaseMtmUi</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CBaseMtmUi</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Provides MTM-specific user interaction, such as editing, viewing, deleting, and copying of message entries.  </p>
+<p>Message client applications use the class to access such functionality polymorphically. MTM implementers implement a derived class to provide such functionality for their message protocol.</p>
+<p>The base class is largely an interface definition: it implements little important functionality itself. For implementers, this documentation defines conditions that any implementation must fulfil, plus suggested semantics for behaviour. This still leaves many decisions in the hands of the implementer. A key design time activity is to define how the particular characteristics of the implemented protocol are best mapped to the interface. As this class is concerned with user interfaces, implementers should be sensitive to the look and feel of the target devices.</p>
+<p>Many functions are required to return an instance of a <code>CMsvOperation</code>-derived class to provide asynchronous control and monitoring to the caller of the operation being performed. </p>
+<p>The following are some significant groups of functions:</p><p>Entry manipulation functions: <code>OpenL()</code>, <code>CloseL()</code>, <code>EditL()</code>, and <code>ViewL()</code> are all available in two overloaded versions. The first version operates on the current context. The second version operates upon groups of entries specified by a <code>CMsvEntrySelection</code> argument. All entries must be in same folder and all of the correct MTM type. The context may change after calling these functions. Concrete User Interface MTMs can legally ignore any of the entries within the selection&#8212;many may, for example, simply open the first entry.</p>
+<p>Copying and moving functions: the <code>CopyToL()</code>, <code>CopyFromL()</code>, <code>MoveToL()</code>, and <code>MoveFromL()</code> functions are concerned with copying and moving entries to and from remote servers. MTMs can implement these functions to provide any user interaction needed before copying or moving can proceed, such as dialogs to confirm settings; and, any protocol-specific setup steps that can be done at this stage: for example, a fax MTM could render messages into the required image format.</p>
+<p>Progress information functions: <code>DisplayProgressSummary()</code> and <code>GetProgress()</code> convert MTM-specific progress information about some asynchronous operation, such as message sending, to a human-readable form. The progress information to pass into these functions is, in general, obtained from an on-going <code>CMsvOperation</code> by calling <code>CMsvOperation::Progress()</code>. The nature of any information provided is MTM-specific. </p>
+<p>MTM-specific UI functions: MTM components can offer protocol-specific functionality not provided by base class interface functions. MTM components define IDs that correspond to each protocol-specific operation offered, and implement the <code>InvokeSyncFunctionL()</code> and <code>InvokeAsyncFunctionL()</code> functions to allow clients to access these operations by passing in the appropriate ID. Two functions are provided to allow the MTM component to offer both synchronous and asynchronous functionality. Message client applications can dynamically add user-interface features for these operations using <code>CBaseMtmUiData::MtmSpecificFunctions()</code>. MTM developers should document the IDs if they wish to make the operations available to clients. </p>
+<h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase">CBase</a></code></td><td class="Cell">Base class for all classes to be instantiated on the heap</td>
+</tr>
+<tr><td class="Cell"><code>CBaseMtmUi</code></td><td class="Cell">Provides MTM-specific user interaction, such as editing, viewing, deleting, and copying of message entries</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>CBaseMtmUi</code>:
+<br><code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aAnonymous" title="Progress information buffer length">Anonymous</a></code>, <code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aBaseMtm%28%29" title="Gets a reference to the Client-side MTM that requested this object">BaseMtm()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aCBaseMtmUi%28%29" title="Initialises member variables from the passed arguments">CBaseMtmUi()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aCancelL%28%29" title="Cancels the sending of specified messages">CancelL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aCloseL%28%29" title="Closes an entry">CloseL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aConstructL%28%29" title="Client applications do not use this function">ConstructL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aCopyFromL%28%29" title="Copies an entry selection from a remote service">CopyFromL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aCopyToL%28%29" title="Copies an entry selection to a remote service">CopyToL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aCreateL%28%29" title="Creates a new entry as a child">CreateL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aDeleteFromL%28%29" title="Deletes a selection of entries owned by the current context">DeleteFromL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aDeleteServiceL%28%29" title="Deletes a specified service entry">DeleteServiceL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aDisplayProgressSummary%28%29" title="Displays a message describing the progress of an operation">DisplayProgressSummary()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aEProgressStringMaxLen" title="Defines the maximum buffer length used in GetProgress() to hold progress information">EProgressStringMaxLen</a></code>, <code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aEditL%28%29" title="Edits an entry">EditL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aForwardL%28%29" title="Creates a forwarded message from the current message context, and allows the user to edit it through a message-type specific editor">ForwardL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aGetProgress%28%29" title="Obtains progress information description and statistics">GetProgress()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aGetResourceFileName%28%29" title="Implementations provide this function to set the full path and name of the resource file associated with the User Interface MTM">GetResourceFileName()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aInvokeAsyncFunctionL%28%29" title="Invokes asynchronous protocol-specific operations">InvokeAsyncFunctionL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aInvokeSyncFunctionL%28%29" title="Invokes synchronous protocol-specific operations">InvokeSyncFunctionL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aMoveFromL%28%29" title="Moves an entry selection from a remote service">MoveFromL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aMoveToL%28%29" title="Moves an entry selection to a remote service">MoveToL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aOpenL%28%29" title="Opens an entry">OpenL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aPreferEmbedded%28%29" title="Obtains whether launching message viewers and editors embedded in the calling application has been requested (through SetPreferEmbeddedL())">PreferEmbedded()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aPreferences%28%29" title="Gets flags that communicate the MTM's preferences to the application UI">Preferences()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aQueryCapability%28%29" title="Queries if the MTM supports a particular capability, specified by a UID">QueryCapability()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aReplyL%28%29" title="Creates a reply message to the current message context, and allows the user to edit it through a message-type specific editor">ReplyL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aSession%28%29" title="Gets a reference to the session object used by the Client-side MTM that requested the User Interface MTM">Session()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aSetPreferEmbeddedL%28%29" title="Requests that any message viewers or editors that are launched, for example when a message is created, are embedded in the calling application">SetPreferEmbeddedL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aSetPreferences%28%29" title="Sets flags that communicate the MTM's preferences to the application UI">SetPreferences()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aType%28%29" title="Gets the Type UID of the message type associated with the User Interface MTM">Type()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aUnDeleteFromL%28%29" title="Undeletes the specified selection">UnDeleteFromL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aViewL%28%29" title="Views an entry">ViewL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aiBaseMtm" title="The CBaseMtm-derived object (Client-side MTM) that requested the User Interface MTM">iBaseMtm</a></code>, <code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aiCoeEnv" title="CONE environment object">iCoeEnv</a></code>, <code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aiFlags" title="This flag records the preferences as set by SetPreferences()">iFlags</a></code>, <code class="ApiItem"><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3a%7eCBaseMtmUi%28%29" title="Cleans up the base class">~CBaseMtmUi()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap">CBase</a></code>:
+<br><code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase%3a%3aoperator%20new%28%29" title="Allocates the object from the heap and then initialises its contents to binary zeroes">operator new()</a></code></p>
+<a name="2.6"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction and destruction</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3aCBaseMtmUi%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CBaseMtmUi()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: CBaseMtmUi(CBaseMtm&amp; aBaseMtm, CRegisteredMtmDll&amp; aRegisteredMtmDll);</code></p><h4 class="subheading">Description</h4>
+<p>Initialises member variables from the passed arguments. Client applications do not use this function. It is relevant only to implementers of derived classes.</p>
+<p>The value of <code>aBaseMtm</code> is stored in the protected data member <code>iBaseMtm</code>, so it can be accessed by derived classes.</p>
+<p>Derived classes can implement a constructor to perform any additional MTM-specific setup that can be safely carried out in a constructor. Such constructors must call the base class constructor function.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CBaseMtm&amp; aBaseMtm
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The <code>CBaseMtm</code> requesting the object
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CRegisteredMtmDll&amp; aRegisteredMtmDll
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Registration data for the DLL
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3aConstructL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ConstructL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: virtual void ConstructL();</code></p><h4 class="subheading">Description</h4>
+<p>Client applications do not use this function. It is relevant only to implementers of derived classes.</p>
+<p>Requirements:</p>
+<p>Derived classes implement two-phase construction functions (<code>NewL()</code>, <code>ConstructL()</code>) to create a new instance of the object, in which any dynamic allocation should be performed. <code>ConstructL()</code> should be called from the <code>NewL()</code> function of the derived class.</p>
+<p>The default implementation of this function loads resources required by the base class. Derived classes can implement this function to perform any additional MTM-specific second stage construction tasks that they require. Implementations must call the base class <code>ConstructL()</code> function.</p>
+<p>Concrete MTMs must also implement a factory function by which a MTM registry can request an instance of the class.</p>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">Dependent on the implementation, this function may leave with system error codes.   </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MtmUiFactoryFunctionLTypedef.html#%3a%3aMtmUiFactoryFunctionL" title="A concrete User Interface MTM must implement an exported factory function of this type"><code class="ApiItem">MtmUiFactoryFunctionL</code></a></li>
+</ul>
+<a name="2.6.4"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3aGetResourceFileName%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetResourceFileName()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: virtual void GetResourceFileName(TFileName&amp; aFileName) const = 0;</code></p><h4 class="subheading">Description</h4>
+<p>Implementations provide this function to set the full path and name of the resource file associated with the User Interface MTM. Client applications do not use this function. It is relevant only to implementers of derived classes.</p>
+<p>Requirements:</p>
+<p>The function is called by <code>CBaseMtmUi::ConstructL()</code>, which then loads the resource file.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TFileName&amp; aFileName
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Filename buffer to be filled with the resource file path and name
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.5"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3a%7eCBaseMtmUi%28%29"></a>
+<hr size="1" noshade>
+<h3><code>~CBaseMtmUi()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual ~CBaseMtmUi();</code></p><h4 class="subheading">Description</h4>
+<p>Cleans up the base class. <code>CBaseMtmUi</code>-derived objects must be deleted by client applications when they are no longer required. </p>
+<p>Derived classes can implement a destructor to do any additional clean up tasks that they require.</p>
+<a name="2.7"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Embedding preference</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3aSetPreferEmbeddedL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetPreferEmbeddedL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetPreferEmbeddedL(TBool aEmbedIfPossible);</code></p><h4 class="subheading">Support</h4>
+<p>Withdrawn in 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Requests that any message viewers or editors that are launched, for example when a message is created, are embedded in the calling application.  </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TBool aEmbedIfPossible
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue</code>: request embedding
+<code>EFalse</code>: do not request embedding
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">This function does not leave.  </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3aPreferEmbedded%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PreferEmbedded()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool PreferEmbedded() const;</code></p><h4 class="subheading">Support</h4>
+<p>Withdrawn in 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Obtains whether launching message viewers and editors embedded in the calling application has been requested (through <code>SetPreferEmbeddedL()</code>).</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TBool
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue</code>: embedding requested
+<code>EFalse</code>: embedding not requested
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.4"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3aSetPreferences%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetPreferences()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetPreferences(TUint aFlags);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Sets flags that communicate the MTM's preferences to the application UI.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aFlags</code></td>
+<td class="Cell"><p class="ValueDesc">Bitmask of preference flags</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="ConstantsUIMTMPrefs.html#MTM%2eUI%2epreference%2eflags" title="UI MTM preference flags">MTM UI preference flags</a></li>
+</ul>
+<a name="2.7.5"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3aPreferences%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Preferences()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TUint Preferences() const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Gets flags that communicate the MTM's preferences to the application UI.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint</code></td>
+<td class="Cell"><p class="ValueDesc">Bitmask of preference flags</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="ConstantsUIMTMPrefs.html#MTM%2eUI%2epreference%2eflags" title="UI MTM preference flags">MTM UI preference flags</a></li>
+</ul>
+<a name="2.8"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Accessors</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3aBaseMtm%28%29"></a>
+<hr size="1" noshade>
+<h3><code>BaseMtm()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CBaseMtm&amp; BaseMtm() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a reference to the Client-side MTM that requested this object.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CBaseMtm&amp;
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Client-side MTM that requested this object
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3aSession%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Session()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CMsvSession&amp; Session() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a reference to the session object used by the Client-side MTM that requested the User Interface MTM.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvSession&amp;
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Session object used by the Client-side MTM
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.4"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3aType%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Type()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TUid Type() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the Type UID of the message type associated with the User Interface MTM.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TUid
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+UID of the message type associated with the MTM
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Entry creation</h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3aCreateL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CreateL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual CMsvOperation* CreateL(const TMsvEntry&amp; aEntry, CMsvEntry&amp; aParent, TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Creates a new entry as a child. Typically, after creating the entry, the function would launch a suitable interface, such as a message editor, for the user to edit the new entry.</p>
+<p>The returned <code>CMsvOperation</code> object completes when creation is complete (for example, when the message editor application is closed).</p>
+<p>Requirements:</p>
+<p>The default implementation simply calls <code>aParent.CreateL()</code> to create the entry. If creating entries is not supported, implementations should leave with <code>KErrNotSupported</code>. Otherwise, implementations should:</p>
+<ul><li><p>check <code>aEntry.iType.iUid</code> to ensure that they can create the requested type of entry and leave with code <code>KErrNotSupported</code> if they cannot</p></li>
+<li><p>return a <code>CMsvOperation</code>-derived object to provide asynchronous control and monitoring of the operation</p></li>
+<li><p>for messages, launch a suitable editor application developed for the message type.</p></li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TMsvEntry&amp; aEntry
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The data to be copied into the new entry
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvEntry&amp; aParent
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The parent of the new entry
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The request status to be completed when the operation has finished
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvOperation*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+If successful, this is an asynchronously completing create operation.
+If failed, this is a completed operation, with status set to the relevant error code.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotSupported
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The requested type of entry cannot be created
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+Other leave codes
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Dependent on implementation
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Entry manipulation</h2>
+</div><div class="Bodytext">
+<a name="2.10.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3aOpenL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>OpenL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual CMsvOperation* OpenL(TRequestStatus&amp; aStatus) = 0;<br>virtual CMsvOperation* OpenL(TRequestStatus&amp; aStatus, const CMsvEntrySelection&amp; aSelection) = 0; </code></p><h4 class="subheading">Description</h4>
+<p>Opens an entry. The behaviour that this implies is dependent on the current context:</p>
+<ul><li><p>for message contexts, <code>OpenL()</code> is the equivalent of <code>EditL()</code>, or for read-only messages, <code>ViewL()</code>. Whether opening of remote messages is allowed is MTM-specific.</p></li>
+<li><p>for service contexts, the function may initiate a connection to obtain the service contents from the server, completing asynchronously</p></li>
+<li><p>for remote folder contexts, dependent on implementation, the function may initiate a connection to obtain the folder contents from the server, completing asynchronously</p></li>
+</ul><p>The returned <code>CMsvOperation</code> object completes when opening is complete.</p>
+<p>Requirements:</p>
+<p>If opening entries is not supported, implementations should leave with <code>KErrNotSupported</code>. Otherwise, implementations should:</p>
+<ul><li><p>check <code>aEntry.iType.iUid</code> to ensure that they can open the requested type of entry and leave with code <code>KErrNotSupported</code> if they cannot</p></li>
+<li><p>return a <code>CMsvOperation</code>-derived object to provide asynchronous control and monitoring of the operation</p></li>
+<li><p>for remote messages, typically, copy the messages to the Inbox</p></li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The request status to be completed when the operation has finished
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const CMsvEntrySelection&amp; aSelection
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Selection of message entries
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvOperation*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+If successful, this is an asynchronously completing open operation.
+If failed, this is a completed operation, with status set to the relevant error code.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotSupported
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The User Interface MTM does not support open operations, or opening is inappropriate to the current context
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+Other leave codes
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Dependent on implementation
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.3"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3aCloseL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CloseL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual CMsvOperation* CloseL(TRequestStatus&amp; aStatus) = 0;<br>virtual CMsvOperation* CloseL(TRequestStatus&amp; aStatus, const CMsvEntrySelection&amp; aSelection) = 0;</code></p><h4 class="subheading">Description</h4>
+<p>Closes an entry. The behaviour that this implies is dependent on the current context:</p>
+<ul><li><p>for message contexts, this usually closes any launched editors or viewers</p></li>
+<li><p>for folder contexts, leaves with <code>KErrNotSupported</code></p></li>
+<li><p>for service contexts, causes closure of a connection to a server</p></li>
+</ul><p>The returned <code>CMsvOperation</code> object completes when closing is complete.</p>
+<p>Requirements:</p>
+<p>Implementations should:</p>
+<ul><li><p>check <code>aEntry.iType.iUid</code> to ensure that they can close the requested type of entry and leave with code <code>KErrNotSupported</code> if they cannot</p></li>
+<li><p>return a <code>CMsvOperation</code>-derived object to provide asynchronous control and monitoring of the operation</p></li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The request status to be completed when the operation has finished
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const CMsvEntrySelection&amp; aSelection
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Selection of message entries
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvOperation*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+If successful, this is an asynchronously completing close operation.
+If failed, this is a completed operation, with status set to the relevant error code.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotSupported
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The User Interface MTM does not support close operations, or closing is inappropriate to the current context
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+Other leave codes
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Dependent on implementation
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.4"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3aEditL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>EditL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual CMsvOperation* EditL(TRequestStatus&amp; aStatus) = 0;<br>virtual CMsvOperation* EditL(TRequestStatus&amp; aStatus, const CMsvEntrySelection&amp; aSelection) = 0;  </code></p><h4 class="subheading">Description</h4>
+<p>Edits an entry. The behaviour that this implies is dependent on the current context:</p>
+<ul><li><p>for message contexts, this usually launches the appropriate message editor, or returns status <code>KErrReadOnly</code> if the message is not editable</p></li>
+<li><p>for remote folder contexts, launches a settings dialog, for example to rename the folder, completing asynchronously</p></li>
+<li><p>for service contexts, launches a service settings dialog, completing asynchronously</p></li>
+</ul><p>The returned <code>CMsvOperation</code> object completes when editing is complete.</p>
+<p>Requirements:</p>
+<p>Implementations should:</p>
+<ul><li><p>check <code>aEntry.iType.iUid</code> to ensure that they can edit the requested type of entry and leave with code <code>KErrNotSupported</code> if they cannot</p></li>
+<li><p>return a <code>CMsvOperation</code>-derived object to provide asynchronous control and monitoring of the operation</p></li>
+<li><p>for remote messages, typically, copy the messages to the Inbox</p></li>
+<li><p>follow the leave protocols described in Leave considerations below</p></li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The request status to be completed when the operation has finished
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const CMsvEntrySelection&amp; aSelection
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Selection of message entries
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvOperation*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+If successful, this is an asynchronously completing edit operation.
+If failed, this is a completed operation, with status set to the relevant error code.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotSupported
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The User Interface MTM does not support edit operations, or editing is inappropriate to the current context
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrReadOnly
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Context is read-only
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+Other leave codes
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Dependent on implementation
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.5"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3aViewL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ViewL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual CMsvOperation* ViewL(TRequestStatus&amp; aStatus) = 0;<br>virtual CMsvOperation* ViewL(TRequestStatus&amp; aStatus, const CMsvEntrySelection&amp; aSelection) = 0;  </code></p><h4 class="subheading">Description</h4>
+<p>Views an entry. For message contexts, this usually launches the appropriate message viewer. Other context types leave with <code>KErrNotSupported</code>. The returned <code>CMsvOperation</code> object completes when viewing is complete.</p>
+<p>Requirements:</p>
+<p>Implementations should:</p>
+<ul><li><p>check <code>aEntry.iType.iUid</code> to ensure that they can view the requested type of entry and leave with code <code>KErrNotSupported</code> if they cannot</p></li>
+<li><p>return a <code>CMsvOperation</code>-derived object to provide asynchronous control and monitoring of the operation</p></li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The request status to be completed when the operation has finished
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const CMsvEntrySelection&amp; aSelection
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Selection of message entries
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvOperation*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+If successful, this is an asynchronously completing view operation.
+If failed, this is a completed operation, with status set to the relevant error code.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotSupported
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The User Interface MTM does not support view operations, or viewing is inappropriate to the current context
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+Other leave codes
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Dependent on implementation
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.6"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3aCancelL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CancelL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual CMsvOperation* CancelL(TRequestStatus&amp; aStatus, <br>const CMsvEntrySelection&amp; aSelection) = 0;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Cancels the sending of specified messages.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The request status to be completed when the operation has finished
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const CMsvEntrySelection&amp; aSelection
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Selection of message entries
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvOperation*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+If successful, this is an asynchronously completing cancel operation.
+If failed, this is a completed operation, with status set to the relevant error code.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotSupported
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The User Interface MTM does not support cancel operations, or cancelling is inappropriate to the current context
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+Other leave codes
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Dependent on implementation
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.7"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3aDeleteFromL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DeleteFromL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual CMsvOperation* DeleteFromL(const CMsvEntrySelection&amp; aSelection, TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Deletes a selection of entries owned by the current context. The current context must be a folder or service of the relevant MTM. The returned <code>CMsvOperation</code> object completes when deleting is complete. </p>
+<p>Requirements:</p>
+<p>The default implementation simply calls <code>CMsvEntry::DeleteL()</code> to delete the entries.  Implementations can override this to provide any additional checking or user interaction. If deleting entries is not supported, implementations should leave with <code>KErrNotSupported</code>.</p>
+<p>Where this function is implemented, it should return a <code>CMsvOperation</code>-derived object to provide asynchronous control and monitoring of the operation.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const CMsvEntrySelection&amp; aSelection
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Selection of message entries
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The request status to be completed when the operation has finished
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvOperation*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+If successful, this is an asynchronously completing delete operation.
+If failed, this is a completed operation, with status set to the relevant error code.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotSupported
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The User Interface MTM does not support delete operations, or deleting is inappropriate to the current context
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+Other leave codes
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Dependent on implementation
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.8"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3aUnDeleteFromL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>UnDeleteFromL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual CMsvOperation* UnDeleteFromL(const CMsvEntrySelection&amp; aSelection, TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Undeletes the specified selection.</p><p>The default implementation leaves with <code>KErrNotSupported</code>.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const CMsvEntrySelection&amp; aSelection
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Selection of message entries
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The request status to be completed when the operation has finished
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvOperation*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+If successful, this is an asynchronously completing undelete operation.
+If failed, this is a completed operation, with status set to the relevant error code.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotSupported
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The User Interface MTM does not support undelete operations, or undeleting is inappropriate to the current context
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+Other leave codes
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Dependent on implementation
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.9"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3aDeleteServiceL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DeleteServiceL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual CMsvOperation* DeleteServiceL(const TMsvEntry&amp; aService, TRequestStatus&amp; aStatus); </code></p><h4 class="subheading">Description</h4>
+<p>Deletes a specified service entry. This entry does not have to be the current context. The usual behaviour is to remove the service settings, disabling further use of that service. The returned <code>CMsvOperation</code> object completes when deleting is complete.</p>
+<p>Requirements:</p>
+<p>The default implementation calls <code>CMsvEntry::DeleteL()</code> to delete the entry. Implementations can override this to provide any additional checking or user interaction. If deleting services is not supported, implementations should leave with <code>KErrNotSupported</code>.</p>
+<p>Where this function is implemented, it should return a <code>CMsvOperation</code>-derived object to provide asynchronous control and monitoring of the operation.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TMsvEntry&amp; aService
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Service to delete
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The request status to be completed when the operation has finished
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvOperation*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+If successful, this is an asynchronously completing delete operation.
+If failed, this is a completed operation, with status set to the relevant error code.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotSupported
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+This User Interface MTM does not support delete service operations
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+Other leave codes
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Dependent on implementation
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Message responding</h2>
+</div><div class="Bodytext">
+<a name="2.11.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3aReplyL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ReplyL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual CMsvOperation* ReplyL(TMsvId aDestination, TMsvPartList aPartlist, TRequestStatus&amp; aCompletionStatus) = 0;</code></p><h4 class="subheading">Description</h4>
+<p>Creates a reply message to the current message context, and allows the user to edit it through a message-type specific editor. Some MTMs may support inclusion of elements, specified by <code>aPartlist</code>, from the original message in the reply. The parent for the new entry is specified in <code>aDestination</code>.  The returned <code>CMsvOperation</code> object completes when editing the reply is complete. On completion, the context is set to the reply message.</p>
+<p>Requirements:</p>
+<p>A typical implementation for this function would include the following steps: </p>
+<ul><li><p>create a new reply entry by calling <code>CBaseMtm::ReplyL()</code></p></li>
+<li><p>call <code>EditL()</code> allow the user to edit the reply</p></li>
+<li><p>return a <code>CMsvOperation</code>-derived object to provide asynchronous control and monitoring of the operation</p></li>
+</ul><p>If message replies are not supported, implementations should leave with <code>KErrNotSupported</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId aDestination
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The entry to which to assign the reply
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvPartList aPartlist
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Defines the parts which are to be copied from the original message into the reply. See <code>CBaseMtm::ReplyL()</code> for details.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aCompletionStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The request status to be completed when the operation has finished
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvOperation*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+If successful, this is an asynchronously completing reply operation.
+If failed, this is a completed operation, with status set to the relevant error code.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotSupported
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The User Interface MTM does not support reply operations
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+Other leave codes
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Dependent on implementation
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.3"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3aForwardL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ForwardL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual CMsvOperation* ForwardL(TMsvId aDestination, TMsvPartList aPartList, TRequestStatus&amp; aCompletionStatus) = 0;</code></p><h4 class="subheading">Description</h4>
+<p>Creates a forwarded message from the current message context, and allows the user to edit it through a message-type specific editor. Some MTMs may support inclusion of elements, specified by <code>aPartlist</code>, from the original message in the forwarded message. The parent for the new entry is specified in <code>aDestination</code>. The returned <code>CMsvOperation</code> object completes when editing the forwarded message is complete. On completion, the context is set to the forwarded message.</p>
+<p>Requirements:</p>
+<p>A typical implementation for this function would include the following steps:</p>
+<ul><li><p>create a new forwarded message entry by calling <code>CBaseMtm::ForwardL()</code></p></li>
+<li><p>call <code>EditL()</code> allow the user to edit the forwarded message</p></li>
+<li><p>return a <code>CMsvOperation</code>-derived object to provide asynchronous control and monitoring of the operation</p></li>
+</ul><p>If forwarded messages are not supported, implementations should leave with <code>KErrNotSupported</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId aDestination
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The entry to which to assign the forwarded message
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvPartList aPartlist
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Defines the parts which are to be copied from the original message into the forwarded message
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aCompletionStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The request status to be completed when the operation has finished
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvOperation*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+If successful, this is an asynchronously completing forward message operation.
+If failed, this is a completed operation, with status set to the relevant error code.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotSupported
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The User Interface MTM does not support forwarded messages
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+Other leave codes
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Dependent on implementation
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Copying and moving</h2>
+</div><div class="Bodytext">
+<h4 class="subheading">Description</h4>
+<p>The functions in this section are concerned with copying and moving entries to and from remote servers. MTMs can implement these functions to provide:</p><ul><li><p>any user interaction needed before copying or moving can proceed, such as dialogs to confirm settings</p></li>
+<li><p>any protocol-specific setup steps that can be done at this stage: for example, a fax MTM could render messages into the required image format</p></li>
+</ul>
+<a name="2.12.3"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3aCopyToL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CopyToL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual CMsvOperation* CopyToL(const CMsvEntrySelection&amp; aSelection, TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Copies an entry selection to a remote service. All entries in the selection must have the same parent. The current context must be the MTM folder or service to which to copy. The returned <code>CMsvOperation</code> object completes when copying the entries is complete.</p>
+<p>The usual result of this function is to send messages. It is called by ER5 Email application when the user chooses to send the messages in the Outbox. The exact behaviour varies between MTMs: for example, a Fax MTM would transmit a fax when asked to copy a fax from a local folder to a fax service. </p>
+<p>Requirements:</p>
+<p>The default implementation calls <code>CMsvEntry::CopyL()</code> to do the copy. If message copying is not supported, implementations should leave with <code>KErrNotSupported</code>.</p>
+<p>Where this function is implemented, it should return a <code>CMsvOperation</code>-derived object to provide asynchronous control and monitoring of the operation.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const CMsvEntrySelection&amp; aSelection
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Selection of message entries
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The request status to be completed when the operation has finished
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvOperation*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+If successful, this is an asynchronously completing copy operation.
+If failed, this is a completed operation, with status set to the relevant error code.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotSupported
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The User Interface MTM does not support copy to operations
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+Other leave codes
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Dependent on implementation
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.4"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3aMoveToL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>MoveToL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual CMsvOperation* MoveToL(const CMsvEntrySelection&amp; aSelection, TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Moves an entry selection to a remote service. All entries in the selection must have the same parent. The current context must be the MTM folder or service to which to move the entries. The returned <code>CMsvOperation</code> object completes when moving the entries is complete.</p>
+<p>The usual result of this function is to send messages, in a similar way to <code>CopyToL()</code>. The difference is that <code>CopyToL()</code> does not remove the original entries. The function is called by ER5 Email application when the user cuts a message and pastes it to a remote destination. </p>
+<p>The exact behaviour varies between MTMs, as described for <code>CopyToL()</code>.</p>
+<p>Requirements:</p>
+<p>The default implementation calls <code>CMsvEntry::MoveL()</code> to do the move. Implementations are likely to be similar to those for <code>CopyToL()</code>, and may indeed share code.</p>
+<p>If an MTM does not support message moving, then it should leave with value <code>KErrNotSupported</code>.</p>
+<p>Where this function is implemented, it should return a <code>CMsvOperation</code>-derived object to provide asynchronous control and monitoring of the operation.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const CMsvEntrySelection&amp; aSelection
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Selection of message entries
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The request status to be completed when the operation has finished
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvOperation*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+If successful, this is an asynchronously completing move operation.
+If failed, this is a completed operation, with status set to the relevant error code.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotSupported
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The User Interface MTM does not support move to operations
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+Other leave codes
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Dependent on implementation
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.5"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3aCopyFromL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CopyFromL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual CMsvOperation* CopyFromL(const CMsvEntrySelection&amp; aSelection, TMsvId aTargetId, TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Copies an entry selection from a remote service. All entries in the selection must have the same parent. The current context must be the MTM folder or service from which to copy. The returned <code>CMsvOperation</code> object completes when copying the entries is complete.</p>
+<p>The usual result of this function is to get messages. It is called when the user copies and pastes messages from a remote service. The exact behaviour varies between MTMs. </p>
+<p>Requirements:</p>
+<p>The default implementation calls <code>CMsvEntry::CopyL()</code> to do the copy. If message copying is not supported, implementations should leave with <code>KErrNotSupported</code>.</p>
+<p>Where this function is implemented, it should return a <code>CMsvOperation</code>-derived object to provide asynchronous control and monitoring of the operation.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const CMsvEntrySelection&amp; aSelection
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Selection of message entries
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId aTargetId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The ID of the entry to own the copies
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The request status to be completed when the operation has finished
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvOperation*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+If successful, this is an asynchronously completing copy operation.
+If failed, this is a completed operation, with status set to the relevant error code.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotSupported
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The User Interface MTM does not support copy from operations
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+Other leave codes
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Dependent on implementation
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.6"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3aMoveFromL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>MoveFromL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual CMsvOperation* MoveFromL(const CMsvEntrySelection&amp; aSelection, TMsvId aTargetId, TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Moves an entry selection from a remote service. All entries in the selection must have the same parent. The current context must be the MTM folder or service from which to move. The returned <code>CMsvOperation</code> object completes when moving the entries is complete.</p>
+<p>The usual result of this function is to get messages, in a similar way to <code>CopyFromL()</code>. The difference is that <code>CopyFromL()</code> does not remove the original entries. The function is called by ER5 Email application when the user chooses the Move to Inbox command. </p>
+<p>Requirements:</p>
+<p>The default implementation calls <code>CMsvEntry::MoveL()</code> to do the move. Implementations are likely to be similar to those for <code>CopyToL()</code>, and may indeed share code.</p>
+<p>If an MTM does not support message moving, then it should leave with value <code>KErrNotSupported</code>.</p>
+<p>Where this function is implemented, it should return a <code>CMsvOperation</code>-derived object to provide asynchronous control and monitoring of the operation.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const CMsvEntrySelection&amp; aSelection
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Selection of message entries
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId aTargetId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The entry ID of the remote service
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The request status to be completed when the operation has finished
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvOperation*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+If successful, this is an asynchronously completing move operation.
+If failed, this is a completed operation, with status set to the relevant error code.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotSupported
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The User Interface MTM does not support get operations
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+Other leave codes
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Dependent on implementation
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Progress information</h2>
+</div><div class="Bodytext">
+<a name="2.13.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3aDisplayProgressSummary%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DisplayProgressSummary()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt DisplayProgressSummary(const TDesC8&amp; aProgress) const; </code></p><h4 class="subheading">Description</h4>
+<p>Displays a message describing the progress of an operation. </p>
+<p>Requirements:</p>
+<p>The default implementation simply returns <code>KErrNotSupported</code>. </p>
+<p>Implementations should unpack the passed <code>aProgress</code> buffer, construct from this a suitable message, and display it. The implementation of this function should share an understanding of the format of the buffer with the implementations of <code>CMsvOperation</code>-derived classes.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TDesC8&amp; aProgress
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Progress information obtained from a call to <code>CMsvOperation::Progress()</code>
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+A system error code
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.3"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3aGetProgress%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetProgress()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt GetProgress(const TDesC8&amp; aProgress,<br>&nbsp;&nbsp;&nbsp;&nbsp;TBuf&lt;EProgressStringMaxLen&gt;&amp; aReturnString, <br>&nbsp;&nbsp;&nbsp;&nbsp;TInt&amp; aTotalEntryCount, TInt&amp; aEntriesDone, <br>&nbsp;&nbsp;&nbsp;&nbsp;TInt&amp; aCurrentEntrySize, TInt&amp; aCurrentBytesTrans) const; </code></p><h4 class="subheading">Description</h4>
+<p>Obtains progress information description and statistics. A message client application can then display this information to the user. </p>
+<p>Requirements:</p>
+<p>The default implementation returns <code>KErrNotSupported</code>.</p>
+<p>Implementations should unpack the passed <code>aProgress</code> buffer, and fill in the return values appropriately. The implementation of this function should share an understanding of the format of the buffer with the implementations of <code>CMsvOperation</code>-derived classes.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TDesC8&amp; aProgress
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+MTM-specific transfer progress information
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TBuf&lt;EProgressStringMaxLen&gt;&amp; aReturnString
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+On return, a string describing the progress status
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt&amp; aTotalEntryCount
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+On return, the total number of entries the operation is acting upon
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt&amp; aEntriesDone
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+On return, the number of entries which the operation has completed on
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt&amp; aCurrentEntrySize
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+On return, the size of the current entry the operation is acting upon
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt&amp; aCurrentBytesTrans
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+On return, the number of bytes of the current entry which have been completed
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+A system error code
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>MTM capabilities</h2>
+</div><div class="Bodytext">
+<a name="2.14.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3aQueryCapability%28%29"></a>
+<hr size="1" noshade>
+<h3><code>QueryCapability()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt QueryCapability(TUid aCapability, TInt&amp; aResponse);</code></p><h4 class="subheading">Description</h4>
+<p>Queries if the MTM supports a particular capability, specified by a UID. For MTM-specific UIDs, see the documentation for the relevant MTM.</p>
+<p>Requirements:</p>
+<p>The default implementation calls <code>iBaseMtm-&gt;QueryCapability()</code> (i.e. the corresponding function on the Client-side MTM) to do the query. This is sufficient for many implementations. </p>
+<p>However, it is expected that each MTM-specific function is indicated by a capability. For example, if the MTM supports a function with UID <code>KMtmUiMessagingXYZ</code>, then there might be a capability <code>KMtmUiQueryMessagingXYZ</code>. Therefore, if different MTM-specific functions are supported by a User Interface MTM and by the corresponding Client-side MTM, this function should be implemented to reflect this.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TUid aCapability
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Capability for which to query
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt&amp; aResponse
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+On return, indicates whether the capability is supported, or some other property of the capability..
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code> if successful,
+<code>KErrNotSupported</code>: <code>aCapability</code> is not a recognised value
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="ConstantsGeneralCapabilities.html#Messaging%2ecapabilities%2egeneral">Capability constants: general</a></li>
+<li><a href="ConstantsUICapabilities.html#Messaging%2eCapabilityIDsUI%2euids">Capability constants: UI and UI Data</a></li>
+<li><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aInvokeAsyncFunctionL%28%29" title="Invokes asynchronous protocol-specific operations"><code class="ApiItem">InvokeAsyncFunctionL()</code></a></li>
+<li><a href="CBaseMtmUiClass.html#%3a%3aCBaseMtmUi%3a%3aInvokeSyncFunctionL%28%29" title="Invokes synchronous protocol-specific operations"><code class="ApiItem">InvokeSyncFunctionL()</code></a></li>
+</ul>
+<a name="2.15"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>MTM-specific UI functionality</h2>
+</div><div class="Bodytext">
+<a name="2.15.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3aInvokeAsyncFunctionL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>InvokeAsyncFunctionL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual CMsvOperation* InvokeAsyncFunctionL(TInt aFunctionId, const CMsvEntrySelection&amp; aSelection, TRequestStatus&amp; aCompletionStatus, TDes8&amp; aParameter);</code></p><h4 class="subheading">Description</h4>
+<p>Invokes asynchronous protocol-specific operations. For synchronous operations, a similar function, <code>InvokeSyncFunctionL()</code>, is available.</p>
+<p><code>aSelection</code> and <code>aParameter</code> allow data to be passed to the operation. The <code>TRequestStatus</code> and <code>CMsvOperation</code> objects are used as normal to control and monitor the operation.</p>
+<p>Requirements:</p>
+<p>The default implementation calls the corresponding function on the Client-side MTM (through <code>iBaseMtm</code>). This is sufficient for many implementations. However, there may be certain MTM-specific functions which require interaction with the user. These should be implemented here.</p>
+<p><code>InvokeAsyncFunctionL()</code> should return a <code>CMsvOperation</code>-derived object to provide asynchronous control and monitoring of the operation.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt aFunctionId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+ID of the requested function
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const CMsvEntrySelection&amp; aSelection
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Selection of message entries. This is used if the operation requires message entries to work on.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TDes8&amp; aParameter
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Buffer containing input and output parameters. The format of this is specific to the operation.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aCompletionStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The request status to be completed when the operation has finished
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvOperation*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+If successful, this is an asynchronously completing operation.
+If failed, this is a completed operation, with status set to the relevant error code.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotSupported
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>aFunctionId</code>  is not a recognised function ID
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+Other leave codes
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Dependent on implementation
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15.3"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3aInvokeSyncFunctionL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>InvokeSyncFunctionL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void InvokeSyncFunctionL(TInt aFunctionId, const CMsvEntrySelection&amp; aSelection, TDes8&amp; aParameter);</code></p><h4 class="subheading">Description</h4>
+<p>Invokes synchronous protocol-specific operations. For asynchronous operations, a similar function, <code>InvokeAsyncFunctionL()</code>, is available.</p>
+<p><code>aSelection</code> and <code>aParameter</code> allow data to be passed to the operation. </p>
+<p>Requirements:</p>
+<p>The default implementation calls the corresponding function on the Client-side MTM (through <code>iBaseMtm</code>). This is sufficient for many implementations. However, there may be certain MTM-specific functions which require interaction with the user. These should be implemented here.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt aFunctionId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+ID of the requested function
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const CMsvEntrySelection&amp; aSelection
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Selection of message entries. This is used if the operation requires message entries to work on.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TDes8&amp; aParameter
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Buffer containing input and output parameters. The format of this is specific to the operation.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotSupported
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>aFunctionId</code>  is not a recognised function ID
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+Other leave codes
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Dependent on implementation
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Protected data members</h2>
+</div><div class="Bodytext">
+<a name="2.16.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3aiBaseMtm"></a>
+<hr size="1" noshade>
+<h3><code>iBaseMtm</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CBaseMtm&amp; iBaseMtm</code></p><h4 class="subheading">Description</h4>
+<p>The <code>CBaseMtm</code>-derived object (Client-side MTM) that requested the User Interface MTM. It is set by the constructor. </p>
+<a name="2.16.3"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3aiCoeEnv"></a>
+<hr size="1" noshade>
+<h3><code>iCoeEnv</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CCoeEnv* iCoeEnv</code></p><h4 class="subheading">Description</h4>
+<p>CONE environment object. It is set by the constructor.</p>
+<a name="2.16.4"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3aiFlags"></a>
+<hr size="1" noshade>
+<h3><code>iFlags</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt iFlags</code></p><h4 class="subheading">Support</h4>
+<p>Withdrawn in 6.0
+</p><h4 class="subheading">Description</h4>
+<p>This flag records the embedding preference as set by <code>SetPreferEmbeddedL()</code>. It is set to <code>EMtmUiFlagPreferEmbedded</code> when embedding is preferred.</p>
+<a name="2.16.5"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3aiFlags"></a>
+<hr size="1" noshade>
+<h3><code>iFlags</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TUint iFlags</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>This flag records the preferences as set by <code>SetPreferences()</code>. </p>
+<a name="2.17"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Enumerations</h2>
+</div><div class="Bodytext">
+<a name="2.17.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUi%3a%3aAnonymous"></a>
+<hr size="1" noshade>
+<h3>Enum <code>Anonymous</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>Anonymous</code></p><h4 class="subheading">Description</h4>
+<p>Progress information buffer length.</p><p></p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCBaseMtmUi%3a%3aEProgressStringMaxLen"><code class="Value">EProgressStringMaxLen</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Defines the maximum buffer length used in <code>GetProgress()</code> to hold progress information</para>
+</p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

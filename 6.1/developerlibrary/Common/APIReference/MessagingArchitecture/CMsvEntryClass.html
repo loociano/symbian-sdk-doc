@@ -1,0 +1,1680 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CMsvEntry</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CMsgActiveClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="CMsvEntryFilterClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Messaging&nbsp;Architecture</a>&nbsp;<span class="separator">&#187;</span>
+CMsvEntry</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+<p>Location: <code>
+msvapi.h
+</code><br>Link against: <code>
+msgs.lib
+</code></p>
+</div><div class="Head1">
+<a name="%3a%3aCMsvEntry"></a>
+
+<h1>Class <code>CMsvEntry</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CMsvEntry</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Accesses and acts upon a particular Message Server entry. The current entry that a <code>CMsvEntry</code> object relates is referred to as its context. </p>
+<p>It may be helpful to consider <code>CMsvEntry</code> functions in two broad groups. The first provides means to access the various types of storage associated with an entry. The second provides a means to discover and access other entries that the entry owns (its children). </p>
+<p>Message client applications, Client-side MTMs, and User Interface MTMs all commonly use <code>CMsvEntry</code> objects. <code>CMsvEntry</code> objects though represent a lower level of access to an entry than that provided by a Client-side MTM or User Interface MTM. In particular, any MTM-specific functionality, such as address lists or subject fields, must be accessed by a message client application through an MTM inteface.</p><p>A <code>CMsvEntry</code> object is relatively expensive in RAM usage, as it caches its children, updating them as necessary when notified of changes. They should therefore be created sparingly.</p>
+<p>Note that Server-side MTMs do not use this class, but a similar one, <code>CMsvServerEntry</code>.</p>
+<p>In pre-Unicode versions this class had the import library mcld.lib.</p>
+<h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase">CBase</a></code></td><td class="Cell">Base class for all classes to be instantiated on the heap</td>
+</tr>
+<tr><td class="Cell"><code>CMsvEntry</code></td><td class="Cell">Accesses and acts upon a particular Message Server entry</td>
+</tr>
+<tr><td class="Cell"><code><a href="MMsvSessionObserverClass.html#%3a%3aMMsvSessionObserver">MMsvSessionObserver</a></code></td><td class="Cell">Provides the interface for notification of events from a Message Server session</td>
+</tr>
+<tr><td class="Cell"><code><a href="MMsvStoreObserverClass.html#%3a%3aMMsvStoreObserver">MMsvStoreObserver</a></code></td><td class="Cell">An intermediary class used in the derivation of CMsvServerEntry and CMsvEntry</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>CMsvEntry</code>:
+<br><code class="ApiItem"><a href="CMsvEntryClass.html#%3a%3aCMsvEntry%3a%3aAddObserverL%28%29" title="Registers an observer for the object">AddObserverL()</a></code>, <code class="ApiItem"><a href="CMsvEntryClass.html#%3a%3aCMsvEntry%3a%3aChangeL%28%29" title="Sets the context's index entry to the specified values">ChangeL()</a></code>, <code class="ApiItem"><a href="CMsvEntryClass.html#%3a%3aCMsvEntry%3a%3aChildDataL%28%29" title="Gets the index entry of context's child with the specified ID">ChildDataL()</a></code>, <code class="ApiItem"><a href="CMsvEntryClass.html#%3a%3aCMsvEntry%3a%3aChildEntryL%28%29" title="Gets a new CMsvEntry object with its context set to the child entry ID">ChildEntryL()</a></code>, <code class="ApiItem"><a href="CMsvEntryClass.html#%3a%3aCMsvEntry%3a%3aChildrenL%28%29" title="Gets a selection containing the IDs of all the context children">ChildrenL()</a></code>, <code class="ApiItem"><a href="CMsvEntryClass.html#%3a%3aCMsvEntry%3a%3aChildrenWithMtmL%28%29" title="Gets a selection containing the IDs of all the context children filtered by MTM type">ChildrenWithMtmL()</a></code>, <code class="ApiItem"><a href="CMsvEntryClass.html#%3a%3aCMsvEntry%3a%3aChildrenWithServiceL%28%29" title="Gets a selection containing the IDs of all the context children filtered by message service">ChildrenWithServiceL()</a></code>, <code class="ApiItem"><a href="CMsvEntryClass.html#%3a%3aCMsvEntry%3a%3aChildrenWithTypeL%28%29" title="Gets a selection containing the IDs of all the context children filtered by entry type">ChildrenWithTypeL()</a></code>, <code class="ApiItem"><a href="CMsvEntryClass.html#%3a%3aCMsvEntry%3a%3aCopyL%28%29" title="Creates copies of children of the context as new entries owned by the specified target ID">CopyL()</a></code>, <code class="ApiItem"><a href="CMsvEntryClass.html#%3a%3aCMsvEntry%3a%3aCount%28%29" title="Gets the number of children of the context">Count()</a></code>, <code class="ApiItem"><a href="CMsvEntryClass.html#%3a%3aCMsvEntry%3a%3aCreateL%28%29" title="Creates a new child entry owned by the context synchronously">CreateL()</a></code>, <code class="ApiItem"><a href="CMsvEntryClass.html#%3a%3aCMsvEntry%3a%3aDeleteL%28%29" title="Deletes child entries of the context">DeleteL()</a></code>, <code class="ApiItem"><a href="CMsvEntryClass.html#%3a%3aCMsvEntry%3a%3aEditStoreL%28%29" title="Gets the message store for the current context with read-write access">EditStoreL()</a></code>, <code class="ApiItem"><a href="CMsvEntryClass.html#%3a%3aCMsvEntry%3a%3aEntry%28%29" title="Gets the index entry for the context">Entry()</a></code>, <code class="ApiItem"><a href="CMsvEntryClass.html#%3a%3aCMsvEntry%3a%3aEntryId%28%29" title="Gets the ID of the context">EntryId()</a></code>, <code class="ApiItem"><a href="CMsvEntryClass.html#%3a%3aCMsvEntry%3a%3aGetFilePath%28%29" title="Gets the context's binary file directory">GetFilePath()</a></code>, <code class="ApiItem"><a href="CMsvEntryClass.html#%3a%3aCMsvEntry%3a%3aHasDirectory%28%29" title="Checks if the context has an associated binary files directory">HasDirectory()</a></code>, <code class="ApiItem"><a href="CMsvEntryClass.html#%3a%3aCMsvEntry%3a%3aHasDirectoryL%28%29" title="Checks if the context has an associated binary files directory">HasDirectoryL()</a></code>, <code class="ApiItem"><a href="CMsvEntryClass.html#%3a%3aCMsvEntry%3a%3aHasStore%28%29" title="Checks if the context has an associated message store">HasStore()</a></code>, <code class="ApiItem"><a href="CMsvEntryClass.html#%3a%3aCMsvEntry%3a%3aHasStoreL%28%29" title="Checks if the context has an associated message store">HasStoreL()</a></code>, <code class="ApiItem"><a href="CMsvEntryClass.html#%3a%3aCMsvEntry%3a%3aMoveL%28%29" title="Moves children of the context to become entries owned by the target entry">MoveL()</a></code>, <code class="ApiItem"><a href="CMsvEntryClass.html#%3a%3aCMsvEntry%3a%3aNewL%28%29" title="Creates a new CMsvEntry for the specified entry ID">NewL()</a></code>, <code class="ApiItem"><a href="CMsvEntryClass.html#%3a%3aCMsvEntry%3a%3aOwningService%28%29" title="Gets the ID of the service entry that owns the context">OwningService()</a></code>, <code class="ApiItem"><a href="CMsvEntryClass.html#%3a%3aCMsvEntry%3a%3aReadStoreL%28%29" title="Obtains the message store for the current context with read-only access">ReadStoreL()</a></code>, <code class="ApiItem"><a href="CMsvEntryClass.html#%3a%3aCMsvEntry%3a%3aRemoveObserver%28%29" title="Unregisters an observer previously registered with AddObserverL()">RemoveObserver()</a></code>, <code class="ApiItem"><a href="CMsvEntryClass.html#%3a%3aCMsvEntry%3a%3aSession%28%29" title="Gets the Message Server session used by this object">Session()</a></code>, <code class="ApiItem"><a href="CMsvEntryClass.html#%3a%3aCMsvEntry%3a%3aSetEntryL%28%29" title="Sets the context to the specified entry">SetEntryL()</a></code>, <code class="ApiItem"><a href="CMsvEntryClass.html#%3a%3aCMsvEntry%3a%3aSetMtmListL%28%29" title="Sets the MTM order to the specified sort order">SetMtmListL()</a></code>, <code class="ApiItem"><a href="CMsvEntryClass.html#%3a%3aCMsvEntry%3a%3aSetSortTypeL%28%29" title="Sets the sort order that is used when listing children, for example with ChildrenL()">SetSortTypeL()</a></code>, <code class="ApiItem"><a href="CMsvEntryClass.html#%3a%3aCMsvEntry%3a%3aSortType%28%29" title="Gets the current sort order of children of the entry">SortType()</a></code>, <code class="ApiItem"><a href="CMsvEntryClass.html#%3a%3aCMsvEntry%3a%3aoperator%5b%5d%28%29" title="Gets the index entry of the child at the position specified by the array index">operator[]()</a></code>, <code class="ApiItem"><a href="CMsvEntryClass.html#%3a%3aCMsvEntry%3a%3a%7eCMsvEntry%28%29" title="Cleans up the object">~CMsvEntry()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap">CBase</a></code>:
+<br><code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase%3a%3aoperator%20new%28%29" title="Allocates the object from the heap and then initialises its contents to binary zeroes">operator new()</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="MMsvSessionObserverClass.html#%3a%3aMMsvSessionObserver" title="Provides the interface for notification of events from a Message Server session">MMsvSessionObserver</a></code>:
+<br><code class="ApiItem"><a href="MMsvSessionObserverClass.html#%3a%3aMMsvSessionObserver%3a%3aEMsvCloseSession" title="The client should immediately close the session with the Message Server">EMsvCloseSession</a></code>,
+<code class="ApiItem"><a href="MMsvSessionObserverClass.html#%3a%3aMMsvSessionObserver%3a%3aEMsvCorruptedIndexRebuilding" title="The Message Server has started to rebuild its index after it has been corrupted">EMsvCorruptedIndexRebuilding</a></code>,
+<code class="ApiItem"><a href="MMsvSessionObserverClass.html#%3a%3aMMsvSessionObserver%3a%3aEMsvCorruptedIndexRebuilt" title="The Message Server index had been corrupted and had to be rebuilt">EMsvCorruptedIndexRebuilt</a></code>,
+<code class="ApiItem"><a href="MMsvSessionObserverClass.html#%3a%3aMMsvSessionObserver%3a%3aEMsvGeneralError" title="Something has happening in the server, but this client was unable to retrieve the information">EMsvGeneralError</a></code>,
+<code class="ApiItem"><a href="MMsvSessionObserverClass.html#%3a%3aMMsvSessionObserver%3a%3aEMsvMediaAvailable" title="The disk containing the Message Store is available again">EMsvMediaAvailable</a></code>,
+<code class="ApiItem"><a href="MMsvSessionObserverClass.html#%3a%3aMMsvSessionObserver%3a%3aEMsvMediaChanged" title="The Message Server has automatically changed the index location to use the internal disk">EMsvMediaChanged</a></code>,
+<code class="ApiItem"><a href="MMsvSessionObserverClass.html#%3a%3aMMsvSessionObserver%3a%3aEMsvMediaIncorrect" title="An incorrect disk is inserted">EMsvMediaIncorrect</a></code>,
+<code class="ApiItem"><a href="MMsvSessionObserverClass.html#%3a%3aMMsvSessionObserver%3a%3aEMsvMediaUnavailable" title="The media (disk) containing the Message Server index has been removed">EMsvMediaUnavailable</a></code>,
+<code class="ApiItem"><a href="MMsvSessionObserverClass.html#%3a%3aMMsvSessionObserver%3a%3aEMsvMtmGroupDeInstalled" title="A MTM has been uninstalled">EMsvMtmGroupDeInstalled</a></code>,
+<code class="ApiItem"><a href="MMsvSessionObserverClass.html#%3a%3aMMsvSessionObserver%3a%3aEMsvMtmGroupInstalled" title="A new MTM has been installed">EMsvMtmGroupInstalled</a></code>,
+<code class="ApiItem"><a href="MMsvSessionObserverClass.html#%3a%3aMMsvSessionObserver%3a%3aEMsvServerFailedToStart" title="Received after a client has used CMsvSession::OpenAsyncL() to create a session">EMsvServerFailedToStart</a></code>,
+<code class="ApiItem"><a href="MMsvSessionObserverClass.html#%3a%3aMMsvSessionObserver%3a%3aEMsvServerReady" title="Received after a client has used CMsvSession::OpenAsyncL() to create a session">EMsvServerReady</a></code>,
+<code class="ApiItem"><a href="MMsvSessionObserverClass.html#%3a%3aMMsvSessionObserver%3a%3aEMsvServerTerminated" title="The Message Server has been terminated">EMsvServerTerminated</a></code>,
+<code class="ApiItem"><a href="MMsvSessionObserverClass.html#%3a%3aMMsvSessionObserver%3a%3aEMsvStoreCommitted" title="A CMsvStore has been committed">EMsvStoreCommitted</a></code>,
+<code class="ApiItem"><a href="MMsvSessionObserverClass.html#%3a%3aMMsvSessionObserver%3a%3aEMsvStoreCreated" title="An entry has just created a store">EMsvStoreCreated</a></code>,
+<code class="ApiItem"><a href="MMsvSessionObserverClass.html#%3a%3aMMsvSessionObserver%3a%3aEMsvStoreDeleted" title="A CMsvStore has been deleted">EMsvStoreDeleted</a></code>,
+<code class="ApiItem"><a href="MMsvSessionObserverClass.html#%3a%3aMMsvSessionObserver%3a%3aEmsvEntriesChanged" title="One or more index entries have been changed">EmsvEntriesChanged</a></code>,
+<code class="ApiItem"><a href="MMsvSessionObserverClass.html#%3a%3aMMsvSessionObserver%3a%3aEmsvEntriesDeleted" title="One or more entries have been deleted">EmsvEntriesDeleted</a></code>,
+<code class="ApiItem"><a href="MMsvSessionObserverClass.html#%3a%3aMMsvSessionObserver%3a%3aEmsvEntriesMoved" title="One or more entries have been moved">EmsvEntriesMoved</a></code>,
+<code class="ApiItem"><a href="MMsvSessionObserverClass.html#%3a%3aMMsvSessionObserver%3a%3aEmsvEntryCreated" title="One or more entries have been created">EmsvEntryCreated</a></code>,
+<code class="ApiItem"><a href="MMsvSessionObserverClass.html#%3a%3aMMsvSessionObserver%3a%3aHandleSessionEvent%28%29" title="Indicates an event has occurred--non leaving">HandleSessionEvent()</a></code>,
+<code class="ApiItem"><a href="MMsvSessionObserverClass.html#%3a%3aMMsvSessionObserver%3a%3aHandleSessionEventL%28%29" title="Indicates an event has occurred--leaving">HandleSessionEventL()</a></code>,
+<code class="ApiItem"><a href="MMsvSessionObserverClass.html#%3a%3aMMsvSessionObserver%3a%3aTMsvSessionEvent" title="Session event type">TMsvSessionEvent</a></code></p>
+<a name="2.6"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction and destruction</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aNewL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NewL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static CMsvEntry* NewL(CMsvSession&amp; aMsvSession, TMsvId aMsvId, const TMsvSelectionOrdering&amp; aSortType);</code></p><h4 class="subheading">Description</h4>
+<p>Creates a new <code>CMsvEntry</code> for the specified entry ID. </p>
+<p>Note that this function does not create a new entry, but simply a new object to access an existing entry. To create a new entry, use <code>CreateL()</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvSession&amp; aMsvSession
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The client&#8217;s Message Server session
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId aMsvId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+ID of the entry to access
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TMsvSelectionOrdering&amp; aSortType
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The initial sort order of children of the entry, for example, when returned by <code>ChildrenL()</code>. The order can be changed later by <code>SetSortTypeL()</code>.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvEntry*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+On return, if the function succeeds, this is a pointer to a newly allocated and initialised object.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotFound
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The requested entry does not exist
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNoMemory
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+A memory allocation failed
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3a%7eCMsvEntry%28%29"></a>
+<hr size="1" noshade>
+<h3><code>~CMsvEntry()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>~CMsvEntry();</code></p><h4 class="subheading">Description</h4>
+<p>Cleans up the object. <code>CMsvEntry</code> objects must be deleted by client applications when they are no longer required. Note that deleting a <code>CMsvEntry</code> object does not delete the context, simply the immediate means of accessing it.</p>
+<a name="2.7"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Index entry access</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aChangeL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ChangeL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ChangeL(const TMsvEntry&amp; aEntry);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the context&#8217;s index entry to the specified values. The function is performed synchronously.</p><p>This function can only be used on local entries.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TMsvEntry&amp; aEntry
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The new index entry values for the context
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrAccessDenied
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The entry is locked by another client
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrArgument
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>aEntry</code> is invalid or the ID specified in <code>aEntry</code> is not the same as the context ID
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNoMemory
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The operation could not be created or passed to the server
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aChangeL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ChangeL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CMsvOperation* ChangeL(const TMsvEntry&amp; aEntry, TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the context&#8217;s index entry to the specified values. The returned <code>CMsvOperation</code> object completes when the change is complete.</p>
+<p>It is important to note that the state of the context is undefined until the observer of the entry has been informed that the entry has been changed, or the operation is completed with an error. If the function leaves, the context is unchanged.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TMsvEntry&amp; aEntry
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The new index entry values for the context
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The request status to be completed when the operation has finished
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvOperation*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+An operation object controlling the change command
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrAccessDenied
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The entry is locked by another client
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrArgument
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>aEntry</code> is invalid or the ID specified in <code>aEntry</code> is not the same as the context ID
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNoMemory
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The operation could not be created or passed to the server
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.4"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aEntry%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Entry()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const TMsvEntry&amp; Entry() const; </code></p><h4 class="subheading">Description</h4>
+<p>Gets the index entry for the context.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvEntry&amp;
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Current context&#8217;s index entry
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.5"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aEntryId%28%29"></a>
+<hr size="1" noshade>
+<h3><code>EntryId()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TMsvId EntryId() const; </code></p><h4 class="subheading">Description</h4>
+<p>Gets the ID of the context.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Current context&#8217;s entry ID
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.6"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aOwningService%28%29"></a>
+<hr size="1" noshade>
+<h3><code>OwningService()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TMsvId OwningService() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the ID of the service entry that owns the context. </p>
+<p>Local entries are considered as being members of the local service: </p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+ID of the service entry that the context is under.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.7"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aSetEntryL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetEntryL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetEntryL(TMsvId aMsvId);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the context to the specified entry. </p>
+<p>If the function leaves, the context is unchanged.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId aMsvId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+ID of the message entry which is to become the new context
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotFound
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>aMsvId</code> could not be found in the index
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="Messaging%2eCMsvEntry%2estore"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Message store access</h2>
+</div><div class="Bodytext">
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aEditStoreL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>EditStoreL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CMsvStore* EditStoreL();</code></p><h4 class="subheading">Description</h4>
+<p>Gets the message store for the current context with read-write access. </p>
+<p>Only one client can edit a message store at one time. If another client is already writing to the store, <code>KErrAccessDenied</code> is returned. Other clients can be reading the store. </p>
+<p>If the message store does not exist when <code>EditStore()</code> is called, a new message store is created. </p>
+<p>The returned <code>CMsvStore</code> must be deleted when it is no longer required. </p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvStore*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Context&#8217;s message store open for read-write access
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrAccessDenied
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Store is locked by another process or the entry is read only
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNoMemory
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Not enough memory to open the store
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.4"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aHasStore%28%29"></a>
+<hr size="1" noshade>
+<h3><code>HasStore()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool HasStore() const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.1
+<br>Withdrawn in 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Checks if the context has an associated message store.</p>
+<p>In pre-Unicode versions a message store flag was available, and could be accessed through <code>TMsvEntry::Store()</code>. This function replaces that functionality.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TBool
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue: </code>entry has a message store
+<code>EFalse</code>: entry does not have a message store
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.5"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aHasStoreL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>HasStoreL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool HasStoreL() const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Checks if the context has an associated message store.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TBool
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue: </code>entry has a message store
+<code>EFalse</code>: entry does not have a message store
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.6"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aReadStoreL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ReadStoreL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CMsvStore* ReadStoreL();</code></p><h4 class="subheading">Description</h4>
+<p>Obtains the message store for the current context with read-only access. Multiple clients can read from a store simultaneously. If another client is already writing to the store, the function leaves with <code>KErrAccessDenied</code>. </p>
+<p>The returned <code>CMsvStore</code> must be deleted when it is no longer required. </p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvStore*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Context&#8217;s message store open for read-only access
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNoMemory
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Not enough memory to open store
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrAccessDenied
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Another client is currently writing to the store
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotFound
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+There is no store associated with this entry
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="Messaging%2eCMsvEntry%2ebinary"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Binary file directory</h2>
+</div><div class="Bodytext">
+<a name="2.9.3"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aGetFilePath%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetFilePath()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt GetFilePath(TFileName&amp; aDirectory) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the context&#8217;s binary file directory.</p>
+<p>If the directory specified in the context does not exist, it is created.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TFileName&amp; aDirectory
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+On return, contains the binary file directory path
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNone
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Success
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+Usual file server errors
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The server was unable to create the directory.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.4"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aHasDirectory%28%29"></a>
+<hr size="1" noshade>
+<h3><code>HasDirectory()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool HasDirectory() const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.1
+<br>Withdrawn in 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Checks if the context has an associated binary files directory.</p>
+<p>In pre-Unicode versions a Folder index flag was available, and could be accessed through <code>TMsvEntry::Folder()</code>. This function replaces that functionality.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TBool
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue: </code>entry has a binary files directory
+<code>EFalse</code>: entry does not have a binary files directory
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.5"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aHasDirectoryL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>HasDirectoryL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool HasDirectoryL() const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Checks if the context has an associated binary files directory.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TBool
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue: </code>entry has a binary files directory
+<code>EFalse</code>: entry does not have a binary files directory
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Observer functions</h2>
+</div><div class="Bodytext">
+<a name="2.10.2"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aAddObserverL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>AddObserverL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void AddObserverL(MMsvEntryObserver&amp; aObserver);</code></p><h4 class="subheading">Description</h4>
+<p>Registers an observer for the object. <code>CMsvEntry</code> objects can call back observer objects that implement the <code>MMsvEntryObserver</code> interface when certain events occur. Any number of observers can be registered.</p>
+<p>Observers are called primarily when the context changes state or contents. For details, see <code>MMsvEntryObserver::TMsvEntryEvent</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+MMsvEntryObserver&amp; aObserver
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The observer to be registered for events
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNoMemory
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Not enough memory to register the observer
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.3"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aRemoveObserver%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RemoveObserver()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void RemoveObserver(MMsvEntryObserver&amp; aObserver);</code></p><h4 class="subheading">Description</h4>
+<p>Unregisters an observer previously registered with <code>AddObserverL()</code>.  </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+MMsvEntryObserver&amp; aObserver
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+A reference to an observer to be unregistered for events
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Session</h2>
+</div><div class="Bodytext">
+<a name="2.11.2"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aSession%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Session()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CMsvSession&amp; Session(); </code></p><h4 class="subheading">Description</h4>
+<p>Gets the Message Server session used by this object. This is the same session passed by the client in <code>NewL()</code>. </p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvSession&amp;
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The session used by the object
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Sorting children </h2>
+</div><div class="Bodytext">
+<a name="2.12.2"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aSetMtmListL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetMtmListL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetMtmListL(const CArrayFix&lt;TUid&gt;&amp; aMtmList); </code></p><h4 class="subheading">Description</h4>
+<p>Sets the MTM order to the specified sort order. When children of an entry are sorted, entries belonging to the same MTM type can be grouped together. </p>
+<p>MTM grouping can be switched on or off through setting the appropriate <code>TMsvSelectionOrdering</code> value by <code>SetSortTypeL()</code>. </p>
+<p>If the function leaves, the sort order is unchanged.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const CArrayFix&lt;TUid&gt;&amp; aMtmList
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The order of MTMs to use for sorting
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNoMemory
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Insufficient memory to resort the entries
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.3"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aSetSortTypeL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetSortTypeL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetSortTypeL(const TMsvSelectionOrdering&amp; aSortType);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the sort order that is used when listing children, for example with <code>ChildrenL()</code>.</p>
+<p>If the function leaves, the sort order is unchanged.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TMsvSelectionOrdering&amp; aSortType
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Sort order to use
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNoMemory
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Insufficient memory to resort the entries
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.4"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aSortType%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SortType()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const TMsvSelectionOrdering&amp; SortType() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the current sort order of children of the entry. The sort order is initially set through <code>NewL()</code>.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvSelectionOrdering&amp;
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>Current sort order</code>
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Get children</h2>
+</div><div class="Bodytext">
+<a name="2.13.2"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aoperator%5b%5d%28%29"></a>
+<hr size="1" noshade>
+<h3><code>operator[]()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const TMsvEntry&amp; operator[](TInt aIndex) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the index entry of the child at the position specified by the array index. The child entries of the context can be considered as a zero-based array, with entries sorted according to the current sort order. </p>
+<p>Note:</p>
+<p>The function panics with E32USER-CBase 21 if <code>aIndex</code> was out of range.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt aIndex
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Array index
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvEntry&amp;
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Index entry for the specified child. Valid for in-range values of <code>aIndex</code>.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.3"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aChildDataL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ChildDataL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const TMsvEntry&amp; ChildDataL(TMsvId aMsvId) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the index entry of context&#8217;s child with the specified ID.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId aMsvId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+ID of the child
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvEntry&amp;
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Index entry for the specified child. Valid for in-range values of <code>aIndex</code>.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotFound
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+No child exists with that ID
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.4"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aChildEntryL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ChildEntryL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CMsvEntry* ChildEntryL(TMsvId aMsvId) const;&nbsp;&nbsp;&nbsp;&nbsp;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a new <code>CMsvEntry</code> object with its context set to the child entry ID. <code>aMsvId</code> must specify a child of the current context.</p>
+<p>The <code>CMsvEntry</code> object must be deleted by the client application when it is no longer required. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId aMsvId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+ID of a child entry
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvEntry*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>CMsvEntry</code> object with its context set to child entry
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotFound
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>aMsvId</code> does not specify a child of the context
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.5"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aChildrenL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ChildrenL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CMsvEntrySelection* ChildrenL() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a selection containing the IDs of all the context children. If the entry has no children, the selection is empty.</p>
+<p>The calling function is responsible for the deletion of the returned <code>CMsvEntrySelection</code>. </p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvEntrySelection*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+A selection containing the ID of all children of the context
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNoMemory
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Not enough memory to create the selection
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.6"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aChildrenWithMtmL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ChildrenWithMtmL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CMsvEntrySelection* ChildrenWithMtmL(TUid aMtm) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a selection containing the IDs of all the context children filtered by MTM type. i.e. the index entry&#8217;s <code>iMtm</code> field equals <code>aMtm</code>.</p>
+<p>If the entry has no such children, the selection is empty.</p>
+<p>The calling function is responsible for the deletion of the returned <code>CMsvEntrySelection</code>. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TUid aMtm
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+MTM type by which to filter
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvEntrySelection*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+A selection containing the ID of all children of the context meeting the criterion
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNoMemory
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Not enough memory to create the selection
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.7"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aChildrenWithServiceL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ChildrenWithServiceL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CMsvEntrySelection* ChildrenWithServiceL(TMsvId aId) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a selection containing the IDs of all the context children filtered by message service. ie. the index entry&#8217;s iServiceId field equals <code>aId</code>.</p>
+<p>If the entry has no such children, the selection is empty.</p>
+<p>The calling function is responsible for the deletion of the returned <code>CMsvEntrySelection</code>. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId aId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Service by which to filter
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvEntrySelection*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+List of IDs of all children of the context meeting the criterion
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNoMemory
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Not enough memory to create the selection
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.8"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aChildrenWithTypeL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ChildrenWithTypeL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CMsvEntrySelection* ChildrenWithTypeL(TUid aEntryType) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a selection containing the IDs of all the context children filtered by entry type. i.e. is the entry a folder, a message, etc.</p>
+<p>If the entry has no such children, the selection is empty.</p>
+<p>The calling function is responsible for the deletion of the returned <code>CMsvEntrySelection</code>. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TUid aEntryType
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Entry type by which to filter.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvEntrySelection*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+A selection containing the ID of all children of the context meeting the criterion
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNoMemory
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Not enough memory to create the selection
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="ConstantsEntryType.html#Messaging%2eentrytype%2econstants" title="Entry type constants">Messaging entry type constants</a></li>
+</ul>
+<a name="2.13.9"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aCount%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Count()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Count() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the number of children of the context.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Count of the child entries for the current context
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Create and delete children</h2>
+</div><div class="Bodytext">
+<a name="2.14.2"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aCreateL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CreateL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void CreateL(TMsvEntry&amp; aEntry);</code></p><h4 class="subheading">Description</h4>
+<p>Creates a new child entry owned by the context synchronously. </p>
+<p>Note that all session observers are notified when a new entry is created with an <code>EMsvEntriesCreated</code> event (see <code>TMsvSessionEvent</code>). <code>CMsvEntry</code> objects are such session observers themselves. When the object receives such a session notification, it calls all registered entry observers with a <code>TMsvEntryEvent</code> event <code>EMsvNewChildren</code>, passing in the ID of the new child.</p>
+<p>This function can only be used on local entries.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvEntry&amp; aEntry
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Index entry value for the new entry
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrArgument
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>aEntry</code> is invalid
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.3"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aCreateL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CreateL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CMsvOperation* CreateL(TMsvEntry&amp; aEntry, TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Creates a new child entry owned by the context synchronously.</p>
+<p>Note that all session observers are notified when a new entry is created with an <code>EMsvEntriesCreated</code> event (see <code>TMsvSessionEvent</code>). <code>CMsvEntry</code> objects are such session observers themselves. When the object receives such a session notification, it calls all registered entry observers with a <code>TMsvEntryEvent</code> event <code>EMsvNewChildren</code>, passing in the ID of the new child.</p>
+<p>The returned <code>CMsvOperation</code> object completes when creation is complete.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvEntry&amp; aEntry
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Index entry value for the new entry
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The request status to be completed when the operation has finished
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvOperation*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The operation object controlling the create command.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrArgument
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>aEntry</code> is invalid
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.4"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aDeleteL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DeleteL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void DeleteL(TMsvId aMsvId);</code></p><h4 class="subheading">Description</h4>
+<p>Deletes a child entry of the context synchronously. </p><p>The delete works recursively through all the descendants. If a child or any descendant is locked by another client or any store or file is open, then that child will not be deleted. Any files and stores associated with the entry are deleted.</p>
+<p>This function can only be used on local entries.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId aMsvId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+ID of entry to be deleted
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotFound
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The specified entry was not a child of the context
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.5"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aDeleteL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DeleteL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CMsvOperation* DeleteL(TMsvId aMsvId, TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Deletes a child entry of the context asynchronously.</p><p>The delete works recursively through all the descendants. If a child or any descendant is locked by another client or any store or file is open, then that child will not be deleted. Any files and stores associated with the entry are deleted.</p>
+<p>The returned <code>CMsvOperation</code> object completes when deletion is complete.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId aMsvId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+ID of entry to be deleted
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The request status to be completed when the operation has finished
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvOperation*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The operation object controlling the deletion command
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotFound
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The specified entry was not a child of the context
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.6"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aDeleteL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DeleteL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CMsvOperation* DeleteL(const CMsvEntrySelection&amp; aSelection);</code></p><h4 class="subheading">Description</h4>
+<p>Deletes child entries of the context. The delete works recursively through all the descendants.</p>
+<p>If a child or any descendant is locked by another client or any store or file is open, then that child will not be deleted. Any files and stores associated with the entries are deleted.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const CMsvEntrySelection&amp; aSelection
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+List of ID of the entries to be deleted
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotFound
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+A specified entry was not a child of the context
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.7"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aDeleteL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DeleteL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CMsvOperation* DeleteL(const CMsvEntrySelection&amp; aSelection, TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Deletes child entries of the context. The delete works recursively through all the descendants.</p>
+<p>If a child or any descendant is locked by another client or any store or file is open, then that child will not be deleted. Any files and stores associated with the entries are deleted.</p>
+<p>The returned <code>CMsvOperation</code> object completes when deletion is complete.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const CMsvEntrySelection&amp; aSelection
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+List of ID of the entries to be deleted
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The request status to be completed when the operation has finished
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvOperation*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The operation object controlling the deletion command
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotFound
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+A specified entry was not a child of the context
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Copy and move children</h2>
+</div><div class="Bodytext">
+<a name="2.15.2"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aCopyL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CopyL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CMsvOperation* CopyL(TMsvId aMsvId, TMsvId aTargetId, TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Creates a copy of a child of the context as a new entry owned by the specified target ID.</p><p> All descendants will be copied as well. Any files and stores associated with the entry are also copied.</p>
+<p>The returned <code>CMsvOperation</code> object completes when copying is complete.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId aMsvId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The ID of the entry to be copied
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId aTargetId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The ID of the entry to own the copy
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The request status to be completed when the operation has finished
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvOperation*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The operation object controlling the copy command.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNoMemory
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The operation could not be created or passed to the server
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotFound
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+An entry was not a child of the context
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15.3"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aCopyL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CopyL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CMsvOperation* CopyL(const CMsvEntrySelection&amp; aSelection, TMsvId aTargetId, TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Creates copies of children of the context as new entries owned by the specified target ID.</p><p> All descendants will be copied as well. Any files and stores associated with the entries are also copied.</p>
+<p>The returned <code>CMsvOperation</code> object completes when copying is complete.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const CMsvEntrySelection&amp; aSelection
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+List of IDs of the entries to be copied
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId aTargetId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The ID of the entry to own the copies
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The request status to be completed when the operation has finished
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvOperation*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The operation object controlling the copy command.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNoMemory
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The operation could not be created or passed to the server
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotFound
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+An entry was not a child of the context
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15.4"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aMoveL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>MoveL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CMsvOperation* MoveL(TMsvId aMsvId, TMsvId aTargetId, TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Moves a child of the context to become an entry owned by the target entry. </p><p>All descendants will be moved as well. Any files and stores associated with the entry are also moved.</p>
+<p>The returned <code>CMsvOperation</code> object completes when moving is complete.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId aMsvId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The ID of the entry to be moved
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId aTargetId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The ID of the entry to own the moved entries
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The request status to be completed when the operation has finished
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvOperation*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The operation object controlling the move command.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNoMemory
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The operation could not be created or passed to the server
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotFound
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+An entry was not a child of the context
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15.5"></a></div><div class="Head3">
+<a name="%3a%3aCMsvEntry%3a%3aMoveL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>MoveL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CMsvOperation* MoveL(const CMsvEntrySelection&amp; aSelection, TMsvId aTargetId, TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Moves children of the context to become entries owned by the target entry. </p><p>All descendants will be moved as well. Any files and stores associated with the entries are also moved.</p>
+<p>The returned <code>CMsvOperation</code> object completes when moving is complete.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const CMsvEntrySelection&amp; aSelection
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+List of IDs of the entries to be moved
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId aTargetId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The ID of the entry to own the moved entires
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The request status to be completed when the operation has finished
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvOperation*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The operation object controlling the move command.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNoMemory
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The operation could not be created or passed to the server
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotFound
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+An entry was not a child of the context
+</p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

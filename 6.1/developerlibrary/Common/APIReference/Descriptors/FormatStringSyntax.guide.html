@@ -1,0 +1,316 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Format string syntax</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="Descriptors%2eFormat%2dstring%2dsyntax"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="TRadixEnum.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="UsingTDes.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Descriptors</a>&nbsp;<span class="separator">&#187;</span>
+Format&nbsp;string&nbsp;syntax</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Format string syntax</h1>
+</div><div class="Bodytext">
+<p>
+<a href="TDes8Class.html#%3a%3aTDes8%3a%3aFormat%28%29" title="Formats and copies text into this descriptor, replacing any existing data"><code class="ApiItem">TDes8::Format()</code></a>,
+<a href="TDes16Class.html#%3a%3aTDes16%3a%3aFormat%28%29" title="Formats and copies text into this descriptor, replacing any existing data"><code class="ApiItem">TDes16::Format()</code></a> and some other functions take a format
+string containing literal text embedded with directives for converting a
+trailing list of arguments into text. Each formatting directive consumes a
+number of arguments from the trailing list; almost always one. Directives have
+the following syntax:</p>
+<div class="bnf">
+<dl><dt><code class="bnfName">&lt;<em>format-directive</em>&gt;</code> ::=</dt>
+<dd><code class="bnfName">&lt;<em>escaped-percent</em>&gt;</code> |
+<code class="bnfName">&lt;<em>simple-conversion</em>&gt;</code> |
+<code class="bnfName">&lt;<em>padded-conversion</em>&gt;</code> |
+<code class="bnfName">&lt;<em>aligned-conversion</em>&gt;</code></dd>
+<dt><code class="bnfName">&lt;<em>escaped-percent</em>&gt;</code> ::=</dt>
+<dd>"<code class="bnfLiteral"><strong>%%</strong></code>"</dd>
+</dl>
+</div>
+<p>Formatting directives begin with a &quot;<code>%</code>&quot;. To insert a
+percentage sign, use the digraph &quot;<code>%%</code>&quot;.</p>
+<div class="bnf">
+<dl>
+<dt><code class="bnfName">&lt;<em>simple-conversion</em>&gt;</code> ::=</dt>
+<dd>"<code class="bnfLiteral"><strong>%</strong></code>"
+<code class="bnfName">&lt;<em>conversion-specifier</em>&gt;</code></dd>
+</dl>
+</div>
+<p>Unpadded, dynamic-width formatting. Data from the argument list is
+converted without padding, and only occupies the space required. The
+<em class="metasyntactic"><a href="FormatStringSyntax.guide.html#Descriptors%2eFormat%2dstring%2dsyntax%2dconvspec" title="Format string syntax / Conversion specifiers">conversion specifier</a></em> descibes how the data is to be formatted into a
+string.</p>
+<div class="bnf">
+<dl><dt><code class="bnfName">&lt;<em>padded-conversion</em>&gt;</code> ::=</dt>
+<dd>"<code class="bnfLiteral"><strong>%</strong></code>"
+<code class="bnfName">&lt;<em>zero-or-space-pad</em>&gt;</code>
+<code class="bnfName">&lt;<em>field-width</em>&gt;</code> [ "<code class="bnfLiteral"><strong>.</strong></code>"
+<code class="bnfName">&lt;<em>precision</em>&gt;</code> ]
+<code class="bnfName">&lt;<em>conversion-specifier</em>&gt;</code></dd><dt><code class="bnfName">&lt;<em>zero-or-space-pad</em>&gt;</code> ::=</dt>
+<dd>"<code class="bnfLiteral"><strong>0</strong></code>" | "<code class="bnfLiteral"><strong>
+</strong></code>"</dd>
+</dl>
+</div>
+<p>Fixed-width, padded formatting. Data from the argument list is
+converted, but may not occupy more space than specified. If the width of the
+formatted data is less than the field width, the field is padded to the left
+with the specified character. If the width of the formatted string is greater
+than the field width, the result depends on the <em class="metasyntactic"><a href="FormatStringSyntax.guide.html#Descriptors%2eFormat%2dstring%2dsyntax%2dconvspec" title="Format string syntax / Conversion specifiers">conversion specifier</a></em>as follows:</p>
+<ul>
+<li>
+<p>If the conversion specifier is either: 'e', 'E', 'f', or 'F',
+i.e. the source data is a real number, then the value of the width is ignored
+and all generated characters are accepted. However, the maximum number of
+characters can never exceed the value of <code>KMaxRealWidth</code>.</p>
+</li>
+<li>
+<p>If the conversion specfier is either 'g' or 'G', i.e. the source
+data is a real number, then the value of the width is ignored and all generated
+characters are accepted. However, the maximum number of characters can never
+exceed the value of <code>KDefaultRealWidth</code>.</p>
+</li>
+<li>
+<p>If the conversion specifier is anything else, then the number of
+converted characters is limited to the width value. </p>
+</li>
+</ul>
+<p></p>
+<p>Note that for this formatting conversion, only a zero or a space is
+permitted for the pad character.</p>
+<div class="bnf">
+<dl><dt><code class="bnfName">&lt;<em>aligned-conversion</em>&gt;</code> ::=</dt>
+<dd>"<code class="bnfLiteral"><strong>%</strong></code>"
+<code class="bnfName">&lt;<em>alignment</em>&gt;</code>
+<code class="bnfName">&lt;<em>pad</em>&gt;</code>
+<code class="bnfName">&lt;<em>field-width</em>&gt;</code> [ "<code class="bnfLiteral"><strong>.</strong></code>"
+<code class="bnfName">&lt;<em>precision</em>&gt;</code> ]
+<code class="bnfName">&lt;<em>conversion-specifier</em>&gt;</code></dd>
+</dl>
+</div>
+<p>Formatting with alignment, arbitrary pad character and a specified
+field width. The full <em class="metasyntactic">aligned-conversion</em> is verbose, but
+permits characters other than a zero or a space to be used as the padding
+character. It also permits its value to be aligned within the field.</p>
+<p>Undefined terms are discussed below.</p>
+<a name="1.16"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Alignment specifiers</h2>
+</div><div class="Bodytext">
+<p>Formatted data whose width in characters is less than the width of
+the field can optionally be aligned to the left, or to the centre of the field.
+The default is right-alignment.</p>
+<p>The <em class="metasyntactic">alignment</em> specifier is a single character
+with one of the following values:</p>
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top"><th class="Cell">Spec</th><th class="Cell">Alignment</th></tr>
+<tr valign="top"><td class="Cell">
+<p><code>+</code></p></td><td class="Cell">
+<p> Right alignment</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>-</code></p></td><td class="Cell">
+<p> Left alignment</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>=</code></p></td><td class="Cell">
+<p> Centre alignment</p></td></tr></table></td></tr></table>
+<a name="1.17"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Field width specifiers</h2>
+</div><div class="Bodytext">
+<p>Data may be formatted into a field with a fixed or a dynamic width.
+Dynamic field widths require an extra argument.</p>
+<p>The <em class="metasyntactic">field-width</em> specifier is either a sequence
+of decimal digits which explicitly define the size of the field to be occupied
+by the converted data, or an asterisk ('<code>*</code>') character. An asterisk
+indicates that the size of the field is taken from the next
+<a href="../BasicTypes/TUintTypedef.html#%3a%3aTUint" title="Unsigned integer type of the natural machine word length"><code class="ApiItem">TUint</code></a> value in the argument list.</p>
+<a name="1.18"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Pad characters</h2>
+</div><div class="Bodytext">
+<p>Formatted data whose width in characters is less than the width of
+the field can optionally be padded with as many non-blank characters as are
+needed.</p>
+<p>The <em class="metasyntactic">pad</em> character may be any non-numeric
+character. If the pad character is an asterisk (&quot;<code>*</code>&quot;), then the
+next argument in the list is read, interpreted as a <code>TUint</code>, and
+used as the pad character. This feature may be used to pad with asterisk
+characters or a digit.</p>
+<a name="1.19"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Precision specifiers</h2>
+</div><div class="Bodytext">
+<p>A dot after a field width introduces a precision specifier. This is
+only useful when formatting real values. Precision specifiers are integers
+whose decimal values specify the number of decimal places to use when
+formatting the data. </p>
+<p>If the precision specifier is omitted, conversion defaults to
+<code>KDefaultPrecision</code> decimal places.</p>
+<a name="Descriptors%2eFormat%2dstring%2dsyntax%2dconvspec"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Conversion specifiers</h2>
+</div><div class="Bodytext">
+<p>The conversion of argument data is dictated by the value of the
+<em>conversion specifier</em> which consists of a single character. The
+case of this character is significant.</p>
+<p>The possible values for <em class="metasyntactic">conversion-specifier</em> are
+as follows:</p>
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top"><th class="Cell">Spec</th><th class="Cell">Interpretation and
+formatting</th></tr><tr valign="top"><td class="Cell">
+<p>b</p></td><td class="Cell">
+<p>Interpret the argument as a <code>TUint</code> and convert it
+to its binary character representation. This can be either upper or lower
+case.</p></td></tr><tr valign="top"><td class="Cell">
+<p>o</p></td><td class="Cell">
+<p>Interpret the argument as a <code>TUint</code> and convert it
+to its octal character representation. This can be either upper or lower
+case.</p></td></tr><tr valign="top"><td class="Cell">
+<p>d</p></td><td class="Cell">
+<p>Interpret the argument as a <code>TInt</code> and convert it
+to its signed decimal representation. This can be either upper or lower
+case.</p>
+<p>If the value is negative, the representation will be prefixed
+by a minus sign.</p></td></tr><tr valign="top"><td class="Cell">
+<p>e</p></td><td class="Cell">
+<p>Interpret the argument as a <code>TReal</code> and convert it
+to exponent format representation. Three digit exponents are allowed. (See also
+<code>TRealFormat</code>).</p>
+<p>(Note the lower case)</p></td></tr><tr valign="top"><td class="Cell">
+<p>E</p></td><td class="Cell">
+<p>Interpret the argument as a <code>TRealX</code> (or
+<code>TReal96</code> in EPOC Release 5), and convert it to exponent format
+representation. Three digit exponents are allowed (See also
+<code>TRealFormat</code>).</p>
+<p>(Note the upper case)</p></td></tr><tr valign="top"><td class="Cell">
+<p>f</p></td><td class="Cell">
+<p>Interpret the argument as a <code>TReal</code> and convert it
+to fixed format representation (See <code>TRealFormat</code>).</p>
+<p>(Note the lower case)</p></td></tr><tr valign="top"><td class="Cell">
+<p>F</p></td><td class="Cell">
+<p>Interpret the argument as a <code>TRealX</code> (or
+<code>TReal96</code> in EPOC Release 5), and convert it to fixed format
+representation (See <code>TRealFormat</code>).</p>
+<p>(Note the upper case)</p></td></tr><tr valign="top"><td class="Cell">
+<p>g</p></td><td class="Cell">
+<p>Interpret the argument as a <code>TReal</code> and convert it
+to either fixed or exponent format representation, whichever format can present
+the greater number of significant digits.</p>
+<p>If the exponent format is chosen, three digit exponents are
+allowed. (See also <code>TRealFormat</code>).</p>
+<p>(Note the lower case)</p></td></tr><tr valign="top"><td class="Cell">
+<p>G</p></td><td class="Cell">
+<p>Interpret the argument as a <code>TRealX</code> (or
+<code>TReal96</code> in EPOC Release 5), and convert it to either fixed or
+exponent format representation, whichever format can present the greater number
+of significant digits.</p>
+<p>If the exponent format is chosen, three digit exponents are
+allowed. (See also <code>TRealFormat</code>).</p>
+<p>(Note the upper case)</p></td></tr><tr valign="top"><td class="Cell">
+<p>u</p></td><td class="Cell">
+<p>Interpret the argument as a <code>TUint</code> and convert it
+to its unsigned decimal representation. This can be either upper or lower
+case.</p></td></tr><tr valign="top"><td class="Cell">
+<p>x</p></td><td class="Cell">
+<p>Interpret the argument as a <code>TUint</code> and convert it
+to its hexadecimal representation. This can be either upper or lower
+case.</p></td></tr><tr valign="top"><td class="Cell">
+<p>p</p></td><td class="Cell">
+<p>Generate the required number of pad characters. No arguments
+are accessed. This can be either upper or lower case.</p>
+<p>For this directive to be useful, a field with should be
+specified.</p></td></tr><tr valign="top"><td class="Cell">
+<p>c</p></td><td class="Cell">
+<p>Interpret the argument as a <code>TUint</code> value and
+convert it to a single character value. This can be either upper or
+lower case.</p></td></tr><tr valign="top"><td class="Cell">
+<p>s</p></td><td class="Cell">
+<p>Interpret the argument as a pointer to a <code>TUint16</code>
+type, for 16 bit descriptors, or a <code>TUint8</code> type, for 8 bit descriptors, and copy all data starting at this location up to, but not including the
+location which contains a zero value.</p>
+<p>(Note the lower case).</p></td></tr><tr valign="top"><td class="Cell">
+<p>S</p></td><td class="Cell">
+<p>Interpret the argument as a pointer to a 16 bit descriptor
+and copy the characters from it.</p>
+<p>(Note the upper case).</p></td></tr><tr valign="top"><td class="Cell">
+<p>w</p></td><td class="Cell">
+<p>Interpret the argument as a <code>TUint</code> and convert
+the value to a two byte binary numeric representation with the least
+significant byte first. The generated output is two bytes. Should only be used to format 8 bit descriptors —  it is meaningless for 16 bit descriptors.</p>
+<p>(Note the lower case).</p></td></tr><tr valign="top"><td class="Cell">
+<p>W</p></td><td class="Cell">
+<p>Interpret the argument as a <code>TUint</code> and convert
+the value to a four byte binary numeric representation with the least
+significant byte first. The generated output is four bytes. Should only be used to format 8 bit descriptors —  it is meaningless for 16 bit descriptors.</p>
+<p>(Note the upper case).</p></td></tr><tr valign="top"><td class="Cell">
+<p>m</p></td><td class="Cell">
+<p>Interpret the argument as a <code>TUint</code> and convert
+the value to a two byte binary numeric representation with the most significant
+byte first. The generated output is two bytes. Should only be used to format 8 bit descriptors —  it is meaningless for 16 bit descriptors.</p>
+<p>(Note the lower case).</p></td></tr><tr valign="top"><td class="Cell">
+<p>M</p></td><td class="Cell">
+<p>Interpret the argument as a <code>TUint</code> and convert
+the value to a four byte binary numeric representation with the most
+significant byte first. The generated output is four bytes. Should only be used to format 8 bit descriptors —  it is meaningless for 16 bit descriptors.</p>
+<p>(Note the upper case).</p></td></tr></table></td></tr></table>
+<a name="1.21"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Notes</h2>
+</div><div class="Bodytext">
+<p>Using an asterisk for both <em class="metasyntactic">field-width</em> and
+<em class="metasyntactic">pad</em> means that the width value and the pad character will be
+taken from the argument list. Note that the first '<code>*</code>' will be
+interpreted as representing the width only if it is preceded by one of the
+alignment characters '<code>+</code>' '<code>-</code>' or
+'<code>=</code>'.</p>
+<p>If <em class="metasyntactic">precision</em> is specified when the data to be
+converted is not a real number, then it is ignored.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

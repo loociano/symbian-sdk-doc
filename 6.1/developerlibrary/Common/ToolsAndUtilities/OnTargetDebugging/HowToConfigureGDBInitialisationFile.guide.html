@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to configure the GDB initialisation file</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="OnTargetDebugging%2eHowToGDBIniFile"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToSetUpRemoteDebugging.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToLoadDebuggingInformation.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">On-target&nbsp;Debugging&nbsp;using&nbsp;GDB&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;configure&nbsp;the&nbsp;GDB&nbsp;initialisation&nbsp;file</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>How to configure the GDB initialisation file</h1>
+</div><div class="Bodytext">
+<p>The GDB initialisation file is  used to  batch-execute commands that must be called prior to debugging, or which are likely to be called only once in a GDB session. These commands would otherwise have to be manually entered at the <b>(gdb)</b> command prompt.</p><p>The GDB initialisation file is named  <code class="filename">gdb.ini</code> and must be located in the directory from which GDB is started.</p><p>A typical initialisation file would:</p><ul><li><p>Set the main symbol file</p></li><li><p>Set  the target executable file</p></li><li><p>Set the document with which the executable file is to be opened</p></li><li><p>Configure the connection with the target device</p></li><li><p>Set any initial breakpoints</p><p>An initial breakpoint must be set before the debuggee is started.</p></li><li><p>Load the GDB script to support Unicode descriptor debugging.</p></li></ul><p>The commands for implementing these operations are defined in the  <a href="../OnTargetDebugging-ref/SymbianGDBCommandReference.guide.html#OnTargetDebugging%2eSymbianGDBCommandReference">Symbian specific GDB command reference</a> and the <a href="../OnTargetDebugging-ref/GDBCommandReference.guide.html#OnTargetDebugging%2eGDBCommandSummary">GDB command summary</a>. They include:  <b>symbol file</b>, <b>epoc-exec-file</b>, <b>set args</b>, <b>target epoc com</b>, <b>break</b>, and <b>source</b>. Further information on some of these commands is provided in the topics <a href="HowToLoadDebuggingInformation.guide.html#OnTargetDebugging%2eHowToLoadDebugInfo%2dmain" title="How to load debugging information / How to load the main symbol file">How to load the main symbol file</a> and <a href="HowToDisplayUnicodeDescriptors.guide.html#OnTargetDebugging%2eHowToDisplayDescriptors">How to display Unicode descriptors</a>.</p><a name="1.8"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Example</h2>
+</div><div class="Bodytext"><p>A typical <code class="filename">gdb.ini</code> configuration file is given below. The file would be used for debugging an ARMI application named <code class="filename">foobar.app</code> which is to be opened with the  document <code class="filename">example_document.fb</code>. </p><p class="CodeBlock"><code>symbol-file //x/epoc32/release/armi/udeb/foobar.sym<br>epoc-exec-file z:\system\apps\foobar\foobar.app<br>set args c:\documents\Example_document.fb<br>target epoc com1<br>break NewApplication<br>source //x/epoc32/gcc/share/epoc-des.ini</code></p>
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Bluetooth overview</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="BluetoothOverview"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="UsingBluetoothSockets/index.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Bluetooth</a>&nbsp;<span class="separator">&#187;</span>
+Bluetooth&nbsp;overview</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Bluetooth overview</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Purpose</h2>
+</div><div class="Bodytext">
+<p>Provides support for Bluetooth, a short-range radio communications technology, standarised by the Bluetooth SIG in the form of the v1.0 Bluetooth Specification.</p>
+<a name="1.4"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>The Bluetooth stack</h2>
+</div><div class="Bodytext"><p>Like many other communications technologies, Bluetooth is composed of a hierarchy of components, referred to as a stack. The stack is shown below:</p><div class="Figure">
+<p class="Image"><img src="btStack.gif" alt="The Bluetooth stack"  border="0"></p>
+<p class="Caption">The Bluetooth stack</p>
+</div><p>The Bluetooth Host Controller components provide the lower-level of the stack, which are typically implemented in hardware, and to which applications (or services as providers of particulary functionality over Bluetooth  are called) do not have direct acccess.</p><p>The Bluetooth Host components allow applications to send or receive data over a Bluetooth link, or to configure the link:</p><ul><li><p>RFCOMM allows an application to treat a Bluetooth link in a similiar way as if it were communicating over a serial port. This is used to support legacy protocols.</p></li><li><p>The Logical Link Control And Adaptation Protocol (L2CAP) allows finer-grained control of the link. It controls how multiple users of the link are multiplexed together, handles packet segmentation
+and reassembly, and conveys quality
+of service information. It is the usual choice for applications.</p></li><li><p>The Service Discovery Protocol (SDP) is used  for locating and describing services
+provided by or available through a Bluetooth
+device. Applications typically use it when they are setting up communications to another Bluetooth device.</p></li><li><p>The Host Controller Interface (HCI) driver packages the higher level components to communicate with the hardware.</p></li></ul><p>The APIs described below give applications access to RFCOMM, L2CAP, SDP, and to a limited extent, HCI.</p><a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Description</h2>
+</div><div class="Bodytext">
+<p>Functionality is provided by a number of APIs. Use them as
+follows:</p>
+<h4 class="subheading"><a href="UsingBluetoothSockets/index.html#bt%2eguide%2esockets%2eindex">Bluetooth Sockets</a></h4>
+<p>Bluetooth Sockets encapsulates access to L2CAP and RFCOMM through a TCP/IP-like sockets interface. </p><h4 class="subheading"><a href="UsingServiceDiscoveryDatabase/index.html#bt%2eguide%2esdp%2ddb%2eindex">Bluetooth Service Discovery Database</a></h4><p>Service Discovery Database encapsulates one side of SDP: a local service uses it to record its attributes, so that remote devices may discover its presence, and determine if it is appropriate to use. </p><h4 class="subheading"><a href="UsingServiceDiscoveryAgent/index.html#bt%2eguide%2esdp%2dagent%2eindex">Bluetooth Service Discovery Agent</a></h4><p>Service Discovery Agent encapsulates the other side of SDP: it allows you to discover the services that are available on a remote device, and the attributes of those services.</p><h4 class="subheading"><a href="UsingSecurityManager/index.html#bt%2eguide%2esecman%2eindex">Bluetooth Security Manager</a></h4><p>Security Manager enables  services to set appropriate security requirements that incoming connections must meet.</p><h4 class="subheading"><a href="UsingBTUI/index.html#bt%2eguide%2eui%2eindex">Bluetooth UI</a></h4><p>This provides an API by which a dialog can be called that asks users for device selection information.</p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Architectural relationships</h2>
+</div><div class="Bodytext">
+<p>The following figure shows how the different Bluetooth APIs relate. Note how the Bluetooth Sockets  API is the fundamental API upon which the other APIs rely to perform communications with other devices.</p>
+<div class="Figure">
+<p class="Image"><img src="bt.architecture.gif" alt="Bluetooth API relationships"  border="0"></p>
+<p class="Caption">Bluetooth API relationships</p>
+</div><a name="1.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="../CommsInfrastructure/SocketsClientGuide/index.html#SocketsGuide%2eindex">Sockets Client-Side API</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

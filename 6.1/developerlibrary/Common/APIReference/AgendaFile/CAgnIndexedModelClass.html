@@ -1,0 +1,934 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CAgnIndexedModel</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CAgnEntryModelClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="CAgnListClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Agenda&nbsp;File</a>&nbsp;<span class="separator">&#187;</span>
+CAgnIndexedModel</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>agmmodel.h</code>
+<br>Link against: <code>agnmodel.lib</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aCAgnIndexedModel"></a>
+
+<h1>Class <code>CAgnIndexedModel</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CAgnIndexedModel</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Indexed agenda model. </p><p>To access the data in an agenda file, an
+agenda model must be opened at run-time. There are three types of model. The
+indexed model (<code>CAgnIndexedModel</code>) is opened as an intermediate
+stage in opening the instance model (<code>CAgnModel</code>). It can also be
+used in its own right for greater efficiency by applications which have no user
+interface and which need to access only a subset of the data in the
+file.</p>
+<p>When an indexed model is opened, it builds indexes of the data in
+an agenda file, which allows the information to be filtered before whole
+entries are read.</p>
+<p>An index is an array of sort entries (<code>CAgnSortEntry</code>).
+The main index class is <code>CAgnSortEntryTable</code>, which owns a number of
+specific entry type indexes. When an entry is added to the model, the index
+class filters it to find out which other indexes it should go into.</p>
+<p>The indexed model provides functions for merging and
+tidying. Merging means adding the entries and to-do lists contained in one
+agenda file into another file. Tidying causes a subset of a file's entries or
+to-do lists to be deleted, or moved or copied to another file. Tidying and
+merging can be prolonged operations, so they use an active
+object.</p><h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel">CAgnEntryModel</a></code></td><td class="Cell">Provides the interface through which the data stored in an agenda file can be accessed</td>
+</tr>
+<tr><td class="Cell"><code>CAgnIndexedModel</code></td><td class="Cell">Indexed agenda model</td>
+</tr>
+<tr><td class="Cell"><code><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase">CBase</a></code></td><td class="Cell">Base class for all classes to be instantiated on the heap</td>
+</tr>
+<tr><td class="Cell"><code><a href="MAgnActiveStepClass.html#%3a%3aMAgnActiveStep">MAgnActiveStep</a></code></td><td class="Cell">Base class used in the derivation of CAgnEntryModel</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>CAgnIndexedModel</code>:
+<br><code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aEAll" title="Tidy all to-do entries">EAll</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aECopy" title="Copy entries to a file">ECopy</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aECopyAndDelete" title="Copy entries to a file and delete from current file">ECopyAndDelete</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aECrossedOut" title="Tidy only crossed-out to-do entries">ECrossedOut</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aEDelete" title="Delete entries from the current model when tidying">EDelete</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aEDontMergeTodoListSettings" title="Retain the settings for to-do lists in the target model">EDontMergeTodoListSettings</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aEExceptCrossedOut" title="Tidy all to-do entries except crossed-out ones">EExceptCrossedOut</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aEMergeCallBackHigh" title="High callback frequency">EMergeCallBackHigh</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aEMergeCallBackLow" title="Low callback frequency">EMergeCallBackLow</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aEMergeCallBackMedium" title="Medium callback frequency">EMergeCallBackMedium</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aEMergeTodoListSettings" title="Overwrite the settings for to-do lists in the target model with the settings for to-do lists with the same name in the source model">EMergeTodoListSettings</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aEOpenCallBackHigh" title="High callback frequency">EOpenCallBackHigh</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aEOpenCallBackLow" title="Low callback frequency">EOpenCallBackLow</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aEOpenCallBackMedium" title="Medium callback frequency">EOpenCallBackMedium</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aETidyByDateCallBackHigh" title="High callback frequency">ETidyByDateCallBackHigh</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aETidyByDateCallBackLow" title="Low callback frequency">ETidyByDateCallBackLow</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aETidyByDateCallBackMedium" title="Medium callback frequency">ETidyByDateCallBackMedium</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aETidyByTodoListCallBachHigh" title="High callback frequency">ETidyByTodoListCallBachHigh</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aETidyByTodoListCallBackHow" title="Low callback frequency">ETidyByTodoListCallBackHow</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aETidyByTodoListCallBackMedium" title="Medium callback frequency">ETidyByTodoListCallBackMedium</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aEntryCount%28%29" title="Gets the number of entries in the model">EntryCount()</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aGetLiteEntryL%28%29" title="Gets the details for an entry">GetLiteEntryL()</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aIndexCount%28%29" title="Gets the number of entries in a specified index">IndexCount()</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aIndexes%28%29" title="Gets a pointer to the model's indexes">Indexes()</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aMergeL%28%29" title="Merges the to-do lists and entries contained in an agenda model (the source model) into this agenda model (the target model)">MergeL()</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aNewL%28%29" title="Allocates and constructs an indexed model, optionally with a pointer to a state callback object">NewL()</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aOpenL%28%29" title="Opens a named agenda file, using the agenda server">OpenL()</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aTMergeCallBackFrequency" title="Callback frequency for MergeL()">TMergeCallBackFrequency</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aTMergeTodoListSettings" title="Overwrite to-do list settings during merge">TMergeTodoListSettings</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aTOpenCallBackFrequency" title="Callback frequency for OpenL()">TOpenCallBackFrequency</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aTTidyByDateCallBackFrequency" title="Callback frequency for TidyByDateL()">TTidyByDateCallBackFrequency</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aTTidyByTodoListCallBackFrequency" title="Callback frequency for TidyByTodoListL()">TTidyByTodoListCallBackFrequency</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aTTidyDirective" title="Type of tidy operation">TTidyDirective</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aTTidyTodoListHow" title="Which to-do entries to tidy">TTidyTodoListHow</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aTidyByDateL%28%29" title="Deletes, copies or moves a subset of the model's entries — overloaded function">TidyByDateL()</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aTidyByTodoListL%28%29" title="Tidy to-do lists">TidyByTodoListL()</a></code>, <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3a%7eCAgnIndexedModel%28%29" title="Destructor">~CAgnIndexedModel()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel" title="Provides the interface through which the data stored in an agenda file can be accessed">CAgnEntryModel</a></code>:
+<br><code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aAddEntryL%28%29" title="Adds an entry to the model's store">AddEntryL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aAddTodoListL%28%29" title="Adds a to-do list to the model's store and sets the to-do list's position in the model's list of to-do lists">AddTodoListL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aAnonymous" title="Miscellaneous constants">Anonymous</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aBufferedDeleting%28%29" title="Returns whether or not the model is using buffered deletion for entries">BufferedDeleting()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aBufferedStoring%28%29" title="Returns whether or not the model is using buffered storage for entries">BufferedStoring()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aCancel%28%29" title="Cancels an active object driven operation, such as saving, merging or tidying">Cancel()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aChangeTodoListOrderL%28%29" title="Changes the position of a to-do list in the model's list of to-do lists">ChangeTodoListOrderL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aChangeTodoOrderL%28%29" title="Moves the to-do entry with the entry ID aTodoId to the position immediately before the position occupied by aTodoPositionReferenceId in the to-do list aTodoList">ChangeTodoOrderL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aCharFormatLayer%28%29" title="Returns a pointer to the character format layer used by the model's entries">CharFormatLayer()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aCheckNotifier%28%29" title="Tests whether the currently open file has been updated by another client of the agenda server">CheckNotifier()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aCommitL%28%29" title="Commits any changes both to file and internally that have occurred to the model">CommitL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aCreateL%28%29" title="Creates a new, empty agenda file with a valid agenda stream structure, which can be opened by the UI without modification">CreateL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aCutEntryL%28%29" title="Cuts aEntry from the model's store">CutEntryL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aDefaultAnnivDisplayTime%28%29" title="Retrieves the default display time for anniversary entries">DefaultAnnivDisplayTime()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aDefaultDayNoteDisplayTime%28%29" title="Retrieves the default display time for day notes">DefaultDayNoteDisplayTime()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aDefaultDisplayTime%28%29" title="Retrieves the default display time for the entry type specified">DefaultDisplayTime()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aDefaultEventDisplayTime%28%29" title="Retrieves the default display time for events">DefaultEventDisplayTime()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aDeleteEntryL%28%29" title="Deletes the entry identified by aEntryId from the store">DeleteEntryL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aDeleteLiteEntry%28%29" title="Deletes a sort entry from the sort entry allocator (a specialised memory handler for sort entry objects)">DeleteLiteEntry()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aDeleteTodoListL%28%29" title="Deletes all the to-do entries which belong to the to-do list with the specified ID, then deletes the to-do list itself from the model's store">DeleteTodoListL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aEAddTodoListAtEnd" title="Indicates the last position in the model's list of to-do lists">EAddTodoListAtEnd</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aEBlocked" title="The model's state while it is carrying out a prolonged activity">EBlocked</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aEClient" title="The model is a client of the server">EClient</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aENoFile" title="The initial state of the model before a file has been created or opened">ENoFile</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aENormal" title="The model is not using the server">ENormal</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aEOk" title="A file is open, and the model is ready for use">EOk</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aESaveAsCallBackHigh" title="High frequency">ESaveAsCallBackHigh</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aESaveAsCallBackLow" title="Low frequency">ESaveAsCallBackLow</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aESaveAsCallBackMedium" title="Medium frequency (the default)">ESaveAsCallBackMedium</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aEServer" title="The model is in server mode">EServer</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aExportVCalL%28%29" title="Exports a list of agenda entries as multiple vCalendar entities to the write stream specified">ExportVCalL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aFetchEntryL%28%29" title="Retrieves an entry based on its unique ID using the agenda server">FetchEntryL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aFetchTodoListL%28%29" title="Retrieves a to-do list based on its unique ID from the model's store, using the server">FetchTodoListL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aFileVersion%28%29" title="Returns the version of the agenda model that was used to create the currently loaded file">FileVersion()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aFlushAndCommitL%28%29" title="Flushes the entry buffer and commits any changes that have occurred to the model">FlushAndCommitL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aGetDayListFromExtractorL%28%29" title="Retrieves a list of instances for the specified day, using a previously set up instance extractor">GetDayListFromExtractorL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aGetEmbeddedStore%28%29" title="Retrieves an embedded store based on stream ID using the server">GetEmbeddedStore()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aGetInstanceExtractorL%28%29" title="Creates an instance extractor using the specified filter and date">GetInstanceExtractorL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aGetReadStreamL%28%29" title="Retrieves a reference to an application-specific stream in the model using the agenda server">GetReadStreamL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aGetSymbolInstanceList%28%29" title="Retrieves a filtered list of entry symbols for the instances which occur within a month">GetSymbolInstanceList()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aGetSymbolInstanceListL%28%29" title="Retrieves a filtered list of entry symbols for the instances which occur within a month">GetSymbolInstanceListL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aImportVCalL%28%29" title="Imports a vCalendar consisting of one or more vCalendar entities">ImportVCalL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aIsClient%28%29" title="Returns whether or not the model is running as a client of the agenda server">IsClient()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aIsInUseObserverController%28%29" title="Retrieves whether the observer controller is enabled or disabled">IsInUseObserverController()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aIsValidL%28%29" title="Tests whether the store aStore with the root ID aId is in a state that is readable by the model, i.e">IsValidL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aLastSynchronizedDateL%28%29" title="Retrieves the date/time that the model was last synchronised, as set by SetLastSynchronizedDateL()">LastSynchronizedDateL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aModelVersion%28%29" title="Returns the version of the agenda model being used">ModelVersion()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aNumberOfObserversLoaded%28%29" title="Returns the number of registered observers whose DLLs are loaded">NumberOfObserversLoaded()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aNumberOfObserversRegistered%28%29" title="Returns the number of registered observers">NumberOfObserversRegistered()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aObserverController%28%29" title="Returns a pointer to the model's observer controller">ObserverController()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aParaFormatLayer%28%29" title="Returns a pointer to the paragraph format layer used by the model's entries">ParaFormatLayer()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aPasteEntryL%28%29" title="Pastes aEntry into the model's store">PasteEntryL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aPeekAtDeletedTodoListList%28%29" title="This function returns a pointer to the list of deleted to-do lists">PeekAtDeletedTodoListList()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aPeekAtTodoListList%28%29" title="Returns a pointer to the model's list of to-do lists">PeekAtTodoListList()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aPictureFactory%28%29" title="Returns a pointer to the model's picture factory">PictureFactory()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aPopulateTodoListNamesL%28%29" title="Fills aList with the details (name, ID and sort order) for all of the to-do lists in the model's list of to-do lists (not including the deleted to-do lists)">PopulateTodoListNamesL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aRegisterAlarm%28%29" title="Sets the model's registered alarm">RegisterAlarm()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aRegisterObserverL%28%29" title="Registers an observer with the model's observer controller and calls the observer's StartObserving() function">RegisterObserverL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aRegisteredAlarm%28%29" title="Returns a pointer to the model's registered alarm">RegisteredAlarm()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aRegisteredIndex%28%29" title="Returns a pointer to the model's entry index">RegisteredIndex()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aRollbackL%28%29" title="Reverts the model to the state it was in after CommitL() or RollbackL() was last called, i.e">RollbackL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aSaveAsL%28%29" title="Saves the model's entries and to-do lists to another stream store">SaveAsL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aSaveTodoListsL%28%29" title="Uses the agenda server to save the model's to-do lists to the file specified">SaveTodoListsL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aServer%28%29" title="Returns a pointer to the model's server object, as set by SetServer()">Server()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aSetDefaultAnnivDisplayTime%28%29" title="Sets the default display time for anniversary entries">SetDefaultAnnivDisplayTime()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aSetDefaultDayNoteDisplayTime%28%29" title="Sets the default display time for day notes">SetDefaultDayNoteDisplayTime()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aSetDefaultEventDisplayTime%28%29" title="Sets the default display time for events">SetDefaultEventDisplayTime()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aSetEntryServer%28%29" title="Sets the server for an agenda entry to be the same as the server used by the model">SetEntryServer()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aSetLastSynchronizedDateL%28%29" title="Sets the date/time that the model was last synchronised">SetLastSynchronizedDateL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aSetMode%28%29" title="Sets the model's mode">SetMode()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aSetParaAndCharFormatLayersL%28%29" title="Changes the format layers used for the model's entries to the values specified">SetParaAndCharFormatLayersL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aSetPictureFactory%28%29" title="Sets the model's picture factory">SetPictureFactory()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aSetServer%28%29" title="Sets the server to use for model functions and sets the model's mode to EClient">SetServer()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aState%28%29" title="Returns the state of the agenda model">State()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aStreamId%28%29" title="Retrieves the stream ID for the specified stream UID">StreamId()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aStreamStore%28%29" title="Returns a reference to the stream store in which the model's data is stored">StreamStore()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aTModelMode" title="This enumeration is used in the CAgnEntryModel::SetMode() function to specify whether or not the model is a client of the server">TModelMode</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aTSaveAsCallBackFrequency" title="This enumeration specifies how frequently the user of a save as operation (CAgnEntryModel::SaveAsL()) should be notified of its progress with the MAgnProgressCallBack::Progress() method">TSaveAsCallBackFrequency</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aTState" title="Model state">TState</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aTodoListCount%28%29" title="Returns the number of to-do lists in the model's list of to-do lists">TodoListCount()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aTodoListIdsL%28%29" title="Creates and returns an array of to-do list IDs for all the to-do lists in the model">TodoListIdsL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aUnregisterObserverL%28%29" title="Removes the observer with the DLL name specified from the model's observer controller">UnregisterObserverL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aUpdateDefaultEntryTimes%28%29" title="Propagates changes made to the default display time for all entry types by a call to one of the SetDefaultXxxDisplayTime() functions to the server">UpdateDefaultEntryTimes()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aUpdateEntryL%28%29" title="Updates the details for the existing entry aEntry in the model's store">UpdateEntryL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aUpdateTodoListL%28%29" title="Updates a to-do list">UpdateTodoListL()</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap">CBase</a></code>:
+<br><code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase%3a%3aoperator%20new%28%29" title="Allocates the object from the heap and then initialises its contents to binary zeroes">operator new()</a></code></p>
+<a name="2.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction and destruction</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnIndexedModel%3a%3aNewL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NewL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static CAgnIndexedModel* NewL(MAgnModelStateCallBack* aStateCallBack);</code></p><h4 class="subheading">Description</h4>
+<p>Allocates and constructs an indexed model, optionally with a
+pointer to a state callback object.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">MAgnModelStateCallBack* aStateCallBack</code></td>
+<td class="Cell"><p class="ValueDesc">If not null, provides a callback function which notifies the
+user that the model is about to change state.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnIndexedModel*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the newly created indexed model.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnIndexedModel%3a%3a%7eCAgnIndexedModel%28%29"></a>
+<hr size="1" noshade>
+<h3><code>~CAgnIndexedModel()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual ~CAgnIndexedModel();</code></p><h4 class="subheading">Description</h4>
+<p>Destructor.</p><p>The destructor frees all resources owned by the object, prior to
+its destruction.</p>
+<a name="2.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Open and build indexes</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnIndexedModel%3a%3aOpenL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>OpenL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool OpenL(CStreamStore&amp; aStore, TStreamId aId, TTimeIntervalMinutes aDefaultEventDisplayTime, TTimeIntervalMinutes aDefaultAnnivDisplayTime, TTimeIntervalMinutes aDefaultDayNoteDisplayTime, MAgnProgressCallBack* aProgressCallBack, TBool aOpenSynchronously = EFalse, TOpenCallBackFrequency aCallBackFrequency = EOpenCallBackMedium);</code></p><h4 class="subheading">Description</h4>
+<p>Open store</p>
+<p>Opens an existing model store, whose root ID is <code>aId</code> in
+the store <code>aStore</code>. It retrieves all of the model's entries and
+builds the indexes. This function does not use the agenda server and should not
+be called if the model is in client mode.</p>
+<p>The three <code>TTimeIntervalMinutes</code> arguments specify the
+default display times for the different entry types. Display time values are
+numbers of minutes from midnight — between zero and 1439
+inclusive. These values can be changed using one of the model's
+<code>SetDefaultXxxDisplayTime()</code> functions.</p>
+<p>It returns true or false depending on whether or not an active
+object was scheduled to build the indexes. This value is internal to the model,
+and should not normally be of interest to developers.</p>
+<p>If an active object is scheduled then views are informed that the
+model is about to enter a blocked state, via the state callback object which
+was passed to the model's <code>NewL()</code> function. Views are informed when
+the model has exited the blocked state within the <code>LoadCompleted()</code>
+function. Views are kept informed of the progress of the operation via the
+progress callback <code>aProgressCallBack</code> at a frequency indicated by
+<code>aCallBackFrequency</code>.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CStreamStore&amp; aStore</code></td>
+<td class="Cell"><p class="ValueDesc">The store in which the model's data is stored.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamId aId</code></td>
+<td class="Cell"><p class="ValueDesc">The root stream ID of the store <code>aStore</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTimeIntervalMinutes aDefaultEventDisplayTime</code></td>
+<td class="Cell"><p class="ValueDesc">The default display time for events. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTimeIntervalMinutes aDefaultAnnivDisplayTime</code></td>
+<td class="Cell"><p class="ValueDesc">The default display time for anniversaries.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTimeIntervalMinutes aDefaultDayNoteDisplayTime</code></td>
+<td class="Cell"><p class="ValueDesc">The default display time for day notes.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">MAgnProgressCallBack* aProgressCallBack</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to a progress callback object. The operation starts an
+active object (if <code>aOpenSynchronously</code> is <code>EFalse</code>), and
+this callback provides progress information and information about how the
+operation terminated. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool aOpenSynchronously = EFalse</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> to build the indexes synchronously,
+<code>EFalse</code> to build them asynchronously.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TOpenCallBackFrequency aCallBackFrequency =
+EOpenCallBackMedium</code></td>
+<td class="Cell"><p class="ValueDesc">The frequency that the application should be notified of the
+progress of the operation via <code>aProgressCallBack</code>. It should not
+normally be necessary to change this from the default value. This value is only
+relevant if <code>aOpenSynchronously</code> is <code>EFalse</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> if an active object was scheduled to build the
+indexes, <code>EFalse</code> if not. <code>EFalse</code> is returned if the
+model is opened synchronously, or if there were no entries in the model.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnIndexedModel%3a%3aOpenL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>OpenL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool OpenL(const TDesC&amp; aFileName, TTimeIntervalMinutes aDefaultEventDisplayTime, TTimeIntervalMinutes aDefaultAnnivDisplayTime, TTimeIntervalMinutes aDefaultDayNoteDisplayTime, MAgnProgressCallBack* aProgressCallBack, TBool aOpenSynchronously = EFalse, TOpenCallBackFrequency aCallBackFrequency = EOpenCallBackMedium);</code></p><h4 class="subheading">Description</h4>
+<p>Opens a named agenda file using the agenda server. The model must be
+in client mode before this function is called.</p>
+<p>The three <code>TTimeIntervalMinutes</code> arguments specify the
+default display times for the different entry types. The display time values
+are numbers of minutes from midnight — between zero and 1439
+inclusive.</p>
+<p>It returns true or false depending on whether or not an active object
+was scheduled to build the indexes.</p>
+<p>If an active object is scheduled then views are informed that the
+model is about to enter a blocked state, via the state callback object which
+was passed to the model's <code>NewL()</code> function. Views are informed when
+the model has exited the blocked state within the <code>LoadCompleted()</code>
+function. Views are kept informed of the progress of the operation via the
+progress callback <code>aProgressCallBack</code> at a frequency determined by
+<code>aCallBackFrequency</code>.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aFileName</code></td>
+<td class="Cell"><p class="ValueDesc">The agenda file to open.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTimeIntervalMinutes aDefaultEventDisplayTime</code></td>
+<td class="Cell"><p class="ValueDesc">The default display time for events.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTimeIntervalMinutes aDefaultAnnivDisplayTime</code></td>
+<td class="Cell"><p class="ValueDesc">The default display time for anniversaries.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTimeIntervalMinutes aDefaultDayNoteDisplayTime</code></td>
+<td class="Cell"><p class="ValueDesc">The default display time for day notes.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">MAgnProgressCallBack* aProgressCallBack</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to a progress callback object. The operation starts an active
+object (if <code>aOpenSynchronously</code> is <code>EFalse</code>), and this
+callback provides progress information and information about how the operation
+terminated.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool aOpenSynchronously = EFalse</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> to build the indexes synchronously,
+<code>EFalse</code> to build them asynchronously.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TOpenCallBackFrequency aCallBackFrequency =
+EOpenCallBackMedium</code></td>
+<td class="Cell"><p class="ValueDesc">The frequency that the application should be notified of the progress
+of the operation via <code>aProgressCallBack</code>. It should not normally be
+necessary to change this from the default value. This value is only relevant if
+<code>aOpenSynchronously</code> is <code>EFalse</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> if an active object was scheduled to build the
+indexes, <code>EFalse</code> if not. <code>EFalse</code> is returned if the
+model is opened synchronously, or if there were no entries in the model.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.4"></a></div><div class="Head3">
+<a name="%3a%3aCAgnIndexedModel%3a%3aOpenL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>OpenL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void OpenL(const TDesC&amp; aFileName, TTimeIntervalMinutes aDefaultEventDisplayTime, TTimeIntervalMinutes aDefaultAnnivDisplayTime, TTimeIntervalMinutes aDefaultDayNoteDisplayTime);</code></p><h4 class="subheading">Description</h4>
+<p>Opens a named agenda file, using the agenda server. The model must be
+in client mode before this function is called.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aFileName</code></td>
+<td class="Cell"><p class="ValueDesc">The agenda file to open.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTimeIntervalMinutes aDefaultEventDisplayTime</code></td>
+<td class="Cell"><p class="ValueDesc">The default display time for events.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTimeIntervalMinutes aDefaultAnnivDisplayTime</code></td>
+<td class="Cell"><p class="ValueDesc">The default display time for anniversaries.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTimeIntervalMinutes aDefaultDayNoteDisplayTime</code></td>
+<td class="Cell"><p class="ValueDesc">The default display time for day notes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Merge</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnIndexedModel%3a%3aMergeL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>MergeL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool MergeL(CStreamStore&amp; aStoreToMergeFrom, TStreamId aSrcStreamId, MAgnProgressCallBack* aProgressCallBack, TMergeTodoListSettings aMergeSettings = EDontMergeTodoListSettings, TMergeCallBackFrequency aCallBackFrequency = EMergeCallBackHigh);</code></p><h4 class="subheading">Description</h4>
+<p>Merges the to-do lists and entries contained in an agenda model (the
+source model) into this agenda model (the target model).</p>
+<p>After each step in the operation, the percentage completed is reported
+via the callback <code>aProgressCallBack</code> at a frequency specified in
+<code>aCallBackFrequency</code>. <code>aProgressCallBack</code> also reports
+how the operation completed.</p>
+<p>If <code>aMergeSettings</code> is <code>EMergeTodoListSettings</code>, if
+any to-do list is present both in the source model and in the target model, the
+settings for the list in the target model are overwritten by the settings
+specified in the source model.</p>
+<p>The function uses an active object so always returns
+<code>ETrue</code>.</p>
+<p>If the model has a state callback, the function calls its
+<code>StateCallBack()</code> function to notify users when the model is about
+to enter the blocked state, and when it has left the blocked
+state.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CStreamStore&amp; aStoreToMergeFrom</code></td>
+<td class="Cell"><p class="ValueDesc">A reference to the store object in which the source model's data is
+stored.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamId aSrcStreamId</code></td>
+<td class="Cell"><p class="ValueDesc">The root stream ID of the store <code>aStoreToMergeFrom</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">MAgnProgressCallBack* aProgressCallBack</code></td>
+<td class="Cell"><p class="ValueDesc">A callback object which reports the progress of the merge.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TMergeTodoListSettings aMergeSettings =
+EDontMergeTodoListSettings</code></td>
+<td class="Cell"><p class="ValueDesc"><code>EMergeTodoListSettings</code> overwrites the settings for to-do
+lists in the target model with the settings for to-do lists with the same name
+in the source model.<code>EDontMergeTodoListSettings</code> retains the
+settings in the target model.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TMergeCallBackFrequency aCallBackFrequency = EMergeCallBackHigh</code></td>
+<td class="Cell"><p class="ValueDesc">Specifies the frequency at which <code>aProgressCallBack</code> should
+notify the progress of the merge. It should not normally be necessary to change
+this from the default value.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Tidy</h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnIndexedModel%3a%3aTidyByDateL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>TidyByDateL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool TidyByDateL(const TAgnFilter&amp; aFilter, const TTime&amp; aTodaysDate, const TTime&amp; aStartDate, const TTime&amp; aEndDate, MAgnProgressCallBack* aProgressCallBack, TTidyDirective aDirective);<br>TBool TidyByDateL(const TAgnFilter&amp; aFilter, const TTime&amp; aTodaysDate, const TTime&amp; aStartDate, const TTime&amp; aEndDate, MAgnProgressCallBack* aProgressCallBack, TTidyDirective aDirective, CStreamStore* aStoreToTidyTo);<br>TBool TidyByDateL(const TAgnFilter&amp; aFilter, const TTime&amp; aTodaysDate, const TTime&amp; aStartDate, const TTime&amp; aEndDate, MAgnProgressCallBack* aProgressCallBack, TTidyDirective aDirective, CStreamStore* aStoreToTidyTo, TStreamId&amp; aStoreStreamId, TTidyByDateCallBackFrequency aCallBackFrequency = ETidyByDateCallBackMedium);</code></p><h4 class="subheading">Description</h4>
+<p>Deletes, copies or moves a subset of the model's entries —
+overloaded function. </p><p>The entries affected are those which occur within the
+date/time range starting at <code>aStartDate</code> and ending at
+<code>aEndDate</code>. <code>aTodaysDate</code> identifies which to-do entries
+fall within the specified range. <code>aFilter</code> identifies which entry
+types are affected by the operation.</p>
+<p>If either of the operations <code>ECopy</code> or
+<code>ECopyAndDelete</code> is specified in <code>aDirective</code> then the
+function will either create or open a stream freamwork within the supplied
+store (<code>aStoreToTidyTo</code>) to which the tidied entries will be copied.
+If <code>aStoreStreamId</code> is <code>KNullStreamId</code> or is not
+specified, then a stream freamwork is created in <code>aStoreToTidyTo</code>,
+and on return, <code>aStoreStreamId</code> is set to the root stream ID of the
+store. If <code>aStoreStreamId</code> is not <code>KNullStreamId</code> then it
+is assumed that it is the root ID of an existing model and the function opens
+and uses that to tidy to. Any previous contents will remain untouched.</p>
+<p>The return value is <code>ETrue</code> or <code>EFalse</code> depending
+on whether or not there were any entries which matched the criteria and were
+tidied.</p>
+<p>After each step in the operation, the percentage completed is reported
+via the callback <code>aProgressCallBack</code> at a frequency which may be
+specified in <code>aCallBackFrequency</code>. If
+<code>aCallBackFrequency</code> is not specified, the callback frequency is the
+default value of <code>ETidyByDateCallBackMedium</code>.
+<code>aProgressCallBack</code> also reports how the operation completed.</p>
+<p>If the model has a state callback, the function calls its
+<code>StateCallBack()</code> function to notify users when the model is about
+to enter the blocked state, and when it has left the blocked state.</p>
+<p>Note</p>
+<p>If the directive is either <code>ECopy</code> or
+<code>ECopyAndDelete</code>, then a store to copy to must be specified. If the
+directive is <code>EDelete</code>, then you can specify NULL and
+<code>KNullStreamId</code> for the store and stream ID, (or use the six
+parameter variant of the function).</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TAgnFilter&amp; aFilter</code></td>
+<td class="Cell"><p class="ValueDesc">Identifies which entry types should be included in the operation.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TTime&amp; aTodaysDate</code></td>
+<td class="Cell"><p class="ValueDesc">Today's date. Identifies which to-do entries should be included in the
+operation.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TTime&amp; aStartDate</code></td>
+<td class="Cell"><p class="ValueDesc">The start date for the operation.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TTime&amp; aEndDate</code></td>
+<td class="Cell"><p class="ValueDesc">The end date for the operation.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">MAgnProgressCallBack* aProgressCallBack</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to a callback object which reports the progress of the
+operation.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTidyDirective aDirective</code></td>
+<td class="Cell"><p class="ValueDesc">The type of operation&#0160;&#8212;  delete, copy or move. If
+<code>ECopy</code> or <code>ECopyAndDelete</code> is specified, a store must be
+specified in <code>aStoreToTidyTo</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">CStreamStore* aStoreToTidyTo</code></td>
+<td class="Cell"><p class="ValueDesc">If <code>aDirective</code> is either <code>ECopy</code> or
+<code>ECopyAndDelete</code>, the stream store of the model to tidy to. Not
+relevant if the directive is <code>EDelete</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamId&amp; aStoreStreamId</code></td>
+<td class="Cell"><p class="ValueDesc">If specified, the root stream ID of the store to which the entries are
+copied. Only relevant if <code>aDirective</code> is either <code>ECopy</code>
+or <code>ECopyAndDelete</code>. If a null value is specified, on return, this
+is set to the root stream ID of <code>aStoreToTidyTo</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTidyByDateCallBackFrequency aCallBackFrequency =
+ETidyByDateCallBackMedium</code></td>
+<td class="Cell"><p class="ValueDesc">If specified, the frequency at which <code>aProgressCallBack</code>
+should notify the progress of the operation. It should not normally be
+necessary to change this from the default value.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> if there were entries to tidy, <code>EFalse</code> if
+not.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnIndexedModel%3a%3aTidyByTodoListL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>TidyByTodoListL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool TidyByTodoListL(const CArrayFixFlat&lt;TAgnTodoListId&gt;* aList, MAgnProgressCallBack* aProgressCallBack, TTidyDirective aDirective, TTidyTodoListHow aTidyHow);<br>TBool TidyByTodoListL(const CArrayFixFlat&lt;TAgnTodoListId&gt;* aList, MAgnProgressCallBack* aProgressCallBack, TTidyDirective aDirective, TTidyTodoListHow aTidyHow, CStreamStore* aStoreToTidyTo);<br>TBool TidyByTodoListL(const CArrayFixFlat&lt;TAgnTodoListId&gt;* aList, MAgnProgressCallBack* aProgressCallBack, TTidyDirective aDirective, TTidyTodoListHow aTidyHow, CStreamStore* aStoreToTidyTo, TStreamId&amp; aStoreStreamId, TTidyByTodoListCallBackFrequency aCallBackFrequency = ETidyByTodoListCallBackMedium);</code></p><h4 class="subheading">Description</h4>
+<p>Tidy to-do lists</p><p>Deletes, copies or moves the entries contained in a list of to-do
+lists — overloaded function. The operation may affect all the
+entries in the lists, just crossed out entries, or all entries except the
+crossed out ones.</p>
+<p>After each step in the operation, the percentage completed is reported
+via the callback <code>aProgressCallBack</code> at a frequency which may be
+specified in <code>aCallBackFrequency</code>. If
+<code>aCallBackFrequency</code> is not specified, the callback frequency is the
+default value of <code>ETidyByTodoListCallBackMedium</code>.
+<code>aProgressCallBack</code> also reports how the operation completed.</p>
+<p>If the model has a state callback, its <code>StateCallBack()</code>
+function is called to notify users when the model is about to enter the blocked
+state, and when it has left the blocked state.</p>
+<p>If either of the operations <code>ECopy</code> or
+<code>ECopyAndDelete</code> is specified in <code>aDirective</code> then the
+function will either create or open a stream freamwork within the supplied
+store (<code>aStoreToTidyTo</code>) to which the tidied entries will be copied.
+If <code>aStoreStreamId</code> is <code>KNullStreamId</code> or is not
+specified, then a stream freamwork is created in <code>aStoreToTidyTo</code>,
+and on return, <code>aStoreStreamId</code> is set to the root stream ID of the
+store. If <code>aStoreStreamId</code> is not <code>KNullStreamId</code> then it
+is assumed that it is the root ID of an existing model and the function opens
+and uses that to tidy to. Any previous contents will remain unaffected.</p>
+<p>Note</p>
+<p>If the directive is either <code>ECopy</code> or
+<code>ECopyAndDelete</code>, then a store to copy to must be specified. If the
+directive is <code>EDelete</code>, then you can specify NULL and
+<code>KNullStreamId</code> for the store and stream ID, (or use the four
+parameter variant of the function).</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CArrayFixFlat&lt;TAgnTodoListId&gt;* aList</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to a list of to-do list IDs which identify the to-do lists to be
+tidied.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">MAgnProgressCallBack* aProgressCallBack</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to a callback object which reports the progress of the
+operation.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTidyDirective aDirective</code></td>
+<td class="Cell"><p class="ValueDesc">The type of operation&#0160;&#8212;  delete, copy or move. If
+<code>ECopy</code> or <code>ECopyAndDelete</code> is specified, a store must be
+specified in <code>aStoreToTidyTo</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTidyTodoListHow aTidyHow</code></td>
+<td class="Cell"><p class="ValueDesc">Specifies which to-do entries are to be tidied.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">CStreamStore* aStoreToTidyTo</code></td>
+<td class="Cell"><p class="ValueDesc">If <code>aDirective</code> is either <code>ECopy</code> or
+<code>ECopyAndDelete</code>, the stream store of the model to tidy to. Not
+relevant if the directive is <code>EDelete</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamId&amp; aStoreStreamId</code></td>
+<td class="Cell"><p class="ValueDesc">If specified, the root stream ID of the store to which the entries are
+copied. Only relevant if <code>aDirective</code> is either <code>ECopy</code>
+or <code>ECopyAndDelete</code>. If a null value is specified, on return, this
+is set to the root stream ID of <code>aStoreToTidyTo</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTidyByTodoListCallBackFrequency aCallBackFrequency =
+ETidyByTodoListCallBackMedium</code></td>
+<td class="Cell"><p class="ValueDesc">If specified, the frequency at which <code>aProgressCallBack</code>
+should notify the progress of the operation. It should not normally be
+necessary to change this from the default value.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc">Always <code>ETrue</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Entry count</h2>
+</div><div class="Bodytext">
+<a name="2.10.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnIndexedModel%3a%3aEntryCount%28%29"></a>
+<hr size="1" noshade>
+<h3><code>EntryCount()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt EntryCount() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the number of entries in the model.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The number of entries in the model.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnIndexedModel%3a%3aIndexCount%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IndexCount()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt IndexCount(TInt aIndexNumber) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the number of entries in a specified index.</p>
+<p>The index number specified must be between zero and six inclusive,
+otherwise the function raises a panic. The index IDs are defined in agmxtab.h,
+i.e. <code>KAgnEventIndexNum</code>, <code>KAgnApptNonRpt1DayIndexNum</code>
+etc.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aIndexNumber</code></td>
+<td class="Cell"><p class="ValueDesc">An index ID, as defined in agmxtab.h.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The number of entries in the specified index.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Get entry and indexes</h2>
+</div><div class="Bodytext">
+<a name="2.11.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnIndexedModel%3a%3aGetLiteEntryL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetLiteEntryL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TAgnLiteEntry GetLiteEntryL(TAgnEntryId aId) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the details for an entry.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnEntryId aId</code></td>
+<td class="Cell"><p class="ValueDesc">The ID of the entry to find.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnLiteEntry</code></td>
+<td class="Cell"><p class="ValueDesc">Provides access to most of the entry's details.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">Leaves with <code>KErrNotFound</code> if the entry cannot be found.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnIndexedModel%3a%3aIndexes%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Indexes()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CAgnSortEntryTable* Indexes() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a pointer to the model's indexes.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnSortEntryTable*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the model's indexes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Enumerations</h2>
+</div><div class="Bodytext">
+<a name="2.12.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnIndexedModel%3a%3aTOpenCallBackFrequency"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TOpenCallBackFrequency</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TOpenCallBackFrequency</code></p><h4 class="subheading">Description</h4>
+<p>Callback frequency for <code>OpenL()</code></p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnIndexedModel%3a%3aEOpenCallBackHigh"><code class="Value">EOpenCallBackHigh</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>High callback frequency.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnIndexedModel%3a%3aEOpenCallBackMedium"><code class="Value">EOpenCallBackMedium</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Medium callback frequency.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnIndexedModel%3a%3aEOpenCallBackLow"><code class="Value">EOpenCallBackLow</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Low callback frequency.</para></p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnIndexedModel%3a%3aTMergeCallBackFrequency"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TMergeCallBackFrequency</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TMergeCallBackFrequency</code></p><h4 class="subheading">Description</h4>
+<p>Callback frequency for <code>MergeL()</code></p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnIndexedModel%3a%3aEMergeCallBackHigh"><code class="Value">EMergeCallBackHigh</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>High callback frequency.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnIndexedModel%3a%3aEMergeCallBackMedium"><code class="Value">EMergeCallBackMedium</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Medium callback frequency.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnIndexedModel%3a%3aEMergeCallBackLow"><code class="Value">EMergeCallBackLow</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Low callback frequency. </para></p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.4"></a></div><div class="Head3">
+<a name="%3a%3aCAgnIndexedModel%3a%3aTTidyByDateCallBackFrequency"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TTidyByDateCallBackFrequency</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TTidyByDateCallBackFrequency</code></p><h4 class="subheading">Description</h4>
+<p>Callback frequency for <code>TidyByDateL()</code></p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnIndexedModel%3a%3aETidyByDateCallBackHigh"><code class="Value">ETidyByDateCallBackHigh</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>High callback frequency.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnIndexedModel%3a%3aETidyByDateCallBackMedium"><code class="Value">ETidyByDateCallBackMedium</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Medium callback frequency.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnIndexedModel%3a%3aETidyByDateCallBackLow"><code class="Value">ETidyByDateCallBackLow</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Low callback frequency.</para></p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.5"></a></div><div class="Head3">
+<a name="%3a%3aCAgnIndexedModel%3a%3aTTidyByTodoListCallBackFrequency"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TTidyByTodoListCallBackFrequency</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TTidyByTodoListCallBackFrequency</code></p><h4 class="subheading">Description</h4>
+<p>Callback frequency for <code>TidyByTodoListL()</code></p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnIndexedModel%3a%3aETidyByTodoListCallBachHigh"><code class="Value">ETidyByTodoListCallBachHigh</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>High callback frequency.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnIndexedModel%3a%3aETidyByTodoListCallBackMedium"><code class="Value">ETidyByTodoListCallBackMedium</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Medium callback frequency.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnIndexedModel%3a%3aETidyByTodoListCallBackHow"><code class="Value">ETidyByTodoListCallBackHow</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Low callback frequency. </para></p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.6"></a></div><div class="Head3">
+<a name="%3a%3aCAgnIndexedModel%3a%3aTMergeTodoListSettings"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TMergeTodoListSettings</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TMergeTodoListSettings</code></p><h4 class="subheading">Description</h4>
+<p>Overwrite to-do list settings during merge.</p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnIndexedModel%3a%3aEMergeTodoListSettings"><code class="Value">EMergeTodoListSettings</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Overwrite the settings for to-do lists in the target model with the
+settings for to-do lists with the same name in the source
+model.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnIndexedModel%3a%3aEDontMergeTodoListSettings"><code class="Value">EDontMergeTodoListSettings</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Retain the settings for to-do lists in the target
+model.</para></p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.7"></a></div><div class="Head3">
+<a name="%3a%3aCAgnIndexedModel%3a%3aTTidyDirective"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TTidyDirective</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TTidyDirective</code></p><h4 class="subheading">Description</h4>
+<p>Type of tidy operation</p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnIndexedModel%3a%3aEDelete"><code class="Value">EDelete</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Delete entries from the current model when tidying</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnIndexedModel%3a%3aECopy"><code class="Value">ECopy</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Copy entries to a file</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnIndexedModel%3a%3aECopyAndDelete"><code class="Value">ECopyAndDelete</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Copy entries to a file and delete from current file</para></p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.8"></a></div><div class="Head3">
+<a name="%3a%3aCAgnIndexedModel%3a%3aTTidyTodoListHow"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TTidyTodoListHow</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TTidyTodoListHow</code></p><h4 class="subheading">Description</h4>
+<p>Which to-do entries to tidy</p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnIndexedModel%3a%3aEAll"><code class="Value">EAll</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Tidy all to-do entries.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnIndexedModel%3a%3aECrossedOut"><code class="Value">ECrossedOut</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Tidy only crossed-out to-do entries.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnIndexedModel%3a%3aEExceptCrossedOut"><code class="Value">EExceptCrossedOut</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Tidy all to-do entries except crossed-out ones.</para></p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CnvUtfConverter</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CCnvCharacterSetNamesClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="Globals.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Character&nbsp;Conversion</a>&nbsp;<span class="separator">&#187;</span>
+CnvUtfConverter</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>utf.h</code>
+<br>Link against: <code>charconv.lib</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aCnvUtfConverter"></a>
+
+<h1>Class <code>CnvUtfConverter</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CnvUtfConverter</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Converts text between Unicode (UCS-2) and the two Unicode
+transformation formats UTF-7 and UTF-8. There are no functions to convert
+directly between UTF-7 and UTF-8.</p>
+<p>Objects of this class do not need to be created because all the
+member functions are static. The four functions are passed text in the second
+argument and output the resulting text in the first argument. Sixteen-bit
+descriptors are used to hold text encoded in UCS-2 (i.e. normal 16 bit
+Unicode), and eight-bit descriptors are used to hold text encoded in either of
+the transformation formats.</p>
+<p>The conversion functions return the number of characters which were
+not converted because the output descriptor was not long enough to hold all of
+the converted text. This allows users of this class to perform partial
+conversions on an input descriptor&#0160;&#8212;  handling the case when the input
+descriptor is truncated mid way through a multi-byte character. The caller does
+not have to guess how big to make the output descriptor for a given input
+descriptor&#0160;&#8212;  they can simply do the conversion in a loop using a small
+output descriptor. The ability to handle truncated descriptors is particularly
+useful if the caller is receiving information in chunks from an external
+source.</p><p>Defined in <code>CnvUtfConverter</code>:
+<br><code class="ApiItem"><a href="CnvUtfConverterClass.html#%3a%3aCnvUtfConverter%3a%3aAnonymous">Anonymous</a></code>, <code class="ApiItem"><a href="CnvUtfConverterClass.html#%3a%3aCnvUtfConverter%3a%3aConvertFromUnicodeToUtf7%28%29" title="Converts Unicode text into UTF-7 encoding">ConvertFromUnicodeToUtf7()</a></code>, <code class="ApiItem"><a href="CnvUtfConverterClass.html#%3a%3aCnvUtfConverter%3a%3aConvertFromUnicodeToUtf8%28%29" title="Converts Unicode text into UTF-8 encoding">ConvertFromUnicodeToUtf8()</a></code>, <code class="ApiItem"><a href="CnvUtfConverterClass.html#%3a%3aCnvUtfConverter%3a%3aConvertToUnicodeFromUtf7%28%29" title="Converts text encoded using the Unicode transformation format UTF-7 into the Unicode UCS-2 character set">ConvertToUnicodeFromUtf7()</a></code>, <code class="ApiItem"><a href="CnvUtfConverterClass.html#%3a%3aCnvUtfConverter%3a%3aConvertToUnicodeFromUtf8%28%29" title="Converts text encoded using the Unicode transformation format UTF-8 into the Unicode UCS-2 character set">ConvertToUnicodeFromUtf8()</a></code>, <code class="ApiItem"><a href="CnvUtfConverterClass.html#%3a%3aCnvUtfConverter%3a%3aEErrorIllFormedInput" title="The input descriptor contains a single corrupt character">EErrorIllFormedInput</a></code>, <code class="ApiItem"><a href="CnvUtfConverterClass.html#%3a%3aCnvUtfConverter%3a%3aKStateDefault" title="Initial value for the state argument in a set of related calls to ConvertToUnicode()">KStateDefault</a></code>, <code class="ApiItem"><a href="CnvUtfConverterClass.html#%3a%3aCnvUtfConverter%3a%3aTError" title="Conversion error flags">TError</a></code>
+</p>
+<a name="2.5"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Conversion functions</h2>
+</div><div class="Bodytext">
+<a name="2.5.2"></a></div><div class="Head3">
+<a name="%3a%3aCnvUtfConverter%3a%3aConvertFromUnicodeToUtf7%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ConvertFromUnicodeToUtf7()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static TInt ConvertFromUnicodeToUtf7(TDes8&amp; aUtf7, const TDesC16&amp; aUnicode, TBool aEncodeOptionalDirectCharactersInBase64);</code></p><h4 class="subheading">Description</h4>
+<p>Converts Unicode text into UTF-7 encoding.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes8&amp; aUtf7</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the UTF-7 encoded output string.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC16&amp; aUnicode</code></td>
+<td class="Cell"><p class="ValueDesc">A UCS-2 encoded input string.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool aEncodeOptionalDirectCharactersInBase64</code></td>
+<td class="Cell"><p class="ValueDesc">If <code>ETrue</code> then characters from UTF-7 set O
+(optional direct characters) are encoded in Modified Base64. If
+<code>EFalse</code> the characters are encoded directly, as their ASCII
+equivalents.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The number of unconverted characters left at the end of the
+input descriptor, or one of the error values defined in
+<code>TError</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.5.3"></a></div><div class="Head3">
+<a name="%3a%3aCnvUtfConverter%3a%3aConvertFromUnicodeToUtf8%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ConvertFromUnicodeToUtf8()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static TInt ConvertFromUnicodeToUtf8(TDes8&amp; aUtf8, const TDesC16&amp; aUnicode, TBool aGenerateJavaConformantUtf8=EFalse);</code></p><h4 class="subheading">Support</h4>
+<p>Withdrawn in 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Converts Unicode text into UTF-8 encoding. </p>
+<p>The variant of UTF-8 used internally by Java differs slightly
+from standard UTF-8. The <code>TBool</code> argument controls the UTF-8 variant
+generated by this function.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes8&amp; aUtf8</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the UTF-8 encoded output string.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC16&amp; aUnicode</code></td>
+<td class="Cell"><p class="ValueDesc">A UCS-2 encoded input string.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool aGenerateJavaConformantUtf8</code></td>
+<td class="Cell"><p class="ValueDesc"><code>EFalse</code> for orthodox UTF-8. <code>ETrue</code> for
+Java UTF-8. The default is <code>EFalse</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The number of unconverted characters left at the end of the
+input descriptor, or one of the error values defined in
+<code>TError</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.5.4"></a></div><div class="Head3">
+<a name="%3a%3aCnvUtfConverter%3a%3aConvertFromUnicodeToUtf8%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ConvertFromUnicodeToUtf8()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static TInt ConvertFromUnicodeToUtf8(TDes8&amp; aUtf8, const TDesC16&amp; aUnicode);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Converts Unicode text into UTF-8 encoding.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes8&amp; aUtf8</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the UTF-8 encoded output string.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC16&amp; aUnicode</code></td>
+<td class="Cell"><p class="ValueDesc">The Unicode-encoded input string.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The number of unconverted characters left at the end of the
+input descriptor, or one of the error values defined in
+<code>TError</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.5.5"></a></div><div class="Head3">
+<a name="%3a%3aCnvUtfConverter%3a%3aConvertToUnicodeFromUtf7%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ConvertToUnicodeFromUtf7()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static TInt ConvertToUnicodeFromUtf7(TDes16&amp; aUnicode, const TDesC8&amp; aUtf7, TInt&amp; aState);</code></p><h4 class="subheading">Description</h4>
+<p>Converts text encoded using the Unicode transformation format
+UTF-7 into the Unicode UCS-2 character set.</p>
+<p>If the conversion is achieved using a series of calls to this
+function, where each call starts off where the previous call reached in the
+input descriptor, the state of the conversion is stored. The initial value of
+the state variable should be set as <code>KStateDefault</code> when the
+conversion is started, and afterwards simply passed unchanged into each
+function call.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes16&amp; aUnicode</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the Unicode encoded output string.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC8&amp; aUtf7</code></td>
+<td class="Cell"><p class="ValueDesc">The UTF-7 encoded input string.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aState</code></td>
+<td class="Cell"><p class="ValueDesc">For the first call of the function set to
+<code>KStateDefault</code>. For subsequent calls, pass in the variable
+unchanged.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The number of unconverted bytes left at the end of the input
+descriptor, or one of the error values defined in <code>TError</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.5.6"></a></div><div class="Head3">
+<a name="%3a%3aCnvUtfConverter%3a%3aConvertToUnicodeFromUtf8%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ConvertToUnicodeFromUtf8()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static TInt ConvertToUnicodeFromUtf8(TDes16&amp; aUnicode, const TDesC8&amp; aUtf8);</code></p><h4 class="subheading">Description</h4>
+<p>Converts text encoded using the Unicode transformation format
+UTF-8 into the Unicode UCS-2 character set.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes16&amp; aUnicode</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the Unicode encoded output string.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC8&amp; aUtf8</code></td>
+<td class="Cell"><p class="ValueDesc">The UTF-8 encoded input string</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The number of unconverted bytes left at the end of the input
+descriptor, or one of the error values defined in <code>TError</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Enumerations</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aCnvUtfConverter%3a%3aTError"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TError</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TError</code></p><h4 class="subheading">Description</h4>
+<p>Conversion error flags. At this stage there is only one error
+flag&#0160;&#8212;  others may be added in the future. </p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCnvUtfConverter%3a%3aEErrorIllFormedInput"><code class="Value">EErrorIllFormedInput</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>The input descriptor contains a single corrupt character.
+This might occur when the input descriptor only contains some of the bytes of a
+single multi-byte character.</para></p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aCnvUtfConverter%3a%3aAnonymous"></a>
+<hr size="1" noshade>
+<h3>Enum <code>Anonymous</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>Anonymous</code></p><h4 class="subheading">Description</h4>
+<p></p>
+<p>Initial state for a piece-by-piece conversion of a UTF-8 string
+to Unicode.</p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCnvUtfConverter%3a%3aKStateDefault"><code class="Value">KStateDefault</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Initial value for the state argument in a set of related
+calls to <code>ConvertToUnicode()</code>.</para></p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

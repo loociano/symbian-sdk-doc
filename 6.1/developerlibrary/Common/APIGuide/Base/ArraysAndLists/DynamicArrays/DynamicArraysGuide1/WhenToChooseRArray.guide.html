@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>When to choose the RArray and RPointerArray types</title>
+<link href="../../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="DynamicArraysGuide1%2echoose"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../../_index/index.html"><img
+src="../../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../../GlobalGlossary/index.html"><img src="../../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="PackedFlat.guide.html"><img src="../../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Arrays&nbsp;and&nbsp;Lists</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Dynamic&nbsp;Arrays</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Dynamic&nbsp;Arrays</a>&nbsp;<span class="separator">&#187;</span>
+When&nbsp;to&nbsp;choose&nbsp;the&nbsp;RArray&nbsp;and&nbsp;RPointerArray&nbsp;types</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>When to choose the <code>RArray</code> and <code>RPointerArray</code> types</h1>
+</div><div class="Bodytext">
+<p>The classes <a href="../../../../../APIReference/DynamicArrays/RArrayClass.html#%3a%3aRArray" title="A simple and efficient array of fixed length objects"><code class="ApiItem">RArray</code></a>, <a href="../../../../../APIReference/DynamicArrays/RPointerArrayClass.html#%3a%3aRPointerArray" title="A simple and efficient array of pointers to objects"><code class="ApiItem">RPointerArray</code></a> and the specialisation  classes for arrays of 32-bit integers,   <a href="../../../../../APIReference/DynamicArrays/RArrayTIntClass.html#%3a%3aRArray%3cTInt%3e" title="A simple and efficient specialized array of signed integers offering standard array behaviour"><code class="ApiItem">RArray&lt;TInt&gt;</code></a> and <a href="../../../../../APIReference/DynamicArrays/RArrayTUintClass.html#%3a%3aRArray%3cTUint%3e" title="Array of unsigned integers"><code class="ApiItem">RArray&lt;TUint&gt;</code></a>, provide  behaviour equivalent to the <a href="../../../../../APIReference/DynamicArrays/CArrayFixFlatClass.html#%3a%3aCArrayFixFlat" title="Array of fixed length objects contained within a flat dynamic buffer"><code class="ApiItem">CArrayFixFlat</code></a> and<a href="../../../../../APIReference/DynamicArrays/CArrayPtrFlatClass.html#%3a%3aCArrayPtrFlat" title="Array of pointers to objects implemented using a flat dynamic buffer"><code class="ApiItem">CArrayPtrFlat</code></a> classes.</p><p>In general, the  implementation of the <code>CArray...</code> classes re-uses the <a href="../../../../../APIReference/DynamicBuffers/CBufBaseClass.html#%3a%3aCBufBase" title="Specifies the interface for dynamic buffers"><code class="ApiItem">CBufBase</code></a> framework to provide two alternative storage structures for the array data with very little <code>CArray...</code> specific code. There are two assertions for every array access, one in the <code>CArray...</code> code and one in the <code>CBufBase</code> code.</p><p>In addition, the <code>CBufBase</code> code operates in terms of byte buffers, and these  appear in the API as descriptors. In the implementation, this requires a <a href="../../../../../APIReference/Descriptors/TPtr8Class.html#%3a%3aTPtr8" title="This is a descriptor class intended for instantiation and encapsulates a pointer to the 8 bit data that it represents"><code class="ApiItem">TPtr8</code></a> to be constructed, returned and inspected for every array access.</p><p>Also, a number of TRAP harnesses are used to catch allocation failure.</p><p>This means that, although very powerful,    the implementation of the <code>CArray...</code> classes can add considerable overhead for simple vector-like flat arrays of fixed length objects.</p><p>The <code>RArray...</code> classes were developed to overcome these  problems. In addition,  the generic searching and ordering capabilities are faster and easier to use. These classes should be used whenever an array of fixed length objects or an array of pointers is required, and the array has the following characteristics:</p><ul><li><p>the size of an array element  is bounded (the current implementation imposes an  upper limit of 640)</p></li><li><p>insertions into the array are infrequent</p></li></ul><p>In contrast, the main benefit to be derived from the <code>CArray...</code> classes is their support for  segmented storage and their ability to handle arrays of variable length objects. However, the latter is a rare requirement.</p>
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

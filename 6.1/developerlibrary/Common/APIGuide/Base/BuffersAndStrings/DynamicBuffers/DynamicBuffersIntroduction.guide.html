@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Introduction to dynamic buffers</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="DynamicBuffersGuide%2eintroduction"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="DynamicBuffersVersus.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Buffers&nbsp;and&nbsp;Strings</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Dynamic&nbsp;Buffers</a>&nbsp;<span class="separator">&#187;</span>
+Introduction&nbsp;to&nbsp;dynamic&nbsp;buffers</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Introduction to dynamic buffers</h1>
+</div><div class="Bodytext">
+<p>A buffer is an area of memory which may contain data.  Managing data in buffers can be more or less complex, depending on the requirements:</p>
+<ul><li><p>if the data is of fixed length, a fixed-length area of memory may be allocated, either on the stack or the heap; a buffer descriptor (<code>TBuf</code>) may be used for this.</p></li>
+<li><p>if the data is of varying length, but the variation is relatively small, it may still be appropriate to allocate the data within a non-extensible buffer such as <code>TBuf</code>: programming is simple, and only a little memory is wasted</p></li>
+<li><p>if the data is of significantly varying length, the memory can be allocated on the heap, and the allocation extended when necessary. The <code>CBufFlat</code> class is provided to manage this</p></li>
+<li><p>if the data&#8217;s length varies so much that a single heap cell cannot reasonably be expected to hold it all, then the data must be held in several heap cells, but these must appear as one for convenience. The <code>CBufSeg</code> class is provided to manage this</p></li>
+</ul><p>EPOC provides <i>flat buffers</i>, objects of type <code>CBufFlat</code>, which are used to allocate and manage storage in a single allocated cell</p>
+<p>EPOC provides <i>segmented buffers</i>, objects of type <code>CBufSeg</code>, which are used to allocate and manage storage in several alloc cells.</p>
+<p>Both types of buffer have a common base class, <code>CBufBase</code>. This class specifies the main aspects of the programming interface.  Having a common base class allows the decision as to whether to use flat or segmented buffers to be changed during program development, with minimal impact on code.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

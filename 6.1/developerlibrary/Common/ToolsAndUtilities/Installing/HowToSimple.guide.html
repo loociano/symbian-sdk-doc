@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to create a simple installation file</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="Installing%2ehowto%2dsimple"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="Exampleproject.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToLanguages.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Installation&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;create&nbsp;a&nbsp;simple&nbsp;installation&nbsp;file</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to create a simple installation file</h1>
+</div><div class="Bodytext">
+<p>The simplest installation file is one which bundles the files of an
+application, and installs them to a specified location on the Symbian OS phone. The
+installation will not support multilingual files, secure installation, or
+display text or run a program at install time. The process is:</p>
+<ol>
+<li>
+<p>Create a text file with extension <code class="filename">.pkg</code>.</p>
+</li>
+<li>
+<p>Specify the package header. In the simplest installation this
+consists of the application&#8217;s name, its UID, and its major, minor and
+build numbers. </p>
+</li>
+<li>
+<p>Specify the source location of files which should be installed
+and their destination on the target machine.</p>
+</li>
+<li>
+<p>Invoke the Installation File Generator on the package
+file.</p>
+</li>
+</ol>
+<a name="1.5"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Example</h2>
+</div><div class="Bodytext">
+<p>The project file for a minimal installation is provided in
+<code class="filename">epoc32ex\ToolsAndUtilities\HelloWorld.pkg</code>. A listing of the
+file is given below:</p>
+<p class="CodeBlock"><code>#{&quot;Minimal application&quot;},(0x10004299),1,0,0<br>; Only two files to install for the minimal application<br>&quot;HelloWorld.app&quot;-&quot;!:\system\apps\HelloWorld\HelloWorld.app&quot;<br>&quot;HelloWorld.rsc&quot;-&quot;!:\system\apps\HelloWorld\HelloWorld.rsc&quot;</code></p>
+<p>The package header defines the application&#8217;s name
+&#8220;<code class="ProgramOutput">Minimal application</code>&#8221;, UID (0x10004299) ,major
+and minor build numbers (1 , 0) and the build number (0). The second line,
+preceded by a semi-colon, is a comment. The final two lines specify the
+location of the files which should be put in the installation file, and their
+destination on the target machine.</p>
+<p>To create the installation file <code class="filename">HelloWorld.sis</code>, invoke
+the Installation File Generator on the package file:</p>
+<p class="CodeBlock"><code>makesis HelloWorld.pkg</code></p>
+<p><code class="filename">HelloWorld.sis</code> can then be installed on the target
+machine. After installation the application may be run by selecting the
+<code class="filename">HelloWorld</code> icon on the extras bar.</p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Notes</h2>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>The <em>UID</em> is a unique number, used by Symbian OS to specify the application. For more information on the UID, review the
+documentation for your SDK (C++, OPL, Java). </p>
+</li>
+<li>
+<p>Relative path names should be used to specify source files. By
+default <code class="filename">.sis</code> files are compressed. If the NOCOMPRESS option
+is set then the Software Installer uses the filename directly. The <code class="filename">.sis</code> file will have a relative path which will result in a &quot;Bad name&quot;
+error when  the <code class="filename">.sis</code> file is installed. This will happen with  the PC installer
+and Symbian OS installer. The full path should be specified, as the <code class="filename">.pkg</code> file will result in a &quot;Bad name&quot; error when
+the <code class="filename">.sis</code> file is installed.</p>
+</li>
+<li>
+<p>The application's major and minor version numbers are required for
+version control (e.g. <code class="filename">AppName 3.1</code> specifies a major build 3, and
+minor build 1).</p>
+</li>
+<li>
+<p>The build number is generally incremented whenever the component is
+rebuilt.</p>
+</li>
+<li>
+<p>Lines preceded by a semicolon are comments. These are not used
+by the Installation File Generator<code class="ProgramOutput">
+</code>as part of the build
+process.</p>
+</li>
+<li>
+<p>The target drive is (probably) selected by the user. This is
+indicated in the <code class="filename">pkg</code> file by specifying <code class="filename">!</code> as the
+destination drive, rather than, for example, <code class="filename">c:</code>. </p>
+</li>
+<li>
+<p>If directories in the installation path do not exist, they are
+automatically created by the Symbian OS  Installer.</p>
+</li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

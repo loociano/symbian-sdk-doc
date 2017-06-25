@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Transactions and locks</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="DBMSSharingDatabasesGuide%2etransaction%2dlocks"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="AccessModes.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="ChangeNotification.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">DBMS</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">DBMS&nbsp;sharing&nbsp;databases</a>&nbsp;<span class="separator">&#187;</span>
+Transactions&nbsp;and&nbsp;locks</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Transactions and locks</h1>
+</div><div class="Bodytext">
+<p>When multiple clients can access the same database, transactions ensure that only one client can change data at a time.</p>
+<p>DBMS transactions do not provide any form of isolation between clients; while one client is updating a table within a transaction, other clients can see the changes as they are made. For example, if a client retrieves two separate rows from a database, there is no automatic guarantee that the data being retrieved has not been changed between the reads; this can lead to an &#8216;inconsistent read&#8217;. A client can prevent an update while retrieving related rows by enclosing the individual reads within a transaction. Such a transaction does not modify the database and only operates as a read-lock; the <code>Commit()</code> or <code>Rollback()</code> member functions of the abstract base class <code>RDbDatabase</code> releases such a lock and does not affect the database in any way.</p>
+<p>In practice:</p>
+<ul><li><p>calling <code>Begin()</code> (a member of <code>RDbDatabase</code>) on a shared database attempts to get a shared read-lock on the database; this fails if <em>any</em> other client already has an exclusive write-lock. Other clients with read-locks will not cause this operation to fail.</p></li>
+<li><p>any operation which modifies the database, tries to gain an exclusive write-lock on it; this fails if any other client has <em>any kind</em> of lock on that database. If the current client already has a read-lock as a result of calling <code>Begin()</code>, then the lock is upgraded to an exclusive write-lock.</p></li>
+<li><p>calling <code>Commit()</code> or <code>Rollback()</code> after a read-lock has been acquired (but not a write-lock) releases the client's lock. The database is only considered to be unlocked when <em>all</em> such locks are removed by <em>all</em> clients, when it will report a <code>RDbNotifier::EUnlock</code> database event to any change notifier.</p></li>
+<li><p>calling <code>Commit()</code> or <code>Rollback()</code> after a write-lock has been acquired releases the client's lock and reports a <code>RDbNotifier::ECommit</code> or a <code>RDbNotifier::ERollback</code> database event to any change notifier.</p></li>
+<li><p>automatic transactions are used if updates are made outside of explicit transactions; such updates can also fail if an exclusive lock cannot be acquired.</p></li>
+</ul><p>Sharing read-locks enables greater concurrency while providing some safe guard against inconsistent reads. However, there is the possibility of a deadlock occurring. If two clients want to update a database and both <code>Begin()</code> a transaction before either of them starts an update, then one client's read-lock will prevent the other from upgrading to a write lock and vice versa. The only way out of this is to code the clients in such a way as to back out of such a deadlock situation, rather than retry forever without releasing the locks.</p>
+<p>To prevent a single transaction from containing both data modification and data definition statements, all affected cursors are invalidated when the definition of their underlying table is changed. Such a cursor reports a <code>KErrDisconnected</code> error in this state and can only be closed and the rowset re-generated once the DDL (SQL schema update) statement has completed. Calling <code>Reset()</code> on such a cursor has no effect. It is impossible to update rows while changing the schema.</p>
+<p>A client can change the database schema while other clients are using that database provided that they have no locks on it. However, those other clients may find that their rowsets are invalidated asynchronously.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

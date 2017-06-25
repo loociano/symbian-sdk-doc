@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to pre-expand a buffer</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="DynamicBuffersGuide%2ehowto%2dpreexpand"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToAllocateBuffers.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Buffers&nbsp;and&nbsp;Strings</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Dynamic&nbsp;Buffers</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;pre-expand&nbsp;a&nbsp;buffer</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to pre-expand a buffer</h1>
+</div><div class="Bodytext">
+<p>The <code>InsertL()</code> function provides a means of writing data
+into a buffer, and expanding it as necessary. When the kind of data to be
+inserted cannot be predicted in advance, this is the best technique to use. An
+example of this situation would be entering characters into a word processor
+document in response to user keystrokes.</p>
+<p>In cases where the data to be inserted into a buffer is known in
+advance&nbsp;— typically, when restoring from a file or stream
+store&nbsp;— it is better to pre-expand the buffer to be able to
+contain the data, and then <code>Write()</code> into the expanded region of the
+buffer:</p>
+<p>In the following example the buffer is allocated and primed with some
+data. Then <code>ExpandL()</code> is used to insert 16 uninitialised bytes into
+the buffer after position 6. The buffer is now 28 bytes long. Then, data is
+written into this gap using <code>Write()</code>, which cannot leave.</p>
+<p class="CodeBlock"><code>//<br>// Allocate buffer<br>//<br>CBufBase* buf=CBufSeg::NewL(4);<br>CleanupStack::PushL(buf);<br><br>//<br>// Put some text in<br>//<br>_LIT8(KHelloWorld,&quot;Hello world!&quot;);<br>buf-&gt;InsertL(0,KHelloWorld);<br><br>//<br>// Reserve space for 16 X 8-bit chars<br>//<br>buf-&gt;ExpandL(6,16);            // &lt;- this can fail<br>writeBuf(buf);<br><br>//<br>// Now insert only 16 characters<br>//<br>TText8 c='a';                  // character to insert<br>for (TInt i=0; i&lt;16; i++, c++)<br>&nbsp;{<br>&nbsp;buf-&gt;Write(i+6, &amp;c, 1);   // write a char in - cannot fail<br>&nbsp;}<br>writeBuf(buf);<br><br>//<br>// Now adjust size down to 18<br>//<br>buf-&gt;ResizeL(18);<br>writeBuf(buf);<br><br>//<br>// Destroy buffer<br>//<br>CleanupStack::PopAndDestroy();</code></p>
+<p>There are two advantages to replacing a large number of
+<code>InsertL()</code>s with a single <code>ExpandL()</code> followed by many
+<code>Write()</code>s:</p>
+<ul>
+<li>
+<p>each <code>InsertL()</code> may call the allocator to expand the
+dynamic buffer, and may cause data beyond the insertion point to be shuffled
+up: using a single <code>ExpandL()</code> results in minimal calls to the
+allocator, and only a single shuffle</p>
+</li>
+<li>
+<p>the <code>Write()</code> operations cannot leave: therefore, once
+a buffer has been successfully expanded to the right size, the writes are
+guaranteed to work: this is useful in some circumstances</p>
+</li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

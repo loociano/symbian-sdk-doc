@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Type safety issues</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="InterfaceToResourceFilesGuide%2etype%2dsafety%2dissues"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToSupportMultipleResourceFiles.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="SummaryFileTypes.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Interface&nbsp;to&nbsp;Resource&nbsp;Files</a>&nbsp;<span class="separator">&#187;</span>
+Type&nbsp;safety&nbsp;issues</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Type safety issues</h1>
+</div><div class="Bodytext">
+<p>Software systems implemented in C++ are designed to be type-safe.
+That is, proper use of header files, make utilities, type declarations, classes
+and templates makes it difficult to pass data of the wrong type to functions,
+to assign data of the wrong type to variables, or to construct a program whose
+modules are inconsistent with one another. Thus a major source of programming
+errors is detected while the program is being built, before running it.</p>
+<p>A program which uses resources must have a resource file which
+matches that program&#8217;s requirements. However, the resource file and the
+executable program are only loosely bound together: a variety of errors are
+possible when dealing with resources, which cannot be detected during the build
+process. Programmers should be aware of these and take appropriate measures to
+avoid them.</p>
+<p>Additional sources of error include:</p>
+<ul>
+<li>
+<p>Having a program and resource file which do not
+correspond.</p>
+<p>This can arise because the resource file formats were updated, or
+the program was updated, but the resource file was not updated. When the
+program is run, the resources it loads are in the wrong format.</p>
+</li>
+<li>
+<p>The structures in the resource file may be of a different format
+from that expected by the C++ program.</p>
+<p>If the C++ program expects a <code>LONG</code> while a
+<code>WORD</code> is present in the resource file, then the C++ program will
+read two extra bytes from the data item in the resource file. Any subsequent
+data read from that resource will be in error.</p>
+<p>This kind of error can only be avoided by C++ programs knowing
+which structs they are dealing with, knowing the data layouts of those structs
+in a resource file and writing code which works in that context.</p>
+</li>
+<li>
+<p>Having resources of unexpected type.</p>
+<p>The most likely reason for this to arise is because there is no
+type safety in the resource compiler. Thus, it is possible for a programmer to
+wrongly guess what kind of struct a particular resource should have.
+Appropriate comments in the <code class="filename">.rh</code> files and the documentation of the
+resource file, will help to reduce this kind of error.</p>
+</li>
+</ul>
+<p>The resource compiler does provide some elementary safety
+features:</p>
+<ul>
+<li>
+<p>All resources are represented by a symbolic id. This ensures that
+the resource ids used by the C++ program and those expected by the compiler
+match, if the recommended build procedures are followed.</p>
+</li>
+<li>
+<p>flag values, maximum length constants and some other values, may
+be defined in a <code class="filename">.hrh</code> file: this ensures that C++ programs deal
+with the same numbers as resource files and that the meaning of these numbers
+is clear, because they are specified symbolically.</p>
+</li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

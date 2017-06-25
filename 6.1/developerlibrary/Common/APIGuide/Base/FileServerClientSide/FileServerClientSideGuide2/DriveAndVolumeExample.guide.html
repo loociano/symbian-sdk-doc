@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to retrieve drive and volume information</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="FileServerClientSideGuide2%2ehow%2dto%2edrive%2dvolume"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="KeepingTrackOfResources.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">File&nbsp;Server&nbsp;Client&nbsp;Side</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">How&nbsp;to&nbsp;use&nbsp;sessions,&nbsp;files,&nbsp;and&nbsp;directories</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;retrieve&nbsp;drive&nbsp;and&nbsp;volume&nbsp;information</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+</div><div class="Head1">
+
+<h1>How to retrieve drive and volume
+information</h1>
+</div><div class="Bodytext"><p>
+<code>RFs</code>
+provides a number of functions to extract information about drives and
+volumes.</p><a name="1.4"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Retrieving drive information using
+<code>DriveList()</code></h2>
+</div><div class="Bodytext"><p>You can use
+<code>RFs::DriveList()</code> to retrieve an array of drives. The drive list
+consists of an array of 26 bytes. Array index zero corresponds to drive A, one
+equals B etc. The array member value is a bitmap of drive attributes, or 0 if
+there is no such drive.</p><a name="1.4.3"></a><p>The following code prints each
+drive in the drive list as a letter, followed by the hex value of the integer
+indicating the drive's attributes.</p><p class="CodeBlock"><code>TDriveList drivelist;<br>TChar driveLetter; TInt driveNumber=EDriveA; _LIT(KDrive,&quot;%c: %02x &quot;);<br>User::LeaveIfError(fsSession.DriveList(drivelist)); for<br>(;driveNumber&lt;=EDriveZ;driveNumber++) { if (drivelist[driveNumber]) {<br>User::LeaveIfError(fsSession.DriveToChar(driveNumber,driveLetter));<br>console-&gt;Printf(KDrive, TUint(driveLetter), drivelist[driveNumber]); }<br>}</code></p><a name="1.5"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Retrieving drive
+information using <code>Drive()</code></h2>
+</div><div class="Bodytext"><p>You can also use
+<code>RFs::Drive()</code> to retrieve a specified drive's attributes.
+</p><a name="1.5.3"></a><p>The following example loops through all possible drives,
+a-z, and prints a message if a drive is flash-based.</p><p class="CodeBlock"><code>TChar<br>driveLetter; TDriveInfo driveInfo; _LIT(KFlash,&quot;Drive %c is flash\n&quot;); for<br>(driveNumber=EDriveA; driveNumber&lt;=EDriveZ; driveNumber++) {<br>fsSession.Drive(driveInfo,driveNumber); if (driveInfo.iDriveAtt ==<br>KDriveAbsent) continue; if (driveInfo.iType == EMediaFlash) {<br>User::LeaveIfError(fsSession.DriveToChar(driveNumber,driveLetter));<br>console-&gt;Printf(KFlash,driveLetter); }<br>}</code></p><a name="1.5.4"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Notes</h3>
+</div><div class="Bodytext"><ul><li><p><code>RFs::Drive()</code>
+returns a <code>TDriveInfo</code> object. That class includes drive and media
+attributes, media type, and the battery state
+information.</p></li></ul><a name="1.6"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Volume
+information</h2>
+</div><div class="Bodytext"><p>You can get volume information comprising all the
+information provided by <code>TDriveInfo</code>, which additionally gives the
+volume name, its ID, its size and the amount of free space. </p><p>Use
+<code>RFs::Volume()</code> to get a <code>TVolumeInfo</code>
+object.</p><a name="1.6.4"></a><p>The following example prints out the names of
+volumes:</p><p class="CodeBlock"><code>TVolumeInfo volumeInfo; _LIT(KVolName,&quot;Volume name:<br>%S\n&quot;); for (driveNumber=EDriveA; driveNumber&lt;=EDriveZ; driveNumber++) {<br>TInt err=fsSession.Volume(volumeInfo,driveNumber); if (err != KErrNone)<br>continue; User::LeaveIfError(fsSession.DriveToChar(driveNumber,driveLetter);<br>console-&gt;Printf(KVolInfo,&amp;aVolumeInfo.iName);<br>}</code></p><a name="1.6.5"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Note</h3>
+</div><div class="Bodytext"><ul><li><p><code>RFs::Volume()</code>
+is used in a similar manner to <code>RFs::Drive()</code>. To test whether a
+volume is present in the drive, use the return value from
+<code>Volume()</code>. A value of <code>KErrNotReady</code> indicates that
+there is no volume
+present.</p></li></ul>
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

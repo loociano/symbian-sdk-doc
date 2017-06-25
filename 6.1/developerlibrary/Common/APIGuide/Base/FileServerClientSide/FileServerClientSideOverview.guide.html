@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>File Server Client Side overview</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="FileServerClientSideOverview%2emain"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="FileServerClientSideGuide1/index.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">File&nbsp;Server&nbsp;Client&nbsp;Side</a>&nbsp;<span class="separator">&#187;</span>
+File&nbsp;Server&nbsp;Client&nbsp;Side&nbsp;overview</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>File Server Client Side Overview</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Purpose</h2>
+</div><div class="Bodytext">
+<p>Provides an application interface to file systems.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Architectural relationships</h2>
+</div><div class="Bodytext">
+<p>File access is provided by an EPOC server, the file server. It
+provides local file systems (ROM, RAM and removable media), and an interface to
+allow dynamically installable file systems, such as those required to
+communicate with remote disks over a network. </p>
+<p>The drive, directory and file hierarchy is VFAT, thus making the
+file system naturally compatible with desktop PCs.</p>
+<p>Stream stores, as defined in the Stores API, provides a layer over
+the file interface, and are commonly used instead of the file API directly.
+</p>
+<p>The application architecture, as defined in the Application
+Architecture Framework API, and associated components, provide the policy for
+file locations. Because of this, most application programs do not need to know
+the details of the directory-related APIs. </p>
+<p>Some additional utilities are provided in the Application Utilities
+API.</p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Description</h2>
+</div><div class="Bodytext">
+<p>The API has seven key concepts: file server session; file;
+directory; units, drives and volumes; path and filename parser; file
+management; and file search. </p>
+<a name="1.5.3"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>File server session</h3>
+</div><div class="Bodytext">
+<p>All access from client to server is through a file server
+session. It provides file system manipulation functions, including adding,
+removing, moving and renaming files and directories; inspecting and changing
+file and directory attributes and entry details; and requesting notifications
+of when significant change occurs. </p>
+<p>The file server session is provided by
+<a href="../../../APIReference/FileServerClientSide/RFsClass.html#%3a%3aRFs" title="Handle to file server session"><code class="ApiItem">RFs</code></a>.</p>
+<a name="1.5.4"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>File</h3>
+</div><div class="Bodytext">
+<p>A specified file can be opened, created, or replaced. Files must
+be opened before they are read from or written to. Data in read and write
+operations is passed through descriptors. Files can also be read and written
+through the file stream classes provided by the File Stores API.</p>
+<p>The file interface is provided by
+<a href="../../../APIReference/FileServerClientSide/RFileClass.html#%3a%3aRFile" title="Creates and opens a file, and performs all operations on a single open file"><code class="ApiItem">RFile</code></a>.</p>
+<a name="1.5.5"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Directory</h3>
+</div><div class="Bodytext">
+<p>A directory entry is a directory, file or volume label. Directory
+entries can be read and sorted. </p>
+<p>To read through a directory one entry at a time, use
+<a href="../../../APIReference/FileServerClientSide/RDirClass.html#%3a%3aRDir" title="Reads the entries contained in a directory"><code class="ApiItem">RDir</code></a>. To read many entries at a time, use
+<a href="../../../APIReference/FileServerClientSide/RFsClass.html#%3a%3aRFs" title="Handle to file server session"><code class="ApiItem">RFs</code></a> functions and the associated
+<a href="../../../APIReference/FileServerClientSide/CDirClass.html#%3a%3aCDir" title="Array of directory entries that has been read into memory from the file system -- abstract base class"><code class="ApiItem">CDir</code></a>. The directory entry class is
+<a href="../../../APIReference/FileServerClientSide/TEntryClass.html#%3a%3aTEntry" title="Directory entry"><code class="ApiItem">TEntry</code></a>. </p>
+<a name="1.5.6"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Units, drives and volumes </h3>
+</div><div class="Bodytext">
+<p>A unit is a device which may or may not have a drive in it. For
+removable media, the unit is always present, but a drive may not be. A drive
+can have up to four partitions, representing volumes, on it. </p>
+<p><a href="../../../APIReference/FileServerClientSide/RFsClass.html#%3a%3aRFs" title="Handle to file server session"><code class="ApiItem">RFs</code></a> provides means to find out which units,
+drives and volumes are present. Information for them is encapsulated in
+<a href="../../../APIReference/FileServerClientSide/TDriveUnitClass.html#%3a%3aTDriveUnit" title="Drive numbers and letters"><code class="ApiItem">TDriveUnit</code></a>, <a href="../../../APIReference/FileServerClientSide/TDriveInfoStruct.html#%3a%3aTDriveInfo" title="Contains drive information"><code class="ApiItem">TDriveInfo</code></a> and
+<a href="../../../APIReference/FileServerClientSide/TVolumeInfoClass.html#%3a%3aTVolumeInfo" title="Information about a volume mounted on drive"><code class="ApiItem">TVolumeInfo</code></a>. </p>
+<a name="1.5.7"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Path and filename parser</h3>
+</div><div class="Bodytext">
+<p>A filename has the logical parts of drive, path, name, and
+extension. An interface to manipulate filenames is provided by
+<a href="../../../APIReference/FileServerClientSide/TParseBaseClass.html#%3a%3aTParseBase" title="Base class for file name parsing"><code class="ApiItem">TParseBase</code></a>. Concrete implementations are provided by the
+derived classes, <a href="../../../APIReference/FileServerClientSide/TParseClass.html#%3a%3aTParse" title="Parses filenames"><code class="ApiItem">TParse</code></a>, <a href="../../../APIReference/FileServerClientSide/TParsePtrClass.html#%3a%3aTParsePtr" title="Parses filenames using less space on the stack than TParse"><code class="ApiItem">TParsePtr</code></a>
+and <a href="../../../APIReference/FileServerClientSide/TParsePtrCClass.html#%3a%3aTParsePtrC" title="Parses (but cannot modify) filenames using less space on the stack than TParse"><code class="ApiItem">TParsePtrC</code></a>.</p>
+<a name="1.5.8"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>File management</h3>
+</div><div class="Bodytext">
+<p>Efficient large-scale copying, moving and other file management
+operations, are provided by <a href="../../../APIReference/FileServerClientSide/CFileManClass.html#%3a%3aCFileMan" title="File management services which accept the use of wildcards -- synchronous and asynchronous"><code class="ApiItem">CFileMan</code></a>.</p>
+<a name="1.5.9"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>File search</h3>
+</div><div class="Bodytext">
+<p>High-level file finding functionality is provided by
+<a href="../../../APIReference/FileServerClientSide/TFindFileClass.html#%3a%3aTFindFile" title="Searches for files"><code class="ApiItem">TFindFile</code></a>.</p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="../ApplicationUtilities/ApplicationUtilitiesOverview.guide.html#ApplicationUtilitiesOverview%2emain">Application Utilities Overview</a></p>
+<p><a href="../FileStores/FileStoresOverview.guide.html#FileStoresOverview%2emain">File Stores Overview</a></p>
+<p><a href="../InterProcessCommunication/ClientServerOverview.guide.html#InterProcessCommunicationOverview%2eClientServerOverview%2emain">Client/Server Overview</a></p>
+<p><a href="../Stores/StoresOverview.guide.html#StoresOverview%2emain">Stores Overview</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CommDb Overview</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="CommsInfrastructureOverview%2eCommDbOverview%2emain"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CommsInfrastructureOverview.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="NifManOverview.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Comms&nbsp;Infrastructure</a>&nbsp;<span class="separator">&#187;</span>
+CommDb&nbsp;Overview</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>CommDb Overview</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Purpose</h2>
+</div><div class="Bodytext">
+<p>Provides system-wide storage for communications-related settings.
+It holds information about Internet Access Providers (IAPs), Internet Service
+Providers (ISPs), GPRS, modems, locations, charge-cards, proxies, and WAP
+settings.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Architectural relationships</h2>
+</div><div class="Bodytext">
+<p>Communications settings are written mostly by control panel
+communications applets, or other specialised communications setup applications.
+Communications settings are commonly read by other communications sub-systems,
+such as Networking, Telephony, and WAP.</p>
+<p>CommDb stores the settings in a series of tables in a relational
+database, using the DBMS architecture. DBMS is a client/server architecture and
+provides for safe access by multiple clients. </p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Description</h2>
+</div><div class="Bodytext">
+<p>The API has two key concepts: communications database, and table
+view. </p>
+<a name="1.5.3"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Communications database interface</h3>
+</div><div class="Bodytext">
+<p>The Communications database interface allows clients to access
+the database, open its tables, and perform transactions. It is provided by
+<a href="../../APIReference/CommDb/CCommsDatabaseClass.html#%3a%3aCCommsDatabase" title="Accesses the communications database through the DBMS"><code class="ApiItem">CCommsDatabase</code></a> and its base class
+<a href="../../APIReference/CommDb/CCommsDatabasebaseClass.html#%3a%3aCCommsDatabaseBase" title="Base class for CCommsDatabase"><code class="ApiItem">CCommsDatabaseBase</code></a>.</p>
+<a name="1.5.4"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Table view</h3>
+</div><div class="Bodytext">
+<p>Most database settings are read and written to by opening the
+appropriate table. Table access is provided by
+<a href="../../APIReference/CommDb/CCommsDbTableViewclass.html#%3a%3aCCommsDbTableView" title="The view on a specific table"><code class="ApiItem">CCommsDbTableView</code></a>.</p>
+<p>The type of tables are as follows:</p>
+<ul>
+<li>
+<p><a href="../../APIReference/CommDb/ChargecardTable.html#commdb%2echargecard%2dtable">Chargecard table</a></p>
+</li>
+<li><p><a href="../../APIReference/CommDb/ConnPreferencesTable.html#commdb%2econnprefs%2dtable">Connection preferences table</a></p></li><li>
+<p><a href="../../APIReference/CommDb/DialOutISPTable.html#commdb%2edialoutisp%2dtable">Dial-out ISP table</a></p>
+</li>
+<li>
+<p><a href="../../APIReference/CommDb/GlobalTable.html#commdb%2eglobal%2dtable">Global table</a></p>
+</li>
+<li>
+<p><a href="../../APIReference/CommDb/IAPTable.html#commdb%2eiap%2dtable">IAP table</a>: an Internet Access Point (IAP) defines sets of
+ISP and chargecard that can be used together</p>
+</li><li><p><a href="../../APIReference/CommDb/InOutGPRSTable.html#commdb%2egprs%2dtable">Incoming GPRS table</a></p></li><li>
+<p><a href="../../APIReference/CommDb/LocationTable.html#commdb%2elocation%2dtable">Location table</a>: affects how telephone numbers are dialled</p>
+</li>
+<li>
+<p><a href="../../APIReference/CommDb/ModemsTable.html#commdb%2emodems%2dtable">Modems table</a></p>
+</li>
+<li><p><a href="../../APIReference/CommDb/InOutGPRSTable.html#commdb%2egprs%2dtable">Outgoing GPRS table</a></p></li><li>
+<p><a href="../../APIReference/CommDb/ProxiesTable.html#commdb%2eproxies%2dtable">Proxies table</a></p>
+</li>
+<li>
+<p><a href="../../APIReference/CommDb/WAPAccessPointTable.html#commdb%2ewapap%2dtable">WAP access point table</a></p>
+</li>
+<li>
+<p><a href="../../APIReference/CommDb/WAPIPBearerTable.html#commdb%2ewapip%2dtable">WAP IP bearer table</a></p>
+</li>
+<li>
+<p><a href="../../APIReference/CommDb/WAPSMSBearerTable.html#commdb%2ewapsms%2dtable">WAP SMS bearer table</a></p>
+</li>
+</ul>
+<p>It is possible for several
+instances of most of the tables (e.g. where multiple IAPs have been set up) to
+exist in the database. The Connected preferences table sets a ranking by which such records are used. That table is accessed through its own view class <a href="../../APIReference/CommDb/CCommsDbConnectionPrefTableViewClass.html#%3a%3aCCommsDbConnectionPrefTableView" title="Provides access to the Connection preferences table, to allow clients to set the preferred order in which connections are attempted"><code class="ApiItem">CCommsDbConnectionPrefTableView</code></a>.</p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="../Base/DBMS/DBMSOverview.guide.html#DBMSGuide%2eOverview">DBMS Overview</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

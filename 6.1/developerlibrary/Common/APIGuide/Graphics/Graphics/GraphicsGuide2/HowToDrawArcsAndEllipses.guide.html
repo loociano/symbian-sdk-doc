@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to draw arcs and ellipses</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="GraphicsGuide2%2earcs%2dellipses%2dexample"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToDrawATriangle.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToDrawARoundedRectangle.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Graphics</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Graphics</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">How&nbsp;to&nbsp;Draw&nbsp;to&nbsp;a&nbsp;Graphics&nbsp;Context</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;draw&nbsp;arcs&nbsp;and&nbsp;ellipses</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to draw arcs and ellipses</h1>
+</div><div class="Bodytext">
+<p>The following example code demonstrate how to:</p>
+<ul>
+<li>
+<p>Draw ellipses and arcs. The first draws the whole ellipse; the
+second, one section of the ellipse; and in the third, the other section of the
+ellipse is drawn (also illustrating construction lines and points).</p>
+</li>
+<li>
+<p>Draw two pie slices making an ellipse. </p>
+</li>
+</ul>
+<p>The code assumes that the ellipse and arc examples all use a common
+pre-defined rectangle:</p>
+<p class="CodeBlock"><code>...<br>TRect ellipseRect=Rect(); // for arcs and ellipse<br>ellipseRect.Shrink(10,10); // set size so inside the border rectangle<br>...</code></p>
+<p>The arc and pie slice examples use two construction points as
+arguments:</p>
+<p class="CodeBlock"><code>...<br>TPoint screenCenterPoint=rect.Center(); // the center of the screen<br>// set up a pair of construction points for arc and pie slice drawing<br>TPoint constructionPoint1(15,15); // outside the construction ellipse<br>TPoint constructionPoint2(200,150); // inside the construction ellipse<br>...</code></p>
+<p>The centre point is drawn in the second arc example to clarify arc
+construction.</p>
+<a name="1.10"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>How to draw an ellipse</h2>
+</div><div class="Bodytext">
+<p>You can use <code>DrawEllipse()</code> to draw an ellipse. </p>
+<p class="CodeBlock"><code>...<br>// draw an ellipse centered in the rectangle<br>gc.DrawEllipse(ellipseRect);<br>...</code></p>
+<a name="1.11"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>How to draw an arc</h2>
+</div><div class="Bodytext">
+<p>An arc is drawn as a portion of an ellipse. As well as the ellipse
+rectangle, the call must specify the two points: the first defines one end of a
+line from the geometric centre of the ellipse; the point of intersection
+between this line and the ellipse defines the start point of the arc. The
+second specified point acts in the same way for the end of the arc.</p>
+<div class="Figure">
+<p class="Image"><img src="gddraw-arc.gif" alt="Arc construction"  border="0"></p>
+<p class="Caption">Arc construction</p>
+</div>
+<p>The example code here shows how an arc is drawn in an anti-clockwise
+direction using <code>constructionPoint1</code> and
+<code>constructionPoint2</code> as the start to the end points.</p>
+<p class="CodeBlock"><code>...<br>// draw an arc centered in the rectangle<br>gc.DrawArc(ellipseRect,constructionPoint1,constructionPoint2);<br>...</code></p>
+<p>You can reverse the pair of construction point arguments to draw the
+other half of the ellipse. The construction points and screen centre are also
+drawn, with dotted construction lines:</p>
+<p class="CodeBlock"><code>...<br>// draw an arc centered in the rectangle<br>// that is the other portion of the ellipse<br>&nbsp;gc.DrawArc(ellipseRect,constructionPoint2,constructionPoint1);<br>// draw construction lines and points<br>gc.SetPenStyle(CGraphicsContext::EDottedPen);<br>gc.MoveTo(constructionPoint1);<br>gc.DrawLineTo(screenCenterPoint);<br>gc.DrawLineTo(constructionPoint2);<br>gc.SetPenSize(penSizeBold);<br>gc.Plot(constructionPoint1);<br>gc.Plot(constructionPoint2);<br>gc.Plot(screenCenterPoint);<br>...</code></p>
+<a name="1.12"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Drawing pie slices</h2>
+</div><div class="Bodytext">
+<p>The example code here shows how two pie slices are drawn. A pie slice is
+the area bounded by:</p>
+<p>an arc as used above </p>
+<p>the straight line from the start point from the geometric centre of the
+ellipse </p>
+<p>the straight line from the end point from the geometric centre of the
+ellipse </p>
+<div class="Figure">
+<p class="Image"><img src="gddraw-pie.gif" alt="Pie slice construction"  border="0"></p>
+<p class="Caption">Pie slice construction</p>
+</div>
+<p>Solid and patterned brush styles are used to fill the portions of the
+elliptical disc.</p>
+<ol>
+<li>
+<p>Use <code>SetBrushStyle() </code>to set the brush style to
+solid.</p>
+</li>
+<li>
+<p>Use <code>SetBrushColour() </code>to set the brush colour to
+black.</p>
+</li>
+<li>
+<p>Use <code>DrawPie() </code>to draw a pie slice.</p>
+</li>
+<li>
+<p>Use <code>SetBrushStyle()</code> to set the patterned brush
+style.</p>
+</li>
+<li>
+<p>Use <code>DrawPie() </code>and reverse the pair of construction point
+arguments so that the two pie slices together form a whole ellipse.</p>
+</li>
+</ol>
+<p class="CodeBlock"><code>...<br>// draw a pie slice centered in the rectangle<br>gc.SetBrushStyle(CGraphicsContext::ESolidBrush);<br>gc.SetBrushColor(black);<br>gc.DrawPie(ellipseRect,constructionPoint1,constructionPoint2);<br>// draw the other portion of the elliptical disc<br>gc.SetBrushStyle(CGraphicsContext::EVerticalHatchBrush);<br>gc.DrawPie(ellipseRect,constructionPoint2,constructionPoint1);<br>...</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

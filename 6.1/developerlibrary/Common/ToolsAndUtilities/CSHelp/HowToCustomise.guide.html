@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to customise the appearance of topic text</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="cshelp%2ehowto%2dcustomise"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToSynonym.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToContextSensitive.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">CS&nbsp;Help&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;customise&nbsp;the&nbsp;appearance&nbsp;of&nbsp;topic&nbsp;text</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to customise the appearance of topic text</h1>
+</div><div class="Bodytext">
+<p>The appearance of text within a help file is defined in a
+customisation file. It is much easier to copy an existing customisation file
+and modify it than to create a totally new file.</p>
+<p>If no customisation file is declared in the project file, or if a
+file cannot be found at the specified location, a default set of style
+definitions are applied. The process of customising the appearance of topic
+text is:</p>
+<ol>
+<li>
+<p>Specify the name of the customisation file in the project file.
+For example, in the “files” section have:</p>
+<p><code>&lt;customization&gt;customisation-file-name.xml
+&lt;/customization&gt;</code>
+</p>
+</li>
+<li>
+<p>Create or copy a customisation file. </p>
+</li>
+<li>
+<p>Create an XML prologue. This gives the XML version conformance,
+the location of the DTD for source document validation and the location of the
+XSL file to allow the proofing XML to be viewed in a browser. The code fragment
+below shows a typical prologue.</p>
+<p class="CodeBlock"><code>&lt;?xml version=&quot;1.0&quot;?&gt;<br>&lt;!DOCTYPE cshcust SYSTEM &quot;/cshlpcmp/dtd/CSHcust.dtd&quot;&gt;<br>&lt;?xml:stylesheet href=&quot;/cshlpcmp/xsl/cshcust.xsl&quot; title=&quot;CS-Help customization&quot; type=&quot;text/xsl&quot;?&gt;</code></p>
+<p>If altering an existing project file, there is no need to change
+this section.</p>
+</li>
+<li>
+<p>Declare the body of the customisation file in the &lt;cshcust&gt;
+tags:</p>
+<p>
+<code>&lt;cshcust&gt;customisation-file-body&lt;/cshcust&gt;</code>. </p>
+<p>The rest of the project file is defined within these tags.</p>
+</li>
+<li>
+<p>Create and specify a paragraph style. For example:</p>
+<p><code>&lt;parastyle name=&quot;note&quot; font=&quot;sansserif&quot; size=&quot;9&quot; left=&quot;20&quot;&lt;b&gt;Note:&lt;/b&gt;&lt;/parastyle&gt;</code></p>
+<p>The content of the element is styled text to put at the start of a
+paragraph (e.g. &lt;b&gt;<b>Note:</b>&lt;/b&gt;). All of these entities
+will be specified when defining paragraph styles. </p>
+<p> The style for the text is normal by default, however
+<code>&lt;I&gt;&lt;/I&gt;</code> tags can be used to make it italic and
+<code>&lt;b&gt;&lt;/b&gt;</code> tags can be used to make it bold.</p>
+</li>
+<li>
+<p>Specify the symbol used for level one bullets (marked as
+<code class="ProgramOutput">List Bullet</code> style in the source rich-text file): </p>
+<p><code>&lt;listbullet1style
+bulletchar=&quot;number-of-symbol&quot;/&gt;</code>. </p>
+<p>The symbol is selected by its number in the symbol table.</p>
+</li>
+<li>
+<p>Specify the symbol used for level 2 bullets (marked as <code class="ProgramOutput">List
+Bullet 2</code> style in the source rich-text file): </p>
+<p><code>&lt;listbullet2style
+bulletchar=&quot;number-of-symbol&quot;/&gt;</code></p>
+</li><li><p>Specify the left indent for lists:</p><p><code>&lt;lists leftindent=&quot;list-indent-left&quot;/&gt;</code></p></li>
+</ol>
+<a name="1.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Note</h2>
+</div><div class="Bodytext">
+<p>The <code>&lt;titlestyle&gt;</code>, <code>&lt;bodystyle&gt;</code>,
+<code>&lt;tipeffects&gt;</code>, <code>&lt;noteeffect&gt;</code> and
+<code>&lt;importanteffects&gt;</code> styles are deprecated for 6.1 releases
+but are still compatible. For details on usage of these style see the
+<a href="../CSHelp-ref/CustomisationFileReference.guide.html#cshelp%2dref%2ecustomise">Customisation file — xml</a>
+reference section.</p>
+<a name="1.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Example</h2>
+</div><div class="Bodytext">
+<p>An example customisation file is located in
+<code class="filename">\CsHelp\project\</code>. A listing of the file is given below.</p>
+<p class="CodeBlock"><code>&lt;?xml version=&quot;1.0&quot;?&gt;<br>&lt;!DOCTYPE cshcust SYSTEM &quot;/cshlpcmp/dtd/CSHcust.dtd&quot;&gt;<br>&lt;?xml:stylesheet href=&quot;/cshlpcmp/xsl/cshcust.xsl&quot; title=&quot;CS Help customization&quot; type=&quot;text/xsl&quot;?&gt;<br>&lt;cshcust&gt;<br>&lt;parastyle name=&quot;body&quot; font=&quot;sansserif&quot; size=&quot;9&quot;/&gt;<br>&lt;parastyle name=&quot;tip&quot; font=&quot;sansserif&quot; size=&quot;9&quot; image=&quot;pictures\tip2&quot; left=&quot;20&quot;&gt;&lt;/parastyle&gt;<br>&lt;parastyle name=&quot;note&quot; font=&quot;sansserif&quot; size=&quot;9&quot; left=&quot;20&quot;&lt;b&gt;Note:&lt;/b&gt;&lt;/parastyle&gt;<br>&lt;parastyle name=&quot;important&quot; font=&quot;sansserif&quot; size=&quot;9&quot; image=&quot;pictures\important2&quot; left=&quot;20&quot;&gt;&lt;/parastyle&gt;<br><br>&lt;body style=&quot;body&quot;/&gt;<br><br>&lt;titlestyle fontstyle=&quot;sansserif&quot; size=&quot;10&quot;/&gt;<br>&lt;listbullet1style bulletchar=&quot;8226&quot;/&gt;<br>&lt;listbullet2style bulletchar=&quot;8226&quot;/&gt;<br>&lt;lists leftindent=&quot;20&quot;/&gt;<br>&lt;/cshcust&gt;</code></p><p>The file has the standard XML prologue. The paragraph style, or topic
+text, is set as 9  pt <code>SansSerif</code> in the output file. </p>
+<p>Text in <code class="ProgramOutput">List Bullet</code> style is displayed in the help
+file with a preceding bullet symbol. This symbol is taken from position 8226 in
+the symbol table. Similarly, text in <code class="ProgramOutput">List Bullet 2</code> style is
+preceded by character 45 in the final help database.</p>
+<p>Note is  specified as being bold by the <code>b</code> tag. When the CS Help compiler encounters these style marks it
+inserts the appropriate text (e.g. <b>Note</b>) in front of the marked
+text, as shown below. The tip and important paragraph styles are indicated by an image located in the &quot;pictures&quot; folder of the project directory</p>
+<div class="Figure">
+<p class="Image"><img src="TipNoteImp1.gif" alt=""  border="0"></p>
+</div>
+<p>The Tip, Note and Important paragraphs are indented by 20
+<em>twips</em>. For
+graphics this field is optional. If not defined, text is indented by an amount
+equal to the width of the graphic.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

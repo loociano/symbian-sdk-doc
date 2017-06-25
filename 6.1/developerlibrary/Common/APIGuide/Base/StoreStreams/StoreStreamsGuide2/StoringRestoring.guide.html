@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Storing and restoring</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="StoreStreamsGuide2%2estoring%2drestoring"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="StreamNetworks.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="StoringAndRestoringProtocol.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Store&nbsp;Streams</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Storing&nbsp;and&nbsp;restoring</a>&nbsp;<span class="separator">&#187;</span>
+Storing&nbsp;and&nbsp;restoring</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Storing and restoring</h1>
+</div><div class="Bodytext">
+<p>An object in its internal form may consist of just simple data types,
+for example, a <code>TPoint</code>, which just has two <code>TInt</code> values
+representing its X and Y co-ordinates, or a network of objects, for example, a
+<code>CBufSeg</code>. There are two ways of storing the external form of the
+object:</p>
+<ul>
+<li>
+<p> externalising it as part of a stream </p>
+</li>
+<li>
+<p>storing it as an entire stream network in a store. </p>
+</li>
+</ul>
+<p>When externalizing an object to a stream, the stream is passed to the
+the <code>ExternalizeL()</code> function and, in general, an object has no
+knowledge of where, in the stream, the data is written.</p>
+<p>When a whole network of objects is to be externalised it is useful to
+<em>store</em> an object in its own stream network. This is particularly
+important if other objects are to be restored without restoring this one. The
+main reason is that it is very difficult to read past an object's data in a
+single stream without knowing something about its internal form.</p>
+<a name="1.7"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>What to store?</h2>
+</div><div class="Bodytext">
+<p>You should store an object which you might not wish to load along
+with its containing object. The following are typical situations where storing
+is used:</p>
+<ul>
+<li>
+<p>when objects are stored in a database, such as a relational
+database, various indexes to the database are accessed, but not every object is
+loaded into RAM when the database is opened.</p>
+</li>
+<li>
+<p>embedded objects in documents. An object represented by an
+iconic door is not loaded until that door is opened; an object represented by a
+glass door may not be loaded until the glass door is required to be
+displayed.</p>
+</li>
+<li>
+<p>when there is additional information to allow various levels of
+access to complex data streams. For example, rich text. The text is stored in
+one stream, but the formatting information is stored in other streams; this
+enables global text or even plain text to be read without the details of the
+rich text formatting interfering with the process.</p>
+</li>
+<li>
+<p>when there is additional information for later versions of a
+program. Additional version-2 information can be stored in a separate stream;
+then, a version-1 program working on the same store will load only the
+version-1 information, but the version-2 program will load both.</p>
+</li>
+</ul>
+<p>In general, the decision to <em>store</em> rather than
+<em>externalise</em> is a fundamental characteristic of the object, and
+should be taken with care. A compound object, which contains stored component
+objects, must obey store-related protocols which are more complex than the
+simple stream-related <code>ExternalizeL()</code> and
+<code>InternalizeL()</code>. The decisions already taken by system components,
+such as rich text, and by the application architecture, influence the kinds of
+things you store in your own applications.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

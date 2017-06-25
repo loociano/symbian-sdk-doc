@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to support multiple resource files</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="InterfaceToResourceFiles%2ehow%2dto%2emulti%2dfile"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToConvertArrayResources.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="TypeSafety.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Interface&nbsp;to&nbsp;Resource&nbsp;Files</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;support&nbsp;multiple&nbsp;resource&nbsp;files</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to support multiple resource files</h1>
+</div><div class="Bodytext">
+<p>An application often needs to use resources from more than one
+resource file. A common situation involves a system resource file for
+environment resources and an application resource file for the application
+specific resources.</p>
+<p>In general, it is useful for an application to be able to use an
+arbitrary number of resource files.</p>
+<p>The resource compiler and the <code>RResourceFile</code> class
+provide two mechanisms to support these requirements:</p>
+<ul>
+<li>
+<p>the <code>NAME</code> statement allows a four-letter short name
+to be defined for a source file; this name is converted into a 20-bit value,
+represented by five hex digits. This value is referred to as the
+<em>offset</em>. If the digits are <code>0xabcde</code>, then resource ids
+are allocated in sequence <code>0xabcde001</code>, <code>0xabcde002</code>,
+<code>0xabcde003</code> ... <code>0xabcdefff</code>, rather than the usual
+0x00000001, 0x00000002, 0x00000003 ... 0x00000fff (decimal 4095).</p>
+</li>
+<li>
+<p>a resource file signature, which must be the first resource in
+the file, contains a reference to itself: this may be used by the
+<code>RResourceFile</code> class to identify the 20-bit offset for resource
+ids, because the first resource id will be <code>0xabcde001</code>.</p>
+</li>
+</ul>
+<p>These ideas are explained below:</p>
+<a name="1.8"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Name, version and signature</h2>
+</div><div class="Bodytext">
+<p>The following resource file definition uses the <code>NAME</code>
+statement and a signature.</p>
+<p class="CodeBlock"><code>NAME BASE<br><br>#include &quot;xxx.rh&quot;<br><br>STRUCT SIGNATURE<br>{<br>LONG signature;<br>SRLINK self;<br>}<br><br>RESOURCE SIGNATURE {}<br><br>RESOURCE STRING r_base_hello<br>{<br>text=&#8221;Hello World!&#8221;;<br>}</code></p>
+<p>The <code>STRING</code> struct is defined in the resource header
+file <code class="filename">xxx.rh</code>:</p>
+<p class="CodeBlock"><code>STRUCT STRING<br>{<br>TEXT text;<br>}</code></p>
+<p>After resource compilation, the generated <code class="filename">.rsg</code> header
+file contains:</p>
+<p class="CodeBlock"><code>#define R_BASE_HELLO 0x9EA5002</code></p>
+<p>The name <code class="ProgramOutput">BASE</code> causes an offset,
+<code>0x09ea5000</code>, to be added to every resource id in the file.</p>
+<p>In order to provide a guaranteed way to find out what the offset
+is, the resource file must begin with a <code>SIGNATURE</code> resource. This
+resource contains two 32-bit fields: a version number and a self-referencing
+link. Because the resource is the first in the file, the self-referencing link
+refers to resource <code>0x09ea5001</code>. The
+<code>RResourceFile::ConfirmSignatureL()</code> function reads the signature
+resource and initialises the offset value from this resource.
+<code>RResourceFile::ConfirmSignatureL()</code> must always be called before
+attempting to read resources from a file, otherwise subsequent attempts at
+reading resources will fail.</p>
+<p class="CodeBlock"><code>_LIT(KZSystemDataFile1Rsc,&quot;Z:\\system\\data\\File1.rsc&quot;);<br><br>RResourceFile resourceFile;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;// Opens file, leaves on error<br>resourceFile.OpenL(fsSession,KZSystemDataBasigbRsc); <br><br>&nbsp;&nbsp;&nbsp;&nbsp;// Initialise offset value from the first resource.<br>&nbsp;&nbsp;&nbsp;&nbsp;// Note that the function is prototyped to take a TInt but does not use it.<br>resourceFile.ConfirmSignatureL(0));</code></p>
+<p>Note that a standard signature struct can be found in
+<code class="filename">badef.rh</code> and <code class="filename">uikon.rh</code>.</p>
+<a name="1.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Using multiple resource files</h2>
+</div><div class="Bodytext">
+<p>The <code>R_BASE_HELLO</code> resource can be used in another
+resource by including the generated <code class="filename">.rsg</code> file in the new resource
+definition. Assuming that <code class="filename">File1.rsg</code> is the generated <code class="filename">.rsg
+</code>file from the earlier resource compilation, the new resource is
+defined:</p>
+<p class="CodeBlock"><code>NAME USER<br>#include &#8220;xxx.rh&#8221;    // include for common structures<br>#include &#8220;File1.rsg&#8221; // include for generated symbols<br>STRUCT STRINGREF<br>{<br>LLINK stringlink;<br>}<br>RESOURCE SIGNATURE {} // signature<br>RESOURCE STRINGREF r_user_helloref<br>{<br>stringlink=R_BASE_HELLO;<br>}</code></p>
+<p>This resource file has the name USER. It has a signature resource,
+followed by a single real resource, of type <code>STRINGREF</code>, which
+contains an <code>LLINK</code> to the <code>R_BASE_HELLO</code>
+resource.</p>
+<p>Note that common struct definitions are placed in <code class="filename">.rh</code>
+files and are included in all resource definition files (<code class="filename">.rss </code>
+files) that need them. Another <code>#include</code> is needed for the
+<code class="filename">.rsg</code> file so that the <code>R_BASE_HELLO</code> symbol is
+available to this compilation.</p>
+<p>This resource definition has a dependency on the earlier resource
+definition. The earlier resource must be compiled first and its generated
+<code class="filename">.rsg</code> file must be available to the second resource.</p>
+<p>After resource compilation, the generated <code class="filename">.rsg</code> header
+file contains:</p>
+<p class="CodeBlock"><code>#define R_USER_HELLOREF 0x68553002</code></p>
+<p>Note that the offset for this resource file is 0x68553000. </p>
+<a name="1.10"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Reading resources from multiple files</h2>
+</div><div class="Bodytext">
+<p>In general, an application program may wish to use resources from
+several files simultaneously.</p>
+<p>It is convenient to be able to treat all resource files as a single
+resource container. To do this, an application must open each resource file and
+call <code>RResourceFile::ConfirmSignatureL()</code> to initialise the offset
+value for that resource file.</p>
+<p>When a resource is needed, the application decides which resource
+file owns that resource by calling
+<code>RResourceFile::OwnsResourceId()</code>. This function matches the
+resource file's offset value with the offset value contained in the resource
+id.</p>
+<p><code>CMultipleResourceFileReader</code> is an example class that
+behaves as a container for a collection of resource files:</p>
+<p class="CodeBlock"><code>class CMultipleResourceFileReader<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>public:<br>&nbsp;&nbsp;&nbsp;&nbsp;// construction and destruction<br>&nbsp;&nbsp;&nbsp;&nbsp;~CMultipleResourceFileReader(); <br>&nbsp;&nbsp;&nbsp;&nbsp;static CMultipleResourceFileReader* NewLC();<br><br>&nbsp;&nbsp;&nbsp;&nbsp;// add resource file<br>&nbsp;&nbsp;&nbsp;&nbsp;void    AddResourceFileL(const TDesC&amp; aName);<br>&nbsp;&nbsp;&nbsp;&nbsp;HBufC8* AllocReadLC(TInt aResourceId);<br><br>private:<br>&nbsp;&nbsp;&nbsp;&nbsp;// construct/destruct<br>&nbsp;&nbsp;&nbsp;&nbsp;void ConstructL();<br><br>private:<br>&nbsp;&nbsp;&nbsp;&nbsp;CArrayFixFlat&lt;RResourceFile&gt;* iResourceFiles;<br>&nbsp;&nbsp;&nbsp;&nbsp;};</code></p>
+<p>The <code>iResourceFiles</code> data member points to an array of
+resource files. Resource files are added to the collection through the
+<code>AddResourceFileL()</code> function.</p>
+<p class="CodeBlock"><code>void CMultipleResourceFileReader::AddResourceFileL(const TDesC&amp; aName)<br>{<br>RResourceFile file;<br>file.OpenL(fsSession,aName);              // open resource file and initialise its<br>TRAPD(error,file.ConfirmSignatureL(0));   // offset value.<br>if (error!=KErrNone)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;file.Close();<br>&nbsp;&nbsp;&nbsp;&nbsp;User::Leave(error); <br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>TRAP(error,iResourceFiles-&gt;AppendL(file)) // Add the resource file to the collection<br>if (error!=KErrNone)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;file.Close();<br>&nbsp;&nbsp;&nbsp;&nbsp;User::Leave(error);<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>return;<br>}</code></p>
+<p>The <code>CMultipleResourceFileReader::AllocReadLC()</code>
+function performs the same function as
+<code>RResourceFile::AllocReadLC()</code>, but it first scans through its
+collection to find the resource file which owns the resource:</p>
+<p class="CodeBlock"><code>HBufC8* CMultipleResourceFileReader::AllocReadLC(TInt aResourceId)<br>{<br>// Scan all resource files to find owner<br>for (TInt i=0; i &lt; iResourceFiles-&gt;Count(); i++)<br>&nbsp;&nbsp;&nbsp;&nbsp;{ <br>&nbsp;&nbsp;&nbsp;&nbsp;RResourceFile&amp; file=(*iResourceFiles)[i];<br>&nbsp;&nbsp;&nbsp;&nbsp;if (!file.OwnsResourceId(aResourceId))<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;continue;       // Owner not yet found<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;return file.AllocReadLC(aResourceId); // Return resource from owning file<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>// Resource owner not found.<br>User::Leave(KErrNotFound);<br><br>// Never executed, but keeps compiler happy<br>return 0;<br>}</code></p>
+<p>When the owning resource file is found, the resource is looked up
+in that file. If the correct owner cannot be found&nbsp;or the resource
+cannot be found in the owning file, then the function leaves with an error
+indication.</p>
+<p>The following code fragment uses the
+<code>CMultipleResourceFileReader</code> class to access the
+<code>R_SOME_RESOURCE</code> resource that is defined in a resource file
+<code class="filename">File2.rsc</code> and to construct an instance of some class
+<code>CMyClass</code> from this resource.</p>
+<p class="CodeBlock"><code>CMultipleResourceFileReader* multiReader = CMultipleResourceFileReader::NewLC();<br><br>// Add some resource files<br>multiReader-&gt;AddResourceFileL(_L(&#8220;Z:\\system\\data\\File1.rsc&#8221;));<br>multiReader-&gt;AddResourceFileL(_L(&#8220;Z:\\system\\data\\File2.rsc&#8221;));<br>multiReader-&gt;AddResourceFileL(_L(&#8220;Z:\\system\\data\\File3.rsc&#8221;));<br><br>// Read the resource. <br>HBufC8* refBuffer = multiReader-&gt;AllocReadLC(R_SOME_RESOURCE);<br>TResourceReader theReader;<br>theReader.SetBuffer(refBuffer);<br><br>// construct a CMyClass object from this resource.<br>CMyClass* resData = CMyClass::NewLC(theReader);<br><br>...</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

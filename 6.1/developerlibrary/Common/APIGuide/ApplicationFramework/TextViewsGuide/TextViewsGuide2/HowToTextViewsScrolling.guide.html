@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to implement scrolling</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="TextViewsGuide2%2eHowToTextViewsScrolling"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToTextViewsWrapping.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToReset.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Application&nbsp;Framework</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Text&nbsp;Views</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Text&nbsp;Views</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;implement&nbsp;scrolling</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to implement scrolling</h1>
+</div><div class="Bodytext">
+<p>The code in this section demonstrates horizontal and vertical
+scrolling using <a href="../../../../APIReference/TextViews/CTextViewClass.html#%3a%3aCTextView%3a%3aScrollDisplayL%28%29" title="Scrolls the view either horizontally or vertically and does a redraw"><code class="ApiItem">CTextView::ScrollDisplayL()</code></a>. This function can be
+used to scroll text horizontally (left or right and to the start or end of a
+<em>line</em>), and vertically (page or line up, page or
+line down). Note that scrolling down means that the text appears to move upwards,
+scrolling left means it appears to move rightwards.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Scroll left</h2>
+</div><div class="Bodytext">
+<p>The following code scrolls the display left by 40 pixels, causing
+the text to move right. If no horizontal scroll jump value is set, the scroll
+jump will be the default value of 20 pixels.</p>
+<p class="CodeBlock"><code>iTextView-&gt;SetHorizontalScrollJump(40); // scroll jump is 40 pixels<br>iTextView-&gt;ScrollDisplayL(TCursorPosition::EFLeft); // scroll left</code></p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Scroll down</h2>
+</div><div class="Bodytext">
+<p>The following example scrolls the display downwards. </p>
+<ul>
+<li>
+<p>Use <code>ScrollDisplayL()</code> until the end of the document
+is reached, at which point <code>ScrollDisplayL()</code> returns zero.</p>
+</li>
+<li>
+<p>Here, the scroll includes blank space (the second argument is
+<code class="ApiItem">CTextView::EFAllowScrollingBlankSpace</code>), so scrolling continues
+until the last line in the document reaches the top of the display. By default,
+blank space is not scrolled, in which case the scroll ends when the last line
+appears at the bottom of the display.</p>
+</li>
+</ul>
+<p class="CodeBlock"><code>TInt pixelsScrolled;<br>do pixelsScrolled=iTextView-&gt;ScrollDisplayL<br>&nbsp;&nbsp;&nbsp;&nbsp;(TCursorPosition::EFLineDown,CTextView::EFAllowScrollingBlankSpace);<br>while (pixelsScrolled);</code></p>
+<a name="1.5.5"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Note</h3>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>Vertical scrolling can also be carried out using
+<a href="../../../../APIReference/TextViews/CTextViewClass.html#%3a%3aCTextView%3a%3aScrollDisplayPixelsL%28%29" title="Scrolls the view vertically by a number of pixels, disallowing blank space from scrolling into the bottom of the visible area"><code class="ApiItem">CTextView::ScrollDisplayPixelsL()</code></a>, <a href="../../../../APIReference/TextViews/CTextViewClass.html#%3a%3aCTextView%3a%3aScrollDisplayLinesL%28%29" title="Scrolls the view vertically by a number of wholly or partially visible lines, disallowing blank space at the bottom of the visible area if aScrollBlankSpace is CTextLayout::EFDisallowScrollingBlankSpace"><code class="ApiItem">CTextView::ScrollDisplayLinesL()</code></a>, or
+<a href="../../../../APIReference/TextViews/CTextViewClass.html#%3a%3aCTextView%3a%3aScrollDisplayParagraphsL%28%29" title="Scrolls the view by a number of wholly or partially visible paragraphs disallowing blank space at the bottom of the visible area if aScrollBlankSpace is CTextLayout::EFDisallowScrollingBlankSpace"><code class="ApiItem">CTextView::ScrollDisplayParagraphsL()</code></a> to move the text by a number of pixels,
+lines and paragraphs respectively.</p>
+</li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

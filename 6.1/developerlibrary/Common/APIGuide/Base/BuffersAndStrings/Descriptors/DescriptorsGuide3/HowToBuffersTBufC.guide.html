@@ -1,0 +1,166 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to use the non-modifiable buffer descriptor TBufC&lt;TInt&gt;</title>
+<link href="../../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="DescriptorsGuide3%2ehow%2dto%2ebuffers%2dTBufC"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../../_index/index.html"><img
+src="../../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../../GlobalGlossary/index.html"><img src="../../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToBuffersTBuf.guide.html"><img src="../../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Buffers&nbsp;and&nbsp;Strings</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Descriptors</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">How&nbsp;to&nbsp;Use&nbsp;Descriptors</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;use&nbsp;the&nbsp;non-modifiable&nbsp;buffer&nbsp;descriptor&nbsp;TBufC&lt;TInt&gt;</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to use the non-modifiable buffer descriptor&#0160;&#8212;
+TBufC&lt;TInt&gt;</h1>
+</div><div class="Bodytext">
+<p>Non-modifiable buffer descriptors are useful for holding constant
+strings or data and providing safe ways to access that data.</p>
+<ul>
+<li>
+<p>For text data, it is usual to construct a
+<code>TBufC&lt;TInt&gt;</code> type and allow the appropriate variant, either a
+<code>TBufC8&lt;TInt&gt;</code> or a <code>TBufC16&lt;TInt&gt;</code> to be
+selected at build time.</p>
+</li>
+<li>
+<p>For binary data, an explicit <code>TBufC8&lt;TInt&gt;</code> is
+used.</p>
+</li>
+<li>
+<p>It is rare to use an explicit
+<code>TBufC16&lt;TInt&gt;</code>.</p>
+</li>
+</ul>
+<p>Data cannot be changed through this descriptor although it can be
+replaced using the assignment operators.</p>
+<p>By using the <code>Des()</code> function to construct a
+<code>TPtr/TPtr8/TPtr16</code> modifiable pointer descriptor for the buffer's
+data, it becomes possible to modify that data.</p>
+<p>Although, the following notes refer to the build independent types;
+they are equally valid for the explicit 8 bit and 16 bit types.</p>
+<a name="1.8"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Constructing a <code>TBufC&lt;TInt&gt;</code></h2>
+</div><div class="Bodytext">
+<p>A non-modifiable buffer descriptor can be constructed in a number
+of ways:</p>
+<ul>
+<li>
+<p>as an empty buffer descriptor.</p>
+</li>
+<li>
+<p>by copying data from any other type of descriptor.</p>
+</li>
+<li>
+<p>by copying data from another non-modifiable buffer descriptor
+of the same size.</p>
+</li>
+</ul>
+<p>The following code fragment constructs a
+<code>TBufC&lt;16&gt;</code> object. The buffer descriptor is uninitialised,
+i.e. it contains no data. The assignment operator can be used to put data into
+the buffer descriptor after construction:</p>
+<p class="CodeBlock"><code>_LIT(KText,&quot;Hello World!&quot;);<br>...<br>TBufC&lt;16&gt; buf1; // length of buf1 is 0<br>...<br>buf1 = KText;   // data assigned</code></p>
+<p>The following code fragment constructs a
+<code>TBufC&lt;16&gt;</code> object, initialised with the 12 characters making
+up the English language phrase &quot;Hello World!&quot;.</p>
+<p>The source descriptor is a literal which is converted to descriptor
+type.</p>
+<p class="CodeBlock"><code>_LIT(KText,&quot;Hello World!&quot;);<br>...<br>TBufC&lt;16&gt; buf1(KText);  // length of buf1 is 12</code></p>
+<p>The following code fragment constructs a
+<code>TBufC&lt;16&gt;</code> object, initialised with the content of another
+<code>TBufC&lt;16&gt;</code> object.</p>
+<p class="CodeBlock"><code>_LIT(KText,&quot;Hello World!&quot;);<br>...<br>TBufC&lt;16&gt; buf1(KText);<br>TBufC&lt;16&gt; buf2(buf1);  // data copied from descriptor buf1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// length of buf2 is 12</code></p>
+<a name="1.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Replacing data</h2>
+</div><div class="Bodytext">
+<p>Data within a non-modifiable buffer descriptor can be completely replaced
+by using the assignment operator:</p>
+<p class="CodeBlock"><code>_LIT(KText,&quot;Hello World!&quot;);<br>_LIT(KNewText,&quot;New text&quot;);<br>...<br>TBufC&lt;16&gt; buf1(KText);<br>TBufC&lt;16&gt; buf2;<br>...<br>buf2 = buf1;               // buf2 now contains &quot;Hello World!&quot;<br>...<br>buf2 = KNewText;           // buf2 now contains &quot;New text&quot;.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// the literal is converted to a descriptor<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// type.</code></p>
+<p>To prevent data replacement, declare <code>buf2</code> as const.</p>
+<a name="1.10"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Constructing a modifiable pointer descriptor to change the
+data</h2>
+</div><div class="Bodytext">
+<p>The data contained in non-modifiable buffer
+descriptor<code>TBufC&lt;TInt&gt;</code>
+<em>can</em> be changed by
+constructing a<code>TPtr</code> modifiable pointer descriptor using the
+<code>Des()</code>member function and then changing the data through
+that<code>TPtr</code>.</p>
+<p>The maximum length of the <code>TPtr</code> is the value of
+the<code>TBufC&lt;TInt&gt;</code>template parameter.</p>
+<p>The following code fragment shows data being changed:</p>
+<p class="CodeBlock"><code>_LIT(KText,&quot;Hello World!&quot;);<br>_LIT(KExtraText,&quot; &amp; Hi&quot;);<br>...<br>TBufC&lt;16&gt; buf1(KText);<br>...<br>TPtr ptr = buf1.Des();<br>...<br>ptr.Delete((ptr.Length()-1),1);<br>ptr.Append(KExtraText);<br>...</code></p>
+<p>This deletes the last character in <code>buf1</code> and adds the
+characters &quot;&nbsp;&amp;&nbsp;Hi&quot; so that <code>buf1</code> now contains
+the text &quot;Hello&nbsp;World&nbsp;&amp;&nbsp;Hi&quot; and its length is 16.
+Note that the length of both <code>buf1</code> and <code>ptr</code> change to
+reflect the data that they now both represent.</p>
+<p>Note that any attempt to append more data raises a panic.</p>
+<a name="1.11"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Accessing data</h2>
+</div><div class="Bodytext">
+<p>Once a non-modifiable buffer descriptor has been constructed, the
+functions in the base class, <code>TDesC</code>, are available to access the
+data.</p>
+<p class="CodeBlock"><code>_LIT(KText,&quot;Hello World!&quot;);<br>...<br>TBufC&lt;16&gt; buf1(KText);<br>...</code></p>
+<p class="CodeBlock"><code>buf1.Length();</code></p>
+<a name="1.11.5"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>See also</h3>
+</div><div class="Bodytext">
+<p><a href="../../LiteralDescriptors/index.html#LiteralDescriptorsGuide%2etoc">Literal Descriptors</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

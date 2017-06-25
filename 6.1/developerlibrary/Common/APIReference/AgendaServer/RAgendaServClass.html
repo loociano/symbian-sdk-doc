@@ -1,0 +1,799 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>RAgendaServ</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Agenda&nbsp;Server&nbsp;Client&nbsp;Side</a>&nbsp;<span class="separator">&#187;</span>
+RAgendaServ</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>agclient.h</code>
+<br>Link against: <code>agnmodel.lib</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aRAgendaServ"></a>
+
+<h1>Class <code>RAgendaServ</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>RAgendaServ</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>The client interface to the agenda server. The agenda model can be
+used to access agenda data directly (when operating in normal mode) or
+indirectly, via the agenda server (when in client mode). A client-server
+architecture was added to the agenda model in order to allow shared access to
+an agenda file by more than one client. The existing architecture was
+maintained alongside the new architecture to allow for compatibility with
+existing software. </p>
+<p>When the model is in client mode, it accesses agenda data by
+sending an asynchronous request to the server. When in normal mode, it accesses
+the data directly and exclusively. It is recommended that the model should
+always be used in client mode. </p>
+<p>Most server functions should not be called directly&nbsp;&#8212;
+use the corresponding model function instead. This will route the call to the
+server, if appropriate.</p>
+<p>The functions documented here are part of the client side API to
+the agenda server. They offer functionality which is not accessible using the
+model.</p>
+<p>Note that a separate instance of the <code>RAgendaServ</code> class
+is required for each agenda file that is open&nbsp;&#8212; only one file can
+be open at any one time in the same server session.</p>
+<p>The API can be used as follows:&nbsp;&#8212;</p>
+<p class="CodeBlock"><code>RAgendaServ* agnServer = RAgendaServ::NewL(); // allocate and construct server<br>CleanupStack::PushL(agnServer);<br>agnServer-&gt;Connect(); // connect to the agenda server<br>CleanupClosePushL(*agnServer); // guarantees that the server's Close() method gets called<br>CAgnEntryModel* model = CAgnEntryModel::NewL(); // allocate and construct model<br>CleanupStack::PushL(model);<br>model-&gt;SetServer(agnServer); // set server pointer for model<br>model-&gt;OpenL(fileName) // Open file using server<br>// ...Use agenda model API as normal - invokes corresponding server functions<br>CleanupStack::PopAndDestroy(3); // model, close session with server, agnServer</code></p><h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code>RAgendaServ</code></td><td class="Cell">The client interface to the agenda server</td>
+</tr>
+<tr><td class="Cell"><code><a href="../Handles/RHandleBaseClass.html#%3a%3aRHandleBase">RHandleBase</a></code></td><td class="Cell">Handle to an object</td>
+</tr>
+<tr><td class="Cell"><code><a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase">RSessionBase</a></code></td><td class="Cell">Client-side handle to a session with a server</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>RAgendaServ</code>:
+<br><code class="ApiItem"><a href="RAgendaServClass.html#%3a%3aRAgendaServ%3a%3aCloseAgenda%28%29" title="Closes the file which is open in the current agenda server session">CloseAgenda()</a></code>, <code class="ApiItem"><a href="RAgendaServClass.html#%3a%3aRAgendaServ%3a%3aCloseWriteStreamL%28%29" title="Closes the previously opened write stream and sends the entire stream to the server for saving to file">CloseWriteStreamL()</a></code>, <code class="ApiItem"><a href="RAgendaServClass.html#%3a%3aRAgendaServ%3a%3aCompactFile%28%29" title="Compacts the agenda file">CompactFile()</a></code>, <code class="ApiItem"><a href="RAgendaServClass.html#%3a%3aRAgendaServ%3a%3aConnect%28%29" title="Connects the client process to the agenda server">Connect()</a></code>, <code class="ApiItem"><a href="RAgendaServClass.html#%3a%3aRAgendaServ%3a%3aCreateDateIterator%28%29" title="Creates a date iterator">CreateDateIterator()</a></code>, <code class="ApiItem"><a href="RAgendaServClass.html#%3a%3aRAgendaServ%3a%3aCreateEntryIterator%28%29" title="Creates an iterator for iterating though all the entries in the file">CreateEntryIterator()</a></code>, <code class="ApiItem"><a href="RAgendaServClass.html#%3a%3aRAgendaServ%3a%3aCreateNewStreamL%28%29" title="Creates a new write stream with the specified stream UID in the agenda file">CreateNewStreamL()</a></code>, <code class="ApiItem"><a href="RAgendaServClass.html#%3a%3aRAgendaServ%3a%3aDateIteratorAtEnd%28%29" title="Tests whether the date iterator is at the last entry in the list of entries">DateIteratorAtEnd()</a></code>, <code class="ApiItem"><a href="RAgendaServClass.html#%3a%3aRAgendaServ%3a%3aDateIteratorAtStart%28%29" title="Tests whether the date iterator is at the first entry in the list of entries">DateIteratorAtStart()</a></code>, <code class="ApiItem"><a href="RAgendaServClass.html#%3a%3aRAgendaServ%3a%3aDateIteratorCurrentElement%28%29" title="Retrieves the entry at the current iterator position">DateIteratorCurrentElement()</a></code>, <code class="ApiItem"><a href="RAgendaServClass.html#%3a%3aRAgendaServ%3a%3aDateIteratorCurrentKey%28%29" title="Retrieves the date of the entry at the current iterator position">DateIteratorCurrentKey()</a></code>, <code class="ApiItem"><a href="RAgendaServClass.html#%3a%3aRAgendaServ%3a%3aDateIteratorGoto%28%29" title="Sets the iterator to the entry at the date specified, or the entry at the closest following date if there is no matching entry at the date specified">DateIteratorGoto()</a></code>, <code class="ApiItem"><a href="RAgendaServClass.html#%3a%3aRAgendaServ%3a%3aDateIteratorGotoLessOrEqual%28%29" title="Sets the iterator to the entry at the date specified, or the entry at the closest previous date if there is no matching entry at the date specified">DateIteratorGotoLessOrEqual()</a></code>, <code class="ApiItem"><a href="RAgendaServClass.html#%3a%3aRAgendaServ%3a%3aDateIteratorNext%28%29" title="Moves the date iterator to the next entry">DateIteratorNext()</a></code>, <code class="ApiItem"><a href="RAgendaServClass.html#%3a%3aRAgendaServ%3a%3aDateIteratorPrevious%28%29" title="Moves the date iterator to the previous entry">DateIteratorPrevious()</a></code>, <code class="ApiItem"><a href="RAgendaServClass.html#%3a%3aRAgendaServ%3a%3aDeleteEntry%28%29" title="Deletes an entry, identified by its unique ID">DeleteEntry()</a></code>, <code class="ApiItem"><a href="RAgendaServClass.html#%3a%3aRAgendaServ%3a%3aDeleteTodoList%28%29" title="Deletes a to-do list, identified by its unique ID">DeleteTodoList()</a></code>, <code class="ApiItem"><a href="RAgendaServClass.html#%3a%3aRAgendaServ%3a%3aEntryIteratorNext%28%29" title="Moves the entry iterator to the next entry">EntryIteratorNext()</a></code>, <code class="ApiItem"><a href="RAgendaServClass.html#%3a%3aRAgendaServ%3a%3aEntryIteratorPosition%28%29" title="Retrieves the ID for the entry at the current iterator position">EntryIteratorPosition()</a></code>, <code class="ApiItem"><a href="RAgendaServClass.html#%3a%3aRAgendaServ%3a%3aEntryIteratorStreamCount%28%29" title="Retrieves a count of the total number of streams that contain entries, and need to be iterated through">EntryIteratorStreamCount()</a></code>, <code class="ApiItem"><a href="RAgendaServClass.html#%3a%3aRAgendaServ%3a%3aEntryIteratorStreamCurrent%28%29" title="Retrieves the index of the current stream being processed">EntryIteratorStreamCurrent()</a></code>, <code class="ApiItem"><a href="RAgendaServClass.html#%3a%3aRAgendaServ%3a%3aFileIsReadOnly%28%29" title="Tests whether the currently open file is read only">FileIsReadOnly()</a></code>, <code class="ApiItem"><a href="RAgendaServClass.html#%3a%3aRAgendaServ%3a%3aFileLoaded%28%29" title="Tests whether a file is open in the current agenda server session">FileLoaded()</a></code>, <code class="ApiItem"><a href="RAgendaServClass.html#%3a%3aRAgendaServ%3a%3aGetEntryId%28%29" title="Retrieves an entry's entry ID, given its unique ID">GetEntryId()</a></code>, <code class="ApiItem"><a href="RAgendaServClass.html#%3a%3aRAgendaServ%3a%3aGetUniqueId%28%29" title="Retrieves an entry or to-do list's unique ID, given its entry or to-do list ID">GetUniqueId()</a></code>, <code class="ApiItem"><a href="RAgendaServClass.html#%3a%3aRAgendaServ%3a%3aGetWriteStreamL%28%29" title="Opens a stream which has been created usingCreateNewStreamL() for writing">GetWriteStreamL()</a></code>, <code class="ApiItem"><a href="RAgendaServClass.html#%3a%3aRAgendaServ%3a%3aHasUniqueIdBeenDeleted%28%29" title="Tests whether an entry, identified by its unique ID, has been both synchronised and deleted">HasUniqueIdBeenDeleted()</a></code>, <code class="ApiItem"><a href="RAgendaServClass.html#%3a%3aRAgendaServ%3a%3aNewL%28%29" title="Constructs a new RAgendaServ, initialising all member data to NULL">NewL()</a></code>, <code class="ApiItem"><a href="RAgendaServClass.html#%3a%3aRAgendaServ%3a%3aStartNotifierL%28%29" title="Starts notification of updates to the agenda server">StartNotifierL()</a></code>, <code class="ApiItem"><a href="RAgendaServClass.html#%3a%3aRAgendaServ%3a%3aTypeByUniqueId%28%29" title="Retrieves an entry's type by its unique ID">TypeByUniqueId()</a></code>, <code class="ApiItem"><a href="RAgendaServClass.html#%3a%3aRAgendaServ%3a%3aUniqueIdLastChangedDate%28%29" title="Retrieves the date an entry was last changed">UniqueIdLastChangedDate()</a></code>, <code class="ApiItem"><a href="RAgendaServClass.html#%3a%3aRAgendaServ%3a%3aWaitUntilLoaded%28%29" title="Waits until the server has finished loading the file">WaitUntilLoaded()</a></code>, <code class="ApiItem"><a href="RAgendaServClass.html#%3a%3aRAgendaServ%3a%3a%7eRAgendaServ%28%29" title="The destructor frees all resources owned by the server, prior to its destruction">~RAgendaServ()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../Handles/RHandleBaseClass.html#%3a%3aRHandleBase" title="Handle to an object">RHandleBase</a></code>:
+<br><code class="ApiItem"><a href="../Handles/RHandleBaseClass.html#%3a%3aRHandleBase%3a%3aClose%28%29" title="Closes the handle">Close()</a></code>,
+<code class="ApiItem"><a href="../Handles/RHandleBaseClass.html#%3a%3aRHandleBase%3a%3aDuplicate%28%29" title="Creates a valid handle to the Kernel object to which the specified thread already has a handle">Duplicate()</a></code>,
+<code class="ApiItem"><a href="../Handles/RHandleBaseClass.html#%3a%3aRHandleBase%3a%3aHandle%28%29" title="Retrieves the handle-number of the object associated with this handle">Handle()</a></code>,
+<code class="ApiItem"><a href="../Handles/RHandleBaseClass.html#%3a%3aRHandleBase%3a%3aSetHandle%28%29" title="Use this function to set the handle-number of this handle to the specified value">SetHandle()</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase" title="Client-side handle to a session with a server">RSessionBase</a></code>:
+<br><code class="ApiItem"><a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase%3a%3aAttach%28%29" title="Explicitly attaches a thread to the session">Attach()</a></code>,
+<code class="ApiItem"><a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase%3a%3aCreateSession%28%29" title="Creates a session with a server">CreateSession()</a></code>,
+<code class="ApiItem"><a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase%3a%3aEAutoAttach" title="Client threads are auto-attached to the session">EAutoAttach</a></code>,
+<code class="ApiItem"><a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase%3a%3aEExplicitAttach" title="Client threads explicitly attach to the session">EExplicitAttach</a></code>,
+<code class="ApiItem"><a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase%3a%3aSend%28%29" title="Sends a blind message to the server -- no reply is expected">Send()</a></code>,
+<code class="ApiItem"><a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase%3a%3aSendReceive%28%29" title="Sends a message to the server and waits synchronously for the reply">SendReceive()</a></code>,
+<code class="ApiItem"><a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase%3a%3aSetRetry%28%29" title="Changes the retry parameters used to resend a message if the server is busy">SetRetry()</a></code>,
+<code class="ApiItem"><a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase%3a%3aShare%28%29" title="Makes the session shared among all threads in the process">Share()</a></code>,
+<code class="ApiItem"><a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase%3a%3aTAttachMode" title="Indicates whether threads in the process are automatically attached to the session when passed as a parameter to the Share() function">TAttachMode</a></code></p>
+<a name="2.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction and destruction</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aRAgendaServ%3a%3aNewL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NewL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static RAgendaServ* NewL();</code></p><h4 class="subheading">Description</h4>
+<p>Constructs a new <code>RAgendaServ</code>, initialising all
+member data to NULL.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RAgendaServ*</code></td>
+<td class="Cell"><p class="ValueDesc">A pointer to the client interface to the agenda server.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aRAgendaServ%3a%3a%7eRAgendaServ%28%29"></a>
+<hr size="1" noshade>
+<h3><code>~RAgendaServ()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>~RAgendaServ();</code></p><h4 class="subheading">Description</h4>
+<p>The destructor frees all resources owned by the server, prior to
+its destruction.</p>
+<a name="2.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Connection</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aRAgendaServ%3a%3aConnect%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Connect()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Connect();</code></p><h4 class="subheading">Description</h4>
+<p>Connects the client process to the agenda server. A connection must
+be made before the server can be used.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">An error code. <code>KErrNone</code> if successful.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>File operations</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aRAgendaServ%3a%3aCloseAgenda%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CloseAgenda()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void CloseAgenda();</code></p><h4 class="subheading">Description</h4>
+<p>Closes the file which is open in the current agenda server
+session.</p>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aRAgendaServ%3a%3aCompactFile%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CompactFile()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool CompactFile();</code></p><h4 class="subheading">Description</h4>
+<p>Compacts the agenda file. The server carries out the compaction in the
+background using a <code>CIdle</code> object.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc">Indicates how the compaction completed. <code>ETrue</code> if successful,
+<code>EFalse</code> if not.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.4"></a></div><div class="Head3">
+<a name="%3a%3aRAgendaServ%3a%3aWaitUntilLoaded%28%29"></a>
+<hr size="1" noshade>
+<h3><code>WaitUntilLoaded()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void WaitUntilLoaded();</code></p><h4 class="subheading">Description</h4>
+<p>Waits until the server has finished loading the file. Because the server
+loads files asynchronously, for large files there is a chance that the indexes
+are still being built when the client begins fetching entries. This function
+also causes the model's indexes to be built.</p>
+<a name="2.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>File information</h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aRAgendaServ%3a%3aFileLoaded%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FileLoaded()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool FileLoaded();</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether a file is open in the current agenda server
+session.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> if a file is open, <code>EFalse</code> if no file is
+open.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.3"></a></div><div class="Head3">
+<a name="%3a%3aRAgendaServ%3a%3aFileIsReadOnly%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FileIsReadOnly()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool FileIsReadOnly();</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether the currently open file is read only. </p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> if the file is read only, <code>EFalse</code> if it is
+not.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Entries / to-do lists</h2>
+</div><div class="Bodytext">
+<a name="2.10.2"></a></div><div class="Head3">
+<a name="%3a%3aRAgendaServ%3a%3aTypeByUniqueId%28%29"></a>
+<hr size="1" noshade>
+<h3><code>TypeByUniqueId()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CAgnEntry::TType TypeByUniqueId(TAgnUniqueId aUniqueId);</code></p><h4 class="subheading">Description</h4>
+<p>Retrieves an entry's type by its unique ID. </p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnUniqueId aUniqueId</code></td>
+<td class="Cell"><p class="ValueDesc">The entry's unique ID.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnEntry::TType</code></td>
+<td class="Cell"><p class="ValueDesc">The entry's type.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.3"></a></div><div class="Head3">
+<a name="%3a%3aRAgendaServ%3a%3aHasUniqueIdBeenDeleted%28%29"></a>
+<hr size="1" noshade>
+<h3><code>HasUniqueIdBeenDeleted()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool HasUniqueIdBeenDeleted(TAgnUniqueId aUniqueId);</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether an entry, identified by its unique ID, has been both
+synchronised and deleted.</p>
+<p>This function is provided for synchronisation. If it returns true, the
+synchroniser can delete the corresponding entry on the PC.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnUniqueId aUniqueId</code></td>
+<td class="Cell"><p class="ValueDesc">Unique ID which identifies an agenda entry.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> if the entry has been synchronised and
+deleted.<code>EFalse</code> if not, or if the entry was not found.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.4"></a></div><div class="Head3">
+<a name="%3a%3aRAgendaServ%3a%3aUniqueIdLastChangedDate%28%29"></a>
+<hr size="1" noshade>
+<h3><code>UniqueIdLastChangedDate()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TAgnDateTime UniqueIdLastChangedDate(TAgnUniqueId aUniqueId);</code></p><h4 class="subheading">Description</h4>
+<p>Retrieves the date an entry was last changed. The entry is identified by
+its unique ID.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnUniqueId aUniqueId</code></td>
+<td class="Cell"><p class="ValueDesc">The entry's unique ID.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnDateTime</code></td>
+<td class="Cell"><p class="ValueDesc">The date and time the entry was last changed (or the date of its creation
+if unchanged). Returns a NULL date value if no entry
+matching<code>aUniqueId</code> is found.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.5"></a></div><div class="Head3">
+<a name="%3a%3aRAgendaServ%3a%3aGetEntryId%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetEntryId()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TAgnEntryId GetEntryId(TAgnUniqueId aUniqueId);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Retrieves an entry's entry ID, given its unique ID.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnUniqueId aUniqueId</code></td>
+<td class="Cell"><p class="ValueDesc">The entry's unique ID.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnEntryId</code></td>
+<td class="Cell"><p class="ValueDesc">The entry ID.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.6"></a></div><div class="Head3">
+<a name="%3a%3aRAgendaServ%3a%3aGetUniqueId%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetUniqueId()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TAgnUniqueId GetUniqueId(TAgnEntryId aEntryId);<br>TAgnUniqueId GetUniqueId(TAgnTodoListId aTodoId);</code></p><h4 class="subheading">Description</h4>
+<p>Retrieves an entry or to-do list's unique ID, given its entry or to-do
+list ID.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnEntryId aEntryId</code></td>
+<td class="Cell"><p class="ValueDesc">If specified, the entry ID.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnTodoListId aTodoId</code></td>
+<td class="Cell"><p class="ValueDesc">If specified, the to-do list ID.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnUniqueId</code></td>
+<td class="Cell"><p class="ValueDesc">The entry or to-do list's unique ID.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.7"></a></div><div class="Head3">
+<a name="%3a%3aRAgendaServ%3a%3aDeleteEntry%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DeleteEntry()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void DeleteEntry(TAgnUniqueId aUid);</code></p><h4 class="subheading">Support</h4>
+<p>Withdrawn in 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Deletes an entry, identified by its unique ID.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnUniqueId aUid</code></td>
+<td class="Cell"><p class="ValueDesc">The unique ID of the entry to delete.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.8"></a></div><div class="Head3">
+<a name="%3a%3aRAgendaServ%3a%3aDeleteEntry%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DeleteEntry()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt DeleteEntry(TAgnUniqueId aUid);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Deletes an entry, identified by its unique ID.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnUniqueId aUid</code></td>
+<td class="Cell"><p class="ValueDesc">The unique ID of the entry to delete.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if the function completed without error, otherwise
+one of the system error codes, including <code>KErrNotFound</code> if the
+unique ID does not exist.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.9"></a></div><div class="Head3">
+<a name="%3a%3aRAgendaServ%3a%3aDeleteTodoList%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DeleteTodoList()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void DeleteTodoList(TAgnUniqueId aUid);</code></p><h4 class="subheading">Support</h4>
+<p>Withdrawn in 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Deletes a to-do list, identified by its unique ID.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnUniqueId aUid</code></td>
+<td class="Cell"><p class="ValueDesc">The unique ID of the to-do list to delete.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.10"></a></div><div class="Head3">
+<a name="%3a%3aRAgendaServ%3a%3aDeleteTodoList%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DeleteTodoList()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt DeleteTodoList(TAgnUniqueId aUid);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Deletes a to-do list, identified by its unique ID.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnUniqueId aUid</code></td>
+<td class="Cell"><p class="ValueDesc">The unique ID of the to-do list to delete.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if the function completed without error, otherwise
+one of the system error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Change notification</h2>
+</div><div class="Bodytext">
+<a name="2.11.2"></a></div><div class="Head3">
+<a name="%3a%3aRAgendaServ%3a%3aStartNotifierL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>StartNotifierL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void StartNotifierL(TCallBack aCallback, TInt aFrequency = KNotifierUpdateFrequency);</code></p><h4 class="subheading">Description</h4>
+<p>Starts notification of updates to the agenda server. Once notification
+has started, the server will notify the client of any changes made by other
+clients. The server will be polled at the given frequency for updates to the
+model, and if no value is specified for the parameter, it defaults
+to<code>KNotifierUpdateFrequency</code> (5 seconds).</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TCallBack aCallback</code></td>
+<td class="Cell"><p class="ValueDesc">The callback function which will be called when a change has
+occurred.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aFrequency = KNotifierUpdateFrequency</code></td>
+<td class="Cell"><p class="ValueDesc">The frequency at which the client will poll the server for
+updates.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Stream persistence</h2>
+</div><div class="Bodytext">
+<a name="2.12.2"></a></div><div class="Head3">
+<a name="%3a%3aRAgendaServ%3a%3aCreateNewStreamL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CreateNewStreamL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TStreamId CreateNewStreamL(TUid aStreamUid);</code></p><h4 class="subheading">Description</h4>
+<p>Creates a new write stream with the specified stream UID in the agenda
+file. The stream can be opened for writing
+using<code>GetWriteStreamL()</code>.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUid aStreamUid</code></td>
+<td class="Cell"><p class="ValueDesc">The UID of the stream to add to the agenda file. The file uses a
+dictionary store, so that the new stream is identified by UID rather than by
+stream ID.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamId</code></td>
+<td class="Cell"><p class="ValueDesc">The stream ID which is associated with the UID in the dictionary
+store.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.3"></a></div><div class="Head3">
+<a name="%3a%3aRAgendaServ%3a%3aGetWriteStreamL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetWriteStreamL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>RWriteStream&amp; GetWriteStreamL(TStreamId aStreamId);</code></p><h4 class="subheading">Description</h4>
+<p>Opens a stream which has been created
+using<code>CreateNewStreamL()</code> for writing.</p>
+<p>Note</p>
+<p>The stream ID <code>aStreamId</code> is returned
+by<code>CreateNewStreamL()</code>. It can also be obtained from the stream UID
+by calling the <code>CAgnEntryModel::StreamId()</code>method.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamId aStreamId</code></td>
+<td class="Cell"><p class="ValueDesc">Stream ID of the write stream to retrieve.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RWriteStream&amp;</code></td>
+<td class="Cell"><p class="ValueDesc">Reference to the write stream.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.4"></a></div><div class="Head3">
+<a name="%3a%3aRAgendaServ%3a%3aCloseWriteStreamL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CloseWriteStreamL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void CloseWriteStreamL();</code></p><h4 class="subheading">Description</h4>
+<p>Closes the previously opened write stream and sends the entire stream to
+the server for saving to file.</p>
+<a name="2.13"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Entry iteration</h2>
+</div><div class="Bodytext">
+<a name="2.13.2"></a></div><div class="Head3">
+<a name="%3a%3aRAgendaServ%3a%3aCreateEntryIterator%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CreateEntryIterator()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool CreateEntryIterator();</code></p><h4 class="subheading">Description</h4>
+<p>Creates an iterator for iterating though all the entries in the file.
+This may be used for activities such as merging or finding. The function
+returns <code>EFalse</code> if no entries are available. If any entries are
+available, the iterator is set to the first entry in the model.</p>
+<p>Note</p>
+<p>When the model is in client mode, this and the following functions should
+be used for entry iteration. You should not use the
+<code>TAgnEntryIter</code>class directly because this does not use the
+server.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> if there are entries in the file.
+<code>EFalse</code>if there are none.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.3"></a></div><div class="Head3">
+<a name="%3a%3aRAgendaServ%3a%3aEntryIteratorNext%28%29"></a>
+<hr size="1" noshade>
+<h3><code>EntryIteratorNext()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool EntryIteratorNext();</code></p><h4 class="subheading">Description</h4>
+<p>Moves the entry iterator to the next entry. Returns <code>EFalse</code>if
+no more entries exist.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> if there is are more entries. <code>EFalse</code> if
+there are no more entries.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.4"></a></div><div class="Head3">
+<a name="%3a%3aRAgendaServ%3a%3aEntryIteratorPosition%28%29"></a>
+<hr size="1" noshade>
+<h3><code>EntryIteratorPosition()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TAgnEntryId EntryIteratorPosition();</code></p><h4 class="subheading">Description</h4>
+<p>Retrieves the ID for the entry at the current iterator position. The ID
+can be used to retrieve the entry
+using<code>CAgnEntryModel::FetchEntryL()</code>.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnEntryId</code></td>
+<td class="Cell"><p class="ValueDesc">The ID for the entry at the current iterator position</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.5"></a></div><div class="Head3">
+<a name="%3a%3aRAgendaServ%3a%3aEntryIteratorStreamCount%28%29"></a>
+<hr size="1" noshade>
+<h3><code>EntryIteratorStreamCount()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt EntryIteratorStreamCount();</code></p><h4 class="subheading">Description</h4>
+<p>Retrieves a count of the total number of streams that contain entries,
+and need to be iterated through.</p>
+<p>This value can be used in combination
+with<code>EntryIteratorStreamCurrent()</code> to calculate the amount of
+processing remaining, for use in progress indicators. </p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">A count of the total number of streams that contain entries.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.6"></a></div><div class="Head3">
+<a name="%3a%3aRAgendaServ%3a%3aEntryIteratorStreamCurrent%28%29"></a>
+<hr size="1" noshade>
+<h3><code>EntryIteratorStreamCurrent()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt EntryIteratorStreamCurrent();</code></p><h4 class="subheading">Description</h4>
+<p>Retrieves the index of the current stream being processed. The first
+stream has an index of 1.</p>
+<p>This figure can be used in combination with the value returned
+by<code>EntryIteratorStreamCount()</code> to calculate the amount of processing
+remaining, for use in progress indicators.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The index of the current stream being processed</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Date iteration</h2>
+</div><div class="Bodytext">
+<a name="2.14.2"></a></div><div class="Head3">
+<a name="%3a%3aRAgendaServ%3a%3aCreateDateIterator%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CreateDateIterator()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void CreateDateIterator(TTime aToday, TAgnFilter* aFilter, TAgnDate aTidyStartDate);</code></p><h4 class="subheading">Description</h4>
+<p>Creates a date iterator. A date iterator is used to iterate through
+entries according to their date. The iterator is set to the date specified
+in<code>aTidyStartDate</code>. The filter <code>aFilter</code> is used to
+specify which entry types should be included. The value of the
+<code>aToday</code>parameter should be set to the current
+date/time.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTime aToday</code></td>
+<td class="Cell"><p class="ValueDesc">The current date/time</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnFilter* aFilter</code></td>
+<td class="Cell"><p class="ValueDesc">Specifies which entry types should be included</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnDate aTidyStartDate</code></td>
+<td class="Cell"><p class="ValueDesc">The start date for the iterator.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.3"></a></div><div class="Head3">
+<a name="%3a%3aRAgendaServ%3a%3aDateIteratorPrevious%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DateIteratorPrevious()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void DateIteratorPrevious();</code></p><h4 class="subheading">Description</h4>
+<p>Moves the date iterator to the previous entry. A panic occurs if there
+are no previous entries.</p>
+<a name="2.14.4"></a></div><div class="Head3">
+<a name="%3a%3aRAgendaServ%3a%3aDateIteratorNext%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DateIteratorNext()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void DateIteratorNext();</code></p><h4 class="subheading">Description</h4>
+<p>Moves the date iterator to the next entry. A panic occurs if there are no
+more entries.</p>
+<a name="2.14.5"></a></div><div class="Head3">
+<a name="%3a%3aRAgendaServ%3a%3aDateIteratorAtStart%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DateIteratorAtStart()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool DateIteratorAtStart();</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether the date iterator is at the first entry in the list of
+entries.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> if the date iterator is at the first
+entry.<code>EFalse</code> if not.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.6"></a></div><div class="Head3">
+<a name="%3a%3aRAgendaServ%3a%3aDateIteratorAtEnd%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DateIteratorAtEnd()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool DateIteratorAtEnd();</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether the date iterator is at the last entry in the list of
+entries.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> if the date iterator is at the last
+entry.<code>EFalse</code> if not.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.7"></a></div><div class="Head3">
+<a name="%3a%3aRAgendaServ%3a%3aDateIteratorCurrentKey%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DateIteratorCurrentKey()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TAgnDate DateIteratorCurrentKey();</code></p><h4 class="subheading">Description</h4>
+<p>Retrieves the date of the entry at the current iterator position.
+A<code>TAgnDate</code> is the number of days since the start of the date range
+for agenda entries (1/1/1980). To convert between a <code>TAgnDate</code> and
+other time-related classes, for instance <code>TTime</code>, use the static
+functions provided by class <code>AgnDateTime</code> (defined in the header
+file agmdate.h).</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnDate</code></td>
+<td class="Cell"><p class="ValueDesc">The date of the entry at the current iterator position.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.8"></a></div><div class="Head3">
+<a name="%3a%3aRAgendaServ%3a%3aDateIteratorCurrentElement%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DateIteratorCurrentElement()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CAgnSortEntry* DateIteratorCurrentElement(CAgnSortEntryAllocator* aAllocator);</code></p><h4 class="subheading">Description</h4>
+<p>Retrieves the entry at the current iterator
+position.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnSortEntryAllocator* aAllocator</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the model's sort entry allocator.
+Call<code>CAgnEntryModel::SortEntryAllocator()</code> to get a pointer to the
+allocator.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnSortEntry*</code></td>
+<td class="Cell"><p class="ValueDesc">The entry at the current iterator position.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.9"></a></div><div class="Head3">
+<a name="%3a%3aRAgendaServ%3a%3aDateIteratorGoto%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DateIteratorGoto()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void DateIteratorGoto(TAgnDate aDate);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the iterator to the entry at the date specified, or the entry at the
+closest following date if there is no matching entry at the date
+specified.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnDate aDate</code></td>
+<td class="Cell"><p class="ValueDesc">The date to which to set the iterator.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.10"></a></div><div class="Head3">
+<a name="%3a%3aRAgendaServ%3a%3aDateIteratorGotoLessOrEqual%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DateIteratorGotoLessOrEqual()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void DateIteratorGotoLessOrEqual(TAgnDate aDate);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the iterator to the entry at the date specified, or the entry at the
+closest previous date if there is no matching entry at the date
+specified.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnDate aDate</code></td>
+<td class="Cell"><p class="ValueDesc">The date to which to set the iterator.</p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

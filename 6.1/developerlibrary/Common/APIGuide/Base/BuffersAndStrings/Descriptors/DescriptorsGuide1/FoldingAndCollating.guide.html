@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Folding and collation (comparing strings)</title>
+<link href="../../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="DescriptorsGuide1%2efolding%2dcollating"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../../_index/index.html"><img
+src="../../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../../GlobalGlossary/index.html"><img src="../../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="LengthAndSize.guide.html"><img src="../../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="SafeDataAccess.guide.html"><img src="../../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Buffers&nbsp;and&nbsp;Strings</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Descriptors</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Descriptor&nbsp;concepts</a>&nbsp;<span class="separator">&#187;</span>
+Folding&nbsp;and&nbsp;collation&nbsp;(comparing&nbsp;strings)</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Folding and collation (comparing strings)</h1>
+</div><div class="Bodytext">
+<p>There are two techniques that may be used to modify the characters in a descriptor prior to performing operations such as comparisons on text strings:</p>
+<ul><li><p>folding</p></li>
+<li><p>collation</p></li>
+</ul>
+<a name="1.5"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Folding</h2>
+</div><div class="Bodytext"><p>Folding is a relatively simple way of normalising text for comparison by removing case distinctions, converting accented characters to characters without accents etc. Folding is used for tolerant comparisons, i.e. comparisons that are biased towards a match.</p><p>Variants of member functions that fold are provided where appropriate. For example, <a href="../../../../../APIReference/Descriptors/TDesC16Class.html#%3a%3aTDesC16%3a%3aCompareF%28%29" title="Compares folded data"><code class="ApiItem">TDesC16::CompareF()</code></a> for folded comparison.</p><a name="1.6"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Collation</h2>
+</div><div class="Bodytext"><p>Collation is a much better and more powerful way to compare strings and produces a dictionary-like ('lexicographic') ordering. Folding cannot  remove piece accents or deal with correspondences that are not one-to-one like the mapping from German upper case SS to lower case ß. In addition, folding cannot optionally ignore punctuation.  </p><p>For languages using the  Latin script, for example, collation is about deciding whether to ignore punctuation, whether to fold upper and lower case, how to treat accents, and so on. In a given locale there is usually  a standard set of collation rules that can be used.</p><p>Variants of member functions that  use collation are provided where appropriate. For example, <a href="../../../../../APIReference/Descriptors/TDesC16Class.html#%3a%3aTDesC16%3a%3aCompareC%28%29" title="Compares data using collation rule set identified by a UID"><code class="ApiItem">TDesC16::CompareC()</code></a> for collated comparison.</p><a name="1.6.5"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Comparing and sorting strings</h3>
+</div><div class="Bodytext"><p>The <a href="../../../../../APIReference/Descriptors/TDesC16Class.html#%3a%3aTDesC16%3a%3aCompareC%28%29" title="Compares data using collation rule set identified by a UID"><code class="ApiItem">TDesC16::CompareC()</code></a> variant prototyped as:</p><p class="CodeBlock"><code>TInt CompareC(const TDesC16&amp; aDes, TInt aMaxLevel, const TCollationMethod* aCollationMethod) const;</code></p><p>returns 0, if two strings match.</p><p>There are many ways in which two strings can match, even when they do not have the same length:</p><ul><li><p>if one string includes combining characters, but the collation level is set to 0 (which means that  accents are ignored)</p></li><li><p>
+if one string contains &quot;pre-composed&quot; versions of accented characters and the other contains &quot;decomposed&quot; versions of the same character</p></li><li><p>if one string contains a ligature that, in a  collation table, matches multiple characters in the other string and the collation level is set to less than 3 (for example &quot;æ&quot; might match &quot;ae&quot;)</p></li><li><p>
+if one string contains a &quot;surrogate pair&quot; (a 32-bit encoded character)  which happens to match a normal character at the level specified</p></li><li><p>if the collation method does not have its &quot;ignore none&quot; flag set and the collation level is set to less than 3, then spaces and punctuation are ignored; this means that one string  could be much longer than the other just by adding a large number of spaces</p></li><li><p>if one string were to contain the Hangul representation of Korean and the other were to contain the Jamo representation of the same Korean and the collation level is set to less than 3.</p></li></ul><p>The collation level is an integer that can take one of the values: 0, 1, 2 or 3, and determines how tightly the matching of two strings should be. This value is passed as the second parameter to <code>CompareC()</code>. The values have the following meanings:</p><ul><li><p>0 - only test the character identity; accents and case are ignored</p></li><li><p>
+1 - test the character identity and accents; case is ignored</p></li><li><p>2 - test the character identity, accents and case</p></li><li><p>3 - test the Unicode value as well as the character identity, accents and case.</p></li></ul><p>At levels 0-2:</p><ul><li><p> ligatures (e.g. &quot;æ&quot;) are  the same as their decomposed equivalents (e.g. &quot;ae&quot;)</p></li><li><p>script variants are the same (for example &quot;R&quot; matches the mathematical real number symbol (Unicode 211D)</p></li><li><p>the &quot;micro&quot; symbol (Unicode 00B5) matches Greek &quot;mu&quot; (Unicode 03BC)).</p></li></ul><p>At level 3 these are  treated   differently.</p><p>If the aim is to <b>sort</b> strings, then <b>level 3 must be used</b>. For any strings <code>a</code> and <code>b</code>, if <code>a</code> &lt; <code>b</code> for some level of collation, then <code> a</code> &lt; <code>b</code> for all higher levels of collation as well. It is impossible, therefore, to affect the order that is generated by using lower collation levels than 3. This just causes similar strings to sort in a random order. In standard English, sorting at level 3 gives the following order:</p><p> bat &lt; bee &lt; BEE &lt; bug</p><p> The case of the B only affects the comparison after all the letter identities have been found to be the same - this is usually what people are trying to achieve by using lower collation levels than 3 for sorting. It is never necessary.</p><p>The sort order can be affected by setting flags in the <a href="../../../../../APIReference/LocaleSettings/TCollationMethodStruct.html#%3a%3aTCollationMethod" title="Defines a collation method"><code class="ApiItem">TCollationMethod</code></a> object.</p><p>Note that when strings match at level 3, they  do not necessarily  have the same binary representation, or even the same length. Unicode contains many strings that are regarded as equivalent, even though they have different binary representations.</p>
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

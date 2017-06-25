@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>TFileMode</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="TFileManErrorEnum.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="TFileNameTypedef.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">File&nbsp;Server&nbsp;Client&nbsp;Side</a>&nbsp;<span class="separator">&#187;</span>
+TFileMode</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>f32file.h</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aTFileMode"></a>
+
+<h1>Enum <code>TFileMode</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>TFileMode</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Access and share modes available when opening a file.</p>
+<p>The access mode indicates whether the file is opened for reading
+only or writing. The share mode indicates whether other <code>RFile</code>
+objects can access the open file, and whether this access is read only.</p>
+<p>If a file is already open for sharing, it can only be opened by
+another program using the same share mode as the one in which it was originally
+opened. For example, a file opened using <code>EFileShareReadersOnly</code>
+share mode can only be opened by another program using
+<code>EFileShareReadersOnly</code> mode.</p>
+<p>So, to open a file for reading and writing with read and write
+shared access, use:</p>
+<p class="CodeBlock"><code>_LIT(KFilename,&quot;filename.ext&quot;);<br>RFile file;<br>file.Open(theFs,KFilename,EFileWrite|EFileShareAny);</code></p>
+<p>If another instance of <code>RFile</code> tries to open this file
+in <code>EFileShareExclusive</code> or <code>EFileShareReadersOnly</code> mode,
+access is denied. However, it can be opened in <code>EFileShareAny</code>
+mode.</p>
+<p>Files may be opened in text or binary mode. Native EPOC
+applications&#8217; files are nearly all binary, (so they will usually be
+opened in binary mode). However, they can be opened in text mode (to support
+testing, and to make them compatible with text formats on remote systems). EPOC
+native text format uses CR-LF (ASCII <code>0x0d</code>, <code>0x0a</code>) to
+denote the end of a line. When reading, however, any combination of CR, LF,
+LF-CR or CR-LF is recognised as the end of a line. Where a remote file system
+uses a different format, it is the responsibility of the installable file
+system to present an interface for text files which conforms with this
+format.</p>
+<p>The share mode may be OR&#8217;ed with either
+<code>EFileStream</code> or <code>EFileStreamText</code>.</p>
+<p>Additionally, it may be OR&#8217;ed with either
+<code>EFileRead</code> or <code>EFileWrite</code>.</p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aEFileShareExclusive"><code class="Value">EFileShareExclusive</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Exclusive access for the program opening the file (=0). No other
+program can access the file until it is closed.</para>
+<para>If another program is already accessing the file in any share
+mode then an attempt to open it with an <code>EFileShareExclusive</code> will
+fail.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aEFileShareReadersOnly"><code class="Value">EFileShareReadersOnly</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Read-only sharing. This means that the file may only be accessed
+for reading.</para>
+<para>A file cannot be opened using a share mode of
+<code>EFileShareReadersOnly</code> with an <code>EFileWrite</code>
+flag.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aEFileShareAny"><code class="Value">EFileShareAny</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Shared access for reading and writing. This means that other
+programs may share access to the file for reading and writing with the program
+which opened the file.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aEFileStream"><code class="Value">EFileStream</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>For files to be opened in binary
+mode&#0160;(=0).</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aEFileStreamText"><code class="Value">EFileStreamText</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>For files to be opened in text mode.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aEFileRead"><code class="Value">EFileRead</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>The file may be read from but not written
+to&#0160;(=0).</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aEFileWrite"><code class="Value">EFileWrite</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>The file may be read from and written to. Cannot be combined with
+a share mode of <code>EFileShareReadersOnly</code>.</para></p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

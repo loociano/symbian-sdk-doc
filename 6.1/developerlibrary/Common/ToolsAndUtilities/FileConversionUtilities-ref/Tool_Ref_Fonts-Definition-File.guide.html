@@ -1,0 +1,360 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Font definition file</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="FileConversionUtilities%2dRef%2efonts%2dgd%2dformat"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="Tool_Ref_Fonts_Fnttran.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">File&nbsp;Conversion&nbsp;Utilities&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+Font&nbsp;definition&nbsp;file</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Font definition file</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Overview</h2>
+</div><div class="Bodytext">
+<p>This document describes the structure of the font definition file,
+including the font bitmap, typeface and font store file definitions. </p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Changes since EPOC R5</h2>
+</div><div class="Bodytext">
+<p>Unicode characters can be used in font name strings. Details are
+given below.</p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Font definition file structure</h2>
+</div><div class="Bodytext">
+<p>A font definition file consists of a statement list, which defines
+bitmaps, typefaces and font store files. </p>
+<p><code>whole-file</code> :
+<code>statement-list statement</code> :
+<code>font-bitmap-statement</code>| <code>typeface-statement</code>|
+<code>font-store-file-statement</code></p>
+<p>The font definition file is characterised by:</p>
+<ul>
+<li>
+<p>one or more font bitmap definitions <code>font-bitmap-statement</code></p>
+</li>
+<li>
+<p>one or more typeface definitions <code>typeface-statement</code></p>
+</li>
+<li>
+<p>one or more destination font store file definitions <code>font-store-file-statement</code></p>
+</li>
+</ul>
+<a name="1.5.6"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Notes</h3>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>Note that in all cases a <code>string</code>
+must be enclosed in quotes, e.g. &quot;mystring&quot;.</p>
+</li>
+<li>
+<p>To use an arbitrary Unicode character in a font name string,
+insert a # (hash) followed by exactly 4 hex digits for the Unicode value of the
+character at the appropriate point in the string. For example, to replace the
+second &quot;a&quot; in Arial with an &quot;a-with-acute-accent&quot; change the string to read
+&quot;Ari#00E1l&quot;.</p>
+</li>
+<li>
+<p>Comments can be included in font definition files by using
+the <code>!</code> character&#0160;&#8212;  any text appearing after a <code>!</code>
+on a particular line is taken to be a comment.</p>
+</li>
+<li>
+<p>The font bitmap definitions can be coded in separate
+<code class="filename">.gdf</code> files and incorporated into the <code class="filename">.gd</code> file by
+using <code>#include</code> statements, e.g.</p>
+</li>
+</ul>
+<p class="CodeBlock"><code>&#8220;&#8221; #include ari16.gdf</code></p>
+<ul>
+<li>
+<p>where the filename (<code class="filename">ari16</code>) is conventionally the
+<code>font-bitmap-label</code> from the font
+bitmap definition.</p>
+</li>
+<li>
+<p>BDF files can also be included in the same way, e.g.</p>
+</li>
+</ul>
+<p class="CodeBlock"><code>&#8220;&#8221; #include roman11.bdf</code></p>
+<ul>
+<li>
+<p>Font definition files containing <code>#include</code>
+statements need to be processed by the C pre-processor before conversion with
+<code class="filename">fnttran</code>. For example, to translate <code class="filename">tfont.gd</code> you would
+type:</p>
+</li>
+</ul>
+<p class="CodeBlock"><code> cl /P /EP tfont.gd<br>&nbsp;fnttran tfont.i tfont.gdr</code></p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Font bitmap definition</h2>
+</div><div class="Bodytext">
+<p><code>font-bitmap-statement</code> :
+<code>FontBitmap</code>
+<code>font-bitmap-label</code>
+<code>Uid</code>
+<code>uid</code>
+[ <code>Bold</code> ] [ <code>Italic</code>
+] [ <code>Proportional</code> ]
+<code>MaxNormalCharWidth</code>
+<code>char-width</code>
+<code>CellHeight</code>
+<code>cell-height</code>
+<code>Ascent</code>
+<code>ascent
+code-section-clause</code>
+<code>EndFontBitmap</code></p>
+<p>A font bitmap is characterised by:</p>
+<ul>
+<li>
+<p>a font bitmap label <code>font-bitmap-label</code>:
+this label will be used in <code>typeface-statement</code>s
+to refer to the font bitmap.</p>
+</li>
+<li>
+<p>a UID <code>uid</code>, which can be used in
+a <code>typeface-statement</code> to refer to a font
+that will be accessible to the FBSERV at run-time, but is inaccessible to the
+compiler at compile time. C++ developers can also use <code>uid</code>
+as a parameter to <code>CFbsDevice::GetFontById()</code>,
+<code>CWsScreenDevice::GetFontById()</code>,
+<code>CFontStore::GetFontById()</code>, or
+<code>CFbsTypefaceStore::GetFontById()</code> functions. NB. The UID must be
+specified in decimal, rather than in (OPL-style) <code>&amp;xxx</code>
+syntax.</p>
+</li>
+<li>
+<p>whether it is bold (<code>Bold</code>) and/or
+italic (<code>Italic</code>) and/or proportional (<code>Proportional</code>).</p>
+</li>
+<li>
+<p>the maximum normal character width, in pixels, <code>char-width</code>.
+This is usually defined by the pixel width of the @ character.</p>
+</li>
+<li>
+<p>the character cell height, in pixels, <code>cell-height</code>.
+</p>
+</li>
+<li>
+<p>the character cell ascent, in pixels, <code>ascent</code>.</p>
+</li>
+</ul>
+<p>The diagram below shows the @ character (font: Arial). It has a width of
+16 pixels (maximum), height 16 pixels and ascent 11 pixels. </p>
+<div class="Figure">
+<p class="Image"><img src="tools_font-dimensions.gif" alt=""  border="0"></p>
+</div>
+<a name="FileConversionUtilities%2dRef%2efonts%2dcode%2dsections"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Code section</h3>
+</div><div class="Bodytext">
+<p><code>code-section-clause</code> :
+<code>CodeSection</code>
+<code>code-point-start</code><code>:</code><code>code-point-end</code>
+<code>char-clause-list</code>
+<code>EndCodeSection</code></p>
+<p>A <em>code section</em> defines the bitmaps for
+characters in the range <code>code-point-start</code>
+to <code>code-point-end</code>. Each character in this
+range is defined by a <code>char-clause</code>.
+Successive <code>char-clause</code>s define successive
+characters in ascending numerical order through the range. There must be
+precisely the required number of <code>char-clause</code>s,
+(<code>code-point-end</code> - <code>code-point-start</code>
++ 1).</p>
+<p><code>char-clause</code> :
+<code>Char</code>
+<code>character-code</code>
+[ <code>Adjust</code>
+<code>left-adjust</code>
+<code>right-adjust </code>]
+<code>char-pixel-line-definition-list</code>
+<code>EndChar</code></p>
+<p>Each character is defined by an optional <em>left
+adjust</em> and/or <em>right adjust</em>, and
+then a series of pixel lines. The number of character lines defined between <code>Char</code>
+and <code>EndChar</code> must be equal to zero or <code>cell-height</code>.</p>
+<a name="1.6.8"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Pixel line definitions</h3>
+</div><div class="Bodytext">
+<p>A <code>char-pixel-line-definition</code>
+consists of a sequence of period and asterisk characters. A period represents a
+white pixel, and an asterisk represents a pixel which forms part of the
+character itself.</p>
+<p>Each pixel line definition in a <code>char-clause</code>
+must be the same length.</p>
+<p>For example, this is the definition for the g character (Font: Times
+New Roman, 20 pixel, Bold Italic Proportional):</p>
+<p class="CodeBlock"><code>Char 103 Adjust -1 0  ! 'g'<br>..........<br>..........<br>..........<br>..........<br>..........<br>..........<br>..........<br>....****..<br>...**..***<br>..**...**.<br>..**...**.<br>..**..***.<br>...*****..<br>..**......<br>..*****...<br>.**.****..<br>**....**..<br>**....**..<br>.*****....<br>..........<br>EndChar</code></p>
+<p>The <code>char-pixel-line-definition-list</code>
+always starts with the topmost row of pixels in the character cell. The lines
+continue downwards for every row of pixels until the definition contains <code>cell-height</code>
+rows.</p>
+<a name="1.6.9"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Font bitmaps stored as <code class="filename">.gdr</code> files</h3>
+</div><div class="Bodytext">
+<p>A <code>KFontStoreFileVer9Uid</code> is used to identify the filetype.
+These files are conventionally incorporated in font definition files by using
+<code>#include</code>.</p>
+<a name="1.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Typeface definition</h2>
+</div><div class="Bodytext">
+<p><code>typeface-statement</code> :
+<code>Typeface</code>
+<code>typeface-label</code>
+<code>Name</code>
+<code>typeface-name</code>[
+<code>Symbol</code> ] [ <code>Proportional</code>]
+[ <code>Serif</code> ]
+<code>FontBitmaps</code>
+<code>font-bitmap-reference-list</code>
+<code>EndFontBitmaps</code>
+<code>EndTypeface</code></p>
+<p>The <code>Typeface</code> statement defines a
+typeface and gives it a label, <code>typeface-label</code>.</p>
+<p>The typeface also has a full name <code>typeface-name</code>.</p>
+<p><code>typeface-name</code> :
+<code>string</code></p>
+<p>The typeface may be a symbol typeface <code>Symbol</code>and/or
+proportional <code>Proportional</code> and/or serif
+<code>Serif</code>. If <code>Symbol</code>is
+not stated then the typeface is normal. If <code>Proportional</code>is
+not stated then the typeface is monospaced. If <code>Serif</code>is
+not stated then the typeface is sans-serif.</p>
+<p>A typeface contains several font bitmaps, each defined by a
+reference:</p>
+<p><code>font-bitmap-reference</code> :
+<code>uid</code>| <code>font-bitmap-label</code>[
+<code>WidthFactor</code>
+<code>width</code>]
+[ <code>HeightFactor</code>
+<code>height</code>]</p>
+<p>The <code>uid</code> form refers to the font
+bitmap identified by its UID, as specified in the <code>UID</code>clause
+of the <code>font-bitmap-statement</code>. The font
+bitmap must be accessible to the font bitmap server when this typeface is used
+at run-time. Typically, the <code>uid</code> form is
+used to refer to fonts which are guaranteed to be in the ROM, but are not in
+this compilation unit, for example, the tiny fonts.</p>
+<p>The <code>font-bitmap-label</code> form refers
+to a font bitmap that has previously been defined, using a <code>FontBitmap</code>statement
+with that label, in this compilation unit. The font bitmap may be
+algorithmically enlarged by n-tupling the width using <code>WidthFactor</code><code>width</code>, and/or n-tupling the height using <code>HeightFactor</code><code>height</code>. This avoids the need for too many font
+bitmap definitions. The example below shows a normal and <code>WidthFactor</code><code> 2</code> character, (font: Times New Roman, 20 pixel, Bold
+Italic Proportional):</p>
+<div class="Figure">
+<p class="Image"><img src="tools_font-widthfactor2.gif" alt=""  border="0"></p>
+</div>
+<p>Note that a font bitmap does not have to be incorporated into a typeface
+to be accessible to the font and bitmap server.</p>
+<a name="1.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Font store file definition</h2>
+</div><div class="Bodytext">
+<p><code>font-store-file-statement</code> :
+<code>FontStoreFile</code>
+<code>CollectionUid</code>
+<code>uid</code><code>KPixelAspectRatio</code>
+<code>aspect-ratio</code><b></b><b></b><b>
+</b><code>CopyrightInfo</code>
+<code>copyright-info</code><b></b><b></b><b>
+</b><code>EndCopyrightInfo</code>
+<code>Typefaces</code>
+<code>typeface-label-list</code>
+<code>EndTypefaces</code><code>EndFontStoreFile</code></p>
+<p>The <code>FontStoreFile</code> statement defines a
+destination font store file. The font store file is identified by its
+collection UID <code>uid</code>. NB. The UID must be
+specified in decimal, rather than in the OPL-style,
+<code>&amp;xxx</code>syntax.</p>
+<p>A font store file contains several typefaces, each defined by a <code>typeface-label</code>.
+The <code>typeface-label</code> refers to a previously
+defined typeface, in this compilation unit.</p>
+<p>Copyright information is specified in the copyright clause&#0160;&#8212;  any
+number of lines of text, each of which must be surrounded by quotes
+(<code>&quot;</code>), between the <code>CopyrightInfo</code>and
+<code>EndCopyrightInfo</code> keywords.</p>
+<p>The <code>aspect-ratio</code> identifier gives
+the aspect ratio of the device for which the font is designed
+(<code>1000*PixelHeightInTwips/PixelWidthInTwips</code>).</p>
+<a name="FileConversionUtilities%2dRef%2efonts%2dbdf%2dformat"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Bitmap distribution format files</h2>
+</div><div class="Bodytext">
+<p>Fnttran supports BDF V2.2 but without the support for multiple writing
+directions as this is not supported by EPOC. The characters must be listed in
+order of Unicode encoding. The name of the font, following <code>FONT</code>,
+is the label used to identify the individual font bitmap when the typefaces are
+constructed. Some additional keyword should be supplied in
+the<code>PROPERTIES</code> section of the BDF file however.</p>
+<p class="CodeBlock"><code>STARTPROPERTIES 3<br>Uid 999999      // A uid enabling the font bitmap to be requested <br>MaxNormalCharWidth 12 // The maximum normal width of characters in pixels.<br>MaxConsecutiveFillChars 0<br>ENDPROPERTIES</code></p>
+<p>The final keyword (<code>MaxConsecutiveFillChars</code>) is optional and
+controls whether breaks are made between code sections when there are missing
+characters in the input BDF file.</p>
+<p>See<a href="http://partners.adobe.com/">http://partners.adobe.com/</a>for further
+details of <code class="filename">bdf</code> format.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

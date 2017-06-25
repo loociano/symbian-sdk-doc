@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Defensive programming</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="idioms%2edefensiveprog"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="EfficientCode.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="StaticData.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/DeveloperGuide/index.html">Developer's&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Essential&nbsp;Idioms</a>&nbsp;<span class="separator">&#187;</span>
+Defensive&nbsp;programming</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Defensive programming</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Overview</h2>
+</div><div class="Bodytext">
+<p>To help developers identify potential problems early in
+development, macros are provided to test for error conditions in functions
+(asserts) and objects (class invariants).</p>
+<p>Casting is one well known source of hard-to-find errors.
+<a href="DefensiveProg.guide.html#idioms%2ecasting" title="Defensive programming / Casting">Casting</a> discusses its use.</p>
+<a name="idioms%2eassertsinvariants"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Testing conditions with asserts and invariants</h2>
+</div><div class="Bodytext">
+<p>One method of catching errors early is to identify conditions that
+should be true at the beginning and end of functions, and raise errors if they
+are not.</p>
+<p>Two mechanisms support this programming style.</p>
+<ul>
+<li>
+<p>asserts</p>
+</li>
+<li>
+<p>class invariants</p>
+</li>
+</ul>
+<a name="1.4.6"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Asserts</h3>
+</div><div class="Bodytext">
+<p>Two macros are supplied for asserting specific conditions in
+functions:</p>
+<ul>
+<li>
+<p><code>__ASSERT_ALWAYS</code> to catch run-time invalid input,
+for both release and debug builds</p>
+</li>
+<li>
+<p><code>__ASSERT_DEBUG</code> to catch programming errors, for
+debug builds only</p>
+</li>
+</ul>
+<a name="1.4.7"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Class Invariants</h3>
+</div><div class="Bodytext">
+<p>Class invariants are used to test that an object is in a valid
+state. They are used only in debug builds.</p>
+<ul>
+<li>
+<p>Define class invariants for non-trivial classes using
+<code>__DECLARE_TEST</code>. The class must supply functions that specify its
+allowed stable states.</p>
+</li>
+<li>
+<p>To ensures that the object is in a stable state prior to
+executing the function, call the invariant at the start of all public functions
+using <code>__TEST_INVARIANT</code>. </p>
+</li>
+<li>
+<p>For non-const functions, you can ensure that the object has
+been left in a stable state by also calling the invariant at the end of the
+function.</p>
+</li>
+</ul>
+<a name="idioms%2ecasting"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Casting</h2>
+</div><div class="Bodytext">
+<p>Casts, as in other operating systems, should be used with caution.
+If a cast seems to be needed, check that this does not reflect a design
+weakness.</p>
+<p>The Symbian platform provides its own macros to encapsulate the C++
+cast operators:</p>
+<ul>
+<li>
+<p><code>REINTERPRET_CAST</code></p>
+</li>
+<li>
+<p><code>STATIC_CAST</code></p>
+</li>
+<li>
+<p><code>CONST_CAST</code></p>
+</li>
+<li>
+<p><code>MUTABLE_CAST</code></p>
+</li>
+</ul>
+<p><em>Prior to 6.0</em>, GCC did not support the C++ casting operators, and these macros were, therefore, defined as simple C style casts for that compiler. These macros should have been used in preference to using the C++ operators
+explicitly.</p><p><em>From 6.0 onwards</em>, GCC fully supports the C++ casting operators and the macros have been  changed to reflect this in 6.1. This means that from 6.0 onwards, developers should use the native C++ casting operators rather than use the macros.</p><p>The more sophisticated C++ <code>dynamic_cast</code>
+operator should not be used because EPOC does not enable or support Run Time Type Information (RTTI).
+</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

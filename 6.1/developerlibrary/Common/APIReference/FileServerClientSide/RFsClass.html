@@ -1,0 +1,2822 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>RFs</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="RFormatClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="RFsBaseClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">File&nbsp;Server&nbsp;Client&nbsp;Side</a>&nbsp;<span class="separator">&#187;</span>
+RFs</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>f32file.h</code>
+<br>Link against: <code>efsrv.lib</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aRFs"></a>
+
+<h1>Class <code>RFs</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>RFs</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Handle to file server session. A program, or thread, may have
+arbitrarily many sessions open simultaneously.</p>
+<p>Use this class for all file system manipulation, including</p>
+<ul>
+<li>
+<p>adding, removing, moving and renaming files and
+directories</p>
+</li>
+<li>
+<p>inspecting and changing file and directory attributes and entry
+details. These include the time and date when the file or directory was last
+written, its size, and various file attribute flags such as read-only, hidden,
+archive or system.</p>
+</li>
+<li>
+<p>finding a file&#8217;s real name&nbsp;&#8212; if the file
+system on which it is stored has to &#8220;mangle&#8221; the name into a
+shorter format</p>
+</li>
+<li>
+<p>obtaining directory listings</p>
+</li>
+<li>
+<p>maintaining a default path&nbsp;&#8212; unlike some other
+systems, there is a single system default path, rather than one for each drive:
+the default path consists of a drive and a path specification.</p>
+</li>
+<li>
+<p>performing context-sensitive parses using <code>TParse</code>
+objects, and the session path</p>
+</li>
+<li>
+<p>obtaining information on drives and volumes</p>
+</li>
+<li>
+<p>formatting and labelling volumes</p>
+</li>
+<li>
+<p>obtaining a list of valid drives</p>
+</li>
+<li>
+<p>emulating the DOS subst command, which allows any directory to
+appear as if it were a separate drive</p>
+</li>
+<li>
+<p>requesting notification of when significant change occurs. This
+can be used for programs which maintain file lists, but must update those lists
+when change occurs.</p>
+</li>
+<li>
+<p>finding the version number of the file server</p>
+</li>
+<li>
+<p>a resource count to ensure that all resources are closed when
+the session terminates</p>
+</li>
+</ul>
+<p>This class is not intended for user derivation.</p>
+<p>Note that when using the functions provided by this class and a
+path is specified, the following restrictions apply to it and to its
+components:</p>
+<ul>
+<li>
+<p>its total length must not exceed 256 characters and the length
+of each directory and filename component which forms part of the path must be
+less than 256 characters.</p>
+</li>
+<li>
+<p>wildcards cannot be used in the drive or in any directory name,
+although they may be allowed in the filename and extension.</p>
+</li>
+<li>
+<p>double backslashes are not allowed in the path. </p>
+</li>
+<li>
+<p>the following characters must not be included anywhere in the
+path: &lt; &gt; &quot; / |</p>
+</li>
+<li>
+<p>a colon may only be included between the drive and path</p>
+</li>
+<li>
+<p>no directory name or filename plus extension may consist solely
+of space characters, or of a single or double dot.</p>
+</li>
+<li>
+<p>spaces between the drive, if specified, and the first directory
+in the path are illegal, although there may be spaces between other path
+components, for instance between directories.</p>
+</li>
+</ul>
+<h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code>RFs</code></td><td class="Cell">Handle to file server session</td>
+</tr>
+<tr><td class="Cell"><code><a href="../Handles/RHandleBaseClass.html#%3a%3aRHandleBase">RHandleBase</a></code></td><td class="Cell">Handle to an object</td>
+</tr>
+<tr><td class="Cell"><code><a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase">RSessionBase</a></code></td><td class="Cell">Client-side handle to a session with a server</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>RFs</code>:
+<br><code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aAddFileSystem%28%29" title="Adds a file system to the file server">AddFileSystem()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aAtt%28%29" title="Returns a file's attributes">Att()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aCharToDrive%28%29" title="Maps a drive character to the corresponding number">CharToDrive()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aCheckDisk%28%29" title="Checks the integrity of the disk contained in the specified driveaDrive">CheckDisk()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aClearPassword%28%29" title="Clears the password from the card in the specified drive">ClearPassword()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aConnect%28%29" title="Connects a client process to the file server">Connect()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aControlIo%28%29" title="A general purpose interface to aid debugging and verification of a file system">ControlIo()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aDebugNotify%28%29" title="A general purpose function to aid debugging and verification of a file system">DebugNotify()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aDefaultPath%28%29" title="Gets the system default path">DefaultPath()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aDelete%28%29" title="Deletes a single file">Delete()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aDismountFileSystem%28%29" title="Dismounts a file system from the given drive">DismountFileSystem()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aDrive%28%29" title="Gets information about a drive and the medium mounted on it">Drive()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aDriveList%28%29" title="Gets a list of the available drives">DriveList()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aDriveToChar%28%29" title="Maps a drive number to the corresponding character">DriveToChar()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aEntry%28%29" title="Gets the entry details, including UID information, for a file or directory">Entry()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aFileSystemName%28%29" title="Gets the name of the file system on the specified drive">FileSystemName()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aGetDir%28%29" title="Gets a filtered list of a directory's contents -- by UID">GetDir()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aGetDriveName%28%29" title="Gets the name of a drive">GetDriveName()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aGetLongName%28%29" title="Gets the long filename associated with a short (8.3) filename">GetLongName()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aGetNotifyUser%28%29" title="Tests whether user notification of file read or write failure is in effect">GetNotifyUser()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aGetShortName%28%29" title="Gets the short filename associated with a VFAT long filename">GetShortName()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aIsFileInRom%28%29" title="Returns the address of a file located in ROM">IsFileInRom()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aIsFileOpen%28%29" title="Tests whether a file is open">IsFileOpen()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aIsRomAddress%28%29" title="Tests whether the specified address is in ROM">IsRomAddress()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aIsValidDrive%28%29" title="Tests whether a drive number is valid">IsValidDrive()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aIsValidName%28%29" title="Tests whether a filename and path are syntactically correct">IsValidName()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aLockDrive%28%29" title="Locks the card in the specified drive">LockDrive()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aMkDir%28%29" title="Makes a directory">MkDir()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aMkDirAll%28%29" title="Makes one or more directories">MkDirAll()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aModified%28%29" title="Gets the last modification date and time of a file or directory">Modified()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aMountFileSystem%28%29" title="Mounts a file system on a drive">MountFileSystem()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aNotifyChange%28%29" title="Requests a notification of change to files or directories, allowing the notification directory/file path to be specified">NotifyChange()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aNotifyChangeCancel%28%29" title="Cancels a requested change notification -- asynchronous overload">NotifyChangeCancel()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aNotifyDiskSpace%28%29" title="Requests notification when the free disk space on the specified drive crosses the specified threshold value">NotifyDiskSpace()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aNotifyDiskSpaceCancel%28%29" title="Cancels all outstanding requests for free disk space notification">NotifyDiskSpaceCancel()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aParse%28%29" title="Parses a filename specification, specifying related file path components">Parse()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aReadFileSection%28%29" title="Reads data from a file without opening it">ReadFileSection()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aRealName%28%29" title="Gets the real name of a file">RealName()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aRemoveFileSystem%28%29" title="Removes file system from the file server">RemoveFileSystem()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aRename%28%29" title="Renames a single file or directory">Rename()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aReplace%28%29" title="Replaces a single file with another">Replace()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aResourceCount%28%29" title="Returns the number of currently open resources">ResourceCount()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aResourceCountMarkEnd%28%29" title="Ends resource count checking">ResourceCountMarkEnd()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aResourceCountMarkStart%28%29" title="Starts resource count checking">ResourceCountMarkStart()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aRmDir%28%29" title="Removes a directory">RmDir()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aScanDrive%28%29" title="Checks the specified drive for specific errors and corrects them">ScanDrive()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aSessionPath%28%29" title="Gets the session path">SessionPath()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aSetAtt%28%29" title="Sets or clears the attributes of a single file">SetAtt()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aSetDefaultPath%28%29" title="Sets the system default path">SetDefaultPath()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aSetDriveName%28%29" title="Sets the name of a drive">SetDriveName()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aSetEntry%28%29" title="Sets both the attributes and the last modified date and time for a file or directory">SetEntry()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aSetModified%28%29" title="Sets the date and time that the contents of a file or directory were modified">SetModified()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aSetNotifyUser%28%29" title="Sets whether the user should be notified of file read or write failure">SetNotifyUser()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aSetSessionPath%28%29" title="Sets the session path for the current file server client">SetSessionPath()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aSetSubst%28%29" title="Assigns a path to a drive letter">SetSubst()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aSetVolumeLabel%28%29" title="Sets the label for a volume">SetVolumeLabel()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aSubst%28%29" title="Gets the path assigned to a drive letter bySetSubst()">Subst()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aUnlockDrive%28%29" title="Unlocks the card in the specified drive">UnlockDrive()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aVersion%28%29" title="Returns the version number">Version()</a></code>, <code class="ApiItem"><a href="RFsClass.html#%3a%3aRFs%3a%3aVolume%28%29" title="Gets volume information for a formatted device">Volume()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../Handles/RHandleBaseClass.html#%3a%3aRHandleBase" title="Handle to an object">RHandleBase</a></code>:
+<br><code class="ApiItem"><a href="../Handles/RHandleBaseClass.html#%3a%3aRHandleBase%3a%3aClose%28%29" title="Closes the handle">Close()</a></code>,
+<code class="ApiItem"><a href="../Handles/RHandleBaseClass.html#%3a%3aRHandleBase%3a%3aDuplicate%28%29" title="Creates a valid handle to the Kernel object to which the specified thread already has a handle">Duplicate()</a></code>,
+<code class="ApiItem"><a href="../Handles/RHandleBaseClass.html#%3a%3aRHandleBase%3a%3aHandle%28%29" title="Retrieves the handle-number of the object associated with this handle">Handle()</a></code>,
+<code class="ApiItem"><a href="../Handles/RHandleBaseClass.html#%3a%3aRHandleBase%3a%3aSetHandle%28%29" title="Use this function to set the handle-number of this handle to the specified value">SetHandle()</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase" title="Client-side handle to a session with a server">RSessionBase</a></code>:
+<br><code class="ApiItem"><a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase%3a%3aAttach%28%29" title="Explicitly attaches a thread to the session">Attach()</a></code>,
+<code class="ApiItem"><a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase%3a%3aCreateSession%28%29" title="Creates a session with a server">CreateSession()</a></code>,
+<code class="ApiItem"><a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase%3a%3aEAutoAttach" title="Client threads are auto-attached to the session">EAutoAttach</a></code>,
+<code class="ApiItem"><a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase%3a%3aEExplicitAttach" title="Client threads explicitly attach to the session">EExplicitAttach</a></code>,
+<code class="ApiItem"><a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase%3a%3aSend%28%29" title="Sends a blind message to the server -- no reply is expected">Send()</a></code>,
+<code class="ApiItem"><a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase%3a%3aSendReceive%28%29" title="Sends a message to the server and waits synchronously for the reply">SendReceive()</a></code>,
+<code class="ApiItem"><a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase%3a%3aSetRetry%28%29" title="Changes the retry parameters used to resend a message if the server is busy">SetRetry()</a></code>,
+<code class="ApiItem"><a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase%3a%3aShare%28%29" title="Makes the session shared among all threads in the process">Share()</a></code>,
+<code class="ApiItem"><a href="../ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase%3a%3aTAttachMode" title="Indicates whether threads in the process are automatically attached to the session when passed as a parameter to the Share() function">TAttachMode</a></code></p>
+<a name="2.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Connect to file server</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aConnect%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Connect()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Connect(TInt aMessageSlots=KFileServerDefaultMessageSlots);</code></p><h4 class="subheading">Description</h4>
+<p>Connects a client process to the file server.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>The number of message slots represents the number of
+operations that can be outstanding at once. The default value, four slots,
+allows an asynchronous read, write, and another operation to be outstanding at
+the same time, and a spare slot for a cancel.</p>
+</li>
+<li>
+<p>If you wish to have more asynchronous operations
+outstanding than this, use more message slots. You should always provide an
+extra slot for the cancel operation.</p>
+</li>
+<li>
+<p>Often, specification of extra slots is not required because
+several file server session objects are used in a program, each carrying its
+own message slots.</p>
+</li>
+<li>
+<p>To end the file server session, use <code>Close()</code>,
+defined in the base class <code>RHandleBase</code>.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aMessageSlots</code></td>
+<td class="Cell"><p class="ValueDesc">The number of message slots required. The default is
+<code>KFileServerDefaultMessageSlots</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>File and directory manipulation</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aMkDir%28%29"></a>
+<hr size="1" noshade>
+<h3><code>MkDir()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt MkDir(const TDesC&amp; aPath);</code></p><h4 class="subheading">Description</h4>
+<p>Makes a directory. It should be a sub-directory of an existing
+directory and its name should be unique within its parent directory, otherwise
+the function returns an error.</p>
+<p>Note that if a filename is specified in the argument, it is
+ignored. Therefore, there should be a trailing backslash after the final
+directory name in the argument to indicate that it is a directory, not a
+filename.</p>
+<p>See <code>MkDirAll()</code>, which may also create intermediate
+directories. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aPath</code></td>
+<td class="Cell"><p class="ValueDesc">The name of the new directory. Any path components which are
+not specified here will be taken from the session path.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aMkDirAll%28%29"></a>
+<hr size="1" noshade>
+<h3><code>MkDirAll()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt MkDirAll(const TDesC&amp; aPath);</code></p><h4 class="subheading">Description</h4>
+<p>Makes one or more directories. Any valid path component
+specified in the specified path which does not already exist is created as a
+directory.</p>
+<p>Note that if a filename is specified in the argument, it is
+ignored. Therefore, there should be a trailing backslash after the final
+directory name in the argument to indicate that it is a directory, not a
+filename.</p>
+<p>See <code>MkDir()</code>, which creates only a single new
+directory.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aPath</code></td>
+<td class="Cell"><p class="ValueDesc">The path name indicating the directory or directories to
+create. If the function completes successfully, this path identifies a valid
+directory. Any path components which are not specified here are taken from the
+session path.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.4"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aRmDir%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RmDir()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt RmDir(const TDesC&amp; aPath);</code></p><h4 class="subheading">Description</h4>
+<p>Removes a directory. The directory must be empty and cannot be
+the root directory. </p>
+<p>Note that if a filename is specified in the argument, it is
+ignored. Therefore, there should be a trailing backslash after the final
+directory name in the argument to indicate that it is a directory, not a
+filename.</p>
+<p>See class <code>CFileMan</code> for information on deleting a
+non-empty directory and all its contents.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aPath</code></td>
+<td class="Cell"><p class="ValueDesc">The path name of the directory to be removed. Any path
+components which are not specified here are taken from the session path. Only
+the lowest-level directory identified is removed.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CFileManClass.html#%3a%3aCFileMan" title="File management services which accept the use of wildcards -- synchronous and asynchronous"><code class="ApiItem">CFileMan</code></a></li>
+</ul>
+<a name="2.7.5"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aDelete%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Delete()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Delete(const TDesC&amp; aName);</code></p><h4 class="subheading">Description</h4>
+<p>Deletes a single file. Wildcards are not allowed in either the
+file name or the extension, otherwise an error is returned.</p>
+<p>Note that the file must be closed and must not be read-only.
+Hidden files may be deleted but system files may not be deleted.</p>
+<p>See class <code>CFileMan</code> for information on deleting
+multiple files.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aName</code></td>
+<td class="Cell"><p class="ValueDesc">Name of file to be deleted. Any path components which are not
+specified here will be taken from the session path.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CFileManClass.html#%3a%3aCFileMan" title="File management services which accept the use of wildcards -- synchronous and asynchronous"><code class="ApiItem">CFileMan</code></a></li>
+</ul>
+<a name="2.7.6"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aRename%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Rename()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Rename(const TDesC&amp; anOldName,const TDesC&amp; aNewName);</code></p><h4 class="subheading">Description</h4>
+<p>Renames a single file or directory. It can also be used to move
+a file or directory by specifying different destination and source directories.
+If so, the destination and source directories must be on the same drive. If a
+directory is moved, then the directory structure beneath it is also
+moved.</p>
+<p>If a directory specified by <code>aNewName</code> is different
+from one specified by <code>anOldName</code>, then the file or directory is
+moved to the new directory, see example below. The file or directory may not be
+moved to another device by this means, either explicitly (by another drive
+specified in the name) or implicitly (because the directory has been mapped to
+another device with <code>SetSubst()</code>). </p>
+<p>The function fails and returns an error code in the following
+circumstances:</p>
+<ul>
+<li>
+<p>If either the old or new name includes wildcards.</p>
+</li>
+<li>
+<p>If a file or directory with the new name already exists in
+the target directory. There is no overwriting.</p>
+</li>
+<li>
+<p>If file <code>anOldName</code> does not exist, or is
+open.</p>
+</li>
+</ul>
+<p>Read-only, system and hidden files may be renamed. The renamed
+file's attributes are preserved.</p>
+<p>Note that when this function is operating on directories, a
+trailing backslash is not required after the final directory name in either
+<code>anOldName</code> or <code>aNewName</code>.</p>
+<p>See class <code>CFileMan</code> for information on renaming
+multiple files.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; anOldName</code></td>
+<td class="Cell"><p class="ValueDesc">File or directory to be renamed. Any path components which are
+not specified here will be taken from the session path.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aNewName</code></td>
+<td class="Cell"><p class="ValueDesc">Path specifying the new name for the file or directory and/or
+its new parent directory. All directories specified in this path must exist.
+Any path components which are not specified here will be taken from the session
+path.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="UsingRFs.guide.html#FileServerClientSide%2eusing%2dRFs%2eRename" title="Using RFs / Using Rename()">Using Rename()</a></li>
+<li><a href="CFileManClass.html#%3a%3aCFileMan" title="File management services which accept the use of wildcards -- synchronous and asynchronous"><code class="ApiItem">CFileMan</code></a></li>
+</ul>
+<a name="2.7.7"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aReplace%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Replace()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Replace(const TDesC&amp; anOldName,const TDesC&amp; aNewName);</code></p><h4 class="subheading">Description</h4>
+<p>Replaces a single file with another. This function does not
+support the use of wildcards. Unlike <code>Rename()</code>, it only applies to
+files.</p>
+<p>This function operates as follows:</p>
+<ul>
+<li>
+<p>if the <code>aNewName</code> file does not exist, it is
+created.</p>
+</li>
+<li>
+<p><code>anOldName</code>'s contents, attributes and the date
+and time of its last modification are copied to file <code>aNewName</code>,
+overwriting any existing contents and attribute details.</p>
+</li>
+<li>
+<p><code>anOldName</code> is deleted.</p>
+</li>
+</ul>
+<p><code>anOldName</code> may be hidden, read-only or a system
+file. However, neither <code>anOldName</code> or if it exists,
+<code>aNewName</code>, may be open and <code>aNewName</code> must not be
+read-only, or the function will fail, returning an error. Both files must be on
+the same drive.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; anOldName</code></td>
+<td class="Cell"><p class="ValueDesc">The file to be replaced. Must exist and must be closed. It is
+deleted by this function.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aNewName</code></td>
+<td class="Cell"><p class="ValueDesc">The file to replace <code>anOldName</code>. Does not need to
+exist, but if it does exist, it must be closed. If it exists, its name remains
+unchanged but its contents, attributes and the date and time of its last
+modification are replaced by those of <code>anOldName</code>. If it does not
+exist, it will be created and is assigned the contents and attributes of
+<code>anOldName</code>. Must not be followed by a trailing backslash.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful;
+<code>KErrAccessDenied</code> if an attempt is made to replace a directory,
+otherwise another of the system-wide error codes. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>File attributes</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aAtt%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Att()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Att(const TDesC&amp; aName,TUint&amp; aAttValue) const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns a file's attributes.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aName</code></td>
+<td class="Cell"><p class="ValueDesc">The filename. Any path components which are not specified here
+will be taken from the session path.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint&amp; aAttValue</code></td>
+<td class="Cell"><p class="ValueDesc">On return, the individual bits within the byte indicate which
+attributes have been set. For more information see <code>KEntryAttNormal</code>
+and the other file/directory attributes</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="FsConstFileDirectoryAttributes.html#%3a%3aKEntryAttNormal" title="Any file without the hidden or system attribute"><code class="ApiItem">KEntryAttNormal</code></a></li>
+</ul>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aSetAtt%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetAtt()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt SetAtt(const TDesC&amp; aName,TUint aSetAttMask,TUint aClearAttMask);</code></p><h4 class="subheading">Description</h4>
+<p>Sets or clears the attributes of a single file.</p>
+<p>The function uses two bitmasks. The first bitmask specifies the
+attributes to set. The second specifies the attributes to clear.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>The function raises a FSCLIENT 21 panic if any attribute is
+specified in both bitmasks.</p>
+</li>
+<li>
+<p>An attempt to set or clear either the
+<code>KEntryAttDir</code> or<code>KEntryAttVolume</code> attribute has no
+effect.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aName</code></td>
+<td class="Cell"><p class="ValueDesc">File or directory name. Any path components which are not
+specified here will be taken from the session path. Must not include wildcard
+characters. The file must be closed.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUint aSetAttMask</code></td>
+<td class="Cell"><p class="ValueDesc">Bitmask indicating the attributes to be set</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aClearAttMask</code></td>
+<td class="Cell"><p class="ValueDesc">Bitmask indicating the attributes to be cleared. For more
+information see<code>KEntryAttNormal</code> and the other file or directory
+attributes</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="FsConstFileDirectoryAttributes.html#%3a%3aKEntryAttNormal" title="Any file without the hidden or system attribute"><code class="ApiItem">KEntryAttNormal</code></a></li>
+</ul>
+<a name="2.8.4"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aModified%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Modified()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Modified(const TDesC&amp; aName,TTime&amp; aTime) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the last modification date and time of a file or
+directory. If there has been no modification, the function gets the date and
+time of the file or directory's creation.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aName</code></td>
+<td class="Cell"><p class="ValueDesc">File or directory name</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTime&amp; aTime</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the date and time of the file or
+directory&#8217;s last modification.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.5"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aEntry%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Entry()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Entry(const TDesC&amp; aName,TEntry&amp; anEntry) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the entry details, including UID information, for a file
+or directory.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aName</code></td>
+<td class="Cell"><p class="ValueDesc">Name of file or directory.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TEntry&amp; anEntry</code></td>
+<td class="Cell"><p class="ValueDesc">On return contains the entry details for a file or
+directory.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.6"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aSetModified%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetModified()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt SetModified(const TDesC&amp; aName,const TTime&amp; aTime);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the date and time that the contents of a file or directory
+were modified.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aName</code></td>
+<td class="Cell"><p class="ValueDesc">File or directory name</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TTime&amp; aTime</code></td>
+<td class="Cell"><p class="ValueDesc">The new date and time of the file or directory's latest
+modification</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code>, if successful,<code>KErrInUse</code>, if
+the file is open,otherwise another of the system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.7"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aSetEntry%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetEntry()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt SetEntry(const TDesC&amp; aName,const TTime&amp; aTime,TUint aSetAttMask,TUint aClearAttMask);</code></p><h4 class="subheading">Description</h4>
+<p>Sets both the attributes and the last modified date and time
+for a file or directory.</p>
+<p>The function uses two bitmasks. The first bitmask determines
+which attributes should be set. The second bitmask determines which are
+cleared.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>The function raises a FSCLIENT 21 panic if any attribute is
+specified in both bitmasks.</p>
+</li>
+<li>
+<p>An attempt to set or clear either the
+<code>KEntryAttDir</code> or<code>KEntryAttVolume</code> attribute has no
+effect.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aName</code></td>
+<td class="Cell"><p class="ValueDesc">File or directory name.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TTime&amp; aTime</code></td>
+<td class="Cell"><p class="ValueDesc">New date and time for file or directory.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aSetAttMask</code></td>
+<td class="Cell"><p class="ValueDesc">Bitmask&#0160;indicating which attributes are set</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aClearAttMask</code></td>
+<td class="Cell"><p class="ValueDesc">Bitmask indicating which attributes are cleared. For more
+information see<code>KEntryAttNormal</code> and the other file or directory
+attributes</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful,<code>KErrInUse</code> if
+file is open,otherwise another of the system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="FsConstFileDirectoryAttributes.html#%3a%3aKEntryAttNormal" title="Any file without the hidden or system attribute"><code class="ApiItem">KEntryAttNormal</code></a></li>
+</ul>
+<a name="2.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Real name</h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aRealName%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RealName()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt RealName(const TDesC&amp; aName,TDes&amp; aResult) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the real name of a file.</p>
+<p>This is used in circumstances where a file system needs to
+mangle EPOC natural names so that it can store them on that file system.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aName</code></td>
+<td class="Cell"><p class="ValueDesc">Contains the name by which the file is normally referred
+to</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes&amp; aResult</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the real name of the file, comprising the
+full path, including the drive letter.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Obtaining directory listings</h2>
+</div><div class="Bodytext">
+<a name="2.10.2"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aGetDir%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetDir()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt GetDir(const TDesC&amp; aName,TUint anEntryAttMask,TUint anEntrySortKey, CDir*&amp; anEntryList) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a filtered list of a directory&#8217;s contents. The
+bitmask determines which file and directory entry types should be listed. The
+sort key determines the order in which they are listed.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>If sorting by UID (<code>ESortByUid</code> is OR'ed with
+the entry sort key), then UID information will be included in the listing
+whether or not<code>KEntryAttAllowUid</code> is specified
+in<code>anEntryAttMask</code>.</p>
+</li>
+<li>
+<p>The function sets <code>anEntryList</code> to NULL, then
+allocates memory for it before appending entries to the list.
+Therefore,<code>anEntryList</code> should have no memory allocated to it before
+this function is called, otherwise this memory will become orphaned.</p>
+</li>
+<li>
+<p>The caller of this function is responsible for
+deleting<code>anEntryList</code> after the function has returned.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aName</code></td>
+<td class="Cell"><p class="ValueDesc">Name of the directory for which a listing is required.
+Wildcards may be used to specify particular files.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint anEntryAttMask</code></td>
+<td class="Cell"><p class="ValueDesc">Bitmask indicating the attributes of interest. Only files and
+directories whose attributes match those specified here can be included in the
+listing. For more information see <code>KEntryAttMatchMask</code> and the other
+directory entry details. Also see <code>KEntryAttNormal</code> and the other
+file or directory attributes.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint anEntrySortKey</code></td>
+<td class="Cell"><p class="ValueDesc">Flag indicating the order in which the entries are to be
+sorted. This flag is defined in <code>TEntryKey</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">CDir*&amp; anEntryList</code></td>
+<td class="Cell"><p class="ValueDesc">On return contains a list of directory and file entries.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.3"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aGetDir%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetDir()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt GetDir(const TDesC&amp; aName,TUint anEntryAttMask,TUint anEntrySortKey, CDir*&amp; anEntryList,CDir*&amp; aDirList) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a filtered list of the directory and file entries
+contained in a directory and a list of the directory entries only. The bitmask
+determines which file and directory entry types should be listed
+in<code>anEntryList</code>. The contents of the second
+list,<code>aDirList</code> are not affected by the bitmask&nbsp;&#8212; it
+returns all directory entries contained in directory <code>aName</code>. The
+sort key determines the order in which both lists are sorted.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>If sorting by UID (<code>ESortByUid</code> is OR'ed with
+the entry sort key), then UID information will be included in the listing
+whether or not<code>KEntryAttAllowUid</code> is specified
+in<code>anEntryAttMask</code>.</p>
+</li>
+<li>
+<p>The function sets both <code>anEntryList</code> and
+<code>aDirList</code>to NULL, then allocates memory for them before appending
+entries to the lists. Therefore, <code>anEntryList</code> and
+<code>aDirList</code> should have no memory allocated to them before this
+function is called, otherwise this memory will become orphaned.</p>
+</li>
+<li>
+<p>The caller of this function is responsible for
+deleting<code>anEntryList</code> and <code>aDirList</code> after the function
+has returned.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aName</code></td>
+<td class="Cell"><p class="ValueDesc">Name of the directory for which a listing is required.
+Wildcards may be used to specify particular files.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint anEntryAttMask</code></td>
+<td class="Cell"><p class="ValueDesc">Bitmask indicating the attributes of interest. Only files and
+directories whose attributes match those specified here can be included
+in<code>anEntryList</code>. <code>aDirList</code> is unaffected by this mask.
+For more information see <code>KEntryAttMatchMask</code> and the other
+directory entry details. Also see <code>KEntryAttNormal</code> and the other
+file or directry attributes.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint anEntrySortKey</code></td>
+<td class="Cell"><p class="ValueDesc">Flag indicating the order in which entries in both lists are to
+be sorted. This flag is defined in <code>TEntryKey</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">CDir*&amp; anEntryList</code></td>
+<td class="Cell"><p class="ValueDesc">On return contains a filtered list of directories and
+files.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">CDir*&amp; aDirList</code></td>
+<td class="Cell"><p class="ValueDesc">On return contains a list of directory entries only.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.4"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aGetDir%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetDir()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt GetDir(const TDesC&amp; aName,const TUidType&amp; anEntryUid,TUint anEntrySortKey, CDir*&amp; aFileList) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a filtered list of a directory&#8217;s
+contents&nbsp;&#8212; by UID. The <code>TUidType</code> parameter determines
+which file entry types should be listed. The sort key determines the order in
+which they are listed.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>The function sets <code>aFileList</code> to NULL, then
+allocates memory for it before appending entries to the list. Therefore,
+<code>aFileList</code>should have no memory allocated to it before this
+function is called, otherwise this memory will become orphaned.</p>
+</li>
+<li>
+<p>The caller of this function is responsible for
+deleting<code>aFileList</code> after the function has returned.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aName</code></td>
+<td class="Cell"><p class="ValueDesc">Name of the directory for which a listing is required.
+Wildcards may be used to specify particular files.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TUidType&amp; anEntryUid</code></td>
+<td class="Cell"><p class="ValueDesc">Only those files whose UIDs match those specified here will be
+included in the file list. Any or all of the three UIDs may be omitted. Any UID
+which is omitted will act in a similar manner to a wildcard character, matching
+to all UIDs. For more information see <code>KEntryAttMatchMask</code> and the
+other directory entry details. Also see <code>KEntryAttNormal</code> and the
+other file or directory attributes.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint anEntrySortKey</code></td>
+<td class="Cell"><p class="ValueDesc">Flag indicating the order in which the entries are to be
+sorted. This flag is defined in <code>TEntryKey</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CDir*&amp; aFileList</code></td>
+<td class="Cell"><p class="ValueDesc">On return contains a list of file entries</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Path handling</h2>
+</div><div class="Bodytext">
+<a name="2.11.2"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aDefaultPath%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DefaultPath()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt DefaultPath(TDes&amp; aPath) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the system default path. This path is assigned as the
+session path to new clients when they connect to the file server. There is a
+single system default path rather than one for each drive.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes&amp; aPath</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the system default path, including a
+trailing backslash.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.3"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aSetDefaultPath%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetDefaultPath()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt SetDefaultPath(const TDesC&amp; aPath);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the system default path. This path is assigned as the
+session path to new clients when they connect to the file server. The session
+paths of existing clients remain unchanged. There is a single system default
+path rather than one for each drive.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>The default path is text-only. It does not cause any
+locking. Thus, although the path must be syntactically correct, its components
+do not need to be valid at the time the path is set, and any component may be
+deleted, removed or unmounted while the path is set.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aPath</code></td>
+<td class="Cell"><p class="ValueDesc">The new system default path. Consists of a drive and path.
+Normally, a drive should be specified, but if not, the system default drive is
+set to the drive specified in the existing session path. If a file is specified
+in the path, the function fails and returns an error. Therefore, the final
+component in the path must have a trailing backslash to indicate that it is a
+directory. All components of the path must be syntactically correct, for
+example wildcard characters and double backslashes are not allowed in any part
+of it. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.4"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aSessionPath%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SessionPath()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt SessionPath(TDes&amp; aPath) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the session path. When a client connects to the file
+server, its session path is initialised to the system default path. The session
+path of an existing client can only be changed
+by<code>SetSessionPath()</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes&amp; aPath</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the session path, including a trailing
+backslash.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.5"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aSetSessionPath%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetSessionPath()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt SetSessionPath(const TDesC&amp; aPath);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the session path for the current file server client. When
+the client first connects to the file server, its session path is initialised
+to the system default path.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>The session path is text-only. It does not cause any
+locking. Thus, although the path must be syntactically correct, its components
+do not need to be valid at the time the path is set, and any component may be
+deleted, removed or unmounted while the path is set.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aPath</code></td>
+<td class="Cell"><p class="ValueDesc">The new session path. Consists of a drive and path. Normally, a
+drive should be specified, but if not, the drive specified in the existing
+session path is preserved. If a file is specified, the function fails and
+returns an error code. Therefore, the final component in the path must have a
+trailing backslash to indicate that it is a directory. All components of the
+path must be syntactically correct, for example wildcard characters and double
+backslashes are not allowed in any part of it. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Parsing</h2>
+</div><div class="Bodytext">
+<a name="2.12.2"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aParse%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Parse()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Parse(const TDesC&amp; aName,TParse&amp; aParse) const;</code></p><h4 class="subheading">Description</h4>
+<p>Parses a filename specification.</p>
+<p>Parsing is done with wildcard resolution, using the session
+path as the default. You may then use <code>TParse</code>&#8217;s getter
+functions to extract individual components of the resulting name. All the path
+components which are included in <code>aName</code> are put into the resulting
+filename; then, any components still missing are taken from the session path.
+See class<code>TParse</code> for more information on parsing file
+specifications.</p>
+<p>If you specify</p>
+<p class="CodeBlock"><code>TParse fp;<br>fs.Parse(name,fp);</code></p>
+<p>it is equivalent to</p>
+<p class="CodeBlock"><code>TParse fp;<br>fp.Set(name,NULL,&amp;fs.SessionPath());</code></p>
+<p>Note:</p>
+<ul>
+<li>
+<p>This function doesn&#8217;t check for illegal characters,
+or for illegal path components in either of the paths specified.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aName</code></td>
+<td class="Cell"><p class="ValueDesc">The file name to be parsed, using the session path and the
+related path to provide the missing components.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TParse&amp; aParse</code></td>
+<td class="Cell"><p class="ValueDesc">Instance of <code>TParse</code>, providing functions for
+extracting individual components of the resulting file name.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.3"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aParse%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Parse()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Parse(const TDesC&amp; aName,const TDesC&amp; aRelated,TParse&amp; aParse) const;</code></p><h4 class="subheading">Description</h4>
+<p>Parses a filename specification, specifying related file path
+components.</p>
+<p>Parsing is done with wildcard resolution, using the session
+path as the default. You may then use <code>TParse</code>&#8217;s getter
+functions to extract individual components of the resulting name. All the path
+components which are included in <code>aName</code> are put into the resulting
+filename; then, any missing components are taken from the optional
+<code>aRelated</code>argument, which has next order of precedence; finally, any
+components still missing are taken from the session path. See class
+<code>TParse</code> for more information on parsing file specifications.</p>
+<p>If you specify</p>
+<p class="CodeBlock"><code>TParse fp;<br>fs.Parse(name,related,fp);</code></p>
+<p>it is equivalent to</p>
+<p class="CodeBlock"><code>TParse fp;<br>fp.Set(name,related,&amp;fs.SessionPath());</code></p>
+<p>Note:</p>
+<ul>
+<li>
+<p>This function doesn&#8217;t check for illegal characters,
+or for illegal path components in either of the paths specified.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aName</code></td>
+<td class="Cell"><p class="ValueDesc">The file name to be parsed, using the session path and the
+related path to provide the missing components.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aRelated</code></td>
+<td class="Cell"><p class="ValueDesc">The related file specification.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TParse&amp; aParse</code></td>
+<td class="Cell"><p class="ValueDesc">Instance of <code>TParse</code>, providing functions for
+extracting individual components of the resulting file name.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Drive and volume information</h2>
+</div><div class="Bodytext">
+<a name="2.13.2"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aDriveList%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DriveList()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt DriveList(TDriveList&amp; aList) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a list of the available drives. The drive list consists of
+an array of 26 bytes. Array index zero corresponds to drive A, one equals B
+etc. Each byte with a non zero value signifies that the corresponding drive
+contains recognised media.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>The local file system always reserves drive letters A
+through I. The internal RAM always uses drive letter C. Drive letter Z is
+always used for the ROM which means that letters J through Y are available to
+be used by<code>SetSubst()</code> or for redirecting.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDriveList&amp; aList</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains a list of available drives.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.3"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aDrive%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Drive()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Drive(TDriveInfo&amp; anInfo,TInt aDrive=KDefaultDrive) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets information about a drive and the medium mounted on
+it.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p><code>Volume()</code> may also be used, to give information
+about the drive and the volume mounted in it. These functions are separate
+because, while the characteristics of a drive cannot be changed, those of a
+volume can be changed by mounting different media, reformatting etc.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDriveInfo&amp; anInfo</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains information describing drive
+<code>aDrive</code> and the medium mounted on it. The value of the
+<code>iType</code> member shows whether the drive contains media.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aDrive=KDefaultDrive</code></td>
+<td class="Cell"><p class="ValueDesc">The drive for which information is requested.
+Specify<code>KDefaultDrive</code> for the session default drive; specify a
+drive in range <code>EDriveA</code> to <code>EDriveZ</code> for drives
+<code>A</code> to<code>Z</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.4"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aVolume%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Volume()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Volume(TVolumeInfo&amp; aVol,TInt aDrive=KDefaultDrive) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets volume information for a formatted device. This function
+provides additional information to that given by <code>Drive()</code>,
+including the volume label, if set, and the amount of free space on the
+disk.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>Use <code>Drive()</code> to get information about the drive
+without reference to a volume. These two functions are separate because, while
+the characteristics of a drive cannot be changed, those of a volume can be
+changed by mounting different media, reformatting etc. A volume may not even be
+present if the media is removable.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TVolumeInfo&amp; aVol</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the volume information.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aDrive</code></td>
+<td class="Cell"><p class="ValueDesc">The drive which contains the media for which you want to
+display volume information. Specify a drive in the range <code>EDriveA</code>
+to<code>EDriveZ</code> for drives A to Z. The default drive is the session
+default drive<code>KDefaultDrive</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, <code>KErrNotReady</code>
+if the drive contains no media, otherwise another of the system-wide error
+codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.5"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aSetVolumeLabel%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetVolumeLabel()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt SetVolumeLabel(const TDesC&amp; aName,TInt aDrive=KDefaultDrive);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the label for a volume.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>The volume label can be retrieved by examining the
+<code>iName</code>member of class <code>TVolumeInfo</code>.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aName</code></td>
+<td class="Cell"><p class="ValueDesc">The volume label</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aDrive=KDefaultDrive</code></td>
+<td class="Cell"><p class="ValueDesc">The drive containing the media whose label is to be set.
+Specify a drive in the range <code>EDriveA</code> to <code>EDriveZ</code> for
+drives A to Z. For the drive number enumeration, see<code>TDriveNumber</code>.
+The default drive is the session default
+drive<code>KDefaultDrive</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, <code>KErrNotReady</code>
+if the drive contains no media, otherwise another of the system-wide error
+codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.6"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aGetDriveName%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetDriveName()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt GetDriveName(TInt aDrive,TDes&amp; aDriveName) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the name of a drive. Drive naming is optional. If the
+drive specified has not been assigned a name, this function returns a
+descriptor whose length is zero.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aDrive</code></td>
+<td class="Cell"><p class="ValueDesc">Drive number. Specify a drive in the range <code>EDriveA</code>
+to<code>EDriveZ</code> for drives <code>A</code> to <code>Z</code>. For the
+drive number enumeration, see <code>TDriveNumber</code>. The default drive is
+the session default drive<code> KDefaultDrive</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes&amp; aDriveName</code></td>
+<td class="Cell"><p class="ValueDesc">On return, the drive name.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.7"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aSetDriveName%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetDriveName()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt SetDriveName(TInt aDrive,const TDesC&amp; aDriveName);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the name of a drive. Drive naming is optional. Any drive
+may be assigned a name and more than one drive may share the same name.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aDrive</code></td>
+<td class="Cell"><p class="ValueDesc">Drive number. Specify <code>KDefaultDrive</code> for the
+session default drive; specify a drive in the range <code>EDriveA</code>
+to<code>EDriveZ</code> for drives <code>A</code> to <code>Z</code>. For the
+drive number enumeration, see <code>TDriveNumber</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aDriveName</code></td>
+<td class="Cell"><p class="ValueDesc">The name of the drive, with a maximum of 256 characters</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Drive mappings</h2>
+</div><div class="Bodytext">
+<a name="2.14.2"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aIsValidDrive%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IsValidDrive()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static TBool IsValidDrive(TInt aDrive);</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether a drive number is valid. A valid drive number is
+any number between 0 and 25 inclusive.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aDrive</code></td>
+<td class="Cell"><p class="ValueDesc">Drive number. Specify <code>KDefaultDrive</code> for the
+session default drive. For the drive number enumeration, see
+<code>TDriveNumber</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc">True if the drive specified is between <code>EDriveA</code>
+and<code>EDriveZ</code> inclusive; false if not.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.3"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aCharToDrive%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CharToDrive()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static TInt CharToDrive(TChar aChar,TInt&amp; aDrive);</code></p><h4 class="subheading">Description</h4>
+<p>Maps a drive character to the corresponding number. The drive
+character must be in the range A to Z. For example, drive A corresponds to
+zero, drive B corresponds to 1. For the drive number enumeration,
+see<code>TDriveNumber</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TChar aChar</code></td>
+<td class="Cell"><p class="ValueDesc">Drive character</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aDrive</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the drive number</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.4"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aDriveToChar%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DriveToChar()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static TInt DriveToChar(TInt aDrive,TChar&amp; aChar);</code></p><h4 class="subheading">Description</h4>
+<p>Maps a drive number to the corresponding character. The drive
+number must be in the range 0 to 25. For example, drive number zero
+(<code>EDriveA</code>) corresponds to drive A, one (<code>EDriveB</code>)
+corresponds to drive B. For the drive number enumeration, see
+<code>TDriveNumber</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aDrive</code></td>
+<td class="Cell"><p class="ValueDesc">Drive number</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TChar&amp; aChar</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the drive character</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Subst functions</h2>
+</div><div class="Bodytext">
+<a name="2.15.2"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aSubst%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Subst()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Subst(TDes&amp; aPath,TInt aDrive=KDefaultDrive) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the path assigned to a drive letter
+by<code>SetSubst()</code>.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>To find out whether a drive letter has been substituted,
+first get the drive information, using <code>Drive()</code>, then test the
+value of the<code>KDriveAttSubsted</code> bit provided
+by<code>TDriveInfo::iDriveAtt</code>.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes&amp; aPath</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the path which has been assigned to the
+drive. If the drive letter has not been substituted, this argument returns an
+empty descriptor.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aDrive</code></td>
+<td class="Cell"><p class="ValueDesc">The drive which is the subject of the enquiry. Specify a number
+in range 0 (<code>EDriveA</code>) to 25 (<code>EDriveZ</code>) for drives
+<code>A</code>to <code>Z</code>. The default drive is the session default
+drive<code>KDefaultDrive</code>. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15.3"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aSetSubst%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetSubst()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt SetSubst(const TDesC&amp; aPath,TInt aDrive=KDefaultDrive);</code></p><h4 class="subheading">Description</h4>
+<p>Assigns a path to a drive letter. Whenever that drive letter is
+used, it will be translated into a reference to the path specified here. To
+clear a drive substitution, specify an empty descriptor for
+<code>aPath</code>.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>The substituted path is text-only. Its components need not
+be syntactically correct, nor must they be valid at the time the substitution
+is set. Any component may be deleted, removed or unmounted while the
+substitution is set.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aPath</code></td>
+<td class="Cell"><p class="ValueDesc">The path to be assigned to the drive letter. If a drive letter
+is specified in the path, it must not itself be substituted or redirected, or
+the function will return an error. If no drive is specified, the drive
+contained in the default session path is used, and if no path is specified, the
+default session path is used. If a filename or extension is included in the
+path, the function will return an error. Therefore, the final component in the
+path must have a trailing backslash to indicate that it is a directory.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aDrive</code></td>
+<td class="Cell"><p class="ValueDesc">The drive to which a path is to be assigned. Specify a number
+in the range 0 (<code>EDriveA</code>) to 25 (<code>EDriveZ</code>) for
+drives<code>A</code> to <code>Z</code>. Must not be local, ROM, or redirected,
+or an error is returned. May be substituted, but only if the function is being
+used to clear the substitution. If the same drive is specified in the path, the
+function will return an error. The default drive is the session default
+drive<code>KDefaultDrive</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Change notification</h2>
+</div><div class="Bodytext">
+<a name="2.16.2"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aNotifyChange%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NotifyChange()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void NotifyChange(TNotifyType aType,TRequestStatus&amp; aStat);</code></p><h4 class="subheading">Description</h4>
+<p>Requests a notification of change to all files or directories.
+Changes are notified either following any change in the file system at all, or
+only following the addition or deletion of a directory entry or after a disk
+has been formatted or changed.</p>
+<p>Such notification is useful for programs that maintain displays
+of file lists which must be dynamically updated. The alternative would be
+either no updating at all or periodic monitoring for change&nbsp;&#8212;
+which would be wasteful.</p>
+<p>This call is an asynchronous request and, as such, results in
+precisely one signal to the request status passed as a parameter. In order to
+avoid missing any change, this request should be issued before the first file
+list is constructed: when the request completes, a new request should be issued
+before the next file list is constructed. When the file server session is
+closed, this request is implicitly cancelled: otherwise,
+<code>NotifyChangeCancel()</code>can be used to explicitly cancel it. </p>
+<p>Note:</p>
+<ul>
+<li>
+<p>The function raises a panic if it is called when change
+notification is already active.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TNotifyType aType</code></td>
+<td class="Cell"><p class="ValueDesc">Indicates what kind of change should result in
+notification.<code>ENotifyEntry</code> causes notification only when an entry
+is added or deleted&#0160;or when a disk is formatted or changed.
+<code>ENotifyAll</code>causes notification following any type of change, for
+instance when a file is written to, or when a file's attributes are
+changed.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStat</code></td>
+<td class="Cell"><p class="ValueDesc">Request status. <code>KErrNone</code> on completion, otherwise
+another of the system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16.3"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aNotifyChange%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NotifyChange()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void NotifyChange(TNotifyType aType,TRequestStatus&amp; aStat,const TDesC&amp; aPathName);</code></p><h4 class="subheading">Description</h4>
+<p>Requests a notification of change to files or directories,
+allowing the notification directory/file path to be specified.</p>
+<p>Changes are notified either following any change in the file
+system at all, or only following the addition or deletion of a directory entry
+or after a disk has been formatted or changed. Such notification is useful for
+programs that maintain displays of file lists which must be dynamically
+updated. The alternative would be either no updating at all or periodic
+monitoring for change&nbsp;&#8212; which would be wasteful.</p>
+<p>This call is an asynchronous request and, as such, results in
+precisely one signal to the request status passed as a parameter. In order to
+avoid missing any change, this request should be issued before the first file
+list is constructed: when the request completes, a new request should be issued
+before the next file list is constructed. When the file server session is
+closed, this request is implicitly cancelled: otherwise,
+<code>NotifyChangeCancel()</code>can be used to explicitly cancel it. </p>
+<p>Note:</p>
+<ul>
+<li>
+<p>The function raises a panic if it is called when change
+notification is already active.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TNotifyType aType</code></td>
+<td class="Cell"><p class="ValueDesc">Indicates what kind of change should result in
+notification.<code>ENotifyEntry</code> causes notification only when an entry
+is added or deleted&#0160;or when a disk is formatted or changed.
+<code>ENotifyAll</code>causes notification following any type of change, for
+instance when a file is written to, or when a file's attributes are
+changed.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStat</code></td>
+<td class="Cell"><p class="ValueDesc">Request status. <code>KErrNone</code> on completion, otherwise
+another of the system-wide error codes.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aPathName</code></td>
+<td class="Cell"><p class="ValueDesc">The directory or file for which notification is required. By
+specifying a drive as a wildcard, for example "?:\\System\\Apps" or
+"*:\\System\\Apps", a client can ask to be notified of changes to a given
+directory on any drive.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16.4"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aNotifyChangeCancel%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NotifyChangeCancel()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void NotifyChangeCancel();</code></p><h4 class="subheading">Description</h4>
+<p>Cancels a requested change notification&nbsp;&#8212;
+synchronous overload.</p>
+<a name="2.16.5"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aNotifyChangeCancel%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NotifyChangeCancel()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void NotifyChangeCancel(TRequestStatus&amp; aStat);</code></p><h4 class="subheading">Description</h4>
+<p>Cancels a requested change notification&nbsp;&#8212;
+asynchronous overload.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStat</code></td>
+<td class="Cell"><p class="ValueDesc">Request status. <code>KErrNone</code> on successful completion,
+otherwise another of the system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16.6"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aVersion%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Version()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TVersion Version() const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns the version number.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TVersion</code></td>
+<td class="Cell"><p class="ValueDesc">Version number.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.17"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>File systems</h2>
+</div><div class="Bodytext">
+<a name="2.17.2"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aAddFileSystem%28%29"></a>
+<hr size="1" noshade>
+<h3><code>AddFileSystem()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt AddFileSystem(const TDesC&amp; aFileName) const;</code></p><h4 class="subheading">Description</h4>
+<p>Adds a file system to the file server.</p>
+<p>After calling this function, use <code>MountFileSystem()</code>
+to mount the file system on a drive.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aFileName</code></td>
+<td class="Cell"><p class="ValueDesc">The name of the file system .FSY to install. Its full path can
+be specified.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.17.3"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aMountFileSystem%28%29"></a>
+<hr size="1" noshade>
+<h3><code>MountFileSystem()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt MountFileSystem(const TDesC&amp; aFileSystemName,TInt aDrive) const;</code></p><h4 class="subheading">Description</h4>
+<p>Mounts a file system on a drive.</p>
+<p>The file system must first have been added to the file server,
+using<code>AddFileSystem()</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aFileSystemName</code></td>
+<td class="Cell"><p class="ValueDesc">The filename of the file system to be mounted</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aDrive</code></td>
+<td class="Cell"><p class="ValueDesc">Drive on which the file system is to be mounted.
+<code>EDriveA</code> to<code>EDriveZ</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.17.4"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aRemoveFileSystem%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RemoveFileSystem()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt RemoveFileSystem(const TDesC&amp; aFileSystemName) const;</code></p><h4 class="subheading">Description</h4>
+<p>Removes file system from the file server.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aFileSystemName</code></td>
+<td class="Cell"><p class="ValueDesc">The filename of the file system to be removed</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.17.5"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aDismountFileSystem%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DismountFileSystem()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt DismountFileSystem(const TDesC&amp; aFileSystemName,TInt aDrive) const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Dismounts a file system from the given drive.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aFileSystemName</code></td>
+<td class="Cell"><p class="ValueDesc">The name of the <code>CObject</code>-derived file system</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aDrive</code></td>
+<td class="Cell"><p class="ValueDesc">Drive to dismount the file system from.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">System-wide error codes including:<code>KErrNotFound</code>
+if<code>aFileSystemName</code> is not found or if the drive does not have file
+system mounted on it.<code>KErrInUse</code> if the drive has a resource open on
+it.<code>KErrAccessDenied</code> if there is an attempt to dismount a ROM file
+system, substituted drive or the drive which is default
+drive.<code>KErrArgument</code> if the drive value out of the valid range. E.g.
+greater than zero and less than or equal to <code>KMaxDrives</code>=26</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="RFsClass.html#%3a%3aRFs%3a%3aFileSystemName%28%29" title="Gets the name of the file system on the specified drive"><code class="ApiItem">FileSystemName()</code></a></li>
+</ul>
+<a name="2.17.6"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aFileSystemName%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FileSystemName()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt FileSystemName(TDes&amp; aName,TInt aDrive) const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Gets the name of the file system on the specified drive.</p>
+<p>Can be used before a call
+to<code>DismountFileSystem()</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes&amp; aName</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the name of the file system
+on<code>aDrive</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aDrive</code></td>
+<td class="Cell"><p class="ValueDesc">The drive for which the file system name is required.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">System-wide error codes including:<code>KErrNotFound</code>
+if<code>aFileSystemName</code> is not found or if the drive does not have file
+system mounted on it.<code>KErrArgument</code> if the drive value out of the
+valid range. E.g. greater than zero and less than or equal
+to<code>KMaxDrives</code>=26</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.18"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Resource counting</h2>
+</div><div class="Bodytext">
+<a name="2.18.2"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aResourceCountMarkStart%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ResourceCountMarkStart()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ResourceCountMarkStart() const;</code></p><h4 class="subheading">Description</h4>
+<p>Starts resource count checking. Typically, this function is
+called immediately after a client process is connected to the file server, and
+before any resources are opened.</p>
+<a name="2.18.3"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aResourceCountMarkEnd%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ResourceCountMarkEnd()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ResourceCountMarkEnd() const;</code></p><h4 class="subheading">Description</h4>
+<p>Ends resource count checking. A panic occurs if the number of
+resources opened since the start of resource count checking is not equal to the
+number of resources closed. Typically, this function is called immediately
+before closing a session with the file server.</p>
+<a name="2.18.4"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aResourceCount%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ResourceCount()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt ResourceCount() const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns the number of currently open resources. The resource
+count is incremented by one each time a file or directory is opened, when a
+device is opened in preparation for formatting, or when a direct access channel
+to a disk is opened.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The number of resources currently open</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.19"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Enquiry functions</h2>
+</div><div class="Bodytext">
+<a name="2.19.2"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aIsFileOpen%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IsFileOpen()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt IsFileOpen(const TDesC&amp; aFile,TBool&amp; anAnswer) const;</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether a file is open. This function is useful because
+several file based operations provided by the <code>RFs</code> class, for
+instance<code>Delete()</code>, <code>Rename()</code> and <code>Replace()</code>
+require that the file must be closed.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aFile</code></td>
+<td class="Cell"><p class="ValueDesc">Name of the file to test. Any path components which are not
+specified here will be taken from the session path. Name of the file to test.
+Any path components which are not specified here will be taken from the session
+path.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool&amp; anAnswer</code></td>
+<td class="Cell"><p class="ValueDesc">On return, true if the file is open, false if closed.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="RFsClass.html#%3a%3aRFs%3a%3aDelete%28%29" title="Deletes a single file"><code class="ApiItem">RFs::Delete()</code></a></li>
+<li><a href="RFsClass.html#%3a%3aRFs%3a%3aRename%28%29" title="Renames a single file or directory"><code class="ApiItem">RFs::Rename()</code></a></li>
+<li><a href="RFsClass.html#%3a%3aRFs%3a%3aReplace%28%29" title="Replaces a single file with another"><code class="ApiItem">RFs::Replace()</code></a></li>
+</ul>
+<a name="2.19.3"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aCheckDisk%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CheckDisk()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt CheckDisk(const TDesC&amp; aDrive) const;</code></p><h4 class="subheading">Description</h4>
+<p>Checks the integrity of the disk contained in the specified
+drive<code>aDrive</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aDrive</code></td>
+<td class="Cell"><p class="ValueDesc">Path indicating the drive which contains the disk to
+check.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful and
+<code>KErrNotReady</code> if the drive specified is empty. Any other value
+indicates that the disk is corrupt.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.19.4"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aScanDrive%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ScanDrive()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt ScanDrive(const TDesC&amp; aDrive) const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Checks the specified drive for specific errors and corrects
+them.</p>
+<p>This does not run on internal RAM drive and only applies to a
+FAT file system.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aDrive</code></td>
+<td class="Cell"><p class="ValueDesc">Path indicating the drive which contains the disk to
+check.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise one of the other
+system wide error codes..</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.19.5"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aGetShortName%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetShortName()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt GetShortName(const TDesC&amp; aLongName,TDes&amp; aShortName) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the short filename associated with a VFAT long filename.
+The short filename has a limit of eight characters for the file name and three
+for the extension.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aLongName</code></td>
+<td class="Cell"><p class="ValueDesc">The long filename. Any path components which are not specified
+here will be taken from the session path. If the path specifies a directory,
+may or may not be followed by a trailing backslash.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes&amp; aShortName</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the short filename associated with the file
+or directory specified in <code>aLongName</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.19.6"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aGetLongName%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetLongName()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt GetLongName(const TDesC&amp; aShortName,TDes&amp; aLongName) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the long filename associated with a short (8.3) filename.
+A long filename has a limit of 256 characters for each component, a well as a
+limit of 256 characters for the entire path.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aShortName</code></td>
+<td class="Cell"><p class="ValueDesc">The short file name. Any path components which are not
+specified here will be taken from the session path. If path specifies a
+directory, may or may not be followed by a trailing backslash.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes&amp; aLongName</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the long version of
+filename<code>aShortName</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.19.7"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aIsRomAddress%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IsRomAddress()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static TBool IsRomAddress(TAny* aAny);</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether the specified address is in ROM.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAny* aAny</code></td>
+<td class="Cell"><p class="ValueDesc">The address.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc">True if address in ROM, false if not.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.19.8"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aIsFileInRom%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IsFileInRom()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TUint8* IsFileInRom(const TDesC&amp; aFileName) const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns the address of a file located in ROM. If the file is
+not in ROM (i.e. not on drive Z:), the pointer returned is set to NULL.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aFileName</code></td>
+<td class="Cell"><p class="ValueDesc">The filename whose address is sought. Cannot include wildcards.
+Any path components which are not specified here will be taken from the session
+path.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint8*</code></td>
+<td class="Cell"><p class="ValueDesc">Address of the start of a file in ROM</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.19.9"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aIsValidName%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IsValidName()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool IsValidName(const TDesC&amp; anEntryName) const;</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether a filename and path are syntactically correct.
+The following restrictions apply to the path and to its components: </p>
+<ul>
+<li>
+<p>Wildcards are not allowed in any path component, including
+the filename and extension. </p>
+</li>
+<li>
+<p>Double backslashes are not allowed anywhere in the path.
+</p>
+</li>
+<li>
+<p>The following characters cannot occur in the path : &lt;
+&gt; &quot; / |. All other characters are acceptable.</p>
+</li>
+<li>
+<p>Either or both of a filename or extension must be present,
+or the function will return false.</p>
+</li>
+<li>
+<p>The entire component following the final backslash (the
+filename and extension) may not consist solely of space characters, or of a
+single or double dot.</p>
+</li>
+<li>
+<p>Spaces between the drive, if specified, and the first
+directory in the path are illegal, although there may be spaces between other
+path components, for example, between directories.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; anEntryName</code></td>
+<td class="Cell"><p class="ValueDesc">Path to check for validity. May specify a filename alone, or an
+entire path specification, including drive letter. If a path is specified, all
+components are checked for validity.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc">True if name is valid, false if invalid</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="UsingRFs.guide.html#FileServerClientSide%2eusing%2dRFs%2eIsValidName" title="Using RFs / Using IsValidName()">Using IsValidName()</a></li>
+</ul>
+<a name="2.19.10"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aIsValidName%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IsValidName()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool IsValidName(const TDesC&amp; aFileName,TText&amp; aBadChar) const;</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether a filename and path are syntactically correct.
+The following restrictions apply to the path and to its components: </p>
+<ul>
+<li>
+<p>Wildcards are not allowed in any path component, including
+the filename and extension. </p>
+</li>
+<li>
+<p>Double backslashes are not allowed anywhere in the path.
+</p>
+</li>
+<li>
+<p>The following characters cannot occur in the path : &lt;
+&gt; &quot; / |. All other characters are acceptable.</p>
+</li>
+<li>
+<p>Either or both of a filename or extension must be present,
+or the function will return false.</p>
+</li>
+<li>
+<p>The entire component following the final backslash (the
+filename and extension) may not consist solely of space characters, or of a
+single or double dot.</p>
+</li>
+<li>
+<p>Spaces between the drive, if specified, and the first
+directory in the path are illegal, although there may be spaces between other
+path components, for example, between directories.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aFileName</code></td>
+<td class="Cell"><p class="ValueDesc">Path to check for validity. May specify a filename alone, or an
+entire path specification, including drive letter. If a path is specified, all
+components are checked for validity.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TText&amp; aBadChar</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains any illegal character
+within<code>aFileName</code>&#0160;&#8212; the name the client is
+querying.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc">True if name is valid, false if invalid</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="UsingRFs.guide.html#FileServerClientSide%2eusing%2dRFs%2eIsValidName" title="Using RFs / Using IsValidName()">Using IsValidName()</a></li>
+</ul>
+<a name="2.20"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>User notification</h2>
+</div><div class="Bodytext">
+<a name="2.20.2"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aGetNotifyUser%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetNotifyUser()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool GetNotifyUser();</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether user notification of file read or write failure
+is in effect.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc">True if notification in effect, false if not.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.20.3"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aSetNotifyUser%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetNotifyUser()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetNotifyUser(TBool aValue);</code></p><h4 class="subheading">Description</h4>
+<p>Sets whether the user should be notified of file read or write
+failure.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool aValue</code></td>
+<td class="Cell"><p class="ValueDesc">True if user is to be notified of read or write failures, false
+for no notification.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.21"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Read bytes from file</h2>
+</div><div class="Bodytext">
+<a name="2.21.2"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aReadFileSection%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ReadFileSection()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt ReadFileSection(const TDesC&amp; aName,TInt aPos,TDes8&amp; aDes,TInt aLength) const;</code></p><h4 class="subheading">Description</h4>
+<p>Reads data from a file without opening it. The contents of the
+file can be accessed regardless of the file&#8217;s lock state.</p>
+<p>The file may be open by any number of other clients for reading
+or writing. In allowing such access to a file, the fileserver makes no
+guarantees as to the validity of the data it returns.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aName</code></td>
+<td class="Cell"><p class="ValueDesc">Name of file to be accessed.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aPos</code></td>
+<td class="Cell"><p class="ValueDesc">The offset, in bytes, from the start of the file from which
+reading is to start. This value must not be negative, otherwise the function
+raises a FSCLIENT 19 panic.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes8&amp; aDes</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the data read from the file. The length of
+the descriptor is set to the number of bytes read. If the specified offset lies
+beyond the end of the file, no data is read and the length of this descriptor
+is set to zero.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aLength</code></td>
+<td class="Cell"><p class="ValueDesc">The number of bytes to be read from the file. This value must
+not be greater than the maximum length of the target descriptor, otherwise the
+function raises an FSCLIENT 26 panic. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code>, if successful, otherwise one of the
+other system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.22"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Password security support</h2>
+</div><div class="Bodytext">
+<a name="2.22.2"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aLockDrive%28%29"></a>
+<hr size="1" noshade>
+<h3><code>LockDrive()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt LockDrive(TInt aDrv, const TMediaPassword&amp; aOld, const TMediaPassword&amp; aNew, TBool aStr);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Locks the card in the specified drive.</p>
+<p>The function locks an unlocked card and sets the password. An
+existing password can be changed.</p>
+<p>The new password can be added to the controller&#8217;s
+password store so that the controller can subsequently issue the password
+without the user having to be prompted for it again.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aDrv</code></td>
+<td class="Cell"><p class="ValueDesc">The drive.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const
+TMediaPassword&amp; aOld</code></td>
+<td class="Cell"><p class="ValueDesc">The existing password, if the card has an existing password. If
+the card does not have an existing password, then this must be a zero length
+descriptor.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const
+TMediaPassword&amp; aNew</code></td>
+<td class="Cell"><p class="ValueDesc">The new password.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool aStr</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> if the new password is to be added to the
+controller's password store.<code>EFalse</code> if the new password is not to
+be added to the controller's password store. If there is an old password in the
+password store, then this is removed.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise one of the other
+system-wide error codes. Specifically, <code>KErrAccessDenied</code> if the
+card does not have a password and the old password argument has a non-zero
+length, or the card is already locked.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Notes:</h4>
+<ul>
+<li><note>Locking only takes effect after a
+remount.</note></li>
+</ul>
+<a name="2.22.3"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aUnlockDrive%28%29"></a>
+<hr size="1" noshade>
+<h3><code>UnlockDrive()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt UnlockDrive(TInt aDrv, const TMediaPassword&amp; Pswd, TBool aStr);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Unlocks the card in the specified drive.</p>
+<p>The password can be added to the controller's password store so
+that so that the controller can subsequently issue the password without the
+user having to be prompted for it again.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aDrv</code></td>
+<td class="Cell"><p class="ValueDesc">The drive.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const
+TMediaPassword&amp; Pswd</code></td>
+<td class="Cell"><p class="ValueDesc">The password.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool aStr</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code>, if the password is to be added to the
+controller's password store. <code>EFalse</code>, if the password is not to be
+added to the controller's password store.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code>, if successful, otherwise one of the
+other system-wide error codes. Specifically, <code>KErrAccessDenied</code>, if
+the password is incorrect; <code>KErrAlreadyExists</code>, if the card has
+already been unlocked.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.22.4"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aClearPassword%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ClearPassword()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt ClearPassword(TInt aDrv, const TMediaPassword&amp; Pswd);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Clears the password from the card in the specified
+drive.</p>
+<p>Clearing the password causes the card controller to set the
+password to null.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aDrv</code></td>
+<td class="Cell"><p class="ValueDesc">The drive.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const
+TMediaPassword&amp; Pswd</code></td>
+<td class="Cell"><p class="ValueDesc">The current password which is required to perform this
+operation.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code>, if successful, otherwise one of the
+other system-wide error codes. Specifically, <code>KErrAccessDenied</code>, if
+the password is wrong or the card is still locked; </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.23"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>File system debugging support</h2>
+</div><div class="Bodytext">
+<a name="2.23.2"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aControlIo%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ControlIo()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt ControlIo(TInt aDrive,TInt aCommand,TAny* aParam1,TAny* aParam2);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>A general purpose interface to aid debugging and verification
+of a file system. It provides a mechanism for passing information to and from a
+file system and is file system specific.</p>
+<p>Note that the function is only supported in debug
+builds.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aDrv</code></td>
+<td class="Cell"><p class="ValueDesc">A drive.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aCommand</code></td>
+<td class="Cell"><p class="ValueDesc">A command; the meaning is dependent on the file system.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAny* aParam1</code></td>
+<td class="Cell"><p class="ValueDesc">First parameter; the meaning is dependent on the file
+system.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAny* aParam2</code></td>
+<td class="Cell"><p class="ValueDesc">Second parameter; the meaning is dependent on the file
+system.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code>, if successful, otherwise one of the
+other system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.23.3"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aDebugNotify%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DebugNotify()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void DebugNotify(TInt aDrive,TUint aNotifyType,TRequestStatus&amp; aStat);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>A general purpose function to aid debugging and verification of
+a file system. It provides a mechanism for requesting notification of file
+system events. The set of events is specific to the file system.</p>
+<p>Note that the function is only supported in debug
+builds.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aDrv</code></td>
+<td class="Cell"><p class="ValueDesc">Events on this drive trigger notification.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aNotifyType</code></td>
+<td class="Cell"><p class="ValueDesc">Defines the set of event types which may be notified. The bits
+defining the event types must be one of the bits defined by the
+bitmask:KDebugNotifyMask defined in f32file.h</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStat</code></td>
+<td class="Cell"><p class="ValueDesc">The request status.<code>KErrNone</code> on completion,
+otherwise another of the system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.24"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Free disk space notification</h2>
+</div><div class="Bodytext">
+<a name="2.24.2"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aNotifyDiskSpace%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NotifyDiskSpace()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void NotifyDiskSpace(TInt64 aThreshold,TInt aDrive,TRequestStatus&amp; aStat);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.1
+</p><h4 class="subheading">Description</h4>
+<p>Requests notification when the free disk space on the specified
+drive crosses the specified threshold value.</p>
+<p>The threshold is crossed if free disk space increases to a
+value above the threshold value or decreases to a value below the threshold
+value.</p>
+<p>This is an asynchronous request that completes if any of the
+following events occur:</p>
+<ul>
+<li>
+<p>the threshold is crossed</p>
+</li>
+<li>
+<p>any drive is formatted</p>
+</li>
+<li>
+<p>there is a media change on any socket</p>
+</li>
+<li>
+<p>power up</p>
+</li>
+<li>
+<p>the scandrive utility is run on any drive</p>
+</li>
+<li>
+<p>the specified threshold value is outside its limits</p>
+</li>
+<li>
+<p>the outstanding request is cancelled.</p>
+</li>
+</ul>
+<p>Note that free disk space notification is not supported for
+drives using remote file systems.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt64 aThreshold</code></td>
+<td class="Cell"><p class="ValueDesc">The threshold value. This must be greater than zero and less
+than the total size of the disk.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aDrive</code></td>
+<td class="Cell"><p class="ValueDesc">The drive number. This is an explicit drive defined by one of
+the <code>TDriveNumber</code> enumerators or the value
+<code>KDefaultDrive</code>. If <code>KDefaultDrive</code> is specified, then
+the drive monitored is the session path drive.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStat</code></td>
+<td class="Cell"><p class="ValueDesc">The request status object. On request completion, contains:
+<code>KErrNone</code>, if the threshold value is crossed, if any drive is
+formatted, if there is a media change on any socket, if there is a power up or
+if the scandrive utility is run on any drive; <code>KErrCancel</code>, if the
+outstanding request is cancelled by a call to the
+<code>NotifyDiskSpaceCancel()</code> functions; <code>KErrArgument</code>, if
+the threshold value is outside its limits.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="TDriveNumberEnum.html#%3a%3aTDriveNumber" title="Drive number enumeration"><code class="ApiItem">TDriveNumber</code></a></li>
+</ul>
+<a name="2.24.3"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aNotifyDiskSpaceCancel%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NotifyDiskSpaceCancel()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void NotifyDiskSpaceCancel(TRequestStatus&amp; aStat);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.1
+</p><h4 class="subheading">Description</h4>
+<p>Cancels a specific outstanding request for free disk space
+notification.</p>
+<p>The outstanding request completes with
+<code>KErrCancel</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStat</code></td>
+<td class="Cell"><p class="ValueDesc">The request status object identified with the original
+notification request.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.24.4"></a></div><div class="Head3">
+<a name="%3a%3aRFs%3a%3aNotifyDiskSpaceCancel%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NotifyDiskSpaceCancel()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void NotifyDiskSpaceCancel();</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.1
+</p><h4 class="subheading">Description</h4>
+<p>Cancels all outstanding requests for free disk space
+notification.</p>
+<p>Outstanding requests complete with
+<code>KErrCancel</code>.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

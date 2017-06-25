@@ -1,0 +1,412 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Multiple inheritance and interfaces </title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="idioms%2emultipleinheritance"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="ObjectLifetime.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="Descriptors.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/DeveloperGuide/index.html">Developer's&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Essential&nbsp;Idioms</a>&nbsp;<span class="separator">&#187;</span>
+Multiple&nbsp;inheritance&nbsp;and&nbsp;interfaces&nbsp;</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Multiple inheritance and interfaces </h1>
+</div><div class="Bodytext">
+<a name="idioms%2emultipleinheritance%2eoverview"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Overview</h2>
+</div><div class="Bodytext">
+<p>Multiple inheritance is a powerful aspect of C++. Experience of
+multiple inheritance indicates that its benefits are best realised by carefully
+controlling the ways in which it is used within a system to a few easily
+understood paradigms. Use of multiple inheritance without such control has
+usually led to designs that are difficult to understand.</p>
+<p>Multiple inheritance is used for a single purpose in the Symbian
+platform: namely, interface protocol definitions. These are used in the
+following kinds of situation: there is a <i>protocol provider</i>
+class, and a <i>protocol user</i>. It is desirable that the protocol
+user be independent of all aspects of the protocol provider, except its ability
+to provide the specified protocol. Examples of such situations include:</p>
+<ul>
+<li>
+<p>an application control is a protocol provider; its menu tree
+uses the protocol for menu observing. When a menu item has been selected, the
+menu observing protocol is invoked, so that the application control may handle
+the menu command. Apart from this, the menu control knows nothing about the
+application control.</p>
+</li>
+<li>
+<p>an application, such as a spreadsheet, may have an
+<i>engine</i> which provides protocols for updating and getting its
+model contents, and a <i>user interface</i>, which uses these
+protocols to drive the engine. The engine is written with no knowledge of the
+user interface, and the user interface is written with minimal knowledge of the
+engine. They interact using a protocol provided by the engine.</p>
+</li>
+</ul>
+<p>To understand why interfaces are used, this page examines in
+turn:</p>
+<ul>
+<li>
+<p>the traditional method which uses single inheritance</p>
+</li>
+<li>
+<p>a technique of overcoming the disadvantages of single
+inheritance, using protocol intermediary classes</p>
+</li>
+<li>
+<p>a better technique, which uses multiple inheritance with
+interface classes</p>
+</li>
+<li>
+<p>the restrictions on C++ multiple inheritance in Symbian
+OS</p>
+</li>
+</ul>
+<a name="idioms%2esingleinheritance"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Protocols using classic single inheritance</h2>
+</div><div class="Bodytext">
+<p>A classical use of single inheritance is to define an abstract
+protocol from which derived classes may inherit. A base class defines a
+protocol:</p>
+<p class="CodeBlock"><code>class CProtocol : public CBase<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>public:<br>&nbsp;&nbsp;&nbsp;&nbsp;virtual void HandleEvent(TInt aEventCode)=0;<br>&nbsp;&nbsp;&nbsp;&nbsp;};</code></p>
+<p>The protocol includes just one function,
+<code>HandleEvent()</code>, where the event is defined by an integer event
+code.</p>
+<p>A concrete protocol provider class is then derived from this base
+class. It provides a concrete implementation of the pure virtual function in
+the base class:</p>
+<p class="CodeBlock"><code>class CProtocolProvider : public CProtocol<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>public:<br>&nbsp;&nbsp;&nbsp;&nbsp;// construct/destruct<br>&nbsp;&nbsp;&nbsp;&nbsp;static CProtocolProvider* NewLC();<br>&nbsp;&nbsp;&nbsp;&nbsp;void Destruct();<br>&nbsp;&nbsp;&nbsp;&nbsp;// implement the protocol<br>&nbsp;&nbsp;&nbsp;&nbsp;void HandleEvent(TInt aEventCode); // handle protocol<br>protected:<br>&nbsp;&nbsp;&nbsp;&nbsp;void ConstructL();<br>&nbsp;&nbsp;&nbsp;&nbsp;};</code></p>
+<p>In addition, there is a protocol user class which knows nothing
+about the derived <code>CProtocolProvider</code> class, but it does know about
+the <code>CProtocol</code> class and the functions that specify its protocol.
+It has a function which uses <code>HandleEvent()</code>:</p>
+<p class="CodeBlock"><code>void CProtocolUser::DoSomething(CProtocol* aProtocol)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;_LIT(KOutput1,&quot;External system doing something\n&quot;);<br>&nbsp;&nbsp;&nbsp;&nbsp;_LIT(KOutput2,&quot;invoking protocol - event 3\n&quot;);<br>&nbsp;&nbsp;&nbsp;&nbsp;testConsole.Printf(KOutput1);<br>&nbsp;&nbsp;&nbsp;&nbsp;testConsole.Printf(KOutput2);<br>&nbsp;&nbsp;&nbsp;&nbsp;aProtocol-&gt;HandleEvent(3); // handle an event<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>The virtual function defined by <code>CProtocol</code> is provided
+by <code>CProtocolProvider</code>. This is the virtual function that is
+actually executed:</p>
+<p class="CodeBlock"><code>void CProtocolProvider::HandleEvent(TInt aEventCode)<br>&nbsp;&nbsp;&nbsp;&nbsp;{ // handle an event in the protocol user<br>&nbsp;&nbsp;&nbsp;&nbsp;_LIT(KOutput1,&quot;CProtocolProvider handling event %d\n&quot;);<br>&nbsp;&nbsp;&nbsp;&nbsp;testConsole.Printf(KOutput1,aEventCode);<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>Thus, although the protocol user knows nothing about the derived
+<code>CProtocolProvider</code> class, it can invoke its member functions
+through a pointer to its derived class, using the C++ virtual function
+mechanism.</p>
+<p>This code may be used in the following way:</p>
+<p class="CodeBlock"><code>void doExampleL()<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;// show use of interface with simple class<br>&nbsp;&nbsp;&nbsp;&nbsp;CProtocolProvider* provider=CProtocolProvider::NewLC();<br>&nbsp;&nbsp;&nbsp;&nbsp;CProtocolUser* user=CProtocolUser::NewLC();<br>&nbsp;&nbsp;&nbsp;&nbsp;user-&gt;DoSomething(provider);<br>&nbsp;&nbsp;&nbsp;&nbsp;CleanupStack::PopAndDestroy(); // user<br>&nbsp;&nbsp;&nbsp;&nbsp;CleanupStack::PopAndDestroy(); // provider<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>In the function call, the <code>provider</code> pointer is cast to
+its <code>CProtocol*</code> base class, as required by
+<code>CProtocolUser::DoSomething()</code>.</p>
+<p>The advantages of this method are</p>
+<ul>
+<li>
+<p>it achieves independence of the protocol user from the specific
+protocol provider</p>
+</li>
+</ul>
+<p>This was the goal we set out to achieve. However, this method has a
+serious disadvantage:</p>
+<ul>
+<li>
+<p>it forces the protocol provider to be <i>derived</i>
+from a protocol base class</p>
+</li>
+<li>
+<p>however, if <i>more than one</i> protocol must be
+provided by the provider class, the only solution is to include all the
+protocols into a single umbrella protocol, and to derive the provider class
+from that. This is bad encapsulation. Firstly, the base class can become quite
+large and it can be unclear why it contains so many member functions, or which
+function belongs to which protocol. Secondly, it may be desirable to have
+another provider class which provides some of the protocols provided by the
+first class, and others in addition. To support this requires an even larger
+umbrella protocol.</p>
+</li>
+</ul>
+<p>The straightforward method of providing protocols by strict single
+inheritance often leads to large base classes, representing many protocols
+which should really be independent of one another.</p>
+<a name="idioms%2eintermediateclass"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Protocols using an intermediate class</h2>
+</div><div class="Bodytext">
+<p>Some of these disadvantages can be overcome by using an
+intermediary object which represents the protocol, and has a pointer to the
+protocol provider. The base protocol class is essentially the same:</p>
+<p class="CodeBlock"><code>class TProtocol<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>public:<br>&nbsp;&nbsp;&nbsp;&nbsp;virtual void HandleEvent(TInt aEventCode)=0;<br>&nbsp;&nbsp;&nbsp;&nbsp;};</code></p>
+<p>but there is now a derived class for use with the
+<code>CProtocolProvider</code> only:</p>
+<p class="CodeBlock"><code>class TProtocolProviderIntermediary : public TProtocol<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>public:<br>&nbsp;&nbsp;&nbsp;&nbsp;// construct<br>&nbsp;&nbsp;&nbsp;&nbsp;TProtocolProviderIntermediary(CProtocolProvider* aRealProvider);<br>&nbsp;&nbsp;&nbsp;&nbsp;// protocol itself<br>&nbsp;&nbsp;&nbsp;&nbsp;void HandleEvent(TInt aEventCode);<br>private:<br>&nbsp;&nbsp;&nbsp;&nbsp;CProtocolProvider* iRealProvider; // real provider<br>&nbsp;&nbsp;&nbsp;&nbsp;};</code></p>
+<p>This class provides the protocol as far as the protocol user is
+concerned. The concrete implementation of <code>HandleEvent()</code> just
+passes the function call to the real protocol provider class, which has a
+non-virtual <code>DoHandleEvent()</code> to provide the required
+functionality:</p>
+<p class="CodeBlock"><code>void TProtocolProviderIntermediary::HandleEvent(TInt aEventCode)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;iRealProvider-&gt;DoHandleEvent(aEventCode);<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>With this system, <code>CProtocolProvider</code> is derived, not
+from the protocol definition class, but from <code>CBase</code>:</p>
+<p class="CodeBlock"><code>class CProtocolProvider : public CBase<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>public:<br>&nbsp;&nbsp;&nbsp;&nbsp;// construct/destruct<br>&nbsp;&nbsp;&nbsp;&nbsp;static CProtocolProvider* NewLC();<br>&nbsp;&nbsp;&nbsp;&nbsp;void Destruct();<br>&nbsp;&nbsp;&nbsp;&nbsp;// implement the protocol<br>&nbsp;&nbsp;&nbsp;&nbsp;void DoHandleEvent(TInt aEventCode); // handle protocol<br>protected:<br>&nbsp;&nbsp;&nbsp;&nbsp;void ConstructL();<br>public:<br>&nbsp;&nbsp;&nbsp;&nbsp;TProtocolProviderIntermediary* iProviderIntermediary;<br>&nbsp;&nbsp;&nbsp;&nbsp;};</code></p>
+<p>The <code>TProtocolProviderIntermediary</code> is constructed by
+the <code>CProtocolProvider</code>&#8217;s constructor, and destroyed by its
+destructor. For this reason, the <code>TProtocolProviderIntermediary</code> is
+a <code>T</code> class: it does not own the <code>CProtocolProvider</code>, and
+cannot be orphaned.</p>
+<p>When a function in the protocol user requiring the protocol
+provider is called, it must now be called passing the intermediary object as a
+parameter:</p>
+<p class="CodeBlock"><code>LOCAL_C void doExampleL()<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;// show use of interface with simple class<br>&nbsp;&nbsp;&nbsp;&nbsp;CProtocolProvider* provider=CProtocolProvider::NewLC();<br>&nbsp;&nbsp;&nbsp;&nbsp;CProtocolUser* user=CProtocolUser::NewLC();<br>&nbsp;&nbsp;&nbsp;&nbsp;user-&gt;DoSomething(provider-&gt;iProviderIntermediary);<br>&nbsp;&nbsp;&nbsp;&nbsp;CleanupStack::PopAndDestroy(); // user<br>&nbsp;&nbsp;&nbsp;&nbsp;CleanupStack::PopAndDestroy(); // provider<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>The protocol user&#8217;s <code>DoSomething()</code> is
+essentially as it was before, except that its parameter is now a
+<code>TProtocol*</code>. Thus, the user knows only about the base
+<code>TProtocol</code> class. The virtual function mechanism causes the derived
+intermediary&#8217;s <code>HandleEvent()</code> to be called, and this
+function passes on the request to the real protocol provider&#8217;s
+<code>DoHandleEvent()</code>.</p>
+<p>This method solves the problems associated with using only single
+inheritance:</p>
+<ul>
+<li>
+<p>any number of protocols may be supported, and separately
+encapsulated, by a particular class: each protocol requires an intermediary
+class, and objects of each intermediary class point to corresponding objects of
+the real protocol provider class</p>
+</li>
+<li>
+<p>no large base classes are needed to provide umbrellas for
+several protocols</p>
+</li>
+</ul>
+<p>However, it has a serious disadvantage:</p>
+<ul>
+<li>
+<p>it is awkward: not only does each protocol require an abstract
+class (which cannot be avoided), but also, at each point in the derivation tree
+at which a protocol is introduced, a derived protocol class must be written
+which implements the protocol for the relevant class which really provides the
+protocol: further, the derived protocol object and the real protocol provider
+must be linked</p>
+</li>
+<li>
+<p>if there are many classes which use many protocols in this way,
+not only is the method cumbersome to program, but it is uneconomical on memory,
+since each derived protocol class object requires at least two machine words of
+heap memory. This consideration becomes more serious if there are more small
+real protocol providers, providing many different protocols.</p>
+</li>
+</ul>
+<a name="idioms%2emixins"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Protocols using interface classes</h2>
+</div><div class="Bodytext">
+<p>These problems can be overcome by using multiple inheritance. A
+base <code>MProtocol</code> class specifies the protocol:</p>
+<p class="CodeBlock"><code>class MProtocol<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>public:<br>&nbsp;&nbsp;&nbsp;&nbsp;virtual void HandleEvent(TInt aEventCode)=0;<br>&nbsp;&nbsp;&nbsp;&nbsp;};</code></p>
+<p>This time, however, the protocol provider is derived both from
+<code>CBase</code>
+<i>and</i> from <code>MProtocol</code>:</p>
+<p class="CodeBlock"><code>class CProtocolProvider : public CBase, public MProtocol<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>public:<br>&nbsp;&nbsp;&nbsp;&nbsp;// construct/destruct<br>&nbsp;&nbsp;&nbsp;&nbsp;static CProtocolProvider* NewLC();<br>&nbsp;&nbsp;&nbsp;&nbsp;void Destruct();<br>&nbsp;&nbsp;&nbsp;&nbsp;// implement the protocol<br>&nbsp;&nbsp;&nbsp;&nbsp;void HandleEvent(TInt aEventCode); // handle protocol<br>protected:<br>&nbsp;&nbsp;&nbsp;&nbsp;void ConstructL();<br>&nbsp;&nbsp;&nbsp;&nbsp;};</code></p>
+<p>The protocol provider class provides a concrete implementation of
+the <code>HandleEvent()</code> function required by the protocol. The user
+class may now be invoked as follows:</p>
+<p class="CodeBlock"><code>LOCAL_C void doExampleL()<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;// show use of interface with simple class<br>&nbsp;&nbsp;&nbsp;&nbsp;CProtocolProvider* provider=CProtocolProvider::NewLC();<br>&nbsp;&nbsp;&nbsp;&nbsp;CProtocolUser* user=CProtocolUser::NewLC();<br>&nbsp;&nbsp;&nbsp;&nbsp;user-&gt;DoSomething(provider);<br>&nbsp;&nbsp;&nbsp;&nbsp;CleanupStack::PopAndDestroy(); // user<br>&nbsp;&nbsp;&nbsp;&nbsp;CleanupStack::PopAndDestroy(); // provider<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>The <code>DoSomething()</code> function requires an
+<code>MProtocol*</code> parameter. C++ casts the <code>CProtocolProvider*
+provider</code> pointer down to an <code>MProtocol*</code>, because
+<code>MProtocol</code> is one of the base classes of
+<code>CProtocolProvider</code>. When <code>DoSomething()</code> invokes
+<code>HandleEvent()</code>, the C++ virtual function mechanism ensures that it
+is <code>CProtocolProvider</code>&#8217;s <code>HandleEvent()</code> that is
+actually called. Thus, the user may use the protocol, without knowing anything
+specific about the concrete protocol provider class.</p>
+<p>This method achieves the intended goals:</p>
+<ul>
+<li>
+<p>the protocol user is dependent on the protocol, but not on any
+particular provider</p>
+</li>
+<li>
+<p>the protocol can be introduced into a class hierarchy at any
+desired point, by multiply inheriting from a base class and one or more
+interface classes</p>
+</li>
+<li>
+<p>full encapsulation of different protocols is achieved</p>
+</li>
+<li>
+<p>there is no inconvenient intermediate class, with its
+programming difficulties and wasteful memory use</p>
+</li>
+</ul>
+<p>Because protocols may be mixed into the derivation hierarchy of
+conventional classes at any convenient point in the hierarchy, such protocol
+specification classes are sometimes also called mixins, the origin of the
+prefix <code>M</code>.</p>
+<a name="idioms%2emultipleinheritance%2erestrictions"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Restrictions on the use of multiple inheritance</h2>
+</div><div class="Bodytext">
+<p>The use of multiple inheritance is restricted to interfaces used as
+described above. C++&#8217;s full multiple inheritance facilities are
+unnecessarily complex. This is perhaps recognised by the OO community now.
+Java, for instance, allows only single inheritance, but the
+<code>interface</code> and <code>extends</code> keywords support the same
+facilities as are provided by <code>M</code> classes. The restrictions are
+given in more detail here.</p>
+<p>Firstly, <code>M</code> classes primarily define protocols, not
+implementations. In particular, they should not have any member data. The
+restriction implies that certain types of behaviour (e.g., that of active
+objects, see <a href="../../APIGuide/Base/InterProcessCommunication/AsynchronousServicesGuide/AsynchronousServicesGuide3/ActiveObjects.guide.html#AsynchronousServicesGuide3%2eactive%2dobjects">Active objects</a>) may <i>not</i> be encapsulated in an interface, but
+must be derived in the conventional way.</p>
+<p>Secondly, a <code>C</code> class may be derived from one other
+<code>C</code> class, and zero or more <code>M</code> classes. This restriction
+reflects the fact that multiple inheritance is only to be used for interfaces.
+It implies that it is still possible to uniquely identify a primary inheritance
+tree (the <code>C</code> class hierarchy), with interfaces as a side feature.
+If arbitrary multiple inheritance were allowed, it would be impossible to
+identify a primary inheritance tree. The restriction also guarantees that no
+<code>C</code> class will be a multiple base class, which makes it unnecessary
+to consider the complications of multiple base class inclusion, virtual
+inheritance, etc.</p>
+<p>Thirdly, the <code>C</code> class must be the first specified class
+in any base class list. This emphasises the primary inheritance tree and,
+importantly, it makes conversions between any <code>C</code> class (including
+those with interfaces) and <code>void*</code> pointers freely possible.
+Admittedly, the C++ standards do not mandate that object layout follows the
+order in which base classes are specified, but in practice this is the case for
+most compilers, including those used for the Symbian platform.</p>
+<p>Fourthly, no <code>M</code> class may be mixed in more than once in
+any class, either as a direct base or as a base of any of its primary base
+classes. To put it another way: when deriving a <code>C</code> class
+<code>CD</code> from a base class <code>CB</code>, you may not mix in
+any<code>M</code>class <code>MP</code> which has already been mixed into the
+derivation of <code>CB</code>. This reflects the fact that
+<code>CB</code>already supports the protocol defined by <code>MP</code>: there
+is nothing to gain from mixing in this protocol class again. In addition, it
+makes it unnecessary to consider the complications of multiple base class
+inclusion, virtual inheritance, etc.</p>
+<p>Finally, although it is legal to derive one <code>M</code> class
+from another, it is not legal to include a protocol twice by including both it
+and a derived protocol into a <code>C</code> class, at any point in the
+<code>C</code> class&#8217;s base class graph. To put it another way, if there
+is a class <code>MD</code> derived from <code>MB</code>, then a<code> C</code>
+class cannot include both <code>MB</code> and <code>MD</code>. This is because
+any function in the <code>C</code> class which provided an implementation of
+<code>MB</code>protocol could conflict with the implementation of
+<code>MD</code>protocol.</p>
+<a name="1.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Example uses</h2>
+</div><div class="Bodytext">
+<a name="1.8.2"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Callbacks</h3>
+</div><div class="Bodytext">
+<p>A special case of an interface is the callback. In this
+situation, one class performs a certain function for another and, when this is
+done, calls a single function in the requesting class, to indicate that the
+requested operation is complete. This call-back function represents a protocol:
+the requesting class is the provider, and the performing class is the user.
+Apart from this, the performing class need know little or nothing about the
+requesting class. This is an ideal situation for a interface.</p>
+<a name="1.8.3"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Two-way use</h3>
+</div><div class="Bodytext">
+<p>So far, we have discussed interfaces in the context where one
+class provides services according to a given protocol, and another uses those
+services. In a more general case, two classes (or systems of classes) may
+require services from each other, so that there is two-way interaction.</p>
+<p>Services are always provided according to a protocol. The
+protocol can be provided using any of the techniques described in this
+document:</p>
+<ul>
+<li>
+<p>conventional derivation, which is most appropriate where the
+protocol characterises a class&#8217;s main purpose</p>
+</li>
+<li>
+<p>interface inheritance, which is most appropriate where a
+protocol may be a characteristic of many classes, but where these classes have
+diverse main purposes</p>
+</li>
+<li>
+<p>intermediary objects, which may be appropriate where an
+interface would otherwise be used, but when multiple inheritance is disallowed,
+or inconvenient for some other reason</p>
+</li>
+</ul>
+<a name="1.8.4"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Observers</h3>
+</div><div class="Bodytext">
+<p>GUI applications use menus to present a user interface for
+selecting options. When an option has been chosen, the menu bar should forward
+a command somewhere by calling a member function of some class. The only thing
+that is important to the menu bar is that some object exists which can handle
+the command: beyond that, nothing matters about the object.</p>
+<p class="CodeBlock"><code>class CEikMenuBar ...<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>public:<br>&nbsp;&nbsp;&nbsp;&nbsp;ConstructL(MEikMenuObserver* aObserver, ...);<br>&nbsp;&nbsp;&nbsp;&nbsp;// ...<br>private:<br>&nbsp;&nbsp;&nbsp;&nbsp;MEikMenuObserver* iObserver;<br>&nbsp;&nbsp;&nbsp;&nbsp;// ...<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>A menu bar therefore <em>uses</em> a menu observer. This is
+passed in as a parameter at construction, stored as member data, and used when
+an option has been selected. The menu observer interface is defined by the menu
+component, as the <code>MEikMenuObserver</code> class.</p>
+<p>This interface is implemented by the app UI (which also does many
+other things, which are irrelevant to menus). So, <code>CEikAppUi</code>
+implements menu observer interface by deriving from
+<code>MEikMenuObserver</code>:</p>
+<p class="CodeBlock"><code>class CEikAppUi : public CCoeAppUi, MEikMenuObserver</code></p>
+<p>The app UI has a menu bar, and when it constructs the menu bar,
+the app UI passes itself to the menu bar, as the observer:</p>
+<p class="CodeBlock"><code>iMenuBar-&gt;ConstructL(this, ...);</code></p>
+<p>C++ causes the <code>this</code> to be cast into the appropriate
+base class—in this case, an
+<code>MEikMenuObserver</code>—automatically.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

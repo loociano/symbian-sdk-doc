@@ -1,0 +1,1527 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>RFile</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="RDirClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="RFormatClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">File&nbsp;Server&nbsp;Client&nbsp;Side</a>&nbsp;<span class="separator">&#187;</span>
+RFile</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>f32file.h</code>
+<br>Link against: <code>efsrv.lib</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aRFile"></a>
+
+<h1>Class <code>RFile</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>RFile</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Creates and opens a file, and performs all operations on a single
+open file. These operations include:</p>
+<ul>
+<li>
+<p>reading from and writing to the file</p>
+</li>
+<li>
+<p>seeking to a position within the file</p>
+</li>
+<li>
+<p>locking and unlocking within the file</p>
+</li>
+<li>
+<p>setting file attributes</p>
+</li>
+</ul>
+<p>Before using any of these services, a connection to a file server
+session must have been made and the file must be open.</p>
+<p>Opening Files:</p>
+<ul>
+<li>
+<p>use <code>Open()</code> to open an existing file for reading or
+writing&nbsp;&#8212; an error is returned if it does not already exist. To
+open an existing file for reading only, use <code>Open()</code> with an access
+mode of <code>EFileRead</code> and a share mode of
+<code>EFileShareReadersOnly</code>.</p>
+</li>
+<li>
+<p>use <code>Create()</code> to create and open a new file for
+writing&nbsp;&#8212; an error is returned if it already exists.</p>
+</li>
+<li>
+<p>use <code>Replace()</code> to open a file for writing,
+replacing any existing file of the same name if one exists or creating a new
+file if one does not exist,</p>
+</li>
+<li>
+<p>use <code>Temp()</code> to create and open a temporary file
+with a unique name, for writing and reading.</p>
+</li>
+</ul>
+<p>When opening a file, you must specify the file server session to
+use for operations with that file. If you do not close the file explicitly, it
+is closed when the server session associated with it is closed.</p>
+<p>Reading and Writing:</p>
+<p>There are several variants of both <code>Read()</code> and
+<code>Write()</code>. The basic <code>Read(TDes8&amp; aDes)</code> and
+<code>Write(const TDesC8&amp; aDes)</code> are supplemented by variants
+allowing the descriptor length to be overridden, or the seek position of the
+first byte to be specified, or asynchronous completion, or any
+combination.</p>
+<p>Reading transfers data from a file to a descriptor, and writing
+transfers data from a descriptor to a file. In all cases, the file data is
+treated as binary and byte descriptors are used (<code>TDes8</code>,
+<code>TDesC8</code>).</p>
+<p></p><h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code>RFile</code></td><td class="Cell">Creates and opens a file, and performs all operations on a single open file</td>
+</tr>
+<tr><td class="Cell"><code><a href="RFsBaseClass.html#%3a%3aRFsBase">RFsBase</a></code></td><td class="Cell">Base class that provides a Close() function for file related clean-up</td>
+</tr>
+<tr><td class="Cell"><code><a href="../ClientServer/RSubSessionBaseClass.html#%3a%3aRSubSessionBase">RSubSessionBase</a></code></td><td class="Cell">Client-side handle to a sub-session</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>RFile</code>:
+<br><code class="ApiItem"><a href="RFileClass.html#%3a%3aRFile%3a%3aAtt%28%29" title="Returns the file attributes">Att()</a></code>, <code class="ApiItem"><a href="RFileClass.html#%3a%3aRFile%3a%3aChangeMode%28%29" title="Switches an open file's access mode between EFileShareExclusive and EFileShareReadersOnly (allowing or disallowing read-only access by other files without having to close and re-open the file)">ChangeMode()</a></code>, <code class="ApiItem"><a href="RFileClass.html#%3a%3aRFile%3a%3aCreate%28%29" title="Creates and opens a new file for writing">Create()</a></code>, <code class="ApiItem"><a href="RFileClass.html#%3a%3aRFile%3a%3aFlush%28%29" title="Commits data to the storage device and flushes internal buffers without closing the file">Flush()</a></code>, <code class="ApiItem"><a href="RFileClass.html#%3a%3aRFile%3a%3aLock%28%29" title="Locks a range of bytes within a file">Lock()</a></code>, <code class="ApiItem"><a href="RFileClass.html#%3a%3aRFile%3a%3aModified%28%29" title="Gets the date and time the file was last modified">Modified()</a></code>, <code class="ApiItem"><a href="RFileClass.html#%3a%3aRFile%3a%3aOpen%28%29" title="Opens an existing file for reading or writing">Open()</a></code>, <code class="ApiItem"><a href="RFileClass.html#%3a%3aRFile%3a%3aRead%28%29" title="Reads a specified number of bytes of binary data from a file at a specified offset -- asynchronous overload">Read()</a></code>, <code class="ApiItem"><a href="RFileClass.html#%3a%3aRFile%3a%3aRename%28%29" title="Renames a file">Rename()</a></code>, <code class="ApiItem"><a href="RFileClass.html#%3a%3aRFile%3a%3aReplace%28%29" title="Replaces a file">Replace()</a></code>, <code class="ApiItem"><a href="RFileClass.html#%3a%3aRFile%3a%3aSeek%28%29" title="Changes the current file position">Seek()</a></code>, <code class="ApiItem"><a href="RFileClass.html#%3a%3aRFile%3a%3aSet%28%29" title="Sets the file's attributes and the date and time it was last modified">Set()</a></code>, <code class="ApiItem"><a href="RFileClass.html#%3a%3aRFile%3a%3aSetAtt%28%29" title="Sets or clears file attributes using two bitmasks">SetAtt()</a></code>, <code class="ApiItem"><a href="RFileClass.html#%3a%3aRFile%3a%3aSetModified%28%29" title="Sets the date and time the file was last modified">SetModified()</a></code>, <code class="ApiItem"><a href="RFileClass.html#%3a%3aRFile%3a%3aSetSize%28%29" title="Changes file size">SetSize()</a></code>, <code class="ApiItem"><a href="RFileClass.html#%3a%3aRFile%3a%3aSize%28%29" title="Returns file size in bytes">Size()</a></code>, <code class="ApiItem"><a href="RFileClass.html#%3a%3aRFile%3a%3aTemp%28%29" title="Creates and opens a temporary file with a unique name for writing and reading">Temp()</a></code>, <code class="ApiItem"><a href="RFileClass.html#%3a%3aRFile%3a%3aUnLock%28%29" title="Unlocks a range of bytes within a file">UnLock()</a></code>, <code class="ApiItem"><a href="RFileClass.html#%3a%3aRFile%3a%3aWrite%28%29" title="Writes a specified number of bytes to a file at a specified offset -- asynchronous overload">Write()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="RFsBaseClass.html#%3a%3aRFsBase" title="Base class that provides a Close() function for file related clean-up">RFsBase</a></code>:
+<br><code class="ApiItem"><a href="RFsBaseClass.html#%3a%3aRFsBase%3a%3aClose%28%29" title="Closes the file or directory">Close()</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="../ClientServer/RSubSessionBaseClass.html#%3a%3aRSubSessionBase" title="Client-side handle to a sub-session">RSubSessionBase</a></code>:
+<br><code class="ApiItem"><a href="../ClientServer/RSubSessionBaseClass.html#%3a%3aRSubSessionBase%3a%3aCloseSubSession%28%29" title="Closes the sub-session">CloseSubSession()</a></code>,
+<code class="ApiItem"><a href="../ClientServer/RSubSessionBaseClass.html#%3a%3aRSubSessionBase%3a%3aCreateSubSession%28%29" title="Creates a new sub-session within an existing session">CreateSubSession()</a></code>,
+<code class="ApiItem"><a href="../ClientServer/RSubSessionBaseClass.html#%3a%3aRSubSessionBase%3a%3aSend%28%29" title="Sends a blind message to the server -- no reply is expected">Send()</a></code>,
+<code class="ApiItem"><a href="../ClientServer/RSubSessionBaseClass.html#%3a%3aRSubSessionBase%3a%3aSendReceive%28%29" title="Sends a message to the server and waits synchronously for a reply">SendReceive()</a></code>,
+<code class="ApiItem"><a href="../ClientServer/RSubSessionBaseClass.html#%3a%3aRSubSessionBase%3a%3aSubSessionHandle%28%29" title="Returns the sub-session handle number">SubSessionHandle()</a></code>,
+<code class="ApiItem"><a href="../ClientServer/RSubSessionBaseClass.html#%3a%3aRSubSessionBase%3a%3aoperator%3d%28%29" title="Assignment constructor">operator=()</a></code></p>
+<a name="2.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Opening, creating, replacing files</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aRFile%3a%3aOpen%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Open()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Open(RFs&amp; aFs,const TDesC&amp; aName,TUint aFileMode);</code></p><h4 class="subheading">Description</h4>
+<p>Opens an existing file for reading or writing. If the file does
+not already exist, an error is returned.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>To close the file, use <code>Close()</code>, defined in the
+base class <code>RFsBase</code>.</p>
+</li>
+<li>
+<p>Attempting to open a file with the read-only attribute
+using <code>EFileWrite</code> access mode results in an error.</p>
+</li>
+<li>
+<p>After a file has been opened, the current write position is
+set to the start of the file. If necessary, use <code>RFile::Seek()</code> to
+move to a different position within the file.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RFs&amp; aFs</code></td>
+<td class="Cell"><p class="ValueDesc">The file server session</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aName</code></td>
+<td class="Cell"><p class="ValueDesc">The name of the file. Any path components (i.e. drive letter or
+directory), which are not specified are taken from the session path.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aFileMode</code></td>
+<td class="Cell"><p class="ValueDesc">The mode in which the file is opened. For more information see
+the <code>TFileMode</code> enumeration.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="UsingRFile.guide.html#FileServerClientSide%2eusing%2dRFile%2eOpen" title="Using RFile / Using Open()">Using Open()</a></li>
+</ul>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aRFile%3a%3aCreate%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Create()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Create(RFs&amp; aFs,const TDesC&amp; aName,TUint aFileMode);</code></p><h4 class="subheading">Description</h4>
+<p>Creates and opens a new file for writing. If the file already
+exists, an error is returned.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>To close the file, use <code>Close()</code>, defined in the
+base class <code>RFsBase</code>. </p>
+</li>
+<li>
+<p>Automatically sets the file's archive attribute.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RFs&amp; aFs</code></td>
+<td class="Cell"><p class="ValueDesc">The file server session</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aName</code></td>
+<td class="Cell"><p class="ValueDesc">The name of the file. Any path components which are not
+specified here are taken from the session path.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aFileMode</code></td>
+<td class="Cell"><p class="ValueDesc">The mode in which the file is opened. For more information see
+the <code>TFileMode</code> enumeration. The access mode is automatically set to
+<code>EFileWrite</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.4"></a></div><div class="Head3">
+<a name="%3a%3aRFile%3a%3aReplace%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Replace()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Replace(RFs&amp; aFs,const TDesC&amp; aName,TUint aFileMode);</code></p><h4 class="subheading">Description</h4>
+<p>Replaces a file. If there is an existing file with the same
+name, this function overwrites it. If the file does not already exist, it is
+created.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>To close the file, use <code>Close()</code>, defined in the
+base class <code>RFsBase</code>.</p>
+</li>
+<li>
+<p>Automatically sets the file's archive attribute.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RFs&amp; aFs</code></td>
+<td class="Cell"><p class="ValueDesc">The file server session.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aName</code></td>
+<td class="Cell"><p class="ValueDesc">The name of the file. Any path components which are not
+specified here are taken from the session path.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aFileMode</code></td>
+<td class="Cell"><p class="ValueDesc">The mode in which the file is opened. For more information see
+the <code>TFileMode</code> enumeration. The access mode is automatically set to
+<code>EFileWrite</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.5"></a></div><div class="Head3">
+<a name="%3a%3aRFile%3a%3aTemp%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Temp()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Temp(RFs&amp; aFs,const TDesC&amp; aPath,TFileName&amp; aName,TUint aFileMode);</code></p><h4 class="subheading">Description</h4>
+<p>Creates and opens a temporary file with a unique name for
+writing and reading.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>To close the file, use <code>Close()</code>, defined in the
+base class <code>RFsBase</code>.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RFs&amp; aFs</code></td>
+<td class="Cell"><p class="ValueDesc">The file server session.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aPath</code></td>
+<td class="Cell"><p class="ValueDesc">The directory in which the file is created.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TFileName&amp; aName</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the full path and file name of the file.
+The filename is guaranteed to be unique within the directory specified by
+<code>aPath</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aFileMode</code></td>
+<td class="Cell"><p class="ValueDesc">The mode in which the file is opened. For more information see
+the <code>TFileMode</code> enumeration. The access mode is automatically set to
+<code>EFileWrite</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Reading and writing</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aRFile%3a%3aRead%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Read()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Read(TDes8&amp; aDes) const;</code></p><h4 class="subheading">Description</h4>
+<p>Reads from file&nbsp;&#8212; synchronous overload.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>When an attempt is made to read beyond the end of the file,
+no error is returned. The descriptor&#8217;s length is set to the number of
+bytes which were read into it. Therefore, when reading through a file, the end
+of file has been reached when the descriptor length (given by
+<code>TDesC::Length()</code>) is zero.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes8&amp; aDes</code></td>
+<td class="Cell"><p class="ValueDesc">Descriptor into which binary data is read. Any existing
+contents are overwritten. On return, its length is set to the number of bytes
+read.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aRFile%3a%3aRead%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Read()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Read(TDes8&amp; aDes,TRequestStatus&amp; aStatus) const;</code></p><h4 class="subheading">Description</h4>
+<p>Reads from file&nbsp;&#8212; asynchronous overload.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>When an attempt is made to read beyond the end of the file,
+no error is returned. The descriptor&#8217;s length is set to the number of
+bytes which were read into it. Therefore, when reading through a file, the end
+of file has been reached when the descriptor length (given by
+<code>TDesC::Length()</code>) is zero.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes8&amp; aDes</code></td>
+<td class="Cell"><p class="ValueDesc">Descriptor into which binary data is read. Any existing
+contents are overwritten. On return, its length is set to the number of bytes
+read.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStatus</code></td>
+<td class="Cell"><p class="ValueDesc">Request status. On completion contains an error code.
+<code>KErrNone</code> if successful, otherwise another of the system-wide error
+codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.4"></a></div><div class="Head3">
+<a name="%3a%3aRFile%3a%3aRead%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Read()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Read(TDes8&amp; aDes,TInt aLength) const;</code></p><h4 class="subheading">Description</h4>
+<p>Reads specified number of bytes of binary data from file
+&#8212; synchronous overload.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>When an attempt is made to read beyond the end of the file,
+no error is returned. The descriptor&#8217;s length is set to the number of
+bytes which were read into it. Therefore, when reading through a file, the end
+of file has been reached when the descriptor length (given by
+<code>TDesC::Length()</code>) is zero. Assuming <code>aLength</code> is less
+than the maximum length of the descriptor, the only circumstances in which
+<code>Read()</code> can return fewer bytes than requested are when the end of
+file is reached or if an error has occurred.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes8&amp; aDes</code></td>
+<td class="Cell"><p class="ValueDesc">Descriptor into which binary data is read. Any existing
+contents are overwritten. On return, its length is set to the number of bytes
+read.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aLength</code></td>
+<td class="Cell"><p class="ValueDesc">The number of bytes to read from the file into the descriptor.
+If an attempt is made to read more bytes than the descriptor's maximum length,
+the function returns <code>KErrOverflow</code>. Must not be negative or the
+function returns <code>KErrGeneral</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.5"></a></div><div class="Head3">
+<a name="%3a%3aRFile%3a%3aRead%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Read()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Read(TDes8&amp; aDes,TInt aLength,TRequestStatus&amp; aStatus) const;</code></p><h4 class="subheading">Description</h4>
+<p>Reads a specified number of bytes of binary data from file
+&#8212; asynchronous overload.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>When an attempt is made to read beyond the end of the file,
+no error is returned. The descriptor&#8217;s length is set to the number of
+bytes which were read into it. Therefore, when reading through a file, the end
+of file has been reached when the descriptor length (given by
+<code>TDesC::Length()</code>) is zero. Assuming <code>aLength</code> is less
+than the maximum length of the descriptor, the only circumstances in which
+<code>Read()</code> can return fewer bytes than requested are when the end of
+file is reached or if an error has occurred.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes8&amp; aDes</code></td>
+<td class="Cell"><p class="ValueDesc">Descriptor into which binary data is read. Any existing
+contents are overwritten. On return, its length is set to the number of bytes
+read.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aLength</code></td>
+<td class="Cell"><p class="ValueDesc">The number of bytes to read from the file into the descriptor.
+If an attempt is made to read more bytes than the descriptor's maximum length,
+the function returns <code>KErrOverflow</code>. Must not be negative or the
+function returns <code>KErrGeneral</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStatus</code></td>
+<td class="Cell"><p class="ValueDesc">Request status. On completion contains <code>KErrNone</code> if
+successful, otherwise another of the system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.6"></a></div><div class="Head3">
+<a name="%3a%3aRFile%3a%3aRead%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Read()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Read(TInt aPos,TDes8&amp; aDes) const;</code></p><h4 class="subheading">Description</h4>
+<p>Reads from file at a specified offset&nbsp;&#8212;
+synchronous overload.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>When an attempt is made to read beyond the end of the file,
+no error is returned. The descriptor&#8217;s length is set to the number of
+bytes which were read into it. Therefore, when reading through a file, the end
+of file has been reached when the descriptor length (given by
+<code>TDesC::Length()</code>) is zero.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aPos</code></td>
+<td class="Cell"><p class="ValueDesc">Position of first byte to read&#0160;&#8212; an offset from
+the start of the file. Must be positive or a panic occurs. If no position is
+specified, the read begins at the current file position. If <code>aPos</code>
+is beyond the end of the file, <code>Read()</code> returns a zero length
+descriptor.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes8&amp; aDes</code></td>
+<td class="Cell"><p class="ValueDesc">Descriptor into which binary data is read. Any existing
+contents are overwritten. On return, its length is set to the number of bytes
+read.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.7"></a></div><div class="Head3">
+<a name="%3a%3aRFile%3a%3aRead%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Read()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Read(TInt aPos,TDes8&amp; aDes,TRequestStatus&amp; aStatus) const;</code></p><h4 class="subheading">Description</h4>
+<p>Reads from file at a specified offset&nbsp;&#8212;
+asynchronous overload.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>When an attempt is made to read beyond the end of the file,
+no error is returned. The descriptor&#8217;s length is set to the number of
+bytes which were read into it. Therefore, when reading through a file, the end
+of file has been reached when the descriptor length (given by
+<code>TDesC::Length()</code>) is zero.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aPos</code></td>
+<td class="Cell"><p class="ValueDesc">Position of first byte to read&#0160;&#8212; an offset from
+the start of the file. Must be positive or a panic occurs. If no position is
+specified, the read begins at the current file position. If <code>aPos</code>
+is beyond the end of the file, <code>Read()</code> returns a zero length
+descriptor.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes8&amp; aDes</code></td>
+<td class="Cell"><p class="ValueDesc">Descriptor into which binary data is read. Any existing
+contents are overwritten. On return, its length is set to the number of bytes
+read.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStatus</code></td>
+<td class="Cell"><p class="ValueDesc">Request status. On completion, contains an error code of
+<code>KErrNone</code> if successful, otherwise another of the system-wide error
+codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.8"></a></div><div class="Head3">
+<a name="%3a%3aRFile%3a%3aRead%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Read()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Read(TInt aPos,TDes8&amp; aDes,TInt aLength) const;</code></p><h4 class="subheading">Description</h4>
+<p>Reads a specified number of bytes of binary data from the file
+at a specified offset&nbsp;&#8212; synchronous overload.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>When an attempt is made to read beyond the end of the file,
+no error is returned. The descriptor&#8217;s length is set to the number of
+bytes which were read into it. Therefore, when reading through a file, the end
+of file has been reached when the descriptor length (given by
+<code>TDesC::Length()</code>) is zero. Assuming <code>aLength</code> is less
+than the maximum length of the descriptor, the only circumstances in which
+<code>Read()</code> can return fewer bytes than requested are when the end of
+the file is reached or if an error has occurred.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aPos</code></td>
+<td class="Cell"><p class="ValueDesc">The position of the first byte to read&#0160;&#8212; an
+offset from the start of the file. Must be positive or a panic occurs. If no
+position is specified, the read begins at the current file position. If
+<code>aPos</code> is beyond the end of the file, <code>Read()</code> returns a
+zero length descriptor.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes8&amp; aDes</code></td>
+<td class="Cell"><p class="ValueDesc">Descriptor into which binary data is read. Any existing
+contents are overwritten. On return, its length is set to the number of bytes
+read.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aLength</code></td>
+<td class="Cell"><p class="ValueDesc">The number of bytes to read from the file into the descriptor.
+If an attempt is made to read more bytes than the descriptor's maximum length,
+the function returns <code>KErrOverflow</code>. Must not be negative or the
+function returns <code>KErrGeneral</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.9"></a></div><div class="Head3">
+<a name="%3a%3aRFile%3a%3aRead%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Read()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Read(TInt aPos,TDes8&amp; aDes,TInt aLength,TRequestStatus&amp; aStatus) const;</code></p><h4 class="subheading">Description</h4>
+<p>Reads a specified number of bytes of binary data from a file at
+a specified offset&nbsp;&#8212; asynchronous overload.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>When an attempt is made to read beyond the end of the file,
+no error is returned. The descriptor&#8217;s length is set to the number of
+bytes which were read into it. Therefore, when reading through a file, the end
+of the file has been reached when the descriptor length (given by
+<code>TDesC::Length()</code>) is zero. Assuming <code>aLength</code> is less
+than the maximum length of the descriptor, the only circumstances in which
+<code>Read()</code> can return fewer bytes than requested are when the end of
+file is reached or if an error has occurred.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aPos</code></td>
+<td class="Cell"><p class="ValueDesc">The position of the first byte to read&#0160;&#8212; an
+offset from the start of the file. Must be positive or a panic occurs. If no
+position is specified, the read begins at the current file position. If
+<code>aPos</code> is beyond the end of the file, <code>Read()</code> returns a
+zero length descriptor.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes8&amp; aDes</code></td>
+<td class="Cell"><p class="ValueDesc">Descriptor into which binary data is read. Any existing
+contents are overwritten. On return, its length is set to the number of bytes
+read.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aLength</code></td>
+<td class="Cell"><p class="ValueDesc">The number of bytes to read from the file into the descriptor.
+If an attempt is made to read more bytes than the descriptor's maximum length,
+the function returns <code>KErrOverflow</code>. Must not be negative or the
+function returns <code>KErrGeneral</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStatus</code></td>
+<td class="Cell"><p class="ValueDesc">Request status. On completion contains <code>KErrNone</code> if
+successful, otherwise another of the system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.10"></a></div><div class="Head3">
+<a name="%3a%3aRFile%3a%3aWrite%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Write()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Write(const TDesC8&amp; aDes);</code></p><h4 class="subheading">Description</h4>
+<p>Writes to file&nbsp;&#8212; synchronous
+overload.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC8&amp; aDes</code></td>
+<td class="Cell"><p class="ValueDesc">Descriptor from which binary data is written. The function
+writes to the file the entire contents of <code>aDes</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.11"></a></div><div class="Head3">
+<a name="%3a%3aRFile%3a%3aWrite%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Write()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Write(const TDesC8&amp; aDes,TRequestStatus&amp; aStatus); </code></p><h4 class="subheading">Description</h4>
+<p>Writes to file&nbsp;&#8212; asynchronous
+overload.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC8&amp; aDes</code></td>
+<td class="Cell"><p class="ValueDesc">Descriptor from which binary data is written. The function
+writes to the file the entire contents of <code>aDes</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStatus</code></td>
+<td class="Cell"><p class="ValueDesc">Request status. On completion contains <code>KErrNone</code> if
+successful, otherwise another of the system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.12"></a></div><div class="Head3">
+<a name="%3a%3aRFile%3a%3aWrite%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Write()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Write(const TDesC8&amp; aDes,TInt aLength);</code></p><h4 class="subheading">Description</h4>
+<p>Writes a portion of a descriptor to the file&nbsp;&#8212;
+synchronous overload.</p>
+<p>Note:</p>
+<p>The <code>aLength</code> value is used when writing a portion
+of the descriptor <code>aDes</code> to the file, rather than the whole length
+of the descriptor. <code>aLength</code> should be less than the value returned
+by <code>aDes.Length()</code>, otherwise garbage is written to the
+file.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC8&amp; aDes</code></td>
+<td class="Cell"><p class="ValueDesc">Descriptor from which binary data is written. The function
+writes the portion of the descriptor specified by <code>aLength</code> to the
+file.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aLength</code></td>
+<td class="Cell"><p class="ValueDesc">The number of bytes to be written from <code>aDes</code>
+&#8212; overrides the descriptor length, so that a portion of the descriptor
+may be written to the file. Writing beyond the end of a file increases the
+file&#8217;s length.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.13"></a></div><div class="Head3">
+<a name="%3a%3aRFile%3a%3aWrite%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Write()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Write(const TDesC8&amp; aDes,TInt aLength,TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Writes a portion of a descriptor to the file&nbsp;&#8212;
+asynchronous overload.</p>
+<p>Note:</p>
+<p>The <code>aLength</code> value is used when writing a portion
+of the descriptor <code>aDes</code> to the file, rather than the whole length
+of the descriptor. <code>aLength</code> should be less than the value returned
+by <code>aDes.Length()</code>, otherwise garbage is written to the
+file.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC8&amp; aDes</code></td>
+<td class="Cell"><p class="ValueDesc">Descriptor from which binary data is written. The function
+writes the portion of the descriptor specified by <code>aLength</code> to the
+file.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aLength</code></td>
+<td class="Cell"><p class="ValueDesc">The number of bytes to be written from <code>aDes</code>
+&#8212; overrides the descriptor length, so that a portion of the descriptor
+may be written to the file. Writing beyond the end of a file increases the
+file&#8217;s length.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStatus</code></td>
+<td class="Cell"><p class="ValueDesc">Request status. On completion contains <code>KErrNone</code> if
+successful, otherwise another of the system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.14"></a></div><div class="Head3">
+<a name="%3a%3aRFile%3a%3aWrite%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Write()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Write(TInt aPos,const TDesC8&amp; aDes);</code></p><h4 class="subheading">Description</h4>
+<p>Writes to file at a specified offset&nbsp;&#8212;
+synchronous overload.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aPos</code></td>
+<td class="Cell"><p class="ValueDesc">The position into which the first byte is
+written&#0160;&#8212; offset from the start of the file. Must be positive or
+a panic occurs. If no position is specified, the write begins at the current
+file position. If a position beyond the end of the file is specified, the write
+begins at the end of the file. If the position has been locked by another
+program, the write fails.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC8&amp; aDes</code></td>
+<td class="Cell"><p class="ValueDesc">Descriptor from which binary data is written. The function
+writes the entire contents of <code>aDes</code> to the file.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.15"></a></div><div class="Head3">
+<a name="%3a%3aRFile%3a%3aWrite%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Write()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Write(TInt aPos,const TDesC8&amp; aDes,TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Writes to file at a specified offset&nbsp;&#8212;
+asynchronous overload.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aPos</code></td>
+<td class="Cell"><p class="ValueDesc">The position into which the first byte is
+written&#0160;&#8212; offset from start of file. Must be positive or a panic
+occurs. If no position is specified, the write begins at the current file
+position. If a position beyond the end of the file is specified, the write
+begins at the end of the file. If the position has been locked by another
+program, the write fails.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC8&amp; aDes</code></td>
+<td class="Cell"><p class="ValueDesc">Descriptor from which binary data is written. The function
+writes to the file the entire contents of <code>aDes</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStatus</code></td>
+<td class="Cell"><p class="ValueDesc">Request status. On completion contains <code>KErrNone</code> if
+successful, otherwise another of the system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.16"></a></div><div class="Head3">
+<a name="%3a%3aRFile%3a%3aWrite%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Write()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Write(TInt aPos,const TDesC8&amp; aDes,TInt aLength);</code></p><h4 class="subheading">Description</h4>
+<p>Writes a specified number of bytes to a file at a specified
+offset&nbsp;&#8212; synchronous overload</p>
+<p>Note:</p>
+<p>The <code>aLength</code> value is used when writing a portion
+of the descriptor <code>aDes</code> to the file, rather than the whole length
+of the descriptor. <code>aLength</code> should be less than the value returned
+by <code>aDes.Length()</code>, otherwise garbage is written to the
+file.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aPos</code></td>
+<td class="Cell"><p class="ValueDesc">The position into which the first byte is
+written&#0160;&#8212; offset from start of file. Must be positive or a panic
+occurs. If no position is specified, the write begins at the current file
+position. If a position beyond the end of the file is specified, the write
+begins at the end of the file. If the position has been locked by another
+program, the write fails.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC8&amp; aDes</code></td>
+<td class="Cell"><p class="ValueDesc">Descriptor from which binary data is written.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aLength</code></td>
+<td class="Cell"><p class="ValueDesc">The number of bytes to be written from <code>aDes</code>
+&#8212; overrides the descriptor length, so that a portion of the descriptor
+may be written to the file. Writing beyond the end of a file increases the
+file&#8217;s length.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.17"></a></div><div class="Head3">
+<a name="%3a%3aRFile%3a%3aWrite%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Write()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Write(TInt aPos,const TDesC8&amp; aDes,TInt aLength,TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Writes a specified number of bytes to a file at a specified
+offset&nbsp;&#8212; asynchronous overload.</p>
+<p>Note:</p>
+<p>The <code>aLength</code> value is used when writing a portion
+of the descriptor <code>aDes</code> to the file, rather than the whole length
+of the descriptor. <code>aLength</code> should be less than the value returned
+by <code>aDes.Length()</code>, otherwise, garbage is written to the
+file.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aPos</code></td>
+<td class="Cell"><p class="ValueDesc">The position into which first byte is written&#0160;&#8212;
+offset from start of file. Must be positive or a panic occurs. If no position
+is specified, the write begins at the current file position. If a position
+beyond the end of the file is specified, the write begins at the end of the
+file. If the position has been locked by another program, the write
+fails.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC8&amp; aDes</code></td>
+<td class="Cell"><p class="ValueDesc">Descriptor from which binary data is written.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aLength</code></td>
+<td class="Cell"><p class="ValueDesc">The number of bytes to be written from <code>aDes</code>
+&#8212; overrides the descriptor length, so that a portion of the descriptor
+may be written to the file. Writing beyond the end of a file increases the
+file&#8217;s length.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStatus</code></td>
+<td class="Cell"><p class="ValueDesc">Request status. On completion contains <code>KErrNone</code> if
+successful, otherwise another of the system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Locking</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aRFile%3a%3aLock%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Lock()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Lock(TInt aPos,TInt aLength) const;</code></p><h4 class="subheading">Description</h4>
+<p>Locks a range of bytes within a file. This ensures that those
+bytes are accessible only through the <code>RFile</code> object which claimed
+the lock. To re-allow access by other programs to the locked region, it must
+either be unlocked or the file closed. Locking can be used to synchronize
+operations on a file when more than one program has access to the file in
+<code>EFileShareAny</code> mode.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>More than one distinct region of a file can be locked, but
+an error is returned if more than one lock is placed on the same region.
+Different <code>RFile</code> objects can lock different parts of the same file
+as long as the file is opened in <code>EFileShareAny</code> mode. The locked
+region may extend beyond the end of a file&nbsp;&#8212; this prevents the
+file from being extended by other programs.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aPos</code></td>
+<td class="Cell"><p class="ValueDesc">Position in file from which to lock&#0160;&#8212; offset from
+the beginning of file.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aLength</code></td>
+<td class="Cell"><p class="ValueDesc">Number of bytes to lock. Must be greater than zero, or a panic
+occurs.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aRFile%3a%3aUnLock%28%29"></a>
+<hr size="1" noshade>
+<h3><code>UnLock()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt UnLock(TInt aPos,TInt aLength) const;</code></p><h4 class="subheading">Description</h4>
+<p>Unlocks a range of bytes within a file. A lock can only be
+removed by the <code>RFile</code> object which claimed the lock.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>A portion of a locked region cannot be
+unlocked&nbsp;&#8212; the entire locked region must be unlocked or an error
+is returned. If any byte within the specified range of bytes to unlock is not
+locked, an error is returned.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aPos</code></td>
+<td class="Cell"><p class="ValueDesc">Position in file from which to unlock&#0160;&#8212;  offset from
+beginning of file.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aLength</code></td>
+<td class="Cell"><p class="ValueDesc">Number of bytes to unlock&#0160;&#8212; must be greater than
+zero, or a panic occurs.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Seeking</h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aRFile%3a%3aSeek%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Seek()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Seek(TSeek aMode,TInt&amp; aPos) const;</code></p><h4 class="subheading">Description</h4>
+<p>Changes the current file position. It can also be used to get
+the current file position without changing it. The file position is the
+position at which reading and writing takes place. The start of the file is
+position zero.</p>
+<p>Notes:</p>
+<p>To retrieve the current file position without changing it,
+specify <code>ESeekCurrent</code> for the seek mode and zero for the
+offset.</p>
+<p>If the seek mode is <code>ESeekStart</code>, </p>
+<ul>
+<li>
+<p>the function does not modify the <code>aPos</code>
+argument,</p>
+</li>
+<li>
+<p>the function returns an error if the offset specified is
+negative.</p>
+</li>
+</ul>
+<p>If the seek mode is <code>ESeekAddress</code>, an error is
+returned if:</p>
+<ul>
+<li>
+<p>the file is not in ROM, </p>
+</li>
+<li>
+<p>the offset specified is greater than the size of the
+file.</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TSeek aMode</code></td>
+<td class="Cell"><p class="ValueDesc">Seek mode&#0160;&#8212; controls the destination of the seek
+operation.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aPos</code></td>
+<td class="Cell"><p class="ValueDesc">Offset from location specified in <code>aMode</code>. Can be
+negative. On return contains the new file position. If the seek mode is either
+<code>ESeekCurrent</code> or <code>ESeekEnd</code> and the offset specifies a
+position before the start of the file or beyond the end of the file, on return,
+<code>aPos</code> is set to the new file position (either the start or the end
+of the file). If the seek mode is <code>ESeekAddress</code>, <code>aPos</code>
+returns the address of the byte at the specified offset within the file.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Committing data</h2>
+</div><div class="Bodytext">
+<a name="2.10.2"></a></div><div class="Head3">
+<a name="%3a%3aRFile%3a%3aFlush%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Flush()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Flush();</code></p><h4 class="subheading">Description</h4>
+<p>Commits data to the storage device and flushes internal buffers
+without closing the file.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>Although <code>RFile::Close()</code> also flushes internal
+buffers, it is often useful to call <code>Flush()</code> before a file is
+closed. This is because <code>Close()</code> returns no error information, so
+there is no way of telling whether the final data was written to the file
+successfully or not. Once data has been flushed, <code>Close()</code> is
+effectively a no-operation.</p>
+</li>
+</ul><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Getting and setting file attributes</h2>
+</div><div class="Bodytext">
+<a name="2.11.2"></a></div><div class="Head3">
+<a name="%3a%3aRFile%3a%3aSize%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Size()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Size(TInt&amp; aSize) const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns file size in bytes.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aSize</code></td>
+<td class="Cell"><p class="ValueDesc">On return, the size of the file in bytes.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.3"></a></div><div class="Head3">
+<a name="%3a%3aRFile%3a%3aSetSize%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetSize()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt SetSize(TInt aSize);</code></p><h4 class="subheading">Description</h4>
+<p>Changes file size. If the size of the file is reduced, data may
+be lost from the end of the file.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>The current file position remains unchanged unless
+<code>SetSize()</code> reduces the size of the file so that the current file
+position is now beyond the end of the file. In this case, the current file
+position is set to the end of file. </p>
+</li>
+<li>
+<p>If the file was not opened for writing, an error is
+returned.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aSize</code></td>
+<td class="Cell"><p class="ValueDesc">The new size of the file in bytes</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.4"></a></div><div class="Head3">
+<a name="%3a%3aRFile%3a%3aAtt%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Att()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Att(TUint&amp; aAttValue) const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns the file attributes.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint&amp; aAttValue</code></td>
+<td class="Cell"><p class="ValueDesc">A bitmask which on return contains the file&#8217;s
+attributes. For more information see <code>KEntryAttNormal</code> or the other
+file/directory attributes.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.5"></a></div><div class="Head3">
+<a name="%3a%3aRFile%3a%3aSetAtt%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetAtt()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt SetAtt(TUint aSetAttMask,TUint aClearAttMask);</code></p><h4 class="subheading">Description</h4>
+<p>Sets or clears file attributes using two bitmasks. The first
+mask controls which attributes are set. The second controls which attributes
+are cleared.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>The file must have been opened for writing, or an error is
+returned.</p>
+</li>
+<li>
+<p>A panic occurs if any attribute is specified in both
+bitmasks.</p>
+</li>
+<li>
+<p>An attempt to set or clear either the
+<code>KEntryAttDir</code> or <code>KEntryAttVolume</code> attribute has no
+effect.</p>
+</li>
+<li>
+<p>The new attribute values take effect when the file is
+flushed or closed (which implies a flush).</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aSetAttMask</code></td>
+<td class="Cell"><p class="ValueDesc">A bitmask indicating the file attributes to be set</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aClearAttMask</code></td>
+<td class="Cell"><p class="ValueDesc">A bitmask indicating the attributes to be cleared. For more
+information see <code>KEntryAttNormal</code> or the other file/directory
+attributes</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="UsingRFile.guide.html#FileServerClientSide%2eusing%2dRFile%2eSetAtt" title="Using RFile / Using SetAtt()">Using SetAtt()</a></li>
+</ul>
+<a name="2.11.6"></a></div><div class="Head3">
+<a name="%3a%3aRFile%3a%3aModified%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Modified()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Modified(TTime&amp; aTime) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the date and time the file was last
+modified.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTime&amp; aTime</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the date and time the file was last
+modified</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.7"></a></div><div class="Head3">
+<a name="%3a%3aRFile%3a%3aSetModified%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetModified()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt SetModified(const TTime&amp; aTime);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the date and time the file was last modified.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>The file must have been opened for writing, or an error is
+returned.</p>
+</li>
+<li>
+<p>The new modified time takes effect when the file is flushed
+or closed (which implies a flush).</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TTime&amp; aTime</code></td>
+<td class="Cell"><p class="ValueDesc">The new date and time the file was last modified.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.8"></a></div><div class="Head3">
+<a name="%3a%3aRFile%3a%3aSet%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Set()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Set(const TTime&amp; aTime,TUint aSetAttMask,TUint aClearAttMask);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the file&#8217;s attributes and the date and time it was
+last modified. It combines the <code>SetAtt()</code> and
+<code>SetModified()</code> functions. The function uses two bitmasks, the first
+of which controls which attributes should be set, and the second controls which
+attributes should be cleared.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>A panic occurs if any attribute is specified in both
+bitmasks.</p>
+</li>
+<li>
+<p>The new attribute values and modified time take effect when
+the file is flushed or closed (which implies a flush).</p>
+</li>
+<li>
+<p>The file must not be read-only or an error is
+returned.</p>
+</li>
+<li>
+<p>An attempt to set or clear either the
+<code>KEntryAttDir</code> or <code>KEntryAttVolume</code> attribute has no
+effect.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TTime&amp; aTime</code></td>
+<td class="Cell"><p class="ValueDesc">The new date and time the file was last modified.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aSetAttMask</code></td>
+<td class="Cell"><p class="ValueDesc">Bitmask indicating the attributes to set.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aClearAttMask</code></td>
+<td class="Cell"><p class="ValueDesc">Bitmask indicating the attributes to clear. For more
+information see <code>KEntryAttNormal</code> or the other file/directory
+attributes.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.9"></a></div><div class="Head3">
+<a name="%3a%3aRFile%3a%3aChangeMode%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ChangeMode()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt ChangeMode(TFileMode aNewMode);</code></p><h4 class="subheading">Description</h4>
+<p>Switches an open file&#8217;s access mode between
+<code>EFileShareExclusive</code> and <code>EFileShareReadersOnly</code>
+(allowing or disallowing read-only access by other files without having to
+close and re-open the file).</p>
+<p>Notes:</p>
+<p>This function returns an error in the following
+circumstances:</p>
+<ul>
+<li>
+<p>If <code>aNewMode</code> has any value other than the two
+specified (<code>KErrArgument</code>). </p>
+</li>
+<li>
+<p>If the function is called when the current file share mode
+is <code>EFileShareAny</code> (<code>KErrAccessDenied</code>).</p>
+</li>
+<li>
+<p>If a file has multiple readers, and an attempt is made to
+change the share mode to <code>EFileShareExclusive</code>
+(<code>KErrAccessDenied</code>). </p>
+</li>
+<li>
+<p>If the file has been opened for writing in
+<code>EFileShareExclusive</code> mode, and an attempt is made to change the
+access mode to <code>EFileShareReadersOnly</code>
+(<code>KErrAccessDenied</code>).</p>
+</li>
+</ul>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TFileMode aNewMode</code></td>
+<td class="Cell"><p class="ValueDesc">The new access mode.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.10"></a></div><div class="Head3">
+<a name="%3a%3aRFile%3a%3aRename%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Rename()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Rename(const TDesC&amp; aNewName);</code></p><h4 class="subheading">Description</h4>
+<p>Renames a file. If <code>aNewName</code> specifies a different
+directory to the one in which the file is currently located, then the file is
+moved.</p>
+<p>No other process may have access to the file, that is, the file
+must have been opened in <code>EFileShareExclusive</code> share mode, or an
+error is returned. The file must have been opened for writing (using
+<code>EFileWrite</code> access mode). An error is returned if a file with the
+new filename already exists in the target directory.</p>
+<p>The file or directory may not be moved to another device by
+this means, either explicitly (by another drive specified in the name) or
+implicitly (because the directory has been mapped to another device with
+<code>RFs::SetSubst()</code>).</p>
+<p>Note:</p>
+<p>The function builds up the new file specification by using all
+of the path components specified in <code>aNewName</code> (directory path,
+filename and extension), then adding any missing components from the current
+file specification, and finally adding any missing components from the session
+path. A consequence of this is that you cannot rename a file to remove its
+extension. An alternative to this function is <code>RFs::Rename()</code> which
+renames the file using the new name as provided.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aNewName</code></td>
+<td class="Cell"><p class="ValueDesc">The new file name and/or directory path. No part may contain
+wildcard characters or an error is returned.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the
+system-wide error codes.</p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

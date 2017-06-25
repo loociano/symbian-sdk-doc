@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to use TRAP</title>
+<link href="../../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="CleanupSupportGuide1%2ehow%2dto%2etrap%2duse"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../../_index/index.html"><img
+src="../../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../../GlobalGlossary/index.html"><img src="../../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToTerminate.guide.html"><img src="../../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToNewAutomaticFail.guide.html"><img src="../../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Memory&nbsp;Management</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Cleanup&nbsp;Support</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Exception&nbsp;Handling</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;use&nbsp;TRAP</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to use <code>TRAP</code></h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Execute leaving functions under a trap harness</h2>
+</div><div class="Bodytext">
+<p>Functions that leave, including functions that call other functions
+that can leave, must be executed under a trap harness. </p>
+<p>If a call to <code>User::Leave()</code> occurs within the function,
+control will immediately be returned to the most recent <code>TRAP</code>. A
+variable is used with every trap to receive the error code specified in a
+leave.</p>
+<p>If no leave occurs, when the called function ends, execution
+returns to the <code>TRAP</code>, and the leave variable is unchanged.</p>
+<p>Typically after a <code>TRAP</code>, a function checks the leave
+variable to test whether processing returned normally or by a leave, and acts
+appropriately. Special mechanism discussed later are provided to handle cleanup
+after the exception.</p>
+<p class="CodeBlock"><code>TInt E32Main() <br>&nbsp;{  <br>&nbsp;testConsole.Title(); // write out title<br>&nbsp;testConsole.Start(_LIT(&quot;Example&quot;)); // start a new &quot;test&quot;<br><br>&nbsp;// The leave variable<br>&nbsp;TInt r=0;<br>&nbsp;// Perform example function. If it leaves,<br>&nbsp;// the leave code is put in r<br>&nbsp;TRAP(r,doExampleL()); <br>&nbsp;// Test the leave variable<br>&nbsp;if (r) <br>&nbsp;&nbsp;testConsole.Printf(_LIT(&quot;Failed: leave code=%d&quot;), r);<br><br>&nbsp;testConsole.End(); // finish<br>&nbsp;testConsole.Close(); // close it<br>&nbsp;return KErrNone; // and return<br>&nbsp;}</code></p>
+<a name="1.3.7"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Note</h3>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>It is not necessary that all L functions be
+<em>directly</em> invoked by a trap harness. In most cases, functions that
+can leave are called normally by other functions. It is only necessary that
+somewhere above the function in the call chain is a trap harness.</p>
+</li>
+</ul>
+<a name="CleanupSupportGuide1%2etrapd%2dexample"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Using <code>TRAPD</code></h2>
+</div><div class="Bodytext">
+<p>For convenience, there is a <code>TRAPD</code> form of the macro
+which defines the variable to be used as the leave code. This saves a line of
+source code in the majority of situations.</p>
+<p class="CodeBlock"><code>TRAPD(leaveCode,SomeFunctionL()); // call a function<br>if (leaveCode!=KErrNone)          // check for error leave code<br>&nbsp;{<br>&nbsp;// some cleanup<br>&nbsp;}</code></p>
+<a name="CleanupSupportGuide1%2ereturn%2dvaue%2dexample"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Trap harnesses and function return values</h2>
+</div><div class="Bodytext">
+<p>Trap harnesses can be used when the function being called returns a
+result. </p>
+<p class="CodeBlock"><code>TRAPD(leaveCode,value=GetSomethingL()); // get a value<br>if (leaveCode!=KErrNone) // check for error leave code<br>&nbsp;{<br>&nbsp;// some cleanup<br>&nbsp;}<br>else { // didn&#8217;t leave: value valid<br>&nbsp;}</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

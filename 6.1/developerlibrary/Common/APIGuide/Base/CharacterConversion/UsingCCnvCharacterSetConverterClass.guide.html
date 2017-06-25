@@ -1,0 +1,220 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to use CCnvCharacterSetConverter</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="CharconvGuide%2eUsingCCnvCharacterSetConverter"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="UnicodeTransformationFormats.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="UsingCnvUtfConverterClass.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Character&nbsp;Conversion</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;use&nbsp;CCnvCharacterSetConverter</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to use <code>CCnvCharacterSetConverter</code></h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Overview</h2>
+</div><div class="Bodytext">
+<p>These examples illustrate the way in which
+<code>CCnvCharacterSetConverter</code> might be used to convert chunks of text
+from Unicode to another character set, from another character set to Unicode,
+and from a character set to Unicode when the text is arriving in fragments.
+</p>
+<p>The first three examples use the simpler variant of
+<code>PrepareToConvertToOrFromL()</code>. The final example demonstrates, in
+code fragment form, the use of the other variant.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Converting text from Unicode to a non-Unicode character
+set</h2>
+</div><div class="Bodytext">
+<p>This example shows how to convert Unicode text, in chunks, to
+another character set. The conversion process has two parts. In the first part
+the code checks to see that the selected character set is available and opens
+the conversion data file, and in the second the text is actually converted. The
+text is converted in chunks so that it is not necessary to guess the full size
+of the converted output text in advance.</p>
+<p>The function below first uses
+<code>PrepareToConvertToOrFromL()</code> to check whether the nominated
+character set is supported, and leaves if it is not. This variant of
+<code>PrepareToConvertToOrFromL()</code> is preferred here because we are told
+which character set to convert to, and because the other variant would panic
+the thread if the character set were not available. The code also creates an
+output descriptor, and a ‘remainder’ buffer for holding the unconverted
+Unicode characters. This remainder buffer is initialised with the text in the
+input descriptor.</p>
+<p class="CodeBlock"><code>LOCAL_C void ConvertUnicodeTextL(CCnvCharacterSetConverter&amp; aCharacterSetConverter, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RFs&amp; aFileServerSession, TUint aForeignCharacterSet, const TDesC16&amp; aUnicodeText)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;// check to see if the character set is supported - if not then leave <br>&nbsp;&nbsp;&nbsp;&nbsp;if (aCharacterSetConverter.PrepareToConvertToOrFromL(aForeignCharacterSet, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aFileServerSession) != CCnvCharacterSetConverter::EAvailable)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;User::Leave(KErrNotSupported);<br>&nbsp;&nbsp;&nbsp;&nbsp;// Create a small-ish output buffer. 20 bytes recommended minimum    <br>&nbsp;&nbsp;&nbsp;&nbsp;TBuf8&lt;20&gt; outputBuffer;<br>&nbsp;&nbsp;&nbsp;&nbsp;// Create a buffer for the unconverted text - initialised with input descriptor<br>&nbsp;&nbsp;&nbsp;&nbsp;TPtrC16 remainderOfUnicodeText(aUnicodeText); </code></p>
+<p>After it has been confirmed that the character set is available, a
+loop is set up to convert the text in the remainder buffer— which initially
+contains all the information in the input descriptor. </p>
+<p><code>ConvertFromUnicode()</code> converts characters from the
+remainder buffer until the small output buffer is full — the Unicode contents
+of the output buffer are then safely stored. Then the remainder buffer is reset
+so that it only contains unconverted text.</p>
+<p>This process is repeated until the remainder buffer is empty, and
+the function completes. The code fragment below also includes code to check for
+corrupted characters.</p>
+<p class="CodeBlock"><code>    for(;;) // conversion loop<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Start conversion. When the output buffer is full, return the <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// number of characters that were not converted<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const TInt returnValue=aCharacterSetConverter.ConvertFromUnicode(outputBuffer,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;remainderOfUnicodeText);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// check to see that the descriptor isn’t corrupt - leave if it is<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (returnValue==CCnvCharacterSetConverter::EErrorIllFormedInput)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;User::Leave(KErrCorrupt);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else if (returnValue&lt;0) // future-proof against &quot;TError&quot; expanding<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;User::Leave(KErrGeneral);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Do something here to store the contents of the output buffer. <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Finish conversion if there are no unconverted characters in the remainder buffer<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (returnValue==0)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Remove the converted source text from the remainder buffer. <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// The remainder buffer is then fed back into loop<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;remainderOfUnicodeText.Set(remainderOfUnicodeText.Right(returnValue));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Converting text from a non-Unicode character set to
+Unicode</h2>
+</div><div class="Bodytext">
+<p>This example shows how to convert text in a non-Unicode character set,
+in chunks, into Unicode text. The process is similar to that given in the
+previous example — to convert from Unicode to a non-Unicode character set. In
+the first part the code checks to see that the selected character set is
+available and opens the conversion data file, and in the second the text is
+actually converted. The text is converted in chunks so that it is not necessary
+to guess the full size of the converted output text in advance.</p>
+<p>The function below first uses <code>PrepareToConvertToOrFromL()</code>
+to check whether the nominated character set is supported, and leaves if it is
+not. As in the previous example, this variant of
+<code>PrepareToConvertToOrFromL()</code> is preferred because we are told which
+character set to convert from, and because the other variant would panic the
+thread if the character set were not available. The function also creates an
+output descriptor, a state variable, and a ‘remainder’ buffer for holding
+the unconverted characters — this is initialised with the text in the input
+descriptor. The state variable is initialised with
+<code>CCnvCharacterSetConverter::KStateDefault</code> — after initialisation
+this should not be tampered with, but simply be passed into subsequent calls to
+<code>ConvertToUnicode()</code>. </p>
+<p class="CodeBlock"><code>LOCAL_C void ConvertForeignTextL(CCnvCharacterSetConverter&amp; aCharacterSetConverter,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RFs&amp; aFileServerSession, TUint aForeignCharacterSet, const TDesC8&amp; aForeignText)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;// check to see if the character set is supported - if not then leave<br>&nbsp;&nbsp;&nbsp;&nbsp;if (aCharacterSetConverter.PrepareToConvertToOrFromL(aForeignCharacterSet, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aFileServerSession) != CCnvCharacterSetConverter::EAvailable)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;User::Leave(KErrNotSupported);<br>&nbsp;&nbsp;&nbsp;&nbsp;// Create a small output buffer <br>&nbsp;&nbsp;&nbsp;&nbsp;TBuf16&lt;20&gt; outputBuffer;<br>&nbsp;&nbsp;&nbsp;&nbsp;// Create a buffer for the unconverted text - initialised with the input descriptor<br>&nbsp;&nbsp;&nbsp;&nbsp;TPtrC8 remainderOfForeignText(aForeignText);<br>&nbsp;&nbsp;&nbsp;&nbsp;// Create a &quot;state&quot; variable and initialise it with CCnvCharacterSetConverter::KStateDefault<br>&nbsp;&nbsp;&nbsp;&nbsp;// After initialisation the state variable must not be tampered with.<br>&nbsp;&nbsp;&nbsp;&nbsp;// Simply pass into each subsequent call of ConvertToUnicode()<br>&nbsp;&nbsp;&nbsp;&nbsp;TInt state=CCnvCharacterSetConverter::KStateDefault;</code></p>
+<p>After it has been confirmed that the character set is available, a loop
+is set up to convert the text in the remainder buffer — which initially
+contains all the information in the input descriptor. </p>
+<p><code>ConvertFromUnicode()</code> converts characters from the
+remainder buffer until the output buffer is full — the Unicode contents of
+the output buffer are then safely stored. Then the remainder buffer is reset so
+that it only contains unconverted text. This process is repeated until the
+remainder buffer is empty, and the function completes. The code fragment below
+also includes code to check for corrupted characters.</p>
+<p class="CodeBlock"><code>    for(;;)  // conversion loop<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Start conversion. When the output buffer is full, return the number<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// of characters that were not converted<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const TInt returnValue=aCharacterSetConverter.ConvertToUnicode(outputBuffer, remainderOfForeignText, state);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// check to see that the descriptor isn’t corrupt - leave if it is<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (returnValue==CCnvCharacterSetConverter::EErrorIllFormedInput)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;User::Leave(KErrCorrupt);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else if (returnValue&lt;0) // future-proof against &quot;TError&quot; expanding<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;User::Leave(KErrGeneral);<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Do something here to store the contents of the output buffer.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Finish conversion if there are no unconverted <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// characters in the remainder buffer<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (returnValue==0)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Remove converted source text from the remainder buffer.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// The remainder buffer is then fed back into loop<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;remainderOfForeignText.Set(remainderOfForeignText.Right(returnValue));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Converting fragmented text from a non-Unicode character set to
+Unicode</h2>
+</div><div class="Bodytext">
+<p>The example below demonstrates how to
+convert <i>fragmented</i> text from a non-Unicode character set into
+Unicode. The main difficulty in converting fragmented text is that received
+chunks may begin or end with bytes from an incomplete character.</p>
+<p>To overcome this problem, implementations must ensure that the
+descriptors passed to <code>ConvertToUnicode()</code> always begin with a
+complete character (making the output descriptor at least 20 elements long
+should be enough to ensure this), and that conversions only progress to
+completion for the final chunk of text — in which the last character is
+complete. In the function below this is achieved by beginning the buffer for
+each chunk with a small amount of unconverted text from the previous chunk. The
+buffer is then guaranteed to begin with a complete character. Any ‘loose’
+bytes from the end of the last chunk and the beginning of the new one combine
+to form a complete character.</p>
+<p>The function first uses <code>PrepareToConvertToOrFromL()</code> to check
+whether the nominated character set is supported, and leaves if it is not. As
+in the previous examples, this variant
+of <code>PrepareToConvertToOrFromL()</code> is preferred because we are told
+which character set to convert from, and because the other variant would panic
+the thread if the character set were not available. The function also creates a
+buffer to hold both the unconverted text fragment from the previous chunk, and
+the new chunk. </p>
+<p class="CodeBlock"><code>LOCAL_C void ConvertForeignTextL(CCnvCharacterSetConverter&amp; aCharacterSetConverter,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RFs&amp; aFileServerSession, TUint aForeignCharacterSet)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;// check to see if the character set is supported - if not then leave<br>&nbsp;&nbsp;&nbsp;&nbsp;if (aCharacterSetConverter.PrepareToConvertToOrFromL(aForeignCharacterSet, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aFileServerSession) != CCnvCharacterSetConverter::EAvailable)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;User::Leave(KErrNotSupported);<br><br>&nbsp;&nbsp;&nbsp;&nbsp;// Create a buffer for holding non-Unicode text to be converted<br>&nbsp;&nbsp;&nbsp;&nbsp;const TInt KMaximumLengthOfBufferForForeignText=200;<br>&nbsp;&nbsp;&nbsp;&nbsp;TUint8 bufferForForeignText[KMaximumLengthOfBufferForForeignText];<br><br>&nbsp;&nbsp;&nbsp;&nbsp;// Create a variable for indicating the actual amount of text in the buffer<br>&nbsp;&nbsp;&nbsp;&nbsp;TInt lengthOfBufferForForeignText=0;</code></p>
+<p>A loop is then set up to get a new chunk and append it to the unconverted
+text fragment from the previous chunk. The code also contains a placeholder to
+find out whether the current chunk is the last chunk, and stores this
+information in a flag. In addition, it creates an output descriptor, a state
+variable, and a ‘remainder’ buffer for holding the unconverted text. The
+state variable is initialised
+with <code>CCnvCharacterSetConverter::KStateDefault</code> — after
+initialisation this should not be tampered with, but simply be passed into
+subsequent calls to <code>ConvertToUnicode()</code>.</p>
+<p class="CodeBlock"><code>    // Outer loop.<br>&nbsp;&nbsp;&nbsp;&nbsp;// Appends new chunk to fragment from previous chunk<br>&nbsp;&nbsp;&nbsp;&nbsp;// Then passes the buffer to the conversion loop.<br>&nbsp;&nbsp;&nbsp;&nbsp;for (;;)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Create a modifiable pointer descriptor for the next chunk of non-Unicode text<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TPtr8 nextChunkOfForeignText(bufferForForeignText+lengthOfBufferForForeignText,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KMaximumLengthOfBufferForForeignText-lengthOfBufferForForeignText);<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Insert code to load next chunk of non-Unicode text here<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Calculate the length of the next chunk of text to be processed<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const TInt lengthOfNextChunkOfForeignText=nextChunkOfForeignText.Length();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Specify the length of the buffer for non-Unicode text<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lengthOfBufferForForeignText+=lengthOfNextChunkOfForeignText;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Set whether this is the last chunk - find out from source of text<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const TBool isLastChunkOfForeignText= // ?<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// e.g. the source may define that the last chunk is of length zero, in which case<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// the expression &quot;(lengthOfNextChunkOfForeignText==0)&quot; would be assigned to <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// this variable; note that even if the length of this chunk is zero, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// we can't just exit this function here as bufferForForeignText <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// may not be empty (i.e. lengthOfBufferForForeignText&gt;0)</code></p>
+<p class="CodeBlock"><code>        // Create a small output buffer<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TBuf16&lt;20&gt; outputBuffer;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Create a remainder buffer for the unconverted text - used in conversion loop<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TPtrC8 remainderOfForeignText(bufferForForeignText, lengthOfBufferForForeignText);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Create a &quot;state&quot; variable and initialise it with CCnvCharacterSetConverter::KStateDefault<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// After initialisation the state variable must not be tampered with.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Simply pass into each subsequent call of ConvertToUnicode()<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TInt state=CCnvCharacterSetConverter::KStateDefault;</code></p>
+<p>The remainder buffer is passed to the conversion loop.</p>
+<p><code>ConvertFromUnicode()</code> converts characters from the remainder
+buffer until the output buffer is full — the Unicode contents of the output
+buffer are then safely stored. Then the remainder buffer is reset so that it
+only contains unconverted text. This process is repeated until the remainder
+buffer contains just less than 20 bytes — 20 is selected to ensure that the
+function never tries to convert a single partial multi-byte character. The
+remainder of the unconverted bytes are copied into the main foreign text
+buffer, and the function returns to the outer loop. The process then repeats
+itself, with a new chunk being added to the foreign text buffer etc. </p>
+<p>If the ‘last chunk’ flag is set — in the main loop — then the
+conversion continues until the remainder buffer is empty. The function then
+completes. The code fragment below also includes code to check for corrupted
+characters.</p>
+<p class="CodeBlock"><code>// The conversion loop. This loop takes chunks of text prepared by the previous loop and converts them<br>for(;;)  // conversion loop<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;const TInt lengthOfRemainderOfForeignText=remainderOfForeignText.Length();<br>&nbsp;&nbsp;&nbsp;&nbsp;if (isLastChunkOfForeignText)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (lengthOfRemainderOfForeignText==0)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return; // the single point of exit of this function<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;else<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// As this isn't the last chunk, ConvertToUnicode should not return<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// CCnvCharacterSetConverter::EErrorIllFormedInput if the input descriptor ends<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// with an incomplete sequence - but it will only do this if *none* of the input<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// descriptor can be consumed. Therefore if the input descriptor is long enough<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// (20 elements or longer is plenty adequate) there is no danger of this error<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// being returned for this reason. If it's shorter than that, simply put it<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// at the start of the buffer so that it gets converted with the next chunk.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (lengthOfRemainderOfForeignText&lt;20)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// put any remaining foreign text at the start of bufferForForeignText<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lengthOfBufferForForeignText=lengthOfRemainderOfForeignText;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mem::Copy(bufferForForeignText, remainderOfForeignText.Ptr(), lengthOfBufferForForeignText);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>&nbsp;&nbsp;&nbsp;&nbsp;const TInt returnValue=aCharacterSetConverter.ConvertToUnicode(outputBuffer,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;remainderOfForeignText, state);<br>&nbsp;&nbsp;&nbsp;&nbsp;if (returnValue==CCnvCharacterSetConverter::EErrorIllFormedInput)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;User::Leave(KErrCorrupt);<br>&nbsp;&nbsp;&nbsp;&nbsp;else if (returnValue&lt;0) // future-proof against &quot;TError&quot; expanding<br>&nbsp;&nbsp;&nbsp;&nbsp;User::Leave(KErrGeneral);<br>&nbsp;&nbsp;&nbsp;&nbsp;// Do something here to store the contents of the output buffer.<br>remainderOfForeignText.Set(remainderOfForeignText.Right(returnValue));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<a name="1.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Using the faster variant of <code>PrepareToConvertL()</code></h2>
+</div><div class="Bodytext">
+<p>The faster variant of <code>PrepareToConvertL()</code> is suitable if the
+required character set is to be selected by the user from the list of available
+character sets, or if frequent conversions to/from different character sets are
+needed. In most cases the other variant is preferred. The code fragments below
+briefly outline the usage of the faster variant.</p>
+<p>As with the other variant, a file server session must be passed in —
+this is used when searching the file system for available character sets. The
+<code>CCnvCharacterSetConverter</code> object is created, and used to invoke
+the <code>CreateArrayOfCharacterSetsAvailableLC()</code> function. This generates
+an array containing all the character sets.</p>
+<p class="CodeBlock"><code>// Set up file server session<br>RFs fileServerSession;<br>CleanupClosePushL(fileServerSession);<br>User::LeaveIfError(fileServerSession.Connect());<br>// Create CCnvCharacterSetConverter<br>CCnvCharacterSetConverter* characterSetConverter=CCnvCharacterSetConverter::NewLC();<br>// Create array of available character sets<br>CArrayFix&lt;CCnvCharacterSetConverter::SCharacterSet&gt;* arrayOfCharacterSetsAvailable= <br>&nbsp;&nbsp;&nbsp;&nbsp;characterSetConverter-&gt;CreateArrayOfCharacterSetsAvailableLC(fileServerSession);</code></p>
+<p>The character sets in the array might be displayed using code similar to
+that below. In the fragment the loop iterates through the array elements and
+prints the name of each referenced character set.</p>
+<p class="CodeBlock"><code>_LIT(KAvailable,&quot;Available:\n&quot;);<br>_LIT(KFormatting,&quot;    %S\n&quot;);<br>Console.Printf(KAvailable);<br>for (TInt i=arrayOfCharacterSetsAvailable-&gt;Count()-1; i&gt;=0; --i)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;const CCnvCharacterSetConverter::SCharacterSet&amp; charactersSet=<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(*arrayOfCharacterSetsAvailable)[i];<br>&nbsp;&nbsp;&nbsp;&nbsp;characterSetConverter-&gt;PrepareToConvertToOrFromL(charactersSet.Identifier(),<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*arrayOfCharacterSetsAvailable, fileServerSession);<br>&nbsp;&nbsp;&nbsp;&nbsp;TPtrC charactersSetName=charactersSet.Name();<br>&nbsp;&nbsp;&nbsp;&nbsp;Console.Printf(KFormatting, &amp;charactersSetName);<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p>The character set array is passed as an argument to
+the <code>PrepareToConvertToOrFromL()</code> function, along with the file
+server session and the UID for the character set. In the example below it is
+hard-coded as ASCII. If the character set does not exist, the function panics
+the thread.</p>
+<p class="CodeBlock"><code>// pass array to PrepareToConvertToOrFromL()<br>characterSetConverter-&gt;PrepareToConvertToOrFromL(KCharacterSetIdentifierAscii, <br>&nbsp;&nbsp;&nbsp;&nbsp;*arrayOfCharacterSetsAvailable, fileServerSession);</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

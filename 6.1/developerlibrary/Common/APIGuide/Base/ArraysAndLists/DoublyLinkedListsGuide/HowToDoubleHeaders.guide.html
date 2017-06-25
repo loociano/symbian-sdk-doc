@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to construct a header</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="DoublyLinkedListsGuide%2ehow%2dto%2eheaders"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToDoubleLinks.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToDoubleIterators.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Arrays&nbsp;and&nbsp;Lists</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Doubly&nbsp;Linked&nbsp;Lists</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;construct&nbsp;a&nbsp;header</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to construct a header</h1>
+</div><div class="Bodytext">
+<p>In order to construct a header, two important pieces of information
+are needed:</p>
+<ul>
+<li>
+<p>the <em>type</em> of object which forms the elements.</p>
+</li>
+<li>
+<p>the <em>offset</em> of the link object from the start of the
+element.</p>
+</li>
+</ul>
+<p>To create a header for a doubly linked list of <code>CMyClass</code>
+elements, defined as:</p>
+<p class="CodeBlock"><code>class CMyClass : public CBase<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;TDblQueLink iDlink;<br>&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;};</code></p>
+<p>construct a <code>TDblQue</code> as follows:</p>
+<p class="CodeBlock"><code>TDblQue&lt;CMyClass&gt; queHeader(_FOFF(CMyClass,iDlink));</code></p>
+<p>The <code>TDblQue</code> class takes a class template parameter which
+defines the type of object which is to form an element of the list. In this
+example, objects of type <code>CMyClass</code> form the elements of the
+list.</p>
+<p>The <code>_FOFF</code> macro (i.e. the &quot;field offset&quot;
+macro) calculates the offset of the component link object within the element.
+In this example, the required value is the offset of the <code>iDlink</code>
+data member from the start of <code>CMyClass</code>. </p>
+<div class="Figure">
+<p class="Image"><img src="DoublyLinkedLists-Headers1.gif" alt=""  border="0"></p>
+<p class="Caption"></p>
+</div>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

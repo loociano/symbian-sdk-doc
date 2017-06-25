@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CreateCAnimDllL()</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CFreeTimerWindowAnimClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="CSpriteAnimClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Animation</a>&nbsp;<span class="separator">&#187;</span>
+CreateCAnimDllL()</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>wsanimu.def</code>
+<br>Link against: <code>N/A</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aCreateCAnimDllL%28%29"></a>
+
+<h1><code>CreateCAnimDllL()</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CAnimDll* CreateCAnimDllL();</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Window server defined animation DLL interface. </p>
+<p>This function should be the only function exported by the DLL. It
+is called by the window server, at the request of the animation client, to
+construct the <code>CAnimDll</code> derived server side DLL class. In other
+words, an animation DLL is a polymorphic DLL with an interface which is defined
+by the window server.</p>
+<p>For example, for a DLL class <code>DExampleAnimDll</code> the
+following code must appear in the DLL source file:</p>
+<p class="CodeBlock"><code>// the only exported function in the DLLIMPORT_C CAnimDll* CreateCAnimDllL();</code></p>
+<p class="CodeBlock"><code>EXPORT_C CAnimDll* CreateCAnimDllL(){return new(ELeave) DExampleAnimDll;}</code></p>
+<p>The use of both IMPORT_C and EXPORT_C statements is required to
+satisfy different compiler conventions.</p>
+<p>Because this interface is defined by the window server, an
+animation DLL class must be linked against the window server definitions,
+otherwise linkage will fail. The mechanism is straightforward — include
+the following in your project <code>mmp</code> file:</p>
+<p>For ER5 and before,</p>
+<p class="CodeBlock"><code>TARGETTYPE DLL<br>deffile WSANIM.DEF<br>UID 26435858</code></p>
+<p>Post ER5</p>
+<p class="CodeBlock"><code>TARGETTYPE ani<br>UID 268450594</code></p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>The change in UID number is because ER5 is a narrow build while
+post ER5 builds are Unicode.</p>
+</li>
+<li>
+<p>The change is the TARGETTYPE is due to new functionality in the
+tool chain. </p>
+</li>
+</ul><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAnimDll</code></td>
+<td class="Cell"><p class="ValueDesc">The animation DLL factory.</p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

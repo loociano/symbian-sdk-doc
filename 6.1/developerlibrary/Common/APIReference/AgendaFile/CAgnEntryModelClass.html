@@ -1,0 +1,2362 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CAgnEntryModel</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CAgnDayListClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="CAgnIndexedModelClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Agenda&nbsp;File</a>&nbsp;<span class="separator">&#187;</span>
+CAgnEntryModel</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>agmmodel.h</code>
+<br>Link against: <code>agnmodel.lib</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aCAgnEntryModel"></a>
+
+<h1>Class <code>CAgnEntryModel</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CAgnEntryModel</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Provides the interface through which the data stored in an agenda
+file can be accessed. It is the base class for the indexed model,
+<code>CAgnIndexedModel</code> and for the instance model,
+<code>CAgnModel</code>.</p>
+<p>For an application to access the data in an agenda file, it must
+open an agenda model at run-time. There are three different types of agenda
+model:&nbsp;&#8212;</p>
+<ul>
+<li>
+<p>the entry model (class <code>CAgnEntryModel</code>) should be
+used by an application without a user interface, such as a format conversion
+application</p>
+</li>
+<li>
+<p>the instance model (class <code>CAgnModel</code>) should be
+used by an application which has a user interface</p>
+</li>
+<li>
+<p>the indexed model (class <code>CAgnIndexedModel</code>) can be
+used for greater efficiency by applications which have no user interface and
+which need to access only a subset of the data in the file</p>
+</li>
+</ul>
+<p>If the entry model is used, the agenda data can be accessed as
+entries. There are four types of entry:&nbsp;&#8212; </p>
+<ul>
+<li>
+<p>appointments (<code>CAgnAppt</code>)</p>
+</li>
+<li>
+<p>to-dos (<code>CAgnTodo</code>)</p>
+</li>
+<li>
+<p>events (<code>CAgnEvent</code>)</p>
+</li>
+<li>
+<p>anniversaries (<code>CAgnAnniv</code>)</p>
+</li>
+</ul>
+<p>Agenda entries are stored in an entry store, to-do lists are stored
+in a list of to-do lists. Both the entry store and the list of to-do lists are
+owned by the model.</p>
+<p>The agenda model can be used in client mode or in normal mode.
+Client mode means that the model is a client of the agenda server. When in
+client mode, all model function calls which access data in the file make an
+asynchronous request to the server. This allows other applications to access
+the same data concurrently. When the model is in normal mode, it accesses the
+model data directly, preventing other applications from accessing the data
+until the file is closed. Applications written for EPOC Release 5 or later
+should only use the model in client mode. Normal mode has been preserved so
+that applications written before EPOC Release 5 are compatible. The extended
+entry details (for instance attendees and location) which were intoduced in
+EPOC Release 5 can only be used if the model is in client
+mode.</p><h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code>CAgnEntryModel</code></td><td class="Cell">Provides the interface through which the data stored in an agenda file can be accessed</td>
+</tr>
+<tr><td class="Cell"><code><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase">CBase</a></code></td><td class="Cell">Base class for all classes to be instantiated on the heap</td>
+</tr>
+<tr><td class="Cell"><code><a href="MAgnActiveStepClass.html#%3a%3aMAgnActiveStep">MAgnActiveStep</a></code></td><td class="Cell">Base class used in the derivation of CAgnEntryModel</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>CAgnEntryModel</code>:
+<br><code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aAddEntryL%28%29" title="Adds an entry to the model's store">AddEntryL()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aAddTodoListL%28%29" title="Adds a to-do list to the model's store and sets the to-do list's position in the model's list of to-do lists">AddTodoListL()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aAnonymous" title="Miscellaneous constants">Anonymous</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aBufferedDeleting%28%29" title="Returns whether or not the model is using buffered deletion for entries">BufferedDeleting()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aBufferedStoring%28%29" title="Returns whether or not the model is using buffered storage for entries">BufferedStoring()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aCancel%28%29" title="Cancels an active object driven operation, such as saving, merging or tidying">Cancel()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aChangeTodoListOrderL%28%29" title="Changes the position of a to-do list in the model's list of to-do lists">ChangeTodoListOrderL()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aChangeTodoOrderL%28%29" title="Moves the to-do entry with the entry ID aTodoId to the position immediately before the position occupied by aTodoPositionReferenceId in the to-do list aTodoList">ChangeTodoOrderL()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aCharFormatLayer%28%29" title="Returns a pointer to the character format layer used by the model's entries">CharFormatLayer()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aCheckNotifier%28%29" title="Tests whether the currently open file has been updated by another client of the agenda server">CheckNotifier()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aCommitL%28%29" title="Commits any changes both to file and internally that have occurred to the model">CommitL()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aCreateL%28%29" title="Creates a new, empty agenda file with a valid agenda stream structure, which can be opened by the UI without modification">CreateL()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aCutEntryL%28%29" title="Cuts aEntry from the model's store">CutEntryL()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aDefaultAnnivDisplayTime%28%29" title="Retrieves the default display time for anniversary entries">DefaultAnnivDisplayTime()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aDefaultDayNoteDisplayTime%28%29" title="Retrieves the default display time for day notes">DefaultDayNoteDisplayTime()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aDefaultDisplayTime%28%29" title="Retrieves the default display time for the entry type specified">DefaultDisplayTime()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aDefaultEventDisplayTime%28%29" title="Retrieves the default display time for events">DefaultEventDisplayTime()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aDeleteEntryL%28%29" title="Deletes the entry identified by aEntryId from the store">DeleteEntryL()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aDeleteLiteEntry%28%29" title="Deletes a sort entry from the sort entry allocator (a specialised memory handler for sort entry objects)">DeleteLiteEntry()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aDeleteTodoListL%28%29" title="Deletes all the to-do entries which belong to the to-do list with the specified ID, then deletes the to-do list itself from the model's store">DeleteTodoListL()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aEAddTodoListAtEnd" title="Indicates the last position in the model's list of to-do lists">EAddTodoListAtEnd</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aEBlocked" title="The model's state while it is carrying out a prolonged activity">EBlocked</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aEClient" title="The model is a client of the server">EClient</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aENoFile" title="The initial state of the model before a file has been created or opened">ENoFile</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aENormal" title="The model is not using the server">ENormal</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aEOk" title="A file is open, and the model is ready for use">EOk</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aESaveAsCallBackHigh" title="High frequency">ESaveAsCallBackHigh</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aESaveAsCallBackLow" title="Low frequency">ESaveAsCallBackLow</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aESaveAsCallBackMedium" title="Medium frequency (the default)">ESaveAsCallBackMedium</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aEServer" title="The model is in server mode">EServer</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aExportVCalL%28%29" title="Exports a list of agenda entries as multiple vCalendar entities to the write stream specified">ExportVCalL()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aFetchEntryL%28%29" title="Retrieves an entry based on its unique ID using the agenda server">FetchEntryL()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aFetchTodoListL%28%29" title="Retrieves a to-do list based on its unique ID from the model's store, using the server">FetchTodoListL()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aFileVersion%28%29" title="Returns the version of the agenda model that was used to create the currently loaded file">FileVersion()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aFlushAndCommitL%28%29" title="Flushes the entry buffer and commits any changes that have occurred to the model">FlushAndCommitL()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aGetDayListFromExtractorL%28%29" title="Retrieves a list of instances for the specified day, using a previously set up instance extractor">GetDayListFromExtractorL()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aGetEmbeddedStore%28%29" title="Retrieves an embedded store based on stream ID using the server">GetEmbeddedStore()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aGetInstanceExtractorL%28%29" title="Creates an instance extractor using the specified filter and date">GetInstanceExtractorL()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aGetReadStreamL%28%29" title="Retrieves a reference to an application-specific stream in the model using the agenda server">GetReadStreamL()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aGetSymbolInstanceList%28%29" title="Retrieves a filtered list of entry symbols for the instances which occur within a month">GetSymbolInstanceList()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aGetSymbolInstanceListL%28%29" title="Retrieves a filtered list of entry symbols for the instances which occur within a month">GetSymbolInstanceListL()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aImportVCalL%28%29" title="Imports a vCalendar consisting of one or more vCalendar entities">ImportVCalL()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aIsClient%28%29" title="Returns whether or not the model is running as a client of the agenda server">IsClient()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aIsInUseObserverController%28%29" title="Retrieves whether the observer controller is enabled or disabled">IsInUseObserverController()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aIsValidL%28%29" title="Tests whether the store aStore with the root ID aId is in a state that is readable by the model, i.e">IsValidL()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aLastSynchronizedDateL%28%29" title="Retrieves the date/time that the model was last synchronised, as set by SetLastSynchronizedDateL()">LastSynchronizedDateL()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aModelVersion%28%29" title="Returns the version of the agenda model being used">ModelVersion()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aNewL%28%29" title="Constructs a new CAgnEntryModel object, optionally with a pointer to a state callback object">NewL()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aNumberOfObserversLoaded%28%29" title="Returns the number of registered observers whose DLLs are loaded">NumberOfObserversLoaded()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aNumberOfObserversRegistered%28%29" title="Returns the number of registered observers">NumberOfObserversRegistered()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aObserverController%28%29" title="Returns a pointer to the model's observer controller">ObserverController()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aOpenL%28%29" title="Opens an agenda file using the server">OpenL()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aParaFormatLayer%28%29" title="Returns a pointer to the paragraph format layer used by the model's entries">ParaFormatLayer()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aPasteEntryL%28%29" title="Pastes aEntry into the model's store">PasteEntryL()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aPeekAtDeletedTodoListList%28%29" title="This function returns a pointer to the list of deleted to-do lists">PeekAtDeletedTodoListList()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aPeekAtTodoListList%28%29" title="Returns a pointer to the model's list of to-do lists">PeekAtTodoListList()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aPictureFactory%28%29" title="Returns a pointer to the model's picture factory">PictureFactory()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aPopulateTodoListNamesL%28%29" title="Fills aList with the details (name, ID and sort order) for all of the to-do lists in the model's list of to-do lists (not including the deleted to-do lists)">PopulateTodoListNamesL()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aRegisterAlarm%28%29" title="Sets the model's registered alarm">RegisterAlarm()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aRegisterObserverL%28%29" title="Registers an observer with the model's observer controller and calls the observer's StartObserving() function">RegisterObserverL()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aRegisteredAlarm%28%29" title="Returns a pointer to the model's registered alarm">RegisteredAlarm()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aRegisteredIndex%28%29" title="Returns a pointer to the model's entry index">RegisteredIndex()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aRollbackL%28%29" title="Reverts the model to the state it was in after CommitL() or RollbackL() was last called, i.e">RollbackL()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aSaveAsL%28%29" title="Saves the model's entries and to-do lists to another stream store">SaveAsL()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aSaveTodoListsL%28%29" title="Uses the agenda server to save the model's to-do lists to the file specified">SaveTodoListsL()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aServer%28%29" title="Returns a pointer to the model's server object, as set by SetServer()">Server()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aSetDefaultAnnivDisplayTime%28%29" title="Sets the default display time for anniversary entries">SetDefaultAnnivDisplayTime()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aSetDefaultDayNoteDisplayTime%28%29" title="Sets the default display time for day notes">SetDefaultDayNoteDisplayTime()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aSetDefaultEventDisplayTime%28%29" title="Sets the default display time for events">SetDefaultEventDisplayTime()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aSetEntryServer%28%29" title="Sets the server for an agenda entry to be the same as the server used by the model">SetEntryServer()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aSetLastSynchronizedDateL%28%29" title="Sets the date/time that the model was last synchronised">SetLastSynchronizedDateL()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aSetMode%28%29" title="Sets the model's mode">SetMode()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aSetParaAndCharFormatLayersL%28%29" title="Changes the format layers used for the model's entries to the values specified">SetParaAndCharFormatLayersL()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aSetPictureFactory%28%29" title="Sets the model's picture factory">SetPictureFactory()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aSetServer%28%29" title="Sets the server to use for model functions and sets the model's mode to EClient">SetServer()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aState%28%29" title="Returns the state of the agenda model">State()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aStreamId%28%29" title="Retrieves the stream ID for the specified stream UID">StreamId()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aStreamStore%28%29" title="Returns a reference to the stream store in which the model's data is stored">StreamStore()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aTModelMode" title="This enumeration is used in the CAgnEntryModel::SetMode() function to specify whether or not the model is a client of the server">TModelMode</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aTSaveAsCallBackFrequency" title="This enumeration specifies how frequently the user of a save as operation (CAgnEntryModel::SaveAsL()) should be notified of its progress with the MAgnProgressCallBack::Progress() method">TSaveAsCallBackFrequency</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aTState" title="Model state">TState</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aTodoListCount%28%29" title="Returns the number of to-do lists in the model's list of to-do lists">TodoListCount()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aTodoListIdsL%28%29" title="Creates and returns an array of to-do list IDs for all the to-do lists in the model">TodoListIdsL()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aUnregisterObserverL%28%29" title="Removes the observer with the DLL name specified from the model's observer controller">UnregisterObserverL()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aUpdateDefaultEntryTimes%28%29" title="Propagates changes made to the default display time for all entry types by a call to one of the SetDefaultXxxDisplayTime() functions to the server">UpdateDefaultEntryTimes()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aUpdateEntryL%28%29" title="Updates the details for the existing entry aEntry in the model's store">UpdateEntryL()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aUpdateTodoListL%28%29" title="Updates a to-do list">UpdateTodoListL()</a></code>, <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3a%7eCAgnEntryModel%28%29" title="Frees all resources owned by the agenda model, prior to its destruction">~CAgnEntryModel()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap">CBase</a></code>:
+<br><code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase%3a%3aoperator%20new%28%29" title="Allocates the object from the heap and then initialises its contents to binary zeroes">operator new()</a></code></p>
+<a name="2.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction and destruction</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aNewL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NewL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static CAgnEntryModel* NewL(MAgnModelStateCallBack* aStateCallBack=NULL);</code></p><h4 class="subheading">Description</h4>
+<p>Constructs a new <code>CAgnEntryModel</code> object, optionally
+with a pointer to a state callback object. The model's state is initialised to
+<code>ENoFile</code> and the model mode to
+<code>ENormal</code>.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">MAgnModelStateCallBack* aStateCallBack=NULL</code></td>
+<td class="Cell"><p class="ValueDesc">If specified, provides a callback function which notifies the
+user that the model is about to change state.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnEntryModel*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the newly created entry model.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3a%7eCAgnEntryModel%28%29"></a>
+<hr size="1" noshade>
+<h3><code>~CAgnEntryModel()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual ~CAgnEntryModel();</code></p><h4 class="subheading">Description</h4>
+<p>Frees all resources owned by the agenda model, prior to its
+destruction.</p>
+<a name="2.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>File operations</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aCreateL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CreateL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TStreamId CreateL(CStreamStore&amp; aStore,const TDesC&amp; aDefaultTodoListName, const CParaFormatLayer* aParaFormatLayer, const CCharFormatLayer* aCharFormatLayer);<br>TStreamId CreateL(CStreamStore&amp; aStore, const TDesC&amp; aDefaultTodoListName, const CParaFormatLayer* aParaFormatLayer, const CCharFormatLayer* aCharFormatLayer, TBool aCreateTodoList);</code></p><h4 class="subheading">Description</h4>
+<p>Creates an empty network of streams within
+<code>aStore</code>&nbsp;&#8212; overloaded function. The function returns
+the single root stream ID of the store.</p>
+<p>These functions are identical except that the first variant creates
+a default to-do list with the name <code>aDefaultTodoListName</code> and saved
+with its ID being added to the model's list of to-do lists. The second variant
+only does this if <code>aCreateTodoList</code> is <code>ETrue</code>.</p>
+<p>The model's state is set to <code>EOk</code>.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CStreamStore&amp; aStore</code></td>
+<td class="Cell"><p class="ValueDesc">A reference to the store object in which the model's data is
+stored.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aDefaultTodoListName</code></td>
+<td class="Cell"><p class="ValueDesc">The name for the default to-do list which may be created. The
+maximum number of characters for the name can be found by using
+<code>AgnModel::MaxTodoListNameLength()</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CParaFormatLayer* aParaFormatLayer</code></td>
+<td class="Cell"><p class="ValueDesc">The paragraph formatting layer for the model's agenda
+entries.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CCharFormatLayer* aCharFormatLayer</code></td>
+<td class="Cell"><p class="ValueDesc">The character formatting layer for the model's agenda
+entries.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool aCreateTodoList</code></td>
+<td class="Cell"><p class="ValueDesc">If specified, <code>ETrue</code> creates a default to-do list with
+name <code>aDefaultTodoListName</code>. If <code>EFalse</code>, it does
+not.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamId</code></td>
+<td class="Cell"><p class="ValueDesc">The root stream ID of the store.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aCreateL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CreateL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void CreateL(RFs&amp; aFs, TFileName aFileName, const TDesC&amp; aDefaultTodoListName, const CParaFormatLayer* aParaFormatLayer, const CCharFormatLayer* aCharFormatLayer);</code></p><h4 class="subheading">Description</h4>
+<p>Creates a new, empty agenda file with a valid agenda stream
+structure, which can be opened by the UI without modification. Also creates an
+empty default to-do list.</p>
+<p>Note that this function should be called before the model has been
+assigned a server pointer. If the model is in <code>EClient</code> mode when
+this function is called, a panic occurs.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RFs&amp; aFs</code></td>
+<td class="Cell"><p class="ValueDesc">A session with the file server.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TFileName aFileName</code></td>
+<td class="Cell"><p class="ValueDesc">The name of the file to create.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aDefaultTodoListName</code></td>
+<td class="Cell"><p class="ValueDesc">The name for the default to-do list which is created. The maximum
+number of characters for the name can be found by using
+<code>AgnModel::MaxTodoListNameLength()</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CParaFormatLayer* aParaFormatLayer</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the format layer on which the paragraph formatting for
+entries in the model is based.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CCharFormatLayer* aCharFormatLayer</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the format layer on which the character formatting for
+entries in the model is based.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.4"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aOpenL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>OpenL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void OpenL(CStreamStore&amp; aStore, TStreamId aId, TTimeIntervalMinutes aDefaultEventDisplayTime = 0, TTimeIntervalMinutes aDefaultAnnivDisplayTime = 0, TTimeIntervalMinutes aDefaultDayNoteDisplayTime = 0);</code></p><h4 class="subheading">Description</h4>
+<p>Opens an existing model store, whose root ID is <code>aId</code> in the
+store <code>aStore</code>. Does not use the agenda server, so should not be
+called if the model is in client mode. If the model is in client mode, you
+should use the &quot;Open named agenda file&quot; variant of this function.</p>
+<p>The three <code>TTimeIntervalMinutes</code> arguments specify the
+default display times for the different entry types. The display time values
+are numbers of minutes from midnight&nbsp;&#8212; between zero and 1439
+inclusive. These values can be changed using one of the model's
+<code>SetDefaultXxxDisplayTime()</code> functions. The parameters specifying
+the default display times have default values of zero.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>The default display time for events, anniversaries and day notes
+can be overridden using the relevant class's <code>SetDisplayTime()</code>
+function, (see classes <code>CAgnEvent</code>, <code>CAgnAnniv</code>,
+<code>CAgnAppt</code>).</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CStreamStore&amp; aStore</code></td>
+<td class="Cell"><p class="ValueDesc">The store in which the model's data is stored.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamId aId</code></td>
+<td class="Cell"><p class="ValueDesc">The root stream ID of the store <code>aStore</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTimeIntervalMinutes aDefaultEventDisplayTime</code></td>
+<td class="Cell"><p class="ValueDesc">The default display time for events. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTimeIntervalMinutes aDefaultAnnivDisplayTime</code></td>
+<td class="Cell"><p class="ValueDesc">The default display time for anniversaries.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTimeIntervalMinutes aDefaultDayNoteDisplayTime</code></td>
+<td class="Cell"><p class="ValueDesc">The default display time for day notes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.5"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aOpenL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>OpenL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void OpenL(const TDesC&amp; aFileName, TTimeIntervalMinutes aDefaultEventDisplayTime = 0, TTimeIntervalMinutes aDefaultAnnivDisplayTime = 0, TTimeIntervalMinutes aDefaultDayNoteDisplayTime = 0);</code></p><h4 class="subheading">Description</h4>
+<p>Opens an agenda file using the server. If another agenda file is open in
+the same server session, it is closed. This function should only be used if the
+model is in client mode.</p>
+<p>The three <code>TTimeIntervalMinutes</code> arguments specify the default
+display times for the different entry types. The display time values are
+numbers of minutes from midnight&nbsp;&#8212; between zero and 1439
+inclusive. They all have default values of zero.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aFileName</code></td>
+<td class="Cell"><p class="ValueDesc">The agenda file to open.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTimeIntervalMinutes aDefaultEventDisplayTime</code></td>
+<td class="Cell"><p class="ValueDesc">The default display time for events. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTimeIntervalMinutes aDefaultAnnivDisplayTime</code></td>
+<td class="Cell"><p class="ValueDesc">The default display time for anniversaries.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTimeIntervalMinutes aDefaultDayNoteDisplayTime</code></td>
+<td class="Cell"><p class="ValueDesc">The default display time for day notes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.6"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aSaveAsL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SaveAsL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TStreamId SaveAsL(CStreamStore&amp; aStoreToSaveTo,MAgnProgressCallBack* aProgressCallBack, TSaveAsCallBackFrequency aSaveAsCallBackFrequency = ESaveAsCallBackMedium) const;</code></p><h4 class="subheading">Description</h4>
+<p>Saves the model's entries and to-do lists to another stream store. The
+model's state must be <code>EOk</code> when this function is called, otherwise
+a panic is raised.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CStreamStore&amp; aStoreToSaveTo</code></td>
+<td class="Cell"><p class="ValueDesc">The stream store to which to save the agenda model.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">MAgnProgressCallBack* aProgressCallBack</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to a progress callback object. The operation uses an active
+object. This callback provides progress information and information about how
+the operation terminated.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TSaveAsCallBackFrequency aSaveAsCallBackFrequency =
+ESaveAsCallBackMedium</code></td>
+<td class="Cell"><p class="ValueDesc">Specifies how often the model should callback the user with the
+<code>MAgnProgressCallBack::Progress()</code> method. It should not normally be
+necessary to change this value from the default.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamId</code></td>
+<td class="Cell"><p class="ValueDesc">The ID of the stream store created by this function in which the model is
+saved.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.7"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aCancel%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Cancel()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Cancel();</code></p><h4 class="subheading">Description</h4>
+<p>Cancels an active object driven operation, such as saving, merging or
+tidying.</p>
+<a name="2.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Entry operations</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aAddEntryL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>AddEntryL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TAgnEntryId AddEntryL(CAgnEntry* aEntry,TAgnEntryId aTodoPositionReferenceId = AgnModel::NullId());</code></p><h4 class="subheading">Description</h4>
+<p>Adds an entry to the model's store. If the entry is alarmed, the next due
+alarm is queued with the alarm server. The date/time of the entry's creation is
+set to the current date/time.</p>
+<p>Notes</p>
+<p>If the entry is a to-do, it must specify a to-do list ID to identify the
+to-do list to which it should be added.</p>
+<p>The function notifies the model's observer controller that an entry has
+been added.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnEntry* aEntry</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the entry to add.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnEntryId aTodoPositionReferenceId = AgnModel::NullId()</code></td>
+<td class="Cell"><p class="ValueDesc">If the new entry is a to-do, this argument is used to specify the
+position in the to-do list at which <code>aEntry</code> is added.
+<code>aEntry</code> is inserted at the position immediately before the entry
+with the ID specified. If this ID is null, (the default), <code>aEntry</code>
+is added at the end of the to-do list. The value is ignored if the entry is not
+a to-do.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnEntryId</code></td>
+<td class="Cell"><p class="ValueDesc">The entry ID for <code>aEntry</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aFetchEntryL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FetchEntryL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CAgnEntry* FetchEntryL(TAgnEntryId aId) const;</code></p><h4 class="subheading">Description</h4>
+<p>Retrieves an entry based on its entry ID.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnEntryId aId</code></td>
+<td class="Cell"><p class="ValueDesc">The entry ID of the entry to retrieve.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnEntry*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the entry.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">This function leaves with <code>KErrNotFound</code> if no entry matching
+<code>aId</code> is found. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.4"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aFetchEntryL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FetchEntryL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CAgnEntry* FetchEntryL(TAgnUniqueId aId) const;</code></p><h4 class="subheading">Description</h4>
+<p>Retrieves an entry based on its unique ID using the agenda server. The
+model must be in client mode before this function is
+called.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnUniqueId aId</code></td>
+<td class="Cell"><p class="ValueDesc">The unique ID of the entry to retrieve.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnEntry*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the entry.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">This function leaves with <code>KErrNotFound</code> if no entry matching
+<code>aId</code> is found. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.5"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aCutEntryL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CutEntryL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void CutEntryL(TAgnEntryId aEntryId);</code></p><h4 class="subheading">Description</h4>
+<p>Cuts the entry identified by <code>aEntryId</code> from the model's
+store.</p>
+<p>Cutting an entry is the same as deleting it, except that if the entry has
+a synchronisation count greater than zero, then cutting the entry preserves its
+entry ID and unique ID if the entry is subsequently pasted back into the
+model's store.</p>
+<p>Note</p>
+<p>The function notifies the model's observer controller that an entry has
+been deleted.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnEntryId aEntryId</code></td>
+<td class="Cell"><p class="ValueDesc">The ID of the entry to cut.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">If the entry cannot be found, the function leaves with
+<code>KErrNotFound</code> . </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.6"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aCutEntryL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CutEntryL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void CutEntryL(CAgnEntry* aEntry);</code></p><h4 class="subheading">Description</h4>
+<p>Cuts <code>aEntry</code> from the model's store.</p>
+<p>Cutting an entry is the same as deleting it, except that if the entry has
+a synchronisation count greater than zero, then cutting the entry preserves its
+entry ID and unique ID if the entry is subsequently pasted back into the
+model's store.</p>
+<p>Note</p>
+<p>The function notifies the model's observer controller that an entry has
+been deleted.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnEntry* aEntry</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the entry to cut.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.7"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aPasteEntryL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PasteEntryL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void PasteEntryL(CAgnEntry* aEntry, TAgnEntryId aTodoPositionReferenceId = AgnModel::NullId());</code></p><h4 class="subheading">Description</h4>
+<p>Pastes <code>aEntry</code> into the model's store.</p>
+<p>If the entry is a to-do, its position within the to-do list may be
+specified using <code>aTodoPositionReferenceId</code>.</p>
+<p>Note</p>
+<p>If <code>aEntry</code>'s entry ID and unique ID correspond to those of
+the last entry to be cut (using <code>CutEntryL()</code>), then the entry's
+unique ID is preserved. Otherwise, calling this function has the same effect as
+calling <code>AddEntryL()</code>&nbsp;&#8212; the entry is assigned a new
+unique ID, like any other new entry.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnEntry* aEntry</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the entry to paste.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnEntryId aTodoPositionReferenceId = AgnModel::NullId()</code></td>
+<td class="Cell"><p class="ValueDesc">If <code>aEntry</code> is a to-do, this argument is used to specify the
+position in the to-do list at which it is added. <code>aEntry</code> is
+inserted at the position immediately before the entry with the ID specified. If
+this ID is null, (the default), <code>aEntry</code> is added at the end of the
+to-do list. The value is ignored if the entry is not a to-do.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.8"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aUpdateEntryL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>UpdateEntryL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void UpdateEntryL(CAgnEntry* aEntry,TAgnEntryId aTodoPositionReferenceId = AgnModel::NullId());</code></p><h4 class="subheading">Description</h4>
+<p>Updates the details for the existing entry <code>aEntry</code> in the
+model's store.</p>
+<p>If the entry is alarmed, its next due alarm is queued with the alarm
+server.</p>
+<p>If the entry is a to-do and it is being moved from one to-do list to
+another, the position of the entry in the new list is identified by
+<code>aTodoPositionReferenceId</code>.</p>
+<p>Notes</p>
+<p>If the entry passed to this function has previously been marked as
+deleted, and its synchronisation count is now zero then the entry is fully
+deleted from the model's store.</p>
+<p>The function notifies the model's observer controller that the entry has
+been updated.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnEntry* aEntry</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to an agenda entry which contains the updated details.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnEntryId aTodoPositionReferenceId = AgnModel::NullId()</code></td>
+<td class="Cell"><p class="ValueDesc">If the entry is a to-do, and the to-do is being moved from one to-do list
+to another, this specifies the position in the to-do list at which
+<code>aEntry</code> is added. <code>aEntry</code> is inserted at the position
+immediately before the entry with the ID specified. If this ID is null, (this
+is the default), <code>aEntry</code> is appended to the to-do list. The value
+is ignored if the entry is not a to-do, or if it is not being moved to another
+to-do list.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.9"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aDeleteEntryL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DeleteEntryL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void DeleteEntryL(CAgnEntry* aEntry);</code></p><h4 class="subheading">Description</h4>
+<p>Deletes <code>aEntry</code> from the model's store. If the entry is a
+to-do then additionally, its ID is removed from the to-do list.</p>
+<p>Notes</p>
+<p>If the entry has a positive synchronisation count, it is marked as having
+been deleted but is not removed from the store. It is removed from the model's
+indexes, so is not visible to views, but can still be accessed using an entry
+iterator (see class <code>TAgnEntryIter</code>).</p>
+<p>The model's observer controller is notified that the entry has been
+deleted.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnEntry* aEntry</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the entry to delete.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.10"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aDeleteEntryL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DeleteEntryL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void DeleteEntryL(TAgnEntryId aEntryId);</code></p><h4 class="subheading">Description</h4>
+<p>Deletes the entry identified by <code>aEntryId</code> from the store. If
+the entry is a to-do then additionally, its ID is removed from the to-do
+list.</p>
+<p>Notes</p>
+<p>If the entry has a positive synchronisation count, it is marked as having
+been deleted but is not removed from the store. It is removed from the model's
+indexes, so is not visible to views, but can still be accessed using an entry
+iterator (see class <code>TAgnEntryIter</code>).</p>
+<p>The model's observer controller is notified that the entry has been
+deleted.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnEntryId aEntryId</code></td>
+<td class="Cell"><p class="ValueDesc">The ID of the entry to delete.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">If the specified entry cannot be found, the function leaves with
+<code>KErrNotFound</code> . </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.11"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aDeleteLiteEntry%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DeleteLiteEntry()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void DeleteLiteEntry(const CAgnSortEntry* aSortEntry);</code></p><h4 class="subheading">Description</h4>
+<p>Deletes a sort entry from the sort entry allocator (a specialised memory
+handler for sort entry objects). A sort entry is an entry in an agenda index.
+The function frees the sort entry object and puts it on the free
+list.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CAgnSortEntry* aSortEntry</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the sort entry to delete.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.12"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aRegisteredIndex%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RegisteredIndex()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CAgnSortEntryTable* RegisteredIndex() const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns a pointer to the model's entry index. This index can be used to
+find entries which are the same apart from their entry
+IDs.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnSortEntryTable*</code></td>
+<td class="Cell"><p class="ValueDesc">The model's entry index.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>To-do list operations</h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aAddTodoListL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>AddTodoListL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TAgnTodoListId AddTodoListL(CAgnTodoList* aTodoList,TInt aPosition=EAddTodoListAtEnd);</code></p><h4 class="subheading">Description</h4>
+<p>Adds a to-do list to the model's store and sets the to-do list's position
+in the model's list of to-do lists.</p>
+<p>If the position is not specified, the to-do list is added at the end of
+the list of to-do lists. Specifying a position of zero indicates it is the
+first to-do list. If the position specified is equal to the number of to-do
+lists in the model, the new to-do list is added at the end. If the position
+specified is greater than the number of to-do lists in the model, or is
+negative, the function raises a panic.</p>
+<p>Note</p>
+<p>The function notifies the model's observer controller that the to-do list
+has been added.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnTodoList* aTodoList</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the to-do list to add.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aPosition=EAddTodoListAtEnd</code></td>
+<td class="Cell"><p class="ValueDesc">Position within the model's list of to-do lists at which to insert the
+to-do list.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnTodoListId</code></td>
+<td class="Cell"><p class="ValueDesc">The to-do list ID.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aFetchTodoListL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FetchTodoListL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CAgnTodoList* FetchTodoListL(TAgnTodoListId aTodoListId) const;</code></p><h4 class="subheading">Description</h4>
+<p>Retrieves a to-do list based on its to-do list ID from the model's
+store.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnTodoListId aTodoListId</code></td>
+<td class="Cell"><p class="ValueDesc">The ID of the to-do list to retrieve.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnTodoList*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the to-do list.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.4"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aFetchTodoListL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FetchTodoListL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CAgnTodoList* FetchTodoListL(TAgnUniqueId aUniqueId) const;</code></p><h4 class="subheading">Description</h4>
+<p>Retrieves a to-do list based on its unique ID from the model's store,
+using the server.</p>
+<p>The model must be in client mode before this function is
+called.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnUniqueId aUniqueId</code></td>
+<td class="Cell"><p class="ValueDesc">The unique ID of the to-do list to retrieve.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnTodoList*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the to-do list.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.5"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aDeleteTodoListL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DeleteTodoListL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void DeleteTodoListL(CAgnTodoList* aTodoList);</code></p><h4 class="subheading">Description</h4>
+<p>Deletes all the to-do entries which belong to the to-do list specified,
+then deletes the to-do list itself from the model's store.</p>
+<p>If the model has only one to-do list, this function has no effect.</p>
+<p>Notes</p>
+<p>The function notifies the model's observer controller that the to-do list
+has been deleted.</p>
+<p>If the to-do list, or any to-do entry in the list, has a positive
+synchronisation count, the list or entry is marked as having been deleted but
+is not removed from the store. It is removed from the model's indexes, so is
+not visible to views, but can still be accessed using an entry iterator (see
+class <code>TAgnEntryIter</code>).</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnTodoList* aTodoList</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the to-do list to delete.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.6"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aDeleteTodoListL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DeleteTodoListL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void DeleteTodoListL(TAgnTodoListId aTodoListId);</code></p><h4 class="subheading">Description</h4>
+<p>Deletes all the to-do entries which belong to the to-do list with the
+specified ID, then deletes the to-do list itself from the model's store.</p>
+<p>If the model has only one to-do list, this function has no effect.</p>
+<p>Notes</p>
+<p>The model's observer controller is notified that the to-do list has been
+deleted.</p>
+<p>If the to-do list, or any to-do entry in the list, has a positive
+synchronisation count, the list, or entry is marked as having been deleted but
+is not removed from the store. It is removed from the indexes, so is not
+visible to views, but can still be accessed using an entry iterator (see class
+<code>TAgnEntryIter</code>). It is also added to the model's list of deleted
+to-do lists.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnTodoListId aTodoListId</code></td>
+<td class="Cell"><p class="ValueDesc">The ID of the to-do list to delete.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.7"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aUpdateTodoListL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>UpdateTodoListL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void UpdateTodoListL(CAgnTodoList* aTodoList);</code></p><h4 class="subheading">Description</h4>
+<p>Updates a to-do list. A to-do list with the same to-do list ID as
+<code>aTodoList</code> must already exist in the model's store, and if so, it
+is replaced by <code>aTodoList</code>.</p>
+<p>Notes</p>
+<p>The model's observer controller is notified that the to-do list has been
+updated. </p>
+<p>When a to-do list which has previously been marked as deleted is passed
+to this function, but its synchronisation count is now zero, then it is
+physically removed from the store and its ID removed from the model's list of
+deleted to-do lists.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnTodoList* aTodoList</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to a to-do list object containing the new details.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">The function leaves with <code>KErrNotFound</code> if
+<code>aTodoList</code> does not already exist in the model's store. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.8"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aChangeTodoListOrderL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ChangeTodoListOrderL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ChangeTodoListOrderL(TInt aOldPosition,TInt aNewPosition);</code></p><h4 class="subheading">Description</h4>
+<p>Changes the position of a to-do list in the model's list of to-do
+lists.</p>
+<p>The two positions specified are indexes into the model's list of to-do
+lists, so should be specified as relative to zero, i.e. zero indicates the
+first position in the list. Specify <code>EAddTodoListAtEnd</code> to indicate
+the position at the end of the list. Both positions must be valid, or a panic
+is raised.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aOldPosition</code></td>
+<td class="Cell"><p class="ValueDesc">The position of the to-do list to move.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aNewPosition</code></td>
+<td class="Cell"><p class="ValueDesc">The new position for the to-do list.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.9"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aChangeTodoOrderL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ChangeTodoOrderL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ChangeTodoOrderL(TAgnTodoListId aTodoListId,TAgnEntryId aTodoId,TAgnEntryId aTodoPositionReferenceId= AgnModel::NullId());</code></p><h4 class="subheading">Description</h4>
+<p>Moves the to-do entry with the entry ID <code>aTodoId</code> to the
+position immediately before the position occupied by
+<code>aTodoPositionReferenceId</code>. The to-do list affected is identified by
+<code>aTodoListId</code>. If <code>aTodoPositionReferenceId</code> is null (the
+default), or if it cannot be found in the list, then the to-do entry is moved
+to the end of the list.</p>
+<p>Note </p>
+<p>A to-do instance list (<code>CAgnTodoInstanceList</code>) should be used
+to determine the position to which to move the to-do entry. This is because the
+user sees the order of the to-do entries as they appear in a to-do instance
+list. A to-do list (<code>CAgnTodoList</code>), on the other hand, may contain
+to-do entries which are not visible to the user (for instance if they are
+crossed out, and crossed out entries are not being
+displayed).</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnTodoListId aTodoListId</code></td>
+<td class="Cell"><p class="ValueDesc">Identifies the to-do list to which <code>aTodoId</code> belongs.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnEntryId aTodoId</code></td>
+<td class="Cell"><p class="ValueDesc">Identifies the to-do entry to move.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnEntryId aTodoPositionReferenceId= AgnModel::NullId()</code></td>
+<td class="Cell"><p class="ValueDesc">Specifies a position in the to-do list. The entry identified by
+<code>aTodoId</code> is moved to the position immediately before this. If this
+is null (the default) then <code>aTodoId</code> is moved to the end of the
+list.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">The function leaves if the to-do list specified cannot be found. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.10"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aChangeTodoOrderL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ChangeTodoOrderL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ChangeTodoOrderL(CAgnTodoList* aTodoList,TAgnEntryId aTodoId,TAgnEntryId aTodoPositionReferenceId= AgnModel::NullId());</code></p><h4 class="subheading">Description</h4>
+<p>Moves the to-do entry with the entry ID <code>aTodoId</code> to the
+position immediately before the position occupied by
+<code>aTodoPositionReferenceId</code> in the to-do list <code>aTodoList</code>.
+If <code>aTodoPositionReferenceId</code> is null (the default), or if it cannot
+be found in the list, then the to-do entry is moved to the end of the
+list.</p>
+<p>Notes</p>
+<p>A to-do instance list (<code>CAgnTodoInstanceList</code>) must be used to
+determine the position to which to move the to-do entry. This is because the
+user sees the order of the to-do entries as they appear in a to-do instance
+list. A to-do list (<code>CAgnTodoList</code>), on the other hand, may contain
+to-do entries which are not visible to the user (for instance if they are
+crossed out, and crossed out entries are not being displayed).</p>
+<p>If this function leaves, the contents of the to-do list
+<code>aTodoList</code> are invalid and the list should be
+deleted.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnTodoList* aTodoList</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the to-do list to which <code>aTodoId</code> belongs.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnEntryId aTodoId</code></td>
+<td class="Cell"><p class="ValueDesc">Identifies the to-do entry to move.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnEntryId aTodoPositionReferenceId= AgnModel::NullId()</code></td>
+<td class="Cell"><p class="ValueDesc">Specifies a position in the to-do list. The entry identified by
+<code>aTodoId</code> is moved to the position immediately before this. If this
+is null (the default) then <code>aTodoId</code> is moved to the end of the
+list.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.11"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aTodoListCount%28%29"></a>
+<hr size="1" noshade>
+<h3><code>TodoListCount()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt TodoListCount() const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns the number of to-do lists in the model's list of to-do
+lists.</p>
+<p>This count does not include the deleted to-do lists.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The number of to-do lists in the model's list of to-do lists.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.12"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aTodoListIdsL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>TodoListIdsL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CArrayFixFlat&lt;TAgnTodoListId&gt;* TodoListIdsL() const;</code></p><h4 class="subheading">Description</h4>
+<p>Creates and returns an array of to-do list IDs for all the to-do lists in
+the model. The returned array includes deleted to-do lists.</p>
+<p>Note</p>
+<p>This function is provided for use by synchronisation
+applications.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CArrayFixFlat&lt;TAgnTodoListId&gt;*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to an array of all to-do list IDs owned by the model.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.13"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aSaveTodoListsL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SaveTodoListsL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TStreamId SaveTodoListsL(CStreamStore&amp; aStoreToSaveTo) const;</code></p><h4 class="subheading">Description</h4>
+<p>Saves the model's to-do lists into the stream store specified. This does
+not include the model's deleted to-do lists. It returns the root stream ID of
+the stream store used.</p>
+<p>Note</p>
+<p>This function is synchronous, so calling it on a model which has a large
+number of to-do lists may cause a few seconds delay before it
+completes.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CStreamStore&amp; aStoreToSaveTo</code></td>
+<td class="Cell"><p class="ValueDesc">The stream store into which to save the to-do lists.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamId</code></td>
+<td class="Cell"><p class="ValueDesc">The root stream ID of the stream store which was used.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.14"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aSaveTodoListsL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SaveTodoListsL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TStreamId SaveTodoListsL(TFileName aFileName) const;</code></p><h4 class="subheading">Description</h4>
+<p>Uses the agenda server to save the model's to-do lists to the file
+specified. This does not include the model's deleted to-do lists. The file
+<code>aFileName</code> must already exist, and must not be read-only. The model
+must be in client mode before this function is called.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TFileName aFileName</code></td>
+<td class="Cell"><p class="ValueDesc">The agenda file to which to save the model's to-do lists.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamId</code></td>
+<td class="Cell"><p class="ValueDesc">The root stream ID of the stream store used to store the to-do
+lists.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.15"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aPeekAtTodoListList%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PeekAtTodoListList()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const CAgnTodoListList* PeekAtTodoListList() const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns a pointer to the model's list of to-do lists. This pointer can be
+used to retrieve the model's to-do lists and their order.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnTodoListList*</code></td>
+<td class="Cell"><p class="ValueDesc">Constant pointer to the model's list of to-do lists.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.16"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aPeekAtDeletedTodoListList%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PeekAtDeletedTodoListList()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const CAgnDeletedTodoListList* PeekAtDeletedTodoListList() const;</code></p><h4 class="subheading">Description</h4>
+<p>This function returns a pointer to the list of deleted to-do lists. It is
+provided for use by synchronisation apps.</p>
+<p>Note</p>
+<p>To get an array of the todo list IDs for all the to-do lists held by the
+model, whether deleted or not, use the function
+<code>TodoListIdsL()</code>.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnDeletedTodoListList*</code></td>
+<td class="Cell"><p class="ValueDesc">Ponter to the model's list of deleted to-do lists.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.17"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aPopulateTodoListNamesL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PopulateTodoListNamesL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void PopulateTodoListNamesL(CAgnTodoListNames* aList) const;</code></p><h4 class="subheading">Description</h4>
+<p>Fills <code>aList</code> with the details (name, ID and sort order) for
+all of the to-do lists in the model's list of to-do lists (not including the
+deleted to-do lists).</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnTodoListNames* aList</code></td>
+<td class="Cell"><p class="ValueDesc">On return, a pointer to a list containing the names and IDs of the
+model's to-do lists.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Format layers</h2>
+</div><div class="Bodytext">
+<a name="2.10.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aCharFormatLayer%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CharFormatLayer()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const CCharFormatLayer* CharFormatLayer() const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns a pointer to the character format layer used by the model's
+entries.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CCharFormatLayer*</code></td>
+<td class="Cell"><p class="ValueDesc">A pointer to the model's character format layer.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aParaFormatLayer%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ParaFormatLayer()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const CParaFormatLayer* ParaFormatLayer() const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns a pointer to the paragraph format layer used by the model's
+entries.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CParaFormatLayer*</code></td>
+<td class="Cell"><p class="ValueDesc">A pointer to the model's paragraph format layer.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.4"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aSetParaAndCharFormatLayersL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetParaAndCharFormatLayersL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetParaAndCharFormatLayersL(const CParaFormatLayer* aParaFormatLayer,const CCharFormatLayer* aCharFormatLayer);</code></p><h4 class="subheading">Description</h4>
+<p>Changes the format layers used for the model's entries to the values
+specified.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CParaFormatLayer* aParaFormatLayer</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the new paragraph format layer.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CCharFormatLayer* aCharFormatLayer</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the new character format layer.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Default display times</h2>
+</div><div class="Bodytext">
+<a name="2.11.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aDefaultAnnivDisplayTime%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DefaultAnnivDisplayTime()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TTimeIntervalMinutes DefaultAnnivDisplayTime() const;</code></p><h4 class="subheading">Description</h4>
+<p>Retrieves the default display time for anniversary entries. This value is
+initialised when the model is opened. It may be changed by calling
+<code>SetDefaultAnnivDisplayTime()</code>.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTimeIntervalMinutes</code></td>
+<td class="Cell"><p class="ValueDesc">The default display time for anniversary entries, as a number of minutes
+from midnight.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aDefaultDayNoteDisplayTime%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DefaultDayNoteDisplayTime()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TTimeIntervalMinutes DefaultDayNoteDisplayTime() const;</code></p><h4 class="subheading">Description</h4>
+<p>Retrieves the default display time for day notes. This value is
+initialised when the model is opened. It may be changed by calling
+<code>SetDefaultDayNoteDisplayTime()</code>.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTimeIntervalMinutes</code></td>
+<td class="Cell"><p class="ValueDesc">The default display time for day notes, as a number of minutes from
+midnight.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.4"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aDefaultEventDisplayTime%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DefaultEventDisplayTime()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TTimeIntervalMinutes DefaultEventDisplayTime() const;</code></p><h4 class="subheading">Description</h4>
+<p>Retrieves the default display time for events. This value is initialised
+when the model is opened. It may be changed by calling
+<code>SetDefaultEventDisplayTime()</code>.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTimeIntervalMinutes</code></td>
+<td class="Cell"><p class="ValueDesc">The default display time for events, as a number of minutes from
+midnight.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.5"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aDefaultDisplayTime%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DefaultDisplayTime()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TTimeIntervalMinutes DefaultDisplayTime(CAgnEntry::TType aType,TAgnTodoListId = AgnModel::NullId()) const;</code></p><h4 class="subheading">Description</h4>
+<p>Retrieves the default display time for the entry type specified. If the
+entry type is a to-do, a to-do list ID must be specified because each to-do
+list has its own default display time.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnEntry::TType aType</code></td>
+<td class="Cell"><p class="ValueDesc">The entry type of interest.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnTodoListId = AgnModel::NullId()</code></td>
+<td class="Cell"><p class="ValueDesc">If the entry type is a to-do, (<code>CAgnEntry::ETodo</code>), this
+specifies the to-do list of interest.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTimeIntervalMinutes</code></td>
+<td class="Cell"><p class="ValueDesc">The default display time for the entry type specified, or, if the entry
+type was a to-do, the default display time for the to-do list specified.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.6"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aSetDefaultAnnivDisplayTime%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetDefaultAnnivDisplayTime()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetDefaultAnnivDisplayTime(TTimeIntervalMinutes aDefaultAnnivDisplayTime);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the default display time for anniversary
+entries.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTimeIntervalMinutes aDefaultAnnivDisplayTime</code></td>
+<td class="Cell"><p class="ValueDesc">The new default display time for anniversary entries, as a number of
+minutes from midnight.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.7"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aSetDefaultDayNoteDisplayTime%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetDefaultDayNoteDisplayTime()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetDefaultDayNoteDisplayTime(TTimeIntervalMinutes aDefaultDayNoteDisplayTime);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the default display time for day notes.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTimeIntervalMinutes aDefaultDayNoteDisplayTime</code></td>
+<td class="Cell"><p class="ValueDesc">The new default display time for day notes, as a number of minutes from
+midnight.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.8"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aSetDefaultEventDisplayTime%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetDefaultEventDisplayTime()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetDefaultEventDisplayTime(TTimeIntervalMinutes aDefaultEventDisplayTime);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the default display time for events.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTimeIntervalMinutes aDefaultEventDisplayTime</code></td>
+<td class="Cell"><p class="ValueDesc">The new default display time for events, as a number of minutes from
+midnight.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.9"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aUpdateDefaultEntryTimes%28%29"></a>
+<hr size="1" noshade>
+<h3><code>UpdateDefaultEntryTimes()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void UpdateDefaultEntryTimes();</code></p><h4 class="subheading">Description</h4>
+<p>Propagates changes made to the default display time for all entry types
+by a call to one of the <code>SetDefaultXxxDisplayTime()</code> functions to
+the server. The model must be in client mode before calling this
+function.</p>
+<a name="2.12"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Instances</h2>
+</div><div class="Bodytext">
+<a name="2.12.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aGetInstanceExtractorL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetInstanceExtractorL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TAgnInstanceExtractor* GetInstanceExtractorL(TAgnDate aToday, TAgnFilter&amp; aFilter);</code></p><h4 class="subheading">Description</h4>
+<p>Creates an instance extractor using the specified filter and date. An
+instance extractor selects entries from the model's index that match the
+criteria specified by the filter and date. After calling this function, the
+instance extractor can be passed to <code>GetDayListFromExtractorL()</code>
+which uses the extractor to return an array of <code>TAgnSortInstance</code>
+objects which match the criteria. </p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnDate aToday</code></td>
+<td class="Cell"><p class="ValueDesc">The date of interest.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnFilter&amp; aFilter</code></td>
+<td class="Cell"><p class="ValueDesc">Filters the entry types.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnInstanceExtractor*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the instance extractor.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aGetDayListFromExtractorL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetDayListFromExtractorL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void GetDayListFromExtractorL(TAgnInstanceExtractor* aExtractor, TAgnDate aDay, CArrayFixFlat&lt;TAgnSortInstance&gt;* aDayInfoList, TAgnDate aToday);</code></p><h4 class="subheading">Description</h4>
+<p>Retrieves a list of instances for the specified day, using a previously
+set up instance extractor. Do not use this function if the model is a client of
+the agenda server&nbsp;&#8212; use <code>RAgendaServ::GetDayDateTimeListFromExtractorL()</code>
+instead.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnInstanceExtractor* aExtractor</code></td>
+<td class="Cell"><p class="ValueDesc">The instance extractor. This may be created using
+<code>GetInstanceExtractorL()</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnDate aDay</code></td>
+<td class="Cell"><p class="ValueDesc">The date for which entries are retrieved.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">CArrayFixFlat&lt;TAgnSortInstance&gt;* aDayInfoList</code></td>
+<td class="Cell"><p class="ValueDesc">On return, pointer to the filtered list of instances. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnDate aToday</code></td>
+<td class="Cell"><p class="ValueDesc">Today's date. Used to determine if undated to-do items should be returned
+in the list. i.e. if it has the same value as the <code>aDay</code> parameter,
+then any undated to-do items may also be returned as part of the instance
+list.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.4"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aGetSymbolInstanceListL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetSymbolInstanceListL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void GetSymbolInstanceListL(CAgnSymbolList* aList,TTime&amp; aToday, TAgnFilter&amp; aFilter);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Retrieves a filtered list of entry symbols for the instances which occur
+within a month. The year and month of interest should be specified in
+<code>aList</code>.</p>
+<p>A symbol list is a list of the days in a month which have entry symbols.
+The day is stored as a number (0 to 30) and each day can have a maximum of two
+symbols. The list is ordered by day number. The symbol list also specifies the
+month and the year.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnSymbolList* aList</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to an existing <code>CAgnSymbolList</code> object. Should specify
+the year and month of interest. On return, the list contains the entry symbols
+which belong to instances occuring within the specified month.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTime&amp; aToday</code></td>
+<td class="Cell"><p class="ValueDesc">Today's date. Used to determine if undated to-do items should be included
+in the list.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnFilter&amp; aFilter</code></td>
+<td class="Cell"><p class="ValueDesc">Filters the entry types of interest. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.5"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aGetSymbolInstanceList%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetSymbolInstanceList()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void GetSymbolInstanceList(CAgnSymbolList* aList,TTime&amp; aToday, TAgnFilter&amp; aFilter);</code></p><h4 class="subheading">Support</h4>
+<p>Withdrawn in 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Retrieves a filtered list of entry symbols for the instances which occur
+within a month. The year and month of interest should be specified in
+<code>aList</code>.</p>
+<p>A symbol list is a list of the days in a month which have entry symbols.
+The day is stored as a number (0 to 30) and each day can have a maximum of two
+symbols. The list is ordered by day number. The symbol list also specifies the
+month and the year.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnSymbolList* aList</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to an existing <code>CAgnSymbolList</code> object. Should specify
+the year and month of interest. On return, the list contains the entry symbols
+which belong to instances occuring within the specified month.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTime&amp; aToday</code></td>
+<td class="Cell"><p class="ValueDesc">Today's date. Used to determine if undated to-do items should be included
+in the list.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnFilter&amp; aFilter</code></td>
+<td class="Cell"><p class="ValueDesc">Filters the entry types of interest. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Synchronisation</h2>
+</div><div class="Bodytext">
+<a name="2.13.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aSetLastSynchronizedDateL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetLastSynchronizedDateL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetLastSynchronizedDateL(const TTime&amp; aTime) const;</code></p><h4 class="subheading">Description</h4>
+<p>Sets the date/time that the model was last synchronised
+</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TTime&amp; aTime</code></td>
+<td class="Cell"><p class="ValueDesc">The new date/time that the model was last synchronised.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aLastSynchronizedDateL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>LastSynchronizedDateL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TTime LastSynchronizedDateL() const;</code></p><h4 class="subheading">Description</h4>
+<p>Retrieves the date/time that the model was last synchronised, as set by
+<code>SetLastSynchronizedDateL()</code>. When the model is created, this
+date/time is initialised to null (<code>Time::NullTTime()</code>).</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTime</code></td>
+<td class="Cell"><p class="ValueDesc">The date/time that the model was last synchronised.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Agenda server</h2>
+</div><div class="Bodytext">
+<a name="2.14.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aSetServer%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetServer()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetServer(RAgendaServ* aServer);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the server to use for model functions and sets the model's mode to
+<code>EClient</code>. </p>
+<p>Note</p>
+<p>The server must be connected (using <code>RAgendaServ::Connect()</code>)
+before you call a function which uses it.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RAgendaServ* aServer</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to an agenda server.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aServer%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Server()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>RAgendaServ* Server() const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns a pointer to the model's server object, as set by
+<code>SetServer()</code>.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RAgendaServ*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the model's server object.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.4"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aSetEntryServer%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetEntryServer()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetEntryServer(CAgnEntry* aEntry);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the server for an agenda entry to be the same as the server used by
+the model.</p>
+<p>The server object used by the entry is set automatically by the model
+whenever the entry is fetched from the server. It should only be necessary for
+third party applications to call this function if they are creating an entry
+and attaching embedded data to it before adding it to the model. </p>
+<p>Arguments</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnEntry* aEntry</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the entry.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.5"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aSetMode%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetMode()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetMode(TModelMode aMode);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the model's mode.</p>
+<p>If the model uses the server, the model's mode needs to be set to
+<code>EClient</code> so that the model will use the server rather than directly
+accessing the file. Note that when a call to <code>SetServer()</code> is made,
+the mode is set to client.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TModelMode aMode</code></td>
+<td class="Cell"><p class="ValueDesc">The model's mode of operation. <code>ENormal</code>, <code>EClient</code>
+or <code>EServer</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.6"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aIsClient%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IsClient()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool IsClient() const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns whether or not the model is running as a client of the agenda
+server.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> if the model is in client mode, <code>EFalse</code> if
+not.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.7"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aCheckNotifier%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CheckNotifier()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool CheckNotifier();</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether the currently open file has been updated by another client
+of the agenda server. May be used by the UI to test whether it needs to be
+updated in response to changes made to the model by other applications. It also
+should be called in order to avoid fetching entries deleted by other clients.
+This function is only relevant if the model is in client mode. If not, it
+returns <code>EFalse</code>.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> if the file has been updated by another client.
+<code>EFalse</code> if not. Also returns <code>EFalse</code> if the model is
+not in client mode, or if no agenda file is currently open.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Stream persistence</h2>
+</div><div class="Bodytext">
+<a name="2.15.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aStreamStore%28%29"></a>
+<hr size="1" noshade>
+<h3><code>StreamStore()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CStreamStore&amp; StreamStore() const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns a reference to the stream store in which the model's data is
+stored.</p>
+<p>Note</p>
+<p>This function is deprecated when the model is using the agenda server.
+This is because the model data should not be accessed directly if the file has
+multiple clients.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CStreamStore&amp;</code></td>
+<td class="Cell"><p class="ValueDesc">A reference to the stream store in which the model's data is
+stored.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aStreamId%28%29"></a>
+<hr size="1" noshade>
+<h3><code>StreamId()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TStreamId StreamId(TUid aUid);</code></p><h4 class="subheading">Description</h4>
+<p>Retrieves the stream ID for the specified stream UID. For use only by a
+client of the agenda server.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUid aUid</code></td>
+<td class="Cell"><p class="ValueDesc">The stream UID. This represents an application-specific stream which the
+client has created in the agenda file using <code>RAgendaServ::CreateNewStreamL()</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamId</code></td>
+<td class="Cell"><p class="ValueDesc">The stream ID associated with the unique identifier <code>aUid</code>.
+This can be used to access the stream, e.g. by calling
+<code>RAgendaServ::GetWriteStreamL()</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15.4"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aGetReadStreamL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetReadStreamL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>RReadStream&amp; GetReadStreamL(TStreamId aStreamId);</code></p><h4 class="subheading">Description</h4>
+<p>Retrieves a reference to an application-specific stream in the model
+using the agenda server. For use only by a client of the agenda
+server.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamId aStreamId</code></td>
+<td class="Cell"><p class="ValueDesc">The ID identifying the read stream.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RReadStream&amp;</code></td>
+<td class="Cell"><p class="ValueDesc">Reference to a read stream containing application-specific data.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15.5"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aGetEmbeddedStore%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetEmbeddedStore()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CStreamStore* GetEmbeddedStore(TStreamId aId);</code></p><h4 class="subheading">Description</h4>
+<p>Retrieves an embedded store based on stream ID using the server. For use
+only by a client of the agenda server.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamId aId</code></td>
+<td class="Cell"><p class="ValueDesc">The ID identifying the stream store.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CStreamStore*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the embedded stream store.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15.6"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aIsValidL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IsValidL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt IsValidL(CStreamStore&amp; aStore,TStreamId aId) const;</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether the store <code>aStore</code> with the root ID
+<code>aId</code> is in a state that is readable by the model, i.e. that the
+stream framework is in place and useable. It returns <code>KErrNone</code> if
+it is, otherwise it returns the error code generated by trying to load the
+stream network, (e.g. <code>KErrEof</code>).</p>
+<p>Note</p>
+<p>This function does not check the contents of any entries in the
+model.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CStreamStore&amp; aStore</code></td>
+<td class="Cell"><p class="ValueDesc">A reference to the store object in which the model's data is
+stored.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStreamId aId</code></td>
+<td class="Cell"><p class="ValueDesc">The root stream ID of the store <code>aStore</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if the stream network is valid, otherwise the error
+code generated by trying to load the stream network.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">May leave with <code>KErrNoMemory</code> as it creates the necessary
+objects, or one of the other standard error codes. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>vCalendar support</h2>
+</div><div class="Bodytext">
+<a name="2.16.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aExportVCalL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ExportVCalL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ExportVCalL(RWriteStream&amp; aWriteStream, CAgnEntry* aEntry);</code></p><h4 class="subheading">Support</h4>
+<p>Withdrawn in 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Exports an agenda entry as a vCalendar entity to the write stream
+specified. The entry is exported either as a vTodo, if it is a to-do, otherwise
+as a vEvent.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RWriteStream&amp; aWriteStream</code></td>
+<td class="Cell"><p class="ValueDesc">The stream to which the agenda entry should be externalised as a
+vCalendar entity.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnEntry* aEntry</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the agenda entry.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aExportVCalL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ExportVCalL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ExportVCalL(RWriteStream&amp; aWriteStream, CArrayFixFlat&lt;TAgnEntryId&gt;* aEntryIdList);</code></p><h4 class="subheading">Support</h4>
+<p>Withdrawn in 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Exports a list of agenda entries as multiple vCalendar entities to the
+write stream specified. The entries are exported either as vTodos, if they are
+to-dos, otherwise as vEvents.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RWriteStream&amp; aWriteStream</code></td>
+<td class="Cell"><p class="ValueDesc">The stream to which the agenda entries should be externalised as
+vCalendar entities.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">CArrayFixFlat&lt;TAgnEntryId&gt;* aEntryIdList</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the array of entry IDs which identify the agenda
+entries.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">If any entry in the list cannot be found, the function leaves with
+<code>KErrNotFound</code> . </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16.4"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aExportVCalL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ExportVCalL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ExportVCalL(RWriteStream&amp; aWriteStream, CAgnEntry* aEntry, const CVersitParser::TVersitCharSet aCharSet = CVersitParser::EUTF8CharSet);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Exports an agenda entry as a <code>vCalendar</code> entity to the write
+stream specified. The entry is exported either as a <code>vTodo</code>, if it
+is a to-do, otherwise as a <code>vEvent</code>. The exported property values
+are converted from Unicode into the character set indicated by the last
+parameter (UTF-8 by default).</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RWriteStream&amp; aWriteStream</code></td>
+<td class="Cell"><p class="ValueDesc">The stream to which the agenda entry should be externalised as a
+<code>vCalendar</code> entity.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnEntry* aEntry</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the agenda entry.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">CVersitParser::TVersitCharSet aCharSet</code></td>
+<td class="Cell"><p class="ValueDesc">The character set into which the entry is converted before being
+exported.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16.5"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aExportVCalL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ExportVCalL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ExportVCalL(RWriteStream&amp; aWriteStream, CArrayFixFlat&lt;TAgnEntryId&gt;* aEntryIdList, const CVersitParser::TVersitCharSet aCharSet = CVersitParser::EUTF8CharSet);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Exports a list of agenda entries as multiple <code>vCalendar</code>
+entities to the write stream specified. The entries are exported either as
+vTodos, if they are to-dos, otherwise as vEvents. The exported property values
+are converted from Unicode into the character set indicated by the last
+parameter (UTF-8 by default).</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RWriteStream&amp; aWriteStream</code></td>
+<td class="Cell"><p class="ValueDesc">The stream to which the agenda entries should be externalised as
+<code>vCalendar</code> entities.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">CArrayFixFlat&lt;TAgnEntryId&gt;* aEntryIdList</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the array of entry IDs which identify the agenda
+entries.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CVersitParser::TVersitCharSet aCharSet</code></td>
+<td class="Cell"><p class="ValueDesc">The character set into which the entries are converted before being
+exported.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">If any entry in the list cannot be found, the function leaves with
+<code>KErrNotFound</code> . </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16.6"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aImportVCalL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ImportVCalL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ImportVCalL(RReadStream&amp; aReadStream, CArrayPtr&lt;CAgnEntry&gt;* aEntryArray);</code></p><h4 class="subheading">Description</h4>
+<p>Imports a <code>vCalendar</code> consisting of one or more
+<code>vCalendar</code> entities. The <code>vCalendar</code> is read from the
+read stream specified and its entities are converted into EPOC agenda entries
+and returned in the array <code>aEntryArray</code>.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">RReadStream&amp; aReadStream</code></td>
+<td class="Cell"><p class="ValueDesc">The read stream which contains the <code>vCalendar</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">CArrayPtr&lt;CAgnEntry&gt;* aEntryArray</code></td>
+<td class="Cell"><p class="ValueDesc">On return, a list of the agenda entries which were imported from the
+<code>vCalendar</code>. The list contains the <code>vEvents</code> followed by
+the <code>vTodos</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.17"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Model observers</h2>
+</div><div class="Bodytext">
+<a name="2.17.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aRegisterObserverL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RegisterObserverL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void RegisterObserverL(const TFileName&amp; aObserverName,const CAgnObserver* aObserver);</code></p><h4 class="subheading">Description</h4>
+<p>Registers an observer with the model's observer controller and calls the
+observer's <code>StartObserving()</code> function.</p>
+<p>The observer's DLL is loaded only when the model is opened, so this
+function should be called before calling <code>OpenL()</code>.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TFileName&amp; aObserverName</code></td>
+<td class="Cell"><p class="ValueDesc">The filename of the DLL where the observer's definition can be found.
+Does not need to include the <!--filename style used.dll-->.dll extension. This
+may specify the full path, if the DLL is not in the standard location.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CAgnObserver* aObserver</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the agenda model observer.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">If an observer with the specified name is already registered, the
+function leaves with <code>KErrAlreadyExists</code> . </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.17.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aUnregisterObserverL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>UnregisterObserverL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void UnregisterObserverL(const TFileName&amp; aObserverName);</code></p><h4 class="subheading">Description</h4>
+<p>Removes the observer with the DLL name specified from the model's
+observer controller. Calls the observer's <code>StopObserving()</code>
+function.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TFileName&amp; aObserverName</code></td>
+<td class="Cell"><p class="ValueDesc">The filename of the observer's DLL. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">If an observer with the specified name is not registered, the function
+leaves with <code>KErrNotFound</code> . </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.17.4"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aObserverController%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ObserverController()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CAgnObsController* ObserverController() const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns a pointer to the model's observer
+controller.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnObsController*</code></td>
+<td class="Cell"><p class="ValueDesc">A pointer to the model's observer controller.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.17.5"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aIsInUseObserverController%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IsInUseObserverController()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool IsInUseObserverController() const;</code></p><h4 class="subheading">Description</h4>
+<p>Retrieves whether the observer controller is enabled or disabled. When
+the controller is initialised, it is set to be enabled.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> if the observer controller is enabled,
+<code>EFalse</code> if it is disabled.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.17.6"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aNumberOfObserversLoaded%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NumberOfObserversLoaded()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt NumberOfObserversLoaded() const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns the number of registered observers whose DLLs are loaded.</p>
+<p>This number can differ from the number returned by
+<code>NumberOfObserversRegistered()</code> because an observer is only loaded
+when the model is opened, but it can be registered at any time.</p>
+<p>Note</p>
+<p>A loaded observer means that the DLL which it is implemented in is
+loaded. A registered observer means that the name of the observer is stored in
+the model and its DLL will be loaded when the file is next opened.</p>
+<p>Return value</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The number of registered observers whose DLLs are loaded.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.17.7"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aNumberOfObserversRegistered%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NumberOfObserversRegistered()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt NumberOfObserversRegistered() const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns the number of registered observers.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The number of registered observers.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.18"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Picture factory</h2>
+</div><div class="Bodytext">
+<a name="2.18.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aPictureFactory%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PictureFactory()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>MPictureFactory* PictureFactory() const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns a pointer to the model's picture factory.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">MPictureFactory*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the agenda model's picture header factory.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.18.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aSetPictureFactory%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetPictureFactory()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetPictureFactory(MPictureFactory* aPictureFactory);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the model's picture factory.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">MPictureFactory* aPictureFactory</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the model's picture header factory.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.19"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Alarms</h2>
+</div><div class="Bodytext">
+<a name="2.19.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aRegisterAlarm%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RegisterAlarm()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void RegisterAlarm(CAgnAlarm* aAlarm);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the model's registered alarm.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnAlarm* aAlarm</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the alarm to set as the model's registered alarm.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.19.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aRegisteredAlarm%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RegisteredAlarm()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CAgnAlarm* RegisteredAlarm() const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns a pointer to the model's registered alarm.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnAlarm*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the model's registered alarm. NULL if no registered alarm has
+been set.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.20"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Commit and rollback</h2>
+</div><div class="Bodytext">
+<a name="2.20.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aFlushAndCommitL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FlushAndCommitL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void FlushAndCommitL();</code></p><h4 class="subheading">Description</h4>
+<p>Flushes the entry buffer and commits any changes that have occurred to
+the model. </p>
+<p>This function is only relevant if buffered storing or deleting is in
+effect. Prolonged operations, for instance merging or tidying, do not update
+the entries in the model's store until the buffer is full. If one of these
+activities finishes before the buffer has had a chance to automatically update
+the store, then this function should be called to force it to do so.</p>
+<a name="2.20.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aCommitL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CommitL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void CommitL();</code></p><h4 class="subheading">Description</h4>
+<p>Commits any changes both to file and internally that have occurred to the
+model. This function differs from <code>FlushAndCommitL()</code> in that it
+does not empty the buffers.</p>
+<a name="2.20.4"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aRollbackL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RollbackL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void RollbackL();</code></p><h4 class="subheading">Description</h4>
+<p>Reverts the model to the state it was in after <code>CommitL()</code> or
+<code>RollbackL()</code> was last called, i.e. it deletes all entries which
+have been added, and reinstates all entries which have been deleted.</p>
+<a name="2.21"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Buffered operations</h2>
+</div><div class="Bodytext">
+<a name="2.21.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aBufferedDeleting%28%29"></a>
+<hr size="1" noshade>
+<h3><code>BufferedDeleting()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool BufferedDeleting() const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns whether or not the model is using buffered deletion for
+entries.</p>
+<p>If buffered deletion is set, this means that when an entry is deleted,
+the agenda file is not updated immediately. The entry is marked as deleted in a
+memory buffer. The file is updated only when either every entry contained in
+the buffer has been marked as deleted, or when <code>CommitL()</code> is called
+(either directly or indirectly).</p>
+<p>Buffered deletion and buffered storage are both unset when the model is
+created.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> if the model is using buffered deleting,
+<code>EFalse</code> if not.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.21.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aBufferedStoring%28%29"></a>
+<hr size="1" noshade>
+<h3><code>BufferedStoring()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool BufferedStoring() const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns whether or not the model is using buffered storage for
+entries.</p>
+<p>If buffered storing is set, this means that when an entry is added to the
+model, it is held in a memory buffer and is not written to file. The contents
+of the buffer are written to the file when the buffer becomes full or when the
+buffer is flushed (this occurs when <code>CommitL()</code> is called, either directly
+or indirectly).</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> if the model is using buffered storage.
+<code>EFalse</code> if not.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.22"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Model version</h2>
+</div><div class="Bodytext">
+<a name="2.22.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aFileVersion%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FileVersion()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TAgnVersion FileVersion() const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns the version of the agenda model that was used to create the
+currently loaded file.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnVersion</code></td>
+<td class="Cell"><p class="ValueDesc">The version of the agenda model that was used to create the currently
+loaded agenda file.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.22.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aModelVersion%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ModelVersion()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TAgnVersion ModelVersion() const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns the version of the agenda model being used.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnVersion</code></td>
+<td class="Cell"><p class="ValueDesc">The model version.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.23"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Model state</h2>
+</div><div class="Bodytext">
+<a name="2.23.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aState%28%29"></a>
+<hr size="1" noshade>
+<h3><code>State()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TState State() const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns the state of the agenda model.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TState</code></td>
+<td class="Cell"><p class="ValueDesc">The state of the agenda model.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.24"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Enumerations</h2>
+</div><div class="Bodytext">
+<a name="2.24.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aTState"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TState</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TState</code></p><h4 class="subheading">Description</h4>
+<p>Model state</p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnEntryModel%3a%3aENoFile"><code class="Value">ENoFile</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>The initial state of the model before a file has been created or opened.
+Also the state of the model after an unsuccessful operation, e.g. after an attempt
+to open a file has failed. Many agenda model operations raise a panic if the model's
+state is <code>ENoFile</code>, for instance those which add, delete or update entries
+or to-do lists.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnEntryModel%3a%3aEBlocked"><code class="Value">EBlocked</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>The model's state while it is carrying out a prolonged activity.
+Indicates that the model is not available for use and any attempt to use it results
+in a panic.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnEntryModel%3a%3aEOk"><code class="Value">EOk</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>A file is open, and the model is ready for use.</para></p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.24.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aTSaveAsCallBackFrequency"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TSaveAsCallBackFrequency</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TSaveAsCallBackFrequency</code></p><h4 class="subheading">Description</h4>
+<p>This enumeration specifies how frequently the user of a save as operation
+(<code>CAgnEntryModel::SaveAsL()</code>) should be notified of its progress with
+the <code>MAgnProgressCallBack::Progress()</code> method. It should not normally
+be necessary to change the value from the default (<code>ESaveAsCallBackMedium</code>).</p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnEntryModel%3a%3aESaveAsCallBackHigh"><code class="Value">ESaveAsCallBackHigh</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>High frequency.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnEntryModel%3a%3aESaveAsCallBackMedium"><code class="Value">ESaveAsCallBackMedium</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Medium frequency (the default).</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnEntryModel%3a%3aESaveAsCallBackLow"><code class="Value">ESaveAsCallBackLow</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Low frequency.</para></p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.24.4"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aTModelMode"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TModelMode</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TModelMode</code></p><h4 class="subheading">Description</h4>
+<p>This enumeration is used in the <code>CAgnEntryModel::SetMode()</code>
+function to specify whether or not the model is a client of the server.</p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnEntryModel%3a%3aENormal"><code class="Value">ENormal</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>The model is not using the server. This is the
+default.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnEntryModel%3a%3aEClient"><code class="Value">EClient</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>The model is a client of the server.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnEntryModel%3a%3aEServer"><code class="Value">EServer</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>The model is in server mode. A client program should never set the model
+to <code>EServer</code>. </para></p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.24.5"></a></div><div class="Head3">
+<a name="%3a%3aCAgnEntryModel%3a%3aAnonymous"></a>
+<hr size="1" noshade>
+<h3>Enum <code>Anonymous</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>Anonymous</code></p><h4 class="subheading">Description</h4>
+<p>Miscellaneous constants.</p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCAgnEntryModel%3a%3aEAddTodoListAtEnd"><code class="Value">EAddTodoListAtEnd</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Indicates the last position in the model's list of to-do
+lists.</para></p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

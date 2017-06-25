@@ -1,0 +1,1083 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CPort</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="AboutSerialProtocolModule.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="CSerialClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Serial&nbsp;Protocol&nbsp;Module</a>&nbsp;<span class="separator">&#187;</span>
+CPort</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code> cs_port.h </code>
+<br>Link against: <code> c32.lib </code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aCPort"></a>
+
+<h1>Class <code>CPort</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CPort</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Base class for implementations of serial protocol module ports. Its
+functions are called by the comms server in response to client calls to
+<code>RComm</code>. </p>
+<p>The class implements <code>CObject</code> to obtain reference
+counting behaviour. The reference count is incremented when a port is first
+created, and, for ports in shared mode, on every later opening.</p>
+<p>Writing derived classes:</p>
+<p><code>CPort</code> is an abstract class which defines many pure
+virtual functions which derived classes must implements. Most of these pure
+virtual functions correspond to the client interface of the <code>RComm</code>
+class. </p>
+<h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase">CBase</a></code></td><td class="Cell">Base class for all classes to be instantiated on the heap</td>
+</tr>
+<tr><td class="Cell"><code><a href="../ReferenceCountingObjects/CObjectClass.html#%3a%3aCObject">CObject</a></code></td><td class="Cell">Implements reference counting to track concurrent references to itself</td>
+</tr>
+<tr><td class="Cell"><code>CPort</code></td><td class="Cell">Base class for implementations of serial protocol module ports</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>CPort</code>:
+<br><code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aBreak%28%29" title="Specifies the protocol for setting a break condition at the port">Break()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aBreakCancel%28%29" title="Specifies the protocol for cancelling a break request">BreakCancel()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aBreakCompleted%28%29" title="Tells the comms server that a break request initiated throughBreak() is complete">BreakCompleted()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aBreakNotifyCompleted%28%29" title="Tells the comms server that a request initiated throughBreakNotifyCompleted() is complete">BreakNotifyCompleted()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aCPort%28%29" title="Default constructor">CPort()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aClose%28%29" title="Closes port">Close()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aConfigChangeCompleted%28%29" title="Tells the comms server that a request initiated throughNotifyConfigChange() is complete">ConfigChangeCompleted()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aDestruct%28%29" title="Specifies the protocol for port destruction">Destruct()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aFlowControlChangeCompleted%28%29" title="Tells the comms server that a request initiated throughNotifyFlowControlChange() is complete">FlowControlChangeCompleted()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aFreeMemory%28%29" title="Specifies a protocol by which the comms server can request the protocol to release memory">FreeMemory()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aGetCaps%28%29" title="Specifies a protocol for getting the port capabilities">GetCaps()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aGetConfig%28%29" title="Specifies a protocol for getting the current configuration of the serial port">GetConfig()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aGetFlowControlStatus%28%29" title="Gets flow control status">GetFlowControlStatus()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aGetReceiveBufferLength%28%29" title="Specifies a protocol for requesting the size of the serial port buffers">GetReceiveBufferLength()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aGetRole%28%29" title="Gets DCE/DTE role">GetRole()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aGetServerConfig%28%29" title="Specifies a protocol for getting the buffer mode">GetServerConfig()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aGetSignals%28%29" title="Specifies a protocol for getting the status of the serial port control lines">GetSignals()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aIPCRead%28%29" title="Reads data from the client's (the user of the port's) address space">IPCRead()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aIPCWrite%28%29" title="Writes into the client's (the user of the port's) address space">IPCWrite()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aNotifyBreak%28%29" title="Specifies the protocol for setting a break notification">NotifyBreak()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aNotifyBreakCancel%28%29" title="Specifies the protocol for cancelling a break notification">NotifyBreakCancel()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aNotifyConfigChange%28%29" title="Specifies the protocol for setting a configuration change notification">NotifyConfigChange()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aNotifyConfigChangeCancel%28%29" title="Specifies the protocol for cancelling a configuration change notification">NotifyConfigChangeCancel()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aNotifyDataAvailable%28%29" title="Specifies the protocol for setting a data available notification">NotifyDataAvailable()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aNotifyDataAvailableCancel%28%29" title="Specifies the protocol for cancelling a data available notification">NotifyDataAvailableCancel()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aNotifyDataAvailableCompleted%28%29" title="Tells the comms server that a request initiated throughNotifyDataAvailable() is complete">NotifyDataAvailableCompleted()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aNotifyFlowControlChange%28%29" title="Specifies the protocol for setting a flow control change notification">NotifyFlowControlChange()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aNotifyFlowControlChangeCancel%28%29" title="Specifies the protocol for cancelling a flow control change notification">NotifyFlowControlChangeCancel()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aNotifyOutputEmpty%28%29" title="Specifies the protocol for setting a transmit buffer empty notification">NotifyOutputEmpty()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aNotifyOutputEmptyCancel%28%29" title="Specifies the protocol for cancelling a transmit buffer empty notification">NotifyOutputEmptyCancel()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aNotifyOutputEmptyCompleted%28%29" title="Tells the comms server that a request initiated throughNotifyOutputEmpty() is complete">NotifyOutputEmptyCompleted()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aNotifySignalChange%28%29" title="Specifies the protocol for setting a signal change notification">NotifySignalChange()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aNotifySignalChangeCancel%28%29" title="Specifies the protocol for cancelling a signal change notification">NotifySignalChangeCancel()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aQueryReceiveBuffer%28%29" title="Specifies a protocol for requesting the number of bytes that are currently waiting in the port's receive buffer">QueryReceiveBuffer()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aReadCancel%28%29" title="Specifies the protocol for cancelling reading from the port">ReadCancel()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aReadCompleted%28%29" title="Tells the comms server that a read request initiated throughStartRead() is complete">ReadCompleted()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aResetBuffers%28%29" title="Specifies a protocol for resetting the receive and/or transmit buffers to zero length">ResetBuffers()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aSetConfig%28%29" title="Specifies a protocol for setting the configuration of the port">SetConfig()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aSetReceiveBufferLength%28%29" title="Specifies a protocol for setting the size of the serial port buffers">SetReceiveBufferLength()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aSetRole%28%29" title="Sets DCE/DTE role">SetRole()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aSetServerConfig%28%29" title="Specifies a protocol for setting the buffer mode">SetServerConfig()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aSetSignalsToMark%28%29" title="Specifies a protocol for setting serial port control lines">SetSignalsToMark()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aSetSignalsToSpace%28%29" title="Specifies a protocol for clearing serial port control lines">SetSignalsToSpace()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aSignalChangeCompleted%28%29" title="Tells the comms server that a request initiated throughNotifySignalChange() is complete">SignalChangeCompleted()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aStartRead%28%29" title="Specifies the protocol for reading from the port">StartRead()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aStartWrite%28%29" title="Specifies the protocol for writing to the port">StartWrite()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aWriteCancel%28%29" title="Specifies the protocol for cancelling writing to the port">WriteCancel()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3aWriteCompleted%28%29" title="Tells the comms server that a write request initiated throughStartWrite() is complete">WriteCompleted()</a></code>, <code class="ApiItem"><a href="CPortClass.html#%3a%3aCPort%3a%3a%7eCPort%28%29" title="Destructor">~CPort()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap">CBase</a></code>:
+<br><code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase%3a%3aoperator%20new%28%29" title="Allocates the object from the heap and then initialises its contents to binary zeroes">operator new()</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="../ReferenceCountingObjects/CObjectClass.html#%3a%3aCObject" title="Implements reference counting to track concurrent references to itself">CObject</a></code>:
+<br><code class="ApiItem"><a href="../ReferenceCountingObjects/CObjectClass.html#%3a%3aCObject%3a%3aAccessCount%28%29" title="Gets the number of open references to this reference counting object">AccessCount()</a></code>,
+<code class="ApiItem"><a href="../ReferenceCountingObjects/CObjectClass.html#%3a%3aCObject%3a%3aDec%28%29" title="Subtracts one from the reference count">Dec()</a></code>,
+<code class="ApiItem"><a href="../ReferenceCountingObjects/CObjectClass.html#%3a%3aCObject%3a%3aFullName%28%29" title="Gets the full name of this reference counting object">FullName()</a></code>,
+<code class="ApiItem"><a href="../ReferenceCountingObjects/CObjectClass.html#%3a%3aCObject%3a%3aInc%28%29" title="Adds one to the reference count">Inc()</a></code>,
+<code class="ApiItem"><a href="../ReferenceCountingObjects/CObjectClass.html#%3a%3aCObject%3a%3aName%28%29" title="Gets the name of this reference counting object">Name()</a></code>,
+<code class="ApiItem"><a href="../ReferenceCountingObjects/CObjectClass.html#%3a%3aCObject%3a%3aOpen%28%29" title="Opens this reference counting object">Open()</a></code>,
+<code class="ApiItem"><a href="../ReferenceCountingObjects/CObjectClass.html#%3a%3aCObject%3a%3aOwner%28%29" title="Gets a pointer to the reference counting object which owns this reference counting object">Owner()</a></code>,
+<code class="ApiItem"><a href="../ReferenceCountingObjects/CObjectClass.html#%3a%3aCObject%3a%3aSetName%28%29" title="Sets or clears this reference counting object's name">SetName()</a></code>,
+<code class="ApiItem"><a href="../ReferenceCountingObjects/CObjectClass.html#%3a%3aCObject%3a%3aSetNameL%28%29" title="Sets or clears this reference counting object's name">SetNameL()</a></code>,
+<code class="ApiItem"><a href="../ReferenceCountingObjects/CObjectClass.html#%3a%3aCObject%3a%3aSetOwner%28%29" title="Sets the owner of this reference counting object">SetOwner()</a></code>,
+<code class="ApiItem"><a href="../ReferenceCountingObjects/CObjectClass.html#%3a%3aCObject%3a%3aUniqueID%28%29" title="Gets this reference counting object's unique ID">UniqueID()</a></code></p>
+<a name="2.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction and destruction</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aCPort%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CPort()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CPort();</code></p><h4 class="subheading">Description</h4>
+<p>Default constructor. Derived classes should implement a
+<code>NewL()</code> function to perform their two-phase construction. </p>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="TSerialNewLTypedef.html#%3a%3aTSerialNewL" title="This typedef defines the form of the ordinal-1 entry point function to a serial protocol module"><code class="ApiItem">TSerialNewL</code></a></li>
+</ul>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3a%7eCPort%28%29"></a>
+<hr size="1" noshade>
+<h3><code>~CPort()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>~CPort();</code></p><h4 class="subheading">Description</h4>
+<p>Destructor. This function is used to destroy a
+<code>CPort</code>. Derived classes can implement a destructor, but must only
+call synchronous functions within it. Any cleanup requiring asynchronous
+operations must be done in <code>Destruct()</code>.</p>
+<a name="2.6.4"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aDestruct%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Destruct()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void Destruct()=0;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies the protocol for port destruction. It is called by the
+comms server when the last client-side reference to a <code>CPort</code> object
+has been closed and the <code>CPort</code> must be deleted. The comms server
+will not delete a <code>CPort</code> other than by calling
+<code>Destruct()</code>.</p>
+<p>The implementation should perform any asynchronous shutdown
+operations on its own resources and, when these operations have completed,
+should delete <code>this</code>. </p>
+<a name="2.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Close port</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aClose%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Close()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Close();</code></p><h4 class="subheading">Description</h4>
+<p>Closes port. The base class implements <code>CObject::Close()</code>
+to handle reference counting on the port. It decrements the reference count,
+and calls <code>Destruct()</code> if the count is 0.</p>
+<a name="2.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Access client address space</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aIPCRead%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IPCRead()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt IPCRead(const TAny *aPtr,TDes8 &amp;aDes,TInt anOffset=0)const;</code></p><h4 class="subheading">Description</h4>
+<p>Reads data from the client's (the user of the port's) address space.
+The client address space pointer is obtained from the
+<code>aClientBuffer</code> argument to <code>StartRead()</code>.</p>
+<p>See <code>RThread::ReadL()</code> for more information on reading data
+in other address spaces.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TAny *aPtr </code></td>
+<td class="Cell"><p class="ValueDesc"> Client address space pointer </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TDes8 &amp;aDes </code></td>
+<td class="Cell"><p class="ValueDesc"> A descriptor (8 bit variant) into which the result of the client
+address space read will be stored </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt anOffset=0 </code></td>
+<td class="Cell"><p class="ValueDesc"> The offset from <code>aPtr</code> at which to start reading </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code>: success; <code>KErrNotReady</code>: there is no
+read or write request outstanding </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aIPCWrite%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IPCWrite()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt IPCWrite(const TAny* aPtr,const TDesC8&amp; aDes,TInt anOffset=0)const;</code></p><h4 class="subheading">Description</h4>
+<p>Writes into the client's (the user of the port's) address space. </p>
+<p>The client address space pointer is obtained from the
+<code>aClientBuffer</code> argument to <code>StartWrite()</code>.</p>
+<p>See <code>RThread::WriteL()</code> for more information on writing data
+to other address spaces.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TAny* aPtr </code></td>
+<td class="Cell"><p class="ValueDesc"> Client address space pointer </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC8&amp; aDes</code></td>
+<td class="Cell"><p class="ValueDesc"> A descriptor (8 bit variant) into which the result of the client address
+space read will be stored </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt anOffset=0 </code></td>
+<td class="Cell"><p class="ValueDesc"> The offset from <code>aPtr</code> at which to start writing </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code>: success; <code>KErrNotReady</code>: there is no
+read or write request outstanding </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Read requests</h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aReadCancel%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ReadCancel()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void ReadCancel()=0;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies the protocol for cancelling reading from the port. It is called
+by the comms server in response to a <code>RComm::ReadCancel()</code> request
+from the client.</p>
+<p>The implementation should abort any processing which was taking place as
+a result of the read request. Do not call <code>ReadCompleted()</code>.</p>
+<a name="2.9.3"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aReadCompleted%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ReadCompleted()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ReadCompleted(TInt anError);&nbsp;&nbsp;&nbsp;&nbsp;</code></p><h4 class="subheading">Description</h4>
+<p>Tells the comms server that a read request initiated
+through<code>StartRead()</code> is complete. The comms server will then notify
+the client that its read request is complete. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt anError </code></td>
+<td class="Cell"><p class="ValueDesc"> Return code to be passed back to the client through
+its<code>TRequestStatus</code> argument. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.4"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aStartRead%28%29"></a>
+<hr size="1" noshade>
+<h3><code>StartRead()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void StartRead(const TAny* aClientBuffer,TInt aLength)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies the protocol for reading from the port. It is called by the
+comms server in response to a
+<code>RComm::Read()</code>or<code>RComm::ReadOneOrMore()</code> request from
+the client.</p>
+<p>A negative value for <code>aLength</code> is used to flag that the read
+request was from <code>RComm::ReadOneOrMore()</code> rather than
+from<code>RComm::Read()</code>. The maximum length of data to be read is the
+absolute value of <code>aLength</code>.</p>
+<p>The implementation should use <code>IPCWrite()</code> to write the data
+to the client's buffer. When all the data has been read, the function should
+call <code>ReadCompleted()</code>. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TAny* aClientBuffer </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer into client address space to the descriptor containing the
+client&#8217;s buffer </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLength </code></td>
+<td class="Cell"><p class="ValueDesc"> The amount of data to be read </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Write requests</h2>
+</div><div class="Bodytext">
+<a name="2.10.2"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aWriteCancel%28%29"></a>
+<hr size="1" noshade>
+<h3><code>WriteCancel()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void WriteCancel()=0;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies the protocol for cancelling writing to the port. It is called
+by the comms server in response to a <code>RComm::WriteCancel()</code> request
+from the client.</p>
+<p>The implementation should abort any processing which was taking place as
+a result of the write request. Do not
+call<code>WriteCompleted()</code>.</p>
+<a name="2.10.3"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aWriteCompleted%28%29"></a>
+<hr size="1" noshade>
+<h3><code>WriteCompleted()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void WriteCompleted(TInt anError);&nbsp;&nbsp;&nbsp;&nbsp;</code></p><h4 class="subheading">Description</h4>
+<p>Tells the comms server that a write request initiated
+through<code>StartWrite()</code> is complete. The comms server will then notify
+the client that its write request is complete. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt anError </code></td>
+<td class="Cell"><p class="ValueDesc"> Return code to be passed back to the client through
+its<code>TRequestStatus</code> argument. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.4"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aStartWrite%28%29"></a>
+<hr size="1" noshade>
+<h3><code>StartWrite()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void StartWrite(const TAny* aClientBuffer,TInt aLength)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies the protocol for writing to the port. It is called by the comms
+server in response to a <code>RComm::Write()</code> request from the
+client.</p>
+<p>The implementation should use <code>IPCRead()</code> to get the data to
+write from the client's buffer. When all the data has been written, the
+function should call <code>WriteCompleted()</code>. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TAny* aClientBuffer </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer into client address space to the descriptor containing the
+client&#8217;s buffer </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLength </code></td>
+<td class="Cell"><p class="ValueDesc"> The amount of data to be written </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Break requests</h2>
+</div><div class="Bodytext">
+<a name="2.11.2"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aBreak%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Break()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void Break(TInt aTime)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies the protocol for setting a break condition at the port. It is
+called by the comms server in response to a <code>RComm::Break()</code> request
+from the client.</p>
+<p>When the break is complete, the function should
+call<code>BreakCompleted()</code>. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aTime </code></td>
+<td class="Cell"><p class="ValueDesc"> Time period to break for in microseconds </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.3"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aBreakCancel%28%29"></a>
+<hr size="1" noshade>
+<h3><code>BreakCancel()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void BreakCancel()=0;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies the protocol for cancelling a break request. It is called by
+the comms server in response to a <code>RComm::BreakCancel()</code> request
+from the client.</p>
+<p>The implementation should abort any processing which was taking place as
+a result of the break request. Do not
+call<code>BreakCompleted()</code>.</p>
+<a name="2.11.4"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aBreakCompleted%28%29"></a>
+<hr size="1" noshade>
+<h3><code>BreakCompleted()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void BreakCompleted(TInt anError);&nbsp;&nbsp;&nbsp;&nbsp;</code></p><h4 class="subheading">Description</h4>
+<p>Tells the comms server that a break request initiated
+through<code>Break()</code> is complete. The comms server will then notify the
+client that its break request is complete. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt anError </code></td>
+<td class="Cell"><p class="ValueDesc"> Return code to be passed back to the client through
+its<code>TRequestStatus</code> argument. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Notification requests</h2>
+</div><div class="Bodytext">
+<a name="2.12.2"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aNotifySignalChange%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NotifySignalChange()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void NotifySignalChange(TUint aSignalMask)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies the protocol for setting a signal change notification. It is
+called by the comms server in response to
+a<code>RComm::NotifySignalChange()</code> request from the client.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUint aSignalMask </code></td>
+<td class="Cell"><p class="ValueDesc"> Signal mask passed by client </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.3"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aNotifySignalChangeCancel%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NotifySignalChangeCancel()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void NotifySignalChangeCancel()=0;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies the protocol for cancelling a signal change notification. It is
+called by the comms server in response to
+a<code>RComm::NotifySignalChangeCancel()</code> request from the
+client.</p>
+<a name="2.12.4"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aNotifyConfigChange%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NotifyConfigChange()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void NotifyConfigChange()=0;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies the protocol for setting a configuration change notification.
+It is called by the comms server in response to
+a<code>RComm::NotifyConfigChange()</code> request from the client.</p>
+<a name="2.12.5"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aNotifyConfigChangeCancel%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NotifyConfigChangeCancel()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void NotifyConfigChangeCancel()=0;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies the protocol for cancelling a configuration change
+notification. It is called by the comms server in response to
+a<code>RComm::NotifyConfigChangeCancel()</code> request from the
+client.</p>
+<a name="2.12.6"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aNotifyFlowControlChange%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NotifyFlowControlChange()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void NotifyFlowControlChange()=0;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies the protocol for setting a flow control change notification. It
+is called by the comms server in response to
+a<code>RComm::NotifyFlowControlChange()</code> request from the client.</p>
+<a name="2.12.7"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aNotifyFlowControlChangeCancel%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NotifyFlowControlChangeCancel()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void NotifyFlowControlChangeCancel()=0;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies the protocol for cancelling a flow control change notification.
+It is called by the comms server in response to
+a<code>RComm::NotifyFlowControlChangeCancel()</code> request from the
+client.</p>
+<a name="2.12.8"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aNotifyBreak%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NotifyBreak()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void NotifyBreak()=0;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies the protocol for setting a break notification. It is called by
+the comms server in response to a <code>RComm::NotifyBreak()</code> request
+from the client.</p>
+<a name="2.12.9"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aNotifyBreakCancel%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NotifyBreakCancel()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void NotifyBreakCancel()=0;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies the protocol for cancelling a break notification. It is called
+by the comms server in response to
+a<code>RComm::NotifyBreakCancel()</code>request from the client.</p>
+<a name="2.12.10"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aNotifyDataAvailable%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NotifyDataAvailable()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void NotifyDataAvailable()=0;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies the protocol for setting a data available notification. It is
+called by the comms server in response to
+a<code>RComm::NotifyDataAvailable()</code> request from the client.</p>
+<a name="2.12.11"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aNotifyDataAvailableCancel%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NotifyDataAvailableCancel()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void NotifyDataAvailableCancel()=0;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies the protocol for cancelling a data available notification. It
+is called by the comms server in response to
+a<code>RComm::NotifyDataAvailableCancel()</code> request from the
+client.</p>
+<a name="2.12.12"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aNotifyOutputEmpty%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NotifyOutputEmpty()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void NotifyOutputEmpty()=0;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies the protocol for setting a transmit buffer empty notification.
+It is called by the comms server in response to
+a<code>RComm::NotifyOutputEmpty()</code> request from the client.</p>
+<a name="2.12.13"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aNotifyOutputEmptyCancel%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NotifyOutputEmptyCancel()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void NotifyOutputEmptyCancel()=0;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies the protocol for cancelling a transmit buffer empty
+notification. It is called by the comms server in response to
+a<code>RComm::NotifyOutputEmptyCancel()</code> request from the client.</p>
+<a name="2.13"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Notification requests complete</h2>
+</div><div class="Bodytext">
+<a name="2.13.2"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aSignalChangeCompleted%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SignalChangeCompleted()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SignalChangeCompleted(const TUint&amp; aSignals, TInt anError);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Tells the comms server that a request initiated
+through<code>NotifySignalChange()</code> is complete. The comms server will
+then notify the client that its request is complete. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TUint&amp; aSignals </code></td>
+<td class="Cell"><p class="ValueDesc"> Signals value to pass to client </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt anError </code></td>
+<td class="Cell"><p class="ValueDesc"> Error code </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.3"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aConfigChangeCompleted%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ConfigChangeCompleted()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ConfigChangeCompleted(const TDesC8&amp; aNewConfig, TInt anError);&nbsp;&nbsp;&nbsp;&nbsp;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Tells the comms server that a request initiated
+through<code>NotifyConfigChange()</code> is complete. The comms server will
+then notify the client that its request is complete. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TDesC8&amp; aNewConfig </code></td>
+<td class="Cell"><p class="ValueDesc"> Configuration value to pass to client </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt anError </code></td>
+<td class="Cell"><p class="ValueDesc"> Error code </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.4"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aFlowControlChangeCompleted%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FlowControlChangeCompleted()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void FlowControlChangeCompleted(const TFlowControl&amp; aFlowControl, TInt anError);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Tells the comms server that a request initiated
+through<code>NotifyFlowControlChange()</code> is complete. The comms server
+will then notify the client that its request is complete. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TFlowControl&amp; aFlowControl </code></td>
+<td class="Cell"><p class="ValueDesc"> Flow control to pass to client </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt anError </code></td>
+<td class="Cell"><p class="ValueDesc"> Error code </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.5"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aBreakNotifyCompleted%28%29"></a>
+<hr size="1" noshade>
+<h3><code>BreakNotifyCompleted()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void BreakNotifyCompleted(TInt anError);&nbsp;&nbsp;&nbsp;&nbsp;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Tells the comms server that a request initiated
+through<code>BreakNotifyCompleted()</code> is complete. The comms server will
+then notify the client that its request is complete. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt anError </code></td>
+<td class="Cell"><p class="ValueDesc"> Error code </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.6"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aNotifyDataAvailableCompleted%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NotifyDataAvailableCompleted()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void NotifyDataAvailableCompleted(TInt anError);&nbsp;&nbsp;&nbsp;&nbsp;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Tells the comms server that a request initiated
+through<code>NotifyDataAvailable()</code> is complete. The comms server will
+then notify the client that its request is complete. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt anError </code></td>
+<td class="Cell"><p class="ValueDesc"> Error code </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.7"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aNotifyOutputEmptyCompleted%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NotifyOutputEmptyCompleted()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void NotifyOutputEmptyCompleted(TInt anError);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Tells the comms server that a request initiated
+through<code>NotifyOutputEmpty()</code> is complete. The comms server will then
+notify the client that its request is complete. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt anError </code></td>
+<td class="Cell"><p class="ValueDesc"> Error code </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Buffer management</h2>
+</div><div class="Bodytext">
+<a name="2.14.2"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aFreeMemory%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FreeMemory()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void FreeMemory();</code></p><h4 class="subheading">Description</h4>
+<p>Specifies a protocol by which the comms server can request the protocol
+to release memory. Typically, an implementation may be able to do this by
+reducing internal buffers. </p>
+<p>The default behaviour is to do nothing.</p>
+<a name="2.14.3"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aGetReceiveBufferLength%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetReceiveBufferLength()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt GetReceiveBufferLength(TInt&amp; aLength) const=0;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies a protocol for requesting the size of the serial port buffers.
+It is called by the comms server in response to
+a<code>RComm::ReceiveBufferLength()</code> request from the client.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aLength </code></td>
+<td class="Cell"><p class="ValueDesc"> The current size of the serial port buffers in bytes </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> A system error code </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.4"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aQueryReceiveBuffer%28%29"></a>
+<hr size="1" noshade>
+<h3><code>QueryReceiveBuffer()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt QueryReceiveBuffer(TInt&amp; aLength) const=0;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies a protocol for requesting the number of bytes that are
+currently waiting in the port&#8217;s receive buffer. It is called by the
+comms server in response to a <code>RComm::QueryReceiveBuffer()</code> request
+from the client.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aLength </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, the number of bytes currently waiting to be read from the
+receive buffer. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> A system error code </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.5"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aResetBuffers%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ResetBuffers()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void ResetBuffers(TUint aFlags)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies a protocol for resetting the receive and/or transmit buffers to
+zero length. It is called by the comms server in response to
+a<code>RComm::ResetBuffers()</code> request from the client.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUint aFlags </code></td>
+<td class="Cell"><p class="ValueDesc"> Bitmask of the following flags: <code>KCommResetRx</code> to reset the
+receive buffer <code>KCommResetTx</code> to reset the transmit buffer </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.6"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aSetReceiveBufferLength%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetReceiveBufferLength()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt SetReceiveBufferLength(TInt aLength)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies a protocol for setting the size of the serial port buffers. It
+is called by the comms server in response to
+a<code>RComm::SetReceiveBufferLength()</code> request from the client.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLength </code></td>
+<td class="Cell"><p class="ValueDesc"> Requested size of the serial port buffers in bytes </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> A system error code </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Configuration</h2>
+</div><div class="Bodytext">
+<a name="2.15.2"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aGetConfig%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetConfig()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt GetConfig(TDes8&amp; aPackage) const=0;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies a protocol for getting the current configuration of the serial
+port. It is called by the comms server in response to
+a<code>RComm::GetConfig()</code> request from the client.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TDes8&amp; aPackage </code></td>
+<td class="Cell"><p class="ValueDesc"> A packaged <code>TCommConfig</code> buffer, set on return to the current
+configuration of the serial port </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> A system error code </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15.3"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aGetServerConfig%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetServerConfig()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt GetServerConfig(TDes8&amp; aPackage)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies a protocol for getting the buffer mode. It is called by the
+comms server in response to a <code>RComm::Mode()</code> request from the
+client.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TDes8&amp; aPackage </code></td>
+<td class="Cell"><p class="ValueDesc"> A <code>TCommServerConfig</code> package buffer that, on return, holds
+the current buffer mode settings </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> A system error code </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15.4"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aSetConfig%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetConfig()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt SetConfig(const TDesC8&amp; aPackage)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies a protocol for setting the configuration of the port. It is
+called by the comms server in response to
+a<code>RComm::SetConfig()</code>request from the client.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TDesC8&amp; aPackage </code></td>
+<td class="Cell"><p class="ValueDesc"> A packaged <code>TCommConfig</code> buffer holding the new configuration
+values </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> A system error code </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15.5"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aSetServerConfig%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetServerConfig()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt SetServerConfig(const TDesC8&amp; aPackage)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies a protocol for setting the buffer mode. It is called by the
+comms server in response to a <code>RComm::SetMode()</code> request from the
+client.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TDesC8&amp; aPackage </code></td>
+<td class="Cell"><p class="ValueDesc"> A <code>TCommServerConfig</code> package buffer holding the mode
+settings </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> A system-wide error code </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15.6"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aGetFlowControlStatus%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetFlowControlStatus()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt GetFlowControlStatus(TFlowControl&amp; aFlowControl)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Gets flow control status. It is called by the comms server in response to
+a <code>RComm::SetMode()</code> request from the client.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TFlowControl&amp; aFlowControl </code></td>
+<td class="Cell"><p class="ValueDesc"> Flow control status to return to the client </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> A system-wide error code </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15.7"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aGetRole%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetRole()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt GetRole(TCommRole&amp; aRole)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Gets DCE/DTE role. It is called by the comms server in response to
+a<code>RComm::GetRole()</code> request from the client.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TCommRole&amp; aRole </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, DCE/DTE role to return to the client </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> A system-wide error code </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15.8"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aSetRole%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetRole()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt SetRole(TCommRole aRole)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Sets DCE/DTE role. It is called by the comms server in response to
+a<code>RComm::Open()</code> request from the client.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TCommRole aRole </code></td>
+<td class="Cell"><p class="ValueDesc"> DCE/DTE role </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> A system-wide error code </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Capabilities</h2>
+</div><div class="Bodytext">
+<a name="2.16.2"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aGetCaps%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetCaps()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt GetCaps(TDes8&amp; aPackage)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies a protocol for getting the port capabilities. It is called by
+the comms server in response to a <code>RComm::Caps()</code> request from the
+client.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TDes8&amp; aPackage </code></td>
+<td class="Cell"><p class="ValueDesc"> A <code>TCommCaps</code> package buffer that, on return, holds the port
+capabilities </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> A system error code </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.17"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Signals</h2>
+</div><div class="Bodytext">
+<a name="2.17.2"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aGetSignals%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetSignals()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt GetSignals(TUint&amp; aSignals)=0;&nbsp;&nbsp;&nbsp;&nbsp;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies a protocol for getting the status of the serial port control
+lines. It is called by the comms server in response to
+a<code>RComm::GetSignals()</code> request from the client.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUint&amp; aSignals </code></td>
+<td class="Cell"><p class="ValueDesc"> An integer with the bits set to reflect the status of the handshaking
+lines. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> A system error code </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../SerialCommsServerClient/CsConfigConstants.html#SerialCommsServerClient%2econfig%2esignal%2dconstants">Signal line constants</a></li>
+</ul>
+<a name="2.17.3"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aSetSignalsToMark%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetSignalsToMark()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt SetSignalsToMark(TUint aSignals)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies a protocol for setting serial port control lines. It is called
+by the comms server in response to a <code>RComm::SetSignals()</code> request
+from the client.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUint aSignals </code></td>
+<td class="Cell"><p class="ValueDesc"> A bitmask of the handshaking lines to set </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> A system error code </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../SerialCommsServerClient/CsConfigConstants.html#SerialCommsServerClient%2econfig%2esignal%2dconstants">Signal line constants</a></li>
+</ul>
+<a name="2.17.4"></a></div><div class="Head3">
+<a name="%3a%3aCPort%3a%3aSetSignalsToSpace%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetSignalsToSpace()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt SetSignalsToSpace(TUint aSignals)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies a protocol for clearing serial port control lines. It is called
+by the comms server in response to a <code>RComm::SetSignals()</code> request
+from the client.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUint aSignals </code></td>
+<td class="Cell"><p class="ValueDesc"> A bitmask of the handshaking lines to clear </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> A system error code </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../SerialCommsServerClient/CsConfigConstants.html#SerialCommsServerClient%2econfig%2esignal%2dconstants">Signal line constants</a></li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

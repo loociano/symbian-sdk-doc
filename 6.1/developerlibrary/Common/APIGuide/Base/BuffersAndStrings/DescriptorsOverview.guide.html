@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Descriptors Overview</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="BuffersAndStringsOverview%2eDescriptorsOverview%2emain"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CircularBuffersOverview.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="DynamicBuffersOverview.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Buffers&nbsp;and&nbsp;Strings</a>&nbsp;<span class="separator">&#187;</span>
+Descriptors&nbsp;Overview</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Descriptors Overview</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Purpose</h2>
+</div><div class="Bodytext">
+<p>Manipulates string and data buffers.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Description</h2>
+</div><div class="Bodytext">
+<p>Descriptors are a family of classes that are used in EPOC for
+string handling. They are used in preference to
+NULL-terminated C strings. The same classes are
+used for general binary data. </p>
+<p>The basic classification of descriptor types is given below.
+Concrete descriptor classes implement variations on these basic types for
+different data widths and for different abilities to modify the data. The names
+of the concrete classes follow certain naming conventions that modify the basic
+name given in the table.</p>
+<a name="1.4.4"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Basic classification</h3>
+</div><div class="Bodytext"><table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top"><td class="Cell">
+<p><b>Type</b></p></td><td class="Cell">
+<p><b>Description</b></p></td><td class="Cell">
+<p><b>Basic name</b></p></td></tr><tr valign="top"><td class="Cell">
+<p>abstract</p></td><td class="Cell">
+<p>Base interface: allows descriptors of different types to be
+use polymorphically</p></td><td class="Cell">
+<p><a href="../../../APIReference/Descriptors/TDesTypedef.html#%3a%3aTDes" title="Build independent modifiable descriptor"><code class="ApiItem">TDes</code></a></p></td></tr><tr valign="top"><td class="Cell">
+<p>buffer</p></td><td class="Cell">
+<p>Stack based: contains the data as part of itself. Buffer
+descriptors have a maximum length set at compile time.</p></td><td class="Cell">
+<p><a href="../../../APIReference/Descriptors/TBufClass.html#%3a%3aTBuf" title="Build-independent modifiable buffer descriptor"><code class="ApiItem">TBuf</code></a></p></td></tr><tr valign="top"><td class="Cell">
+<p>pointer </p></td><td class="Cell">
+<p>Refer to data stored elsewhere that is not owned by the
+descriptor</p></td><td class="Cell">
+<p><a href="../../../APIReference/Descriptors/TPtrTypedef.html#%3a%3aTPtr" title="Build independent modifiable pointer descriptor"><code class="ApiItem">TPtr</code></a></p></td></tr><tr valign="top"><td class="Cell">
+<p>heap</p></td><td class="Cell">
+<p>Refers to data stored on the heap that is owned by the
+descriptor. The maximum length of this data can be set and changed
+dynamically.</p></td><td class="Cell">
+<p><a href="../../../APIReference/Descriptors/HBufCTypedef.html#%3a%3aHBufC" title="Build-independent heap descriptor"><code class="ApiItem">HBufC</code></a></p></td></tr></table></td></tr></table>
+<a name="1.4.5"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Width</h3>
+</div><div class="Bodytext">
+<p>Descriptor types can store 8-bit or 16-bit data. These types are
+indicated by the convention of appending 8 or 16 on the basic name, e.g.
+<a href="../../../APIReference/Descriptors/TDes8Class.html#%3a%3aTDes8" title="Modifiable 8-bit descriptor; abstract class"><code class="ApiItem">TDes8</code></a>. In Unicode EPOC builds, the basic names
+correspond to 16-bit types, for example
+<a href="../../../APIReference/Descriptors/TBufClass.html#%3a%3aTBuf" title="Build-independent modifiable buffer descriptor"><code class="ApiItem">TBuf</code></a> is defined to be
+<a href="../../../APIReference/Descriptors/TBuf16Class.html#%3a%3aTBuf16" title="16 bit modifiable buffer descriptor"><code class="ApiItem">TBuf16</code></a>.</p>
+<a name="1.4.6"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Modifiable and non-modifiable</h3>
+</div><div class="Bodytext">
+<p>Modifiable descriptor types have an interface that allows callers
+to alter their contents, such as appending characters. </p>
+<p>Non-modifiable descriptor types can have their contents reset,
+but not modified. The convention is for non-modifiable types to append a C on
+the basic name, e.g.
+<a href="../../../APIReference/Descriptors/TBufCClass.html#%3a%3aTBufC" title="Build independent non-modifiable buffer descriptor"><code class="ApiItem">TBufC</code></a>.</p>
+<p>Heap type descriptors are an exceptional case: they are available
+only in the non-modifiable form, but can, nevertheless, be modified through use
+of a pointer: see <code>HBufC::Des()</code>.</p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="../Maths/CharacterRepresentationOfRealNumbersOverview.guide.html#MathsOverview%2eCharacterRepresentationOfRealNumbersOverview%2emain">Character Representation Of Real Numbers Overview</a></p>
+<p><a href="../DescriptorArrays/DescriptorArraysOverview.guide.html#DescriptorArraysOverview%2emain">Descriptor Arrays Overview</a></p>
+<p><a href="DynamicBuffersOverview.guide.html#BuffersAndStringsOverview%2eDynamicBuffersOverview%2emain">Dynamic Buffers Overview</a></p>
+<p><a href="LiteralsOverview.guide.html#BuffersAndStringsOverview%2eLiteralsOverview%2emain">Literals Overview</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

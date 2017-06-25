@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Dial-up networking</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="emulator%2edialup"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="Debugging.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowtoStart.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/DeveloperGuide/index.html">Developer's&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Emulator</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Emulator&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+Dial-up&nbsp;networking</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Dial-up networking</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Overview</h2>
+</div><div class="Bodytext">
+<p>Internet applications can be tested on the Emulator by accessing
+peripheral devices attached to the PC. Increasingly, developers will want to
+ensure that their applications are Internet and comms aware.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Using Internet applications</h2>
+</div><div class="Bodytext">
+<p>On a real  device, the Internet applications use dial-up
+networking to an Internet Service Provider (ISP). General ISP settings are
+stored in the control panel; Email and WAP accounts are also configured using
+the control panel.</p>
+<p>To use the Internet programs on the Emulator, you need</p>
+<ul>
+<li>
+<p>a PC with a modem</p>
+</li>
+<li>
+<p>an ISP account</p>
+</li>
+<li>
+<p>SMTP/POP3 e-mail accounts </p>
+</li>
+</ul>
+<p>The Emulator&#8217;s networking facilities are not designed to
+work with PC-based LAN networking. Your PC must have a modem and use dial-up
+networking.</p>
+<p>You can use the same ISP as you use for your PC-based Internet
+access. However,<i> you must enter all your ISP settings again</i> in
+the Emulator's control panel: the Emulator cannot share settings from your
+PC&#8217;s control panel. Additionally, your incoming and outgoing mailbox
+details must also be set in the Email application in order to receive and send
+Internet mail.</p>
+<p>The Symbian platform&#8217;s serial devices are referred to as
+COMM::0 and COMM::1. COMM::0 maps to the PC&#8217;s COM1 port, while COMM::1
+maps to COM2.</p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Dial-up with a mobile phone</h2>
+</div><div class="Bodytext">
+<p> Internet access is possible using a data-enabled mobile phone with
+an infra-red port and IrDA COM-port serial adapter. The recommended adapter is
+the Extended Systems, Inc. Jeteye ESI-9680. </p>
+<p>Modem and comms set-up specifics is accessed by running
+<code class="filename">Setupcomms.bat</code>, found in <code class="filename">\epoc32\tools\</code>. The modem
+type should be set to <code class="ProgramOutput">IR mobile phone</code>— this is the
+default.</p>
+<p>In order for comms related features to be successful the IR adapter
+needs to be connected to the PC's com-port 2. By default the IR driver supplied
+with the Symbian platform maps the IRCOM::0 setting to the physical com-port 2
+on the PC and thus the IR adapter. If com-port 1 is to be used instead, the
+mapping to the physical port can be altered in the following files:</p>
+<p><code class="filename">\epoc32\data\z\system\data\irda_port1.esk</code></p>
+<p><code class="filename">\epoc32\wins\c\system\data\irda_wins.esk</code></p>
+<p>The default setting in these files is
+<code>irPhysicalComPort=1</code>. To map to the PC's com-port 1 this value
+should be changed to 0.</p>
+<h4 class="subheading">See also</h4>
+<p><a href="HowToSetupcomms.guide.html#Emulator%2eHow%2dTo%2eQuartzComms">How to configure comms settings</a>.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

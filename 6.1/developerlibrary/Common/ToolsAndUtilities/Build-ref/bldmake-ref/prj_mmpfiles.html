@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>prj_mmpfiles</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="bldmake%2dref2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="prj_exports.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="prj_platforms.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Build&nbsp;Tools&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">bld.inf&nbsp;file&nbsp;syntax</a>&nbsp;<span class="separator">&#187;</span>
+prj_mmpfiles</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1><code>prj_mmpfiles</code></h1>
+</div><div class="Bodytext">
+<p>
+<code>prj_mmpfiles</code></p>
+<p>
+<em class="metasyntactic">mmp_file_1</em>
+<code>[tidy]</code>
+</p><p>
+<em class="metasyntactic">mmp_file_1</em>
+<code>
+[tidy]</code></p>
+<p><code>makefile  </code><em class="metasyntactic">makefile_1</em>
+<code>[tidy]</code></p><p><code>makefile  </code><em class="metasyntactic">makefile_n</em>
+<code>[tidy]</code></p>
+<p>	In 	the <code>prj_mmpfiles</code> section,
+list the <code class="filename">.mmp</code> files contained in your component.</p><p>Specify each <code class="filename">.mmp</code> file on a separate line. </p>
+<a name="1.10"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Relative paths</h2>
+</div><div class="Bodytext"><p>If a relative path is specified with an <code class="filename">.mmp</code> file,
+the path will be considered relative to the directory containing the
+<code class="filename">bld.inf</code> file. </p>
+<p>For example, if in the <code>prj_mmpfiles</code> section,
+a certain <code class="filename">Hello.mmp</code> file is specified as a relative path:</p>
+<p class="CodeBlock"><code>PRJ_MMPFILES<br>ProjSpec\Hello.mmp</code></p>
+<p>and if the <code class="filename">bld.inf</code> file is in <code class="filename">\MyComp\</code>,
+then the full path for the location of <code class="filename">Hello.mmp</code> will
+be <code class="filename">\MyComp\ProjSpec\Hello.mmp</code>.</p>
+<a name="1.11"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>The <code>tidy</code> attribute</h2>
+</div><div class="Bodytext"><p>Specify the <code>tidy</code> attribute if
+the releasable that an .<code class="filename">mmp</code> file defines is purely internal to
+your component, and therefore not required either by other components or for
+your component to execute.</p>
+<p>If the tidy attribute is specified in your component&#8217;s
+description file, then this will indicate to the <code class="filename">abld</code> tool when it
+is used to run the command <code>abld tidy</code>, to
+remove those releasables that are no longer required.</p><a name="1.14"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Extension makefiles</h2>
+</div><div class="Bodytext"><p>Use keyword <code>makefile</code> to specify
+an extension makefile for your component. Extension makefiles can be used where
+build activities need to be carried out which are not catered for by generated makefiles.
+</p>
+<p>Build activities relating to particular <code class="filename">.mmp</code> files
+or extension makefiles are carried out in the order in which the
+.<code class="filename">mmp</code> files and extension makefiles are listed in the
+<code class="filename">bld.inf</code> file. Extension makefiles can be interspersed among the
+.<code class="filename">mmp</code> files.</p><p>See <a href="ExtensionMakefiles.html#Extension%2emakefiles%2eref">Extension makefiles</a> for more details.</p>
+<a name="1.18"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Platform-specific use</h2>
+</div><div class="Bodytext"><p>The <code>prj_mmpfiles</code> section is
+preprocessed for each platform listed in the <code>prj_platforms</code>
+section.</p>
+<p>If an .<code class="filename">mmp</code> file or extension makefile applies only
+to a particular platform, then place the item within</p>
+<p class="CodeBlock"><code>#if defined &lt;identifier&gt;<br>#endif</code></p>
+<p>For example, if an .<code class="filename">mmp</code> file relates only to the WINS platform,
+specify the file as follows:</p>
+<p class="CodeBlock"><code>#if defined(WINS)<br>&lt;mmp_file&gt;<br>#endif</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

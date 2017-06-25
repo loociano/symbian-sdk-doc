@@ -1,0 +1,447 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Rich-text source file .rtf</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="cshelp%2dref%2esource"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CommandLineSyntaxReferenceConverter.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="ProjectFileReference.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">CS&nbsp;Help&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+Rich-text&nbsp;source&nbsp;file&nbsp;.rtf</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Rich-text source file&nbsp;&#8212; <code class="filename">.rtf</code></h1>
+</div><div class="Bodytext">
+<a name="1.3"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Overview</h2>
+</div><div class="Bodytext">
+<p>This section describes the structure of a CS Help rich-text source file. In particular, it covers the different styles that can be used in the source rich-text file.</p>
+<p>In order to use CS Help successfully, it is important to know something about how rich-text files are used in the conversion process.  The conversion is based on<em> styled markup</em>.  It conveys <em>no formatting information</em> from the rich-text file, except for bold, italic, subscript and superscript, and the style names of paragraphs and characters.  It does not convey tabs, hard line breaks (<code class="keypress">shift+enter</code>), or any other formatting information such as fonts, underline, margin settings, borders etc.  This means that character and paragraph styles <em>must</em> be used to convey all formatting information to CS-Help.  </p>
+<a name="cshelp%2dref%2esource%2drtf"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>RTF file format</h2>
+</div><div class="Bodytext">
+<p>A <code class="filename">.rtf</code> source file for CS Help must have the following structure in the order presented:</p>
+<ol><li><p>Category name in <code class="ProgramOutput">Heading 1</code> style. A unique name for all the topics in the help file. </p></li>
+<li><p>UID of the application in <code class="ProgramOutput">category UID </code>style. There can only be a single occurrence of category UID style in the source <code class="filename">.rtf</code> file. The UID can be entered as a decimal or hex value. A hex value is entered as 0xXXXXXXX (leading and trailing spaces are ignored). </p></li>
+<li><p>Topic title in <code class="ProgramOutput">Heading 2</code> style paragraph. There may be any number of topic titles.</p></li>
+</ol><p>The following classifications  are associated with the topic that precedes them. They are implemented in the following order and are all optional:</p>
+<ul><li><p>Synonyms in <code class="ProgramOutput">synonym</code> style. An alternative name for the topic. Synonyms are limited to a maximum of 120 chars. </p></li>
+<li><p>Context in <code class="ProgramOutput">context</code> style. Identifies a context that the help topic is linked to, entered as a series of paragraphs. Contexts can be any length but only the first 30 characters are significant. A topic may have any number of contexts but each context must be unique within a help file—the compiler will check for uniqueness. A context may optionally be followed by text in context comment character style. This text forms a program language comment in the generated header file.</p></li>
+<li><p>Indexes in <code class="ProgramOutput">index</code> style. Each index should be specified in a separate paragraph and is limited to 120 characters maximum. An index is a string associated with a topic and is used in the help application's index view. Because an index phrase may relate to more than one topic, indexes need not be unique within a help project. A topic may have any number of indexes.</p></li>
+<li><p>Body text in <code class="ProgramOutput">Normal </code>and other <code class="filename">cshelp.dot</code> styles.</p></li>
+</ul><p><b>Notes:</b></p>
+<ul><li><p><code class="ProgramOutput">Comment</code> style can be used anywhere within the source file to indicate author, date, or other such notes which should not be converted into the target format.</p></li>
+<li><p>The CS Help compiler does not allow the styles named above, except Normal, in the body text of the topic. All other <code class="filename">cshelp.dot </code>styles are allowed.</p></li>
+</ul><a name="1.5"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Available styles</h2>
+</div><div class="Bodytext">
+<p>The paragraph styles provided by the <code class="filename">cshelp</code> template, and recognised by the CS Help compiler, are documented below.</p>
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+<p><b>Style</b></p>
+</td>
+<td class="Cell">
+<p><b>Keyboard shortcut</b></p>
+</td>
+<td class="Cell">
+<p><b>Description</b></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="ProgramOutput">Heading 1</code></p>
+</td>
+<td class="Cell">
+<p><code class="keypress">ctrl+alt+1</code></p>
+</td>
+<td class="Cell">
+<p>application name</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="ProgramOutput">Heading 2</code></p>
+</td>
+<td class="Cell">
+<p><code class="keypress">ctrl+alt+2</code></p>
+</td>
+<td class="Cell">
+<p>topic title</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="ProgramOutput">Synonyms</code></p>
+</td>
+<td class="Cell">
+<p><code class="keypress">ctrl+shift+S</code></p>
+</td>
+<td class="Cell">
+<p>words in this paragraph form a synonym list</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="ProgramOutput">Normal</code></p>
+</td>
+<td class="Cell">
+<p><code class="keypress">ctrl+shift+N</code></p>
+</td>
+<td class="Cell">
+<p>normal body text</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="ProgramOutput">List Bullet</code></p>
+</td>
+<td class="Cell">
+<p><code class="keypress">
+</code></p>
+</td>
+<td class="Cell">
+<p>bulleted list item </p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="ProgramOutput">List Number</code></p>
+</td>
+<td class="Cell">
+<p><code class="keypress">
+</code></p>
+</td>
+<td class="Cell">
+<p>auto-numbered list item</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="ProgramOutput">List Manual</code></p>
+</td>
+<td class="Cell">
+<p><code class="keypress">
+</code></p>
+</td>
+<td class="Cell">
+<p>manually-numbered list item</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="ProgramOutput">List Continue</code></p>
+</td>
+<td class="Cell">
+<p><code class="keypress">
+</code></p>
+</td>
+<td class="Cell">
+<p>continuation paragraph for a list item</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="ProgramOutput">List Bullet 2</code></p>
+</td>
+<td class="Cell">
+<p><code class="keypress">
+</code></p>
+</td>
+<td class="Cell">
+<p>second-level bulleted list item</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="ProgramOutput">List Number 2</code></p>
+</td>
+<td class="Cell">
+<p><code class="keypress">
+</code></p>
+</td>
+<td class="Cell">
+<p>second-level auto-numbered list item</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="ProgramOutput">List Manual 2</code></p>
+</td>
+<td class="Cell">
+<p><code class="keypress">
+</code></p>
+</td>
+<td class="Cell">
+<p>second-level manually-numbered list</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="ProgramOutput">List Continue 2</code></p>
+</td>
+<td class="Cell">
+<p><code class="keypress">
+</code></p>
+</td>
+<td class="Cell">
+<p>continuation paragraph for a second-level list item</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="ProgramOutput">Definition Term</code></p>
+</td>
+<td class="Cell">
+<p><code class="keypress">
+</code></p>
+</td>
+<td class="Cell">
+<p>an item to be defined</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="ProgramOutput">Definition Definition</code></p>
+</td>
+<td class="Cell">
+<p><code class="keypress">
+</code></p>
+</td>
+<td class="Cell">
+<p>defines an item</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="ProgramOutput">Tip</code></p>
+</td>
+<td class="Cell">
+<p><code class="keypress">ctrl+shift+T</code></p>
+</td>
+<td class="Cell">
+<p>a tip</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="ProgramOutput">Note</code></p>
+</td>
+<td class="Cell">
+<p><code class="keypress">
+</code></p>
+</td>
+<td class="Cell">
+<p>a note; perhaps a warning</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="ProgramOutput">Important</code></p>
+</td>
+<td class="Cell">
+<p><code class="keypress">ctrl+shift+I</code></p>
+</td>
+<td class="Cell">
+<p>important information; warning which must be heeded</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="ProgramOutput">Context</code></p>
+</td>
+<td class="Cell">
+<p><code class="keypress">
+</code></p>
+</td>
+<td class="Cell">
+<p>identifies a context </p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="ProgramOutput">Comment</code></p>
+</td>
+<td class="Cell">
+<p><code class="keypress">
+</code></p>
+</td>
+<td class="Cell">
+<p>notes that the author wishes to leave in the file— ignored by the CS Help compiler when processing the file</p>
+</td>
+</tr>
+</table></td></tr></table><p>Apart from the names of these paragraph styles, no paragraph formatting information is conveyed from an RTF source document by the CS Help compiler.</p>
+<a name="1.6"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Character styles</h2>
+</div><div class="Bodytext">
+<p>The character styles provided by the <code class="filename">cshelp</code> template, and recognised by the CS Help compiler, are documented below.</p>
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+<p><b>Style</b></p>
+</td>
+<td class="Cell">
+<p><b>Keyboard shortcut</b></p>
+</td>
+<td class="Cell">
+<p><b>Description</b></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="ProgramOutput">App Text</code></p>
+</td>
+<td class="Cell">
+<p><code class="keypress">ctrl+shift+P</code></p>
+</td>
+<td class="Cell">
+<p>Application text, used for text on menus, dialogs, buttons, application views</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="ProgramOutput">Key Name</code></p>
+</td>
+<td class="Cell">
+<p><code class="keypress">ctrl+shift+K</code></p>
+</td>
+<td class="Cell">
+<p>Used for keys which must be pressed by the user. This is not for entire strings entered by the user: see <code class="ProgramOutput">App Text</code> for that.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="ProgramOutput">Graphic Link</code></p>
+</td>
+<td class="Cell">
+<p><code class="keypress">ctrl+shift+G</code></p>
+</td>
+<td class="Cell">
+<p>contains a directive which will be replaced by a graphic in the help database</p>
+</td>
+</tr>
+</table></td></tr></table><p>Apart from the names of these character styles, and manually-applied bold, italic, subscript and superscript attributes, no character formatting information is conveyed by CS Help from an RTF source document.</p>
+<a name="1.7"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Lists</h2>
+</div><div class="Bodytext">
+<p>CS Help supports the following kinds of list</p>
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+<p><b>List Type</b></p>
+</td>
+<td class="Cell">
+<p><b>Description.</b></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>auto-bulleted</p>
+</td>
+<td class="Cell">
+<p>a suitable bullet character, e.g. blob or dash, picks out the head paragraph in each list item</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>auto-numbered</p>
+</td>
+<td class="Cell">
+<p>an auto-generated number picks out the head paragraph in each list item</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>manually numbered</p>
+</td>
+<td class="Cell">
+<p>a manually entered number picks out the head paragraph in each list item</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>definition</p>
+</td>
+<td class="Cell">
+<p>a special kind of list used for a series of terms and their definitions</p>
+</td>
+</tr>
+</table></td></tr></table><a name="1.7.4"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Bulleted and numbered lists</h3>
+</div><div class="Bodytext">
+<p>Auto-bulleted and auto-numbered lists are supported directly by Microsoft Word, and RTF.  Use the <code class="ProgramOutput">List Bullet</code> and <code class="ProgramOutput">List Number</code> styles for the head paragraphs of each item.  Word and the CS Help compiler manage the sequencing of auto-numbered lists.  This makes it easy to produce consistent and correct lists.</p>
+<p>An item in an auto-bulleted list may have continuation paragraphs, in <code class="ProgramOutput">List Continue</code> style, or nested lists, in one of the <code class="ProgramOutput">List ... 2</code> styles.  This is not possible in Word, because the numbering on the head paragraphs is lost.</p>
+<p>CS Help also supports manually numbered lists.  To enter a head paragraph in a manually numbered list, use the paragraph style <code class="ProgramOutput">List Manual</code>; type the number, a <code class="keypress">tab</code>, and then the text of the paragraph.  Type the number in Roman format only, and do not type any punctuation: CS Help will generate the correct numbering and punctuation.</p>
+<a name="1.7.5"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Definition lists</h3>
+</div><div class="Bodytext">
+<p>A definition list is used when a number of items need to be defined or explained.  The list is made up of two columns. The first column is a sequence of terms to be defined; the second is a sequence of definitions.  The terms are quite short, and cannot be more than a single paragraph.  The definitions are potentially long, containing multiple paragraphs.  The table of list types above, for instance, would be a natural use of a definition list.</p>
+<p>To enter a definition list, use paragraphs with style sequences of the form</p>
+<div class="Figure">
+<p class="Image"><img src="EditingRtfDefnlists.gif" alt="Definition list styles"  border="0"></p>
+<p class="Caption">Definition list styles</p>
+</div>
+<a name="cshelp%2dref%2esource%2dgraphics"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Graphics</h2>
+</div><div class="Bodytext">
+<p>Figures are inserted into a help topic by placing the following in <code class="ProgramOutput">graphic link</code> style in the source <code class="filename">.rtf</code> file:</p>
+<p><code>archive</code>=<em>archivename</em>
+<code>name</code>=<em>picture</em></p>
+<p>The archivename refers to the graphic sub directory within the project directory. It is specified in the project file using the <code>graphics</code> tag. The picture refers to the filename of the graphic (<code class="filename">mbm)  </code>to place into the help file. The <code class="filename">mbm</code> may only contain one bitmap.</p>
+<a name="1.8.6"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>See also</h3>
+</div><div class="Bodytext">
+<p><a href="ProjectFileReference.guide.html#cshelp%2dref%2eproject%2dfiles" title="Project file -- .cshlp">Project file— .xml</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

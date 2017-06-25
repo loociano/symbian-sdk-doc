@@ -1,0 +1,386 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CActiveScheduler</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CActiveClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="CIdleClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Asynchronous&nbsp;Services</a>&nbsp;<span class="separator">&#187;</span>
+CActiveScheduler</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code> e32base.h </code>
+<br>Link against: <code> euser.lib </code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aCActiveScheduler"></a>
+
+<h1>Class <code>CActiveScheduler</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CActiveScheduler</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Controls the handling of asynchronous requests as represented by
+active objects.</p>
+<p>An active scheduler is used to schedule the sequence in which
+active object request completion events are handled by a single event-handling
+thread.</p>
+<p>An active scheduler can be instantiated and used directly if
+either:</p>
+<ul>
+<li>
+<p>the <code>RunL()</code> function of all of its active objects
+is guaranteed not to leave</p>
+</li>
+</ul><p>or:</p>
+<ul>
+<li>
+<p>each of its active objects implements a suitable
+<code>RunError()</code> function to provide suitable cleanup</p>
+</li>
+</ul>
+<p>If any of the active scheduler's active objects does not provide a
+<code>RunError()</code> function, then a <code>CActiveScheduler</code> derived
+class must be defined and an implementation of the <code>Error()</code>
+function provided to perform the cleanup required.</p>
+<p>There is one active scheduler per thread and the static functions
+provided by the class always refer to the current active scheduler.</p>
+<h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code>CActiveScheduler</code></td><td class="Cell">Controls the handling of asynchronous requests as represented by active objects</td>
+</tr>
+<tr><td class="Cell"><code><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase">CBase</a></code></td><td class="Cell">Base class for all classes to be instantiated on the heap</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>CActiveScheduler</code>:
+<br><code class="ApiItem"><a href="CActiveSchedulerClass.html#%3a%3aCActiveScheduler%3a%3aAdd%28%29" title="Adds the specified active object to the current active scheduler">Add()</a></code>, <code class="ApiItem"><a href="CActiveSchedulerClass.html#%3a%3aCActiveScheduler%3a%3aCActiveScheduler%28%29" title="Constructs an active scheduler">CActiveScheduler()</a></code>, <code class="ApiItem"><a href="CActiveSchedulerClass.html#%3a%3aCActiveScheduler%3a%3aCurrent%28%29" title="Returns a pointer to the currently installed active scheduler">Current()</a></code>, <code class="ApiItem"><a href="CActiveSchedulerClass.html#%3a%3aCActiveScheduler%3a%3aError%28%29" title="Handles the result of a leave occurring in an active object's RunL() function">Error()</a></code>, <code class="ApiItem"><a href="CActiveSchedulerClass.html#%3a%3aCActiveScheduler%3a%3aInstall%28%29" title="Installs the specified active scheduler as the current active scheduler">Install()</a></code>, <code class="ApiItem"><a href="CActiveSchedulerClass.html#%3a%3aCActiveScheduler%3a%3aOnStarting%28%29" title="Called when the Active Scheduler is started">OnStarting()</a></code>, <code class="ApiItem"><a href="CActiveSchedulerClass.html#%3a%3aCActiveScheduler%3a%3aOnStopping%28%29" title="Called when the Active Scheduler is stopped">OnStopping()</a></code>, <code class="ApiItem"><a href="CActiveSchedulerClass.html#%3a%3aCActiveScheduler%3a%3aReplace%28%29" title="Allows the current active scheduler to be replaced, while retaining its active objects">Replace()</a></code>, <code class="ApiItem"><a href="CActiveSchedulerClass.html#%3a%3aCActiveScheduler%3a%3aRunIfReady%28%29" title="Causes the RunL() function of at most one pending active object of priority aMinimumPriority or greater to be run">RunIfReady()</a></code>, <code class="ApiItem"><a href="CActiveSchedulerClass.html#%3a%3aCActiveScheduler%3a%3aStart%28%29" title="Starts a new wait loop under the control of the current active scheduler">Start()</a></code>, <code class="ApiItem"><a href="CActiveSchedulerClass.html#%3a%3aCActiveScheduler%3a%3aStop%28%29" title="Stops the wait loop started by the most recent call to Start()">Stop()</a></code>, <code class="ApiItem"><a href="CActiveSchedulerClass.html#%3a%3aCActiveScheduler%3a%3aWaitForAnyRequest%28%29" title="Wait for an asynchronous request to complete">WaitForAnyRequest()</a></code>, <code class="ApiItem"><a href="CActiveSchedulerClass.html#%3a%3aCActiveScheduler%3a%3a%7eCActiveScheduler%28%29" title="Frees resources prior to destruction">~CActiveScheduler()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap">CBase</a></code>:
+<br><code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase%3a%3aoperator%20new%28%29" title="Allocates the object from the heap and then initialises its contents to binary zeroes">operator new()</a></code></p>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CActiveSchedulerClass.html#%3a%3aCActiveScheduler%3a%3aError%28%29" title="Handles the result of a leave occurring in an active object's RunL() function"><code class="ApiItem">CActiveScheduler::Error()</code></a></li>
+<li><a href="CActiveClass.html#%3a%3aCActive" title="The core class of the active object abstraction"><code class="ApiItem">CActive</code></a></li>
+</ul>
+<a name="2.7"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction and destruction</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aCActiveScheduler%3a%3aCActiveScheduler%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CActiveScheduler()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CActiveScheduler();</code></p><h4 class="subheading">Description</h4>
+<p>Constructs an active scheduler. After construction, the
+scheduler should be installed.</p>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CActiveSchedulerClass.html#%3a%3aCActiveScheduler%3a%3aInstall%28%29" title="Installs the specified active scheduler as the current active scheduler"><code class="ApiItem">CActiveScheduler::Install()</code></a></li>
+</ul>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aCActiveScheduler%3a%3a%7eCActiveScheduler%28%29"></a>
+<hr size="1" noshade>
+<h3><code>~CActiveScheduler()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>~CActiveScheduler();</code></p><h4 class="subheading">Description</h4>
+<p>Frees resources prior to destruction. Specifically, it removes
+all active objects from the active scheduler&#8217;s list of active
+objects.</p>
+<p>An active scheduler should only be destroyed when the top-level
+call to <code>Start()</code> has returned.</p>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CActiveSchedulerClass.html#%3a%3aCActiveScheduler%3a%3aStart%28%29" title="Starts a new wait loop under the control of the current active scheduler"><code class="ApiItem">CActiveScheduler::Start()</code></a></li>
+<li><a href="CActiveSchedulerClass.html#%3a%3aCActiveScheduler%3a%3aStop%28%29" title="Stops the wait loop started by the most recent call to Start()"><code class="ApiItem">CActiveScheduler::Stop()</code></a></li>
+</ul>
+<a name="2.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Functions which can be overridden by derived class</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aCActiveScheduler%3a%3aWaitForAnyRequest%28%29"></a>
+<hr size="1" noshade>
+<h3><code>WaitForAnyRequest()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void WaitForAnyRequest();</code></p><h4 class="subheading">Description</h4>
+<p>Wait for an asynchronous request to complete.</p>
+<p>The default implementation just calls
+<code>User::WaitForAnyRequest()</code>.</p>
+<p>Derived classes can replace this. Typically, this would be done to
+implement code for maintaining an outstanding request; this would be followed
+by a call to <code>User::WaitForAnyRequest()</code>.</p>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../SystemStaticFunctions/UserClass.html#%3a%3aUser%3a%3aWaitForAnyRequest%28%29" title="Waits for any asynchronous request to complete"><code class="ApiItem">User::WaitForAnyRequest()</code></a></li>
+</ul>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aCActiveScheduler%3a%3aError%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Error()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void Error(TInt anError) const;</code></p><h4 class="subheading">Description</h4>
+<p>Handles the result of a leave occurring in an active object&#8217;s
+<code>RunL()</code> function. An active scheduler always invokes an active
+object&#8217;s <code>RunL()</code> function under a trap harness.</p>
+<p>The default implementation raises an E32USER-CBase 47 panic and must
+be replaced. Any cleanup relevant to the possible causes of leaving should be
+performed. If <code>Stop()</code> is called from within this function, the
+current wait loop terminates. This may be an appropriate response to
+catastrophic error conditions.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt anError </code></td>
+<td class="Cell"><p class="ValueDesc"> The leave code propagated from the active object&#8217;s
+<code>RunL()</code> function. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CActiveClass.html#%3a%3aCActive%3a%3aRunL%28%29" title="Handles an active object's request completion event"><code class="ApiItem">CActive::RunL()</code></a></li>
+<li><a href="CActiveSchedulerClass.html#%3a%3aCActiveScheduler%3a%3aStop%28%29" title="Stops the wait loop started by the most recent call to Start()"><code class="ApiItem">CActiveScheduler::Stop()</code></a></li>
+</ul>
+<a name="2.8.4"></a></div><div class="Head3">
+<a name="%3a%3aCActiveScheduler%3a%3aOnStarting%28%29"></a>
+<hr size="1" noshade>
+<h3><code>OnStarting()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>private: virtual void OnStarting();</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Called when the Active Scheduler is started. </p><p>Derived classes can override this. The default implementation does nothing.</p>
+<a name="2.8.5"></a></div><div class="Head3">
+<a name="%3a%3aCActiveScheduler%3a%3aOnStopping%28%29"></a>
+<hr size="1" noshade>
+<h3><code>OnStopping()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>private: virtual void OnStopping();</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Called when the Active Scheduler is stopped. </p><p>Derived classes can override this. The default implementation does nothing.</p>
+<a name="2.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Active scheduler administration</h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aCActiveScheduler%3a%3aInstall%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Install()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static void Install(CActiveScheduler* aScheduler);</code></p><h4 class="subheading">Description</h4>
+<p>Installs the specified active scheduler as the current active
+scheduler. The installed active scheduler now handles events for this
+thread.</p>
+<p>The current active scheduler can be uninstalled by passing a NULL
+pointer.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CActiveScheduler* aScheduler </code></td>
+<td class="Cell"><p class="ValueDesc"> A pointer to the active scheduler to be installed. If there is already
+an installed active scheduler, the function raises an E32USER-CBase 43 panic If
+NULL, the current active scheduler is uninstalled. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.3"></a></div><div class="Head3">
+<a name="%3a%3aCActiveScheduler%3a%3aAdd%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Add()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static void Add(CActive* anActive);</code></p><h4 class="subheading">Description</h4>
+<p>Adds the specified active object to the current active scheduler.</p>
+<p>An active object can be removed from an active scheduler either by
+destroying the active object or by using its Deque() member function.</p>
+<p>The thread must have an active scheduler installed, otherwise the
+function raises an E32USER-CBase 44 panic.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CActive* anActive </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the active object to be added. The pointer must not be NULL,
+otherwise the function raises an E32USER-CBase 48 panic. This active object
+must not already have been added to the current active scheduler, otherwise the
+function raises an E32USER-CBase 41 panic. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CActiveClass.html#%3a%3aCActive%3a%3aDeque%28%29" title="Removes the active object from the active scheduler's list of active objects"><code class="ApiItem">CActive::Deque()</code></a></li>
+</ul>
+<a name="2.9.4"></a></div><div class="Head3">
+<a name="%3a%3aCActiveScheduler%3a%3aReplace%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Replace()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static CActiveScheduler* Replace(CActiveScheduler* aNewActiveScheduler);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Allows the current active scheduler to be replaced, while retaining its active objects.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">aNewActiveScheduler</code></td>
+<td class="Cell"><p class="ValueDesc">New active scheduler</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CActiveScheduler*</code></td>
+<td class="Cell"><p class="ValueDesc">Previous active scheduler</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Wait loop control</h2>
+</div><div class="Bodytext">
+<a name="2.10.2"></a></div><div class="Head3">
+<a name="%3a%3aCActiveScheduler%3a%3aRunIfReady%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RunIfReady()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static TBool RunIfReady(TInt&amp; aError, TInt aMinimumPriority);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Causes the <code>RunL()</code> function of at most one pending active object of priority <code>aMinimumPriority</code> or greater to be run. </p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">aError</code></td>
+<td class="Cell"><p class="ValueDesc">Error returned by called active object</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">aMinimumPriority</code></td>
+<td class="Cell"><p class="ValueDesc">Minimum priority of active object to run</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc"><code>EFalse</code> if no active object's <code>RunL()</code> function is run: i.e. if there are no active objects of priority <code>aMinimumPriority</code> or greater pending</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.3"></a></div><div class="Head3">
+<a name="%3a%3aCActiveScheduler%3a%3aStart%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Start()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static void Start();</code></p><h4 class="subheading">Description</h4>
+<p>Starts a new wait loop under the control of the current active
+scheduler.</p>
+<p>At least one active object, with an outstanding request, must be added to
+the scheduler before the wait loop is started, otherwise no events will occur
+and the thread will hang or any events that do occur will be counted as stray
+signals, raising a panic.</p>
+<p>While <code>Start()</code> is executing, user code runs only:</p>
+<ul>
+<li>
+<p>in the <code>RunL()</code> function of active objects known to the
+current active scheduler</p>
+</li>
+<li>
+<p>in the current active scheduler&#8217;s <code>Error()</code> function,
+if an active object&#8217;s <code>RunL()</code> leaves.</p>
+</li>
+</ul>
+<p><code>Start()</code> returns only when a corresponding
+<code>Stop()</code> is issued.</p>
+<p>Nested wait loops can also be started. Typically, a nested wait loop is
+used when the handling of a completed event in an active object requires
+processing further events from the other active objects before it can complete.
+This is a form of modal processing.</p>
+<p>The thread must have an active scheduler installed, otherwise the
+function raises an E32USER-CBase 44 panic.</p>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CActiveSchedulerClass.html#%3a%3aCActiveScheduler%3a%3aStop%28%29" title="Stops the wait loop started by the most recent call to Start()"><code class="ApiItem">CActiveScheduler::Stop()</code></a></li>
+<li><a href="CActiveSchedulerClass.html#%3a%3aCActiveScheduler%3a%3aError%28%29" title="Handles the result of a leave occurring in an active object's RunL() function"><code class="ApiItem">CActiveScheduler::Error()</code></a></li>
+<li><a href="CActiveClass.html#%3a%3aCActive%3a%3aRunL%28%29" title="Handles an active object's request completion event"><code class="ApiItem">CActive::RunL()</code></a></li>
+</ul>
+<a name="2.10.4"></a></div><div class="Head3">
+<a name="%3a%3aCActiveScheduler%3a%3aStop%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Stop()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static void Stop();</code></p><h4 class="subheading">Description</h4>
+<p>Stops the wait loop started by the most recent call to
+<code>Start()</code>. </p>
+<p>Typically, this is called by the <code>RunL()</code> of one of the
+scheduler&#8217;s active objects. When this <code>RunL()</code> finishes, the
+scheduler&#8217;s wait loop terminates, i.e. it does not wait for the
+completion of the next request.</p>
+<p><code>Stop()</code> may also be called from <code>Error()</code>.</p>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CActiveSchedulerClass.html#%3a%3aCActiveScheduler%3a%3aStart%28%29" title="Starts a new wait loop under the control of the current active scheduler"><code class="ApiItem">CActiveScheduler::Start()</code></a></li>
+<li><a href="CActiveSchedulerClass.html#%3a%3aCActiveScheduler%3a%3aError%28%29" title="Handles the result of a leave occurring in an active object's RunL() function"><code class="ApiItem">CActiveScheduler::Error()</code></a></li>
+<li><a href="CActiveClass.html#%3a%3aCActive%3a%3aRunL%28%29" title="Handles an active object's request completion event"><code class="ApiItem">CActive::RunL()</code></a></li>
+</ul>
+<a name="2.11"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Accessors</h2>
+</div><div class="Bodytext">
+<a name="2.11.2"></a></div><div class="Head3">
+<a name="%3a%3aCActiveScheduler%3a%3aCurrent%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Current()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static CActiveScheduler* Current();</code></p><h4 class="subheading">Description</h4>
+<p>Returns a pointer to the currently installed active scheduler.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CActiveScheduler* </code></td>
+<td class="Cell"><p class="ValueDesc"> A pointer to the active scheduler which is currently installed. </p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

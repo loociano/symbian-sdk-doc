@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to remove elements</title>
+<link href="../../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="DynamicArraysGuide2%2ehow%2dto%2eremove"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../../_index/index.html"><img
+src="../../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../../GlobalGlossary/index.html"><img src="../../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToAppendAndInsert.guide.html"><img src="../../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToExpand.guide.html"><img src="../../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Arrays&nbsp;and&nbsp;Lists</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Dynamic&nbsp;Arrays</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">How&nbsp;to&nbsp;Use&nbsp;Dynamic&nbsp;Arrays</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;remove&nbsp;elements</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to remove elements</h1>
+</div><div class="Bodytext">
+<p>Elements can be removed from an array.</p>
+<p>The following code fragment shows the deletion of the second
+<code>TElement</code> object from a
+<code>CArrayFixFlat&lt;class&nbsp;T&gt;</code> array:</p>
+<p class="CodeBlock"><code>class TElement<br>&nbsp;{<br>public :<br>&nbsp;TElement();<br>public :<br>&nbsp;TBuf&lt;4&gt; iData;<br>&nbsp;};</code></p>
+<p class="CodeBlock"><code>CArrayFixFlat&lt;TElement&gt;* fixflat;<br>fixflat = new (ELeave) CArrayFixFlat&lt;TElement&gt;(3);<br>...<br>...        // elements added to the array at some point<br>...<br>fixflat-&gt;Delete(1);</code></p>
+<p>To delete what are now the third and fourth elements from the array,
+i.e. the two contiguous elements starting at position two, use
+<code>Delete()</code> and specify both the starting position and the number of
+elements:</p>
+<p class="CodeBlock"><code>fixflat-&gt;Delete(2,2);</code></p>
+<a name="1.9"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Notes</h2>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>Deleting elements from an array does not automatically compress
+the array buffer; the space allocated to the array buffer remains unchanged.
+This means that adding an element to a <i>same length</i> type array
+<i>after</i> deleting an element is <i>guaranteed</i> not
+to fail. However, this is <i>not</i> true for a variable length array
+and is only true for a packed array if the size of the new element is less than
+or equal to the size of the deleted element.</p>
+</li>
+<li>
+<p>Excess space in the array buffer can be removed using the
+<code>Compress()</code> member function. This reduces the capacity of the
+array. For a same length flat array, an attempt to add an element after
+compression causes re-allocation of the flat buffer. To compress the
+array:</p>
+</li>
+</ul>
+<p class="CodeBlock"><code>fixflat-&gt;Compress();</code></p>
+<ul>
+<li>
+<p>All elements within an array can be deleted using the
+<code>Reset()</code> function. This function also compresses the array.
+Compressing the array when it is empty causes the memory allocated to the array
+buffer to be freed.</p>
+</li>
+<li>
+<p>For an array of pointers to <code>CBase</code> derived objects
+(i.e. a <code>CArrayPtrFlat</code> or a <code>CArrayPtrSeg</code> type array),
+some care should be taken when deleting elements from the array. The following
+code fragment deletes the last two elements from <code>ptrflat</code> (a
+<code>CArrayPtrFlat</code> array) and deletes the objects that those elements
+point to:</p>
+</li>
+</ul>
+<p class="CodeBlock"><code>TInt      index;<br>CElement* ptr;<br>...<br>index = ptrflat-&gt;Count();<br>...<br>ptr = (*ptrflat)[--index];<br>ptrflat-&gt;Delete(index);<br>delete ptr;<br>...<br>ptr = ptrflat-&gt;At(--index);<br>ptrflat-&gt;Delete(index);<br>delete ptr;</code></p>
+<ul>
+<li>
+<p>In general, before the elements of this kind of array are
+deleted, the <code>CBase</code> derived objects to which those elements point
+should be destroyed. If they are not destroyed, then a separate copy of those
+elements (i.e. the pointers), <em>must</em> be taken to avoid orphaning the
+<code>CBase</code> derived objects on the heap.</p>
+</li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

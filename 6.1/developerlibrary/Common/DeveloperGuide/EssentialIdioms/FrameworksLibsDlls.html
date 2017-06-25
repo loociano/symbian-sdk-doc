@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Frameworks, libraries and DLLs</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="idioms%2eframeworks"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="StaticData.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/DeveloperGuide/index.html">Developer's&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Essential&nbsp;Idioms</a>&nbsp;<span class="separator">&#187;</span>
+Frameworks,&nbsp;libraries&nbsp;and&nbsp;DLLs</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Frameworks, libraries and DLLs</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Introduction</h2>
+</div><div class="Bodytext">
+<p>The Symbian platform supports two fundamentally different ways of
+using DLLs. This underlies an important difference in the way that the types of
+DLL expose their interface to the system.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Frameworks, libraries, and DLLs</h2>
+</div><div class="Bodytext">
+<p>Like other modern object-oriented systems, the Symbian platform
+makes extensive use of frameworks. A framework is really a half-finished
+software system which defines a collection of abstract base classes and
+ready-made concrete classes, and which is designed for derivation. The
+framework is shipped as part of the operating system in one or more system
+DLLs. These DLLs are conventional static interface DLLs, which just means that
+they export a table of functions which can be linked against by specifying the
+import library (<code class="filename">.lib</code> file) at the link step.</p>
+<p>To use the framework, a programmer derives a new implementation
+from its abstract base classes, providing new behaviour where required and
+making use of the default implementation otherwise. The new implementation is
+then built as a DLL. However, this DLL is what's known as a polymorphic
+interface DLL. Instead of exporting a table of functions which require an
+import library in order to identify them correctly, a polymorphic interface DLL
+exports a single function only at a well known location. Calling this function
+creates an instance of the newly derived framework class. For example, a GUI
+application exports the <code>NewApplication()</code> function which when
+called causes a new instance of the class derived from the base application
+class to be constructed.</p>
+<p>Static interface DLLs are also known as shared library DLLs. As
+well as providing system APIs, they also have a place in applications
+programming. In a complex project, abstraction and modularisation can be
+achieved by designing a system as a collection of separate units, each of which
+encapsulates a piece of the logical design and provides it as a black box to
+the rest of the system. Each unit is known to others only by its API, and is
+built as a library DLL.</p>
+<p>Even in a relatively modest application, this kind of abstraction
+is encouraged. A typical application may therefore consist of one or more
+shared library DLLs and the framework derived polymorphic DLL.</p>
+<p>The important difference, then, between the two DLL types is in the
+way they make their interface visible to the system — how they export their
+interface. This difference in turn supports their different intended use. The
+exported functions of a library DLL may be explicitly called by other code
+which builds against its header files and links against its import library. In
+contrast, the single exported function of a polymorphic DLL is called by the
+system only, and creates an instance of a framework derived class, for example
+a new instance of an application.</p>
+<p>The Symbian build environment is designed to minimise the
+complexity to developers of working with multiple program types. Every project
+is fully specified by its project file, and makefiles are generated from
+project files by the toolchain. Correctly declaring the target type in the
+project file will ensure the correct build process and generate an appropriate
+target.</p>
+<p>Thus GUI applications are built as <code>app</code> type targets.
+Static interface DLLs are built as <code>dll</code> type targets.</p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Use of frameworks</h2>
+</div><div class="Bodytext">
+<p>Frameworks are a natural extension of the programming style which
+encourages memory efficient code reuse by implementing system APIs in DLLs. (In
+contrast, older systems require that object code libraries be linked in
+statically with every executable which uses them.) Frameworks take the notion
+of an API a step further and provide both architecture and ready-made building
+blocks for re-use. This makes them well suited to OO systems.</p>
+<p>For most developers most of the time, therefore, working with the
+Symbian platform means working with frameworks. This includes all programs
+which use the Application Architecture or the UIKON GUI framework. It also
+includes more specialist programming, including printer driver and device
+driver implementation, as well as writing new hardware abstractions to extend
+existing subsystems like comms or telephony, and implementing new protocols to
+extend the networking subsystem.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

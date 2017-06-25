@@ -1,0 +1,1015 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CAgnModel</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CAgnListClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="CAgnMonthInstanceListClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Agenda&nbsp;File</a>&nbsp;<span class="separator">&#187;</span>
+CAgnModel</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>agmmodel.h</code>
+<br>Link against: <code>agnmodel.lib</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aCAgnModel"></a>
+
+<h1>Class <code>CAgnModel</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CAgnModel</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>The instance agenda model.</p>
+<p> This should be used by applications which have a user interface
+because of repeating entries. In the entry model, a repeating entry is
+represented as a single entry with a set of repeat details, but for a user
+interface this representation is insufficient: a repeating entry needs to be
+presented to the user as if it consists of individual entries, one on each date
+on which a repeat occurs. In the instance model, a repeating entry is
+represented by a number of instances, one for each date and time on which a
+repeat occurs.</p>
+<p>A view should generally deal with instances not entries. It should
+never call <code>UpdateEntryL()</code> or <code>DeleteEntryL()</code> and will
+very rarely (if at all) call <code>FetchEntryL()</code>. Instead, it should use
+the instance model and call <code>UpdateInstanceL()</code>,
+<code>DeleteInstanceL()</code> or <code>FetchInstanceL()</code>. An exception
+to this is when a new entry is added to the agenda model. Because it does not
+have an instance date at this point, the function to use is
+<code>CAgnModel::AddEntryL()</code>.</p>
+<h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel">CAgnEntryModel</a></code></td><td class="Cell">Provides the interface through which the data stored in an agenda file can be accessed</td>
+</tr>
+<tr><td class="Cell"><code><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel">CAgnIndexedModel</a></code></td><td class="Cell">Indexed agenda model</td>
+</tr>
+<tr><td class="Cell"><code>CAgnModel</code></td><td class="Cell">The instance agenda model</td>
+</tr>
+<tr><td class="Cell"><code><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase">CBase</a></code></td><td class="Cell">Base class for all classes to be instantiated on the heap</td>
+</tr>
+<tr><td class="Cell"><code><a href="MAgnActiveStepClass.html#%3a%3aMAgnActiveStep">MAgnActiveStep</a></code></td><td class="Cell">Base class used in the derivation of CAgnEntryModel</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>CAgnModel</code>:
+<br><code class="ApiItem"><a href="CAgnModelClass.html#%3a%3aCAgnModel%3a%3aAddEntryL%28%29" title="Adds an entry to the model">AddEntryL()</a></code>, <code class="ApiItem"><a href="CAgnModelClass.html#%3a%3aCAgnModel%3a%3aAddTodoListL%28%29" title="Adds a to-do list to the model and sets the to-do list's position in the model's list of to-do lists">AddTodoListL()</a></code>, <code class="ApiItem"><a href="CAgnModelClass.html#%3a%3aCAgnModel%3a%3aCutInstanceL%28%29" title="Cuts one or more instances of an entry from the model">CutInstanceL()</a></code>, <code class="ApiItem"><a href="CAgnModelClass.html#%3a%3aCAgnModel%3a%3aDeleteInstanceL%28%29" title="Deletes one or more instances of an entry from the model">DeleteInstanceL()</a></code>, <code class="ApiItem"><a href="CAgnModelClass.html#%3a%3aCAgnModel%3a%3aDeleteTodoListL%28%29" title="Deletes all the to-do entries which belong to a to-do list, then deletes the to-do list itself from the model">DeleteTodoListL()</a></code>, <code class="ApiItem"><a href="CAgnModelClass.html#%3a%3aCAgnModel%3a%3aFetchInstanceL%28%29" title="Fetches an instance identified by aInstanceId from the model">FetchInstanceL()</a></code>, <code class="ApiItem"><a href="CAgnModelClass.html#%3a%3aCAgnModel%3a%3aFetchInstanceLC%28%29" title="Fetches an instance identified by aInstanceId from the model">FetchInstanceLC()</a></code>, <code class="ApiItem"><a href="CAgnModelClass.html#%3a%3aCAgnModel%3a%3aFindNextInstanceL%28%29" title="Populates a day list with instance IDs for instances whose rich text matches a search string">FindNextInstanceL()</a></code>, <code class="ApiItem"><a href="CAgnModelClass.html#%3a%3aCAgnModel%3a%3aFindPreviousInstanceL%28%29" title="Populates a day list with instance IDs for instances whose rich text matches a search string">FindPreviousInstanceL()</a></code>, <code class="ApiItem"><a href="CAgnModelClass.html#%3a%3aCAgnModel%3a%3aNewL%28%29" title="Allocates and constructs an instance model, optionally with a pointer to a state callback object">NewL()</a></code>, <code class="ApiItem"><a href="CAgnModelClass.html#%3a%3aCAgnModel%3a%3aNextDayWithInstance%28%29" title="Returns the next date after the date specified on which an instance occurs">NextDayWithInstance()</a></code>, <code class="ApiItem"><a href="CAgnModelClass.html#%3a%3aCAgnModel%3a%3aPopulateDayDateTimeInstanceListL%28%29" title="Populates a list with instance IDs for a particular day">PopulateDayDateTimeInstanceListL()</a></code>, <code class="ApiItem"><a href="CAgnModelClass.html#%3a%3aCAgnModel%3a%3aPopulateDayInstanceListL%28%29" title="Populates a list with instance IDs for a particular day">PopulateDayInstanceListL()</a></code>, <code class="ApiItem"><a href="CAgnModelClass.html#%3a%3aCAgnModel%3a%3aPopulateMonthInstanceListL%28%29" title="Populates a list with instances IDs for a particular month">PopulateMonthInstanceListL()</a></code>, <code class="ApiItem"><a href="CAgnModelClass.html#%3a%3aCAgnModel%3a%3aPopulateSymbolInstanceListL%28%29" title="Populates a filtered symbol list for the instances which occur within a given month">PopulateSymbolInstanceListL()</a></code>, <code class="ApiItem"><a href="CAgnModelClass.html#%3a%3aCAgnModel%3a%3aPopulateTodoInstanceListL%28%29" title="Populates a list with instance IDs for a given to-do list">PopulateTodoInstanceListL()</a></code>, <code class="ApiItem"><a href="CAgnModelClass.html#%3a%3aCAgnModel%3a%3aPreviousDayWithInstance%28%29" title="Returns the nearest preceding date to the date specified on which an instance occurs">PreviousDayWithInstance()</a></code>, <code class="ApiItem"><a href="CAgnModelClass.html#%3a%3aCAgnModel%3a%3aUpdateInstanceL%28%29" title="Updates one or more instances of an entry in the model">UpdateInstanceL()</a></code>, <code class="ApiItem"><a href="CAgnModelClass.html#%3a%3aCAgnModel%3a%3aUpdateTodoListL%28%29" title="Updates a to-do list">UpdateTodoListL()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel" title="Provides the interface through which the data stored in an agenda file can be accessed">CAgnEntryModel</a></code>:
+<br><code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aAnonymous" title="Miscellaneous constants">Anonymous</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aBufferedDeleting%28%29" title="Returns whether or not the model is using buffered deletion for entries">BufferedDeleting()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aBufferedStoring%28%29" title="Returns whether or not the model is using buffered storage for entries">BufferedStoring()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aCancel%28%29" title="Cancels an active object driven operation, such as saving, merging or tidying">Cancel()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aChangeTodoListOrderL%28%29" title="Changes the position of a to-do list in the model's list of to-do lists">ChangeTodoListOrderL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aChangeTodoOrderL%28%29" title="Moves the to-do entry with the entry ID aTodoId to the position immediately before the position occupied by aTodoPositionReferenceId in the to-do list aTodoList">ChangeTodoOrderL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aCharFormatLayer%28%29" title="Returns a pointer to the character format layer used by the model's entries">CharFormatLayer()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aCheckNotifier%28%29" title="Tests whether the currently open file has been updated by another client of the agenda server">CheckNotifier()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aCommitL%28%29" title="Commits any changes both to file and internally that have occurred to the model">CommitL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aCreateL%28%29" title="Creates a new, empty agenda file with a valid agenda stream structure, which can be opened by the UI without modification">CreateL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aCutEntryL%28%29" title="Cuts aEntry from the model's store">CutEntryL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aDefaultAnnivDisplayTime%28%29" title="Retrieves the default display time for anniversary entries">DefaultAnnivDisplayTime()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aDefaultDayNoteDisplayTime%28%29" title="Retrieves the default display time for day notes">DefaultDayNoteDisplayTime()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aDefaultDisplayTime%28%29" title="Retrieves the default display time for the entry type specified">DefaultDisplayTime()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aDefaultEventDisplayTime%28%29" title="Retrieves the default display time for events">DefaultEventDisplayTime()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aDeleteEntryL%28%29" title="Deletes the entry identified by aEntryId from the store">DeleteEntryL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aDeleteLiteEntry%28%29" title="Deletes a sort entry from the sort entry allocator (a specialised memory handler for sort entry objects)">DeleteLiteEntry()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aEAddTodoListAtEnd" title="Indicates the last position in the model's list of to-do lists">EAddTodoListAtEnd</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aEBlocked" title="The model's state while it is carrying out a prolonged activity">EBlocked</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aEClient" title="The model is a client of the server">EClient</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aENoFile" title="The initial state of the model before a file has been created or opened">ENoFile</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aENormal" title="The model is not using the server">ENormal</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aEOk" title="A file is open, and the model is ready for use">EOk</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aESaveAsCallBackHigh" title="High frequency">ESaveAsCallBackHigh</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aESaveAsCallBackLow" title="Low frequency">ESaveAsCallBackLow</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aESaveAsCallBackMedium" title="Medium frequency (the default)">ESaveAsCallBackMedium</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aEServer" title="The model is in server mode">EServer</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aExportVCalL%28%29" title="Exports a list of agenda entries as multiple vCalendar entities to the write stream specified">ExportVCalL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aFetchEntryL%28%29" title="Retrieves an entry based on its unique ID using the agenda server">FetchEntryL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aFetchTodoListL%28%29" title="Retrieves a to-do list based on its unique ID from the model's store, using the server">FetchTodoListL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aFileVersion%28%29" title="Returns the version of the agenda model that was used to create the currently loaded file">FileVersion()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aFlushAndCommitL%28%29" title="Flushes the entry buffer and commits any changes that have occurred to the model">FlushAndCommitL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aGetDayListFromExtractorL%28%29" title="Retrieves a list of instances for the specified day, using a previously set up instance extractor">GetDayListFromExtractorL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aGetEmbeddedStore%28%29" title="Retrieves an embedded store based on stream ID using the server">GetEmbeddedStore()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aGetInstanceExtractorL%28%29" title="Creates an instance extractor using the specified filter and date">GetInstanceExtractorL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aGetReadStreamL%28%29" title="Retrieves a reference to an application-specific stream in the model using the agenda server">GetReadStreamL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aGetSymbolInstanceList%28%29" title="Retrieves a filtered list of entry symbols for the instances which occur within a month">GetSymbolInstanceList()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aGetSymbolInstanceListL%28%29" title="Retrieves a filtered list of entry symbols for the instances which occur within a month">GetSymbolInstanceListL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aImportVCalL%28%29" title="Imports a vCalendar consisting of one or more vCalendar entities">ImportVCalL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aIsClient%28%29" title="Returns whether or not the model is running as a client of the agenda server">IsClient()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aIsInUseObserverController%28%29" title="Retrieves whether the observer controller is enabled or disabled">IsInUseObserverController()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aIsValidL%28%29" title="Tests whether the store aStore with the root ID aId is in a state that is readable by the model, i.e">IsValidL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aLastSynchronizedDateL%28%29" title="Retrieves the date/time that the model was last synchronised, as set by SetLastSynchronizedDateL()">LastSynchronizedDateL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aModelVersion%28%29" title="Returns the version of the agenda model being used">ModelVersion()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aNumberOfObserversLoaded%28%29" title="Returns the number of registered observers whose DLLs are loaded">NumberOfObserversLoaded()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aNumberOfObserversRegistered%28%29" title="Returns the number of registered observers">NumberOfObserversRegistered()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aObserverController%28%29" title="Returns a pointer to the model's observer controller">ObserverController()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aParaFormatLayer%28%29" title="Returns a pointer to the paragraph format layer used by the model's entries">ParaFormatLayer()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aPasteEntryL%28%29" title="Pastes aEntry into the model's store">PasteEntryL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aPeekAtDeletedTodoListList%28%29" title="This function returns a pointer to the list of deleted to-do lists">PeekAtDeletedTodoListList()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aPeekAtTodoListList%28%29" title="Returns a pointer to the model's list of to-do lists">PeekAtTodoListList()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aPictureFactory%28%29" title="Returns a pointer to the model's picture factory">PictureFactory()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aPopulateTodoListNamesL%28%29" title="Fills aList with the details (name, ID and sort order) for all of the to-do lists in the model's list of to-do lists (not including the deleted to-do lists)">PopulateTodoListNamesL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aRegisterAlarm%28%29" title="Sets the model's registered alarm">RegisterAlarm()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aRegisterObserverL%28%29" title="Registers an observer with the model's observer controller and calls the observer's StartObserving() function">RegisterObserverL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aRegisteredAlarm%28%29" title="Returns a pointer to the model's registered alarm">RegisteredAlarm()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aRegisteredIndex%28%29" title="Returns a pointer to the model's entry index">RegisteredIndex()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aRollbackL%28%29" title="Reverts the model to the state it was in after CommitL() or RollbackL() was last called, i.e">RollbackL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aSaveAsL%28%29" title="Saves the model's entries and to-do lists to another stream store">SaveAsL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aSaveTodoListsL%28%29" title="Uses the agenda server to save the model's to-do lists to the file specified">SaveTodoListsL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aServer%28%29" title="Returns a pointer to the model's server object, as set by SetServer()">Server()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aSetDefaultAnnivDisplayTime%28%29" title="Sets the default display time for anniversary entries">SetDefaultAnnivDisplayTime()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aSetDefaultDayNoteDisplayTime%28%29" title="Sets the default display time for day notes">SetDefaultDayNoteDisplayTime()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aSetDefaultEventDisplayTime%28%29" title="Sets the default display time for events">SetDefaultEventDisplayTime()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aSetEntryServer%28%29" title="Sets the server for an agenda entry to be the same as the server used by the model">SetEntryServer()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aSetLastSynchronizedDateL%28%29" title="Sets the date/time that the model was last synchronised">SetLastSynchronizedDateL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aSetMode%28%29" title="Sets the model's mode">SetMode()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aSetParaAndCharFormatLayersL%28%29" title="Changes the format layers used for the model's entries to the values specified">SetParaAndCharFormatLayersL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aSetPictureFactory%28%29" title="Sets the model's picture factory">SetPictureFactory()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aSetServer%28%29" title="Sets the server to use for model functions and sets the model's mode to EClient">SetServer()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aState%28%29" title="Returns the state of the agenda model">State()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aStreamId%28%29" title="Retrieves the stream ID for the specified stream UID">StreamId()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aStreamStore%28%29" title="Returns a reference to the stream store in which the model's data is stored">StreamStore()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aTModelMode" title="This enumeration is used in the CAgnEntryModel::SetMode() function to specify whether or not the model is a client of the server">TModelMode</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aTSaveAsCallBackFrequency" title="This enumeration specifies how frequently the user of a save as operation (CAgnEntryModel::SaveAsL()) should be notified of its progress with the MAgnProgressCallBack::Progress() method">TSaveAsCallBackFrequency</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aTState" title="Model state">TState</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aTodoListCount%28%29" title="Returns the number of to-do lists in the model's list of to-do lists">TodoListCount()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aTodoListIdsL%28%29" title="Creates and returns an array of to-do list IDs for all the to-do lists in the model">TodoListIdsL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aUnregisterObserverL%28%29" title="Removes the observer with the DLL name specified from the model's observer controller">UnregisterObserverL()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aUpdateDefaultEntryTimes%28%29" title="Propagates changes made to the default display time for all entry types by a call to one of the SetDefaultXxxDisplayTime() functions to the server">UpdateDefaultEntryTimes()</a></code>,
+<code class="ApiItem"><a href="CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aUpdateEntryL%28%29" title="Updates the details for the existing entry aEntry in the model's store">UpdateEntryL()</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel" title="Indexed agenda model">CAgnIndexedModel</a></code>:
+<br><code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aEAll" title="Tidy all to-do entries">EAll</a></code>,
+<code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aECopy" title="Copy entries to a file">ECopy</a></code>,
+<code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aECopyAndDelete" title="Copy entries to a file and delete from current file">ECopyAndDelete</a></code>,
+<code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aECrossedOut" title="Tidy only crossed-out to-do entries">ECrossedOut</a></code>,
+<code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aEDelete" title="Delete entries from the current model when tidying">EDelete</a></code>,
+<code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aEDontMergeTodoListSettings" title="Retain the settings for to-do lists in the target model">EDontMergeTodoListSettings</a></code>,
+<code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aEExceptCrossedOut" title="Tidy all to-do entries except crossed-out ones">EExceptCrossedOut</a></code>,
+<code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aEMergeCallBackHigh" title="High callback frequency">EMergeCallBackHigh</a></code>,
+<code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aEMergeCallBackLow" title="Low callback frequency">EMergeCallBackLow</a></code>,
+<code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aEMergeCallBackMedium" title="Medium callback frequency">EMergeCallBackMedium</a></code>,
+<code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aEMergeTodoListSettings" title="Overwrite the settings for to-do lists in the target model with the settings for to-do lists with the same name in the source model">EMergeTodoListSettings</a></code>,
+<code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aEOpenCallBackHigh" title="High callback frequency">EOpenCallBackHigh</a></code>,
+<code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aEOpenCallBackLow" title="Low callback frequency">EOpenCallBackLow</a></code>,
+<code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aEOpenCallBackMedium" title="Medium callback frequency">EOpenCallBackMedium</a></code>,
+<code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aETidyByDateCallBackHigh" title="High callback frequency">ETidyByDateCallBackHigh</a></code>,
+<code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aETidyByDateCallBackLow" title="Low callback frequency">ETidyByDateCallBackLow</a></code>,
+<code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aETidyByDateCallBackMedium" title="Medium callback frequency">ETidyByDateCallBackMedium</a></code>,
+<code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aETidyByTodoListCallBachHigh" title="High callback frequency">ETidyByTodoListCallBachHigh</a></code>,
+<code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aETidyByTodoListCallBackHow" title="Low callback frequency">ETidyByTodoListCallBackHow</a></code>,
+<code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aETidyByTodoListCallBackMedium" title="Medium callback frequency">ETidyByTodoListCallBackMedium</a></code>,
+<code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aEntryCount%28%29" title="Gets the number of entries in the model">EntryCount()</a></code>,
+<code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aGetLiteEntryL%28%29" title="Gets the details for an entry">GetLiteEntryL()</a></code>,
+<code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aIndexCount%28%29" title="Gets the number of entries in a specified index">IndexCount()</a></code>,
+<code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aIndexes%28%29" title="Gets a pointer to the model's indexes">Indexes()</a></code>,
+<code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aMergeL%28%29" title="Merges the to-do lists and entries contained in an agenda model (the source model) into this agenda model (the target model)">MergeL()</a></code>,
+<code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aOpenL%28%29" title="Opens a named agenda file, using the agenda server">OpenL()</a></code>,
+<code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aTMergeCallBackFrequency" title="Callback frequency for MergeL()">TMergeCallBackFrequency</a></code>,
+<code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aTMergeTodoListSettings" title="Overwrite to-do list settings during merge">TMergeTodoListSettings</a></code>,
+<code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aTOpenCallBackFrequency" title="Callback frequency for OpenL()">TOpenCallBackFrequency</a></code>,
+<code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aTTidyByDateCallBackFrequency" title="Callback frequency for TidyByDateL()">TTidyByDateCallBackFrequency</a></code>,
+<code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aTTidyByTodoListCallBackFrequency" title="Callback frequency for TidyByTodoListL()">TTidyByTodoListCallBackFrequency</a></code>,
+<code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aTTidyDirective" title="Type of tidy operation">TTidyDirective</a></code>,
+<code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aTTidyTodoListHow" title="Which to-do entries to tidy">TTidyTodoListHow</a></code>,
+<code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aTidyByDateL%28%29" title="Deletes, copies or moves a subset of the model's entries — overloaded function">TidyByDateL()</a></code>,
+<code class="ApiItem"><a href="CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel%3a%3aTidyByTodoListL%28%29" title="Tidy to-do lists">TidyByTodoListL()</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap">CBase</a></code>:
+<br><code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase%3a%3aoperator%20new%28%29" title="Allocates the object from the heap and then initialises its contents to binary zeroes">operator new()</a></code></p>
+<a name="2.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnModel%3a%3aNewL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NewL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static CAgnModel* NewL(MAgnModelStateCallBack* aStateCallBack);</code></p><h4 class="subheading">Description</h4>
+<p>Allocates and constructs an instance model, optionally with a
+pointer to a state callback object.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">MAgnModelStateCallBack* aStateCallBack</code></td>
+<td class="Cell"><p class="ValueDesc">If not NULL, provides a callback function which notifies the
+user that the model is about to change state.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnModel*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the newly created instance model.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Instances</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnModel%3a%3aFetchInstanceL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FetchInstanceL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CAgnEntry* FetchInstanceL(const TAgnInstanceId&amp; aInstanceId) const;</code></p><h4 class="subheading">Description</h4>
+<p>Fetches an instance identified by <code>aInstanceId</code> from
+the model.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TAgnInstanceId&amp; aInstanceId</code></td>
+<td class="Cell"><p class="ValueDesc">The ID of the instance.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnEntry*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the instance.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">KErrNotFound</code></td>
+<td class="Cell"><p class="ValueDesc">The instance cannot be found, or the instance date falls on a
+repeat exception.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnModel%3a%3aFetchInstanceLC%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FetchInstanceLC()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CAgnEntry* FetchInstanceLC(const TAgnInstanceId&amp; aInstanceId) const;</code></p><h4 class="subheading">Description</h4>
+<p>Fetches an instance identified by <code>aInstanceId</code> from
+the model. The instance is left on the clean-up stack.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TAgnInstanceId&amp; aInstanceId</code></td>
+<td class="Cell"><p class="ValueDesc">The ID of the instance.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnEntry*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the instance.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">KErrNotFound</code></td>
+<td class="Cell"><p class="ValueDesc">The instance cannot be found, or the instance date falls on a
+repeat exception.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.4"></a></div><div class="Head3">
+<a name="%3a%3aCAgnModel%3a%3aAddEntryL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>AddEntryL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TAgnEntryId AddEntryL(CAgnEntry* aEntry,TAgnEntryId aTodoPositionReferenceId = AgnModel::NullId());</code></p><h4 class="subheading">Description</h4>
+<p>Adds an entry to the model. If the entry is alarmed, the next
+due alarm is queued with the alarm server. The date/time of the entry's
+creation is set to the current date/time.</p>
+<p>Notes</p>
+<p>If the entry is a to-do, it must specify a to-do list ID to
+identify the to-do list to which it should be added.</p>
+<p>The function notifies the model's observer controller that an
+entry has been added.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnEntry* aEntry</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the entry to add.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnEntryId aTodoPositionReferenceId =
+AgnModel::NullId()</code></td>
+<td class="Cell"><p class="ValueDesc">If the new entry is a to-do, this argument is used to specify
+the position in the to-do list at which <code>aEntry</code> is
+added.<code>aEntry</code> is inserted at the position immediately before the
+entry with the ID specified. If this ID is null, (the
+default),<code>aEntry</code>is added at the end of the to-do list. The value is
+ignored if the entry is not a to-do.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnEntryId</code></td>
+<td class="Cell"><p class="ValueDesc">The entry ID for <code>aEntry</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.5"></a></div><div class="Head3">
+<a name="%3a%3aCAgnModel%3a%3aUpdateInstanceL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>UpdateInstanceL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TAgnEntryId UpdateInstanceL(CAgnEntry* aInstance,TAgnWhichInstances aWhichInstances=EAllInstances,TAgnEntryId aTodoPositionReferenceId = AgnModel::NullId());</code></p><h4 class="subheading">Description</h4>
+<p>Updates one or more instances of an entry in the model.</p>
+<p>If <code>aInstance</code> was originally repeating,
+a<code>TAgnWhichInstances</code> value should be supplied.
+Passing<code>ECurrentInstance</code>,
+<code>ECurrentAndFutureInstances</code>or<code>ECurrentAndPastInstances</code>
+will result in the creation of a new entry. </p>
+<p>If during the update process, the original entry's ID is
+changed, the new ID is returned by this function. Otherwise, the function
+returns a NULL entry ID.</p>
+<p>If <code>aInstance</code> was originally repeating and still is
+then:</p>
+<ul>
+<li>
+<p>if <code>aWhichInstances</code> is
+<code>ECurrentInstance</code> then the user has edited one instance of a
+repeating entry, therefore the changes will only apply to this instance, which
+becomes a new exception entry.</p>
+</li>
+<li>
+<p>if <code>aWhichInstances</code>
+is<code>ECurrentAndFutureInstances</code>or<code>ECurrentAndPastInstances</code>
+then the changes apply to a subset of the instances. In this case, a new
+repeating entry is created. A new entry may also be created if the changes
+apply to all of a repeating entry's instances except one, which will become a
+new non-repeating entry.</p>
+</li>
+<li>
+<p>if <code>aWhichInstances</code> is
+<code>EAllInstances</code> then the entry's new details are written to the
+store.</p>
+</li>
+</ul>
+<p>If <code>aInstance</code> was originally repeating but no
+longer is then its new details replace the existing details in the
+store.</p>
+<p>If <code>aInstance</code> was originally non-repeating
+the<code>aWhichInstances</code> value is redundant. In this case, the new
+details simply replace the existing details.</p>
+<p>Should this function leave (e.g. out of memory) then the
+contents of<code>aInstance</code> should be considered to be in an unknown
+state and the entry should be discarded.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnEntry* aInstance</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the instance to update.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnWhichInstances aWhichInstances=EAllInstances</code></td>
+<td class="Cell"><p class="ValueDesc">If <code>aInstance</code> is repeating, indicates which
+instances of the entry are to be affected by the update.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnEntryId aTodoPositionReferenceId =
+AgnModel::NullId()</code></td>
+<td class="Cell"><p class="ValueDesc">If <code>aInstance</code> is a to-do which is being moved from
+one to-do list to another then this specifies its position in the new
+list.<code>aInstance</code> is inserted at the position immediately before the
+entry with the ID specified. If this ID is NULL, (the
+default),<code>aInstance</code> is appended to the to-do list. The value is
+ignored if<code>aInstance</code> is not a to-do, or if it is not being moved to
+another to-do list.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnEntryId</code></td>
+<td class="Cell"><p class="ValueDesc">The new entry ID of <code>aInstance</code> if it was changed
+during the update. Otherwise, a NULL entry ID.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.6"></a></div><div class="Head3">
+<a name="%3a%3aCAgnModel%3a%3aDeleteInstanceL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DeleteInstanceL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TAgnEntryId DeleteInstanceL(CAgnEntry* aInstance,TAgnWhichInstances aWhichInstances=EAllInstances);<br>TAgnEntryId DeleteInstanceL(const TAgnInstanceId&amp; aInstanceId,TAgnWhichInstances aWhichInstances=EAllInstances);</code></p><h4 class="subheading">Description</h4>
+<p>Deletes one or more instances of an entry from the model. The
+instance can either be passed to the function as a pointer, or can be
+identified by its instance ID.</p>
+<p>If the instance is not repeating then it is simply removed from
+the store.</p>
+<p>If the instance is repeating, an enumeration
+(<code>TAgnWhichInstances</code>) should be specified to indicate which
+instances are to be deleted. The entry's repeat definition may need to be
+changed. </p>
+<ul>
+<li>
+<p>if <code>aWhichInstances</code> is
+<code>EAllInstances</code> then the entry is deleted from the store.</p>
+</li>
+<li>
+<p>if <code>aWhichInstances</code> is
+<code>ECurrentInstance</code> then before the instance can be deleted from the
+store an exception must first be added to the entry's list of
+exceptions.</p>
+</li>
+<li>
+<p>if <code>aWhichInstances</code>
+is<code>ECurrentAndFutureInstances</code>then the entry's repeat end date is
+set to be that of the previous instance to the one being deleted.</p>
+</li>
+<li>
+<p>if <code>aWhichInstances</code>
+is<code>ECurrentAndPastInstances</code>then the entry's repeat start date is
+set to be that of the next instance after the one being deleted.</p>
+</li>
+</ul>
+<p>If after this function is called, the entry has only one
+instance remaining, the instance is converted into a non-repeating entry. If
+this is the case, its ID is changed and the new ID is returned by the function.
+If not, the function returns a NULL ID.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnEntry* aInstance</code></td>
+<td class="Cell"><p class="ValueDesc">If specified, a pointer to the instance to delete.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TAgnInstanceId&amp; aInstanceId</code></td>
+<td class="Cell"><p class="ValueDesc">If specified, the ID of the instance to delete.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnWhichInstances aWhichInstances=EAllInstances</code></td>
+<td class="Cell"><p class="ValueDesc">If the entry is repeating, indicates which instances of the
+entry are to be affected by the delete.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnEntryId</code></td>
+<td class="Cell"><p class="ValueDesc">The entry's ID (this may have been changed by the
+function).</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">KErrNotFound</code></td>
+<td class="Cell"><p class="ValueDesc">When using the variant of the function which takes an instance
+ID parameter, no entry instance can be found which matches the ID.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.7"></a></div><div class="Head3">
+<a name="%3a%3aCAgnModel%3a%3aCutInstanceL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CutInstanceL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TAgnEntryId CutInstanceL(CAgnEntry* aInstance,TAgnWhichInstances aWhichInstances=EAllInstances);<br>TAgnEntryId CutInstanceL(const TAgnInstanceId&amp; aInstanceId,TAgnWhichInstances aWhichInstances=EAllInstances);</code></p><h4 class="subheading">Description</h4>
+<p>Cuts one or more instances of an entry from the model. The
+instance can either be passed to the function as a pointer, or can be
+identified by its instance ID.</p>
+<p>If the entry is repeating,
+and<code>aWhichInstances</code>is<code>EAllInstances</code>, or if the entry is
+not repeating, after calling this function, no residue of the original entry
+will remain. In this case,<code>CutEntryL()</code> is called (defined in the
+base class<code>CAgnEntryModel</code>). Otherwise, this function is the same
+as<code>DeleteInstanceL()</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnEntry* aInstance</code></td>
+<td class="Cell"><p class="ValueDesc">If specified, a pointer to the instance to cut.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TAgnInstanceId&amp; aInstanceId</code></td>
+<td class="Cell"><p class="ValueDesc">If specified, the ID of the instance to cut.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnWhichInstances aWhichInstances=EAllInstances</code></td>
+<td class="Cell"><p class="ValueDesc">If the entry is repeating, indicates which instances of the
+entry are to be affected by the cut.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnEntryId</code></td>
+<td class="Cell"><p class="ValueDesc">The entry's ID (this may have been changed by the
+function).</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>To-do lists</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnModel%3a%3aAddTodoListL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>AddTodoListL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TAgnTodoListId AddTodoListL(CAgnTodoList* aTodoList,TInt aPosition=EAddTodoListAtEnd);</code></p><h4 class="subheading">Description</h4>
+<p>Adds a to-do list to the model and sets the to-do list's
+position in the model's list of to-do lists.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnTodoList* aTodoList</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the to-do list to add.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aPosition=EAddTodoListAtEnd</code></td>
+<td class="Cell"><p class="ValueDesc">Position within the model's list of to-do lists at which to
+insert the to-do list.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnTodoListId</code></td>
+<td class="Cell"><p class="ValueDesc">The to-do list ID.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnModel%3a%3aDeleteTodoListL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DeleteTodoListL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void DeleteTodoListL(CAgnTodoList* aTodoList);<br>virtual void DeleteTodoListL(TAgnTodoListId aTodoListId);</code></p><h4 class="subheading">Description</h4>
+<p>Deletes all the to-do entries which belong to a to-do list,
+then deletes the to-do list itself from the model. The to-do list can either be
+passed to the function as a pointer, or can be identified by its to-do list
+ID.</p>
+<p>If the model has only one to-do list, this function has no
+effect.</p>
+<p>Notes</p>
+<p>The function notifies the model's observer controller that the
+to-do list has been deleted.</p>
+<p>If the to-do list, or any to-do entry in the list, has a
+positive synchronisation count, the list or entry is marked as having been
+deleted but is not removed from the store. It is removed from the model's
+indexes, so is not visible to views, and is added to the model's deleted to-do
+list.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnTodoList* aTodoList</code></td>
+<td class="Cell"><p class="ValueDesc">If specified, a pointer to the to-do list to delete.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAgnTodoListId aTodoListId</code></td>
+<td class="Cell"><p class="ValueDesc">If specified, the ID of the to-do list to delete.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.4"></a></div><div class="Head3">
+<a name="%3a%3aCAgnModel%3a%3aUpdateTodoListL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>UpdateTodoListL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void UpdateTodoListL(CAgnTodoList* aTodoList);</code></p><h4 class="subheading">Description</h4>
+<p>Updates a to-do list. A to-do list with the same to-do list ID
+as<code>aTodoList</code> must already exist in the model, and if so, it is
+replaced by <code>aTodoList</code>.</p>
+<p>Notes</p>
+<p>The model's observer controller is notified that the to-do list
+has been updated.</p>
+<p>When a todo list which has previously been marked as deleted is
+passed to this function, but its synchronisation count is now zero, then it is
+physically removed from the store and its ID removed from the model's list of
+deleted to-do lists.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnTodoList* aTodoList</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to a to-do list object containing the new
+details.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">KErrNotFound</code></td>
+<td class="Cell"><p class="ValueDesc"><code>aTodoList</code> does not already exist in the model.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Instance lists</h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnModel%3a%3aPopulateDayInstanceListL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PopulateDayInstanceListL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void PopulateDayInstanceListL(CAgnDayList&lt;TAgnInstanceId&gt;* aList,const TAgnFilter&amp; aFilter,const TTime&amp; aTodaysDate) const;</code></p><h4 class="subheading">Description</h4>
+<p>Populates a list with instance IDs for a particular day. The
+entry types of interest may be specified using a filter.</p>
+<p>Instances which start on the previous day may be included in
+the day list if they span midnight.</p>
+<p>If the date specified in the day list is invalid, i.e. outside
+the model's valid range, the function returns with an empty list. </p>
+<p>Notes</p>
+<p>Instances are sorted by display time. Instances with equal
+display times are sorted in the following order:</p>
+<p>1) to-do entries. Multiple to-do entries with the same display
+time are ordered by due date, priority then start date</p>
+<p>2) anniversaries</p>
+<p>3) day notes</p>
+<p>4) appointments. Appointments are ordered by start time then
+end time</p>
+<p>Finally if two instances are still the same, then crossed out
+ones appear after un-crossed out ones.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnDayList&lt;TAgnInstanceId&gt;* aList</code></td>
+<td class="Cell"><p class="ValueDesc">An empty list. Should specify a valid date. On return, contains
+a list of instance IDs for instances which occur on the specified date.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TAgnFilter&amp; aFilter</code></td>
+<td class="Cell"><p class="ValueDesc">Filters the entry types of interest.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TTime&amp; aTodaysDate</code></td>
+<td class="Cell"><p class="ValueDesc">Today's date as a <code>TTime</code>. Should be specified to
+include undated to-do entries in the list.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnModel%3a%3aPopulateDayDateTimeInstanceListL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PopulateDayDateTimeInstanceListL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void PopulateDayDateTimeInstanceListL(CAgnDayDateTimeInstanceList* aList,const TAgnFilter&amp; aFilter,const TTime&amp; aTodaysDate) const;</code></p><h4 class="subheading">Description</h4>
+<p>Populates a list with instance IDs for a particular day. The
+list also includes the start and end date/time for each instance. The entry
+types of interest may be specified using a filter.</p>
+<p>Instances which start on the previous day may be included in
+the day list if they span midnight.</p>
+<p>If the date specified in the day list is invalid, i.e. outside
+the model's valid range, the function returns with an empty list.</p>
+<p>The instances are sorted according to the same criteria as
+for<code>PopulateDayInstanceListL()</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnDayDateTimeInstanceList* aList</code></td>
+<td class="Cell"><p class="ValueDesc">An empty list. Should specify a valid date. On return, contains
+a list of instance IDs and start and end dates/times for instances which occur
+on the specified date.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TAgnFilter&amp; aFilter</code></td>
+<td class="Cell"><p class="ValueDesc">Filters the entry types of interest.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TTime&amp; aTodaysDate</code></td>
+<td class="Cell"><p class="ValueDesc">Today's date as a <code>TTime</code>. Should be specified to
+include undated to-do entries in the list.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.4"></a></div><div class="Head3">
+<a name="%3a%3aCAgnModel%3a%3aPopulateMonthInstanceListL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PopulateMonthInstanceListL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void PopulateMonthInstanceListL(CAgnMonthInstanceList* aList,const TAgnFilter&amp; aFilter,const TTime&amp; aTodaysDate) const;</code></p><h4 class="subheading">Description</h4>
+<p>Populates a list with instances IDs for a particular month. The
+entry types of interest may be specified using a filter.</p>
+<p>If the year specified in the month list is invalid, i.e.
+outside the model's valid range, the function returns with an empty
+list.</p>
+<p>The instances are sorted in chronological order.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnMonthInstanceList* aList</code></td>
+<td class="Cell"><p class="ValueDesc">An empty list. Should specify a valid month and year. On
+return, contains a list of instance IDs for instances which occur in the
+specified month.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TAgnFilter&amp; aFilter</code></td>
+<td class="Cell"><p class="ValueDesc">Filters the entry types of interest.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TTime&amp; aTodaysDate</code></td>
+<td class="Cell"><p class="ValueDesc">Today's date as a <code>TTime</code>. Should be specified to
+include undated to-do entries in the list.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.5"></a></div><div class="Head3">
+<a name="%3a%3aCAgnModel%3a%3aPopulateTodoInstanceListL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PopulateTodoInstanceListL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void PopulateTodoInstanceListL(CAgnTodoInstanceList* aList,const TTime&amp; aTodaysDate) const;</code></p><h4 class="subheading">Description</h4>
+<p>Populates a list with instance IDs for a given to-do list. The
+to-do list of interest is identified by a to-do list ID specified in
+<code>aList</code>. If <code>aList</code> does not specify a to-do list ID, the
+function returns with an empty list.</p>
+<p>The sort order and whether or not crossed out entries should be
+included in the list are both specified in the to-do list identified
+in<code>aList</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnTodoInstanceList* aList</code></td>
+<td class="Cell"><p class="ValueDesc">A to-do instance list. Specifies a to-do list ID. On return,
+contains a sorted list of to-do instance IDs that match the filter criteria
+specified in the to-do list. It therefore holds the to-dos that are to be
+displayed from a particular to-do list at any given time.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TTime&amp; aTodaysDate</code></td>
+<td class="Cell"><p class="ValueDesc">Today's date as a <code>TTime</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.6"></a></div><div class="Head3">
+<a name="%3a%3aCAgnModel%3a%3aPopulateSymbolInstanceListL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PopulateSymbolInstanceListL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void PopulateSymbolInstanceListL(CAgnSymbolList* aList,const TAgnFilter&amp; aFilter,const TTime&amp; aTodaysDate) const;</code></p><h4 class="subheading">Description</h4>
+<p>Populates a filtered symbol list for the instances which occur
+within a given month. The year and month of interest should be specified
+in<code>aList</code>.</p>
+<p>A symbol list is a list of the days in a month which have entry
+symbols. The day is stored as a number (0 to 30) and each day can have a
+maximum of two symbols. The list is ordered by day number. The symbol list also
+specifies the month and the year.</p>
+<p>If the year specified in the symbol list is invalid, i.e.
+outside the model's valid range, the function returns with an empty
+list.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnSymbolList* aList</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to an existing <code>CAgnSymbolList</code> object.
+Should specify the year and month of interest. On return, the list contains the
+entry symbols which belong to instances occuring within the specified
+month.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TAgnFilter&amp; aFilter</code></td>
+<td class="Cell"><p class="ValueDesc">Filters the entry types of interest.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TTime&amp; aTodaysDate</code></td>
+<td class="Cell"><p class="ValueDesc">Today's date. Used to determine if undated to-do items should
+be included in the list.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Instance iteration</h2>
+</div><div class="Bodytext">
+<a name="2.10.2"></a></div><div class="Head3">
+<a name="%3a%3aCAgnModel%3a%3aNextDayWithInstance%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NextDayWithInstance()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TTime NextDayWithInstance(const TTime&amp; aToday, const TAgnFilter&amp; aFilter,const TTime&amp; aStartDate) const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns the next date after the date specified on which an
+instance occurs. The entry types of interest are specified using a
+filter.</p>
+<p>Returns a NULL time if there are no more instances.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TTime&amp; aToday</code></td>
+<td class="Cell"><p class="ValueDesc">Today's date as a <code>TTime</code>. Used to identify whether
+or not undated to-dos should be included. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TAgnFilter&amp; aFilter</code></td>
+<td class="Cell"><p class="ValueDesc">Filters the entry types of interest.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TTime&amp; aStartDate</code></td>
+<td class="Cell"><p class="ValueDesc">The date at which to begin the search. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTime</code></td>
+<td class="Cell"><p class="ValueDesc">The date on which the next instance occurs.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.3"></a></div><div class="Head3">
+<a name="%3a%3aCAgnModel%3a%3aPreviousDayWithInstance%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PreviousDayWithInstance()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TTime PreviousDayWithInstance(const TTime&amp; aToday, const TAgnFilter&amp; aFilter,const TTime&amp; aStartDate) const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns the nearest preceding date to the date specified on
+which an instance occurs. The entry types of interest are specified using a
+filter.</p>
+<p>Returns a NULL time if there are no previous instances.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TTime&amp; aToday</code></td>
+<td class="Cell"><p class="ValueDesc">Today's date as a <code>TTime</code>. Used to identify whether
+or not undated to-dos should be included. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TAgnFilter&amp; aFilter</code></td>
+<td class="Cell"><p class="ValueDesc">Filters the entry types of interest.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TTime&amp; aStartDate</code></td>
+<td class="Cell"><p class="ValueDesc">The date at which to begin the search. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTime</code></td>
+<td class="Cell"><p class="ValueDesc">The date on which the previous instance occurs.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.4"></a></div><div class="Head3">
+<a name="%3a%3aCAgnModel%3a%3aFindNextInstanceL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FindNextInstanceL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void FindNextInstanceL(CAgnDayList&lt;TAgnInstanceId&gt;* aMatchedInstanceList, const TDesC&amp; aSearchText, const TTime&amp; aStartDate, const TTime&amp; aEndDate, const TAgnFilter&amp; aFilter, const TTime&amp; aToday) const;</code></p><h4 class="subheading">Description</h4>
+<p>Populates a day list with instance IDs for instances whose rich
+text matches a search string. A match is made if the instance's rich text is an
+exact match for the search string, or is a subset of it.</p>
+<p>After a match is made, other instances on that day are
+searched. When there are no more instances on that day to search, the function
+returns.</p>
+<p>Only dates within the date range specified are searched, and
+the entry types to be used in the search are specified using a filter.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnDayList&lt;TAgnInstanceId&gt;*
+aMatchedInstanceList</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to a day list. On return contains the IDs for all
+instances matching the search string for a single day. If no matching instances
+were found, the list returns empty.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aSearchText</code></td>
+<td class="Cell"><p class="ValueDesc">The search string. Has a maximum of 32 characters.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TTime&amp; aStartDate</code></td>
+<td class="Cell"><p class="ValueDesc">The date at which to begin the search.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TTime&amp; aEndDate</code></td>
+<td class="Cell"><p class="ValueDesc">The date at which to end the search.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TAgnFilter&amp; aFilter</code></td>
+<td class="Cell"><p class="ValueDesc">Filters the entry types of interest.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TTime&amp; aToday</code></td>
+<td class="Cell"><p class="ValueDesc">Today's date as a <code>TTime</code>. Used to identify whether
+or not undated to-dos should be included.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.5"></a></div><div class="Head3">
+<a name="%3a%3aCAgnModel%3a%3aFindPreviousInstanceL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FindPreviousInstanceL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void FindPreviousInstanceL(CAgnDayList&lt;TAgnInstanceId&gt;* aMatchedInstanceList, const TDesC&amp; aSearchText, const TTime&amp; aStartDate, const TTime&amp; aEndDate, const TAgnFilter&amp; aFilter, const TTime&amp; aToday) const;</code></p><h4 class="subheading">Description</h4>
+<p>Populates a day list with instance IDs for instances whose rich
+text matches a search string. A match is made if the instance's rich text is an
+exact match for the search string, or is a subset of it.</p>
+<p>After a match is made, other instances on that day are
+searched. When there are no more instances on that day to search, the function
+returns.</p>
+<p>Only dates within the date range specified are searched, and
+the entry types to be used in the search are specified using a filter.</p>
+<p>The search starts at the start date and works backwards, so the
+start date should be after the end date.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CAgnDayList&lt;TAgnInstanceId&gt;*
+aMatchedInstanceList</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to a day list. On return contains the IDs for all
+instances matching the search string for a single day. If no matching instances
+were found, the list returns empty.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aSearchText</code></td>
+<td class="Cell"><p class="ValueDesc">The search string. Has a maximum of 32 characters.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TTime&amp; aStartDate</code></td>
+<td class="Cell"><p class="ValueDesc">The date at which to begin the search. Should be after the end
+date.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TTime&amp; aEndDate</code></td>
+<td class="Cell"><p class="ValueDesc">The date at which to end the search. Should be before the start
+date.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TAgnFilter&amp; aFilter</code></td>
+<td class="Cell"><p class="ValueDesc">Filters the entry types of interest.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TTime&amp; aToday</code></td>
+<td class="Cell"><p class="ValueDesc">Today's date as a <code>TTime</code>. Used to identify whether
+or not undated to-dos should be included.</p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

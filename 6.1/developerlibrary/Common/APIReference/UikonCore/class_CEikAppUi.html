@@ -1,0 +1,957 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CEikAppUi</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="class_CEikApplication.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="CEikAutoMenuTitleClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Uikon&nbsp;Core</a>&nbsp;<span class="separator">&#187;</span>
+CEikAppUi</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code> eikappui.h </code>
+<br>Link against: <code> eikcore.lib </code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aCEikAppUi"></a>
+
+<h1>Class <code>CEikAppUi</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CEikAppUi</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Handles application-wide aspects of the application&#8217;s user
+interface such as toolbar pop-up menus, opening and closing files and exiting
+the application cleanly. App UIs handle commands, which are invoked using the
+menu bar, toolbar, toolband and hotkeys; the commands that an app UI handles
+are specified in its application&#8217;s resource file.</p>
+<p>An application&#8217;s UI is responsible for opening and closing
+the application document&#8217;s files in response to user commands. It also
+owns and manages the core controls of the user interface, for example the tool
+bar and menu bar, and handles commands from these.</p>
+<p>Every Uikon application should use its own class derived from
+<code>CEikAppUi</code> to handle application-wide user interface details.
+Responses to various kinds of events can be handled at the level of the app UI
+by providing suitable implementations of the following virtual
+functions:</p>
+<ul>
+<li>
+<p><code>CCoeAppUi::HandleKeyEventL()</code>: Key events</p>
+</li>
+<li>
+<p><code>CCoeAppUi::HandleForegroundEventL()</code>: Application
+switched to foreground</p>
+</li>
+<li>
+<p><code>CCoeAppUi::HandleSwitchOnEventL()</code>: Machine
+switched on.</p>
+</li>
+<li>
+<p><code>CCoeAppUi::HandleSystemEventL()</code>: System
+events.</p>
+</li>
+<li>
+<p><code>CCoeAppUi::HandleMessageReadyL()</code>: Message
+ready.</p>
+</li>
+<li>
+<p><code>CCoeAppUi::HandleApplicationSpecificEventL()</code>:
+Application-specific events.</p>
+</li>
+<li>
+<p><code>CEikAppUi::HandleCommandL()</code>: Handles commands
+defined in resource files.</p>
+</li>
+</ul><h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase">CBase</a></code></td><td class="Cell">Base class for all classes to be instantiated on the heap</td>
+</tr>
+<tr><td class="Cell"><code><a href="../UIControlFramework/CCoeAppUiClass.html#%3a%3aCCoeAppUi">CCoeAppUi</a></code></td><td class="Cell">General purpose application user interface class</td>
+</tr>
+<tr><td class="Cell"><code><a href="../UIControlFramework/CCoeAppUiBaseClass.html#%3a%3aCCoeAppUiBase">CCoeAppUiBase</a></code></td><td class="Cell">Application UI abstract base class</td>
+</tr>
+<tr><td class="Cell"><code>CEikAppUi</code></td><td class="Cell">Handles application-wide aspects of the application's user interface such as toolbar pop-up menus, opening and closing files and exiting the application cleanly</td>
+</tr>
+<tr><td class="Cell"><code><a href="../UIControlFramework/MCoeMessageObserverClass.html#%3a%3aMCoeMessageObserver">MCoeMessageObserver</a></code></td><td class="Cell">Interface for handling incoming window server messages</td>
+</tr>
+<tr><td class="Cell"><code><a href="class_MEikCommandObserver.html#%3a%3aMEikCommandObserver">MEikCommandObserver</a></code></td><td class="Cell">Command observers respond to user commands, and have the secondary function of creating custom controls on request for classes such as CEikToolbar, or user-defined classes</td>
+</tr>
+<tr><td class="Cell"><code><a href="class_MEikMenuObserver.html#%3a%3aMEikMenuObserver">MEikMenuObserver</a></code></td><td class="Cell">Menu observer interface</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>CEikAppUi</code>:
+<br><code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aAnonymous" title="The following enums relate to the use of an application resource file and screen furniture">Anonymous</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aApplication%28%29" title="Gets a pointer to the application associated with this app UI">Application()</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aApplicationRect%28%29" title="Gets the total area of the screen available to the application">ApplicationRect()</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aBaseConstructL%28%29" title="Initialises this app UI with standard values">BaseConstructL()</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aCEikAppUi%28%29" title="Empty default constructor">CEikAppUi()</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aClientRect%28%29" title="Gets the area of the screen available to the application for drawing">ClientRect()</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aClosePopup%28%29" title="Closes any currently visible sidebar popup menu">ClosePopup()</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aConstructL%28%29" title="Completes construction">ConstructL()</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aContainerAppUi%28%29" title="Returns the app UI inside which this app UI is embedded">ContainerAppUi()</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aCreateFileL%28%29" title="Creates and opens a file with the given name in response to the corresponding message">CreateFileL()</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aCreateHotKeyControlL%28%29" title="Creates a hotkey control">CreateHotKeyControlL()</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aDocument%28%29" title="Gets this application UI's document pointer">Document()</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aENoAppResourceFile" title="Application has no application resource file">ENoAppResourceFile</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aENoScreenFurniture" title="Application uses no screen furniture">ENoScreenFurniture</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aENonStandardResourceFile" title="Application uses a different application resource file from its standard">ENonStandardResourceFile</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aEStandardApp" title="Application uses its standard application resource file">EStandardApp</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aExit%28%29" title="Closes the app UI">Exit()</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aFadeWhenInBackground%28%29" title="Tests whether the application is set to fade when in the background">FadeWhenInBackground()</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aHandleApplicationSpecificEventL%28%29" title="Handles an application specific event">HandleApplicationSpecificEventL()</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aHandleCommandL%28%29" title="Handles user commands">HandleCommandL()</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aHandleError%28%29" title="Handles errors">HandleError()</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aHandleForegroundEventL%28%29" title="Handles changes in keyboard focus when an application switches to, or from, the foreground">HandleForegroundEventL()</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aHandleModelChangeL%28%29" title="Handles changes to the model associated with this CEikAppUi's application">HandleModelChangeL()</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aHandleResourceChangeL%28%29" title="Handles a change to the application's resources which are shared across the environment">HandleResourceChangeL()</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aHandleSideBarMenuL%28%29" title="Handles sidebar menu commands">HandleSideBarMenuL()</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aHandleWsEventL%28%29" title="Handles window server events">HandleWsEventL()</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aLaunchPopupMenuL%28%29" title="Launches a popup menu">LaunchPopupMenuL()</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aOpenFileL%28%29" title="Opens the specified file in response to a corresponding message">OpenFileL()</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aPrepareToExit%28%29" title="Performs pre-exit processing to ensure the application will exit cleanly">PrepareToExit()</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aProcessCommandParametersL%28%29" title="Processes shell commands">ProcessCommandParametersL()</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aProcessMessageL%28%29" title="Processes Application Architecture messages">ProcessMessageL()</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aReadAppInfoResourceL%28%29" title="Reads the application information for this application from the specified resource offset">ReadAppInfoResourceL()</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aReportResourceChangedToAppL%28%29" title="Reports a resource change to the application">ReportResourceChangedToAppL()</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aSaveAnyChangesL%28%29" title="Saves changes made to the app UI's associated document if the document is marked as having changed">SaveAnyChangesL()</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aSaveL%28%29" title="Saves the app UI's document, or sets the document as changed if the app UI is embedded">SaveL()</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aSetDocChanged%28%29" title="Sets the application's document as changed">SetDocChanged()</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aSetDocument%28%29" title="Sets this Application UI's document pointer">SetDocument()</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aSetEmbeddedDocInfo%28%29" title="Sets the embedded document's observer and read only state">SetEmbeddedDocInfo()</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aStopDisplayingMenuBar%28%29" title="Stops displaying the application's menu bar">StopDisplayingMenuBar()</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aiContainerAppUi" title="A pointer to the containing app UI">iContainerAppUi</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aiDocument" title="Pointer to this app UI's document">iDocument</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aiDoorObserver" title="Door observer">iDoorObserver</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aiEmbeddedAndReadOnly" title="ETrue only if this CEikAppUi is the app UI for an embedded document which is read-only">iEmbeddedAndReadOnly</a></code>, <code class="ApiItem"><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3a%7eCEikAppUi%28%29" title="Destructor">~CEikAppUi()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap">CBase</a></code>:
+<br><code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase%3a%3aoperator%20new%28%29" title="Allocates the object from the heap and then initialises its contents to binary zeroes">operator new()</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="../UIControlFramework/CCoeAppUiClass.html#%3a%3aCCoeAppUi" title="General purpose application user interface class">CCoeAppUi</a></code>:
+<br><code class="ApiItem"><a href="../UIControlFramework/CCoeAppUiClass.html#%3a%3aCCoeAppUi%3a%3aActivateViewL%28%29" title="Activates a specified application view, then passes the message text descriptor aCustomMessage for a message of type aCustomMessageId">ActivateViewL()</a></code>,
+<code class="ApiItem"><a href="../UIControlFramework/CCoeAppUiClass.html#%3a%3aCCoeAppUi%3a%3aAddToStackL%28%29" title="Adds the control aControl to the control stack associated with the view aView">AddToStackL()</a></code>,
+<code class="ApiItem"><a href="../UIControlFramework/CCoeAppUiClass.html#%3a%3aCCoeAppUi%3a%3aAppHelpContextL%28%29" title="Returns a list of relevant contexts within an application help file appropriate for the current state of the application">AppHelpContextL()</a></code>,
+<code class="ApiItem"><a href="../UIControlFramework/CCoeAppUiClass.html#%3a%3aCCoeAppUi%3a%3aDeregisterView%28%29" title="Deregisters the view aView which is required before the application exits">DeregisterView()</a></code>,
+<code class="ApiItem"><a href="../UIControlFramework/CCoeAppUiClass.html#%3a%3aCCoeAppUi%3a%3aHandleStackChanged%28%29" title="Handles changes in control stack flags">HandleStackChanged()</a></code>,
+<code class="ApiItem"><a href="../UIControlFramework/CCoeAppUiClass.html#%3a%3aCCoeAppUi%3a%3aHandleStackedControlsResourceChange%28%29" title="Handles a change to the application's run-time resources for all controls on the control stack">HandleStackedControlsResourceChange()</a></code>,
+<code class="ApiItem"><a href="../UIControlFramework/CCoeAppUiClass.html#%3a%3aCCoeAppUi%3a%3aInputCapabilities%28%29" title="Returns the supported input capabilities of the control with focus">InputCapabilities()</a></code>,
+<code class="ApiItem"><a href="../UIControlFramework/CCoeAppUiClass.html#%3a%3aCCoeAppUi%3a%3aIsDisplayingControlBetweenPriorities%28%29" title="Tests whether the application is displaying a control between given priorities">IsDisplayingControlBetweenPriorities()</a></code>,
+<code class="ApiItem"><a href="../UIControlFramework/CCoeAppUiClass.html#%3a%3aCCoeAppUi%3a%3aIsDisplayingMenuOrDialog%28%29" title="Tests whether the application is displaying a menu bar or dialog">IsDisplayingMenuOrDialog()</a></code>,
+<code class="ApiItem"><a href="../UIControlFramework/CCoeAppUiClass.html#%3a%3aCCoeAppUi%3a%3aRegisterViewL%28%29" title="Registers the view aView with the view architecture">RegisterViewL()</a></code>,
+<code class="ApiItem"><a href="../UIControlFramework/CCoeAppUiClass.html#%3a%3aCCoeAppUi%3a%3aRemoveFromStack%28%29" title="Removes a control from the control stack">RemoveFromStack()</a></code>,
+<code class="ApiItem"><a href="../UIControlFramework/CCoeAppUiClass.html#%3a%3aCCoeAppUi%3a%3aUpdateStackedControlFlags%28%29" title="Updates the value of the flags for a control on the control stack">UpdateStackedControlFlags()</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="../UIControlFramework/MCoeMessageObserverClass.html#%3a%3aMCoeMessageObserver" title="Interface for handling incoming window server messages">MCoeMessageObserver</a></code>:
+<br><code class="ApiItem"><a href="../UIControlFramework/MCoeMessageObserverClass.html#%3a%3aMCoeMessageObserver%3a%3aEMessageHandled" title="Message handled">EMessageHandled</a></code>,
+<code class="ApiItem"><a href="../UIControlFramework/MCoeMessageObserverClass.html#%3a%3aMCoeMessageObserver%3a%3aEMessageNotHandled" title="Message not handled">EMessageNotHandled</a></code>,
+<code class="ApiItem"><a href="../UIControlFramework/MCoeMessageObserverClass.html#%3a%3aMCoeMessageObserver%3a%3aHandleMessageL%28%29" title="Handles window server messages">HandleMessageL()</a></code>,
+<code class="ApiItem"><a href="../UIControlFramework/MCoeMessageObserverClass.html#%3a%3aMCoeMessageObserver%3a%3aTMessageResponse" title="Message response flags">TMessageResponse</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="class_MEikCommandObserver.html#%3a%3aMEikCommandObserver" title="Command observers respond to user commands, and have the secondary function of creating custom controls on request for classes such as CEikToolbar, or user-defined classes">MEikCommandObserver</a></code>:
+<br><code class="ApiItem"><a href="class_MEikCommandObserver.html#%3a%3aMEikCommandObserver%3a%3aCreateCustomCommandControlL%28%29" title="Glue for creating custom controls">CreateCustomCommandControlL()</a></code>,
+<code class="ApiItem"><a href="class_MEikCommandObserver.html#%3a%3aMEikCommandObserver%3a%3aProcessCommandL%28%29" title="Processes user commands">ProcessCommandL()</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="class_MEikMenuObserver.html#%3a%3aMEikMenuObserver" title="Menu observer interface">MEikMenuObserver</a></code>:
+<br><code class="ApiItem"><a href="class_MEikMenuObserver.html#%3a%3aMEikMenuObserver%3a%3aCheckHotKeyNotDimmedL%28%29" title="Determines whether a command should be passed to the application">CheckHotKeyNotDimmedL()</a></code>,
+<code class="ApiItem"><a href="class_MEikMenuObserver.html#%3a%3aMEikMenuObserver%3a%3aDynInitMenuBarL%28%29" title="As DynInitMenuPaneL(), but for menu bars">DynInitMenuBarL()</a></code>,
+<code class="ApiItem"><a href="class_MEikMenuObserver.html#%3a%3aMEikMenuObserver%3a%3aDynInitMenuPaneL%28%29" title="Dynamically initialises a menu pane">DynInitMenuPaneL()</a></code>,
+<code class="ApiItem"><a href="class_MEikMenuObserver.html#%3a%3aMEikMenuObserver%3a%3aEMenuBar" title="Menu bar">EMenuBar</a></code>,
+<code class="ApiItem"><a href="class_MEikMenuObserver.html#%3a%3aMEikMenuObserver%3a%3aEMenuPane" title="Menu pane">EMenuPane</a></code>,
+<code class="ApiItem"><a href="class_MEikMenuObserver.html#%3a%3aMEikMenuObserver%3a%3aHandleAttemptDimmedSelectionL%28%29" title="Responds to a user's attempt to select a dimmed item by displaying a message (CEikonEnv::InfoMsg()) to indicate the item is unavailable">HandleAttemptDimmedSelectionL()</a></code>,
+<code class="ApiItem"><a href="class_MEikMenuObserver.html#%3a%3aMEikMenuObserver%3a%3aOfferKeyToAppL%28%29" title="Called if a key which is not used by the menu is pressed while the observer's menu is displaying">OfferKeyToAppL()</a></code>,
+<code class="ApiItem"><a href="class_MEikMenuObserver.html#%3a%3aMEikMenuObserver%3a%3aRestoreMenuL%28%29" title="Restores the menu window aMenuWindow">RestoreMenuL()</a></code>,
+<code class="ApiItem"><a href="class_MEikMenuObserver.html#%3a%3aMEikMenuObserver%3a%3aSetEmphasis%28%29" title="Called by the Uikon framework to handle the emphasising or de-emphasising of a menu window">SetEmphasis()</a></code>,
+<code class="ApiItem"><a href="class_MEikMenuObserver.html#%3a%3aMEikMenuObserver%3a%3aTMenuType" title="Menu types">TMenuType</a></code></p>
+<a name="2.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction and destruction</h2>
+</div><div class="Bodytext">
+<h4 class="subheading">Description</h4>
+<p>The construction of a <code>CEikAppUi</code> is usually handled
+automatically by the Application Architecture framework; application writers
+usually don&#8217;t need to call the constructors
+themselves.</p>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aCEikAppUi%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CEikAppUi()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CEikAppUi();</code></p><h4 class="subheading">Description</h4>
+<p>Empty default constructor.</p>
+<a name="2.6.4"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3a%7eCEikAppUi%28%29"></a>
+<hr size="1" noshade>
+<h3><code>~CEikAppUi()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>~CEikAppUi();</code></p><h4 class="subheading">Description</h4>
+<p>Destructor.</p>
+<p>Deletes any resources acquired by this <code>CEikAppUi</code>
+during its construction phases.</p>
+<a name="2.6.5"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aConstructL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ConstructL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void ConstructL();</code></p><h4 class="subheading">Description</h4>
+<p>Completes construction. The implementation of
+<code>ConstructL()</code> in <code>CEikAppUi</code> simply calls
+<code>BaseConstructL()</code>.</p>
+<a name="2.6.6"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aBaseConstructL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>BaseConstructL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: void BaseConstructL(TInt aAppUiFlags=0);</code></p><h4 class="subheading">Description</h4>
+<p>Initialises this app UI with standard values. The
+application&#8217;s standard resource file will be read unless the
+<code>ENoAppResourceFile</code> or <code>ENonStandardResourceFile</code> flags
+are passed.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aAppUiFlags=0 </code></td>
+<td class="Cell"><p class="ValueDesc"> Application user interface flags, <code>EStandardApp</code>
+for example. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.7"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aReadAppInfoResourceL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ReadAppInfoResourceL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: void ReadAppInfoResourceL(TInt aResourceFileOffset=0);</code></p><h4 class="subheading">Description</h4>
+<p>Reads the application information for this application from the
+specified resource offset. This function is called automatically in
+<code>BaseConstructL()</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aResourceFileOffset=0 </code></td>
+<td class="Cell"><p class="ValueDesc"> Offset of application information. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Command and event handling</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aHandleCommandL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>HandleCommandL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void HandleCommandL(TInt aCommand);</code></p><h4 class="subheading">Description</h4>
+<p>Handles user commands. This is overridden by subclasses to
+handle user commands passed on by the application framework. This function is
+called by <code>CEikAppUi::ProcessCommandL()</code>, and has a blank
+implementation. It may be overridden in order to provide custom responses to
+user commands. A command:</p>
+<ul>
+<li>
+<p>instructs the application to perform some function</p>
+</li>
+<li>
+<p>can be invoked using either a menu item, a hotkey, or a
+button (in a toolbar, toolband or dialog)</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aCommand </code></td>
+<td class="Cell"><p class="ValueDesc"> A command ID. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aHandleModelChangeL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>HandleModelChangeL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void HandleModelChangeL();</code></p><h4 class="subheading">Description</h4>
+<p>Handles changes to the model associated with this
+<code>CEikAppUi</code>&#8217;s application. This virtual function is empty in
+<code>CEikAppUi</code>.</p>
+<a name="2.7.4"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aHandleWsEventL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>HandleWsEventL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void HandleWsEventL(const TWsEvent&amp; aEvent, CCoeControl* aDestination);</code></p><h4 class="subheading">Description</h4>
+<p>Handles window server events.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TWsEvent&amp; aEvent </code></td>
+<td class="Cell"><p class="ValueDesc"> The window server event that occurred. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CCoeControl* aDestination </code></td>
+<td class="Cell"><p class="ValueDesc"> The control associated with the event. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.5"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aProcessCommandParametersL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ProcessCommandParametersL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: TBool ProcessCommandParametersL(TApaCommand aCommand,TFileName&amp; aDocumentName);</code></p><h4 class="subheading">Description</h4>
+<p>Processes shell commands. The default implementation of this
+function returns whether or not the file <code>aDocumentName</code> exists, and
+does nothing else. The Uikon application framework calls the three-argument
+form when an application is started by selecting a file from the shell or by
+issuing a <code>Create new file</code> command.</p>
+<p>Most file-based applications will override the virtual
+three-argument form of this function to invoke the two-argument form. If the
+passed value of <code>aDocumentName</code> is not the name of a file of the
+right type for this application, a new filename is returned through
+<code>aDocumentName</code>. Implementations of this function should not attempt
+to open the document. That is handled separately by the application framework
+after the command line has been processed.</p>
+<p>When called automatically, <code>aCommand</code> is either
+<code>EApaCommandCreate</code> or <code>EApaCommandRun</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TApaCommand aCommand </code></td>
+<td class="Cell"><p class="ValueDesc"> The shell command sent to the application. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TFileName&amp; aDocumentName </code></td>
+<td class="Cell"><p class="ValueDesc"> At call time, the name of the document as specified on the
+command line. On return, the name for the file which will be created by the
+calling framework. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool </code></td>
+<td class="Cell"><p class="ValueDesc"> Whether the final value of <code>aDocumentName</code>
+represents an existing file. For this form of the function this is
+<code>ETrue</code> if the Uikon application framework needs to open an existing
+file called <code>aDocumentName</code>. Otherwise, this will be
+<code>EFalse</code> if the Uikon application framework needs to create the
+file.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.6"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aProcessCommandParametersL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ProcessCommandParametersL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>public: virtual TBool ProcessCommandParametersL(TApaCommand aCommand,TFileName&amp; aDocumentName,const TDesC8&amp; aTail);</code></p><h4 class="subheading">Description</h4>
+<p>Processes shell commands. The default implementation of this
+function returns whether or not the file <code>aDocumentName</code> exists, and
+does nothing else. The Uikon application framework calls the three-argument
+form when an application is started by selecting a file from the shell or by
+issuing a <code>Create new file</code> command.</p>
+<p>Most file-based applications will override the virtual
+three-argument form to invoke the two-argument form. If the passed value of
+<code>aDocumentName</code> is not the name of a file of the right type for this
+application, a new filename is returned through <code>aDocumentName</code>.
+Implementations of this function should not attempt to open the document. That
+is handled separately by the application framework after the command line has
+been processed.</p>
+<p>When called automatically, <code>aCommand</code> is either
+<code>EApaCommandCreate</code> or <code>EApaCommandRun</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TApaCommand aCommand </code></td>
+<td class="Cell"><p class="ValueDesc"> The shell command sent to the application. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TFileName&amp; aDocumentName </code></td>
+<td class="Cell"><p class="ValueDesc"> At call time, the name of the document as specified on the
+command line. On return, the name for the file which will be created by the
+calling framework. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TDesC8&amp; aTail </code></td>
+<td class="Cell"><p class="ValueDesc"> Command line tail. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool </code></td>
+<td class="Cell"><p class="ValueDesc"> Whether the final value of <code>aDocumentName</code>
+represents an existing file. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.7"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aProcessMessageL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ProcessMessageL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void ProcessMessageL(TUid aUid,const TDesC8&amp; aParams);</code></p><h4 class="subheading">Description</h4>
+<p>Processes Application Architecture messages. This is overridden
+by subclasses to handle messages sent from the Application Architecture
+framework. As defined in <code>CEikAppUi</code>, this function recognises the
+message UIDs <code>KUidApaMessageSwitchOpenFileValue</code> and
+<code>KUidApaMessageSwitchCreateFileValue</code>, and performs no action if the
+message contains neither of these values.</p>
+<p>See also: <code>CCoeAppUi::HandleMessageReadyL()</code> and
+<code>CApaTask::SendMessage()</code>.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUid aUid </code></td>
+<td class="Cell"><p class="ValueDesc"> The message&#8217;s unique identifier. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TDesC8&amp; aParams </code></td>
+<td class="Cell"><p class="ValueDesc"> Message parameters. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.8"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aHandleError%28%29"></a>
+<hr size="1" noshade>
+<h3><code>HandleError()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TErrorHandlerResponse HandleError<br>&nbsp;&nbsp;&nbsp;&nbsp;(TInt aError,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const SExtendedError&amp; aExtErr,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TDes&amp; aErrorText,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TDes&amp; aContextText);</code></p><h4 class="subheading">Description</h4>
+<p>Handles errors. The default implementation of this function
+simply returns <code>EErrorNotHandled</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aError </code></td>
+<td class="Cell"><p class="ValueDesc"> The error code. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const SExtendedError&amp; aExtErr </code></td>
+<td class="Cell"><p class="ValueDesc"> For extended error messages. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TDes&amp; aErrorText </code></td>
+<td class="Cell"><p class="ValueDesc"> Error text. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TDes&amp; aContextText </code></td>
+<td class="Cell"><p class="ValueDesc"> Text describing the context of the error. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TErrorHandlerResponse </code></td>
+<td class="Cell"><p class="ValueDesc"> How the error was handled. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>File handling</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aOpenFileL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>OpenFileL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void OpenFileL(const TDesC&amp; aFileName);</code></p><h4 class="subheading">Description</h4>
+<p>Opens the specified file in response to a corresponding
+message. The default implementation is empty; and can be overridden by
+application developers to provide a file opening capability. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TDesC&amp; aFileName </code></td>
+<td class="Cell"><p class="ValueDesc"> The file name to open. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aProcessMessageL%28%29" title="Processes Application Architecture messages"><code class="ApiItem">CEikAppUi::ProcessMessageL()</code></a></li>
+</ul>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aCreateFileL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CreateFileL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void CreateFileL(const TDesC&amp; aFileName);</code></p><h4 class="subheading">Description</h4>
+<p>Creates and opens a file with the given name in response to the
+corresponding message. The default implementation is empty; and can be
+overridden by application developers.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TDesC&amp; aFileName </code></td>
+<td class="Cell"><p class="ValueDesc"> The name of the file to create and open. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aProcessMessageL%28%29" title="Processes Application Architecture messages"><code class="ApiItem">CEikAppUi::ProcessMessageL()</code></a></li>
+</ul>
+<a name="2.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Documents and embedded documents</h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aContainerAppUi%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ContainerAppUi()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CEikAppUi* ContainerAppUi() const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns the app UI inside which this app UI is embedded.
+Embedded app UIs are used for example, for editing embedded documents and to
+stack a help application onto the context of a current application.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CEikAppUi* </code></td>
+<td class="Cell"><p class="ValueDesc"> A pointer to this <code>CEikAppUi</code>&#8217;s container
+app UI. <code>NULL</code> if this app UI is not embedded </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.3"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aSetEmbeddedDocInfo%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetEmbeddedDocInfo()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetEmbeddedDocInfo(MApaEmbeddedDocObserver* aObserver,TBool aReadOnly);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the embedded document&#8217;s observer and read only
+state.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> MApaEmbeddedDocObserver* aObserver </code></td>
+<td class="Cell"><p class="ValueDesc"> Observer for the embedded document. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool aReadOnly </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue</code> to set the embedded document as read-only.
+Otherwise <code>EFalse</code>. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.4"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aDocument%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Document()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CEikDocument* Document() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets this application UI&#8217;s document pointer. </p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CEikDocument* </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the app UI&#8217;s document. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="class_CEikAppUi.html#%3a%3aCEikAppUi%3a%3aSetDocument%28%29" title="Sets this Application UI's document pointer"><code class="ApiItem">SetDocument()</code></a></li>
+</ul>
+<a name="2.9.5"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aSetDocument%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetDocument()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetDocument(CEikDocument* aDocument);</code></p><h4 class="subheading">Description</h4>
+<p>Sets this Application UI&#8217;s document pointer. The
+document being presented in an app UI is initially owned by
+<code>CEikProcess</code>, and there is usually no reason to change it with this
+function.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CEikDocument* aDocument </code></td>
+<td class="Cell"><p class="ValueDesc"> App UI&#8217;s document. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.6"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aSetDocChanged%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetDocChanged()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: void SetDocChanged();</code></p><h4 class="subheading">Description</h4>
+<p>Marks this <code>CEikAppUi</code>&#8217;s associated document
+as having changed.</p>
+<a name="2.9.7"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aSaveAnyChangesL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SaveAnyChangesL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: void SaveAnyChangesL();</code></p><h4 class="subheading">Description</h4>
+<p>Saves changes made to the app UI&#8217;s associated document
+if the document is marked as having changed.</p>
+<a name="2.10"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Interface utilities</h2>
+</div><div class="Bodytext">
+<a name="2.10.2"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aApplication%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Application()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CEikApplication* Application() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a pointer to the application associated with this app
+UI.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CEikApplication* </code></td>
+<td class="Cell"><p class="ValueDesc"> A pointer to the application associated with this app UI.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.3"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aApplicationRect%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ApplicationRect()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TRect ApplicationRect() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the total area of the screen available to the application.
+This includes the space that is available for a toolbar, toolband or title
+band, if the application requires them.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TRect </code></td>
+<td class="Cell"><p class="ValueDesc"> The total area of the screen available to the application.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.4"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aClientRect%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ClientRect()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TRect ClientRect() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the area of the screen available to the application for
+drawing. This does not include the space that is available for a toolbar,
+toolband or title band, if the application requires them.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TRect </code></td>
+<td class="Cell"><p class="ValueDesc"> The area of the screen available to the application for
+drawing. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.5"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aCreateHotKeyControlL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CreateHotKeyControlL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: void CreateHotKeyControlL(TInt aResourceId);</code></p><h4 class="subheading">Description</h4>
+<p>Creates a hotkey control.</p>
+<p>Constructs a <code>CEikHotKeyControl</code> whose
+<code>CEikHotKeytable</code> is specified by a resource ID, and adds it to the
+control stack.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aResourceId </code></td>
+<td class="Cell"><p class="ValueDesc"> A hot key table resource. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.6"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aFadeWhenInBackground%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FadeWhenInBackground()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool FadeWhenInBackground();</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether the application is set to fade when in the
+background.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue</code> if application is set to fade when in the
+background, <code>EFalse</code> otherwise. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Menus and popup menus</h2>
+</div><div class="Bodytext">
+<a name="2.11.2"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aLaunchPopupMenuL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>LaunchPopupMenuL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void LaunchPopupMenuL(TInt aResourceId,const TPoint&amp; aTargetPos,TPopupTargetPosType aTargetType,const CEikHotKeyTable* aHotKeyTable = NULL);</code></p><h4 class="subheading">Description</h4>
+<p>Launches a popup menu. This function is called by
+<code>CEikAppUI::HandleSideBarMenuL()</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aResourceId </code></td>
+<td class="Cell"><p class="ValueDesc"> ID of the resource that defines the menu to be launched.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TPoint&amp; aTargetPos </code></td>
+<td class="Cell"><p class="ValueDesc"> Position of the corner of the menu identified by
+<code>aTargetType</code>. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TPopupTargetPosType aTargetType </code></td>
+<td class="Cell"><p class="ValueDesc"> The corner of the menu by which the menu will be positioned.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CEikHotKeyTable* aHotKeyTable=NULL </code></td>
+<td class="Cell"><p class="ValueDesc"> Optional menu hotkey table. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.3"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aStopDisplayingMenuBar%28%29"></a>
+<hr size="1" noshade>
+<h3><code>StopDisplayingMenuBar()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void StopDisplayingMenuBar();</code></p><h4 class="subheading">Description</h4>
+<p>Stops displaying the application&#8217;s menu bar. If the
+application has no menu bar, or if the menu bar is not visible, this function
+has no effect.</p>
+<a name="2.11.4"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aClosePopup%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ClosePopup()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: void ClosePopup();</code></p><h4 class="subheading">Description</h4>
+<p>Closes any currently visible sidebar popup menu. Calls to
+<code>Popup()</code> immediately after a <code>ClosePopup()</code> return
+<code>NULL</code>.</p>
+<a name="2.11.5"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aHandleSideBarMenuL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>HandleSideBarMenuL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: void HandleSideBarMenuL(TInt aResourceId,const TPoint&amp; aPos,TInt aModifiers,const CEikHotKeyTable* aTable);</code></p><h4 class="subheading">Description</h4>
+<p>Handles sidebar menu commands. This is called by the Uikon
+framework to handle user invocation of a sidebar menu. See also
+<code>MEikMenuObserver::HandleSideBarMenuL()</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aResourceId </code></td>
+<td class="Cell"><p class="ValueDesc"> ID of the resource that describes the menu. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TPoint&amp; aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> Position of the menu&#8217;s reference point. For sidebar
+menus, this is the top-right corner. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aModifiers </code></td>
+<td class="Cell"><p class="ValueDesc"> Bitwise OR of the modifiers held when the menu was invoked by
+the user. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CEikHotKeyTable* aTable </code></td>
+<td class="Cell"><p class="ValueDesc"> Hotkey table for the menu. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Change event handlers</h2>
+</div><div class="Bodytext">
+<a name="2.12.2"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aHandleApplicationSpecificEventL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>HandleApplicationSpecificEventL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void HandleApplicationSpecificEventL(TInt aType,const TWsEvent&amp; aEvent);</code></p><h4 class="subheading">Description</h4>
+<p>Handles an application specific event. This function takes
+action on notification of a change to the environment colour scheme and informs
+everything on the control stack of the change.</p>
+<p>See also: <code>CCoeAppUi</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aType </code></td>
+<td class="Cell"><p class="ValueDesc"> The type of the event that occurred. This should be a unique
+identifier constant for the application specific event. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TWsEvent&amp; aEvent </code></td>
+<td class="Cell"><p class="ValueDesc"> The window server event that occurred. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.3"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aHandleForegroundEventL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>HandleForegroundEventL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void HandleForegroundEventL(TBool aForeground);</code></p><h4 class="subheading">Description</h4>
+<p>Handles changes in keyboard focus when an application switches
+to, or from, the foreground. This function is called from
+<code>HandleWsEventL()</code> when an event occurs of type
+<code>EEventFocusLost</code> or <code>EEventFocusGained</code>.</p>
+<p>Any application overriding this should first call the base
+function.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool aForeground </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue</code> to switch to the foreground.
+<code>EFalse</code> to switch from the foreground.. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.4"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aReportResourceChangedToAppL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ReportResourceChangedToAppL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ReportResourceChangedToAppL(TInt aType);</code></p><h4 class="subheading">Description</h4>
+<p>Reports a resource change to the application.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aType </code></td>
+<td class="Cell"><p class="ValueDesc"> The type of resource that has changed. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.5"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aHandleResourceChangeL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>HandleResourceChangeL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void HandleResourceChangeL(TInt aType);</code></p><h4 class="subheading">Description</h4>
+<p>Handles a change to the application's resources which are
+shared across the environment. Colours or fonts for example.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aType </code></td>
+<td class="Cell"><p class="ValueDesc"> The type of resources that have changed. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Preparing to exit</h2>
+</div><div class="Bodytext">
+<a name="2.13.2"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aPrepareToExit%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PrepareToExit()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void PrepareToExit();</code></p><h4 class="subheading">Description</h4>
+<p>Performs pre-exit processing to ensure the application will
+exit cleanly.</p>
+<a name="2.14"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Protected functions</h2>
+</div><div class="Bodytext">
+<a name="2.14.2"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aExit%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Exit()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Exit();</code></p><h4 class="subheading">Description</h4>
+<p>Closes the app UI.</p>
+<a name="2.14.3"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aSaveL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SaveL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SaveL();</code></p><h4 class="subheading">Description</h4>
+<p>Saves the app UI&#8217;s document, or sets the document as
+changed if the app UI is embedded.</p>
+<a name="2.14.4"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aSetDocChanged%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetDocChanged()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetDocChanged();</code></p><h4 class="subheading">Description</h4>
+<p>Sets the application&#8217;s document as changed.</p>
+<a name="2.15"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Enumeration constants</h2>
+</div><div class="Bodytext">
+<a name="2.15.2"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aAnonymous"></a>
+<hr size="1" noshade>
+<h3>Enum <code>Anonymous</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>enum {...} //anonymous</code></p><h4 class="subheading">Description</h4>
+<p>The following enums relate to the use of an application
+resource file and screen furniture.</p>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCEikAppUi%3a%3aEStandardApp"><code class="Value">EStandardApp</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Application uses its standard application resource
+file.</para>
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCEikAppUi%3a%3aENoAppResourceFile"><code class="Value">ENoAppResourceFile</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Application has no application resource file.</para>
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCEikAppUi%3a%3aENonStandardResourceFile"><code class="Value">ENonStandardResourceFile</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Application uses a different application resource file from
+its standard.</para>
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCEikAppUi%3a%3aENoScreenFurniture"><code class="Value">ENoScreenFurniture</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Application uses no screen furniture.</para>
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Protected data members</h2>
+</div><div class="Bodytext">
+<a name="2.16.2"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aiContainerAppUi"></a>
+<hr size="1" noshade>
+<h3><code>iContainerAppUi</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CEikAppUi* iContainerAppUi</code></p><h4 class="subheading">Description</h4>
+<p>A pointer to the containing app UI.
+<code>iContainerAppUi</code> is <code>NULL</code> for non-embedded app
+UIs.</p>
+<a name="2.16.3"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aiDocument"></a>
+<hr size="1" noshade>
+<h3><code>iDocument</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CEikDocument* iDocument</code></p><h4 class="subheading">Description</h4>
+<p>Pointer to this app UI&#8217;s document. See
+<code>GetDocument()</code>.</p>
+<a name="2.16.4"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aiDoorObserver"></a>
+<hr size="1" noshade>
+<h3><code>iDoorObserver</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>MApaEmbeddedDocObserver* iDoorObserver</code></p><h4 class="subheading">Description</h4>
+<p>Door observer.</p>
+<a name="2.16.5"></a></div><div class="Head3">
+<a name="%3a%3aCEikAppUi%3a%3aiEmbeddedAndReadOnly"></a>
+<hr size="1" noshade>
+<h3><code>iEmbeddedAndReadOnly</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool iEmbeddedAndReadOnly</code></p><h4 class="subheading">Description</h4>
+<p><code>ETrue</code> only if this <code>CEikAppUi</code> is the
+app UI for an embedded document which is read-only.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

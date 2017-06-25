@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to derive from COpenFont</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="OpenFontSystem%2eHowtoCOpenFont"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToDeriveFromCOpenFontFile.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToDeriveFromCOpenFontRasterizerContext.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Application&nbsp;Framework</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Open&nbsp;Font&nbsp;System</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;derive&nbsp;from&nbsp;COpenFont</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to derive from <code>COpenFont</code></h1>
+</div><div class="Bodytext">
+<a name="1.3"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Overview</h2>
+</div><div class="Bodytext"><p>Write a class derived from <code>COpenFont</code> to represent an instance of a typeface at a particular size, provide bitmaps of the glyphs, and determine whether a particular character is defined in the typeface. An object of this type is created by <code>COpenFontFile::GetNearestFontInPixelsL()</code> when it is called  by the Font and Bitmap server.</p><p>To derive from <code>COpenFont</code>:</p><ul>
+<li><p>Write a function to construct the derived object on the shared heap. The base class constructor must be called when creating the derived object.</p></li><li><p>Provide an implementation for <code>COpenFont</code>'s  pure virtual function   <code>RasterizeL()</code>.</p>
+</li>
+</ul><p>These are discussed further in the following sections.</p>
+<a name="1.4"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Construction using the shared heap
+</h2>
+</div><div class="Bodytext"><p>The derived object must be created on a shared heap because it is shared by several processes, e.g. the Font and Bitmap server and its clients. The following code fragment shows how the  FreeType implementation creates the object on the shared heap <code>aHeap</code>:</p><p class="CodeBlock"><code>CFreeTypeFont* CFreeTypeFont::NewL(RHeap* aHeap,<br>&nbsp;&nbsp;&nbsp;&nbsp;COpenFontSessionCacheList* aSessionCacheList,<br>&nbsp;&nbsp;&nbsp;&nbsp;CFreeTypeFontFile* aFontFile,TInt aSizeInPixels)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;CFreeTypeFont* f =<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(CFreeTypeFont*)aHeap-&gt;AllocL(sizeof(CFreeTypeFont));<br>&nbsp;&nbsp;&nbsp;&nbsp;new(f) CFreeTypeFont(aHeap,aSessionCacheList,aFontFile);<br>&nbsp;&nbsp;&nbsp;&nbsp;CleanupStack::PushL(f);<br>&nbsp;&nbsp;&nbsp;&nbsp;f-&gt;ConstructL(aSizeInPixels);<br>&nbsp;&nbsp;&nbsp;&nbsp;CleanupStack::Pop();<br>&nbsp;&nbsp;&nbsp;&nbsp;return f;<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p><p>Note that we use <code>aHeap-&gt;AllocL()</code> to obtain memory, then construct in place using a placement argument to <code>new</code>. </p><p>The base class constructor is called when creating the derived object. Pass the arguments <code>aHeap</code> and <code>aSessionCacheList</code> supplied to <code>COpenFontFile::GetNearestFontInPixelsL()</code>, and pass the address of the <code>COpenFontFile</code> object that creates the <code>COpenFont</code> (i.e., 'this') as <code>aFile</code>.
+</p><a name="1.5"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Implementing <code>RasterizeL()</code></h2>
+</div><div class="Bodytext"><p>The derived class's <code>RasterizeL()</code> function is called by the Font and Bitmap server to return the bitmap for a specified Unicode character.  The function prototype is given below:</p><p class="CodeBlock"><code>virtual void RasterizeL(TInt aCode,TOpenFontGlyphData* aGlyphData) = 0;</code></p><p>Implementations must create a bitmap, in  Symbian's run-length-encoded format,  for the Unicode character <code>aCode</code>. The bitmap must be placed in <code>aGlyphData-&gt;iBitmapBuffer</code>, and the character metrics must be placed in <code>aGlyphData-&gt;iMetricsBuffer</code>. The other parts of <code>aGlyphData</code> should be left alone.</p><p>The actual rasterization task should be passed to the rasterization engine. One way of doing this is to call some rasterization member function of the <code>COpenFontFile</code> object, to which a pointer can be obtained by calling <code>COpenFont::File()</code>.  The derived <code>COpenFontFile</code> object can then  call a rasterizer function via a pointer it owns to the rasterizer context object.  Note that <em>if</em> the rasterizer context object is derived from <code>COpenFontRasterizerContext</code>,  it will have utility functions for writing bits to the bitmap buffer in Symbian's run-length-encoded format.</p><p>The FreeType implementation follows this strategy. <code>CFreeTypeFont::RasterizeL()</code> calls <code>CFreeTypeFontFile::RasterizeL()</code>, which calls <code>CFreeTypeContext::RasterizeL()</code>. </p><a name="1.5.7"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Symbian's run-length-encoded bitmap format</h3>
+</div><div class="Bodytext"><p>Symbian's run-length-encoded format is a packed binary format starting on a byte boundary and made up of a number of sections. </p><p>Each section starts with a five-bit header. If the first bit of the header is 0 the next four bits are a repeat count, starting with the least significant bit, and a single row of bits follows (the number of bits in a row is specified by <code>aGlyphData-&gt;iMetricsBuffer.Width()</code>). If the first bit of the header is 1 the next four bits are a count of non-repeating rows, again starting with the least significant bit, and that many rows of bits follow.</p><p>See &quot;How to derive from COpenFontRasterizerContext&quot; for an implementation of this algorithm.</p><a name="1.6"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext"><p><a href="HowToDeriveFromCOpenFontRasterizer.guide.html#OpenFontSystem%2eHowtoCOpenFontRasterizer">How to derive from COpenFontRasterizer</a></p><p><a href="HowToDeriveFromCOpenFontFile.guide.html#OpenFontSystem%2eHowtoCOpenFontFile">How to derive from COpenFontFile</a></p><p><a href="HowToDeriveFromCOpenFontRasterizerContext.guide.html#OpenFontSystem%2eHowtoCOpenFontRasterizerContext">How to derive from COpenFontRasterizerContext</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

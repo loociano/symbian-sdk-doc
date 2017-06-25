@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Using RTelServer class</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="ETelCore%2eusing%2ertelserver"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="RTelSubSessionBaseClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="ETelCoreConstants.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">ETel&nbsp;Core</a>&nbsp;<span class="separator">&#187;</span>
+Using&nbsp;RTelServer&nbsp;class</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Using <code>RTelServer</code> class</h1>
+</div><div class="Bodytext">
+<p>This section describes, by example, some of the less intuitive
+behaviour of the <code>RTelServer</code> class.</p>
+<a name="ETelCore%2eusing%2eloadtsy"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Loading a TSY module</h2>
+</div><div class="Bodytext">
+<p>To use a specific modem, client applications must first load a TSY
+module which supports its functionality. This is achieved by passing the file
+name of the TSY to the <code>LoadPhoneModule()</code> function, as shown
+below:</p>
+<p class="CodeBlock"><code>RTelServer server;<br>Int ret = server.Connect();<br>_LIT(KTsyName,&quot;HAYES.TSY&quot;)<br>ret=server.LoadPhoneModule(KTsyName);<br>ret=server.UnloadPhoneModule(KTsyName);<br>yest(ret==KErrNone);<br>server.Close();</code></p>
+<p>In the case above the server is first connected, and then the Hayes
+TSY is loaded. Note that the name of the TSY has been hard coded. This is not
+recommended practice. Instead the name of the TSY module should be obtained by
+querying the communications database for the name of the currently selected
+TSY, or by scanning the <code>\system\libs\</code> directory of each drive for
+files with the *.tsy extension. An example of
+how to scan the file system for a particular file type is provided in the File
+Server examples.</p>
+<p>The code fragment below shows a function which can be used to
+obtain the name of the currently selected TSY. The project should also #include
+commdb.h, and link to commdb.lib.</p>
+<p class="CodeBlock"><code>void CExampleCode::GetTsyNameL(TDes&amp; aTsyName)<br>&nbsp;{<br>&nbsp;CCommsDatabase* db = CCommsDatabase::NewL();<br>&nbsp;db-&gt;Open();<br>&nbsp;TUint32 id;<br>&nbsp;db-&gt;GetDefaultRecordL(TPtrC(CONNECTED_MODEM), id);<br>&nbsp;CCommsDbTableView* table = db-&gt;OpenViewMatchingUintLC(TPtrC(CONNECTED_MODEM), TPtrC(COMMDB_ID), id);<br>&nbsp;User::LeaveIfError(table-&gt;GotoFirstRecord());<br>&nbsp;TBuf&lt;KCommsDbSvrMaxFieldLength&gt; tsyName;<br>&nbsp;table-&gt;ReadTextL(TPtrC(MODEM_TSY_NAME), aTsyName);<br>&nbsp;CleanupStack::PopAndDestroy();<br>&nbsp;db-&gt;Close();<br>&nbsp;delete db;<br>&nbsp;}</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

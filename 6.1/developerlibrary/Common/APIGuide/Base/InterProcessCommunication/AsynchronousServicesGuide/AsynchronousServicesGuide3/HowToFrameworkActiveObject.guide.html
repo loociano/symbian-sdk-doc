@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to construct an active object</title>
+<link href="../../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="AsynchronousServicesGuide3%2ehow%2dto%2econstruct%2dactive%2dobject"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../../_index/index.html"><img
+src="../../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../../GlobalGlossary/index.html"><img src="../../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="ActiveScheduler.guide.html"><img src="../../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToIssueRequests.guide.html"><img src="../../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Inter&nbsp;Process&nbsp;Communciation</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Asynchronous&nbsp;Services</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">High&nbsp;Level&nbsp;Asynchronous&nbsp;Service&nbsp;Handling</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;construct&nbsp;an&nbsp;active&nbsp;object</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to construct an active object</h1>
+</div><div class="Bodytext">
+<p>The following examples outline the practical framework required when
+implementing an active object</p>
+<a name="AsynchronousServicesGuide3%2ehow%2dto%2econstruct%2dactive%2dobject%2eframework"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Active objects framework</h2>
+</div><div class="Bodytext">
+<p>The following example code demonstrates how to construct the
+framework for a simple active object which encapsulates a
+service-provider.</p>
+<p>First define and implement the service-provider class. The
+following code shows the typical features:</p>
+<p class="CodeBlock"><code>class CExampleServiceProvider<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>public:<br>&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;void RequestTheService(TRequestStatus&amp; aStatus);<br>&nbsp;&nbsp;&nbsp;&nbsp;void CancelTheRequest();<br>private:<br>&nbsp;&nbsp;&nbsp;&nbsp;TInt iResult ;<br>&nbsp;&nbsp;&nbsp;&nbsp;};</code></p>
+<p>Now define and implement the active object which wraps around the
+service provider. The following code shows the the main features of an active
+object class.</p>
+<ul>
+<li>
+<p>Provide a constructor.</p>
+</li>
+<li>
+<p>Provide a <code>RunL()</code> function to handle the completion
+of an asynchronous request.</p>
+</li>
+<li>
+<p>Provide a <code>DoCancel()</code> function to implement a
+cancellation request.</p>
+</li>
+<li>
+<p>Provide a <code>RunError()</code> function to implement
+recovery and cleanup if the <code>RunL()</code> function leaves. Note that this
+is not available in ER5.</p>
+</li>
+</ul>
+<p class="CodeBlock"><code>class CExampleActiveObject : public CActive;<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>public:<br>&nbsp;&nbsp;&nbsp;&nbsp;CExampleActiveObject(CExampleServiceProvider* aServiceProvider);<br>&nbsp;&nbsp;&nbsp;&nbsp;~CExampleActiveObject;<br>&nbsp;&nbsp;&nbsp;&nbsp;void IssueRequest();<br>private:<br>&nbsp;&nbsp;&nbsp;&nbsp;void DoCancel();<br>&nbsp;&nbsp;&nbsp;&nbsp;void RunL();<br>&nbsp;&nbsp;&nbsp;&nbsp;TInt RunError(TInt aError);<br>private:<br>&nbsp;&nbsp;&nbsp;&nbsp;CExampleServiceProvider* iServiceProvider ;<br>&nbsp;&nbsp;&nbsp;&nbsp;};</code></p>
+<p>When the class codes a <code>DoCancel()</code> then the destructor
+must call the <code>Cancel()</code> member function of the active
+object.</p>
+<a name="AsynchronousServicesGuide3%2ehow%2dto%2econstruct%2dactive%2dobject%2econstruction"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>How to construct an active object</h2>
+</div><div class="Bodytext">
+<p>The following code shows the typical elements required when
+constructing an active object.</p>
+<p class="CodeBlock"><code>CExampleActiveObject::CExampleActiveObject(CExampleServiceProvider* aServiceProvider) : CActive(EPriorityStandard)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;iServiceProvider = aServiceProvider; // Store pointer to service provider<br>&nbsp;&nbsp;&nbsp;&nbsp;CActiveScheduler::Add(this) ;        // add to active scheduler<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<ul>
+<li>
+<p>Set the active object&#8217;s priority using one of the
+<code>CActive::Tpriority</code> enumeration values.</p>
+</li>
+<li>
+<p>Retain a handle to the required service provider, so that request
+functions can pass on a request to the asynchronous service provider.</p>
+</li>
+<li>
+<p>Use <code>add()</code> to add the active object to the active
+scheduler, in order to ensure that its requests are handled.</p>
+</li>
+</ul>
+<p>In practice there are many variations on this basic construction
+theme.</p>
+<ul>
+<li>
+<p>Most active objects set the priority within the constructor and
+this is almost always the <code>EPriorityStandard</code> or zero value. In some
+cases, the choice of priority value is decided by the caller or by the
+constructor of a class further derived from this one.</p>
+</li>
+<li>
+<p>In many situations, the service provider is constructed by the
+active object itself, instead of being passed in. Often this is done as part of
+a two stage construction process. For example, the <code>CTimer</code> active
+object has a simple constructor and a function <code>ConstructL()</code> which
+completes the construction of the object:</p>
+</li>
+</ul>
+<p class="CodeBlock"><code>CTimer::CTimer(TInt aPriority)<br>&nbsp;&nbsp;&nbsp;&nbsp;: CActive(aPriority)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<p class="CodeBlock"><code>void CTimer::ConstructL()<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;TInt r=iTimer.CreateLocal();<br>&nbsp;&nbsp;&nbsp;&nbsp;if (r!=KErrNone)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;User::Leave(r);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

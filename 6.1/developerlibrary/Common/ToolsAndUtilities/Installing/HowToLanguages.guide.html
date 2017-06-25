@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to create an installation file for a multilingual application</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="Installing%2ehowto%2dmulitlingual"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToSimple.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToText.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Installation&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;create&nbsp;an&nbsp;installation&nbsp;file&nbsp;for&nbsp;a&nbsp;multilingual&nbsp;application</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to create an installation file for a multilingual
+application</h1>
+</div><div class="Bodytext">
+<p>Symbian OS  supports different languages through the use of <i>resource
+files</i>. Each resource file contains, in a different language, the text
+used by the application (e.g. in menu options). The<code class="filename"> sis</code> file
+bundles the resource files belonging to all languages, but only the file
+supporting the selected language is installed.</p>
+<p>The process is:</p>
+<ol>
+<li>
+<p>Create a text file with extension <code class="filename">.pkg</code>.</p>
+</li>
+<li>
+<p>Specify the languages that the application supports.</p>
+</li>
+<li>
+<p>Specify the package header. In a multilingual application this
+consists of the application&#8217;s name in each of the languages specified in
+the language line, in the order specified in the language line.
+As in all package files, it also includes the application&#8217;s UID, and its
+major, minor and build numbers.</p>
+</li>
+<li>
+<p>Specify the source location and names of files which should be
+always be installed, and their destination on the target machine.</p>
+</li>
+<li>
+<p>Specify the source location and name of the language resource
+files, in the same order as the language line. In the same
+block, specify the location to which only one of these files is to be
+installed, and the name of the file after installation.</p>
+</li>
+<li>
+<p>Invoke the Installation File Generator on the package
+file.</p>
+</li>
+</ol>
+<a name="1.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="../Installing-ref/PackageFileFormatReference.guide.html#Installing%2dref%2elanguages">Languages</a>,
+<a href="HowToSimple.guide.html#Installing%2ehowto%2dsimple">How to create a simple installation file</a></p>
+<a name="1.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Example</h2>
+</div><div class="Bodytext">
+<p>The project file for a multilingual installation is provided in
+<code class="filename">epoc32ex\ToolsAndUtilities\HelloWorldLangs.pkg</code>. A listing of
+the file is given below:</p>
+<p class="CodeBlock"><code>&amp;EN,FR,IT<br>#{&quot;Minimal application&quot;, &quot;Application minimale&quot;, &quot;Applicazione minima&quot;},(0x10004299),1,1,0,TYPE=SISAPP</code></p>
+<p class="CodeBlock"><code>&quot;HelloWorld.app&quot;-&quot;!:\system\apps\HelloWorld\HelloWorld.app&quot;</code></p>
+<p class="CodeBlock"><code>{<br>&quot;HelloWorld.ruk&quot;<br>&quot;HelloWorld.rfr&quot;<br>&quot;HelloWorld.rit&quot;<br>}-&quot;!:\system\apps\HelloWorld\HelloWorld.rsc&quot;</code></p>
+<p>The first line uses language codes to specify the language variants
+which are supported&nbsp;— in this case English, French and Italian.
+This information is used by the installer. It also defines the order in which
+captions and language specific files should be specified.</p>
+<p>The second line defines the package header. The text for
+&#8220;minimal application&#8221; is specified for each of the supported
+languages. The header also specifies the application&#8217;s UID (0x10004299),
+major and minor build numbers (1 , 0), the build number (0), and the
+installation type (SISAPP). </p>
+<p>The third line specifies the source and destination location of the
+application file <code class="filename">HelloWorld.app</code>, which should be
+installed irrespective of the language selected by the user.</p>
+<p>The final section specifies the source location of the three
+resource files to be bundled in the installation file. The order
+of the resource files should match the language codes given in the first line.
+The name and destination location of the single resource file to be installed
+is also specified in this section. As demonstrated, upon installation it must
+have the extension <code class="filename">.rsc</code> in order to link to the application file.
+</p>
+<p>To create the installation file <code class="filename">HelloWorldLangs.sis</code>,
+invoke the Installation File Generator on the package file:</p>
+<p class="CodeBlock"><code>makesis HelloWorldLangs.pkg</code></p>
+<a name="1.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Notes</h2>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>There are a number of concepts in the file which are explained in the
+&#8220;How To&#8221; for a simple installation (e.g. UID, Build number,
+comments). See this topic for more information.</p>
+</li>
+<li>
+<p>The SISAPP type information specified in the package header is
+redundant, as installation of an application is the default.</p>
+</li>
+<li>
+<p>The Add/Remove program allows users to set their preferred language.
+The files for this preferred language are automatically installed if they are
+available in the installation file. If the files for the preferred language not
+available, then the user is prompted to select which language to
+install.</p>
+</li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

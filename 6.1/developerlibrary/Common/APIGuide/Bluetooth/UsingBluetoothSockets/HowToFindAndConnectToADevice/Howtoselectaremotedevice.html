@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to inquire about remote devices</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="bt%2eguide%2esockets%2eprogram%2dselect"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="Methodsforselecting.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="Howtoselectaservice.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Bluetooth</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Bluetooth&nbsp;Sockets</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">How&nbsp;to&nbsp;find&nbsp;and&nbsp;connect&nbsp;to&nbsp;remote&nbsp;devices</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;inquire&nbsp;about&nbsp;remote&nbsp;devices</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>How to inquire about remote devices</h1>
+</div><div class="Bodytext">
+<p>Each Bluetooth device has a 48-bit unique address built into its hardware. A basic inquiry for devices in range returns zero or more of these addresses.</p><p>As well as an address, a Bluetooth device has a text name suitable for display to users. If you want to display a list of available devices to the user, you will also need to obtain these names.</p><p>The address and the name inquiries can occur simultaneously, if the underlying hardware supports this. Otherwise, the address inquiry must finish before the name request can be issued over the air.</p>
+<p>Address and name inquiries are performed through  the generic EPOC sockets class <a href="../../../../APIReference/SocketsClient/RHostResolverClass.html#%3a%3aRHostResolver" title="Provides an interface to host name resolution services, such as DNS, that may be provided by particular protocol modules"><code class="ApiItem">RHostResolver</code></a>. A specialist Bluetooth sockets address class, <a href="../../../../APIReference/BluetoothSockets/TInquirySockAddrClass.html#%3a%3aTInquirySockAddr" title="Socket address class used for remote device inquiries"><code class="ApiItem">TInquirySockAddr</code></a>, which encapsulates Bluetooth address, Inquiry Access Code, and service and device classes, is provided for use with such inquiries.</p><a name="1.7"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Getting the addresses of remote devices </h2>
+</div><div class="Bodytext"><p>To inquire for the addresses of remote devices, take the following steps:</p><ol><li><p>Connect to the Sockets Server (<a href="../../../../APIReference/SocketsClient/RSocketServClass.html#%3a%3aRSocketServ" title="Provides the Connect() function to create an IPC communication channel to the socket server"><code class="ApiItem">RSocketServ</code></a>), and then select the protocol to be used using <a href="../../../../APIReference/SocketsClient/RSocketServClass.html#%3a%3aRSocketServ%3a%3aFindProtocol%28%29" title="Gets the description of a protocol by name"><code class="ApiItem">RSocketServ::FindProtocol()</code></a>.   Address and name queries are supplied by the stack's BTLinkManager protocol layer, so select this.</p></li><li><p>Create and initialise an <code>RHostResolver</code> object. </p></li><li><p>Set the <code>TInquirySockAddr</code> parameter for the inquiry: for address inquiries, the <a href="../../../../APIReference/BluetoothSockets/ConstantsLMP.html#%3a%3aKHostResInquiry" title="Perform an inquiry for devices using the IAC specified through TInquirySockAddr::SetIAC()"><code class="ApiItem">KHostResInquiry</code></a> flag must be set through <a href="../../../../APIReference/BluetoothSockets/TInquirySockAddrClass.html#%3a%3aTInquirySockAddr%3a%3aSetAction%28%29" title="Sets the action flags set to use with the host resolver"><code class="ApiItem">TInquirySockAddr::SetAction()</code></a>.</p><p>The query can then be started with <a href="../../../../APIReference/SocketsClient/RHostResolverClass.html#%3a%3aRHostResolver%3a%3aGetByAddress%28%29" title="Gets the name of a host from its address"><code class="ApiItem">RHostResolver::GetByAddress()</code></a>. </p></li><li><p>When  <code>GetByAddress()</code> completes, it fills in a  <a href="../../../../APIReference/SocketsClient/TNameEntryTypedef.html#%3a%3aTNameEntry" title="Packages the TNameRecord class so that it can be passed between a client and the socket server"><code class="ApiItem">TNameEntry</code></a> object with the address and class of the first device found (or is undefined if no device was found).</p></li><li><p>To get all the devices discovered, call <a href="../../../../APIReference/SocketsClient/RHostResolverClass.html#%3a%3aRHostResolver%3a%3aNext%28%29" title="Returns the next answer"><code class="ApiItem">RHostResolver::Next()</code></a> repeatedly until <code>KErrHostResNoMoreResults</code> is returned.</p></li></ol><h4 class="subheading">Example</h4><p>The following example shows how to start a remote device address inquiry.</p><p class="CodeBlock"><code>// 1. Connect to the socket server<br>RSocketServ socketServ;<br>socketServ.Connect();<br>TProtocolDesc pInfo;<br>_LIT(KL2Cap, &quot;BTLinkManager&quot;);<br>User::LeaveIfError(socketServ.FindProtocol(KL2Cap,pInfo));<br><br>// 2. Create and initialise an RHostResolver<br>RHostResolver hr;<br>User::LeaveIfError(hr.Open(socketServ,pInfo.iAddrFamily,pInfo.iProtocol));<br><br>// 3. Set up a discovery query and start it<br>TInquirySockAddr addr;<br>TNameEntry name;<br>addr.SetIAC(KGIAC);<br>addr.SetAction(KHostResInquiry);<br>TRequestStatus status;<br>hr.GetByAddress(addr, entry, status);<br>User::WaitForRequest(status);<br><br>// 4. Process the information returned in entry<br>...</code></p><h4 class="subheading">Notes</h4><ul><li><p><a href="../../../../APIReference/BluetoothSockets/TInquirySockAddrClass.html#%3a%3aTInquirySockAddr%3a%3aSetIAC%28%29" title="Sets the Inquiry Access Code (IAC)"><code class="ApiItem">TInquirySockAddr::SetIAC()</code></a> sets the Bluetooth Inquiry Access Code. For more information, see [BS1 Bluetooth Assigned Numbers 1.1].</p></li><li><p>The host resolver caches the results of inquiries so that devices that are no longer present may appear in the list of results.  This does not cause any additional complications, as it is always possible for a device to go out of range between when it is discovered and when a connection to it is made.
+</p></li><li><p> Communications API calls are typically asynchronous (indicated by a <a href="../../../../APIReference/AsynchronousServices/TRequestStatusClass.html#%3a%3aTRequestStatus" title="Indicates the completion status of a request made to a service provider"><code class="ApiItem">TRequestStatus</code></a> parameter in the call). It is recommended that such calls are encapsulated in active objects, as explained in <a href="../../../Base/InterProcessCommunication/AsynchronousServicesGuide/index.html#AsynchronousServices%2eindex">Using Asynchronous Programming</a>.</p></li></ul><a name="1.8"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Getting the name of a remote device</h2>
+</div><div class="Bodytext"><p>The name of a remote device can be queried for by taking the same steps as for an address query, but  setting the action flag of a <code>TInquirySockAddr</code> to <a href="../../../../APIReference/BluetoothSockets/ConstantsLMP.html#%3a%3aKHostResName" title="Looks up the name for the device specified through TInquirySockAddr::SetBTAddr()"><code class="ApiItem">KHostResName</code></a>. The name is returned in the <code>iName</code> member accessed through the <code>TNameEntry</code>.</p><h4 class="subheading">Example</h4><p class="CodeBlock"><code>// Now do name inquiry<br>addr.SetAction(KHostResName);<br>hr.GetByAddress(addr, entry, stat);<br>User::WaitForRequest(stat);<br>TPtrC deviceName;<br>if (stat == KErrNone)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;deviceName.Set(entry().iName);</code></p><h4 class="subheading">Notes</h4><ul><li><p>To do a simultaneous address and name inquiry, use <code>SetAction(KHostResName|KHostResInquiry)</code>.</p></li><li><p><code>RHostResolver::GetByName()</code> is not supported</p></li></ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

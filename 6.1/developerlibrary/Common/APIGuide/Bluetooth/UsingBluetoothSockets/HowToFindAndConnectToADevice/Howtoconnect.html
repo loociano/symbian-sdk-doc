@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to connect and transfer data to a remote device</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="bt%2eguide%2esockets%2econnect"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="Howtoselectaservice.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="Howtousesecurity.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Bluetooth</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Bluetooth&nbsp;Sockets</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">How&nbsp;to&nbsp;find&nbsp;and&nbsp;connect&nbsp;to&nbsp;remote&nbsp;devices</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;connect&nbsp;and&nbsp;transfer&nbsp;data&nbsp;to&nbsp;a&nbsp;remote&nbsp;device</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>How to connect and transfer data to a remote device</h1>
+</div><div class="Bodytext">
+<p>Once the device and service have been established, you can connect to the remote service and start using it. </p><p>Connect to the device through the <code>Connect()</code> function of the generic EPOC socket interface <a href="../../../../APIReference/SocketsClient/RSocketClass.html#%3a%3aRSocket" title="Provides a client endpoint to a protocol"><code class="ApiItem">RSocket</code></a>. Bluetooth sockets can be opened using the L2CAP and RFCOMM protocols. For an L2CAP Bluetooth socket, the &quot;port&quot; is the Protocol/Service Multiplexer (PSM) to which to connect; for an RFCOMM the port is the server channel. Where these values are not known, they can be read from the service attribute ProtocolDescriptorList. See <a href="../../UsingServiceDiscoveryAgent/index.html#bt%2eguide%2esdp%2dagent%2eindex">Using Bluetooth Service Discovery Agent</a> for details.</p><p>You can read and write data using the socket in whatever format the target service expects (AT commands, text, HTTP, PPP etc).</p><h4 class="subheading">Example</h4><p class="CodeBlock"><code>// Assume have a TInquirySockAddr object, addr, with relevant device info<br><br>// Connect an L2CAP socket<br>RSocket socket;<br>TRequestStatus status;<br>User::LeaveIfError(socket.Open(socketServ,KBTAddrFamily,KSockSeqPacket,KL2CAP));<br>User::LeaveIfError(socket.Connect(addr,status));<br>User::WaitForRequest(status);<br><br>if (status == KErrNone)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;// Write some simple data<br>&nbsp;&nbsp;&nbsp;&nbsp;_LIT8(KDataToWrite,&quot;01234&quot;);<br>&nbsp;&nbsp;&nbsp;&nbsp;socket.Write(KDataToWrite,status);<br>&nbsp;&nbsp;&nbsp;&nbsp;User::WaitForRequest(status);<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>// Close socket<br>socket.Close();</code></p><h4 class="subheading">Notes</h4><ul><li><p> For both the RFCOMM and L2CAP protocols, no data can be sent or received in the <a href="../../../../APIReference/SocketsClient/RSocketClass.html#%3a%3aRSocket%3a%3aConnect%28%29" title="Connects to a remote host"><code class="ApiItem">Connect()</code></a> and <a href="../../../../APIReference/SocketsClient/RSocketClass.html#%3a%3aRSocket%3a%3aShutdown%28%29" title="Shuts down a connected socket -- asynchronous"><code class="ApiItem">Shutdown()</code></a> calls.  The versions of these calls that take extra data panic.</p></li><li><p>RFCOMM  uses sockets of the stream socket (<a href="../../../../APIReference/SocketsClient/SocketsConstants.html#%3a%3aKSockStream" title="Stream socket"><code class="ApiItem">KSockStream</code></a>) type.</p></li><li><p>L2CAP uses sockets of the sequenced packet (<a href="../../../../APIReference/SocketsClient/SocketsConstants.html#%3a%3aKSockSeqPacket" title="Currently unused"><code class="ApiItem">KSockSeqPacket</code></a>) type.
+</p></li></ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

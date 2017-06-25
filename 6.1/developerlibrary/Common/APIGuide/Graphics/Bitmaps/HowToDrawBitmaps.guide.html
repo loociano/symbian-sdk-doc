@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to draw bitmaps</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="BitmapsGuide%2edrawing%2dbitmaps%2dexample"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToLoadBitmapFromFile.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToDrawReducedAndEnlargedBitmaps.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Graphics</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Bitmaps</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;draw&nbsp;bitmaps</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to draw bitmaps</h1>
+</div><div class="Bodytext">
+<p>The example code contained in this document demonstrates:</p>
+<ul>
+<li>
+<p>blitting a bitmap to the screen</p>
+</li>
+<li>
+<p>blitting a rectangular piece of a bitmap to the screen</p>
+</li>
+<li>
+<p>blitting a bitmap under a mask</p>
+</li>
+</ul>
+<a name="1.5"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Bitmap block transfer</h2>
+</div><div class="Bodytext">
+<p>Use <code>CBitmapContext::BitBlt()</code> to blit a
+<code>CFbsBitmap</code> to the screen. </p>
+<p>The example assumes <code>bitmap</code> is a pointer to a valid
+<code>CFbsBitmap</code>.</p>
+<p class="CodeBlock"><code>// draw the bitmap using bitmap block transfer<br>TPoint pos(50,50);<br>gc.BitBlt(pos, bitmap);</code></p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Block transfer of a rectangular piece of a bitmap</h2>
+</div><div class="Bodytext">
+<p>You can blit a rectangular piece of a bitmap to the screen.</p>
+<p>The example assumes <code>bitmap</code> is a pointer to a valid
+<code>CFbsBitmap</code>.</p>
+<p class="CodeBlock"><code>...<br>// set a rectangle for the top-left quadrant of the source bitmap<br>TSize bmpSizeInPixels=bitmap-&gt;SizeInPixels();<br>TSizebmpPieceSize(bmpSizeInPixels.iWidth/2,bmpSizeInPixels.iHeight/2);<br>TRect bmpPieceRect(TPoint(0,0),bmpPieceSize); <br><br>// blit only the piece of the bitmap indicated by bmpPieceRect<br>TPoint pos(100,100);<br>gc.BitBlt(pos, bitmap, bmpPieceRect);</code></p>
+<a name="BitmapsGuide%2emasked%2dbitmap%2dblit"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Masked bitmap block transfer</h2>
+</div><div class="Bodytext">
+<p>Masks can be used to select which parts of a bitmap are drawn by
+<code>CBitmapContext::BitBltMasked()</code>.</p>
+<p>Masks can be used to not display pixels of the source bitmap if their
+corresponding mask pixel is black, or, alternatively, where the mask is white
+(called an inverted mask).</p>
+<p>The following figure shows successively a source bitmap, a mask, and
+the outcome when they are blitted with <code>BitBltMasked()</code>.</p>
+<div class="Figure">
+<p class="Image"><img src="SmileyMasks.gif" alt=""  border="0"></p>
+</div>
+<p>The example assume <code>bitmap</code> is a pointer to a valid
+<code>CFbsBitmap</code>.</p>
+<p class="CodeBlock"><code>// Load the mask bitmap, just like any other<br>CFbsBitmap* maskBitmap = new (ELeave) CFbsBitmap();<br>CleanupStack::PushL(maskBitmap);<br>User::LeaveIfError(maskBitmap-&gt;<br>&nbsp;&nbsp;Load(multiBitmapFile,EMbmGrbmap2Smilmask));<br><br>// Calculate rectangle for the whole bitmap<br>TRect bmpPieceRect(TPoint(0,0),bitmap-&gt;SizeInPixels());<br><br>// Blit using a masking bitmap, with no inversion<br>gc.BitBltMasked(TPoint(50,50),bitmap,bmpPieceRect,maskBitmap,EFalse);<br><br>...<br>// clean up<br>CleanupStack::PopAndDestroy();</code></p>
+<a name="1.7.9"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Notes</h3>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>unlike with an ordinary <code>BitBlit()</code>, with
+<code>BitBltMasked()</code> you always have to specify what part of the bitmap
+to display: here we just set <code>bmpPieceRect</code> so that the whole bitmap
+is displayed</p>
+</li>
+<li>
+<p>if the mask bitmap is smaller than the source bitmap, then it is
+tiled across the bitmap</p>
+</li>
+<li>
+<p>for an inverted mask, set the last argument to
+<code>BitBltMasked()</code> to <code>ETrue</code></p>
+</li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

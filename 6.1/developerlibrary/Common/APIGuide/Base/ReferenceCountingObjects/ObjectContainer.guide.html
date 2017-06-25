@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>The object container</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="ReferenceCountingObjects%2eobject%2dcontainer"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="ReferenceCountingObject.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="ObjectContainerIndex.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Reference&nbsp;Counting&nbsp;Objects</a>&nbsp;<span class="separator">&#187;</span>
+The&nbsp;object&nbsp;container</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>The object container</h1>
+</div><div class="Bodytext">
+<p>All reference counting objects must be held in an object container.
+An object container acts as a home for a set of related reference counting objects.</p><p>An object container is an instance of a <code>CObjectCon</code> class.</p><p>After construction, a reference counting object <em>must</em> be added to an object container. Only one instance of a reference counting object can be held by an object container, i.e. each object within an object container must be distinct.</p><p>The main characteristics of an  object container can be summarized as follows:</p><ul><li><p>they allow a logical collections of reference counting objects to be gathered together; for example, the Kernel has an object container to hold all thread objects, and another object container to hold all semaphore objects</p></li><li><p>  explicitly destroying a reference counting object causes that object to be removed from its object container.</p></li><li><p>removing a reference counting object from its object container causes that object to be destroyed</p></li><li><p>each object container is assigned a unique ID on construction. This is an integer that forms part of the identity of all of its contained reference counting objects. All reference counting objects within an object container are associated with the same unique ID.
+The value of the unique ID can range from 1 to 16,383 (0x3fff).</p></li></ul><p>Object containers are constructed by an object container index, a <code>CObjectConIx</code> type. The maximum number of object containers which may be constructed and held in an object  container index is 6,383 (0x3fff).</p><p>An object container is implemented as a simple array, where each element of the array is a pointer to a contained reference counting object. Adding a reference counting object to the object container is simply a matter of adding the reference counting object's pointer into the array. The following diagram shows a simple situation where two object containers hold a number of reference counting objects.</p><div class="Figure">
+<p class="Image"><img src="ObjectContainerIdea.gif" alt=""  border="0"></p>
+</div><p>The <code>CObjectCon::AddL()</code> function  adds a reference counting object to the object container.
+</p><p>The <code>CObjectCon::Remove()</code> function  removes a reference counting object from its object container and also  destroys that reference counting object.
+Conversely, if the reference counting object is destroyed (typically, as a result of successive calls to  <code>Close()</code>), it is removed from its object container.</p><p>See also:</p><ul><li><p>
+<a href="../../../APIReference/ReferenceCountingObjects/CObjectConClass.html#%3a%3aCObjectCon" title="An object container"><code class="ApiItem">CObjectCon</code></a>, <a href="../../../APIReference/ReferenceCountingObjects/CObjectClass.html#%3a%3aCObject" title="Implements reference counting to track concurrent references to itself"><code class="ApiItem">CObject</code></a></p></li></ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Agenda File overview</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="ApplicationEnginesOverview%2eAgendaFileOverview%2emain"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="AgendaEntryOverview.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="AgendaServerOverview.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Application&nbsp;Engines</a>&nbsp;<span class="separator">&#187;</span>
+Agenda&nbsp;File&nbsp;overview</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Agenda File Overview</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Purpose</h2>
+</div><div class="Bodytext">
+<p>The Agenda File API is the interface to the data stored in an
+agenda file. This data represents diary information, for instance appointments,
+to-dos and anniversaries.</p>
+<p>The API can be used to store, manipulate and retrieve the
+information held in the file. For example, the information can be filtered to
+create and populate lists of instances for a day or month, or which belong to a
+particular to-do list.</p>
+<p>Other useful operations which are supported by this API
+include:</p>
+<ul>
+<li>
+<p>iteration (i.e. go to the next or previous instance)</p>
+</li>
+<li>
+<p>merging and tidying agenda files&nbsp;&#8212; merging means
+adding the entries and to-do lists contained in one agenda file into another
+file; tidying means deleting, moving or copying a subset of a file's entries or
+to-do lists into another file</p>
+</li>
+<li>
+<p>vCalendar support, so that individual or multiple entries can
+be converted to and from vEvents or vTodos and written to/read from a stream,
+converting the text between Unicode and other character sets as
+necessary</p>
+</li>
+<li>
+<p>maintaining to-do lists&nbsp;&#8212; a to-do list is a list
+of to-do entries with a name, a unique ID and a sort order. To-do lists are
+held in an ordered list&nbsp;&#8212; one agenda file can contain many to-do
+lists.</p>
+</li>
+</ul>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Architectural relationships</h2>
+</div><div class="Bodytext">
+<p>The Agenda File API is closely related to the following
+APIs:&nbsp;&#8212; </p>
+<p>All the other Agenda model sub-APIs (Agenda Entry and Instance,
+Agenda Server Client Side, To-do List and Agenda Model Utilities). The agenda
+server is used to allow shared access to the agenda file by more than one
+client. All Agenda File API function calls which access data in an agenda file
+make an asynchronous request to the server. The use of the agenda server is
+normally invisible to the user of the Agenda File API.</p>
+<p>File Stores. Agenda files are implemented as permanent file stores
+(see class <a href="../../APIReference/FileStores/CPermanentFileStoreClass.html#%3a%3aCPermanentFileStore" title="Permanent file store"><code class="ApiItem">CPermanentFileStore</code></a>). These are stores
+implemented as files in the file system. This implementation is appropriate for
+agenda files because they are accessed in a similar way to a
+database&nbsp;&#8212; an application only loads the subset of data from the
+file which it needs to work with. When it has finished with this data, it is
+written back to the file. This implementation also means that agenda files
+cannot be embedded.</p>
+<p>File Server Client Side. Many functions in the Agenda File API
+raise a panic if they are called before a file has been opened. You can either
+create a new file, or open an existing one. When opening an existing file, you
+must specify the filename; when creating a new file, you must specify a
+connection to the file server and a filename.</p>
+<p>Alarm Server. All types of entry can have an alarm. The next
+outstanding alarm (or next few outstanding alarms) in an agenda file must be
+added to the alarm server's alarm queue in order to be handled by the alarm
+server. The agenda file API provides a class (<a href="../../APIReference/AgendaFile/CAgnAlarmClass.html#%3a%3aCAgnAlarm" title="Represents the interface between the agenda model and the alarm server"><code class="ApiItem">CAgnAlarm</code></a>)
+to do this.</p>
+<p>Versit. vEvents and vTodos can be imported into an agenda file and
+in the process are converted into agenda entries. Conversely, agenda entries
+can be exported from the agenda file as vEvents and vTodos.</p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Description</h2>
+</div><div class="Bodytext">
+<p>The Agenda File API has the following key concepts:&nbsp;&#8212;
+</p>
+<p>The agenda model. The most important classes in the Agenda File API
+are the model classes. There is a choice of three agenda models&nbsp;&#8212;
+which model is used depends on the type of application:</p>
+<ul>
+<li>
+<p>The entry model (<a href="../../APIReference/AgendaFile/CAgnEntryModelClass.html#%3a%3aCAgnEntryModel" title="Provides the interface through which the data stored in an agenda file can be accessed"><code class="ApiItem">CAgnEntryModel</code></a>) is the
+interface to the entries and to-do lists in the file. Repeating entries are
+represented by a single entry object. The entry model should be used if the
+application has no user interface, such as a format conversion application.
+</p>
+</li>
+<li>
+<p>The indexed model (<a href="../../APIReference/AgendaFile/CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel" title="Indexed agenda model"><code class="ApiItem">CAgnIndexedModel</code></a>)
+extends the entry model: it adds indexes of the data, which allows the
+information to be filtered before entries are read. The indexed model can be
+used for greater efficiency than the instance model by applications which have
+no user interface and which need to access only a subset of the data in the
+file.</p>
+</li>
+<li>
+<p>The instance model (<a href="../../APIReference/AgendaFile/CAgnModelClass.html#%3a%3aCAgnModel" title="The instance agenda model"><code class="ApiItem">CAgnModel</code></a>) extends the
+indexed model: it provides a separate object for each instance of a repeating
+entry. This makes it most suitable for use by applications that need to show
+repeating entries in a user interface.</p>
+</li>
+</ul>
+<p>The model's mode. The agenda model can be used in client mode or in
+normal (non-client) mode. Client mode means that the model is a client of the
+agenda server. When the model is in normal mode, the server is not used, so
+that the model data is accessed directly, preventing other applications from
+accessing it until the file is closed. Applications written for EPOC Release 5
+or later should only use the model in client mode. Normal mode has been
+preserved so that applications written before EPOC Release 5 are
+compatible.</p>
+<p>Change notification. You can set up one or more observers to
+observe an agenda file. Observers are notified whenever an entry or a to-do
+list is added, updated or deleted. Before an observer can start receiving
+notification of changes, it must be registered with the observer controller.
+The observer controller is owned by the agenda model.</p>
+<p>Filtering. Different types of entry filter are
+provided&nbsp;&#8212; general filters and more specialised filters. Filters
+identify which entry types should be involved when tidying or searching the
+file or when populating a list of instances or of entry symbols. The filter is
+usually used in combination with a date or date range.</p>
+<p>Progress monitoring. Some operations which affect the whole agenda
+file can be long running, for example opening, saving, merging and tidying. In
+order to provide the user with progress information, these operations all take
+place asynchronously (with the exception that opening the file can take place
+either synchronously or asynchronously). This means that when the operation is
+being carried out, the model enters a blocked state (so it is not available for
+use) and progress information is periodically reported using a progress
+callback object. This object also reports on how the operation
+completed.</p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="AgendaEntryOverview.guide.html#ApplicationEnginesOverview%2eAgendaEntryOverview%2emain">Agenda Entry and Instance Overview</a></p>
+<p><a href="AgendaServerOverview.guide.html#ApplicationEnginesOverview%2eAgendaServerOverview%2emain">Agenda Server Client Side Overview</a></p>
+<p><a href="TodoListOverview.guide.html#ApplicationEnginesOverview%2eTodoListOverview%2emain">To-do List Overview</a></p>
+<p><a href="AgendaUtilityOverview.guide.html#ApplicationEnginesOverview%2eAgendaUtilityOverview%2emain">Agenda Model Utilities Overview</a></p>
+<p><a href="../Base/FileStores/FileStoresOverview.guide.html#FileStoresOverview%2emain">File Stores Overview</a></p>
+<p><a href="../Base/FileServerClientSide/FileServerClientSideOverview.guide.html#FileServerClientSideOverview%2emain">File Server Client Side Overview</a>
+</p>
+<p><a href="../ApplicationServices/AlarmServerClientSideOverview.guide.html#ApplicationServicesOverview%2eAlarmServerClientSideOverview%2emain">Alarm Server Overview</a></p>
+<p><a href="../ApplicationServices/VersitOverview.guide.html#ApplicationServicesOverview%2eVersitOverview%2emain">Versit Overview</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

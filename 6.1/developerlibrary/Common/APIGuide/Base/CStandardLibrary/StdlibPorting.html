@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Porting</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="stdlib%2eporting"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="DesignSTDLIB.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">C&nbsp;Standard&nbsp;Library</a>&nbsp;<span class="separator">&#187;</span>
+Porting</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Porting Guide</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Overview</h2>
+</div><div class="Bodytext"><p>This topic describes how to port a range of traditional C applications to Symbian OS.  It uses three examples: <code class="filename">Hello</code>, <code class="filename">ConsoleApp</code> and <code class="filename">GUIApp</code>. The first two are simple console-based examples. The third is a command-line driven program which has been converted into a standard Symbian application. It demonstrates how to link STDLIB into a C++ project. It also demonstrates some typical problems which may be encountered when porting C code to Symbian OS, including the restriction on writeable data in DLLs. These example code projects can all be found in directory <code class="filename">epoc32ex\stdlib\</code>.</p><p><em>Note that these examples may not be present on all Symbian OS v6.1 SDKs.</em></p>
+<p>Some of the code for the second two examples was taken from the FreeBSD source code. For information on FreeBSD, see <a href="http://www.freebsd.org">http://www.freebsd.org</a>.</p><a name="1.4"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Installing STDLIB on the target machine</h2>
+</div><div class="Bodytext"><p>If it is not already present on the target machine, STDLIB should be installed using the <code class="filename">stdlib.sis</code> installation file, supplied by the SDK in directory <code class="filename">\epoc32\release\wins\udeb\</code> and <code class="filename">\epoc32\release\wins\urel\</code>. Installation using a <code class="filename">.sis</code> file has several advantages over copying files manually, including:</p><ul><li><p>the DLL is installed in the correct location</p></li>
+<li><p>the correct version of the DLL is installed</p></li>
+<li><p>if you supply a <code class="filename">.sis</code> file to install your product, STDLIB can easily be included as a sub-component of it</p><p>For more information on how to include a <code class="filename">.sis</code> file as a sub-component of another, see <a href="../../../ToolsAndUtilities/Installing/HowToEmbeddedSis.guide.html#Installing%2ehowto%2dembedded">How to create an installation with embedded sis files</a>.
+</p></li>
+</ul>
+<a name="1.5"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Hello World— A minimal console application</h2>
+</div><div class="Bodytext"><a name="1.5.2"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Introduction</h3>
+</div><div class="Bodytext"><p>The code in this section has been taken from the <code class="filename">Hello</code> example.</p><p>This example demonstrates the most basic use of STDLIB. It consists of the single source code file, <code class="filename">slhello.c</code> whose sole function, <code>main()</code> calls <code>printf()</code>. </p><a name="1.5.3"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>The project specification</h3>
+</div><div class="Bodytext"><p>The <code class="filename">Hello</code> example's project definition file (<code class="filename">Hello.mmp</code>) contains the following project specification: </p><p class="CodeBlock"><code>TTARGET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hello.exe<br>TARGETTYPE&nbsp;&nbsp;&nbsp;&nbsp;exe<br>UID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0<br>SOURCEPATH&nbsp;&nbsp;&nbsp;&nbsp;.<br>SOURCE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;slhello.c<br>SYSTEMINCLUDE&nbsp;&nbsp;&nbsp;&nbsp;\epoc32\include\libc  \epoc32\include <br><br>LIBRARY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;estlib.lib euser.lib <br>STATICLIBRARY&nbsp;&nbsp;&nbsp;&nbsp;ecrt0.lib</code></p>
+<p>The project includes the import libraries <code class="filename">estlib.lib</code> (the C standard library), and <code class="filename">euser.lib</code> (the E32 user library), whose services are used by STDLIB. </p><p>The project also links to <code class="filename">ecrt0.lib</code> using the <code>STATICLIBRARY</code> keyword. This file provides the <code>E32Main()</code> entrypoint for a  <code class="filename">.exe</code>. It also provides other services including command-line parsing, and it calls <code>main()</code>. </p><p>The <code>SYSTEMINCLUDE</code> path specifies <code class="filename">\epoc32\include\libc\</code>. This is the directory in which STDLIB's header files are installed.</p>
+<p>For more information on the project specification for a <code class="filename">.exe</code> see <a href="../../../ToolsAndUtilities/Build/HowtoEXEtarget.guide.html#PracticalGuide%2eHowtoEXEtarget">How to build for an EXE target</a>.</p><a name="1.5.4"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Building and running Hello World</h3>
+</div><div class="Bodytext"><p> To perform a debug build of <code class="filename">Hello</code> for the  Emulator, run <code class="filename">bldmake</code> from the directory where the <code class="filename">bld.inf</code> file is located:</p><p class="CodeBlock"><code>bldmake bldfiles</code></p><p>This creates the <code class="filename">abld.bat</code> batch file.
+Use <code class="filename">abld</code> to build the project:</p><p class="CodeBlock"><code>abld build wins udeb</code></p>
+<p>To start the emulator locate the directory containing the debug  emulator, <code class="filename">\epoc32\release\wins\udeb\</code>
+or type <code class="filename">epoc</code> at the command line. For more information on launching the emulator see <a href="../../../Emulator/emulator/HowtoStart.guide.html#emulator%2ehowto%2dstart">How to start the emulator</a>.</p><p>For information on building see <a href="../../../ToolsAndUtilities/Build/HowtoBuildProcess.guide.html#PracticalGuide%2eHowtoBuildProcess">How to use the Symbian build process</a>.</p>
+<p>To build <code class="filename">Hello</code> for the target machine, invoke <code>bldmake</code> and <code>abld</code>, specifying either <code>arm4 udeb</code> or <code>arm4 urel</code>. </p><p>To install <code class="filename">Hello.exe</code>   on the target device you will need to create a <code class="filename">.sis</code> file using the Symbian Installation system; see the <a href="../../../ToolsAndUtilities/SisarGuide/index.html#Sisar%2eindex">SIS file creator guide</a>, <a href="../../../ToolsAndUtilities/Installing/index.html#Installing%2eToplevel%2etoc">Application installation guide</a> and <a href="../../../ToolsAndUtilities/Installing-ref/index.html#Installing%2dref%2eToplevel%2etoc">Installation reference</a>.</p><a name="1.6"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Console App — A simple console program</h2>
+</div><div class="Bodytext"><a name="1.6.2"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Introduction</h3>
+</div><div class="Bodytext"><p>This program converts a quantity from one unit of measurement into another, prompting the user for input. Conversion information is provided by <code class="filename">slunits.dat</code>. </p><p>This program is built and run in much the same way as <code class="filename">hello.exe</code>. The user is prompted for input, but it is important to note that STDLIB does not provide all of the functionality of a traditional console driver. STDLIB is intended to be a &quot;behind-the-scenes&quot; enabling technology, rather than an alternative  user interface.</p><p>The code for the ComsoleApp program was taken from the FreeBSD source code (See <a href="http://www.freebsd.org">http://www.freebsd.org</a> ).</p><a name="1.6.3"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Porting units</h3>
+</div><div class="Bodytext"><p>The <code class="filename">.mmp</code> file project specification for ConsoleApp  is the same as Hello's, except that it uses the additional source files <code class="filename">units.c</code> and <code class="filename">getopt.c</code>.</p><p>Run and build the program using <code class="filename">abld</code> and <code class="filename">bldmake</code>, as for the Hello example. For the Emulator <code class="filename">slunits.dat</code> is copied automatically by abld into the right directory, this location is <code class="filename">\epoc32\wins\c\</code>. For a target device ensure that <code class="filename">slunits.dat</code> is located in the directory specified in <code class="filename">pathname.h</code>, this is the root of the drive on which the program is installed.</p><p>To install <code class="filename">ConsoleApp.exe</code>   on the target device you will need to create a <code class="filename">.sis</code> file using the Symbian Installation system; see the <a href="../../../ToolsAndUtilities/SisarGuide/index.html#Sisar%2eindex">SIS file creator guide</a>, <a href="../../../ToolsAndUtilities/Installing/index.html#Installing%2eToplevel%2etoc">Application installation guide</a> and <a href="../../../ToolsAndUtilities/Installing-ref/index.html#Installing%2dref%2eToplevel%2etoc">Installation reference</a>.</p><p>To run it on the target device, tap  on the <code class="filename">ConsoleApp.exe</code> icon. </p><p>Note that in porting this project to the Symbian platform a reduction in the size of the two arrays in the <code>struct unittype</code>, defined in <code class="filename">units.c</code> was made.</p><p class="CodeBlock"><code>struct unittype {<br>&nbsp;&nbsp;&nbsp;&nbsp;char *numerator[225]; // was [500]<br>&nbsp;&nbsp;&nbsp;&nbsp;char *denominator[225]; // was [500]<br>&nbsp;&nbsp;&nbsp;&nbsp;double factor;<br>};</code></p>
+<p>This change was necessary because each  thread has only 8k stack as standard. Failing to observe the  limit on stack usage may cause a build to fail with the following error:</p><p class="CodeBlock"><code>unresolved external symbol __chkstk</code></p><a name="1.7"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>GUI App — Porting an engine for use in a Symbian application</h2>
+</div><div class="Bodytext"><a name="1.7.2"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Introduction</h3>
+</div><div class="Bodytext"><p>The application uses the FreeBSD <code>cksum</code> utility as its engine.</p><p>The checksum example is an application with a user interface and an engine written in C. It is anticipated that many C programs which are ported to the Symbian platform will use this structure.</p><a name="1.7.3"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>The original command-line program</h3>
+</div><div class="Bodytext"><p>A checksum is a number generated by adding together the value of all the data in a file. Recalculating a file's checksum and comparing the new value with a previously calculated value will reveal whether any changes have occurred to the file's contents.</p><p>The checksum generating code was taken from FreeBSD source code. The original FreeBSD program is a traditional command-line utility. It uses its command-line arguments to specify the files to be processed and writes the files' size, name and checksum to the standard output without any user intervention. A choice of algorithm is provided.</p><p>The first stage in porting this program to the Symbian platform was to split the project into two parts — the engine (GUIAppEng) and the application (GUIApp). The engine must be built first because its DLL is used by the UI. The engine and the user interface could be built as a single project, but producing a separate DLL for the engine means that different applications could use the same engine code.</p><a name="1.7.4"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>The engine</h3>
+</div><div class="Bodytext"><p>The engine is written in C. At its core is the <code>crc()</code> function. This function takes a file descriptor and returns the checksum and the file size. The return value from this function is zero on success and greater than zero on failure.</p><p>The engine's project specification file (<code class="filename">GUIAppEng.mmp</code>) is as follows: </p><p class="CodeBlock"><code>TARGET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GUIAppEng.dll<br>TARGETTYPE&nbsp;&nbsp;&nbsp;&nbsp;dll<br>UID             0x1000008d 0x01000a02<br>SOURCEPATH&nbsp;&nbsp;&nbsp;&nbsp;.<br>SOURCE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;crc.c GUIAppeng.cpp<br>SYSTEMINCLUDE&nbsp;&nbsp;&nbsp;&nbsp;\epoc32\include\libc \epoc32\include<br>LIBRARY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;estlib.lib euser.lib <br><br>#if defined(WINS)<br>&nbsp;&nbsp;&nbsp;&nbsp;deffile ..\GUIApp\GuiAppEngWINS.def<br>#else if defined(ARM)<br>&nbsp;&nbsp;&nbsp;&nbsp;deffile ..\GUIApp\GuiAppEngARM.def<br>#endif<br>nostrictdef</code></p><p>The project includes header files from both <code class="filename">\epoc32\include\</code> and from <code class="filename">libc\</code>. The output file is <code class="filename">GUIAppEng.dll</code>, whose import library will be included by the UI.</p>
+<p>The first UID specified (0x1000008d) is the UID for an interface DLL. This must be specified for any project which produces a DLL and an import library, and where the DLL is intended for automatic loading at run-time. The second UID ( 0x01100a02) is unique to the <code class="filename">GUIApp</code> project. </p>
+<p>Splitting the project into engine and UI means that the definition of <code>crc()</code> in <code class="filename">crc.c</code> must be marked <code>EXPORT_C</code> because this functions will be exported from the engine's DLL.</p>
+<p>Because all DLLs need an entry point called <code>E32Dll()</code>, the <code class="filename">GUIApp</code> project includes a fourth source code file, <code class="filename">GUIAppEng.cpp</code> which consists of the single exported function: </p><p class="CodeBlock"><code>EXPORT_C TInt E32Dll(TDllReason)</code></p><p>For more information on DLLs, see <a href="../DynamicallyLoadingLinkLibraries/index.html#DynamicallyLoadingLinkLibrariesOverview%2etoc">DLLs</a>.</p><a name="1.7.5"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Porting checksum — the GUI app</h3>
+</div><div class="Bodytext"><a name="1.7.5.2"></a><h4>Introduction</h4><p>The  implementation of checksum (<code class="filename">GUIApp.app</code>) limits the user to the selection of a single file at a time and uses the default algorithm <code>crc()</code>, defined in <code class="filename">crc.c</code>, to produce a 32-bit value.</p><a name="1.7.5.3"></a><h4>Description</h4><p>The user interface demonstrates a typical Symbian application whose engine is written in C and which uses STDLIB.</p><p>The application provides two main menu commands; <code>Calculate checksum</code> and <code>View checksums</code>. <code>Calculate checksum</code> invokes a <code>CExampleChecksumDialog</code>. This is similar to the standard  file open dialog (<code>CEikFileOpenDialog</code>). When a file has been selected, and <code>OK</code> pressed, <code>TDes::PtrZ()</code> is used to get a pointer to the zero terminated string containing the selected filename. The selected file is opened, using <code>open()</code>, declared in <code class="filename">epoc32\include\libc\sys\fcntl.h</code>, passing in the pointer:</p>
+<p class="CodeBlock"><code>const TUint16* fn=iFileName-&gt;PtrZ();<br>&nbsp;&nbsp;&nbsp;&nbsp;int fd = wopen((const wchar_t*)fn, O_RDONLY, 0); </code></p><p>This code fragment is taken from <code class="filename">epoc32ex\stdlib\GUIApp.cpp.</code></p>
+<p><code>open()</code> returns a file descriptor which the engine's <code>crc()</code> function uses to identify the file. The checksum is calculated (unless an error occurred in attempting to open or read the file), and is printed in an infomessage. The file is closed using <code>close()</code> declared in <code class="filename">epoc32\include\libc\sys\unistd.h</code>.</p>
+<p>The filename and checksum are appended to a descriptor array, the contents of which may be viewed by selecting <code>View checksums</code>.</p><a name="1.7.6"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Linking to STDLIB — The project specification</h3>
+</div><div class="Bodytext">
+<p>For information on Symbian applications, their project specification, and resource files, see <a href="../../../ToolsAndUtilities/Build/HowtoGUIApplication.guide.html#PracticalGuide%2eHowtoGUItarget">How to build for a GUI App target</a></p><p>The application program includes several STDLIB header files. These files are located in the standard include directory <code class="filename">\epoc32\include\libc\</code> which, as in previous examples,  is specified in the <code>SYSTEMINCLUDE</code> line in the <code class="filename">.mmp</code> file. At link time, the program includes <code class="filename">estlib.lib</code> and the engine DLL's <code class="filename">.lib</code> file (<code class="filename">GUIAppEng.lib</code>). Unlike the previous examples in this topic, this application does not link to <code class="filename">ecrt0.lib</code>. In this application there is no <code>main()</code> and the Symbian platform provides its own <code>E32Main()</code>.</p><p>The project specification (<code class="filename">GUIApp.mmp</code>) follows the typical pattern of a Symbian application's <code class="filename">.mmp</code> file, with some exceptions.</p><a name="1.7.7"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Some potential issues</h3>
+</div><div class="Bodytext"><p>This section describes some issues which may arise during the porting of code written in C to the Symbian platform.</p><a name="1.7.7.3"></a><h4>Removing writeable static</h4><p>The PETRAN stage of building may report a message similar to the following:</p><p class="CodeBlock"><code>WARNING: Dll 'SLSUMENG[0x01000a02].DLL' has initialised data.</code></p>
+<p>This warning, which is not reported when building for the Emulator, indicates that the DLL contains non-const static data. This is not allowed in  ARM builds. If it is not obvious where the problem occurs, the associated <code class="filename">.map</code> file (<code class="filename">epoc32\release\&lt;target&gt;\urel\&lt;dllname&gt;.map</code>) contains information which can help to track down the source file involved. A search for <code>from *(.bss)</code> (to find uninitialised data) or <code>from *(.data)</code> (to find initialised data) in <code class="filename">GUIAPPEng.map</code> will reveal the file in which the problem occurs, and the names of the offending variables, although static variables will not be named.</p><p>For more information about the restriction on writeable static data, see <a href="../../../DeveloperGuide/EssentialIdioms/StaticData.html#idioms%2estaticdata">Writeable static data in DLLs</a>.</p><a name="1.7.7.4"></a><h4>Include file clashes</h4><p>In C++ source files which use STDLIB routines, the Symbian platform C++ include files should be included before any of the STDLIB files. Failure to do this will result in the following warning:</p><p class="CodeBlock"><code>'NULL' : macro redefinition&quot;</code></p><a name="1.7.7.5"></a><h4>Mixing C and C++</h4><p>C and C++ have different views about the names of functions. If you refer to a C function from C++, ensure that its prototype is declared as <code>extern &quot;C&quot;</code>. If there are several such function declarations, it may be more convenient to enclose them within the following:</p><p class="CodeBlock"><code>#ifdef __cplusplus<br>extern &quot;C&quot; {<br>#endif<br>&#8230;<br>&#8230;<br>#ifdef __cplusplus<br>}<br>#endif</code></p>
+<p>See for example <code class="filename">epoc32ex\stdlib\GUIApp\extern.h</code>. For more information about issues which arise when mixing C and C++, refer to any good book on C++.</p><a name="1.7.7.6"></a><h4>Stack usage</h4><p>Some projects will produce the following error: </p><p class="CodeBlock"><code>unresolved external symbol __chkstk</code></p><p>unless the amount of stack they use is reduced. Symbian  threads have only 8k stack as standard.</p><a name="1.7.7.7"></a><h4>Resource cleanup</h4><p>The Symbian platform has a requirement that all resources which were allocated by an application must be cleaned up by the time the program terminates. On the  Emulator, in debug builds, failure to do this will cause a panic from the <code>__UHEAP_MARKEND</code> macro.</p><p>Because the data allocated in the thread-local storage for STDLIB's DLL (the <code>_reent</code> structure) is not automatically cleaned up when the  environment is destroyed, it must be cleaned up by the user of STDLIB.</p><p>The function to achieve this is <code>CloseSTDLIB()</code>. To use this function, file <code class="filename">epoc32\include\libc\sys\reent.h</code> should be included in the project. Call <code>CloseSTDLIB()</code> after the point at which it is known that code in STDLIB's DLL will no longer be called and its thread-local storage no longer needed.</p>
+<p>For example, see the destructor for <code>CExampleDocument</code> in <code class="filename">epoc32ex\stdlib\GUIApp\GUIApp.cpp</code>.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Build FAQ</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="buildFAQ"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="UsingMakmake.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Build&nbsp;Tools&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+Build&nbsp;FAQ</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Build FAQ</h1>
+</div><div class="Bodytext">
+<p>This page gives some quick answers to problems and issues you may encounter when building code. </p><h4 class="subheading">Why do applications build to the Emulator's Z: drive?</h4><p>The build tools were originally designed for building ROM-based applications, and so assume that applications should be placed in the emulated ROM area (i.e. <code class="filename">epoc32\release\wins\udeb\z\system\apps\</code> for debug builds). Third party applications intended to loaded on disk are also built to this location, but this doesn't mean they can only be installed in ROM or have any other impact  on them. (Note that your code should not assume that it will be installed on any particular drive, as this is choice is best left to the user).</p><h4 class="subheading">Why does <code class="ProgramOutput">abld makefile</code> give a <code class="ProgramOutput">WARNING: Can't find following headers in System Include Path</code> message, even though I export the header(s) in my <code class="filename">bld.inf</code>?</h4><p>You can specify that headers from your project should be copied into the system headers directory, <code class="filename">epoc32\include</code>, by using a <a href="../Build-ref/bldmake-ref/prj_exports.html#bldmake%2dref0">prj_exports</a> statement in the <code class="filename">bld.inf</code> file. The header is not actually copied though until an <code class="ProgramOutput"><a href="../Build-ref/abld-syntax-ref/export.html#abld%2dsyntax%2dref5">abld export</a></code> command, or a command that calls this, such as  <code class="ProgramOutput"><a href="../Build-ref/abld-syntax-ref/build.html#abld%2dsyntax%2dref1">abld build</a></code> is executed. The solution is to call <code class="ProgramOutput">abld export</code> before <code>abld makefile</code>.</p><h4 class="subheading">What Symbian tools can I cause to be invoked through a project file keywords?</h4><p>The chief purpose of a project (<code class="filename">.mmp</code>) file is to specify the source files and options to pass to the appropriate compiler toolchain for the platform. In many cases though, you will want to create a number of additional, Symbian-platform specific, support files as part of the project build. You can invoke the tools to create such files by specifying a number of project file keywords:</p><ul><li><p><a href="../Build-ref/Mmp-ref/aif.html#Mmp%2dref3">aif</a> to compile application information files</p></li><li><p><a href="../Build-ref/Mmp-ref/resource.html#Mmp%2dref14">resource</a> and <a href="../Build-ref/Mmp-ref/systemresource.html#Mmp%2dref%2esystemresource">systemresource</a> to compile resource files</p></li><li><p><a href="../Build-ref/Mmp-ref/bitmap.html#Mmp%2dref5">start bitmap</a> to compile multi-bitmap files</p></li></ul><p>Note though that AIF and multi-bitmap files are <em>not</em> compiled when building through the MSVC++ IDE, but only when building is done through <code class="filename">abld</code>.</p><p>Of the other commonly used Symbian tools, the project file does not specify keywords that invoke the:</p><ul><li><p>
+<a href="../Installing/IntroductionToMakesis.guide.html#Installing%2eintroduction">Installation File Generator</a>  (<code class="filename">makesis</code>)</p></li><li><p><a href="../Installing/IntroductionToSecurity.guide.html#Installing%2eintroduction%2dsecurity">Certification Generator</a> (<code class="filename">makekeys</code>)</p></li><li><p><a href="../CSHelp/Introduction.guide.html#cshelp%2eintro">Context Sensitive Help Compiler</a> (<code class="filename">cshlpcmp</code>)</p></li></ul><p>Note though you can invoke these, and any other tools, through <a href="../Build-ref/bldmake-ref/ExtensionMakefiles.html#Extension%2emakefiles%2eref">extension makefiles</a>.</p><h4 class="subheading">What are <code class="filename">edll.obj</code> and <code class="filename">eexe.obj</code>?</h4><p>The build process builds into each <code class="filename">.exe</code> file a small object file, <code class="filename">eexe.lib</code>, which contains a small amount of code to manage process startup. Similiarly, each DLL has an object file <code class="filename">edll.lib</code> built into it.</p><h4 class="subheading">Why does the build give a message <code class="ProgramOutput">diff: &lt;file-path-and-name&gt;: No such file or directory</code>?</h4><p>This message appears when building a project's resource or multi-bitmap file for the first time. It can be ignored.</p><h4 class="subheading">Why do I get a <code class="ProgramOutput">LNK2001: unresolved external symbol __chkstk</code> error?</h4><p>The program exceeds the stack space available, e.g. by creating a large <code>TBuf</code> on the stack. The solution is to reduce the use of stack space by using the heap appropriately.</p><h4 class="subheading">How can I change the libraries for a project  open in Microsoft Visual C++?</h4><p>To change a project's libraries, you should edit the <code class="filename">.mmp</code> file's <a href="../Build-ref/Mmp-ref/library.html#Mmp%2dref10">library</a> statement as normal, and then regenerate the MSVC++ workspace using <code class="ProgramOutput">abld makefile vc6</code>. MSVC++ will detect the change and ask if you want to reload the workspace.</p><h4 class="subheading">Where are the <code class="filename">.lib</code> files for ARM debug builds?</h4><p>The <code class="filename">.lib</code> files required for ARM debug builds are identical to those for release builds, so the build tools use a single copy of the libs in the <code class="filename">urel</code> directory.</p><h4 class="subheading">Why do I get an error from <code class="filename">petran</code> when I build for ARM, when the WINS build is fine?</h4><p><code class="filename">petran</code> is a tool that is invoked only at the final stage of the build process for ARM targets. It will give an error if you build a DLL that contains writeable static data. See <a href="../../DeveloperGuide/EssentialIdioms/StaticData.html#idioms%2estaticdata">Static data</a> for more information.</p>
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

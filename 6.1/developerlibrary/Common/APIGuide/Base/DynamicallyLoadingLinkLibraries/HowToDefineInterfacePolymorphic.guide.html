@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to define the interface to a polymorphic interface DLL</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="DynamicallyLoadingLinkLibraries%2ehow%2dto%2edefine%2dpolymorphic%2dinterface"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="LocatingPolymorphic.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToUseInterfacePolymorphic.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Dynamically&nbsp;Loading&nbsp;Link&nbsp;Libraries</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;define&nbsp;the&nbsp;interface&nbsp;to&nbsp;a&nbsp;polymorphic&nbsp;interface&nbsp;DLL</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>How to define the interface to a polymorphic interface DLL</h1>
+</div><div class="Bodytext">
+<p>The following example code illustrates the use of a polymorphic interface DLL.</p>
+<p>The interface is defined by an abstract API which can be  implemented by a DLL.  The following code fragment defines the API in terms of a pure virtual abstract C++ class; this is an example class called   <code>CMessenger</code>.</p><p class="CodeBlock"><code>class CMessenger : public CBase<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>public:<br>&nbsp;&nbsp;&nbsp;&nbsp;virtual void ConstructL(CConsoleBase* aConsole, const TDesC&amp; aName)=0;<br>&nbsp;&nbsp;&nbsp;&nbsp;virtual void ShowMessage()=0;<br>private:<br>&nbsp;&nbsp;&nbsp;&nbsp;CConsoleBase* iConsole;<br>&nbsp;&nbsp;&nbsp;&nbsp;HBufC*        iName;<br>&nbsp;&nbsp;&nbsp;&nbsp;};</code></p><p class="CodeBlock"><code>// The UID for Messenger DLLs.<br>// The client imposes this on DLLs which satisfy the protocol.<br><br>const TInt KMessengerUidValue=0x10004262;<br>const TUid KMessengerUid={KMessengerUidValue};</code></p><p>The purpose of the example is to be able to issue a simple greeting message. Any number of DLLs can be created, each containing a  different implementation of the class.</p><a name="1.8"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Notes:</h2>
+</div><div class="Bodytext">
+<p>Because the API can be implemented differently in different DLLs, note the following when declaring the class:</p><ul><li><p>The constructor is not declared; the default C++ constructor is used, and is not exported from the DLL. Instead, a function is exported from the DLL which constructs an object of the concrete type using <code>new (ELeave)</code> semantics.</p></li>
+<li><p>All functions are pure virtual; a DLL <em>must</em> provide an implementation for all such functions.</p></li>
+<li><p>All functions are <code>public</code> since the published API is all there to be used, there is no need for <code>private</code> specifications.</p></li>
+<li><p>It is possible to use polymorphic interface DLLs in a more advanced way that allows some of these rules to be changed.</p></li></ul>
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

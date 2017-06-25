@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to read and write a file</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="FileServerClientSideGuide2%2ereading"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="RenameExample.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="KeepingTrackOfResources.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">File&nbsp;Server&nbsp;Client&nbsp;Side</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">How&nbsp;to&nbsp;use&nbsp;sessions,&nbsp;files,&nbsp;and&nbsp;directories</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;read&nbsp;and&nbsp;write&nbsp;a&nbsp;file</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to read and write a file</h1>
+</div><div class="Bodytext">
+<p>Reading transfers data from a file to a descriptor, and writing
+transfers data from a descriptor to a file. </p>
+<p>Use <code>RFile::Read()</code> to read, and
+<code>RFile::Write()</code> to write.</p>
+<p class="CodeBlock"><code>// Open file1<br>_LIT(KMyFile,&quot;c:\\documents\\file1&quot;);<br>RFile myFile;<br>User::LeaveIfError(myFile.Open(fs,KMyFile,EFileShareExclusive|EFileWrite<br>));<br><br>// Write to current file position: start of file<br>_LIT8(KWriteBuf,&quot;write data&quot;);<br>myFile.Write(KWriteBuf);<br><br>// Read from position 0: start of file<br>TBuf8&lt;6&gt; readBuf1;<br>myFile.Read(0,readBuf1); // readBuf1 is now &quot;write &quot;<br><br>// Read from current position<br>TBuf8&lt;4&gt; readBuf2;<br>myFile.Read(readBuf2);&nbsp;&nbsp;&nbsp;&nbsp;  // readBuf2 is now &quot;data&quot;</code></p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Notes</h2>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>In all cases, the file data is treated as binary and byte
+descriptors are used (TDes8, TDesC8). Thus, file operations are not dependent
+on the Unicode/non-Unicode build variant. </p>
+</li>
+<li>
+<p>There are several variants of both <code>Read()</code> and
+<code>Write()</code>. The basic <code>Read(TDes8&amp; aDes)</code> and
+<code>Write(const TDesC8&amp; aDes)</code> are supplemented by variants
+allowing the descriptor length to be overridden, or the seek position of the
+first byte to be specified, or asynchronous completion, or any combination.
+</p>
+</li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

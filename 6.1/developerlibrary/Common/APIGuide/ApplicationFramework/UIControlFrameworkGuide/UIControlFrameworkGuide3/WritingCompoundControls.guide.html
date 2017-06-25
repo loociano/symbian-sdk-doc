@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to write compound controls</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="UIControlFrameworkGuide3%2ewriting%2dcompound"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="ControlsGettingUserEvents.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Application&nbsp;Framework</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;UI&nbsp;Control&nbsp;Framework</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">How&nbsp;to&nbsp;Write&nbsp;Controls</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;write&nbsp;compound&nbsp;controls</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>How to write compound controls</h1>
+</div><div class="Bodytext">
+<p>A compound control needs to implement a number of additional functions to manage its component controls. These functions are described in this section.</p>
+<a name="1.4"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Counting and accessing component controls</h2>
+</div><div class="Bodytext">
+<p>All compound controls should implement <code>CountComponentControls()</code> and <code>ComponentControl()</code>, because these are used internally within the control framework, for activating and drawing controls.</p>
+<a name="1.5"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Component layout</h2>
+</div><div class="Bodytext">
+<p>Compound controls should manage the layout of their components, by implementing <code>SizeChangedL()</code>. This is called from within the control framework whenever any function is called which changes the size of the control. In <code>SizeChangedL()</code>, the compound control should inquire its own size and set the size and the position of its components accordingly.</p>
+<a name="1.6"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Keyboard focus</h2>
+</div><div class="Bodytext">
+<p>Handling key events in compound controls is more complex than for simple controls because of the task of managing keyboard focus. The control stack examines key-presses to see if they are debug (i.e. global rather than application-specific) keys, or if they are to activate menu commands, then passes them to compound controls or dialogs within the application. But once a compound control receives a key event, it is up to the compound control itself to route the key-press to the appropriate component. The compound control must manage the focus of its own component controls using the <code>SetFocus()</code> and <code>IsFocused()</code> functions. When the compound control receives a key event, it should route it to the component which currently has focus. It should also allow focus to be moved from one component to another, for example using the arrow keys or the pointer. </p>
+<p>Note that when a component control gets focus, the user normally expects some visual indication of this, such as a rectangle surrounding the control. The control itself, or the container, must handle the drawing of the focus rectangle: the control framework does not do this for you.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

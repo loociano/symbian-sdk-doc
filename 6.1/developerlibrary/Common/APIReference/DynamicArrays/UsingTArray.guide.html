@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Using Tarray&lt;class T&gt;</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="dynamicarrays%2eusing%2eTArray"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="UsingRPointerArrayClass.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Dynamic&nbsp;Arrays</a>&nbsp;<span class="separator">&#187;</span>
+Using&nbsp;Tarray&lt;class&nbsp;T&gt;</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Using <code>Tarray&lt;class T&gt;</code></h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Using <code>TArray</code> to avoid the need for overloaded
+variants</h2>
+</div><div class="Bodytext">
+<p>The use of a <code>TArray</code> object can avoid the need for the
+member function of an end-user class to have overloaded variants to handle all
+possible types of arrays of <code>&lt;class&nbsp;T&gt;</code>
+elements.</p>
+<p>The following example illustrates the point. It constructs a fixed
+flat array, a variable flat array and a packed array of
+<code>&lt;TElement&gt;</code> objects.</p>
+<p>By taking a <code>TArray&lt;TElement&gt;</code> argument, the
+<code>CTot::Total()</code> member function can access array elements regardless
+of the type of array containing them.</p>
+<p class="CodeBlock"><code>class TElement                 // array elements<br>&nbsp;{<br>&nbsp;public:<br>&nbsp;&nbsp;TElement();<br>&nbsp;&nbsp;inline TInt GetValue() const;<br>&nbsp;&nbsp;void SetValue(TInt aVal);<br>&nbsp;private :<br>&nbsp;&nbsp;TInt iValue;<br>&nbsp;};</code></p>
+<p class="CodeBlock"><code>class CTot : public CBase           <br>&nbsp;{<br>&nbsp;public :<br>&nbsp;&nbsp;void Total(const TArray&lt;TElement&gt;&amp; anArray);<br>&nbsp;private :<br>&nbsp;&nbsp;TInt iTotalElements;<br>&nbsp;&nbsp;TInt iTotalValue;<br>&nbsp;};</code></p>
+<p class="CodeBlock"><code>TElement::TElement()<br>&nbsp;: iValue(0)<br>&nbsp;{}</code></p>
+<p class="CodeBlock"><code>inline TInt TElement::GetValue() const<br>&nbsp;{<br>&nbsp;return iValue;<br>&nbsp;}</code></p>
+<p class="CodeBlock"><code>void TElement::SetValue(TInt aVal)<br>&nbsp;{<br>&nbsp;iValue = aVal;<br>&nbsp;}</code></p>
+<p class="CodeBlock"><code>void CTot::Total(const TArray&lt;TElement&gt;&amp; anArray)<br>&nbsp;{<br>&nbsp;TInt count = anArray.Count();<br>&nbsp;&nbsp;&nbsp;for (TInt jj = 0; jj &lt; count; jj++)<br>&nbsp;&nbsp;iTotalValue += anArray[jj].GetValue();<br>&nbsp;&nbsp;&nbsp;iTotalElements += count;<br>&nbsp;}</code></p>
+<p>Then some code using these could be:</p>
+<p class="CodeBlock"><code>//           main body<br><br>CArrayFixFlat&lt;TElement&gt;* fix;<br>CArrayVarFlat&lt;TElement&gt;* var;<br>CArrayPakFlat&lt;TElement&gt;* pak;<br>TElement x;<br>CTot* ptr;<br><br>ptr = new CTot;<br><br>fix = new CArrayFixFlat&lt;TElement&gt;(2);<br>var = new CArrayVarFlat&lt;TElement&gt;(2);<br>pak = new CArrayPakFlat&lt;TElement&gt;(2);<br><br>x.SetValue(1);<br>fix-&gt;AppendL(x);<br>x.SetValue(2);<br>var-&gt;AppendL(x,sizeof(x));<br>x.SetValue(3);<br>pak-&gt;AppendL(x,sizeof(x));<br><br>ptr-&gt;Total(fix-&gt;Array());<br>ptr-&gt;Total(var-&gt;Array());<br>ptr-&gt;Total(pak-&gt;Array());</code></p>
+<p>Without the use of <code>TArray</code>, the <code>Total()</code>
+member function would need overloaded variants to handle all the possible array
+types which it might expect. The <code>CTot</code> class would need redefining
+as:</p>
+<p class="CodeBlock"><code>class CTot : public CBase           <br>&nbsp;{<br>&nbsp;public :<br>&nbsp;&nbsp;void Total(const CArrayFixFlat&lt;TElement&gt;&amp; anArray);<br>&nbsp;&nbsp;void Total(const CArrayFixSeg&lt;TElement&gt;&amp; anArray);<br>&nbsp;&nbsp;void Total(const CArrayVarFlat&lt;TElement&gt;&amp; anArray);<br>&nbsp;&nbsp;void Total(const CArrayVarSeg&lt;TElement&gt;&amp; anArray);<br>&nbsp;&nbsp;void Total(const CArrayPakFlat&lt;TElement&gt;&amp; anArray);<br>&nbsp;private :<br>&nbsp;&nbsp;TInt iTotalElements;<br>&nbsp;&nbsp;TInt iTotalValue;<br>&nbsp;};</code></p>
+<p>To allow the <code>Total()</code> function to handle arrays
+composed of different types of element, (i.e. arrays constructed with different
+template values), then a separate variant of <code>Total()</code> is required
+for each element type. For example, to handle arrays of<code>
+&lt;TElement1&gt;</code> elements and arrays of <code>&lt;TElement2&gt;</code>
+elements, the <code>CTot</code> class might be defined as:</p>
+<p class="CodeBlock"><code>class CTot : public CBase           <br>&nbsp;{<br>&nbsp;public :<br>&nbsp;&nbsp;void TotalA(const TArray&lt;TElement1&gt;&amp; anArray);<br>&nbsp;&nbsp;void TotalB(const TArray&lt;TElement2&gt;&amp; anArray);<br>&nbsp;private :<br>&nbsp;&nbsp;TInt iTotalElements;<br>&nbsp;&nbsp;TInt iTotalValue;<br>&nbsp;};</code></p>
+<p>One important point to note; the referenced <code>TElement</code>
+returned by <code>operator[]</code> is declared as <code>const</code>. This
+means that any member function of <code>TElement</code> must also be declared
+as <code>const</code>, as shown in this example.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

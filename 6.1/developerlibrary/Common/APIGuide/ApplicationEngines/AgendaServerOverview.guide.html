@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Agenda Server Client Side overview</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="ApplicationEnginesOverview%2eAgendaServerOverview%2emain"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="AgendaFileOverview.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="AgendaUtilityOverview.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Application&nbsp;Engines</a>&nbsp;<span class="separator">&#187;</span>
+Agenda&nbsp;Server&nbsp;Client&nbsp;Side&nbsp;overview</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Agenda Server Client Side Overview</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Purpose</h2>
+</div><div class="Bodytext">
+<p>The client side interface to the agenda server. The agenda server
+manages access to agenda files by one or more clients. Although it is possible
+for applications to avoid using the server so that agenda data is accessed
+directly, it is recommended that the server is always used.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Architectural relationships</h2>
+</div><div class="Bodytext">
+<p>The Agenda Server Client Side API uses the Agenda Model Utilities
+API to represent dates and times. It is used by the Agenda File API to allow
+shared access to the agenda file by more than one client.</p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Description</h2>
+</div><div class="Bodytext">
+<p><a href="../../APIReference/AgendaServer/RAgendaServClass.html#%3a%3aRAgendaServ" title="The client interface to the agenda server"><code class="ApiItem">RAgendaServ</code></a> is the client-side class, derived
+from <a href="../../APIReference/ClientServer/RSessionBaseClass.html#%3a%3aRSessionBase" title="Client-side handle to a session with a server"><code class="ApiItem">RSessionBase</code></a>. It is used as follows:</p>
+<ul>
+<li>
+<p>Create an instance of the <a href="../../APIReference/AgendaServer/RAgendaServClass.html#%3a%3aRAgendaServ" title="The client interface to the agenda server"><code class="ApiItem">RAgendaServ</code></a>
+class using <a href="../../APIReference/AgendaServer/RAgendaServClass.html#%3a%3aRAgendaServ%3a%3aNewL%28%29" title="Constructs a new RAgendaServ, initialising all member data to NULL"><code class="ApiItem">RAgendaServ::NewL()</code></a>.</p>
+</li>
+<li>
+<p>Connect a client-server session to the server by calling
+<a href="../../APIReference/AgendaServer/RAgendaServClass.html#%3a%3aRAgendaServ%3a%3aConnect%28%29" title="Connects the client process to the agenda server"><code class="ApiItem">RAgendaServ::Connect()</code></a>. This connects to the server,
+starting the server first if necessary.</p>
+</li>
+<li>
+<p>Create an instance of one of the model classes (described in
+the Agenda File API), and set the connected server instance as the model's
+server pointer using the <a href="../../APIReference/AgendaFile/CAgnEntryModelClass.html#%3a%3aCAgnEntryModel%3a%3aSetServer%28%29" title="Sets the server to use for model functions and sets the model's mode to EClient"><code class="ApiItem">CAgnEntryModel::SetServer()</code></a>
+function.</p>
+</li>
+<li>
+<p>Calls to the model are now routed through the server if
+appropriate. This means that the use of the server is normally invisible to the
+user of the model. However, some server functions are not available through the
+model and must be called directly. These functions have been documented.
+Undocumented server functions are not part of the API and should not be
+called.</p>
+</li>
+<li>
+<p>When the client has finished with the client-server session, it
+should end it by calling <a href="../../APIReference/Handles/RHandleBaseClass.html#%3a%3aRHandleBase%3a%3aClose%28%29" title="Closes the handle"><code class="ApiItem">RHandleBase::Close()</code></a>.</p>
+</li>
+</ul>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="AgendaFileOverview.guide.html#ApplicationEnginesOverview%2eAgendaFileOverview%2emain">Agenda File Overview</a></p>
+<p><a href="AgendaUtilityOverview.guide.html#ApplicationEnginesOverview%2eAgendaUtilityOverview%2emain">Agenda Model Utilities Overview</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

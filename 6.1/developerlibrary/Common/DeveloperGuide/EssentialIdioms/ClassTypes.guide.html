@@ -1,0 +1,311 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Class types</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="idioms%2etypes"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="LayoutConvs.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="CppAndMachineArch.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/DeveloperGuide/index.html">Developer's&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Essential&nbsp;Idioms</a>&nbsp;<span class="separator">&#187;</span>
+Class&nbsp;types</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Class types</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Overview</h2>
+</div><div class="Bodytext">
+<p>Applications on the Symbian platform use four general kinds of
+class. The kinds are as follows:</p>
+<ul>
+<li>
+<p>value classes, or types, whose name begins with <code>T</code>.
+They do not own any external object, either directly (by pointer) or indirectly
+(by handle).</p>
+</li>
+<li>
+<p>heap-allocated classes, whose name begins with <code>C</code>.
+All such classes are derived from class <code>CBase</code>. </p>
+</li>
+<li>
+<p>resource classes, whose name begins with <code>R</code>.
+<code>R</code> objects are handles to a real resource which is maintained
+elsewhere.</p>
+</li>
+<li>
+<p>interface classes, whose name begins with <code>M</code>. They
+define abstract protocol definitions that are implemented by derived classes.
+</p>
+</li>
+</ul>
+<p>These types are closely related to the requirements of cleanup
+support, which is described in more detail in
+<a href="../../APIGuide/Base/MemoryManagement/CleanupSupport/CleanupSupportGuide2/CleanupRequirements.guide.html#CleanupSupportGuide2%2ecleanup%2drequirements">Cleanup requirements</a>.</p>
+<a name="idioms%2et%2dclasses"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Value types&#8212;<code>T</code> classes</h2>
+</div><div class="Bodytext">
+<p>The most fundamental types are value types. These are given type,
+or class, names beginning with <code>T</code>.</p>
+<ul>
+<li>
+<p><code>T</code> types contain their value. They do not own any
+external object, either directly (by pointer) or indirectly (by handle).</p>
+</li>
+<li>
+<p><code>T</code> types may be allocated either on the stack (C++
+automatic variables) or as members of other classes.</p>
+</li>
+</ul>
+<p>The consequences of these fundamental characteristics are explored
+below.</p>
+<a name="1.4.6"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Constructor</h3>
+</div><div class="Bodytext">
+<p>Many <code>T</code> types are simple enough not to need a
+constructor. Those that do, use the constructor to initialise member
+data.</p>
+<a name="1.4.7"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Copy constructor and assignment operator</h3>
+</div><div class="Bodytext">
+<p>A copy constructor (<code>TX(const TX&amp;)</code>) or assignment
+operator (<code>TX&amp; operator=(const TX&amp;)</code>) are rarely needed.
+This is because copying is always shallow, and almost always involves only a
+memberwise copy of the source <code>T</code> object to the destination. This is
+the default behaviour for the compiler-generated C++ copy constructor and
+assignment operator.</p>
+<p>These functions may be needed if the <code>T</code> class is a
+templated class, parameterised by an integer length, which is also contained as
+a member of the class. Then, copying or assigning a <code>TX&lt;32&gt;</code>
+to a <code>TX&lt;40&gt;</code> would require more sophistication than a bitwise
+copy, so a copy constructor and assignment operator would have to be explicitly
+coded.</p>
+<a name="1.4.8"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Destructor</h3>
+</div><div class="Bodytext">
+<p><code>T</code> types have no C++ destructor. None is needed,
+because no external resources need to be cleaned up when a <code>T</code>
+object goes out of scope.</p>
+<a name="1.4.9"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Orphaning</h3>
+</div><div class="Bodytext">
+<p><code>T</code> types may safely be orphaned on the stack.
+Orphaning implies that the memory is deallocated without calling the
+destructor. Because <code>T</code> types do not own external resources, no
+external resources can become inaccessible when a <code>T</code> object is
+orphaned.</p>
+<a name="1.4.10"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Function arguments</h3>
+</div><div class="Bodytext">
+<p><code>T</code> types may be passed by value, as well as by
+reference, in function arguments.</p>
+<a name="1.4.11"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Data members</h3>
+</div><div class="Bodytext">
+<p><code>T</code> types may contain other <code>T</code> type
+objects. In addition, they may contain <code>R</code> objects, or pointers to
+<code>C</code> objects, provided these objects are owned by another class or
+function, which is responsible for these objects&#8217; cleanup. In practice,
+this rarely occurs.</p>
+<a name="1.4.12"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Built-in C++ types</h3>
+</div><div class="Bodytext">
+<p>All built-in C++ types satisfy the criteria for <code>T</code>
+classes. Built-in types are given <code>typedef</code> names beginning with
+<code>T</code>, e.g. <code>TInt</code>.</p>
+<a name="idioms%2ec%2dclasses"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Standard class hierarchy&#8212;<code>C</code> classes and class
+<code>CBase</code></h2>
+</div><div class="Bodytext">
+<p>Most classes that are not <code>T</code> classes are <code>C</code>
+classes, which are derived, directly or indirectly, from class
+<code>CBase</code>.</p>
+<p><code>CBase</code>-derived classes have the following
+properties:</p>
+<ul>
+<li>
+<p>they are allocated on the heap&#8212;not on the stack, and not
+as members of other classes</p>
+</li>
+<li>
+<p>the allocator used for this class hierarchy initialises all
+member data to binary zeroes</p>
+</li>
+<li>
+<p>they are passed by pointer, or reference, and so do not need an
+explicit copy constructor or assignment operator unless there is clear
+intention that a particular class support copying</p>
+</li>
+<li>
+<p>they have non-trivial construction and, because of the
+possibility that a leave might occur during the construction process, a
+two-phase construction protocol is used, in which the C++ constructor is only
+used for aspects of construction which cannot leave, and a
+<code>ConstructL()</code> function is used for aspects of construction which
+might leave</p>
+</li>
+<li>
+<p>they have a virtual destructor, which is used for standard
+cleanup processing</p>
+</li>
+<li>
+<p>because of the virtual destructor, it is simple to support
+cleanup of <code>C</code> objects using the cleanup stack; additionally,
+because <code>C</code> objects are allocated on the heap, they
+<em>must</em> be cleaned up if a leave occurs: this imposes a requirement
+for cleanup consciousness when dealing with all <code>C</code> classes</p>
+</li>
+</ul>
+<p>The requirements of <code>C</code> classes are documented in
+<a href="../../APIGuide/Base/MemoryManagement/CleanupSupport/CleanupSupportGuide3/index.html#CleanupSupportGuide3%2etoc">Two Phase Construction</a>. </p>
+<a name="idioms%2er%2dclasses"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Resource types&#8212;<code>R</code> classes</h2>
+</div><div class="Bodytext">
+<p><code>R</code> classes are proxies for objects owned elsewhere.
+There are two main motivations for this:</p>
+<ul>
+<li>
+<p>the real object is owned by a server in a different thread or
+address space, or</p>
+</li>
+<li>
+<p>the real object&#8217;s implementation must be hidden from the
+client</p>
+</li>
+</ul>
+<p>The following are key characteristics of <code>R</code>
+objects:</p>
+<ul>
+<li>
+<p>they contain a handle that is used to pass on requests to other
+objects </p>
+</li>
+<li>
+<p>they are opened using an &quot;open&quot; function particular to the
+<code>R</code> class, and closed using a &quot;close&quot; function particular to the
+class. An <code>R</code> object must be closed once if it has been opened.
+Generally, the resource associated with an <code>R</code> object is closed
+automatically if the thread which opened the object terminates.</p>
+</li>
+<li>
+<p>they may be freely bitwise copied </p>
+</li>
+<li>
+<p>they have no explicit constructor, destructor, copy constructor
+or assignment operator</p>
+</li>
+</ul>
+<p><code>R</code> classes use a variety of protocols to meet these
+needs:</p>
+<ul>
+<li>
+<p>the nature of the handle may differ from <code>R</code> class
+to <code>R</code> class</p>
+</li>
+<li>
+<p>there is no common base class for all <code>R</code>
+classes</p>
+</li>
+<li>
+<p>the initialisation function has a variety of names: also
+possible are <code>Open()</code>, <code>Create()</code>,
+<code>Allocate()</code>, etc.</p>
+</li>
+<li>
+<p>the termination function has a variety of names: also possible
+are <code>Close()</code>, <code>Destroy()</code>, <code>Free()</code>,
+etc.</p>
+</li>
+<li>
+<p>since <code>R</code> classes own external resources, there is a
+requirement for cleanup: this is handled in various ways depending on the
+class</p>
+</li>
+</ul>
+<a name="1.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Inteface types&#8212;<code>M</code> classes</h2>
+</div><div class="Bodytext">
+<p><code>M</code> classes define abstract protocols, or interfaces.
+Concrete implementations of an interface defined by an <code>M</code> class are
+provided by derived protocol provider classes.</p>
+<p><code>M</code> classes have the following restrictions:</p>
+<ul>
+<li>
+<p>they should contain no member data</p>
+</li>
+<li>
+<p>they should not contain constructors or destructors, or
+overloaded operators such as <code>=</code></p>
+</li>
+</ul>
+<p><code>M</code> classes often contain pure virtual functions that
+define a fully abstract interface. Some <code>M</code> classes implement some
+or all member functions, though within the restrictions given above.</p>
+<p><code>M</code> classes are the only use of multiple inheritance in
+the Symbian platform. For details of this, see
+<a href="MultipleInheritance.guide.html#idioms%2emultipleinheritance">Multiple inheritance and interfaces</a>.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

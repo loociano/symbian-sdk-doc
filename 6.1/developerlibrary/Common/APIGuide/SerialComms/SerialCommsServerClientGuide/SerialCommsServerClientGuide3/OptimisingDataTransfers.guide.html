@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Optimising data transfers</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="SerialCommsServerClientGuide3%2edata%2dtransfers"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="DataTransferFunctions.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Serial&nbsp;Comms</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Serial&nbsp;Communications&nbsp;Server&nbsp;Client-Side</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Data&nbsp;Transfer&nbsp;Functions</a>&nbsp;<span class="separator">&#187;</span>
+Optimising&nbsp;data&nbsp;transfers</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Optimising data transfers</h1>
+</div><div class="Bodytext">
+<p>For most applications, if you write inefficient code, your program
+will still work despite the fact that it executes slowly. The speed might
+affect the usability of the program, but not its functionality. However, when
+writing to a communications API, inefficient code can cause an application to
+fail. Additionally, the usual considerations still apply &nbsp;&#8212;
+</p>
+<ul>
+<li>
+<p>resources on hand-held devices are more precious than on less
+portable machines</p>
+</li>
+<li>
+<p>for a genuinely multitasking operating system, there are
+system-wide benefits in making code as fast as possible</p>
+</li>
+</ul>
+<p>The following points don&#8217;t have the prescriptive status of
+rules, and breaking them will not generate any compiler or linking errors.
+However, if you have real-time code to write, they can make the difference
+between applications that work and ones that don&#8217;t.</p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Buffer size</h2>
+</div><div class="Bodytext">
+<p>The larger the buffers that are used, the fewer calls to the comms
+server there will be. This means that larger buffers result in a better
+utilisation of the available CPU bandwidth. Reading and writing single
+characters is generally deprecated as it makes fast communication virtually
+impossible and can adversely affect the responsiveness of the system. The only
+real exception to this rule is where a single character corresponds to a
+specific real-time event, such as a keypress requiring a single character to be
+transmitted.</p>
+<a name="1.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Descriptor creation</h2>
+</div><div class="Bodytext">
+<p>Descriptors are classes, with their own constructors and
+destructors. Creating and destroying them takes time. You should therefore try
+to re-use globally available buffers whenever possible instead of creating and
+destroying them as needed. In order to help you do this, both the
+<code>Read()</code> and <code>Write()</code> functions are available in
+variants that take a length parameter. When present, this overrides the length
+of the descriptor which would otherwise be used as the number of characters to
+be read or written.</p>
+<a name="1.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Indexing descriptors</h2>
+</div><div class="Bodytext">
+<p>Descriptors are used as data buffers because they offer an
+extremely flexible and effective mechanism for passing data between functions.
+While it is possible to input and extract data to and from descriptors by
+treating them like ordinary C arrays, the fact that such code may look the same
+in both cases is deceptive. The C [] array indexing operators are actually
+overloaded in the definition of the descriptor classes, and indexing
+descriptors is far less efficient than using pointer arithmetic to get to the
+contents. </p>
+<a name="1.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Read requests</h2>
+</div><div class="Bodytext">
+<p>Time-outs should ideally be used for trapping error conditions.
+Where a fast response to specific incoming data is required you should try to
+configure the port appropriately. In particular,
+<a href="../SerialCommsServerClientGuide2/EarlyTerminationRead.guide.html#SerialCommsServerClientGuide2%2ereadrequests">early termination of read requests</a> describes how read requests can be
+configured to terminate early. You should take every opportunity offered to
+offload as much processing as possible on to the comms drivers by configuring
+ports properly and choosing the right variant of each data transfer
+call.</p>
+<a name="1.10"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Write requests</h2>
+</div><div class="Bodytext">
+<p>If your are transmitting blocks of data which have a significant
+processing overhead between each serial port write, make use of the feature for
+<a href="../SerialCommsServerClientGuide2/EarlyTerminationWrite.guide.html#SerialCommsServerClientGuide2%2ewriterequests">early termination of write requests</a> to avoid unnecessary waits between
+successive writes of data.</p>
+<a name="1.11"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>ReadOneOrMore()</h2>
+</div><div class="Bodytext">
+<p>Be very careful when using <code>ReadOneOrMore()</code> in a
+program loop as it may not necessarily be the most sensible function to choose.
+The problem is that any time saved through slower data throughput or an
+increase in efficiency in the rest of the code is liable to be eaten up, as the
+function just reads smaller and smaller amounts of data with each iteration
+until you reach the limiting case, when you are simply using
+<code>ReadOneOrMore()</code> to pick up individual characters. The code in
+<code class="filename">the GlassTerm</code> example does reads with tenth of a second time-outs,
+to preserve the echoplex nature of typing on a terminal. It only calls
+<code>ReadOneOrMore()</code> after a time-out has occurred to read characters
+from the input buffer. The trade-off, is that the call to the comms server has
+to be renewed 10 times every second even when no data is being transferred.
+Arguably, this is a more acceptable overhead than that incurred if data were
+coming in rapidly and <code>ReadOneOrMore()</code> was calling the comms server
+up to 2000 times every second.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

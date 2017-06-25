@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Introduction to the Echo example</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="TcpipGuide3%2eecho"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="BuildingAndRunning.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Networking</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;TCP/IP</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Echo&nbsp;Example&nbsp;Program</a>&nbsp;<span class="separator">&#187;</span>
+Introduction&nbsp;to&nbsp;the&nbsp;Echo&nbsp;example</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Introduction to the Echo example</h1>
+</div><div class="Bodytext">
+<p>The example is a client for the simple Echo protocol. A server implementing this protocol, defined in RFC862, simply listens on port 7 for incoming data, and returns it to the client. The protocol is defined for both TCP and UDP. Here, we choose to use TCP.</p><p><em>Note that the Echo example may not be present on all Symbian OS v6.1 SDKs.</em></p>
+<p>The basic operation of the client is therefore:</p>
+<ul><li><p>connects to a server on port 7 </p></li>
+<li><p>sends characters typed to the server</p></li>
+<li><p>reads the returned characters and prints them to the screen</p></li>
+</ul><p>The simplest option is to connect using an IP address. To illustrate using DNS, these further options are also given:</p>
+<ul><li><p>connect using a hostname, calling DNS first to resolve this to an IP address</p></li>
+<li><p>connect using an IP address, obtaining the symbolic name for this IP address first</p></li>
+</ul><a name="1.9"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Echo example structure</h2>
+</div><div class="Bodytext">
+<p>The echo example is located in the folder <code class="filename">Epoc32ex\Networking\TcpIp\</code>. Following the usual recommendations, the user interface and engine are implemented as separate components. </p>
+<p>The two projects are:</p>
+<ul><li><p><code class="filename">echoeng</code>: a DLL that implements the engine component. It contains active object classes that encapsulate reading, writing, and connect operations. </p></li>
+<li><p><code class="filename">eikecho</code>: a GUI application. It provides an interface for a user to drive the engine.</p></li>
+</ul><p><code class="filename">echoeng</code> is designed to be independent of any particular user interface. To allow this, it defines a mixin class, <code>MUINotify</code>, through which engine classes can pass up data to be printed and error notifications. The user interface project, <code class="filename">eikecho</code>, provides a concrete implementations of this mixin. </p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

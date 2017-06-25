@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>mtmgen command syntax</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="etu%2emtmgen%2ecommand"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="mtmgen-file-syntax.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Messaging&nbsp;tools</a>&nbsp;<span class="separator">&#187;</span>
+mtmgen&nbsp;command&nbsp;syntax</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1><code class="filename">mtmgen</code> command syntax</h1>
+</div><div class="Bodytext">
+<p>The <code class="filename">mtmgen</code> command creates a messaging type module (MTM) data file based on a specified plain text configuration file. The command can also register and unregister the MTM with the Message Server.</p><p> Two versions  of the <code class="filename">mtmgen</code>  tool are provided by the SDK — WINS and WINC. On the WINC platform, you can only generate <code class="filename">.dat</code> files, not register and unregister MTMs.</p><p>From v6.1, both versions are invoked using a stub file which is located in the path. The command to run the tool can be executed from  a Windows command prompt. The WINS version  is run if  <code>-urel</code> or <code>-udeb</code> is specified. The WINS  version is also  run if either the <code>-u</code> or <code>-i</code> flags are specified. The WINC version is run if neither <code>-urel</code> nor <code>-udeb</code> are
+specified and only the <code>-g</code>  flag is set.</p><p>By default, MTMs are installed to and uninstalled from the debug Emulator.</p><p>During processing, <code class="filename">mtmgen</code> writes information to a file called <code class="filename">mtmgen.txt</code>.
+This file is located in the <code class="filename">c:\logs\mtmgen\</code> directory which must
+be created before the log file can be written.
+Note that file locations used by <code class="filename">mtmgen</code> are relative to the Emulator if
+the WINS version is run and relative to the development PC's file system
+if the WINC version is run.</p><h4 class="subheading">Invocation syntax</h4><p><code>mtmgen</code> [<code>-urel</code>|<code>-udeb</code>]<code>-</code><em class="metasyntactic">&lt;flags&gt;</em>
+<em class="metasyntactic">&lt;path of configuration file&gt;</em>
+<em class="metasyntactic">&lt;path for <code class="filename">.dat</code> file&gt;</em></p><table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0">
+<tr valign="top"><td class="Cell"><p><code>-urel</code></p></td><td class="Cell"><p>Use the version of <code class="filename">mtmgen</code> for the release Emulator (WINS only)</p></td></tr><tr valign="top"><td class="Cell"><p><code>-udeb</code></p></td><td class="Cell"><p>Use the version of <code class="filename">mtmgen</code> for the debug Emulator (WINS only) — the default</p></td></tr><tr valign="top">
+<td class="Cell">
+<p><em class="metasyntactic">path of configuration file</em></p>
+</td>
+<td class="Cell">
+<p>The path of the configuration file</p>
+</td>
+</tr><tr valign="top"><td class="Cell"><p><em class="metasyntactic">path for <code class="filename">.dat</code> file</em></p></td><td class="Cell"><p>The path of the output <code class="filename">.dat</code> file</p></td></tr>
+</table></td></tr></table><p>The possible flags are:</p><table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top"><td class="Cell"><p><code>    -g</code></p></td><td class="Cell"><p>Generate a <code class="filename">.dat</code> file from the specified configuration file (WINS or WINC versions).</p></td></tr><tr valign="top"><td class="Cell"><p><code>    -i</code></p></td><td class="Cell"><p>Register the specified MTM with the Message Server (WINS version only).</p></td></tr><tr valign="top"><td class="Cell"><p><code>    -u</code></p></td><td class="Cell"><p>Unregister the specified MTM with the Message Server (WINS version only).</p></td></tr></table></td></tr></table><h4 class="subheading">Example</h4><p>The following command would create a <code class="filename">.dat</code> file in the directory <code class="filename">c:\System\MTM\</code> based on the configuration file <code class="filename">c:\example.cfg</code>, unregister the MTM if is already registered, and finally register it.</p><p class="CommandLine"><code>&gt; MTMGEN -ugi c:\\example.cfg c:\\System\\MTM\\</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

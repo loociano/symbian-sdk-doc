@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Transformation formats</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="CharconvGuide%2eTransformationFormats"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="ConversionToFromUnicode.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="UnicodeTransformationFormats.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Character&nbsp;Conversion</a>&nbsp;<span class="separator">&#187;</span>
+Transformation&nbsp;formats</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Transformation formats</h1>
+</div><div class="Bodytext">
+<p>The <em>UCS-2</em> form of the Unicode
+character set encodes each character as 2 bytes (16 bits total). However it
+does not specify which of the bytes is most significant. The byte order,
+or<em> endian</em>-ness, is left up to the discretion of
+a particular operating system.</p>
+<p>While this is not important within a system, it does mean that text
+encoded as UCS-2 cannot easily be shared between systems using a different
+endian-ness. To overcome this problem the Unicode Consortium has defined two
+transformation formats for sharing Unicode text. The transformation formats
+explicitly specify byte order, and cannot be misinterpreted by computers using
+a different byte order. </p>
+<p>The two transformation formats, <em>UTF-7</em>
+and <em>UTF-8</em>, are described below. For the full
+definition of these formats, see <i>The Unicode Standard</i>
+published by The Unicode Consortium.</p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>UTF-7</h2>
+</div><div class="Bodytext">
+<p>UTF-7 allows Unicode characters to be encoded and transmitted as
+8-bit bytes, of which only 7 bits are used. UTF-7 divides the set of Unicode
+characters into three subsets, which are encoded and transmitted
+differently.</p>
+<ul>
+<li>
+<p>Set D, is the set of characters which are encoded as a single
+byte. It includes lower and upper case A to Z, the numeric digits, and nine
+other characters. </p>
+</li>
+<li>
+<p>Set O includes the characters <b>! &quot; # $ % &amp; * ; &lt; =
+&gt; @ [ ] ^ _ </b><b>{</b><b> | </b><b>}</b>. These
+characters can be encoded as a single byte, or with the modified
+<em>base 64</em>&nbsp;encoding used for set B
+characters. When encoded as a single byte, set O characters can be
+misinterpreted by some applications&nbsp;&#8212; encoding as modified base
+64 overcomes this problem.</p>
+</li>
+<li>
+<p>Set B comprises the remaining characters, which are encoded as
+an <em>escape byte</em> followed by 2 or 3 bytes. The
+encoding format is a modified form of base 64 encoding.</p>
+</li>
+</ul>
+<a name="1.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>UTF-8</h2>
+</div><div class="Bodytext">
+<p>UTF-8 encodes and transmits Unicode characters as a string of 8-bit
+bytes. All the ASCII characters 0 to 127 are encoded without change; the most
+significant bit being set to zero is a signal that they have not been changed.
+Unicode characters U0080 to U07FF are encoded in two bytes, the remaining
+Unicode characters&nbsp;&#8212; except for the surrogates&nbsp;&#8212;
+are encoded in three bytes. The Unicode surrogate characters are supported by
+the Character Conversion API, but are not currently supported by all EPOC
+components.</p>
+<p>A variant of UTF-8 used internally by Java differs from standard
+UTF-8 in two ways. First, the specific case of the NULL character (0x0000) is
+encoded in the two-byte format, and second, only the one-, two- and three-byte
+formats are used, not the four-byte format which is normally used for Unicode
+surrogate-pairs. An argument to <code>ConvertFromUnicodeToUtf8</code> controls
+whether the UTF-8 generated by this is the Java variant. Support for this was
+removed in v6.0.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to use standard buffer operations</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="DynamicBuffersGuide%2ehowto%2dstandard%2dbuffer%2dops"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="ChoicesWithBuffers.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToAllocateBuffers.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Buffers&nbsp;and&nbsp;Strings</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Dynamic&nbsp;Buffers</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;use&nbsp;standard&nbsp;buffer&nbsp;operations</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to use standard buffer operations</h1>
+</div><div class="Bodytext">
+<p>Dynamic buffers have the expected standard buffer operations.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2><code>InsertL()</code> example</h2>
+</div><div class="Bodytext">
+<p>You can insert data into a buffer using <code>InsertL()</code>. In
+the following example code fragment, data is inserted into the buffer
+initially, and then some more data inserted into the middle of the first
+data.</p>
+<p class="CodeBlock"><code> // insert text into buffer<br>&nbsp;_LIT8(KTxtHello,&quot;Hello!&quot;);<br>&nbsp;_LIT8(KWorld,&quot; world&quot;);<br>&nbsp;...<br>&nbsp;aBuf-&gt;InsertL(0,KTxtHello);<br>&nbsp;writeBuf(aBuf); // gives &#8220;Hello!&#8221;<br>&nbsp;aBuf-&gt;InsertL(5,KWorld);<br>&nbsp;writeBuf(aBuf); // gives &#8220;Hello world!&#8221;</code></p>
+<p>In common with all functions that expand the size of the buffer,
+<code>InsertL()</code> may fail&nbsp;— by leaving. When you program
+with dynamic buffers, you must ensure that all potential leaves are handled
+correctly.</p>
+<p><code>InsertL()</code>, and the entire Dynamic Buffers API, deals
+only with 8-bit byte data. When interfacing with descriptors which contain
+text, you should take special precautions to ensure that UNICODE is handled
+correctly.</p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2><code>Read() </code>example</h2>
+</div><div class="Bodytext">
+<p>Data can be read from a buffer by specifying a start position and a
+target descriptor. The number of bytes to be read may be specified explicitly,
+as here, or by the descriptor length. Another <code>Read()</code> variant,
+specifying the target as a <code>TAny*</code>, is provided.</p>
+<p>The following code fragment follows from the previous one:</p>
+<p class="CodeBlock"><code> // read from buffer into descriptor<br>&nbsp;TBuf8&lt;10&gt; des;<br>&nbsp;aBuf-&gt;Read(3,des,5); // puts &quot;lo wo&quot; into des.</code></p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2><code>Write()</code> example</h2>
+</div><div class="Bodytext">
+<p><code>Write()</code> overwrites existing data in the buffer. Because
+the buffer is not expanded, <code>Write()</code> cannot leave. You must ensure
+that the region you select in the buffer already exists: if
+<code>Write()</code> attempts to write beyond the end of the data already in
+the buffer, a panic occurs.</p>
+<p class="CodeBlock"><code> // [over]write some stuff in buffer<br>&nbsp;_LIT8(KFolks,&quot;folks&quot;);<br>&nbsp;aBuf-&gt;Write(6,KFolks);<br>&nbsp;writeBuf(aBuf); // gives &#8220;Hello folks!&#8221;</code></p>
+<a name="1.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2><code>Delete() </code>example</h2>
+</div><div class="Bodytext">
+<p><code>Delete()</code> deletes data in the buffer. It can never
+fail.</p>
+<p class="CodeBlock"><code> // delete stuff<br>&nbsp;aBuf-&gt;Delete(5,6);<br>&nbsp;writeBuf(aBuf); // gives &#8220;Hello!&#8221;</code></p>
+<a name="1.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2><code>Compress() </code>example</h2>
+</div><div class="Bodytext">
+<p><code>Compress()</code> ensures that the buffer data occupies the minimum
+space. In the case of flat buffers, this re-allocates the cell to the size of
+the data in the buffer. In the case of segmented buffers, it may shuffle data
+so as to occupy the minimum number of segments.</p>
+<p class="CodeBlock"><code>// compress<br>&nbsp;aBuf-&gt;Compress();<br>&nbsp;writeBuf(aBuf);</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

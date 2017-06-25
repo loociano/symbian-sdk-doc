@@ -1,0 +1,2946 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CContactDatabase</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CContactChangeNotifierClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="CContactDateFieldClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Contacts&nbsp;Model</a>&nbsp;<span class="separator">&#187;</span>
+CContactDatabase</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>cntdb.h</code>
+<br>Link against: <code>cntmodel.lib</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aCContactDatabase"></a>
+
+<h1>Class <code>CContactDatabase</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CContactDatabase</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>A database of contact items.</p>
+<p>Contact items can be added to and removed from the database and
+items in the database can be opened or read. To edit an item, the item must
+first be opened. Changes to the item can then be committed to the database
+using <code>CommitContactL()</code>. Committing can only take place to an open
+item. Reading an item provides read only access to it.</p>
+<p>When deleting a contact item, note that each item has an access
+count. The item cannot be fully deleted unless its access count is zero. This
+is to prevent contact items which have been synchronised with a PC scheduler
+application for example from being deleted. Also, if the item is a template, it
+cannot be deleted if other items are based on it.</p>
+<p>More than one contact database can exist on an EPOC device, but
+there is always a single default contact database. The default database is the
+database which is loaded by default when the Contacts application starts up.
+Its filename is contacts.cdb. The default
+database can be moved between drives, but must always be stored in the \system\data\
+folder.</p>
+<p>The <code>CContactDatabase</code> class implements searching and
+sorting. It also provides separate phone number matching functions. Phone
+number matching provides a high speed method of indexing and looking up phone
+numbers. This is primarily intended for looking up caller IDs on incoming
+calls. Before looking up phone numbers, the index must be created. This only
+needs to be done once, when the contact database is opened. From then on, the
+index is automatically maintained by the database server. Index creation is
+started by a call to <code>InitLoadPhoneMatchesL()</code>. Then it is updated
+using calls to <code>LoadPhoneMatchesL()</code>.</p>
+<p>The database owns speed dial information. This is a mapping between
+a single digit integer and a telephone number. There may be up to 9 speed dial
+telephone numbers; each of them belongs to a contact item in the
+database&nbsp;&#8212; if a contact item is deleted, its speed dial mapping
+is removed.</p>
+<p>The following functions defined in class
+<code>CContactDatabase</code> are not currently supported. If called, they
+leave with <code>KErrNotSupported</code>.</p>
+<ul>
+<li>
+<p><code>ReplacePrefL()</code></p>
+</li>
+<li>
+<p><code>ReadPrefL()</code></p>
+</li>
+<li>
+<p><code>CreatePrefL()</code></p>
+</li>
+</ul><h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase">CBase</a></code></td><td class="Cell">Base class for all classes to be instantiated on the heap</td>
+</tr>
+<tr><td class="Cell"><code>CContactDatabase</code></td><td class="Cell">A database of contact items</td>
+</tr>
+<tr><td class="Cell"><code><a href="MContactDbPrivObserverClass.html#%3a%3aMContactDbPrivObserver">MContactDbPrivObserver</a></code></td><td class="Cell">Base class used in the derivation of CContactDatabase</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>CContactDatabase</code>:
+<br><code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aAddContactToGroupL%28%29" title="Sets a contact item which already exists in the database to be a member of a contact group -- overloaded function">AddContactToGroupL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aAddNewContactL%28%29" title="Adds a new contact item to the database and returns its contact item ID">AddNewContactL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aCloseContactL%28%29" title="Closes the contact item allowing other applications to access it">CloseContactL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aCloseTables%28%29" title="Closes all database tables">CloseTables()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aCommitContactL%28%29" title="Overwrites a contact item with the values contained in aContact">CommitContactL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aCompactL%28%29" title="Compacts the database to its minimum size synchronously">CompactL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aCompressL%28%29" title="Compacts the database using an active compressor">CompressL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aCompressRequired%28%29" title="Tests whether a compress is recommended">CompressRequired()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aConnectionId%28%29" title="Gets the ID of the connection to the lock server">ConnectionId()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aContactsChangedSinceL%28%29" title="Gets an array of contacts modified since the specified date/time">ContactsChangedSinceL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aCountL%28%29" title="Gets the number of CContactItems in the database">CountL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aCreateCompressorLC%28%29" title="Creates an active compressor to compress the database with an active object">CreateCompressorLC()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aCreateContactCardTemplateL%28%29" title="Creates a contact card template and adds it to the database -- overloaded function">CreateContactCardTemplateL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aCreateContactCardTemplateLC%28%29" title="Creates a contact card template and adds it to the database -- overloaded function">CreateContactCardTemplateLC()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aCreateContactGroupL%28%29" title="Creates a new contact group and adds it to the database -- overloaded function">CreateContactGroupL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aCreateContactGroupLC%28%29" title="Creates a new contact group and adds it to the database -- overloaded function">CreateContactGroupLC()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aCreateL%28%29" title="Creates and opens an empty contact database">CreateL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aCreateOwnCardL%28%29" title="Creates a default own card based on the system template and adds it to the database">CreateOwnCardL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aCreateOwnCardLC%28%29" title="Creates a default own card based on the system template and adds it to the database">CreateOwnCardLC()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aCreateRecoverLC%28%29" title="Creates an active recoverer object to recover the database using an active object">CreateRecoverLC()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aDatabaseDrive%28%29" title="Gets the currently set database drive">DatabaseDrive()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aDeleteContactL%28%29" title="Deletes a contact item">DeleteContactL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aDeleteContactsL%28%29" title="Deletes an array of contacts">DeleteContactsL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aDeleteDefaultFileL%28%29" title="Deletes the default contact database">DeleteDefaultFileL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aDeletedContactsLC%28%29" title="Gets an array of IDs for contact items that still exist in the database, but are marked as deleted">DeletedContactsLC()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aEDecreaseAccessCount" title="Decrease the contact's access count when importing and exporting">EDecreaseAccessCount</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aEExcludeUid" title="Don't export the contact ID (for exporting only)">EExcludeUid</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aEImportSingleContact" title="Only import the first contact in the read stream (for importing only)">EImportSingleContact</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aEIncludeX" title="Handle Symbian's extended vCard format options">EIncludeX</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aEIncreaseAccessCount" title="Increase the contact's access count when importing and exporting">EIncreaseAccessCount</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aEMultiThread" title="Allows for a multi-threaded program to access the contact database from multiple threads but note that the contacts model provides no synchronisation support for such use">EMultiThread</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aESingleThread" title="Allows access to the contacts database from a single thread only">ESingleThread</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aETTFormat" title="Support non-standard extensions requried by Symbian PC connectivity software and Microsoft amongst others">ETTFormat</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aExportSelectedContactsL%28%29" title="Exports an array of contact items to a write stream -- overloaded function">ExportSelectedContactsL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aFileSize%28%29" title="Gets the size of the contact database file in bytes">FileSize()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aFileUid%28%29" title="Gets the database's UID">FileUid()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aFilterDatabaseL%28%29" title="Filters the database">FilterDatabaseL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aFindAsyncL%28%29" title="Searches the database asynchronously for a text string">FindAsyncL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aFindContactFile%28%29" title="Finds the location of the contact database with the default file name (\system\data\contacts.cdb)">FindContactFile()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aFindInTextDefAsyncL%28%29" title="Searches the database for an array of words -- overloaded function">FindInTextDefAsyncL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aFindInTextDefLC%28%29" title="Allows the user to search the database for a string containing text which is stored in one or more fields -- overloaded function">FindInTextDefLC()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aFindLC%28%29" title="Searches the database for a text string">FindLC()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aGetCardTemplateIdListL%28%29" title="Returns a copy of the database's template ID list">GetCardTemplateIdListL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aGetCurrentDatabase%28%29" title="Where there are multiple contact databases on a device, this function can be used to enquire which database is the current one">GetCurrentDatabase()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aGetCurrentItem%28%29" title="Gets the ID of the current item, as set by SetCurrentItem()">GetCurrentItem()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aGetDbViewContactType%28%29" title="Gets the type of contact items which are included in sorted views of the database, as set by SetDbViewContactType()">GetDbViewContactType()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aGetDefaultNameL%28%29" title="Gets the full file name of the default contact database">GetDefaultNameL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aGetGroupIdListL%28%29" title="Returns a copy of the database's group ID list">GetGroupIdListL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aGetLastSyncDateL%28%29" title="Returns the date/time the database was last synchronised with a particular sync ID, as set by SetLastSyncDateL()">GetLastSyncDateL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aGetSpeedDialFieldL%28%29" title="Returns the ID of the contact item whose telephone number field is mapped to the speed dial position specified">GetSpeedDialFieldL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aGroupCount%28%29" title="Returns the number of groups that currently exist in the database">GroupCount()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aImportContactsL%28%29" title="Imports one or more vCards from a read stream">ImportContactsL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aInitLoadPhoneMatchesL%28%29" title="Initialises the phone number matching process">InitLoadPhoneMatchesL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aIsDamaged%28%29" title="Tests whether the database is damaged and needs to be recovered">IsDamaged()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aLoadPhoneMatchesL%28%29" title="Indexes the next set of contact items for phone number matching">LoadPhoneMatchesL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aMachineId%28%29" title="Returns a number unique to the contacts database">MachineId()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aMatchPhoneNumberL%28%29" title="Returns an array of contact item IDs for all the contact items which contain the specified telephone number in any of their fields">MatchPhoneNumberL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aNullUidValue%28%29" title="Returns the NULL contact ID value">NullUidValue()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aOpenContactL%28%29" title="Opens a contact item for editing -- overloaded function">OpenContactL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aOpenContactLX%28%29" title="Opens the contact item for editing -- overloaded function">OpenContactLX()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aOpenL%28%29" title="Opens a contact database">OpenL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aOpenTablesL%28%29" title="Opens all database tables">OpenTablesL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aOwnCardId%28%29" title="Returns the ID of the database's current own card">OwnCardId()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aPhoneMatchListL%28%29" title="Gets an array of contact item IDs that might match the specified phone number">PhoneMatchListL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aPrefTemplateId%28%29" title="Returns the ID of the database's preferred template, as set by SetPrefTemplateL()">PrefTemplateId()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aReadContactAndAgentL%28%29" title="Reads a contact item and an agent if the item has an agent field">ReadContactAndAgentL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aReadContactL%28%29" title="Reads a contact item -- overloaded function">ReadContactL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aReadContactLC%28%29" title="Reads a contact item -- overloaded function">ReadContactLC()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aReadContactTextDefL%28%29" title="Reads text from a contact item stored in the database into a descriptor -- overloaded function">ReadContactTextDefL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aReadMinimalContactL%28%29" title="Reads a contact item (contact card, own card, template, or contact group), but does not read the group or template information">ReadMinimalContactL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aReadMinimalContactLC%28%29" title="Reads a contact item (contact card, own card, template, or contact group), but does not read the group or template information">ReadMinimalContactLC()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aRecoverL%28%29" title="Recovers the database from a rollback">RecoverL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aRemoveContactFromGroupL%28%29" title="Removes the association between a contact item and a group -- overloaded function">RemoveContactFromGroupL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aRemoveSpeedDialFieldL%28%29" title="Removes the mapping between a contact item field and a speed dial position">RemoveSpeedDialFieldL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aReplaceL%28%29" title="Creates and opens an empty contact database, replacing any existing file with the same name">ReplaceL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aSetCurrentDatabase%28%29" title="Where there are multiple contact databases on a device, this function can be used to set a database as the current one">SetCurrentDatabase()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aSetCurrentItem%28%29" title="Sets the ID of the current item and persists it in the database">SetCurrentItem()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aSetDatabaseDriveL%28%29" title="Sets the contact database drive and optionally moves the default contact database from its current location to the new drive">SetDatabaseDriveL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aSetDateFormatTextL%28%29" title="This function is not currently supported">SetDateFormatTextL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aSetDbViewContactType%28%29" title="Sets the type of contact items to be included in sorted views of the database">SetDbViewContactType()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aSetFieldAsSpeedDialL%28%29" title="Sets a field containing a telephone number as a speed dial field">SetFieldAsSpeedDialL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aSetLastSyncDateL%28%29" title="Sets the date/time the database was last synchronised e.g">SetLastSyncDateL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aSetOwnCardL%28%29" title="Sets an existing contact item to be the database's current own card">SetOwnCardL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aSetPrefTemplateL%28%29" title="Sets the database's preferred template">SetPrefTemplateL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aSetTextDefinitionL%28%29" title="Sets the current text definition">SetTextDefinitionL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aSetViewDefinitionL%28%29" title="Sets the default view definition">SetViewDefinitionL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aSortArrayL%28%29" title="Sorts an array of contact IDs">SortArrayL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aSortArrayLC%28%29" title="Sorts an array of contact IDs">SortArrayLC()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aSortByTypeL%28%29" title="Sorts the database using the view type value set by SetDbViewContactType()">SortByTypeL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aSortL%28%29" title="Sorts the database">SortL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aSortedItemsL%28%29" title="Returns a pointer to the array of contact items which have been sorted by either SortByTypeL() or SortL()">SortedItemsL()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aTOptions" title="Import and export contact format option flags">TOptions</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aTSortPref" title="Specifies the field type and order preferences used for sorting items in the contacts database -- see CContactDatabase::SortL() and CContactDatabase::SortArrayL()">TSortPref</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aTThreadAccess" title="Specifies whether the database can be accessed from single or multiple threads">TThreadAccess</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aTemplateContentType%28%29" title="Gets the content type of the template field which a specified field maps onto">TemplateContentType()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aTemplateCount%28%29" title="Returns the number of contact card templates that currently exist in the database">TemplateCount()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aTemplateId%28%29" title="Gets the ID of the system template">TemplateId()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aTextDefinition%28%29" title="Gets a pointer to the current text definition">TextDefinition()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aTextToPhoneMatchNumber%28%29" title="Converts a telephone number stored in a text string into numeric format">TextToPhoneMatchNumber()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aVersion%28%29" title="Gets the contact model's version number">Version()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3a%7eCContactDatabase%28%29" title="The destructor frees all resources owned by the contact database, prior to its destruction">~CContactDatabase()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap">CBase</a></code>:
+<br><code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase%3a%3aoperator%20new%28%29" title="Allocates the object from the heap and then initialises its contents to binary zeroes">operator new()</a></code></p>
+<a name="2.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Create and open</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aOpenL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>OpenL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static CContactDatabase* OpenL();<br>static CContactDatabase* OpenL(const TDesC&amp; aFileName);</code></p><h4 class="subheading">Support</h4>
+<p>Withdrawn in 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Opens a contact database. The database may be named, or, if no
+name is specified, the default database is opened.</p>
+<p>The name of the default contact database is hard coded as \system\data\contacts.cdb.
+By default it is assumed to be on drive c:, but
+this can be changed using the <code>SetDatabaseDriveL()</code> function.</p>
+<p>Note:</p>
+<p>Clients should not assume any knowledge of the default database
+name or location&nbsp;&#8212; they may be changed in future
+releases.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aFileName</code></td>
+<td class="Cell"><p class="ValueDesc">The path and filename of the database to open.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactDatabase*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the open contact database.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">KErrNotFound</code></td>
+<td class="Cell"><p class="ValueDesc">The database does not exist. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aOpenL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>OpenL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static CContactDatabase* OpenL(TThreadAccess aAccess=ESingleThread);<br>static CContactDatabase* OpenL(const TDesC&amp; aFileName,TThreadAccess aAccess=ESingleThread);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Opens a contact database. The database may be named, or, if no
+name is specified, the default database is opened.</p>
+<p>The name of the default contact database is hard coded as \system\data\contacts.cdb.
+By default it is assumed to be on drive c:, but
+this can be changed using the <code>SetDatabaseDriveL()</code> function.</p>
+<p>Note:</p>
+<p>Clients should not assume any knowledge of the default database
+name or location&nbsp;&#8212; they may be changed in future
+releases.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aFileName</code></td>
+<td class="Cell"><p class="ValueDesc">The path and filename of the database to open.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TThreadAccess aAccess=ESingleThread</code></td>
+<td class="Cell"><p class="ValueDesc">The default, <code>ESingleThread</code> allows access to the
+session with the database server from a single client thread only (as in EPOC
+Releases 5 and 5.1). <code>EMultiThread</code> allows multiple client threads
+to share the same session with the server. As multi-threaded programs are
+uncommon in EPOC, this argument can be ignored by most C++ developers.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactDatabase*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the open contact database.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">KErrNotFound</code></td>
+<td class="Cell"><p class="ValueDesc">The database does not exist. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.4"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aCreateL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CreateL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static CContactDatabase* CreateL();<br>static CContactDatabase* CreateL(const TDesC&amp; aFileName);</code></p><h4 class="subheading">Support</h4>
+<p>Withdrawn in 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Creates and opens an empty contact database. The new database may
+be assigned a name, or if no name is specified, a database with the default
+name is created. </p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aFileName</code></td>
+<td class="Cell"><p class="ValueDesc">The path and filename of the database to create. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactDatabase*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the new contact database.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">KErrAlreadyExists</code></td>
+<td class="Cell"><p class="ValueDesc">The database file already exists. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.5"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aCreateL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CreateL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static CContactDatabase* CreateL(TThreadAccess aAccess=ESingleThread);<br>static CContactDatabase* CreateL(const TDesC&amp; aFileName,TThreadAccess aAccess=ESingleThread);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Creates and opens an empty contact database. The new database may be
+assigned a name, or if no name is specified, a database with the default name
+is created. </p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aFileName</code></td>
+<td class="Cell"><p class="ValueDesc">The path and filename of the database to create. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TThreadAccess aAccess</code></td>
+<td class="Cell"><p class="ValueDesc">The default, <code>ESingleThread</code> allows access to the session
+with the database server from a single client thread only (as in EPOC Releases
+5 and 5.1). <code>EMultiThread</code> allows multiple client threads to share
+the same session with the server. As multi-threaded programs are uncommon in
+EPOC, this argument can be ignored by most C++ developers.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactDatabase*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the new contact database.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">KErrAlreadyExists</code></td>
+<td class="Cell"><p class="ValueDesc">The database file already exists. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.6"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aReplaceL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ReplaceL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static CContactDatabase* ReplaceL();<br>static CContactDatabase* ReplaceL(const TDesC&amp; aFileName);</code></p><h4 class="subheading">Support</h4>
+<p>Withdrawn in 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Creates and opens an empty contact database, replacing any existing
+file with the same name. The name may be specified, or if not, the function
+replaces the default database.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aFileName</code></td>
+<td class="Cell"><p class="ValueDesc">The path and filename of the database to replace.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactDatabase*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the new contact database.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.7"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aReplaceL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ReplaceL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static CContactDatabase* ReplaceL(TThreadAccess aAccess=ESingleThread);<br>static CContactDatabase* ReplaceL(const TDesC&amp; aFileName,TThreadAccess aAccess=ESingleThread);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Creates and opens an empty contact database, replacing any existing file
+with the same name. The name may be specified, or if not, the function replaces
+the default database.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aFileName</code></td>
+<td class="Cell"><p class="ValueDesc">The path and filename of the database to replace.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TThreadAccess aAccess</code></td>
+<td class="Cell"><p class="ValueDesc">The default, <code>ESingleThread</code> allows access to the session with
+the database server from a single client thread only (as in EPOC Releases 5 and
+5.1). <code>EMultiThread</code> allows multiple client threads to share the
+same session with the server. As multi-threaded programs are uncommon in EPOC,
+this argument can be ignored by most C++ developers.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactDatabase*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the new contact database.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.8"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aDeleteDefaultFileL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DeleteDefaultFileL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static void DeleteDefaultFileL();</code></p><h4 class="subheading">Description</h4>
+<p>Deletes the default contact database.</p>
+<a name="2.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Destructor</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3a%7eCContactDatabase%28%29"></a>
+<hr size="1" noshade>
+<h3><code>~CContactDatabase()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>~CContactDatabase()</code></p><h4 class="subheading">Description</h4>
+<p>The destructor frees all resources owned by the contact database, prior
+to its destruction.</p>
+<a name="2.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Location</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aDatabaseDrive%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DatabaseDrive()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static TBool DatabaseDrive(TDriveUnit&amp; aDriveUnit);</code></p><h4 class="subheading">Description</h4>
+<p>Gets the currently set database drive. The database drive is the drive on
+which the default contact database is located.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDriveUnit&amp; aDriveUnit</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the database drive.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> if the database drive has been set
+using <code>SetDatabaseDriveL()</code>. Otherwise <code>EFalse</code> and in
+this case, the function returns drive <!--filename style usedc:-->c:
+in <code>aDriveUnit</code> as the current drive.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aSetDatabaseDriveL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetDatabaseDriveL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static void SetDatabaseDriveL(TDriveUnit aDriveUnit, TBool aCopy=ETrue);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the contact database drive and optionally moves the default contact
+database from its current location to the new drive. This function guarantees
+an all or nothing operation. If the database is not successfully moved, the
+drive setting is not updated to reflect the change.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDriveUnit aDriveUnit</code></td>
+<td class="Cell"><p class="ValueDesc">The drive to which to move the database.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool aCopy=ETrue</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> to move the existing file to <!--filename style used\system\data\-->\system\data\
+on the specified drive. <code>EFalse</code> does not move the file.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">KErrNotReady</code></td>
+<td class="Cell"><p class="ValueDesc">There is no media present in the drive. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.4"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aFindContactFile%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FindContactFile()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static TBool FindContactFile(TDes&amp; aFileName);</code></p><h4 class="subheading">Description</h4>
+<p>Finds the location of the contact database with the default file name (\system\data\contacts.cdb).
+Drives are searched using class <code>TFindFile</code> and the name of the
+first file found is copied into <code>aFileName</code>.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes&amp; aFileName</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the full path and filename of the default contact
+database.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc"><code>EFalse</code> if no file is found. <code>ETrue</code> if a file is
+found.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.5"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aGetDefaultNameL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetDefaultNameL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static void GetDefaultNameL(TDes&amp; aDes);</code></p><h4 class="subheading">Description</h4>
+<p>Gets the full file name of the default contact database.</p>
+<p>The name of the default contact database is \system\data\contacts.cdb.
+By default it is assumed to be on drive c:, but
+this can be changed using
+the <code>SetDatabaseDriveL()</code> function.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes&amp; aDes</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the full path and filename of the default contact
+database. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>View and text definitions</h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aSetViewDefinitionL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetViewDefinitionL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetViewDefinitionL(CContactViewDef* aView);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the default view definition. The contact database takes ownership of
+the view definition specified. The default view definition is used in calls
+to <code>ReadContactL()</code>, <code>ReadContactLC()</code> and <code>ReadContactAndAgentL()</code> when
+no view definition is explicitly specified.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactViewDef* aView</code></td>
+<td class="Cell"><p class="ValueDesc">The view definition.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.3"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aSetTextDefinitionL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetTextDefinitionL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetTextDefinitionL(CContactTextDef* aView);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the current text definition. The contact database takes ownership of
+the text definition specified.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactTextDef* aView</code></td>
+<td class="Cell"><p class="ValueDesc">The new text definition.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.4"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aTextDefinition%28%29"></a>
+<hr size="1" noshade>
+<h3><code>TextDefinition()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const CContactTextDef* TextDefinition() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a pointer to the current text definition.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactTextDef*</code></td>
+<td class="Cell"><p class="ValueDesc">A pointer to the current text definition.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.5"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aSetDateFormatTextL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetDateFormatTextL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetDateFormatTextL(const TDesC &amp;aFormat);</code></p><h4 class="subheading">Description</h4>
+<p>This function is not currently supported.</p>
+<a name="2.10"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Groups</h2>
+</div><div class="Bodytext">
+<a name="2.10.2"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aCreateContactGroupL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CreateContactGroupL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CContactItem* CreateContactGroupL(TBool aInTransaction=EFalse);<br>CContactItem* CreateContactGroupL(const TDesC&amp; aGroupLabel,TBool aInTransaction=EFalse);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Creates a new contact group&nbsp;and adds it to the
+database&nbsp;&#8212; overloaded function. The group label may be specified,
+or if not, the default string &quot;Group Label&quot; is assigned as the label for the
+group. The caller takes ownership of the returned object.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool aInTransaction=EFalse</code></td>
+<td class="Cell"><p class="ValueDesc">This argument should be ignored by developers.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aGroupLabel</code></td>
+<td class="Cell"><p class="ValueDesc">If specified, the string to set as the group label.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactItem*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the newly created contact group.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.3"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aCreateContactGroupLC%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CreateContactGroupLC()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CContactItem* CreateContactGroupLC(TBool aInTransaction=EFalse);<br>CContactItem* CreateContactGroupLC(const TDesC&amp; aGroupLabel,TBool aInTransaction=EFalse);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Creates a new contact group&nbsp;and adds it to the
+database&nbsp;&#8212; overloaded function. The group label may be specified,
+or if not, the default string &quot;Group Label&quot; is assigned as the label for the
+group. The pointer to the group is left on the cleanup
+stack. The caller takes ownership of the returned object.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool aInTransaction=EFalse</code></td>
+<td class="Cell"><p class="ValueDesc">This argument should be ignored by developers.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aGroupLabel</code></td>
+<td class="Cell"><p class="ValueDesc">If specified, the string to set as the group label.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactItem*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the newly created contact group.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.4"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aGetGroupIdListL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetGroupIdListL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CContactIdArray* GetGroupIdListL() const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Returns a copy of the database's group ID list. This is a list which
+contains the contact item IDs for each group in the
+database. The caller takes ownership of the returned object.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactIdArray*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to an array containing the contact item IDs for each group in the
+database. NULL if there are no groups in the database.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.5"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aAddContactToGroupL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>AddContactToGroupL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void AddContactToGroupL(TContactItemId aItemId, TContactItemId aGroupId);<br>void AddContactToGroupL(TContactItemId aItemId, TContactItemId aGroupId, TBool aInTransaction);<br>void AddContactToGroupL(CContactItem&amp; aItem, CContactItem&amp; aGroup);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Sets a contact item which already exists in the database to be a member
+of a contact group&nbsp;&#8212; overloaded function. Specify a reference to
+the item and group, or their contact item IDs.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TContactItemId aItemId</code></td>
+<td class="Cell"><p class="ValueDesc">The ID of the item to add to the group.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TContactItemId aGroupId</code></td>
+<td class="Cell"><p class="ValueDesc">The ID of the group to which the item should be added.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool aInTransaction</code></td>
+<td class="Cell"><p class="ValueDesc">This argument should be ignored by third party developers.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactItem&amp; aItem</code></td>
+<td class="Cell"><p class="ValueDesc">Reference to the item to add to the group.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactItem&amp; aGroup</code></td>
+<td class="Cell"><p class="ValueDesc">Reference to the group to which the item should be added.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">KErrNotFound</code></td>
+<td class="Cell"><p class="ValueDesc">Either the group or the item does not exist.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">KErrNotSupported</code></td>
+<td class="Cell"><p class="ValueDesc">The group is not of type <code>KUidContactGroup</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.6"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aRemoveContactFromGroupL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RemoveContactFromGroupL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void RemoveContactFromGroupL(CContactItem&amp; aItem, CContactItem&amp; aGroup);<br>void RemoveContactFromGroupL(TContactItemId aItemId, TContactItemId aGroupId);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Removes the association between a contact item and a
+group&nbsp;&#8212; overloaded function.</p>
+<p>A panic is raised if:</p>
+<ul>
+<li>
+<p><code>aItem</code> or <code>aGroup</code> is NULL</p>
+</li>
+<li>
+<p>the item is not a member of the group</p>
+</li>
+<li>
+<p>the group is not of type <code>KUidContactGroup</code></p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactItem&amp; aItem</code></td>
+<td class="Cell"><p class="ValueDesc">Reference to the item to remove.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CContactItem&amp; aGroup</code></td>
+<td class="Cell"><p class="ValueDesc">Reference to the group from which the item should be removed.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TContactItemId aItemId</code></td>
+<td class="Cell"><p class="ValueDesc">ID of the item to remove.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TContactItemId aGroupId</code></td>
+<td class="Cell"><p class="ValueDesc">ID of the group from which the item should be removed.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.7"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aGroupCount%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GroupCount()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt GroupCount() const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Returns the number of groups that currently exist in the
+database.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The number of groups that currently exist in the database.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Open and close a contact</h2>
+</div><div class="Bodytext">
+<a name="2.11.2"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aOpenContactL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>OpenContactL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CContactItem* OpenContactL(TContactItemId aContactId);<br>CContactItem* OpenContactL(TContactItemId aContactId,const CContactItemViewDef&amp; aViewDef);</code></p><h4 class="subheading">Description</h4>
+<p>Opens a contact item for editing&nbsp;&#8212; overloaded function. The
+returned contact item is locked and left open until
+either <code>CommitContactL()</code> or <code>CloseContactL()</code> is
+called.</p>
+<p>The variant of the function which does not take a view definition
+parameter uses a view definition which loads every field. </p>
+<p>Notes:</p>
+<ul><li><p>Care should be taken when specifying a view definition because when
+committing the contact item any fields not loaded by the view definition are
+deleted from the item.</p></li><li><p>The caller takes ownership of the returned object.</p></li></ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TContactItemId aContactId</code></td>
+<td class="Cell"><p class="ValueDesc">The ID of the contact item to open.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CContactItemViewDef&amp; aViewDef</code></td>
+<td class="Cell"><p class="ValueDesc">If specified, the view definition.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactItem*</code></td>
+<td class="Cell"><p class="ValueDesc">The open, locked contact.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">KErrInUse</code></td>
+<td class="Cell"><p class="ValueDesc">The contact item is already open.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">KErrNotFound</code></td>
+<td class="Cell"><p class="ValueDesc"> The contact item is not present in the database. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.3"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aOpenContactLX%28%29"></a>
+<hr size="1" noshade>
+<h3><code>OpenContactLX()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CContactItem* OpenContactLX(TContactItemId aContactId);<br>CContactItem* OpenContactLX(TContactItemId aContactId,const CContactItemViewDef&amp; aViewDef);</code></p><h4 class="subheading">Description</h4>
+<p>Opens the contact item for editing&nbsp;&#8212; overloaded function.
+The returned item is locked and left open until
+either <code>CommitContactL()</code> or <code>CloseContactL()</code> is
+called.</p>
+<p>The variant of the function which does not take a view definition
+parameter uses a view definition which loads every field.</p>
+<p>The <code>LX</code> suffix means that the lock record of the contact item
+is left on the cleanup stack.</p>
+<p>Notes:</p>
+<ul><li><p>Care should be taken when specifying a view definition because when
+committing the contact item any fields not loaded by the view definition are deleted
+from the item.</p></li><li><p>The caller takes ownership of the returned object.</p></li></ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TContactItemId aContactId</code></td>
+<td class="Cell"><p class="ValueDesc">The ID of the contact item to open.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CContactItemViewDef&amp; aViewDef</code></td>
+<td class="Cell"><p class="ValueDesc">The view definition.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactItem*</code></td>
+<td class="Cell"><p class="ValueDesc">The open, locked contact item.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">KErrInUse</code></td>
+<td class="Cell"><p class="ValueDesc">The contact item is already open.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">KErrNotFound</code></td>
+<td class="Cell"><p class="ValueDesc">The contact item is not present in the database. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.4"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aCloseContactL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CloseContactL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void CloseContactL(TContactItemId aContactId);</code></p><h4 class="subheading">Description</h4>
+<p>Closes the contact item allowing other applications to access it.
+Specifying a contact item that is not open, or cannot be found, is harmless.
+This function does not commit any changes made to the item. Despite the
+trailing <code>L</code> in the function's name, this function cannot
+leave.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TContactItemId aContactId</code></td>
+<td class="Cell"><p class="ValueDesc">The ID of the contact to close.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.5"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aCommitContactL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CommitContactL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void CommitContactL(const CContactItem&amp; aContact);</code></p><h4 class="subheading">Description</h4>
+<p>Overwrites a contact item with the values contained
+in <code>aContact</code>. The contact item is also closed by this
+call.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CContactItem&amp; aContact</code></td>
+<td class="Cell"><p class="ValueDesc">Contains the new values for the contact item.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">KErrAccessDenied</code></td>
+<td class="Cell"><p class="ValueDesc">The contact item is not locked by the caller.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">KErrNotFound</code></td>
+<td class="Cell"><p class="ValueDesc">The contact item's ID is not present in the database.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Reading</h2>
+</div><div class="Bodytext">
+<a name="2.12.2"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aReadContactL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ReadContactL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CContactItem* ReadContactL(TContactItemId aContactId);<br>CContactItem* ReadContactL(TContactItemId aContactId,const CContactItemViewDef&amp; aViewDef);</code></p><h4 class="subheading">Description</h4>
+<p>Reads a contact item&nbsp;&#8212; overloaded function.
+Unlike <code>OpenContactL()</code>, these functions do not lock the
+contact.</p>
+<p>The variant of the function which does not take a view definition
+parameter uses the default view definition (as set
+by <code>SetViewDefinitionL()</code>). The caller takes ownership of the returned object.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TContactItemId aContactId</code></td>
+<td class="Cell"><p class="ValueDesc">The ID of the contact item to read.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CContactItemViewDef&amp; aViewDef</code></td>
+<td class="Cell"><p class="ValueDesc">If specified, the view definition to use.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactItem*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the contact item.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">KErrNotFound</code></td>
+<td class="Cell"><p class="ValueDesc">The specified contact item does not exist in the database.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.3"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aReadContactLC%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ReadContactLC()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CContactItem* ReadContactLC(TContactItemId aContactId);<br>CContactItem* ReadContactLC(TContactItemId aContactId,const CContactItemViewDef&amp; aViewDef);</code></p><h4 class="subheading">Description</h4>
+<p>Reads a contact&nbsp;item&nbsp;&#8212; overloaded function.
+Unlike <code>OpenContactL()</code>, this function does not lock the
+contact.</p>
+<p>The variant of the function which does not take a view definition
+parameter uses the default view definition (as set
+by <code>SetViewDefinitionL()</code>). The caller takes ownership of the returned object.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TContactItemId aContactId</code></td>
+<td class="Cell"><p class="ValueDesc">The ID of the contact to read.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CContactItemViewDef&amp; aViewDef</code></td>
+<td class="Cell"><p class="ValueDesc">If specified, the view definition to use.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactItem*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the contact whose ID is <code>aContactId</code>. The contact
+is left on the cleanup stack.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">KErrNotFound</code></td>
+<td class="Cell"><p class="ValueDesc">The specified contact item does not exist in the database.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.4"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aReadMinimalContactL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ReadMinimalContactL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CContactItem* ReadMinimalContactL(TContactItemId aContactId);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Reads a contact item (contact card, own card, template, or contact
+group), but does not read the group or template information. This function is
+identical to the variant of <code>ReadContactL()</code> which uses the
+database's default view definition, except that the following information is
+not read:&nbsp;&#8212; </p>
+<ul>
+<li>
+<p>the list of group members and the group label (if the item is
+a <code>CContactGroup</code>)</p>
+</li>
+<li>
+<p>the template label (if the item is
+a <code>CContactCardTemplate</code>)</p>
+</li>
+<li>
+<p>the list of groups to which the item belongs, if any (not applicable to
+templates)</p>
+</li>
+<li>
+<p>any fields inherited from a non-system template, if any (not applicable
+if the item is a <code>CContactCardTemplate</code>)</p>
+</li>
+</ul>
+<p>Notes:</p>
+<ul><li><p>This function is faster than the standard reading function
+(<code>ReadContactL()</code>), which needs to match  the template fields and
+groups etc.</p></li><li><p>The caller takes ownership of the returned object.</p></li></ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TContactItemId aContactId</code></td>
+<td class="Cell"><p class="ValueDesc">The ID of the contact to read.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactItem*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the contact whose ID is <code>aContactId</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">KErrNotFound</code></td>
+<td class="Cell"><p class="ValueDesc">The specified contact item cannot be found in the database.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.5"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aReadMinimalContactLC%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ReadMinimalContactLC()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CContactItem* ReadMinimalContactLC(TContactItemId aContactId);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Reads a contact item (contact card, own card, template, or contact
+group), but does not read the group or template information. The object is left
+on the cleanup stack. This function is identical to the variant
+of <code>ReadContactL()</code> which uses the database's default view
+definition, except that the following information is not
+read:&nbsp;&#8212;</p>
+<ul>
+<li>
+<p>the list of group members and the group label (if the item is
+a <code>CContactGroup</code>)</p>
+</li>
+<li>
+<p>the template label (if the item is
+a <code>CContactCardTemplate</code>)</p>
+</li>
+<li>
+<p>the list of groups to which the item belongs, if any (not applicable to
+templates)</p>
+</li>
+<li>
+<p>any fields inherited from a non-system template, if any (not applicable
+if the item is a <code>CContactCardTemplate</code>)</p>
+</li>
+</ul>
+<p>Notes:</p>
+<ul><li><p>This function is faster than the standard reading function
+(<code>ReadContactLC()</code>), which needs to match the template fields and
+groups etc.</p></li><li><p>The caller takes ownership of the returned object.</p></li></ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TContactItemId aContactId</code></td>
+<td class="Cell"><p class="ValueDesc">The ID of the contact to read.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactItem*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the contact whose ID is <code>aContactId</code>. The contact
+is left on the cleanup stack.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">KErrNotFound</code></td>
+<td class="Cell"><p class="ValueDesc">The specified contact item cannot be found in the database.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.6"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aReadContactTextDefL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ReadContactTextDefL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ReadContactTextDefL(const CContactItem&amp; aItem, TDes&amp; aResult);<br>void ReadContactTextDefL(const CContactItem&amp; aItem, TDes&amp; aResult,CContactTextDef* aTextDef);</code></p><h4 class="subheading">Description</h4>
+<p>Reads text into a descriptor from a pre-loaded contact item, using a text
+definition&nbsp;&#8212; overloaded function.</p>
+<p>The variant of the function which does not take a text definition
+parameter uses the database's currently set text definition (as set
+using <code>CContactDatabase::SetTextDefinitionL()</code>).</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CContactItem&amp; aItem</code></td>
+<td class="Cell"><p class="ValueDesc">The contact item to read.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes&amp; aResult</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the text read from the contact
+item <code>aItem</code>, using either the database's current text definition or
+the text definition specified in <code>aTextDef</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactTextDef* aTextDef</code></td>
+<td class="Cell"><p class="ValueDesc">If specified, the text definition to use.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.7"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aReadContactTextDefL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ReadContactTextDefL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ReadContactTextDefL(TContactItemId aContactId, TDes&amp; aResult);<br>void ReadContactTextDefL(TContactItemId aContactId, TDes&amp; aResult,CContactTextDef* aTextDef);</code></p><h4 class="subheading">Description</h4>
+<p>Reads text from a contact item stored in the database into a
+descriptor&nbsp;&#8212; overloaded function. It uses the database's
+currently set text definition (as set
+using <code>CContactDatabase::SetTextDefinitionL()</code>), or, if specified,
+the text definition <code>aTextDef</code>. The contact item is identified by
+its contact ID.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TContactItemId aContactId</code></td>
+<td class="Cell"><p class="ValueDesc">The ID of the contact to read.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes&amp; aResult</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the text read from the contact item identified
+by <code>aContactId</code>, using either the database's current text definition
+or the text definition specified in <code>aTextDef</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactTextDef* aTextDef</code></td>
+<td class="Cell"><p class="ValueDesc">If specified, the text definition to use.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">KErrNotFound</code></td>
+<td class="Cell"><p class="ValueDesc">The specified contact item cannot be found in the database.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.8"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aReadContactAndAgentL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ReadContactAndAgentL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CArrayPtr&lt;CContactItem&gt;* ReadContactAndAgentL(TContactItemId aContactId);</code></p><h4 class="subheading">Description</h4>
+<p>Reads a contact item and an agent if the item has an agent field. The
+item and agent (if present) are returned in an array. The function uses the
+database's default view definition (as set
+by <code>SetViewDefinitionL()</code>). The caller takes ownership of the returned object.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TContactItemId aContactId</code></td>
+<td class="Cell"><p class="ValueDesc">The ID of the contact item to read.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CArrayPtr&lt;CContactItem&gt;*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to an array containing the contact item and agent, if
+present.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">KErrNotFound</code></td>
+<td class="Cell"><p class="ValueDesc">The specified contact item cannot be found in the database.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Add and remove items</h2>
+</div><div class="Bodytext">
+<a name="2.13.2"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aAddNewContactL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>AddNewContactL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TContactItemId AddNewContactL(CContactItem&amp; aContact);</code></p><h4 class="subheading">Description</h4>
+<p>Adds a new contact item to the database and returns its contact item
+ID.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactItem&amp; aContact</code></td>
+<td class="Cell"><p class="ValueDesc">The contact item to add to the database.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TContactItemId</code></td>
+<td class="Cell"><p class="ValueDesc">The ID of the new contact item.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.3"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aDeleteContactL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DeleteContactL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void DeleteContactL(TContactItemId aContactId);</code></p><h4 class="subheading">Description</h4>
+<p>Deletes a contact item.</p>
+<p>Note:</p>
+<p>If the contact&#8217;s access count is greater than zero the contact is
+not fully deleted from the database. A skeleton of the contact is left,
+containing only basic information, and no field data. The skeleton contact can
+still be accessed if a record of its contact ID has been retained (or
+call <code>DeletedContactsLC()</code>). The skeleton is removed when the access
+count is zero.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TContactItemId aContactId</code></td>
+<td class="Cell"><p class="ValueDesc">The contact item ID of the contact to delete.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">KErrNotFound</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>aContactId</code> is not present in the database.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">KErrInUse</code></td>
+<td class="Cell"><p class="ValueDesc">The contact item is open.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.4"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aDeleteContactsL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DeleteContactsL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void DeleteContactsL(const CContactIdArray&amp; aContactIds);</code></p><h4 class="subheading">Description</h4>
+<p>Deletes an array of contacts. The function commits the database for every
+16 contacts deleted, and compresses the database as required. A changed message
+is not sent for every contact deleted, instead a single unknown change event
+message (<code>EContactDbObserverEventUnknownChanges</code>) is sent after all
+the contacts have been deleted and the changes committed.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CContactIdArray&amp; aContactIds</code></td>
+<td class="Cell"><p class="ValueDesc">An array of contacts to delete.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">KErrNotFound</code></td>
+<td class="Cell"><p class="ValueDesc">A contact item ID contained in the array is not present in the
+database.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">KErrInUse</code></td>
+<td class="Cell"><p class="ValueDesc">One or more of the contact items is open.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Import and export</h2>
+</div><div class="Bodytext">
+<a name="2.14.2"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aImportContactsL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ImportContactsL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CArrayPtr&lt;CContactItem&gt;* ImportContactsL(const TUid&amp; aFormat,RReadStream&amp; aReadStream,TBool&amp; aImportSuccessful,TInt aOption);</code></p><h4 class="subheading">Description</h4>
+<p>Imports one or more vCards from a read stream. The vCards are converted
+into contact items, and added to the database. If at least one contact item was
+successfully imported, <code>aImportSuccessful</code> is set
+to <code>ETrue</code>. If <code>EImportSingleContact</code> is specified
+in <code>aOption</code>, the read stream marker is left at the next position,
+ready to read the next contact item. The caller takes ownership of the returned object.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TUid&amp; aFormat</code></td>
+<td class="Cell"><p class="ValueDesc">Indicates the format for imported and exported contacts. Its value must
+be <code>KVersitEntityUidVCard</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">RReadStream&amp; aReadStream</code></td>
+<td class="Cell"><p class="ValueDesc">The stream to read from.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool&amp; aImportSuccessful</code></td>
+<td class="Cell"><p class="ValueDesc">On return, <code>ETrue</code> if at least one contact was successfully
+imported. <code>EFalse</code> if not.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aOption</code></td>
+<td class="Cell"><p class="ValueDesc">Indicates the options for import and export. See
+the <code>TOptions</code> enum.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CArrayPtr&lt;CContactItem&gt;*</code></td>
+<td class="Cell"><p class="ValueDesc">The array of contact items imported.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">KErrNotSupported</code></td>
+<td class="Cell"><p class="ValueDesc"><code>aFormat.iUid</code> is
+not <code>KVersitEntityUidVCard</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.3"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aExportSelectedContactsL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ExportSelectedContactsL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ExportSelectedContactsL(const TUid&amp; aFormat,const CContactIdArray&amp; aSelectedContactIds,RWriteStream&amp; aWriteStream,TInt aOption,TBool aExportPrivateFields=ETrue);<br>void ExportSelectedContactsL(const TUid&amp; aFormat,const CContactIdArray&amp; aSelectedContactIds,RWriteStream&amp; aWriteStream,TInt aOption,const CVersitParser::TVersitCharSet aCharSet, TBool aExportPrivateFields=ETrue);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Exports an array of contact items to a write stream&nbsp;&#8212;
+overloaded function. The items are converted into vCards before being written
+to the stream.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TUid&amp; aFormat</code></td>
+<td class="Cell"><p class="ValueDesc">Indicates the format for imported and exported contacts. Must have a
+value of <code>KVersitEntityUidVCard</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CContactIdArray&amp; aSelectedContactIds</code></td>
+<td class="Cell"><p class="ValueDesc">Array of contact IDs to export.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">RWriteStream&amp; aWriteStream</code></td>
+<td class="Cell"><p class="ValueDesc">The stream to write to.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aOption</code></td>
+<td class="Cell"><p class="ValueDesc">Indicates the options for import and export. See
+the <code>TOptions</code> enum.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CVersitParser::TVersitCharSet aCharSet</code></td>
+<td class="Cell"><p class="ValueDesc">The character format. If not specified, defaults
+to <code>CVersitParser::EUTF8CharSet</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool aExportPrivateFields=ETrue</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> exports fields marked as
+private. <code>EFalse</code> does not export fields marked as private.
+See <code>CContactItemField::SetPrivate()</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">KErrNotSupported</code></td>
+<td class="Cell"><p class="ValueDesc"><code>aFormat.iUid</code> is
+not <code>KVersitEntityUidVCard</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">KErrNotFound</code></td>
+<td class="Cell"><p class="ValueDesc">One or more of the contact items does not exist in the database.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Search</h2>
+</div><div class="Bodytext">
+<a name="2.15.2"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aFindLC%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FindLC()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CContactIdArray* FindLC(const TDesC&amp; aText,const CContactItemFieldDef *aFieldDef);</code></p><h4 class="subheading">Description</h4>
+<p>Searches the database for a text string. The function searches the fields
+contained in the field definition. The caller takes ownership of the returned object.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aText</code></td>
+<td class="Cell"><p class="ValueDesc">The text to search for.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CContactItemFieldDef *aFieldDef</code></td>
+<td class="Cell"><p class="ValueDesc">Specifies the fields to search.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactIdArray*</code></td>
+<td class="Cell"><p class="ValueDesc">Array of contact IDs identifying the contact items which contain the
+specified text.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15.3"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aFindAsyncL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FindAsyncL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CIdleFinder* FindAsyncL(const TDesC&amp; aText,const CContactItemFieldDef *aFieldDef, MIdleFindObserver *aObserver);</code></p><h4 class="subheading">Description</h4>
+<p>Searches the database asynchronously for a text string. The function
+searches the fields contained in the field definition asynchronously using
+the <code>MIdleFindObserver</code> and <code>CIdleFinder</code> classes. The caller takes ownership of the returned object.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aText</code></td>
+<td class="Cell"><p class="ValueDesc">The text to search for.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CContactItemFieldDef *aFieldDef</code></td>
+<td class="Cell"><p class="ValueDesc">Specifies the fields to search.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">MIdleFindObserver *aObserver</code></td>
+<td class="Cell"><p class="ValueDesc">Implements the callback function <code>IdleFindCallback()</code>. NULL if
+no observer is needed.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CIdleFinder*</code></td>
+<td class="Cell"><p class="ValueDesc">A <code>CIdle</code>-derived object which provides information about the
+progress of the operation, and which can be used to retrieve an array of
+contact IDs.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15.4"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aFindInTextDefLC%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FindInTextDefLC()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CContactIdArray* FindInTextDefLC(const MDesCArray&amp; aFindWords, const TCallBack&amp; aWordParserCallback);<br>CContactIdArray* FindInTextDefLC(const MDesCArray&amp; aFindWords,CContactTextDef* aTextDef, const TCallBack&amp; aWordParserCallback);</code></p><h4 class="subheading">Description</h4>
+<p>Allows the user to search the database for a string containing text which
+is stored in one or more fields&nbsp;&#8212; overloaded function. The string
+is specified as an array of words.</p>
+<p>For example, a user might want to search for the string &quot;John Smith&quot;. To
+the user the string is a single item, but the text which makes up the string is
+stored in two separate fields in the database.</p>
+<p>The caller of this function needs to provide an array of words to find
+(<code>aFindWords</code>), and a function to break down the text in the contact
+item into a list of words (<code>aWordParserCallback</code>).</p>
+<p>The array of words to find would typically not contain punctuation. For
+example if the user searches for &#8220;Smith, John&#8221; this would be
+passed to this function as an array of two words: &#8220;Smith&#8221; and
+&#8220;John&#8221;, with the separator being discarded.</p>
+<p>For a match to succeed, all words in the <code>aFindWords</code> array
+must match words in the array generated from the contact item by
+the <code>aWordParserCallback</code> function. To match, the word generated from
+the contact item must begin with the search word, i.e. a search for &quot;Sm&quot; would
+find any word beginning in &quot;Sm&quot;. If a word is specified twice in
+the <code>aFindWords</code> array, then it must exist in two separate places in
+the contact item.</p>
+<p>The function only searches the fields contained in the text
+definition <code>aTextDef</code>, if specified. If not specified, the function
+uses the currently set text definition. </p><p>The caller takes ownership of the returned object.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const MDesCArray&amp; aFindWords</code></td>
+<td class="Cell"><p class="ValueDesc">An array of words to find.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TCallBack&amp; aWordParserCallback</code></td>
+<td class="Cell"><p class="ValueDesc">A function supplied by the caller to break the text in the contact down
+into a list of words.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactTextDef* aTextDef</code></td>
+<td class="Cell"><p class="ValueDesc">If specified, the text definition.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactIdArray*</code></td>
+<td class="Cell"><p class="ValueDesc">Array of contact IDs.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15.5"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aFindInTextDefAsyncL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FindInTextDefAsyncL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CIdleFinder* FindInTextDefAsyncL(const MDesCArray&amp; aFindWords, MIdleFindObserver *aObserver, const TCallBack&amp; aWordParserCallback);<br>CIdleFinder* FindInTextDefAsyncL(const MDesCArray&amp; aFindWords,const CContactTextDef* aTextDef, MIdleFindObserver *aObserver, const TCallBack&amp; aWordParserCallback);</code></p><h4 class="subheading">Description</h4>
+<p>Searches the database for an array of words&nbsp;&#8212; overloaded
+function.</p>
+<p>These two functions work in the same way as the corresponding variants
+of <code>FindInTextDefLC()</code>, except that they operate asynchronously using
+the <code>MIdleFindObserver</code> and <code>CIdleFinder</code> classes. The caller takes ownership of the returned object.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const MDesCArray&amp; aFindWords</code></td>
+<td class="Cell"><p class="ValueDesc">An array of words to find.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">MIdleFindObserver *aObserver</code></td>
+<td class="Cell"><p class="ValueDesc">Implements the callback function <code>IdleFindCallback()</code>. May be
+NULL if no observer is needed.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TCallBack&amp; aWordParserCallback</code></td>
+<td class="Cell"><p class="ValueDesc">A function to break the text in the contact down into a list of
+words.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CContactTextDef* aTextDef</code></td>
+<td class="Cell"><p class="ValueDesc">If specified, the text definition.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CIdleFinder*</code></td>
+<td class="Cell"><p class="ValueDesc">A <code>CIdle</code>-derived object which provides information about the
+progress of the operation, and which can be used to retrieve an array of
+contact IDs.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Sort</h2>
+</div><div class="Bodytext">
+<a name="2.16.2"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aSortL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SortL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SortL(CArrayFix&lt;TSortPref&gt;* aSortOrder);</code></p><h4 class="subheading">Description</h4>
+<p>Sorts the database. The sort only includes items of the type set
+by <code>SetDbViewContactType()</code>. The database takes ownership of the sort
+order array passed in. Contacts are sorted using the
+first <code>TSortPref</code> in the array. Any identical matches are then sorted
+using the next <code>TSortPref</code> and so on. When there are no
+more <code>TSortPref</code>s to use, any remaining unsorted contacts are left in
+the natural database order.</p>
+<p>Note:</p>
+<p>After calling this function,
+use <code>CContactDatabase::SortedItemsL()</code> to retrieve the sorted array
+of contact IDs.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CArrayFix&lt;TSortPref&gt;* aSortOrder</code></td>
+<td class="Cell"><p class="ValueDesc">Sort order array. If the array's count is zero, no sorting takes
+place.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16.3"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aSortArrayL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SortArrayL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CContactIdArray* SortArrayL(const CContactIdArray* aIdArray, const CArrayFix&lt;TSortPref&gt;* aSortOrder)</code></p><h4 class="subheading">Description</h4>
+<p>Sorts an array of contact IDs. The sort uses the same logic
+as <code>SortL()</code>. The caller takes ownership of the returned object.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CContactIdArray* aIdArray</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to array of contact IDs to sort.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CArrayFix&lt;TSortPref&gt;* aSortOrder</code></td>
+<td class="Cell"><p class="ValueDesc">Sort order array.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactIdArray*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to sorted array of contact IDs.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16.4"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aSortArrayLC%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SortArrayLC()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CContactIdArray* SortArrayLC(const CContactIdArray* aIdArray, const CArrayFix&lt;TSortPref&gt;* aSortOrder);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Sorts an array of contact IDs. The sort uses the same logic
+as <code>SortL()</code>. The returned array is left on the cleanup
+stack. The caller takes ownership of the returned object.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CContactIdArray* aIdArray</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to array of contact IDs to sort.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CArrayFix&lt;TSortPref&gt;* aSortOrder</code></td>
+<td class="Cell"><p class="ValueDesc">Sort order array.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactIdArray*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to sorted array of contact IDs.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16.5"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aSetDbViewContactType%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetDbViewContactType()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetDbViewContactType(const TUid aUid);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Sets the type of contact items to be included in sorted views of the
+database. See also <code>SortL()</code> and <code>SortByTypeL()</code>.</p>
+<p>This value is initialised to <code>KUidContactItem</code> when the
+database is opened. This means that all <code>CContactItem</code>-derived types
+(cards, non-system templates, groups, own cards) are included in database
+views.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TUid aUid</code></td>
+<td class="Cell"><p class="ValueDesc">Specifies a contact type. One of the
+following:&#0160;&#8212; <code>KUidContactCard</code> (contact
+cards), <code>KUidContactGroup</code> (contact item
+groups), <code>KUidContactOwnCard</code> (own
+cards), <code>KUidContactCardTemplate</code> (templates which are not system
+templates, i.e. which have been added to the
+database), <code>KUidContactItem</code> (all of the above)</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16.6"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aGetDbViewContactType%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetDbViewContactType()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TUid GetDbViewContactType() const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Gets the type of contact items which are included in sorted views of the
+database, as set by <code>SetDbViewContactType()</code>.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUid</code></td>
+<td class="Cell"><p class="ValueDesc">Specifies a contact type. One of the
+following:&#0160;&#8212; <code>KUidContactCard</code> (contact
+cards), <code>KUidContactGroup</code> (contact item
+groups), <code>KUidContactOwnCard</code> (own
+cards), <code>KUidContactCardTemplate</code> (templates which are not system,
+i.e. which have been added to the database), <code>KUidContactItem</code> (all of
+the above)</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16.7"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aSortByTypeL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SortByTypeL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SortByTypeL(CArrayFix&lt;TSortPref&gt;* aSortOrder);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Sorts the database using the view type value set
+by <code>SetDbViewContactType()</code>. The database takes ownership of the sort
+order array passed in.</p>
+<p>The sort uses the same logic as <code>SortL()</code>&nbsp;&#8212; the
+two functions have the same effect.</p>
+<p>After calling this function,
+use <code>CContactDatabase::SortedItemsL()</code> to retrieve the sorted array
+of contact IDs.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CArrayFix&lt;TSortPref&gt;* aSortOrder</code></td>
+<td class="Cell"><p class="ValueDesc">Sort order array.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16.8"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aSortedItemsL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SortedItemsL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const CContactIdArray* SortedItemsL();</code></p><h4 class="subheading">Description</h4>
+<p>Returns a pointer to the array of contact items which have been sorted by
+either <code>SortByTypeL()</code> or <code>SortL()</code>. This pointer is
+valid until a change is made to the database or until the database&#8217;s
+active object is allowed to run. If the array is required after one of the
+above two events has occurred, a copy of the array must first be
+made.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactIdArray*</code></td>
+<td class="Cell"><p class="ValueDesc">A pointer to the array of sorted items. The caller does not take ownership of this object.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.17"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Own card</h2>
+</div><div class="Bodytext">
+<a name="2.17.2"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aCreateOwnCardL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CreateOwnCardL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CContactItem* CreateOwnCardL();</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Creates a default own card based on the system template and adds it to
+the database. This is set as the database's current own card, replacing any
+existing current own card. The caller takes ownership of the returned object.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactItem*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the new default own card.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.17.3"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aCreateOwnCardLC%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CreateOwnCardLC()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CContactItem* CreateOwnCardLC();</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Creates a default own card based on the system template and adds it to
+the database. This is set as the database's current own card, replacing any
+existing current own card. The caller takes ownership of the returned object.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactItem*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the new default own card. The pointer is left on the cleanup
+stack.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.17.4"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aOwnCardId%28%29"></a>
+<hr size="1" noshade>
+<h3><code>OwnCardId()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TContactItemId OwnCardId() const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Returns the ID of the database's current own card. </p>
+<p>Having obtained this ID, the client may then open the own card in the
+same way as an ordinary contact card (using <code>ReadContactL()</code> or <code>OpenContactL()</code>).</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TContactItemId</code></td>
+<td class="Cell"><p class="ValueDesc">The ID of the database's current own card. <code>KNullContactId</code> if
+the own card has been deleted or has not yet been set.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.17.5"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aSetOwnCardL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetOwnCardL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetOwnCardL(const CContactItem&amp; aContact);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Sets an existing contact item to be the database's current own
+card.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CContactItem&amp; aContact</code></td>
+<td class="Cell"><p class="ValueDesc">The contact item to set as the database's current own card. It must
+already exist in the database. It can be of any contact item type.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">KErrNotFound</code></td>
+<td class="Cell"><p class="ValueDesc"><code>aContact</code> does not exist in the database.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.18"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Current item and database</h2>
+</div><div class="Bodytext">
+<a name="2.18.2"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aSetCurrentItem%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetCurrentItem()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetCurrentItem(const TContactItemId aContactId);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Sets the ID of the current item and persists it in the database. The
+current item is provided for use by clients who want to identify one contact
+item in the database as the currently selected item.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TContactItemId aContactId</code></td>
+<td class="Cell"><p class="ValueDesc">The ID of the current item.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.18.3"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aGetCurrentItem%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetCurrentItem()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const TContactItemId GetCurrentItem() const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Gets the ID of the current item, as set by <code>SetCurrentItem()</code>.
+The current item ID is initialised to <code>KNullContactId</code> when the
+database is opened.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TContactItemId</code></td>
+<td class="Cell"><p class="ValueDesc">The ID of the current item.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.18.4"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aSetCurrentDatabase%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetCurrentDatabase()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt SetCurrentDatabase(const TDesC&amp; aDatabase) const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Where there are multiple contact databases on a device, this function can
+be used to set a database as the current one.</p>
+<p>Note:</p>
+<p>This function simply updates a file name which is stored by the contacts
+server and its use is optional. It is provided as part of current item
+functionality. In order to pass a current item from one contacts model client
+to another, the receiving client needs to be using the same
+database.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aDatabase</code></td>
+<td class="Cell"><p class="ValueDesc">The path and filename of the current database.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if the function completed successfully, otherwise
+one of the standard error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.18.5"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aGetCurrentDatabase%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetCurrentDatabase()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt GetCurrentDatabase(TDes&amp; aDatabase) const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Where there are multiple contact databases on a device, this function can
+be used to enquire which database is the current one. The current database
+functions are provided as part of current item functionality. In order to pass
+a current item from one contacts model client to another, the receiving client
+needs to be using the same database.</p>
+<p>The current database is a path and filename, set
+using <code>SetCurrentDatabase()</code> which is persisted by the contacts
+server.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes&amp; aDatabase</code></td>
+<td class="Cell"><p class="ValueDesc">The path and filename of the current database. <code>KNullDesC</code> if
+the current database has not been set.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if the function completed successfully, otherwise
+one of the standard error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.19"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Connectivity</h2>
+</div><div class="Bodytext">
+<a name="2.19.2"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aFilterDatabaseL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FilterDatabaseL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void FilterDatabaseL(CCntFilter&amp; aFilter);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Filters the database. On return, <code>aFilter</code> contains an array
+of filtered contact item IDs.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CCntFilter&amp; aFilter</code></td>
+<td class="Cell"><p class="ValueDesc">The filter to use. On return, contains a filtered array of contact item
+IDs.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.19.3"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aSetLastSyncDateL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetLastSyncDateL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TContactSyncId SetLastSyncDateL(const TTime&amp; aSyncDate);<br>void SetLastSyncDateL(TContactSyncId aSyncId, const TTime&amp; aSyncDate);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Sets the date/time the database was last synchronised e.g. with a PC
+scheduler application. The first overload sets the last synchronised date/time
+where the sync ID is not known, and returns the sync ID that was created (a
+sync ID identifies a machine with which the database has been synchronised).
+The second overload is for a particular sync ID and updates the database's last
+synchronised date/time for that ID. It leaves with <code>KErrNotFound</code> if
+the specified sync ID is not found.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TContactSyncId aSyncId</code></td>
+<td class="Cell"><p class="ValueDesc">An existing sync ID.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TTime&amp; aSyncDate</code></td>
+<td class="Cell"><p class="ValueDesc">The database's new last synchronised date/time.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TContactSyncId</code></td>
+<td class="Cell"><p class="ValueDesc">The sync ID created by the function.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.19.4"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aGetLastSyncDateL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetLastSyncDateL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void GetLastSyncDateL(TContactSyncId aSyncId, TTime&amp; aSyncDate);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Returns the date/time the database was last synchronised with a
+particular sync ID, as set by <code>SetLastSyncDateL()</code>.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TContactSyncId aSyncId</code></td>
+<td class="Cell"><p class="ValueDesc">An existing sync ID.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTime&amp; aSyncDate</code></td>
+<td class="Cell"><p class="ValueDesc">On return contains the date/time the database was last synchronised with
+the sync ID specified.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">KErrNotFound</code></td>
+<td class="Cell"><p class="ValueDesc">The ID <code>aSyncId</code> cannot be found in the database.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.19.5"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aContactsChangedSinceL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ContactsChangedSinceL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CContactIdArray* ContactsChangedSinceL(const TTime&amp; aTime);</code></p><h4 class="subheading">Description</h4>
+<p>Gets an array of contacts modified since the specified
+date/time. The caller takes ownership of the returned object.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TTime&amp; aTime</code></td>
+<td class="Cell"><p class="ValueDesc">The date/time of interest.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactIdArray*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the array of contacts modified since the specified time.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.19.6"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aDeletedContactsLC%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DeletedContactsLC()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CContactIdArray* DeletedContactsLC();</code></p><h4 class="subheading">Description</h4>
+<p>Gets an array of IDs for contact items that still exist in the database,
+but are marked as deleted. These are contact items which have been deleted, but
+which have a non-zero access count. The caller takes ownership of the returned object.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactIdArray*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the array of contacts marked as deleted.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.20"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Database ID</h2>
+</div><div class="Bodytext">
+<a name="2.20.2"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aMachineId%28%29"></a>
+<hr size="1" noshade>
+<h3><code>MachineId()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt64 MachineId() const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Returns a number unique to the contacts database. This value may be
+passed to <code>CContactItem::UidStringL()</code>.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt64</code></td>
+<td class="Cell"><p class="ValueDesc">The database's unique ID.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.21"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Compression</h2>
+</div><div class="Bodytext">
+<a name="2.21.2"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aCompressRequired%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CompressRequired()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool CompressRequired();</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether a compress is recommended. This function provides an easy
+way of testing whether the database is being used efficiently.</p>
+<p><code>ETrue</code> is returned if:</p>
+<ul>
+<li>
+<p>more than 32K of space is wasted and this is more than 50% of the file,
+or</p>
+</li>
+<li>
+<p>more than 256K is wasted in the file</p>
+</li>
+</ul><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> if a compress is recommended, <code>EFalse</code> if
+not or if an error occurred.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.21.3"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aCompactL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CompactL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void CompactL();</code></p><h4 class="subheading">Description</h4>
+<p>Compacts the database to its minimum size
+synchronously.</p>
+<a name="2.21.4"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aCompressL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CompressL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void CompressL();</code></p><h4 class="subheading">Description</h4>
+<p>Compacts the database using an active compressor. This function is
+identical to <code>CompactL()</code>, except that it is asynchronous.</p>
+<a name="2.21.5"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aCreateCompressorLC%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CreateCompressorLC()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CContactActiveCompress* CreateCompressorLC();</code></p><h4 class="subheading">Description</h4>
+<p>Creates an active compressor to compress the database with an active
+object.</p>
+<p>An observer set up on the active compressor can be used to provide a
+progress dialog. The caller takes ownership of the returned object.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactActiveCompress*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to an active compressor.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.22"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Recovery</h2>
+</div><div class="Bodytext">
+<a name="2.22.2"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aIsDamaged%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IsDamaged()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool IsDamaged() const;</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether the database is damaged and needs to be
+recovered.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> if the database is damaged and needs
+recovery, <code>EFalse</code> otherwise.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.22.3"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aRecoverL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RecoverL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void RecoverL();</code></p><h4 class="subheading">Description</h4>
+<p>Recovers the database from a rollback. First closes all tables and then
+reopens them after the recover.</p>
+<a name="2.22.4"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aCreateRecoverLC%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CreateRecoverLC()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CContactActiveRecover* CreateRecoverLC();</code></p><h4 class="subheading">Description</h4>
+<p>Creates an active recoverer object to recover the database using an
+active object. The caller takes ownership of the returned object.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactActiveRecover*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to an active recoverer.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.22.5"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aCloseTables%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CloseTables()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void CloseTables();</code></p><h4 class="subheading">Description</h4>
+<p>Closes all database tables. After a rollback and recover all tables need
+to be closed and re-opened before the database can be accessed again.</p>
+<a name="2.22.6"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aOpenTablesL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>OpenTablesL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void OpenTablesL();</code></p><h4 class="subheading">Description</h4>
+<p>Opens all database tables. After a rollback and recover all tables need
+to be closed and re-opened before the database can be accessed again. This
+function calls <code>CloseTables()</code> first to ensure that all tables are
+closed before opening them.</p>
+<a name="2.23"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Phone number matching</h2>
+</div><div class="Bodytext">
+<a name="2.23.2"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aInitLoadPhoneMatchesL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>InitLoadPhoneMatchesL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt InitLoadPhoneMatchesL();</code></p><h4 class="subheading">Description</h4>
+<p>Initialises the phone number matching process. Returns the total number
+of contacts to be indexed.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The total number of contacts to be indexed.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.23.3"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aLoadPhoneMatchesL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>LoadPhoneMatchesL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt LoadPhoneMatchesL();</code></p><h4 class="subheading">Description</h4>
+<p>Indexes the next set of contact items for phone number matching.</p>
+<p>Indexing involves reading a batch of contact items. For all items which
+contain a telephone number field, the number is extracted and is added to a
+list of telephone numbers stored internally by the contacts model.</p>
+<p>Note:</p>
+<p>This function handles any changes which occur during the indexing to the
+number of contact items. The function returns zero on completion or remains
+fixed at one until all the contacts are indexed.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The number of contact items whch have not yet been indexed. Zero when all
+contacts have been indexed.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.23.4"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aPhoneMatchListL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PhoneMatchListL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CContactIdArray *PhoneMatchListL(const TDesC&amp; aNumber) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets an array of contact item IDs that might match the specified phone
+number. The algorithm doesn&#8217;t check for an exact match (only the last
+eight digits of <code>aNumber</code> are compared) but provides a fast way of
+finding contacts that probably match the number. </p>
+<p>All fields in the contact items returned by this function should be
+checked for a match. The caller takes ownership of the returned object.</p>
+<p>Note:</p>
+<p>These three functions could be used as follows:&nbsp;&#8212; </p>
+<p>In the following code, <code>phoneNumber</code> is a descriptor
+containing a phone number to match as text.</p>
+<p class="CodeBlock"><code>TInt todo=database-&gt;InitLoadPhoneMatchesL();<br>while(todo&gt;0)<br>&nbsp;&nbsp;&nbsp;&nbsp;todo=database-&gt;LoadPhoneMatchesL();<br>CContactIdArray *matchArray=database-&gt;PhoneMatchListL(phoneNumber);</code></p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aNumber</code></td>
+<td class="Cell"><p class="ValueDesc">Descriptor specifying the number to find.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactIdArray</code></td>
+<td class="Cell"><p class="ValueDesc">Array of contact IDs which identify contact items containing phone
+numbers matching <code>aNumber</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.23.5"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aTextToPhoneMatchNumber%28%29"></a>
+<hr size="1" noshade>
+<h3><code>TextToPhoneMatchNumber()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static TInt TextToPhoneMatchNumber(const TDesC &amp;aText, TInt &amp;aNumDigits, TInt aPhoneMatchLength=8);</code></p><h4 class="subheading">Description</h4>
+<p>Converts a telephone number stored in a text string into numeric format.
+The number of digits (counting from the end of the string) to convert can be
+specified. By default it is the last eight digits. The return value from this
+function can be passed to <code>MatchPhoneNumberL()</code>. The method only
+looks at digits in the text string provided, all other characters are ignored.
+If the string contains no digits, the function returns zero.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC &amp;aText</code></td>
+<td class="Cell"><p class="ValueDesc">Telephone number stored as text.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt &amp;aNumDigits</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the number of digits in the returned telephone
+number.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aPhoneMatchLength=8</code></td>
+<td class="Cell"><p class="ValueDesc">The number of digits (counting from the end of the string) to convert.
+Must be greater than zero, or the function raises a panic.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The telephone number. Zero if the string contains no digits.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.23.6"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aMatchPhoneNumberL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>MatchPhoneNumberL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CContactIdArray* MatchPhoneNumberL(TInt aPhoneNumber);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Returns an array of contact item IDs for all the contact items which
+contain the specified telephone number in any of their fields.</p>
+<p>Notes:</p>
+<ul><li><p>Telephone numbers are automatically stored for recognition as they are
+entered into the database. The telephone number can be obtained by passing the
+text content of a telephone number field into <code>TextToPhoneMatchNumber()</code>.</p></li><li><p>The caller takes ownership of the returned object.</p></li></ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aPhoneNumber</code></td>
+<td class="Cell"><p class="ValueDesc">The telephone number.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactIdArray*</code></td>
+<td class="Cell"><p class="ValueDesc">Array of contact item IDs for all contact items which contain the
+specified telephone number in any of their fields.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">KErrNotFound</code></td>
+<td class="Cell"><p class="ValueDesc">The telephone number cannot be found.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.24"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Speed dialling</h2>
+</div><div class="Bodytext">
+<a name="2.24.2"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aSetFieldAsSpeedDialL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetFieldAsSpeedDialL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetFieldAsSpeedDialL(CContactItem&amp; aItem, TInt aFieldId, TInt aSpeedDialPosition);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Sets a field containing a telephone number as a speed dial field. The
+field is identified by <code>aFieldId</code> within the contact item <code>aItem</code>.
+It is assigned a speed dial position between 1 and 9 inclusive.</p>
+<p>The field's speed dial and user added attributes are set and the
+appropriate UID (<code>KUidSpeedDialXxx</code>) is added to the field's content
+type. The changes are committed to the database.</p>
+<p>Notes:</p>
+<p>If an item's telephone number field has already been assigned to
+position <code>aSpeedDialPosition</code>, that item is updated so that the speed
+dial attribute is removed from its field and the speed dial field type UID is
+removed from the field's content type, before the new speed dial field is
+set.</p>
+<p>The speed dial attribute can be tested for using
+the <code>CContactItemField::IsSpeedDial()</code> function.</p>
+<p>The contact item passed to this function (<code>aItem</code>) must have
+been obtained using one of the variants of <code>CContactDatabase::OpenContactL()</code>.
+This is because it is modified and committed to the database by this function&nbsp;&#8212;
+no further commits are necessary.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactItem&amp; aItem</code></td>
+<td class="Cell"><p class="ValueDesc">The contact item containing the field to set as a speed dial
+field.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aFieldId</code></td>
+<td class="Cell"><p class="ValueDesc">Identifies a field in <code>aItem</code>'s field set to set as a speed
+dial field.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aSpeedDialPosition</code></td>
+<td class="Cell"><p class="ValueDesc">The speed dial position. This is an integer in the range 1 to 9
+inclusive. If outside this range, the function leaves with <code>KErrArgument</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.24.3"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aGetSpeedDialFieldL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetSpeedDialFieldL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TContactItemId GetSpeedDialFieldL(TInt aSpeedDialPosition, TDes&amp; aPhoneNumber);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Returns the ID of the contact item whose telephone number field is mapped
+to the speed dial position specified. This function is provided so that information
+may be displayed about a contact item whose telephone number is being dialled
+using speed dialling.</p>
+<p>The function also retrieves the telephone number stored in the
+field.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aSpeedDialPosition</code></td>
+<td class="Cell"><p class="ValueDesc">The speed dial position. This is an integer in the range 1 to 9
+inclusive. If outside this range, the function leaves with <code>KErrArgument</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes&amp; aPhoneNumber</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the telephone number which is mapped to the speed
+dial position specified. Returns <code>KNullDesC</code> if the speed dial position
+requested has not been set.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TContactItemId</code></td>
+<td class="Cell"><p class="ValueDesc">The ID of the contact item for which the speed dial has been set.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.24.4"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aRemoveSpeedDialFieldL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RemoveSpeedDialFieldL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void RemoveSpeedDialFieldL(TContactItemId aContactId, TInt aSpeedDialPosition);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Removes the mapping between a contact item field and a speed dial
+position.</p>
+<p>Removes the <code>KUidSpeedDialXxx</code> UID from the field's content
+type, removes the field's speed dial attribute and commits the changes to the
+contact item.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TContactItemId aContactId</code></td>
+<td class="Cell"><p class="ValueDesc">The ID of the contact item containing the speed dial field.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aSpeedDialPosition</code></td>
+<td class="Cell"><p class="ValueDesc">The speed dial position. This is an integer in the range 1 to 9
+inclusive. If outside this range, the function leaves with <code>KErrArgument</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.25"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Templates</h2>
+</div><div class="Bodytext">
+<a name="2.25.2"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aTemplateId%28%29"></a>
+<hr size="1" noshade>
+<h3><code>TemplateId()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TContactItemId TemplateId() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the ID of the system template. This can then be read, opened and
+committed like any other contact item.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TContactItemId</code></td>
+<td class="Cell"><p class="ValueDesc">ID of the system template.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.25.3"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aTemplateContentType%28%29"></a>
+<hr size="1" noshade>
+<h3><code>TemplateContentType()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const CContentType&amp; TemplateContentType(const CContactItemField&amp; aField) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the content type of the template field which a specified field maps
+onto. If the field does not map onto a field in a template, then its own content
+type is returned.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CContactItemField&amp; aField</code></td>
+<td class="Cell"><p class="ValueDesc">The field of interest. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContentType</code></td>
+<td class="Cell"><p class="ValueDesc">The content type of the field.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.25.4"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aCreateContactCardTemplateL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CreateContactCardTemplateL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CContactItem* CreateContactCardTemplateL(const TDesC&amp; aTemplateLabel,TBool aInTransaction=EFalse);<br>CContactItem* CreateContactCardTemplateL(const CContactItem* aTemplate,const TDesC&amp; aTemplateLabel,TBool aInTransaction=EFalse);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Creates a contact card template and adds it to the
+database&nbsp;&#8212; overloaded function.</p>
+<p>The caller can optionally specify a contact item on which the new
+template's field set is based. This could be a contact card, an own card, another
+template or even a group. If this is not specified, then the new template's field
+set is based on the system template. Note that no field data is copied into the
+new template. All of the new template's fields are marked as template fields.</p>
+<p>A template label must be specifed. This can be changed later
+using <code>CContactCardTemplate::SetTemplateLabelL()</code>. </p><p>The caller takes ownership of the returned object.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CContactItem* aTemplate</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to an instance of a <code>CContactItem</code>-derived class. This
+is used to initialise the new template's field set.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aTemplateLabel</code></td>
+<td class="Cell"><p class="ValueDesc">The string to set as the template label.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool aInTransaction=EFalse</code></td>
+<td class="Cell"><p class="ValueDesc">This argument should be ignored by developers.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactItem*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the contact card template.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.25.5"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aCreateContactCardTemplateLC%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CreateContactCardTemplateLC()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CContactItem* CreateContactCardTemplateLC(const TDesC&amp; aTemplateLabel,TBool aInTransaction=EFalse);<br>CContactItem* CreateContactCardTemplateLC(const CContactItem* aTemplate,const TDesC&amp; aTemplateLabel,TBool aInTransaction=EFalse);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Creates a contact card template and adds it to the
+database&nbsp;&#8212; overloaded function.</p>
+<p>The caller can optionally specify a contact item on which the new
+template's field set is based. This could be a contact card, an own card, another
+template or even a group. If this is not specified, then the new template's field
+set is based on the system template. Note that no field data is copied into the
+new template. All of the new template's fields are marked as template fields.</p>
+<p>A template label must be specifed. This can later be changed
+using <code>CContactCardTemplate::SetTemplateLabelL()</code>.</p>
+<p>The pointer to the template is left on the cleanup
+stack. The caller takes ownership of the returned object.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CContactItem* aTemplate</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to an instance of a <code>CContactItem</code>-derived class. This
+is used to initialise the new template's field set.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aTemplateLabel</code></td>
+<td class="Cell"><p class="ValueDesc">The string to set as the template label.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool aInTransaction=EFalse</code></td>
+<td class="Cell"><p class="ValueDesc">This argument should be ignored by developers.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactItem*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the contact card template.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.25.6"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aGetCardTemplateIdListL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetCardTemplateIdListL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CContactIdArray* GetCardTemplateIdListL() const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Returns a copy of the database's template ID list. This is a list of the
+IDs of all contact card templates which have been added to the database. The caller takes ownership of the returned object.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactIdArray*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to a copy of the database's template ID list&#0160;&#8212; this
+does not include the system template. NULL if there are no templates in the database.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.25.7"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aTemplateCount%28%29"></a>
+<hr size="1" noshade>
+<h3><code>TemplateCount()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt TemplateCount() const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Returns the number of contact card templates that currently exist in the
+database. This does not include the system template.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The number of contact card templates that currently exist in the
+database.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.25.8"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aPrefTemplateId%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PrefTemplateId()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TContactItemId PrefTemplateId() const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Returns the ID of the database's preferred template, as set
+by <code>SetPrefTemplateL()</code>. <code>KNullContactId</code> if not set. The preferred
+template is for clients who may have multiple templates but want to identify one
+as preferred.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TContactItemId</code></td>
+<td class="Cell"><p class="ValueDesc">The ID of the database's current preferred template.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.25.9"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aSetPrefTemplateL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetPrefTemplateL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetPrefTemplateL(const CContactItem&amp; aContact);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Sets the database's preferred template.</p>
+<p>The preferred template's ID persists when the database is opened and
+closed. If the preferred template is subsequently deleted, the preferred template
+ID is set to <code>KNullContactId</code>.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CContactItem&amp; aContact</code></td>
+<td class="Cell"><p class="ValueDesc">The contact card template to set as the database's preferred template.
+This must be a contact card template (of type <code>KUidContactCardTemplate</code>),
+or the function leaves with <code>KErrNotSupported</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.26"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Database enquiry</h2>
+</div><div class="Bodytext">
+<a name="2.26.2"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aCountL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CountL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt CountL();</code></p><h4 class="subheading">Description</h4>
+<p>Gets the number of <code>CContactItem</code>s in the database. The count
+includes non-system template items. It does not include items marked as deleted.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The number of contact items in the database.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.26.3"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aFileUid%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FileUid()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TPtrC FileUid();</code></p><h4 class="subheading">Description</h4>
+<p>Gets the database's UID. This value is used to identify a particular
+contact database. The database UID is generated when the database is first created.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TPtrC</code></td>
+<td class="Cell"><p class="ValueDesc">Descriptor containing the database UID.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.26.4"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aNullUidValue%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NullUidValue()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static TInt NullUidValue();</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Returns the NULL contact ID value.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KNullContactId</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.26.5"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aFileSize%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FileSize()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt FileSize() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the size of the contact database file in bytes.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The size of the contacts file.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.26.6"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aConnectionId%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ConnectionId()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TUint ConnectionId() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the ID of the connection to the lock server. </p>
+<p>This can be compared with the connection IDs of incoming messages to
+identify which connection generated the message.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint</code></td>
+<td class="Cell"><p class="ValueDesc">The ID of the connection to the lock server.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.26.7"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aVersion%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Version()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TVersion Version() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the contact model's version number.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TVersion</code></td>
+<td class="Cell"><p class="ValueDesc">The version number of the contacts model.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.27"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Enumerations</h2>
+</div><div class="Bodytext">
+<a name="2.27.2"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aTOptions"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TOptions</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TOptions</code></p><h4 class="subheading">Description</h4>
+<p>Import and export contact format option flags. Contacts can be imported
+into or exported from the contact database. Imported or exported contacts must be
+in the vCard format.</p>
+<p>The following options are available during import and export.</p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCContactDatabase%3a%3aEIncludeX"><code class="Value">EIncludeX</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Handle Symbian&#8217;s extended vCard format
+options.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCContactDatabase%3a%3aETTFormat"><code class="Value">ETTFormat</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Support non-standard extensions requried by Symbian PC connectivity
+software and Microsoft amongst others.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCContactDatabase%3a%3aEExcludeUid"><code class="Value">EExcludeUid</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Don't export the contact ID (for exporting
+only).</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCContactDatabase%3a%3aEDecreaseAccessCount"><code class="Value">EDecreaseAccessCount</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Decrease the contact's access count when importing and
+exporting.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCContactDatabase%3a%3aEIncreaseAccessCount"><code class="Value">EIncreaseAccessCount</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Increase the contact's access count when importing and
+exporting.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCContactDatabase%3a%3aEImportSingleContact"><code class="Value">EImportSingleContact</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Only import the first contact in the read stream (for importing
+only).</para></p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.27.3"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aTThreadAccess"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TThreadAccess</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TThreadAccess</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Specifies whether the database can be accessed from single or multiple threads.</p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCContactDatabase%3a%3aESingleThread"><code class="Value">ESingleThread</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Allows access to the contacts database from a single thread
+only.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCContactDatabase%3a%3aEMultiThread"><code class="Value">EMultiThread</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Allows for a multi-threaded program to access the contact database from
+multiple threads but note that the contacts model provides no synchronisation support
+for such use.</para></p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.28"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Classes</h2>
+</div><div class="Bodytext">
+<a name="2.28.2"></a></div><div class="Head3">
+<a name="%3a%3aCContactDatabase%3a%3aTSortPref"></a>
+<hr size="1" noshade>
+<h3>Class <code>TSortPref</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TSortPref</code></p><h4 class="subheading">Description</h4>
+<p>Specifies the field type and order preferences used for sorting items in
+the contacts database&#0160;&#8212;  see <code>CContactDatabase::SortL()</code> and <code>CContactDatabase::SortArrayL()</code>.
+The contents of the first field in a contact item matching the field type is used
+as the data to sort on. The order can either be ascending or descending.</p>
+<p>The <code>TSortPref</code> class is nested within
+the <code>CContactDatabase</code> class.</p><p>Defined in <code>CContactDatabase::TSortPref</code>:
+<br><code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aTSortPref%3a%3aEAsc" title="Ascending sort order">EAsc</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aTSortPref%3a%3aEDesc" title="Descending sort order">EDesc</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aTSortPref%3a%3aTOrder" title="The sort order">TOrder</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aTSortPref%3a%3aTSortPref%28%29" title="Constructs the TSortPref object with a field type and an order">TSortPref()</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aTSortPref%3a%3aiFieldType" title="The first field matching this field type is used for the text to sort on">iFieldType</a></code>, <code class="ApiItem"><a href="CContactDatabaseClass.html#%3a%3aCContactDatabase%3a%3aTSortPref%3a%3aiOrder" title="Specifies whether the sort should be ascending or descending">iOrder</a></code>
+</p>
+<a name="2.28.2.4"></a>
+<h4>Construction</h4>
+<a name="2.28.2.4.2"></a><a name="%3a%3aCContactDatabase%3a%3aTSortPref%3a%3aTSortPref%28%29"></a>
+<h4><code>TSortPref()</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>TSortPref();</code></p><h4 class="subheading">Description</h4>
+<p>Constructs a <code>TSortPref</code> object. The order is initialised
+to <code>EAsc</code> and the field type to <code>KNullUid</code>.</p>
+<a name="2.28.2.4.3"></a><a name="%3a%3aCContactDatabase%3a%3aTSortPref%3a%3aTSortPref%28%29"></a>
+<h4><code>TSortPref()</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>TSortPref(TFieldType aFieldType,TOrder aOrder=EAsc);</code></p><h4 class="subheading">Description</h4>
+<p>Constructs the <code>TSortPref</code> object with a field type and an
+order.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TFieldType aFieldType</code></td>
+<td class="Cell"><p class="ValueDesc">Specifies the field type to sort on.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TOrder aOrder=EAsc</code></td>
+<td class="Cell"><p class="ValueDesc">Specifies the sort order.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.28.2.5"></a>
+<h4>Enumerations</h4>
+<a name="2.28.2.5.2"></a><a name="%3a%3aCContactDatabase%3a%3aTSortPref%3a%3aTOrder"></a>
+<h4>Enum <code>TOrder</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>TOrder</code></p><h4 class="subheading">Description</h4>
+<p>The sort order.</p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCContactDatabase%3a%3aTSortPref%3a%3aEAsc"><code class="Value">EAsc</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Ascending sort order.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCContactDatabase%3a%3aTSortPref%3a%3aEDesc"><code class="Value">EDesc</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Descending sort order.</para></p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.28.2.6"></a>
+<h4>Data members</h4>
+<a name="2.28.2.6.2"></a><a name="%3a%3aCContactDatabase%3a%3aTSortPref%3a%3aiOrder"></a>
+<h4><code>iOrder</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>TOrder iOrder</code></p><h4 class="subheading">Description</h4>
+<p>Specifies whether the sort should be ascending or
+descending.</p>
+<a name="2.28.2.6.3"></a><a name="%3a%3aCContactDatabase%3a%3aTSortPref%3a%3aiFieldType"></a>
+<h4><code>iFieldType</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>TFieldType iFieldType</code></p><h4 class="subheading">Description</h4>
+<p>The first field matching this field type is used for the text to sort
+on.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

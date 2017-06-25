@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to draw polylines and polygons</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="GraphicsGuide2%2edraw%2dpolylines%2dexample"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToDrawARoundedRectangle.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToUseABitmapPatternedBrush.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Graphics</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Graphics</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">How&nbsp;to&nbsp;Draw&nbsp;to&nbsp;a&nbsp;Graphics&nbsp;Context</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;draw&nbsp;polylines&nbsp;and&nbsp;polygons</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to draw polylines and polygons</h1>
+</div><div class="Bodytext">
+<p>The example code shown here demonstrates how to:</p>
+<ul>
+<li>
+<p>draw a polyline.</p>
+</li>
+<li>
+<p>draw and fill a self-crossing polygon</p>
+</li>
+</ul>
+<p>The example code assumes the array of points used when drawing these
+shapes is defined as follows:</p>
+<p class="CodeBlock"><code>...<br>// set up an array of points for drawing a polyline and a polygon etc.<br>// will be used relative to top left of rectangle<br>TPoint point1(20,20);<br>TPoint point2(100,190);<br>TPoint point3(110,90);<br>TPoint point4(50,150);<br>TPoint point5(200,150);<br>CArrayFix&lt;TPoint&gt;* mypoints = new CArrayFixFlat&lt;TPoint&gt;(5);<br>CleanupStack::PushL(mypoints);<br>mypoints-&gt;AppendL(point1);<br>mypoints-&gt;AppendL(point2);<br>mypoints-&gt;AppendL(point3);<br>mypoints-&gt;AppendL(point4);<br>mypoints-&gt;AppendL(point5);<br>...<br>// switch statement with example cases<br>...<br>CleanupStack::PopAndDestroy(); // mypoints</code></p>
+<a name="1.7"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Drawing a polyline</h2>
+</div><div class="Bodytext">
+<p>You can draw a polyline using <code>DrawPolyLine()</code> from an
+array of points.</p>
+<p class="CodeBlock"><code>...<br>// draw a polyline<br>gc.DrawPolyLine(mypoints);<br>...</code></p>
+<a name="1.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Drawing a polygon</h2>
+</div><div class="Bodytext">
+<p>The following example code illustrates how to draw a filled polygon
+from an array of points. The polygon is self-crossing. Self-crossing polygons
+can be filled according to one of two rules, <code>TFillRule::EAlternate</code>
+(the default), or <code>TFillRule::EWinding</code>. These rules work with the
+concept of a winding number, as shown in the following figure:</p>
+<div class="Figure">
+<p class="Image"><img src="gddraw-fillrule.gif" alt="Winding numbers"  border="0"></p>
+<p class="Caption">Winding numbers</p>
+</div>
+<p><code>EWinding</code> fills all areas, while <code>EAlternate</code>
+only fills areas with odd winding numbers.</p>
+<a name="1.8.5"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Drawing a polygon using the <code>EWinding</code> fill
+rule</h3>
+</div><div class="Bodytext">
+<ol>
+<li>
+<p>Use <code>SetBrushStyle() </code>to set a cross-hatched brush
+style.</p>
+</li>
+<li>
+<p>Use <code>DrawPolygon() </code>to draw the polygon with the
+<code>EWinding </code>fill rule.</p>
+</li>
+</ol>
+<p class="CodeBlock"><code>...<br>// draw self-crossing polygon using the winding fill rule<br>gc.SetBrushStyle(CGraphicsContext::ESquareCrossHatchBrush);<br>gc.SetBrushColor(black);<br>gc.DrawPolygon(mypoints,CGraphicsContext::EWinding);<br>...</code></p>
+<a name="1.8.6"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Drawing a polygon using the <code>EAlternate</code> fill
+rule</h3>
+</div><div class="Bodytext">
+<ol>
+<li>
+<p>Use <code>SetBrushStyle() </code>to set a diamond cross-hatched
+brush style.</p>
+</li>
+<li>
+<p>Use <code>DrawPolygon() </code>to draw the polygon with the
+<code>EAlternate</code> fill rule.</p>
+</li>
+</ol>
+<p class="CodeBlock"><code>...<br>// draw self-crossing polygon using the alternate fill rule<br>gc.SetBrushStyle(CGraphicsContext::EDiamondCrossHatchBrush);<br>gc.SetBrushColor(black);<br>gc.DrawPolygon(mypoints,CGraphicsContext::EAlternate);<br>...</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

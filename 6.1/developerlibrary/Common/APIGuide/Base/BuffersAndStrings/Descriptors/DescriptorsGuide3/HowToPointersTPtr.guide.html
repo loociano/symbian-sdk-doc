@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to use the modifiable pointer descriptor TPtr</title>
+<link href="../../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="DescriptorsGuide3%2ehow%2dto%2epointers%2dTPtr"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../../_index/index.html"><img
+src="../../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../../GlobalGlossary/index.html"><img src="../../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToPointersTPtrC.guide.html"><img src="../../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToHeapDescriptors.guide.html"><img src="../../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Buffers&nbsp;and&nbsp;Strings</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Descriptors</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">How&nbsp;to&nbsp;Use&nbsp;Descriptors</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;use&nbsp;the&nbsp;modifiable&nbsp;pointer&nbsp;descriptor&nbsp;TPtr</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to use the modifiable pointer descriptor&#0160;&#8212;
+TPtr</h1>
+</div><div class="Bodytext">
+<p>Modifiable pointer descriptors are useful for referencing strings or
+data which can be accessed and changed.</p>
+<ul>
+<li>
+<p>For text data, it is usual to construct a <code>TPtr</code> type
+and allow the appropriate variant, either a <code>TPtr</code> or a
+<code>TPtrC</code> to be selected at build time.</p>
+</li>
+<li>
+<p>For binary data, an explicit <code>TPtr8</code> is used.</p>
+</li>
+<li>
+<p>It is rare to use an explicit <code>TPtr16</code>.</p>
+</li>
+</ul>
+<a name="1.5"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Constructing a <code>TPtr</code></h2>
+</div><div class="Bodytext">
+<p>A modifiable pointer descriptor can be constructed in a number of
+ways:</p>
+<ul>
+<li>
+<p>another modifiable pointer descriptor.</p>
+</li>
+<li>
+<p>from a non-modifiable buffer descriptor using the
+<code>Des()</code> function</p>
+</li>
+<li>
+<p>from an explicit pointer into memory and specifying a maximum
+length.</p>
+</li>
+<li>
+<p>from an explicit pointer into memory and specifying the length
+of the data and a maximum length.</p>
+</li>
+</ul>
+<p>The following code fragment constructs a <code>TPtr</code> to
+represent the data already represented by another <code>TPtr</code>:</p>
+<p class="CodeBlock"><code>TPtr ptr1;<br>...<br>TPtr ptr2(ptr1);<br>...</code></p>
+<p>The following code fragment constructs a <code>TPtr</code> for a
+non-modifiable buffer descriptor, a <code>TBufC&lt;TInt&gt;</code>, using the
+<code>Des()</code> function. Data that would normally be unmodifiable through
+the <code>TBufC&lt;TInt&gt;</code> can be changed through the
+<code>TPtr</code>.</p>
+<p>The source are literals which are converted to descriptor
+type.</p>
+<p class="CodeBlock"><code>_LIT(KText,&quot;Hello World!&quot;);<br>_LIT(KExtraText,&quot; &amp; Hi&quot;);<br>...<br>TBufC&lt;16&gt; buf1(KText);<br>...<br>TPtr ptr = buf1.Des();<br>...<br>ptr.Delete((ptr.Length()-1),1);<br>ptr.Append(KExtraText);</code></p>
+<p>Define a <code>TText</code> area initialised to contain the string
+&quot;Have a nice day&quot;:</p>
+<p>The following code fragments show the construction of a
+<code>TPtr</code> using a pointer and specifying a length and a maximum length.
+This technique is not commonly used. Literals are a much better way of defining
+string constants.</p>
+<p class="CodeBlock"><code>TText str[16] =  {'H', 'a', 'v', 'e', ' ', 'a',<br>&nbsp;&nbsp;&nbsp;&nbsp;' ', 'n', 'i', 'c', 'e',<br>&nbsp;&nbsp;&nbsp;&nbsp;' ', 'd', 'a', 'y', '\0'};</code></p>
+<p class="CodeBlock"><code>TPtr ptr(&amp;str[0],15,16);</code></p>
+<p>The descriptor <code>ptr</code> represents the data in
+<code>str</code> and is constructed to have a current length of 15 (the length
+of the text, excluding the zero terminator) and a maximum length of 16 (the
+actual length of <code>str</code>). Once the descriptor has been constructed,
+it has no further use for the zero terminator.</p>
+<p class="CodeBlock"><code>TPtr ptr(&amp;str[0],15,16);</code></p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Replacing data through the <code>TPtr</code></h2>
+</div><div class="Bodytext">
+<p>Data can be completely replaced using the assignment operator or the
+Copy() function.:</p>
+<p class="CodeBlock"><code>_LIT(KText,&quot;Hi there&quot;);<br>...<br>ptr = KText;<br>...<br>ptr.Copy(KText);</code></p>
+<p>Note the use of the <code>_LIT</code> macro to define the source string.
+A literal is converted into a descriptor type.</p>
+<p>The length of <code>ptr</code> is now 8 but the maximum length remains
+unchanged. The size depends on the build variant. In a non-Unicode build, this
+is 8 but in a Unicode build, this becomes 16 (two bytes for every
+character).</p>
+<a name="1.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Changing the length of data</h2>
+</div><div class="Bodytext">
+<p>The length of the data represented can be changed. </p>
+<p class="CodeBlock"><code>_LIT(KText,&quot;Hi there&quot;);<br>...<br>ptr = KText;<br>ptr.SetLength(2);<br>ptr.Zero();</code></p>
+<p>For example, after <code>ptr.SetLength(2)</code>, the descriptor
+represents the string &quot;Hi&quot;. The length can even be set to zero so that
+after<code>ptr.Zero()</code>, the descriptor represents no data. Nevertheless,
+the maximum length remains unchanged.</p>
+<a name="1.7.5"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>See also</h3>
+</div><div class="Bodytext">
+<p><a href="../../LiteralDescriptors/index.html#LiteralDescriptorsGuide%2etoc">Literal Descriptors</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

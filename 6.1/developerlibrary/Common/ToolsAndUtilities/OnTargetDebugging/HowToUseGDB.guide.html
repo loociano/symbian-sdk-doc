@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to use GDB</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="OnTargetDebugging%2eHowToUseGDB"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToLoadDebuggingInformation.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToDisplayUnicodeDescriptors.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">On-target&nbsp;Debugging&nbsp;using&nbsp;GDB&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;use&nbsp;GDB</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>How to use GDB</h1>
+</div><div class="Bodytext">
+<p>This section provides a  brief guide of some of the common debugging operations that can be performed with  GDB. It is assumed that, before starting to debug,  a connection has already been set up, as discussed in <a href="HowToSetUpRemoteDebugging.guide.html#OnTargetDebugging%2eHowToSetupRemote">How to set up remote debugging</a>, and that the target application, symbol file, initial breakpoint etc. have been set up as described in <a href="HowToConfigureGDBInitialisationFile.guide.html#OnTargetDebugging%2eHowToGDBIniFile">How to configure the GDB initialisation file</a>.</p><p>All commands are entered on the CLI command line or on the Insight Console, unless otherwise specified. Further information on the commands discussed in this section is provided in the  <a href="../OnTargetDebugging-ref/GDBCommandReference.guide.html#OnTargetDebugging%2eGDBCommandSummary">GDB command summary</a>.</p><a name="1.5"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>How to run the debuggee</h2>
+</div><div class="Bodytext"><p>Enter <b>run</b> to start the debuggee on the target device and begin debugging.</p><p>Note:</p><ul><li><p>The <b>epoc-exe-file</b> command must have previously been called to set which file is to be started. This is normally done in <code class="filename">gdb.ini</code>.</p></li><li><p>The <code class="ProgramName">Run</code> button in the Insight GUI does not work. Start the debuggee using <b>run</b> on the Insight command console.</p></li></ul><a name="1.6"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>How to step through code</h2>
+</div><div class="Bodytext"><p>This section describes the commands used to navigate through code while debugging:</p><ul><li><p>Enter <b>step</b> to &quot;step into&quot; the function on the current line,  tracing into other functions where necessary.</p><p>The GUI also provides a <code class="ProgramName">Step</code> button.</p></li><li><p> Enter <b>next</b>  to execute the current function and move to the next one. Unlike <b>step</b> this command does not trace into the function.</p><p>The GUI also provides a <code class="ProgramName">Next</code> button.</p></li><li><p>Enter  <b>continue</b> to execute all code until a breakpoint is reached or the debuggee exits.</p><p>The GUI also provides a <code class="ProgramName">Continue</code> button.</p></li><li><p>The GUI  provides a <code class="ProgramName">Finish</code> button to allow jumping out of the current function into the function which called it.</p></li><li><p>Enter <b>until</b>
+<em>Target</em> to  execute all code  until a specified target function or line of code is reached.</p><p class="CodeBlock"><code>until MyFunction</code></p><p class="CodeBlock"><code>until Interface.cpp:407</code></p></li><li><p>Enter <b>info sources</b> to get a list of all the files that GDB knows about.</p></li></ul><a name="1.7"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>How to set and clear breakpoints</h2>
+</div><div class="Bodytext"><p>The following commands are used to set, clear and get information about breakpoints</p><ul><li><p>Enter <b>b</b>
+<em>Target</em> to  set  a breakpoint at the specified target  function or line number. <b>b</b> is the shorthand form of the <b>break</b> command.</p>
+<p class="CodeBlock"><code>b Meadebug.cpp:110</code></p><p class="CodeBlock"><code>b CMeadebugAppUi::HandleCommandL</code></p><p>Note that breakpoints can be set from the GUI by clicking to the left of a line in the source file. This is not altogether reliable, as the GUI sometimes indicates that it is not possible to put breakpoints on perfectly valid lines. There is nothing to stop you putting them in from the CLI or GUI console.</p></li><li><p>Enter <b>info breakpoints</b> to  get a list of the current breakpoints.</p><p>The list of breakpoints can also be accessed through  the GUI's &quot;Breakpoints&quot; window — <code class="ProgramName">View | Breakpoints</code> in the GUI menu.</p></li><li><p>Enter <b>delete</b>
+<em>Number</em> to  delete the specified  breakpoint</p><p class="CodeBlock"><code>delete 1</code></p><p>Note that breakpoints can be enabled, disabled or removed from  the menu of Insight's &quot;Breakpoints&quot; window.</p></li><li><p>Enter <b>clear</b>
+<em>Target</em> to  delete a   breakpoint from the specified target function or line number.</p><p class="CodeBlock"><code>clear Meadebug.cpp:110</code></p><p class="CodeBlock"><code>clear CMeadebugAppUi::HandleCommandL</code></p></li></ul><a name="1.8"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>How to examine and change variables</h2>
+</div><div class="Bodytext"><p>The following commands are used to display and set variable values:</p><ul><li><p>Enter <b>print</b>
+<em>VariableName</em> to  display the type and value of a variable.</p>
+<p class="CodeBlock"><code>print console</code></p><p>Variables can also be viewed through the GUI's &quot;Watch Expressions&quot; window. To get the value of Unicode descriptors see <a href="HowToDisplayUnicodeDescriptors.guide.html#OnTargetDebugging%2eHowToDisplayDescriptors">How to display Unicode descriptors</a>.</p></li><li><p>Enter <b>set var</b>
+<em>VariableName=Value</em> to change the value of a specified variable.</p><p class="CodeBlock"><code>set var console=0x1234</code></p></li></ul><a name="1.9"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>How to perform a stack trace</h2>
+</div><div class="Bodytext"><p>The backtrace command is used to perform a backtrace of the stack, showing the history of function calls:</p><ul><li><p>Enter <b>backtrace</b> to print the history list. Enter <b>backtrace</b>
+<em>Number</em> to specify the number of function calls to display.</p>
+<p class="CodeBlock"><code>backtrace</code></p><p class="CodeBlock"><code>backtrace 2</code></p></li></ul><a name="1.10"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>How to list source files</h2>
+</div><div class="Bodytext"><p>Enter <b>list</b> to display the section of code around the current cursor position.</p><p class="CodeBlock"><code>list</code></p><p>Enter <b>list</b>
+<em>FileName</em><b>:</b><em>LineNumber</em> to display the code around the specified line in the specified file. If a file is specified, then a line number must also be specified.</p><p class="CodeBlock"><code>list File.cpp:120</code></p><p>Note that this provides a limited method of displaying code being debugged. It is usually easier to the GUI for this purpose.</p><a name="1.11"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>How to disassemble code</h2>
+</div><div class="Bodytext"><p>The following commands are used to disassemble a chunk of code, step through, and get the value of the program counter.</p><ul><li><p>Enter <b>disassemble</b>
+<em>Function</em> to specify  a function to be disassembled. The example below disassembles code starting at <code>E32Main</code>, pausing after each full screen, until q is pressed.</p><p class="CodeBlock"><code>disassemble E32Main</code></p></li><li><p>Enter <b>disassemble</b>
+<em>AddressRange</em> to specify  an address range to be disassembled.</p><p class="CodeBlock"><code>(gdb) disassemble 0x20000000 0x2000001c<br><br>Dump of assembler code from 0x20000000 to 0x2000001c:<br>0x20000000 &lt;lab&gt;:       e92d4070        stmdb   sp!, {r4, r5, r6, lr}<br>0x20000004 &lt;lab+4&gt;:     e3a04001        mov     r4, #1<br>0x20000008 &lt;lab+8&gt;:     e1a03104        mov     r3, r4, lsl #2<br>0x2000000c &lt;lab+12&gt;:    e1a01003        mov     r1, r3<br>0x20000010 &lt;lab+16&gt;:    e59f2074        ldr     r2, 0x2000008c &lt;lab+140&gt;<br>0x20000014 &lt;lab+20&gt;:    e7923003        ldr     r3, [r2, r3]<br>0x20000018 &lt;lab+24&gt;:    e3530000        cmp     r3, #0<br>End of assembler dump.</code></p></li><li><p>Enter <b>nexti </b> or <b>stepi </b> to step through the assembler code. After each step, GDB shows the current line of <em>source</em> code executing.</p></li><li><p>Enter <b> info reg pc</b> to inspect the value of the program counter.</p><p class="CodeBlock"><code>(gdb) info reg pc<br><br>pc  0x20000238  536871480</code></p></li></ul><a name="OnTargetDebugging%2eHowToCloseGDB"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>How to close a debug session</h2>
+</div><div class="Bodytext">
+<p>To close the debug session:</p><ol><li><p>On the host: type &quot;q&quot; or &quot;quit&quot; on the GDB command prompt. </p><p>This shuts down GDB and closes the debuggee. Note that the GDB stub is still running, although it is moved into the background when GDB is closed.</p><p class="CodeBlock"><code>(gdb) q</code></p></li><li><p>On the GDB stub: Press &quot;q&quot; twice.</p><p>It may be necessary to bring the GDB stub to the foreground in order to close it. Note that the method used to bring the stub forward may need to be different on different devices. See the <a href="http://www.symbiandevnet.com">Symbian Developer Network</a>  for device-specific information.</p></li>
+</ol>
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

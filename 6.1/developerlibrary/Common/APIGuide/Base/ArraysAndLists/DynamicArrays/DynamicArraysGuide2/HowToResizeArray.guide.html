@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to resize an array</title>
+<link href="../../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="DynamicArraysGuide2%2ehow%2dto%2eresize"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../../_index/index.html"><img
+src="../../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../../GlobalGlossary/index.html"><img src="../../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToReserveSpace.guide.html"><img src="../../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToFindElements.guide.html"><img src="../../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Arrays&nbsp;and&nbsp;Lists</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Dynamic&nbsp;Arrays</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">How&nbsp;to&nbsp;Use&nbsp;Dynamic&nbsp;Arrays</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;resize&nbsp;an&nbsp;array</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>How to resize an array</h1>
+</div><div class="Bodytext">
+<p>In a <code>CArrayFixFlat&lt;class&nbsp;T&gt;</code> or a <code>CArrayFixSeg&lt;class&nbsp;T&gt;</code> array, the number of elements in an array can be changed, either decreased or increased, using the <code>ResizeL()</code> function.</p>
+<p>In the following code fragment, <code>ResizeL()</code> changes the size of an array so that it contains only one element. If the array originally had more than one element, then this call to <code>ResizeL()</code> deletes all elements from position one onwards, leaving only the element at position zero.</p>
+<p class="CodeBlock"><code>CArrayFixFlat&lt;TElement&gt;* fixflat;<br>fixflat = new (ELeave) CArrayFixFlat&lt;TElement&gt;(3);<br>...<br>fixflat-&gt;ResizeL(1);</code></p>
+<p>Call <code>ResizeL()</code> again to change the size of the array to contain a greater number of elements, in this case three. If the array originally had only one element (for example), this call to <code>ResizeL()</code> constructs two new elements at positions one and two. In this example, the new elements inserted at positions one and two are <code>TElement</code> type objects, constructed using the <code>TElement</code>
+<i>default constructor</i>. It is therefore essential that a default constructor exists before using this function.</p>
+<p class="CodeBlock"><code>fixflat-&gt;ResizeL(3);</code></p>
+<p>There is an overloaded variant of <code>ResizeL()</code> which takes a reference to a <code>TElement</code> object. A bit-wise copy of this referenced object supplies the new elements. In the following code fragment the two extra elements are bit-wise copies of the <code>theElement</code> object.</p>
+<p class="CodeBlock"><code>_LIT(KTextXXX,&quot;XXX&quot;);<br>theElement.iData = KTextXXX;<br>fixflat-&gt;ResizeL(5,theElement);</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>The entry model, instance model and indexed model</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="AgendaModelGuide%2eEntryInstanceIndexModels"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="AgendaIntroduction.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToModelClasses.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Application&nbsp;Engines</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Agenda&nbsp;File</a>&nbsp;<span class="separator">&#187;</span>
+The&nbsp;entry&nbsp;model,&nbsp;instance&nbsp;model&nbsp;and&nbsp;indexed&nbsp;model</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>The entry model, instance model and indexed model</h1>
+</div><div class="Bodytext">
+<p>For an application to access the data in an Agenda document, it must open the Agenda model at run-time. The Agenda model routes calls from the UI to the appropriate server functions.  There are three different types of model it can open:</p>
+<ul><li><p>The entry model, provided by <a href="../../../APIReference/AgendaFile/CAgnEntryModelClass.html#%3a%3aCAgnEntryModel" title="Provides the interface through which the data stored in an agenda file can be accessed"><code class="ApiItem">CAgnEntryModel</code></a>, is the interface to the entries and to-do lists in the file. Repeating entries are represented by a single entry object. The entry model should be used if the application has no user interface, such as a format conversion application.
+</p></li><li><p>The indexed model, provided by <a href="../../../APIReference/AgendaFile/CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel" title="Indexed agenda model"><code class="ApiItem">CAgnIndexedModel</code></a>, extends the entry model: it adds indexes of the data, which allows the information to be filtered before entries are read. The indexed model can be used for greater efficiency than the instance model by applications which have no user interface and which need to access only a subset of the data in the file.
+</p></li><li><p>The instance model, provided by <a href="../../../APIReference/AgendaFile/CAgnModelClass.html#%3a%3aCAgnModel" title="The instance agenda model"><code class="ApiItem">CAgnModel</code></a>, extends the indexed model: it provides a separate object for each instance of a repeating entry. This makes it most suitable for use by applications that need to show repeating entries in a user interface.
+</p></li>
+</ul><a name="1.5"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Entry model</h2>
+</div><div class="Bodytext">
+<p>If an application opens an entry model (<a href="../../../APIReference/AgendaFile/CAgnEntryModelClass.html#%3a%3aCAgnEntryModel" title="Provides the interface through which the data stored in an agenda file can be accessed"><code class="ApiItem">CAgnEntryModel</code></a>), it can access the Agenda data as entries. There are four types of entry: appointments, to-do entries, events, and anniversaries. These are implemented by the classes <a href="../../../APIReference/AgendaEntry/CAgnApptClass.html#%3a%3aCAgnAppt" title="An appointment entry or instance"><code class="ApiItem">CAgnAppt</code></a>, <a href="../../../APIReference/AgendaTodoList/CAgnTodoClass.html#%3a%3aCAgnTodo" title="A to-do entry or instance"><code class="ApiItem">CAgnTodo</code></a>, <a href="../../../APIReference/AgendaEntry/CAgnEventClass.html#%3a%3aCAgnEvent" title="An event entry or instance"><code class="ApiItem">CAgnEvent</code></a>, and <a href="../../../APIReference/AgendaEntry/CAgnAnnivClass.html#%3a%3aCAgnAnniv" title="An anniversary entry or instance"><code class="ApiItem">CAgnAnniv</code></a>, respectively. </p>
+<a name="1.6"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Instance model</h2>
+</div><div class="Bodytext">
+<p>If an application opens an instance model (<a href="../../../APIReference/AgendaFile/CAgnModelClass.html#%3a%3aCAgnModel" title="The instance agenda model"><code class="ApiItem">CAgnModel</code></a>), it can access the Agenda data as instances. Instances are required by applications with a user interface, because of <em>repeating entries</em>. In the entry model, a repeating entry is represented as a single entry with its repeat details set, but for a user interface this representation is insufficient: a repeating entry needs to be presented to the user as if it consists of individual entries, one on each date on which a repeat occurs. In the instance model a repeating entry is represented by a number of instances, one for each date and time on which a repeat occurs.</p>
+<p>Instances are implemented by the same classes as entries, namely <code>CAgnAppt</code>, <code>CAgnTodo</code>, <code>CAgnEvent</code> and <code>CAgnAnniv</code>, but, when they are accessed using the instance model, a separate object (an instance) is created for each repeat of the entry, with its date and time information set for one of the individual repeats. A non-repeating entry or a to-do entry is represented by one single instance in the instance model.</p>
+<p>(Note: entries, as well as instances, have date and time information, but it makes no sense to access this data for repeating entries, as it will contain the date and time of only one of the repeats. For this reason, date and time information should in general be accessed only via instances.)</p>
+<p>An entry is identified by its entry ID. Because a repeating entry
+has multiple instances, all of which have the same entry ID, an instance is
+identified by the combination of entry ID and instance date, (each instance
+date for a repeating entry is unique).</p>
+<p>The start date of an entry may be queried by calls to functions
+such as <a href="../../../APIReference/AgendaEntry/CAgnEventClass.html#%3a%3aCAgnEvent%3a%3aStartDate%28%29" title="Returns the start date of the event entry as set by SetStartAndEndDate()"><code class="ApiItem">CAgnEvent::StartDate()</code></a>. The start date of a particular
+instance of the entry may be queried by calls to such functions as
+<a href="../../../APIReference/AgendaEntry/CAgnEventClass.html#%3a%3aCAgnEvent%3a%3aInstanceStartDate%28%29" title="Returns the start date of a particular instance of the event"><code class="ApiItem">CAgnEvent::InstanceStartDate()</code></a>.</p>
+<p>For example, an appointment could be created with a start date/time
+of 6pm 1st January and an end date/time of 9pm 1st
+January. It is set to repeat every 2 days. </p>
+<p>The following table shows the different date/time values for the
+instance of the appointment which occurs on the 3rd
+January.</p>
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top"><td class="Cell"><p><b>Function call</b></p></td><td class="Cell"><p><b>Return value</b></p></td></tr><tr valign="top"><td class="Cell"><p><code>appt-&gt;StartDateTime()</code></p></td><td class="Cell"><p>A <code>TTime</code> set to 6pm 1st January, i.e. the entry's start date/time.</p></td></tr><tr valign="top"><td class="Cell"><p><code>appt-&gt;EndDateTime()</code></p></td><td class="Cell"><p>A <code>TTime</code> set to set to 9pm 1st January, i.e. the entry's end date/time</p></td></tr><tr valign="top"><td class="Cell"><p><code>appt-&gt;InstanceStartDate()</code></p></td><td class="Cell"><p>A <code>TTime</code> set to set to 3rd January, i.e. the instance's start date</p></td></tr><tr valign="top"><td class="Cell"><p><code>appt-&gt;InstanceEndDate()</code></p></td><td class="Cell"><p>A <code>TTime</code> set to set to 3rd January, i.e. the instance's end date</p></td></tr><tr valign="top"><td class="Cell"><p><code>appt-&gt;DisplayTime()</code></p></td><td class="Cell"><p>A <code>TTimeIntervalMinutes</code> set to 1080 minutes since midnight (i.e. 6pm)</p></td></tr></table></td></tr></table><a name="1.7"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Indexed model</h2>
+</div><div class="Bodytext">
+<p>An indexed model (<a href="../../../APIReference/AgendaFile/CAgnIndexedModelClass.html#%3a%3aCAgnIndexedModel" title="Indexed agenda model"><code class="ApiItem">CAgnIndexedModel</code></a>) is opened as an intermediate stage in opening the instance model, but can also be used in its own right. When an indexed model is opened, indexes of the data in an Agenda document are built. The indexes contain a subset of the information for each entry in the document, which allows the information to be filtered before whole entries are read, for greater efficiency.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,996 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CContactItemField</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CContactItemClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="CContactItemFieldDefClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Contacts&nbsp;Model</a>&nbsp;<span class="separator">&#187;</span>
+CContactItemField</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>cntfield.h</code>
+<br>Link against: <code>cntmodel.lib</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aCContactItemField"></a>
+
+<h1>Class <code>CContactItemField</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CContactItemField</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>A field in a contact item. Fields are stored in a field set
+(<code>CContactItemFieldSet</code>) and the field set is owned by the contact
+item.</p>
+<p>The contact item field stores the field data. The data may be text,
+a date/time value, or an agent, as indicated by the storage type
+(<code>TStorageType</code>). The storage type is also owned by the field. Note
+that numeric field data is not supported. All numbers, for instance telephone
+or fax numbers are stored in text fields in the contact database.</p>
+<p>Fields also have a content type, attributes and a label. The label
+is a string which identifies the field to a user e.g. First name, Last
+name.</p>
+<p>The following attributes are supported: </p>
+<ul>
+<li>
+<p>hidden&nbsp;&#8212; the field is not displayed if the view
+definition masks hidden fields</p>
+</li>
+<li>
+<p>disabled&nbsp;&#8212; the field cannot be deleted from the
+original template and thus is marked as disabled</p>
+</li>
+<li>
+<p>read only&nbsp;&#8212; the field cannot be written to</p>
+</li>
+<li>
+<p>synchronise&nbsp;&#8212; used by Connectivity applications;
+set by default for all contact item fields</p>
+</li>
+<li>
+<p>user added&nbsp;&#8212; the field was added by the user and
+was not taken from the template</p>
+</li>
+<li>
+<p>template&nbsp;&#8212; indicates that the field is part of a
+template. Template fields differ from other fields in that they are persisted
+when they do not contain any data. This attribute was not present in EPOC
+Release 5.</p>
+</li>
+<li>
+<p>speed dial&nbsp;&#8212; the field contains a telephone
+number which maps to one of the nine possible speed dial positions. This
+attribute was not present in EPOC Releases 5 or 5.1.</p>
+</li>
+</ul>
+<p>These attributes can be set using member functions of this class,
+but they are normally set by higher level classes, e.g. when setting a speed
+dial field, <code>CContactDatabase</code> automatically sets the field's speed
+dial attribute.</p><h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase">CBase</a></code></td><td class="Cell">Base class for all classes to be instantiated on the heap</td>
+</tr>
+<tr><td class="Cell"><code>CContactItemField</code></td><td class="Cell">A field in a contact item</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>CContactItemField</code>:
+<br><code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aAddFieldTypeL%28%29" title="Appends a field type to the field's content type">AddFieldTypeL()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aAgentStorage%28%29" title="Gets a pointer to the field's storage as a CContactAgentField*">AgentStorage()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aContentType%28%29" title="Gets the field's content type">ContentType()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aDateTimeStorage%28%29" title="Returns a pointer to the field's storage as a CContactDateField*">DateTimeStorage()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aDoSynchronize%28%29" title="Gets the status of the field's synchronise attribute">DoSynchronize()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aHasExtraStream%28%29" title="Tests whether the field needs an extra stream to store information not contained in the template">HasExtraStream()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aId%28%29" title="Retrieves the field ID, as set by SetId()">Id()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aIsDisabled%28%29" title="Tests the field's disabled attribute">IsDisabled()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aIsHidden%28%29" title="Gets the field's hidden attribute">IsHidden()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aIsPrivate%28%29" title="Tests whether the field's private attribute is set">IsPrivate()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aIsReadOnly%28%29" title="Gets the field's read only attribute">IsReadOnly()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aIsSpeedDial%28%29" title="Tests whether the field is a speed dial field">IsSpeedDial()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aIsTemplate%28%29" title="Tests whether the field is in a template, as set by SetTemplateField()">IsTemplate()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aIsTemplateLabelField%28%29" title="Tests whether the field is a template label field (i.e">IsTemplateLabelField()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aIsValidLabel%28%29" title="Tests whether a field label is valid">IsValidLabel()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aLabel%28%29" title="Gets the field label">Label()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aLabelUnspecified%28%29" title="Tests whether the field's label has been set, either by a call to SetLabel() or by inheriting a label specified in the template">LabelUnspecified()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aNewL%28%29" title="Allocates and constructs a contact item field -- overloaded function">NewL()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aNewLC%28%29" title="Allocates and constructs a contact item field, leaving the pointer to it on the cleanup stack -- overloaded function">NewLC()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aNumberStorage%28%29" title="This function is currently unsupported">NumberStorage()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aOverRidesLabel%28%29" title="Tests whether the field's label (as set by SetLabel()) overrides the label specified in the field's template">OverRidesLabel()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aRemoveFieldType%28%29" title="Removes a field type from the field's content type">RemoveFieldType()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aResetStore%28%29" title="Resets the field storage">ResetStore()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aSetDisabled%28%29" title="Sets the status of the disabled attribute">SetDisabled()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aSetHidden%28%29" title="Sets the status of the hidden attribute">SetHidden()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aSetId%28%29" title="Sets the ID which uniquely identifies a field within a field set..">SetId()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aSetLabel%28%29" title="Sets the field label -- cannot leave">SetLabel()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aSetLabelL%28%29" title="Sets the field label -- can leave">SetLabelL()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aSetMapping%28%29" title="Sets the vCard mapping for the field's content type">SetMapping()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aSetPrivate%28%29" title="Sets the field's private attribute">SetPrivate()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aSetReadOnly%28%29" title="Sets the status of the field's read only attribute">SetReadOnly()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aSetSpeedDial%28%29" title="Sets the value of the field's speed dial attribute">SetSpeedDial()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aSetSynchronize%28%29" title="Sets the status of the field's synchronise attribute">SetSynchronize()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aSetTemplateField%28%29" title="Sets whether the field is a template field">SetTemplateField()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aSetUserAddedField%28%29" title="Sets the user added field attribute">SetUserAddedField()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aSetUserFlags%28%29" title="Sets the value of the user flags">SetUserFlags()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aStorage%28%29" title="Gets a pointer to the field's base storage">Storage()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aStorageType%28%29" title="Gets the field's storage type">StorageType()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aStoreStorage%28%29" title="Gets a pointer to the field's storage as a CContactStoreField*">StoreStorage()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aTextStorage%28%29" title="Gets a pointer to the field's storage as a CContactTextField*">TextStorage()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aUserAddedField%28%29" title="Tests the value of the user added field attribute">UserAddedField()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aUserFlags%28%29" title="Gets the value of the user flags, as set by SetUserFlags()">UserFlags()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3aUsesTemplateTypes%28%29" title="Indicates whether or not the field's content type is based on a template">UsesTemplateTypes()</a></code>, <code class="ApiItem"><a href="CContactItemFieldClass.html#%3a%3aCContactItemField%3a%3a%7eCContactItemField%28%29" title="The destructor frees all resources owned by the field (the label, the stored data and the content type), prior to its destruction">~CContactItemField()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap">CBase</a></code>:
+<br><code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase%3a%3aoperator%20new%28%29" title="Allocates the object from the heap and then initialises its contents to binary zeroes">operator new()</a></code></p>
+<a name="2.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction and destruction</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aNewL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NewL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static CContactItemField* NewL(TStorageType aType);<br>static CContactItemField* NewL(TStorageType aType, TFieldType aFieldType);<br>static CContactItemField* NewL(const CContactItemField&amp; aField);<br>static CContactItemField* NewL(TStorageType aType, const CContentType&amp; aContentType);</code></p><h4 class="subheading">Description</h4>
+<p>Allocates and constructs a contact item field&nbsp;&#8212;
+overloaded function. The field may be constructed with:</p>
+<ul>
+<li>
+<p>a storage type. In this case, the field's label and content
+type are unspecified.</p>
+</li>
+<li>
+<p>a storage type and a field type. In this case, the field's
+content type is initialised with the field type, and its vCard mapping is set
+by default to <code>KNullUid</code>. The field's label is unspecified.</p>
+</li>
+<li>
+<p>another <code>CContactItemField</code>. In this case, all
+details (content type, storage type, attributes and label) are copied from the
+specified field.</p>
+</li>
+<li>
+<p>a content type and a storage type. The field's label is
+unspecified.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStorageType aType</code></td>
+<td class="Cell"><p class="ValueDesc">The field's storage type.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TFieldType aFieldType</code></td>
+<td class="Cell"><p class="ValueDesc">The field type as defined in cntdef.h.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CContactItemField&amp; aField</code></td>
+<td class="Cell"><p class="ValueDesc">The contact field to copy.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CContentType&amp; aContentType</code></td>
+<td class="Cell"><p class="ValueDesc">The field's content type.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactItemField*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the newly created contact item field.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">If the <code>aType</code> parameter has an invalid value, the
+function leaves with <code>KErrNotSupported</code> . </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aNewLC%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NewLC()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static CContactItemField* NewLC();<br>static CContactItemField* NewLC(TStorageType aType);<br>static CContactItemField* NewLC(TStorageType aType, TFieldType aFieldType);<br>static CContactItemField* NewLC(const CContactItemField&amp; aField);<br>static CContactItemField* NewLC(TStorageType aType, const CContentType&amp; aContentType);</code></p><h4 class="subheading">Description</h4>
+<p>Allocates and constructs a contact item field, leaving the
+pointer to it on the cleanup stack&nbsp;&#8212; overloaded function. The
+field may be constructed with:</p>
+<ul>
+<li>
+<p>no parameters. The field's storage type, content type and
+label are unspecified. The <code>ESynchronize</code> attribute is set.</p>
+</li>
+<li>
+<p>a storage type. In this case, the field's label and content
+type are unspecified.</p>
+</li>
+<li>
+<p>a storage type and a field type. In this case, the field's
+content type is initialised with the field type, and its vCard mapping is set
+by default to <code>KNullUid</code>. The field's label is unspecified.</p>
+</li>
+<li>
+<p>another <code>CContactItemField</code>. In this case, all
+details (content type, storage type, attributes and label) are copied from the
+specified field.</p>
+</li>
+<li>
+<p>a content type and a storage type. The field's label is
+unspecified. </p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStorageType aType</code></td>
+<td class="Cell"><p class="ValueDesc">The field's storage type.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TFieldType aFieldType</code></td>
+<td class="Cell"><p class="ValueDesc">The field type as defined in cntdef.h.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CContactItemField&amp; aField</code></td>
+<td class="Cell"><p class="ValueDesc">The contact field to copy.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CContentType&amp; aContentType</code></td>
+<td class="Cell"><p class="ValueDesc">The field's content type.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactItemField*</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to the newly created contact item field.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">If the <code>aType</code> parameter has an invalid value, the
+function leaves with <code>KErrNotSupported</code> . </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.4"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3a%7eCContactItemField%28%29"></a>
+<hr size="1" noshade>
+<h3><code>~CContactItemField()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>~CContactItemField();</code></p><h4 class="subheading">Description</h4>
+<p>The destructor frees all resources owned by the field (the
+label, the stored data and the content type), prior to its
+destruction.</p>
+<a name="2.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Field storage</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aStorageType%28%29"></a>
+<hr size="1" noshade>
+<h3><code>StorageType()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TStorageType StorageType() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the field's storage type.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TStorageType</code></td>
+<td class="Cell"><p class="ValueDesc">The field's storage type.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aStorage%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Storage()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CContactFieldStorage* Storage() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a pointer to the field's base storage. Rather than using
+this function and then casting to a specific storage class, one of the
+following functions should almost always be used:&nbsp;&#8212;
+<code>TextStorage()</code>, <code>StoreStorage()</code>,
+<code>AgentStorage()</code>, or
+<code>DateTimeStorage()</code>.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactFieldStorage*</code></td>
+<td class="Cell"><p class="ValueDesc">The field's base storage type.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.4"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aResetStore%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ResetStore()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ResetStore();</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Resets the field storage. The field's store is deleted, then
+re-allocated. </p>
+<a name="2.7.5"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aTextStorage%28%29"></a>
+<hr size="1" noshade>
+<h3><code>TextStorage()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CContactTextField* TextStorage() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a pointer to the field's storage as a
+<code>CContactTextField*</code>. If the field storage type is not
+<code>KStorageTypeText</code>, this function raises a
+panic.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactTextField*</code></td>
+<td class="Cell"><p class="ValueDesc">Field's storage as a <code>CContactTextField*</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.6"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aStoreStorage%28%29"></a>
+<hr size="1" noshade>
+<h3><code>StoreStorage()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CContactStoreField* StoreStorage() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a pointer to the field's storage as a
+<code>CContactStoreField*</code>. This indicates field data stored in a
+descriptor or descriptor array. If the field storage type is not
+<code>KStorageTypeStore</code>, this function raises a
+panic.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactStoreField*</code></td>
+<td class="Cell"><p class="ValueDesc">Field's storage as a <code>CContactStoreField*</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.7"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aAgentStorage%28%29"></a>
+<hr size="1" noshade>
+<h3><code>AgentStorage()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CContactAgentField* AgentStorage() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a pointer to the field's storage as a
+<code>CContactAgentField*</code>. An agent is a property in a vCard which
+contains another person's contact details. If the field storage type is not
+<code>KStorageTypeContactItemId</code>, this function raises a
+panic.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactAgentField*</code></td>
+<td class="Cell"><p class="ValueDesc">Field's storage as a <code>CContactAgentField*</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.8"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aDateTimeStorage%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DateTimeStorage()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CContactDateField* DateTimeStorage() const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns a pointer to the field's storage as a
+<code>CContactDateField*</code>. If the field storage type is not
+<code>KStorageTypeDateTime</code>, this function raises a
+panic.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContactDateField*</code></td>
+<td class="Cell"><p class="ValueDesc">Field's storage as a<code> CContactDateField*</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.9"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aNumberStorage%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NumberStorage()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CContactNumberField* NumberStorage() const;</code></p><h4 class="subheading">Description</h4>
+<p>This function is currently unsupported. Calling it will raise
+an <code>ECntPanicInvalidStorageType</code> panic.</p>
+<a name="2.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Field type and mapping</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aContentType%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ContentType()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const CContentType&amp; ContentType() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the field's content type.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CContentType&amp;</code></td>
+<td class="Cell"><p class="ValueDesc">Reference to the field's content type.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aAddFieldTypeL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>AddFieldTypeL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void AddFieldTypeL(TFieldType aFieldType);</code></p><h4 class="subheading">Description</h4>
+<p>Appends a field type to the field's content
+type.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TFieldType aFieldType</code></td>
+<td class="Cell"><p class="ValueDesc">The field type to append to the field's content type.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.4"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aRemoveFieldType%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RemoveFieldType()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void RemoveFieldType(TFieldType aFieldType);</code></p><h4 class="subheading">Description</h4>
+<p>Removes a field type from the field's content
+type.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TFieldType aFieldType</code></td>
+<td class="Cell"><p class="ValueDesc">The field type to remove from the field's content type.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.5"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aSetMapping%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetMapping()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetMapping(TUid aMapping);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the vCard mapping for the field's content
+type.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUid aMapping</code></td>
+<td class="Cell"><p class="ValueDesc">The new mapping for the field's content type.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Field attributes</h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aSetHidden%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetHidden()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetHidden(TBool aHidden);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the status of the hidden attribute. If hidden fields are
+included in the view definition, the field is displayed like other fields. If
+the view definition masks hidden fields, it is not displayed. See the
+<code>TMode</code> enumeration defined in class
+<code>CContactItemViewDef</code>.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool aHidden</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> for hidden, <code>EFalse</code> for
+displayed.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.3"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aIsHidden%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IsHidden()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool IsHidden() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the field's hidden attribute.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> if hidden attribute set, <code>EFalse</code>
+if not set.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.4"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aSetReadOnly%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetReadOnly()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetReadOnly(TBool aReadOnly);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the status of the field's read only
+attribute.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool aReadOnly</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> to set the field's read only attribute,
+<code>EFalse</code> to unset the attribute.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.5"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aIsReadOnly%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IsReadOnly()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool IsReadOnly() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the field's read only attribute.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> if read only attribute set,
+<code>EFalse</code> if not set.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.6"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aSetSynchronize%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetSynchronize()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetSynchronize(TBool aSynchronize);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the status of the field's synchronise
+attribute.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool aSynchronize</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> to set synchronise attribute,
+<code>EFalse</code> to unset it.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.7"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aDoSynchronize%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DoSynchronize()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool DoSynchronize() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the status of the field's synchronise
+attribute.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> if synchronise attribute set,
+<code>EFalse</code> if not set.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.8"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aSetDisabled%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetDisabled()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetDisabled(TBool aDisabled);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the status of the disabled attribute.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool aDisabled</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> to set the disabled attribute,
+<code>EFalse</code> to unset the attribute.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.9"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aIsDisabled%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IsDisabled()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool IsDisabled() const;</code></p><h4 class="subheading">Description</h4>
+<p>Tests the field's disabled attribute.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> if disabled attribute set,
+<code>EFalse</code> if disabled attribute not set.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.10"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aSetUserAddedField%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetUserAddedField()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetUserAddedField(TBool aUserAddedField);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the user added field attribute.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool aUserAddedField</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> to set the field's user added attribute,
+<code>EFalse</code> to unset it.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.11"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aUserAddedField%28%29"></a>
+<hr size="1" noshade>
+<h3><code>UserAddedField()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool UserAddedField() const;</code></p><h4 class="subheading">Description</h4>
+<p>Tests the value of the user added field
+attribute.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> if the user added attribute is set,
+<code>EFalse</code> if not.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.12"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aIsTemplate%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IsTemplate()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool IsTemplate() const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Tests whether the field is in a template, as set by
+<code>SetTemplateField()</code>.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> if field is a template field.
+<code>EFalse</code> if not.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.13"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aSetTemplateField%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetTemplateField()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetTemplateField(TBool aTemplateField);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Sets whether the field is a template
+field.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool aTemplateField</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> to set the field's Is template attribute.
+<code>EFalse</code> to unset it.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.14"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aIsPrivate%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IsPrivate()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool IsPrivate() const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Tests whether the field's private attribute is
+set.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc">True if the field's private attribute is set, false if
+not.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.15"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aSetPrivate%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetPrivate()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetPrivate(TBool aTemplateField);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Sets the field's private attribute. This is used by the contact
+database when exporting a contact item as a vCard, to identify fields which
+should not be exported.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool aTemplateField</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> to set the field's private attribute,
+<code>EFalse</code> to unset it.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.16"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aIsSpeedDial%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IsSpeedDial()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool IsSpeedDial() const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Tests whether the field is a speed dial
+field.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc">True if the field is a speed dial field, false if not.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.17"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aSetSpeedDial%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetSpeedDial()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetSpeedDial(TBool aSpeedDialField);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Sets the value of the field's speed dial
+attribute.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool aSpeedDialField</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> if the field should be a speed dial field,
+<code>EFalse</code> if not.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Label</h2>
+</div><div class="Bodytext">
+<a name="2.10.2"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aSetLabelL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetLabelL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetLabelL(const TDesC&amp; aLabel);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the field label&nbsp;&#8212; can leave. The label is
+allocated using <code>TDesC::AllocL()</code>. Any existing label is
+replaced.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aLabel</code></td>
+<td class="Cell"><p class="ValueDesc">The new field label.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.3"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aSetLabel%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetLabel()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetLabel(HBufC* aLabel);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the field label&nbsp;&#8212; cannot leave. The
+<code>CContactItemField</code> takes ownership of
+<code>aLabel</code>.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">HBufC* aLabel</code></td>
+<td class="Cell"><p class="ValueDesc">The new field label.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.4"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aLabel%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Label()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TPtrC Label() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the field label.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TPtrC</code></td>
+<td class="Cell"><p class="ValueDesc">The field label. If no label has been set, its length is
+zero.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.5"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aIsValidLabel%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IsValidLabel()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static TBool IsValidLabel(const TDesC&amp; aLabel,TInt&amp; aInvalidPos);</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether a field label is valid.</p>
+<p>Notes:</p>
+<p>The label is invalid if it contains any of the following
+characters:&nbsp;&#8212; </p>
+<ul>
+<li>
+<p>[] (left or right square bracket) </p>
+</li>
+<li>
+<p>= (equals sign)</p>
+</li>
+<li>
+<p>. (dot) </p>
+</li>
+<li>
+<p>: (colon) </p>
+</li>
+<li>
+<p>, (comma)</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aLabel</code></td>
+<td class="Cell"><p class="ValueDesc">The field label to test.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aInvalidPos</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the character position within the label of
+the first invalid character. The first character position is zero.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> if valid, <code>EFalse</code> if
+invalid.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.6"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aOverRidesLabel%28%29"></a>
+<hr size="1" noshade>
+<h3><code>OverRidesLabel()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool OverRidesLabel() const;</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether the field's label (as set by
+<code>SetLabel()</code>) overrides the label specified in the field's
+template.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc">True if the field's label overrides the label specified in the
+template; false if not.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.7"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aLabelUnspecified%28%29"></a>
+<hr size="1" noshade>
+<h3><code>LabelUnspecified()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool LabelUnspecified() const;</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether the field's label has been set, either by a call
+to <code>SetLabel()</code> or by inheriting a label specified in the
+template.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc">True if the field's label has been set, false if not.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Template</h2>
+</div><div class="Bodytext">
+<a name="2.11.2"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aUsesTemplateTypes%28%29"></a>
+<hr size="1" noshade>
+<h3><code>UsesTemplateTypes()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool UsesTemplateTypes() const;</code></p><h4 class="subheading">Description</h4>
+<p>Indicates whether or not the field's content type is based on a
+template.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc">True if the field's content type is based on a template; false
+if not.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.3"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aHasExtraStream%28%29"></a>
+<hr size="1" noshade>
+<h3><code>HasExtraStream()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool HasExtraStream() const;</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether the field needs an extra stream to store
+information not contained in the template. This is the case if the field's
+content type is not based on a template, or if the field has a label which
+overrides the label specified in the template.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc">True if the field uses an extra stream; false if not.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.4"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aIsTemplateLabelField%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IsTemplateLabelField()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool IsTemplateLabelField() const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Tests whether the field is a template label field (i.e. a field
+which holds the label for a contact card template: see class
+<code>CContactCardTemplate</code>).</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> if the field is a template label field,
+<code>EFalse</code> if not.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Field ID</h2>
+</div><div class="Bodytext">
+<a name="2.12.2"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aSetId%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetId()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetId(TInt aId);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the ID which uniquely identifies a field within a field
+set..</p>
+<p>Note that the field ID value is initialised when the field is
+added to the field set (using <code>CContactItemFieldSet::AddL()</code>). It is
+equivalent to the field's index within the field set array, and it should not
+normally be changed.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aId</code></td>
+<td class="Cell"><p class="ValueDesc">The new field ID.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.3"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aId%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Id()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Id() const;</code></p><h4 class="subheading">Description</h4>
+<p>Retrieves the field ID, as set by
+<code>SetId()</code>.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The field ID.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>User flags</h2>
+</div><div class="Bodytext">
+<a name="2.13.2"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aUserFlags%28%29"></a>
+<hr size="1" noshade>
+<h3><code>UserFlags()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TUint UserFlags() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the value of the user flags, as set by
+<code>SetUserFlags()</code>.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint</code></td>
+<td class="Cell"><p class="ValueDesc">The user flags value.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.3"></a></div><div class="Head3">
+<a name="%3a%3aCContactItemField%3a%3aSetUserFlags%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetUserFlags()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetUserFlags(TUint aFlags);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the value of the user flags.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aFlags</code></td>
+<td class="Cell"><p class="ValueDesc">The user flags value.</p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

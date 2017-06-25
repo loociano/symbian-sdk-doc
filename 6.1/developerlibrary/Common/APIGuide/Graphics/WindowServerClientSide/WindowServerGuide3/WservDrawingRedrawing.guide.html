@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Drawing and redrawing</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="WindowServerGuide3%2edrawing%2dredrawing"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="WindowServerGraphics.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToDrawRedraw.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Graphics</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Window&nbsp;Server</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Graphics&nbsp;and&nbsp;drawing</a>&nbsp;<span class="separator">&#187;</span>
+Drawing&nbsp;and&nbsp;redrawing</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Drawing and redrawing</h1>
+</div><div class="Bodytext">
+<p>The window server maintains the screen display taking into account the region, ordinal position, visibility and shadow requirements of all displayable windows.  The display may be updated for several reasons:</p>
+<ul><li><p>at direct application request by an application drawing to a window through a <a href="../../../../APIReference/WindowServerClientSide/CWindowGcClass.html#%3a%3aCWindowGc" title="Window graphics context"><code class="ApiItem">CWindowGc</code></a></p></li>
+<li><p>as an indirect consequence of application action, due to regions of the display becoming invalid</p></li>
+<li><p>due to actions internal to the window server, such as pointer cursor movement, or action by an animation DLL</p></li>
+</ul><p>All window server applications must be able to perform application-initiated drawing.  Most also need to handle redraws due to regions of their windows becoming invalid.</p>
+<a name="1.6"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Application-initiated drawing</h2>
+</div><div class="Bodytext">
+<p>When an application model changes, as a result of a user command or some other reason, it may be necessary for that application to update the display.  In this case, the application initiates a draw sequence to one or more of its windows.  When this draw sequence has finished on a particular window, that window will be a valid reflection of the model.</p>
+<a name="1.7"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Window server-initiated redrawing</h2>
+</div><div class="Bodytext">
+<p>When a window is moved, resized, or otherwise manipulated by an application, it may cause parts of other windows to become invalid so that they must be redrawn.  The window server maintains a list of all invalid regions and causes them to be redrawn in one of several ways:</p>
+<ul><li><p>for a region with no window, the window server redraws the invalid region in the default background color: the region is then valid again</p></li>
+<li><p>for a blank window, the window server redraws the invalid region in the window&#8217;s color: the region is then valid again</p></li>
+<li><p>for a backed-up window, the invalid region is redrawn from a backup bitmap maintained by the window server: the region is then valid again</p></li>
+<li><p>if the invalid region is invalid because an overlay window has just exposed the area, the window server redraws the region from the overlay bitmap: the region is then valid again</p></li>
+<li><p>if the invalid region is owned by an animation DLL, the window server invokes the animation DLL directly to redraw the area: the region is then valid again</p></li>
+<li><p>for a normal <a href="../../../../APIReference/WindowServerClientSide/RWindowClass.html#%3a%3aRWindow" title="Handle to a standard window"><code class="ApiItem">RWindow</code></a>, the window server generates a redraw event and sends it to the application.</p></li>
+</ul><p>This latter case requires the application to redraw the region of the <code>RWindow</code> that is now invalid.  All applications which use <code>RWindow</code>s must be able to redraw reliably.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,646 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>TRegion</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="TRectClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="TRegionFixClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Graphics</a>&nbsp;<span class="separator">&#187;</span>
+TRegion</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code> e32std.h </code>
+<br>Link against: <code> euser.lib </code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aTRegion"></a>
+
+<h1>Class <code>TRegion</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>TRegion</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Clipping region&nbsp;&#8212; abstract base class. </p>
+<p>This abstract base class represents a 2-dimensional area which is
+used by Graphics, the graphics window server, and the text window server to
+define regions of the display which need to be updated, or regions within which
+all operations must occur. </p>
+<p>A <code>TRegion</code> is defined in terms of an array of
+<code>TRect</code>s and the more complex the region, the more
+<code>TRect</code>s are required to represent it.</p>
+<p>A clipping region initially has space allocated for five
+rectangles. If manipulations result in a region which requires more than this,
+an attempt is made to allocate more rectangles. If this cannot be done, an
+error flag is set, and all subsequent operations involving the region have no
+effect (except possibly to propagate the error flag to other regions). The
+<code>CheckError()</code> member function allows the error flag to be tested;
+<code>Clear()</code> can be used to clear it.</p>
+<p>Application programs&#8217; redraw logic may use the
+<code>TRegion</code> in various ways:</p>
+<ul>
+<li>
+<p>minimally, they pass it to the graphics context as the clipping
+region; when a graphics context is activated to a window, the clipping region
+is set up automatically</p>
+</li>
+<li>
+<p>if they wish to avoid redrawing objects which are outside the
+general area of the region, they may use <code>TRegion::BoundingRect()</code>
+to return the rectangle which bounds the clipping region, and draw only
+primitives that lie within that rectangle</p>
+</li>
+<li>
+<p>if they wish to exercise finer control, they may extract the
+individual rectangles that comprise the clipping region using
+<code>Operator[]()</code>.</p>
+</li>
+</ul>
+<p>Application programs may also manipulate clipping regions in order
+to constrain parts of their redrawing to narrower areas of the screen than the
+clipping region offered by the window server. To do this, functions that allow
+clipping region manipulation may be used; for example, adding or removing
+rectangles or finding the intersection or union of two regions.</p>
+<p>Defined in <code>TRegion</code>:
+<br><code class="ApiItem"><a href="TRegionClass.html#%3a%3aTRegion%3a%3aAddRect%28%29" title="Adds a rectangle to this region">AddRect()</a></code>, <code class="ApiItem"><a href="TRegionClass.html#%3a%3aTRegion%3a%3aBoundingRect%28%29" title="Gets the minimal rectangle which bounds the entire region">BoundingRect()</a></code>, <code class="ApiItem"><a href="TRegionClass.html#%3a%3aTRegion%3a%3aCheckError%28%29" title="Tests whether the region's error flag is set">CheckError()</a></code>, <code class="ApiItem"><a href="TRegionClass.html#%3a%3aTRegion%3a%3aClear%28%29" title="Clears this region">Clear()</a></code>, <code class="ApiItem"><a href="TRegionClass.html#%3a%3aTRegion%3a%3aClipRect%28%29" title="Clips the region to a rectangle">ClipRect()</a></code>, <code class="ApiItem"><a href="TRegionClass.html#%3a%3aTRegion%3a%3aContains%28%29" title="Tests whether a point is located within the region">Contains()</a></code>, <code class="ApiItem"><a href="TRegionClass.html#%3a%3aTRegion%3a%3aCopy%28%29" title="Copies another region to this region">Copy()</a></code>, <code class="ApiItem"><a href="TRegionClass.html#%3a%3aTRegion%3a%3aCount%28%29" title="Gets the number of rectangles in this region">Count()</a></code>, <code class="ApiItem"><a href="TRegionClass.html#%3a%3aTRegion%3a%3aForceError%28%29" title="Sets the error flag, and clears the region">ForceError()</a></code>, <code class="ApiItem"><a href="TRegionClass.html#%3a%3aTRegion%3a%3aIntersect%28%29" title="Replaces this region with the area of intersection between it and the specified region">Intersect()</a></code>, <code class="ApiItem"><a href="TRegionClass.html#%3a%3aTRegion%3a%3aIntersection%28%29" title="Replaces this region with the area of intersection between two specified regions">Intersection()</a></code>, <code class="ApiItem"><a href="TRegionClass.html#%3a%3aTRegion%3a%3aIsContainedBy%28%29" title="Tests whether the region is fully enclosed within a specified rectangle">IsContainedBy()</a></code>, <code class="ApiItem"><a href="TRegionClass.html#%3a%3aTRegion%3a%3aIsEmpty%28%29" title="Tests whether the region is empty">IsEmpty()</a></code>, <code class="ApiItem"><a href="TRegionClass.html#%3a%3aTRegion%3a%3aOffset%28%29" title="Moves the region by adding a TPoint offset to the co-ordinates of its corners">Offset()</a></code>, <code class="ApiItem"><a href="TRegionClass.html#%3a%3aTRegion%3a%3aRectangleList%28%29" title="Gets a pointer to the array of rectangles defining this region">RectangleList()</a></code>, <code class="ApiItem"><a href="TRegionClass.html#%3a%3aTRegion%3a%3aSort%28%29" title="Sorts the region's array of rectangles according to a specified sort order">Sort()</a></code>, <code class="ApiItem"><a href="TRegionClass.html#%3a%3aTRegion%3a%3aSubRect%28%29" title="Removes a rectangle from this region">SubRect()</a></code>, <code class="ApiItem"><a href="TRegionClass.html#%3a%3aTRegion%3a%3aSubRegion%28%29" title="Subtracts a region">SubRegion()</a></code>, <code class="ApiItem"><a href="TRegionClass.html#%3a%3aTRegion%3a%3aTidy%28%29" title="Merges all rectangles within this region which share an adjacent edge of the same length">Tidy()</a></code>, <code class="ApiItem"><a href="TRegionClass.html#%3a%3aTRegion%3a%3aUnion%28%29" title="Replaces this region with the union of it and the specified region">Union()</a></code>, <code class="ApiItem"><a href="TRegionClass.html#%3a%3aTRegion%3a%3aoperator%5b%5d%28%29" title="Gets a rectangle from the region">operator[]()</a></code>
+</p>
+<a name="2.5"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Manipulate a region</h2>
+</div><div class="Bodytext">
+<a name="2.5.2"></a></div><div class="Head3">
+<a name="%3a%3aTRegion%3a%3aSubRegion%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SubRegion()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SubRegion(const TRegion&amp; aRegion,TRegion* aSubtractedRegion=NULL);</code></p><h4 class="subheading">Description</h4>
+<p>Subtracts a region.</p>
+<p>If there is no area of intersection between the two regions,
+this region is unaffected.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRegion&amp; aRegion </code></td>
+<td class="Cell"><p class="ValueDesc"> The region to be removed from this region. If
+<code>aRegion</code>'s error flag is set, then this region is cleared, freeing
+up any allocated memory, and the error flag is set.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TRegion* aSubtractedRegion=NULL </code></td>
+<td class="Cell"><p class="ValueDesc"> If specified, on return contains the area removed from this
+region. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.5.3"></a></div><div class="Head3">
+<a name="%3a%3aTRegion%3a%3aBoundingRect%28%29"></a>
+<hr size="1" noshade>
+<h3><code>BoundingRect()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TRect BoundingRect() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the minimal rectangle which bounds the entire
+region.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TRect </code></td>
+<td class="Cell"><p class="ValueDesc"> The region&#8217;s minimal bounding rectangle. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.5.4"></a></div><div class="Head3">
+<a name="%3a%3aTRegion%3a%3aOffset%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Offset()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Offset(TInt aXoffset,TInt aYoffset);</code></p><h4 class="subheading">Description</h4>
+<p>Moves the region by adding X and Y offsets to the co-ordinates
+of its corners.</p>
+<p>The size of the region is not changed.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aXoffset </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of pixels by which to move the region horizontally.
+If negative, the region moves leftwards. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aYoffset </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of pixels by which to move the region vertically.
+If negative, the region moves upwards. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.5.5"></a></div><div class="Head3">
+<a name="%3a%3aTRegion%3a%3aOffset%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Offset()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Offset(const TPoint&amp; aOffset);</code></p><h4 class="subheading">Description</h4>
+<p>Moves the region by adding a <code>TPoint</code> offset to the
+co-ordinates of its corners.</p>
+<p> The size of the region is not changed.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TPoint&amp; aOffset </code></td>
+<td class="Cell"><p class="ValueDesc"> The offset by which the region is moved. The region is moved
+horizontally by <code>aOffset.iX</code> pixels and vertically by
+<code>aOffset.iY</code> pixels.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.5.6"></a></div><div class="Head3">
+<a name="%3a%3aTRegion%3a%3aClipRect%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ClipRect()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ClipRect(const TRect&amp; aRect);</code></p><h4 class="subheading">Description</h4>
+<p>Clips the region to a rectangle.</p>
+<p>The resulting region is the area of overlap between the region
+and the rectangle. If there is no overlap, all rectangles within this region
+are deleted and the resulting region is empty.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRect&amp; aRect </code></td>
+<td class="Cell"><p class="ValueDesc"> The rectangle to which this region is to be clipped </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Get components of a region</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aTRegion%3a%3aoperator%5b%5d%28%29"></a>
+<hr size="1" noshade>
+<h3><code>operator[]()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const TRect&amp; operator[](TInt aIndex) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a rectangle from the region.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aIndex </code></td>
+<td class="Cell"><p class="ValueDesc"> The index of a rectangle within the region's array of
+rectangles. Indexes are relative to zero. This value must be strictly less than
+the number of rectangles in the region, otherwise the function raises a USER 81
+panic.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TRect&amp; </code></td>
+<td class="Cell"><p class="ValueDesc"> The specified rectangle.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aTRegion%3a%3aCount%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Count()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Count() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the number of rectangles in this region.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of rectangles.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><a name="%3a%3aTRegion%3a%3aRectangleList%28%29"></a>
+<hr size="2" noshade>
+<h2><code>RectangleList()</code></h2>
+</div><div class="Bodytext"><p class="Prototype"><code>const TRect* RectangleList() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets a pointer to the array of rectangles defining this
+region.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TRect* </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the array of rectangles. Note that array is a
+standard C++ array, i.e. a concatenated set of <code>TRect</code> objects. Use
+<code>Count()</code> to get the number of rectangles.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Add or remove a region</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aTRegion%3a%3aAddRect%28%29"></a>
+<hr size="1" noshade>
+<h3><code>AddRect()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void AddRect(const TRect&amp; aRect);</code></p><h4 class="subheading">Description</h4>
+<p>Adds a rectangle to this region.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>If this region&#8217;s error flag is already set, this
+function has no effect.</p>
+</li>
+<li>
+<p>If the operation causes the capacity of this region to be
+exceeded, or if memory allocation fails, the region is cleared, freeing up any
+memory which has been allocated; its error flag is also set.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRect&amp; aRect </code></td>
+<td class="Cell"><p class="ValueDesc"> The rectangle to be added to this region. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aTRegion%3a%3aSubRect%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SubRect()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SubRect(const TRect&amp; aRect,TRegion* aSubtractedRegion=NULL);</code></p><h4 class="subheading">Description</h4>
+<p>Removes a rectangle from this region.</p>
+<p>If there is no intersection between the rectangle and this
+region, then this region is unaffected. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRect&amp; aRect </code></td>
+<td class="Cell"><p class="ValueDesc"> The rectangular area to be removed from this region </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TRegion* aSubtractedRegion </code></td>
+<td class="Cell"><p class="ValueDesc"> A pointer to a region. If this is supplied, the removed
+rectangle is added to it. By default this pointer is NULL. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Query functions</h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aTRegion%3a%3aIsEmpty%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IsEmpty()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool IsEmpty() const;</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether the <code>region</code> is empty.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool </code></td>
+<td class="Cell"><p class="ValueDesc"> True, if the region is empty and its error flag is unset;
+false, otherwise. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.3"></a></div><div class="Head3">
+<a name="%3a%3aTRegion%3a%3aIsContainedBy%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IsContainedBy()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool IsContainedBy(const TRect&amp; aRect) const;</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether the region is fully enclosed within a specified
+rectangle.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRect&amp; aRect </code></td>
+<td class="Cell"><p class="ValueDesc"> The specified rectangle. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool </code></td>
+<td class="Cell"><p class="ValueDesc"> True, if the region is fully enclosed within the rectangle
+(their sides may touch); false, otherwise. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.4"></a></div><div class="Head3">
+<a name="%3a%3aTRegion%3a%3aContains%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Contains()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool Contains(const TPoint&amp; aPoint) const;</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether a point is located within the region.</p>
+<p>If the point is located on the top or left hand side of any
+rectangle in the region, it is considered to be within that rectangle and
+within the region. </p>
+<p>If the point is located on the right hand side or bottom of a
+rectangle, it is considered to be outside that rectangle, and may be outside
+the region.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TPoint&amp; aPoint </code></td>
+<td class="Cell"><p class="ValueDesc"> The specified point. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool </code></td>
+<td class="Cell"><p class="ValueDesc"> True, if the point is within the region; false, otherwise.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.5"></a></div><div class="Head3">
+<a name="%3a%3aTRegion%3a%3aCheckError%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CheckError()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool CheckError() const;</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether the region&#8217;s error flag is set.</p>
+<p>The error flag may be set:</p>
+<ul>
+<li>
+<p>when an attempt to allocate more memory for the region
+fails</p>
+</li>
+<li>
+<p>if an attempt is made to expand a fixed size region beyond
+its allocated size</p>
+</li>
+<li>
+<p>if <code>ForceError()</code> has been called.</p>
+</li>
+</ul>
+<p>Use <code>Clear()</code> to unset the error flag, clear the
+region and free all allocated memory.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool </code></td>
+<td class="Cell"><p class="ValueDesc"> True, if the error flag is set; false, otherwise. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="TRegionClass.html#%3a%3aTRegion%3a%3aForceError%28%29" title="Sets the error flag, and clears the region"><code class="ApiItem">ForceError()</code></a></li>
+<li><a href="TRegionClass.html#%3a%3aTRegion%3a%3aClear%28%29" title="Clears this region"><code class="ApiItem">Clear()</code></a></li>
+</ul>
+<a name="2.10"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Operations with other regions</h2>
+</div><div class="Bodytext">
+<a name="2.10.2"></a></div><div class="Head3">
+<a name="%3a%3aTRegion%3a%3aCopy%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Copy()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Copy(const TRegion&amp; aRegion);</code></p><h4 class="subheading">Description</h4>
+<p>Copies another region to this region.</p>
+<p>The state of the specified region&#8217;s error flag is also
+copied.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRegion&amp; aRegion </code></td>
+<td class="Cell"><p class="ValueDesc"> The region to be copied. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.3"></a></div><div class="Head3">
+<a name="%3a%3aTRegion%3a%3aUnion%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Union()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Union(const TRegion&amp; aRegion);</code></p><h4 class="subheading">Description</h4>
+<p>Replaces this region with the union of it and the specified
+region.</p>
+<p>Note: </p>
+<ul>
+<li>
+<p>If the error flag of either this region or the specified
+region is set, then this region is cleared and its error flag is set. This
+frees up allocated memory.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRegion&amp; aRegion </code></td>
+<td class="Cell"><p class="ValueDesc"> The region to be joined to this region </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.4"></a></div><div class="Head3">
+<a name="%3a%3aTRegion%3a%3aIntersection%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Intersection()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Intersection(const TRegion&amp; aRegion,const TRegion&amp; aRegion2);</code></p><h4 class="subheading">Description</h4>
+<p>Replaces this region with the area of intersection between two
+specified regions.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>If the error flag of either of the two specified regions is
+set, then this region is cleared and its error flag is set. This frees up
+allocated memory.</p>
+</li>
+<li>
+<p>If this region&#8217;s error flag is already set, then the
+function has no effect.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRegion&amp; aRegion </code></td>
+<td class="Cell"><p class="ValueDesc"> The first region. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRegion&amp; aRegion2 </code></td>
+<td class="Cell"><p class="ValueDesc"> The second region. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.5"></a></div><div class="Head3">
+<a name="%3a%3aTRegion%3a%3aIntersect%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Intersect()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Intersect(const TRegion&amp; aRegion);</code></p><h4 class="subheading">Description</h4>
+<p>Replaces this region with the area of intersection between it
+and the specified region.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>If the error flag of either this region or the specified
+region is set, then this region is cleared and its error flag is set. This
+frees up allocated memory.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRegion&amp; aRegion </code></td>
+<td class="Cell"><p class="ValueDesc"> The region to be intersected with this region. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Region maintenance</h2>
+</div><div class="Bodytext">
+<a name="2.11.2"></a></div><div class="Head3">
+<a name="%3a%3aTRegion%3a%3aClear%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Clear()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Clear();</code></p><h4 class="subheading">Description</h4>
+<p>Clears this region.</p>
+<p>This frees up any memory which has been allocated and unsets
+the error flag.</p>
+<a name="2.11.3"></a></div><div class="Head3">
+<a name="%3a%3aTRegion%3a%3aTidy%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Tidy()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Tidy();</code></p><h4 class="subheading">Description</h4>
+<p>Merges all rectangles within this region which share an
+adjacent edge of the same length.</p>
+<p>The function subsequently frees up any allocated but unused
+memory.</p>
+<a name="2.11.4"></a></div><div class="Head3">
+<a name="%3a%3aTRegion%3a%3aSort%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Sort()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Sort();</code></p><h4 class="subheading">Description</h4>
+<p>Sorts the region&#8217;s array of rectangles according to
+their vertical position on the screen.</p>
+<p>The co-ordinates used in the sort are those of the
+rectangles&#8217; bottom right hand corner. The co-ordinates of the top and
+left hand sides are irrelevant to the sort.</p>
+<p>Higher rectangles take precedence over lower ones. For
+rectangles at the same vertical position, the leftmost takes priority.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>The sort order may need to be different from the default
+if, for example, a region is moved downwards so that lower non-overlapping
+rectangles need to be redrawn (and sorted) before higher ones. In this case,
+use the second overload of this function.</p>
+</li>
+</ul><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code>, if the operation is successful;
+<code>KErrGeneral</code>, otherwise. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.5"></a></div><div class="Head3">
+<a name="%3a%3aTRegion%3a%3aSort%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Sort()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Sort(const TPoint&amp; aOffset);</code></p><h4 class="subheading">Description</h4>
+<p>Sorts the region&#8217;s array of rectangles according to a
+specified sort order.</p>
+<p>The co-ordinates used in the sort are those of the
+rectangles&#8217; bottom right hand corner. The co-ordinates of the top and
+left hand sides are irrelevant to the sort.</p>
+<p>The order of the sort is determined by whether the
+<code>iX</code> and <code>iY</code> members of <code>aOffset</code> are
+positive, or zero or less. If <code>aOffset.iY</code> is greater than zero,
+lower rectangles take precedence over higher rectangles in the list order.
+Otherwise, higher rectangles take precedence. For rectangles of equal height,
+<code>aOffset.iX</code> becomes relevant to the sort. If is greater than zero,
+rightmost rectangles take precedence. Otherwise, leftmost rectangles take
+precedence.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>The sort order may need to be different from the default
+if, for example, a region is moved downwards so that lower non-overlapping
+rectangles need to be redrawn (and sorted) before higher ones.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TPoint&amp; aOffset </code></td>
+<td class="Cell"><p class="ValueDesc"> A point whose <code>iX</code> and <code>iY</code> members
+determine the order of the sort. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code>, if the operation is successful;
+<code>KErrGeneral</code>, otherwise. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.6"></a></div><div class="Head3">
+<a name="%3a%3aTRegion%3a%3aForceError%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ForceError()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ForceError();</code></p><h4 class="subheading">Description</h4>
+<p>Sets the error flag, and clears the region.</p>
+<p>This frees up memory allocated to the region.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

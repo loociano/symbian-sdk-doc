@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Introduction to Font and Bitmap Server</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="FontsAndBitmapsGuide%2eintroduction"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="FBSERVOperation.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Graphics</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Font&nbsp;and&nbsp;Bitmap&nbsp;Server</a>&nbsp;<span class="separator">&#187;</span>
+Introduction&nbsp;to&nbsp;Font&nbsp;and&nbsp;Bitmap&nbsp;Server</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Introduction to Font and Bitmap Server</h1>
+</div><div class="Bodytext">
+<p>The font and bitmap server manages fonts and bitmaps that may reside
+in ROM or on some other drive. Bitmaps are stored in a shared-memory heap and
+are directly accessible to all graphics programs, and the window server.
+ROM-based fonts and bitmaps are used directly from ROM. File-based fonts and
+bitmaps are loaded only once, and deleted from RAM when no longer needed by any
+client.</p>
+<p>The server manages sharing of fonts and bitmaps between all client
+threads. It is conventional in that it is a single server to manage all these
+system resources on behalf of all clients. There are two main motivations for
+its presence:</p>
+<ul>
+<li>
+<p>for fonts and bitmaps loaded from removable media into RAM, only
+a single instance of each font or bitmap is loaded into RAM: a reference count
+is maintained if multiple clients need to access it. The font or bitmap is
+removed from RAM if the reference count reduces to zero.</p>
+</li>
+<li>
+<p>a standard technique for smooth animation is for a client program
+to prepare an off-screen bitmap and then have the window server blit it to the
+screen. The server manages all bitmaps in a single shared memory area
+accessible to both the window server and its clients. The window server may
+therefore efficiently blit a bitmap prepared by one of its clients, without
+transferring the bitmap data itself between client and window server.</p>
+</li>
+</ul>
+<p>The server is used to manage all fonts and bitmaps, including those
+in ROM. </p>
+<p>The server presents a conventional client API through
+<code>RFbsSession</code>, representing a session from client to server. The
+classes <code>CFbsFont</code> and <code>CFbsBitmap</code> (documented as parts
+of the Fonts API and Bitmaps API respectively) represent client-side font and
+bitmap classes.</p>
+<p>The server is, however, slightly unusual in that the
+<code>RFbsSession</code> is stored in client-side thread-local storage. The
+constructors for <code>CFbsFont</code> and <code>CFbsBitmap</code> find this
+session handle automatically: the client program does not have to pass it as a
+parameter. Therefore, to most client programs, the client/server nature is
+hidden from the API.</p>
+<p>The <code>RFbsSession</code> is created for clients by the window
+server’s client API when an window server session, <code>RWsSession</code>,
+is constructed. A window server client is therefore always an Font and Bitmap
+Server client.</p>
+<p><code>RFbsSession</code> has a callback. When a resource is released
+by a client, the API invokes the callback. In the (usual) case that the client
+is a window server client, the window server’s client API handles the
+callback by flushing its client-side buffer. The window server, as a
+high-priority thread, then performs any drawing operations that might need the
+font or bitmap. Only when this has completed does the server release the
+resource. Without this mechanism, it would be possible for the server to
+release a resource before it is required by the window server.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

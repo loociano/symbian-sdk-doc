@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Audio Streaming Overview</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="AudioStreamingOverview%2emain"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="AudioSamplePlayerOverview.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="AudioTonePlayerOverview.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Multi&nbsp;Media&nbsp;Server</a>&nbsp;<span class="separator">&#187;</span>
+Audio&nbsp;Streaming&nbsp;Overview</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Audio Streaming overview</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Purpose</h2>
+</div><div class="Bodytext">
+<p>The Audio Streaming API is the interface to streaming sampled audio data into the media server.</p>
+<p>Streamed audio data is received by the media server client incrementally. Using the audio streaming API, the client does not have to wait until the entire sound clip has downloaded before sending it to the server — the data fragments  can be sent as they are received.</p><p>The user of the API should maintain the data fragments in a queue before sending them to the server. If the user attempts to send data faster than the server can receive it, the excess data fragments are maintained in another  client side queue (invisible to the user), whose elements are references to the buffers passed to it. The server notifies the client using a callback each time it has received a data fragment. This indicates to the client that that data fragment can be deleted.</p><p> The client is also notified when the stream is opened so that it is available to be used (opening takes place asynchronously), and also when all data has been sent to the output device so that playback is complete.</p><p>To ensure that the audio data  is played smoothly, without pauses between data fragments, the server uses buffers, one to receive data from the client, the other to send data to the output device. When the data in the output buffer has been sent to the device, the buffers are swapped around. The use of buffers  is  not exposed to the user of the API.</p><p>This API can be used to stream audio data only, and the streamed data is contained in descriptors. Client applications must ensure that the data  is in  16 bit PCM format as this is the only format supported. The API does not support mixing. A priority mechanism is used to control access to the sound device by more than one client.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Architectural relationships</h2>
+</div><div class="Bodytext">
+<p>The Audio Streaming API is  related to the following
+APIs:&nbsp;&#8212; </p>
+<p>Audio Sample Player. If the audio data is held locally in a file or descriptor then the Audio Sample Player API should be used in preference to the Audio Streaming API.</p>
+<p>Descriptors. The binary audio data written to the stream is stored in 8 bit descriptors.</p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Usage</h2>
+</div><div class="Bodytext">
+<p>Using the interface involves opening, setting audio properties, writing  to and closing the stream. It is implemented by the <code><a href="../../APIReference/AudioStreaming/CMdaAudioOutputStreamClass.html#%3a%3aCMdaAudioOutputStream" title="The interface to an audio stream player"><code class="ApiItem">CMdaAudioOutputStream</code></a></code> class.</p><p>The stream must be opened before it can be used. The volume and the stream's audio properties must be set, either when opening the stream, or after having opened it, but only  the volume can be changed while data is being sent to the stream.</p><p>The package to pass to the <code>Open()</code> function must be of type <code>TMdaAudioDataSettings</code>. The parameters like the sample rate and the number of channels  must be specified as enum values, e.g. <code>TMdaAudioDataSettings::ESampleRate8000Hz</code> rather than 8000.</p><p>The client can then call <code>WriteL()</code> to begin streaming data to the server. Subsequent calls to  <code>WriteL()</code> can be made as soon as the data is ready to be sent — you don't need to wait for the callback function <code><a href="../../APIReference/AudioStreaming/MMdaAudioOutputStreamCallbackClass.html#%3a%3aMMdaAudioOutputStreamCallback%3a%3aMaoscBufferCopied%28%29" title="A callback function that is called when a descriptor has been copied to the server"><code class="ApiItem">MMdaAudioOutputStreamCallback::MaoscBufferCopied()</code></a></code> to indicate  that the previous data fragment has been received by the server. This callback function can be used to delete the buffer that has been played.</p><p>The user of the API is faced with a trade off between using small and large buffers to store the audio data.
+The use of smaller buffers increases the chance of an underrun  (where the sound device finishes playing before the next buffer of sound data has been sent to it), but reduces the initial delay before sound begins to play.</p>
+<a name="1.6"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="AudioSamplePlayerOverview.guide.html#MediaServerOverview%2eAudioSamplePlayerOverview%2emain">Audio Sample Player overview</a></p>
+<p><a href="../Base/BuffersAndStrings/DescriptorsOverview.guide.html#BuffersAndStringsOverview%2eDescriptorsOverview%2emain">Descriptors overview</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

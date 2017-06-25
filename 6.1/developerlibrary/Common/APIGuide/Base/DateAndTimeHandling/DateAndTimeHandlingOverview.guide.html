@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Date And Time Handling Overview</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="DateAndTimeHandlingOverview%2emain"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="DateTimeHandling.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Date&nbsp;and&nbsp;Time&nbsp;Handling</a>&nbsp;<span class="separator">&#187;</span>
+Date&nbsp;And&nbsp;Time&nbsp;Handling&nbsp;Overview</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Date And Time Handling Overview</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Purpose</h2>
+</div><div class="Bodytext">
+<p>Manipulates date and time values.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Architectural relationships</h2>
+</div><div class="Bodytext">
+<p>The system time is set through the System Static Functions API
+<a href="../../../APIReference/SystemStaticFunctions/UserClass.html#%3a%3aUser" title="Set of static user functions"><code class="ApiItem">User</code></a> class.</p>
+<p>System locale settings, which affect date and time formatting, are
+set through <a href="../../../APIReference/LocaleSettings/TLocaleClass.html#%3a%3aTLocale" title="Sets and gets the system's locale settings"><code class="ApiItem">TLocale</code></a> in the Locale Settings API.</p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Description</h2>
+</div><div class="Bodytext">
+<p>The API has three key concepts: point in time, time utilities, and
+time interval. </p>
+<a name="1.5.3"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Point in time</h3>
+</div><div class="Bodytext">
+<p>The point in time is a 64-bit integer that represents time as the
+number of microseconds since midnight on 1st January 0 AD, using a nominal
+Gregorian calendar. It can be set to the current system time, can have
+arithmetic and comparison operations performed on it, and can be converted into
+a string formatted according to the locale and other options.</p>
+<p>The main point in time interface is provided by
+<a href="../../../APIReference/DateTimeHandling/TTimeClass.html#%3a%3aTTime" title="Stores and manipulates the date and time"><code class="ApiItem">TTime</code></a>. A support class <a href="../../../APIReference/DateTimeHandling/TDateTimeClass.html#%3a%3aTDateTime" title="Allows user access to the following components of the time: the year, month, day, hour, minute, second and microsecond, in human-readable form"><code class="ApiItem">TDateTime</code></a> is
+provided that allows time values to be get and set in an easy-to-use format,
+such as year, month, day, rather than as an integer.</p>
+<a name="1.5.4"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Time utilities</h3>
+</div><div class="Bodytext">
+<p>The time utilities provides miscellaneous time functions, for
+such things as checking for leap years.</p>
+<p>The time utilities interface is provided by
+<a href="../../../APIReference/DateTimeHandling/TimeClass.html#%3a%3aTime" title="Utility class whose member functions may be used by the other date/time related classes"><code class="ApiItem">Time</code></a>.</p>
+<a name="1.5.5"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Time interval</h3>
+</div><div class="Bodytext">
+<p>The time interval represents a period between two points in time.
+Time intervals can be added or subtracted, either to or from each other or to
+or from points in time.</p>
+<p>The time interval interface is provided by a base class
+<a href="../../../APIReference/DateTimeHandling/TTimeIntervalBaseClass.html#%3a%3aTTimeIntervalBase" title="Provides a base class for all time interval classes using a 32-bit representation"><code class="ApiItem">TTimeIntervalBase</code></a> and by a family of derived classes for
+second, minute, hour, etc. intervals. A class outside this hierarchy,
+<a href="../../../APIReference/DateTimeHandling/TTimeIntervalMicroSecondsClass.html#%3a%3aTTimeIntervalMicroSeconds" title="Represents a time interval of a millionth of a second stored as a 64-bit integer"><code class="ApiItem">TTimeIntervalMicroSeconds</code></a>, is provided for efficiency
+reasons (it alone stores its value as a 64-bit number).</p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="../LocaleSettings/LocaleSettingsOverview.guide.html#LocaleSettingsOverview%2emain">Locale Settings Overview</a></p>
+<p><a href="../SystemStaticFunctions/SystemStaticFunctionsOverview.guide.html#SystemStaticFunctionsOverview%2emain">System Static Functions Overview</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

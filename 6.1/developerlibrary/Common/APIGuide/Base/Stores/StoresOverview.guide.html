@@ -1,0 +1,166 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Stores Overview</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="StoresOverview%2emain"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="StoresIntroduction.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Stores</a>&nbsp;<span class="separator">&#187;</span>
+Stores&nbsp;Overview</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Stores Overview</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Purpose</h2>
+</div><div class="Bodytext">
+<p>Provides structured data storage, using networks of streams.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Architectural relationships</h2>
+</div><div class="Bodytext">
+<p>A stream is a representation of a data structure (such as an
+object) as a sequence of bytes. Structures as complex as most applications
+require multiple streams to store their state. This is termed a store. Stream
+types that work with stores are provided by the Store Streams API. </p>
+<p>The Stores API defines both base classes that define store
+abstractions without specifying the storage medium, and some concrete store
+types. The File Stores API defines further concrete stores, which use file
+storage. </p>
+<p>Concrete store types do not have to provides all the stream
+manipulation functionality defined by the base class interfaces: for example,
+direct file stores do not support individual deletion of streams within a
+store. </p>
+<p>Stores are integrated with the application architecture as defined
+in the Uikon Core API. That expects file-based and embeddable applications to
+handle their data storage through stores. </p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Description</h2>
+</div><div class="Bodytext">
+<p>The API has five key concepts: stream store base, persistent store
+base, embedded store, memory store, and dictionary store base and
+streams.</p>
+<a name="1.5.3"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Stream store base</h3>
+</div><div class="Bodytext">
+<p>This defines an interface for streams to be added and deleted to
+a store, a commit/revert mechanism, and space compaction and reclamation.
+Stores return a stream ID when a stream is created. A particular stream can be
+opened by specifying its ID. </p>
+<p>Some objects can save and restore their state to and from a
+store. It is conventional to implement functions named <code>StoreL()</code>
+and <code>RestoreL()</code> for these purposes. The most important case of this
+is the application document class (<code>CEikDocument</code>), which can be
+implemented to store and restore an application document. </p>
+<p>The stream store base class is
+<a href="../../../APIReference/Stores/CStreamStoreClass.html#%3a%3aCStreamStore" title="Provides the core abstract framework for stores allowing streams to be created and manipulated"><code class="ApiItem">CStreamStore</code></a>.</p>
+<a name="1.5.4"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Persistent store base</h3>
+</div><div class="Bodytext">
+<p>Most store types require that the store persists beyond the
+lifetime of the application that created it. The persistent store base extends
+the stream store base to provide this. In particular it provides:</p>
+<p>a root stream, from which all other streams within the store can
+be found</p>
+<p>open and close store functions</p>
+<p>The persistent store base class is
+<a href="../../../APIReference/Stores/CPersistentStoreClass.html#%3a%3aCPersistentStore" title="Persistent store abstract base class"><code class="ApiItem">CPersistentStore</code></a>.</p>
+<a name="1.5.5"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Embedded store</h3>
+</div><div class="Bodytext">
+<p>An embedded store can itself be stored as a stream in another
+store. They are used to embed application documents in other application
+documents. Once written, streams in the store cannot be modified: the store
+must be deleted and rewritten in its entirety. </p>
+<p>The embedded store is a concrete type, derived from
+<a href="../../../APIReference/Stores/CPersistentStoreClass.html#%3a%3aCPersistentStore" title="Persistent store abstract base class"><code class="ApiItem">CPersistentStore</code></a>, and is provided by
+<a href="../../../APIReference/Stores/CEmbeddedStoreClass.html#%3a%3aCEmbeddedStore" title="Encapsulates an embedded store"><code class="ApiItem">CEmbeddedStore</code></a>.</p>
+<a name="1.5.6"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Memory store</h3>
+</div><div class="Bodytext">
+<p>A memory store resides in memory and exists only for the life of
+the store object. They can be used for transient complex dynamic structures
+such as undo buffers.</p>
+<p>The memory store is a concrete type, derived from
+<a href="../../../APIReference/Stores/CStreamStoreClass.html#%3a%3aCStreamStore" title="Provides the core abstract framework for stores allowing streams to be created and manipulated"><code class="ApiItem">CStreamStore</code></a>, and is provided by
+<a href="../../../APIReference/Stores/CBufStoreClass.html#%3a%3aCBufStore" title="In-memory non-persistent store"><code class="ApiItem">CBufStore</code></a>.</p>
+<a name="1.5.7"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Dictionary store base and streams</h3>
+</div><div class="Bodytext">
+<p>A dictionary store contains a sequence of streams, each of which
+is accessed using a UID, rather than a simple stream ID. Dictionary stores are
+used by the application architecture to handle <code class="filename">.ini</code> files for
+applications. </p>
+<p>The dictionary store base class is
+<a href="../../../APIReference/Stores/CDictionaryStoreClass.html#%3a%3aCDictionaryStore" title="Dictionary store interface"><code class="ApiItem">CDictionaryStore</code></a>. Specialised stream types,
+<a href="../../../APIReference/Stores/RDictionaryReadStreamClass.html#%3a%3aRDictionaryReadStream" title="Supports the opening and manipulation of a stream in a dictionary store"><code class="ApiItem">RDictionaryReadStream</code></a> and
+<a href="../../../APIReference/Stores/RDictionaryWriteStreamClass.html#%3a%3aRDictionaryWriteStream" title="Supports the creation or replacement of a stream a dictionary store"><code class="ApiItem">RDictionaryWriteStream</code></a>, are provided for use with
+dictionary stores.</p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="../FileStores/FileStoresOverview.guide.html#FileStoresOverview%2emain">File Stores Overview</a></p>
+<p><a href="../StoreStreams/StoreStreamsOverview.guide.html#StoreStreamsOverview%2emain">Store Streams Overview</a></p>
+<p><a href="../Streaming/StreamingOverview.guide.html#StreamingOverview%2emain">Streaming Overview</a></p>
+<p><a href="../../ApplicationFramework/UikonCoreOverview.guide.html#ApplicationFrameworkOverview%2eUikonOverview%2eUikonCoreOverview%2emain">Uikon Core Overview</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

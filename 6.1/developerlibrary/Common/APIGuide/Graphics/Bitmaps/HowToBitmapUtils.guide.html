@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to use the bitmap utilities</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="BitmapsGuide%2ebitmap%2dutils%2dexample"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToCopyAScreenArea.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Graphics</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Bitmaps</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;use&nbsp;the&nbsp;bitmap&nbsp;utilities</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to use the bitmap utilities</h1>
+</div><div class="Bodytext">
+<p>The following example code shows how to the use the pixel
+manipulation functions in <code>TBitmapUtil</code>&#0160;&#8212;  here they are used
+to create a bitmap which is a rotated version of an existing bitmap.</p>
+<p class="CodeBlock"><code>/* create a new bitmap (iBitmap4), with the same size as an existing bitmap (iBitmap1), but with the height and width swapped */<br>iBitmap4 = new (ELeave) CFbsBitmap();<br>TSize inSize = iBitmap1-&gt;SizeInPixels();<br>User::LeaveIfError(iBitmap4-&gt;Create(TSize(inSize.iHeight,inSize.iWidth), iBitmap1-&gt;DisplayMode());<br><br>// create the bitmap utils<br>TBitmapUtil bitmap1Util(iBitmap1);<br>TBitmapUtil bitmap4Util(iBitmap4);<br><br>// Begin manipulation with bitmap1Util, setting initial pixel to 0,0 <br>bitmap1Util.Begin(TPoint(0,0)); <br>// Begin manipulation with bitmap4Util, setting initial pixel to 0,0<br>bitmap4Util.Begin(TPoint(0,0),bitmap1Util); <br><br>// set the bits of iBitmap4 as iBitmap1, rotated through 90 degrees<br>TInt xPos;<br>for (TInt yPos=0;yPos&lt;inSize.iHeight;yPos++)<br>&nbsp;{<br>&nbsp;bitmap1Util.SetPos(TPoint(0,yPos));<br>&nbsp;bitmap4Util.SetPos(TPoint(yPos,0));<br>&nbsp;for (xPos=0;xPos&lt;inSize.iWidth;xPos++) <br>&nbsp;&nbsp;{<br>&nbsp;&nbsp;bitmap4Util.SetPixel(bitmap1Util);<br>&nbsp;&nbsp;bitmap1Util.IncXPos();<br>&nbsp;&nbsp;bitmap4Util.IncYPos();<br>&nbsp;&nbsp;}<br>&nbsp;}<br><br>// each Begin() must have a corresponding End()<br>bitmap1Util.End();<br>bitmap4Util.End();</code></p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Notes</h2>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p><code>Begin()</code> and <code>End()</code> calls must surround
+the other <code>TBitmapUtil</code> function calls. They tell the font and
+bitmap server when to lock (that is, not to attempt to compress) the heap where
+bitmaps are stored, as operations are in progress. </p>
+</li>
+<li>
+<p>The second call to <code>Begin()</code> specifies that the heap
+has already been locked by <code>bitmap1Util</code>.</p>
+</li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

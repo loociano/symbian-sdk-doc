@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to localise resources</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="DevTools%2eLocalisation"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="Tool_Guide_Resource_Compiler.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Application&nbsp;Resource&nbsp;Tools&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;localise&nbsp;resources</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to localise resources</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Overview</h2>
+</div><div class="Bodytext">
+<p>Developers can localise a C++ application by simply changing the
+resource file text associated with each menu item, task bar or other control.
+Since changes to the text do not change the symbol information in the generated
+header file, it is not necessary to recompile the application to use the new
+file. Consequently, a resource file may be generated for each language
+supported, and the actual resource used is determined by the end-user at
+installation time.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Resource files</h2>
+</div><div class="Bodytext">
+<p>To localise a resource file, either:</p>
+<ul>
+<li>
+<p>specify the text strings (as #defines) for each language in a
+separate file, and #include the file in the resource file that references these
+strings</p>
+<p>or,</p>
+</li>
+<li>
+<p>specify the text strings in each language that you want to
+support in the resource file itself, and specify in the project's
+<code class="filename">.mmp</code> file the supported languages. The build process builds a
+separate compiled resource file for each supported language.</p>
+</li>
+</ul>
+<p>These steps for this second option are explored in detail
+below.</p>
+<a name="1.4.5"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>The resource file</h3>
+</div><div class="Bodytext">
+<p>You should decide on a symbolic identifier for every supported
+language. The symbol should be of the form <code>LANGUAGE_</code><em class="metasyntactic">language-code</em>. <code>language-code</code>
+should be two characters long, but otherwise can be anything you like&#0160;&#8212;
+as long as each language in the resource file has a unique symbol. </p>
+<p>You are recommended to use a standard two-digit number as defined
+by Symbian in an enumeration <code>TLanguage</code> in <code class="filename">e32std.h</code>,
+which gives numeric values to the languages. For example, the value
+<code>ELangFrench</code> (French) in <code>TLanguage</code> has the value 2, so
+you could use <code>LANGUAGE_02</code> as the symbol for French.</p>
+<p>Alternatively, you can use logical letters for each language:
+e.g. US English might have the symbol <code>LANGUAGE_US</code>, while French
+might have the symbol <code>LANGUAGE_FR</code>. </p>
+<p>The symbols can then used, with conditional compilation
+statements, to specify which resources should be compiled for each language. In
+the example code fragment below:</p>
+<ul>
+<li>
+<p>when the resource file is built with the code 10 (American
+English), then the text &#8220;Localize&#8221; is compiled into the
+resource file</p>
+</li>
+<li>
+<p>when built with the code 01 (UK English), the UK English
+spelling &#8220;Localise&#8221; is compiled into the resource file</p>
+</li>
+</ul>
+<p class="CodeBlock"><code>#ifdef LANGUAGE_10    // if language code is for US<br>&nbsp;LBUF { txt=&quot;Localize&quot; ; },<br>#elif defined LANGUAGE_01  // if code is for UK<br>&nbsp;LBUF { txt=&quot;Localise&quot; ; },<br>#endif      // end condititional compile</code></p>
+<a name="1.4.6"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>The .mmp file</h3>
+</div><div class="Bodytext">
+<p>Resource files are built when a project is built using <code>abld
+build</code> or through the MSVC++ IDE. To just build the resource files (plus
+the <code class="filename">aif</code> files and bitmaps), without other build steps such as
+compiling C++ files, you can use <code>abld
+resource</code>.</p>
+<p>For projects with localised resource files, you must use the <code>lang</code>
+statement in the <code class="filename">.mmp</code> file to set the languages codes used in
+those resource files. So, for the above example, in which the language codes
+used are for the US and UK, the <code>lang</code>
+statement should read:</p>
+<p class="CodeBlock"><code>lang 10 01</code></p>
+<p>When the project is built, each resource file specified in the
+project file will be compiled multiple times, once for each language-code
+specified. The language codes are used to complete the extension of the built
+resource files: for our example, two files would be built: <code>project-name</code><code class="filename">.r10</code>
+and <code>project-name</code><code class="filename">.r01</code>.</p>
+<a name="1.4.7"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>How programs load resource files </h3>
+</div><div class="Bodytext">
+<p>The resource file automatically loaded by the Uikon framework must
+have the extension <code class="filename">.rsc</code>. If an application supports several
+different languages, and hence has resource files with different extensions,
+the installation process allows the user to choose the language they want, and
+renames the required resource file appropriately. Details of this are given in
+<a href="../Installing/HowToLanguages.guide.html#Installing%2ehowto%2dmulitlingual">How to create an installation file for a multilingual application</a>.</p>
+<p>Other resource files can be explicitly loaded by programs, in which
+case their are no restrictions on the name of the resource file. Where resource
+files have been named using the Symbian two-digit language values,
+<code>BalfUtils::NearestLanguageFile()</code> can be used to try to find a
+resource file with the correct language extension for a given language code.
+</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

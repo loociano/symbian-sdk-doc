@@ -1,0 +1,432 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>RStoreReclaim</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="RDictionaryWriteStreamClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="UsingCStreamStore.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Stores</a>&nbsp;<span class="separator">&#187;</span>
+RStoreReclaim</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>s32stor.h</code>
+<br>Link against: <code>estor.lib</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aRStoreReclaim"></a>
+
+<h1>Class <code>RStoreReclaim</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>RStoreReclaim</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Performs space reclamation or compaction on a permanent file store
+in incremental steps.</p>
+<p>Reclaiming unused space makes it available for re-use by the store.
+Compacting makes unused space available for re-use by the relevant system pool
+&#8212; for example, the filing system in the case of file-based stores.</p>
+<p>Once compaction is complete, the store must be committed.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>Space reclamation and compaction are only supported by the file
+store <code>CPermanentFileStore</code> and are not supported by embedded or
+direct file stores. </p>
+</li>
+<li>
+<p>Use active objects when implementing space reclamation or
+compaction asynchronously.</p>
+</li>
+<li>
+<p>This class performs incremental compaction/reclamation. These
+operations can be performed in a&nbsp;&#8212; possibly long
+running&nbsp;&#8212; single step using <code>CStreamStore</code>
+functions.</p>
+</li>
+</ul><p>Defined in <code>RStoreReclaim</code>:
+<br><code class="ApiItem"><a href="RStoreReclaimClass.html#%3a%3aRStoreReclaim%3a%3aAvailable%28%29" title="Returns the amount of free space currently available within the store">Available()</a></code>, <code class="ApiItem"><a href="RStoreReclaimClass.html#%3a%3aRStoreReclaim%3a%3aClose%28%29" title="Stops space reclamation or compaction">Close()</a></code>, <code class="ApiItem"><a href="RStoreReclaimClass.html#%3a%3aRStoreReclaim%3a%3aCompactL%28%29" title="Prepares the object to perform compaction">CompactL()</a></code>, <code class="ApiItem"><a href="RStoreReclaimClass.html#%3a%3aRStoreReclaim%3a%3aCompactLC%28%29" title="Prepares the object to perform compaction, putting a cleanup item onto the cleanup stack">CompactLC()</a></code>, <code class="ApiItem"><a href="RStoreReclaimClass.html#%3a%3aRStoreReclaim%3a%3aNext%28%29" title="Performs the next space reclamation or compaction step -- synchronous, non-leaving">Next()</a></code>, <code class="ApiItem"><a href="RStoreReclaimClass.html#%3a%3aRStoreReclaim%3a%3aNextL%28%29" title="Performs the next space reclamation or compaction step -- synchronous, leaves">NextL()</a></code>, <code class="ApiItem"><a href="RStoreReclaimClass.html#%3a%3aRStoreReclaim%3a%3aOpenL%28%29" title="Prepares the object to perform space reclamation">OpenL()</a></code>, <code class="ApiItem"><a href="RStoreReclaimClass.html#%3a%3aRStoreReclaim%3a%3aOpenLC%28%29" title="Prepares the object to perform space reclamation and puts a pointer onto the cleanup stack">OpenLC()</a></code>, <code class="ApiItem"><a href="RStoreReclaimClass.html#%3a%3aRStoreReclaim%3a%3aRelease%28%29" title="Releases allocated resources">Release()</a></code>, <code class="ApiItem"><a href="RStoreReclaimClass.html#%3a%3aRStoreReclaim%3a%3aResetL%28%29" title="Restarts space reclamation or compaction">ResetL()</a></code>
+</p>
+<a name="2.5"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Prepare to reclaim space</h2>
+</div><div class="Bodytext">
+<a name="2.5.2"></a></div><div class="Head3">
+<a name="%3a%3aRStoreReclaim%3a%3aOpenL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>OpenL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void OpenL(CStreamStore&amp; aStore,TInt&amp; aCount);</code></p><h4 class="subheading">Description</h4>
+<p>Prepares the object to perform space
+reclamation.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CStreamStore&amp; aStore</code></td>
+<td class="Cell"><p class="ValueDesc">A reference to the store on which space reclamation or
+compaction is to be performed.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aCount</code></td>
+<td class="Cell"><p class="ValueDesc">A reference to a control value set by these functions. This
+value is required by all variants of <code>Next()</code> and
+<code>NextL()</code> (and <code>ResetL()</code>, if used).</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.5.3"></a></div><div class="Head3">
+<a name="%3a%3aRStoreReclaim%3a%3aOpenLC%28%29"></a>
+<hr size="1" noshade>
+<h3><code>OpenLC()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void OpenLC(CStreamStore&amp; aStore,TInt&amp; aCount);</code></p><h4 class="subheading">Description</h4>
+<p>Prepares the object to perform space reclamation and puts a
+pointer onto the cleanup stack.</p>
+<p><code>P</code>lacing a cleanup item for the object onto the
+cleanup stack allows allocated resources to be cleaned up if a subsequent leave
+occurs.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CStreamStore&amp; aStore</code></td>
+<td class="Cell"><p class="ValueDesc">A reference to the store on which space reclamation or compaction
+is to be performed.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aCount</code></td>
+<td class="Cell"><p class="ValueDesc">A reference to a control value set by these functions. This value
+is required by all variants of <code>Next()</code> and <code>NextL()</code>
+(and <code>ResetL()</code>, if used).</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Prepare to compact</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aRStoreReclaim%3a%3aCompactL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CompactL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void CompactL(CStreamStore&amp; aStore,TInt&amp; aCount);</code></p><h4 class="subheading">Description</h4>
+<p>Prepares the object to perform compaction.</p>
+<p>Streams must be closed before calling this
+function.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CStreamStore&amp; aStore</code></td>
+<td class="Cell"><p class="ValueDesc">A reference to the store on which space reclamation or compaction
+is to be performed.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aCount</code></td>
+<td class="Cell"><p class="ValueDesc">A reference to a control value set by these functions. This value
+is required by all variants of <code>Next()</code> and <code>NextL()</code>
+(and <code>ResetL()</code>, if used).</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aRStoreReclaim%3a%3aCompactLC%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CompactLC()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void CompactLC(CStreamStore&amp; aStore,TInt&amp; aCount);</code></p><h4 class="subheading">Description</h4>
+<p>Prepares the object to perform compaction, putting a cleanup item
+onto the cleanup stack. </p>
+<p><code>P</code>lacing a cleanup item for the object onto the cleanup
+stack allows allocated resources to be cleaned up if a subsequent leave
+occurs.</p>
+<p>Streams must be closed before calling this
+function.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CStreamStore&amp; aStore</code></td>
+<td class="Cell"><p class="ValueDesc">A reference to the store on which space reclamation or compaction is
+to be performed.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aCount</code></td>
+<td class="Cell"><p class="ValueDesc">A reference to a control value set by these functions. This value is
+required by all variants of <code>Next()</code> and <code>NextL()</code> (and
+<code>ResetL()</code>, if used).</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Releasing resources</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aRStoreReclaim%3a%3aAvailable%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Available()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Available() const;</code></p><h4 class="subheading">Description</h4>
+<p>Returns the amount of free space currently available within the store.
+The function may be called at any time during space reclamation or
+compaction.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The amount of free space currently available within the store.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aRStoreReclaim%3a%3aClose%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Close()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Close();</code></p><h4 class="subheading">Description</h4>
+<p>Stops space reclamation or compaction. All allocated resources are
+freed.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>If a cleanup item was placed on the cleanup stack when the
+<code>RStoreReclaim</code> object was prepared for space reclamation or
+compaction (i.e. by a call to <code>OpenLC()</code> or
+<code>CompactLC()</code>), then this function need not be called explicitly;
+clean up is implicitly done by
+<code>CleanupStack::PopAndDestroy()</code>.</p>
+</li>
+<li>
+<p>The <code>ResetL()</code> member function can be used to restart
+abandoned space reclamation or compaction activity.</p>
+</li>
+</ul>
+<a name="2.7.4"></a></div><div class="Head3">
+<a name="%3a%3aRStoreReclaim%3a%3aNext%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Next()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Next(TPckgBuf&lt;TInt&gt;&amp; aStep,TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Initiates the next space reclamation or compaction step&nbsp;&#8212;
+asynchronous, non-leaving. The function updates the value in
+<code>aStep</code>, and should only be called while <code>aStep</code> is
+non-zero. Once this value is zero, no further calls should be made.</p>
+<p>The step itself is performed asynchronously.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>The <code>RStoreReclaim</code> object should be made part of an active
+object to simplify the handling of the step completion event.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TPckgBuf&lt;TInt&gt;&amp; aStep</code></td>
+<td class="Cell"><p class="ValueDesc">A reference to a control value constructed from a <code>TInt</code> value
+originally set by <code>OpenL()</code>, <code>OpenLC()</code>,
+<code>CompactL()</code> or <code>CompactLC().</code><code>aStep</code> is
+updated by calls to <code>Next()</code> or <code>NextL()</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStatus</code></td>
+<td class="Cell"><p class="ValueDesc">On completion, contains the request status. If successful contains
+<code>KErrNone</code>. If the function fails during the initiation phase, the
+failure is reported as if the step had started successfully but completed with
+that error.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.5"></a></div><div class="Head3">
+<a name="%3a%3aRStoreReclaim%3a%3aNext%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Next()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt Next(TInt&amp; aStep);</code></p><h4 class="subheading">Description</h4>
+<p>Performs the next space reclamation or compaction step&nbsp;&#8212;
+synchronous, non-leaving. The function updates the value in <code>aStep</code>,
+and should only be called while <code>aStep</code> is non-zero. Once this value
+is zero, no further calls should be made.</p>
+<p>The step is performed synchronously, i.e. the function does not return
+until the step is complete.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aStep</code></td>
+<td class="Cell"><p class="ValueDesc">A reference to a control value originally set by <code>OpenL()</code>,
+<code>OpenLC()</code>, <code>CompactL()</code> or <code>CompactLC()</code> and
+updated by calls to <code>Next()</code> or <code>NextL()</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc"><code>KErrNone</code> if successful, otherwise another of the system-wide
+error codes.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.6"></a></div><div class="Head3">
+<a name="%3a%3aRStoreReclaim%3a%3aNextL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NextL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void NextL(TPckgBuf&lt;TInt&gt;&amp; aStep,TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Initiates the next space reclamation or compaction step&nbsp;&#8212;
+asynchronous, leaving. The function updates the value in <code>aStep</code>,
+and should only be called while <code>aStep</code> is non-zero. Once this value
+is zero, no further calls should be made.</p>
+<p>The step itself is performed asynchronously.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>The <code>RStoreReclaim</code> object should be made part of an active
+object to simplify the handling of the step completion event.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TPckgBuf&lt;TInt&gt;&amp; aStep</code></td>
+<td class="Cell"><p class="ValueDesc">A reference to a control value constructed from a <code>TInt</code> value
+originally set by <code>OpenL()</code>, <code>OpenLC()</code>,
+<code>CompactL()</code> or <code>CompactLC().</code><code>aStep</code> is
+updated by calls to <code>Next()</code> or <code>NextL()</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStatus</code></td>
+<td class="Cell"><p class="ValueDesc">On completion, contains the request status. If successful contains
+<code>KErrNone</code>. If the function fails during the initiation phase, the
+failure is reported as if the step had started successfully but completed with
+that error.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">The function leaves if it fails during the initiation phase, in which
+case no asynchronous request will have been made. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.7"></a></div><div class="Head3">
+<a name="%3a%3aRStoreReclaim%3a%3aNextL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NextL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void NextL(TInt&amp; aStep);</code></p><h4 class="subheading">Description</h4>
+<p>Performs the next space reclamation or compaction step&nbsp;&#8212;
+synchronous, leaves. The function updates the value in <code>aStep</code>, and
+should only be called while <code>aStep</code> is non-zero. Once this value is
+zero, no further calls should be made.</p>
+<p>The step is performed synchronously, i.e. the function does not return
+until the step is complete.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aStep</code></td>
+<td class="Cell"><p class="ValueDesc">A reference to a control value originally set by <code>OpenL()</code>,
+<code>OpenLC()</code>, <code>CompactL()</code> or <code>CompactLC()</code> and
+updated by calls to <code>Next()</code> or <code>NextL()</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">The function leaves on failure with one of the system-wide error codes
+(e.g. <code>KErrNone</code> ). </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.8"></a></div><div class="Head3">
+<a name="%3a%3aRStoreReclaim%3a%3aRelease%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Release()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Release();</code></p><h4 class="subheading">Description</h4>
+<p>Releases allocated resources. Any space reclamation or compaction in
+progress is abandoned.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>If a cleanup item was placed on the cleanup stack when the
+<code>RStoreReclaim</code> object was prepared for space reclamation or
+compaction (i.e. by a call to <code>OpenLC()</code> or
+<code>CompactLC()</code>), then this function need not be called explicitly;
+clean up is implicitly done by
+<code>CleanupStack::PopAndDestroy()</code>.</p>
+</li>
+<li>
+<p>The <code>ResetL()</code> member function can be used to restart
+abandoned space reclamation or compaction activity.</p>
+</li>
+</ul>
+<a name="2.7.9"></a></div><div class="Head3">
+<a name="%3a%3aRStoreReclaim%3a%3aResetL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ResetL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ResetL(TInt&amp; aCount);</code></p><h4 class="subheading">Description</h4>
+<p>Restarts space reclamation or compaction.</p>
+<p>The value in <code>aCount</code> must be:</p>
+<ul>
+<li>
+<p>that which was set by the most recent call to <code>Next()</code> or
+<code>NextL()</code>, if space reclamation or compaction had been
+started.</p>
+</li>
+<li>
+<p>that which was set by <code>OpenL()</code>, <code>OpenLC()</code>,
+<code>CompactL()</code> or <code>CompactLC()</code>, if space reclamation or
+compaction had not been started.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aCount</code></td>
+<td class="Cell"><p class="ValueDesc">A reference to a control value originally set by <code>OpenL()</code>,
+<code>OpenLC()</code>, <code>CompactL()</code> or <code>CompactLC()</code> and
+updated by subsequent calls to <code>Next()</code> or
+<code>NextL()</code>.</p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

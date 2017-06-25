@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Text objects</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="TextAndTextAttributesGuide1%2eTextObjects"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="TextContentIntroduction.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="TheEPOCTextModel.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Application&nbsp;Framework</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Text&nbsp;and&nbsp;Text&nbsp;Attributes</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Text&nbsp;content</a>&nbsp;<span class="separator">&#187;</span>
+Text&nbsp;objects</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Text objects</h1>
+</div><div class="Bodytext">
+<p>Four classes provide increasing levels of support for text content:</p>
+<ul><li><p><a href="../../../../APIReference/TextAndTextAttributes/CEditableTextClass.html#%3a%3aCEditableText" title="An abstract base class which defines the behaviour that all classes in the editable text class hierarchy (CPlainText, CGlobalText and CRichText) must provide"><code class="ApiItem">CEditableText</code></a> provides just text content, no formatting</p></li><li><p><a href="../../../../APIReference/TextAndTextAttributes/CPlainTextClass.html#%3a%3aCPlainText" title="Stores and manipulates plain text"><code class="ApiItem">CPlainText</code></a> supports characters and paragraphs, <i>fields</i> and a page table. It can be manipulated and stored (using either a flat or segmented memory buffer), but has no formatting information and cannot be displayed. Examples of possible uses are spell checking and for explicit text handling buffers.  </p></li><li><p><a href="../../../../APIReference/TextAndTextAttributes/CGlobalTextClass.html#%3a%3aCGlobalText" title="Text with globally applied formatting"><code class="ApiItem">CGlobalText</code></a> has a global format for all characters and all paragraphs</p><p>This is the lowest-specification text class that can be laid out and displayed on the screen or printer.  This is because layout and display require paragraph and character formats, however primitive.</p>
+</li><li><p><a href="../../../../APIReference/TextAndTextAttributes/CRichTextClass.html#%3a%3aCRichText" title="Text with rich formatting"><code class="ApiItem">CRichText</code></a> all characters and paragraphs may have individually set format attributes; pictures are supported</p><p>This provides fully general formatting.</p></li></ul><p>A text object has any number of characters, and always ends with a paragraph mark, which is not included in the length.  The shortest document contains zero characters.  The characters in a text object are contained in a dynamic buffer, usually a <code>CBufSeg</code> but, for short text objects of bounded length, a <code>CBufFlat</code> may be more appropriate. </p>
+<a name="1.6"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Manipulating text objects</h2>
+</div><div class="Bodytext">
+<p>Text objects provide functions to insert and delete text, and to exchange text with descriptors.  Definitions for special characters are also provided.  </p>
+<p>Facilities to count characters, words and paragraphs are provided, and also to find the beginning of the next or previous word or paragraph.  When scanning words, various types of delimiters may be used. For example picture characters and punctuation  delimiters may be set, which is useful for spell checking. Delimeters, such as <code>EScanPictureIsDelimiter</code>,  are set in a scan mask parameter to the <code>ScanWords()</code> functions of the <code>CEditableText</code> and <code>CPlainText</code> classes.</p>
+<a name="1.7"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Addressable document positions</h2>
+</div><div class="Bodytext">
+<p>Characters are addressed by a document position, which may range from zero through to the length of the buffer. A document position is considered to mark the point between two adjacent characters. Thus document position 2 is located between the second and third characters. Document position 0 is located before the first character in the text object. Inserting text at position 5 will insert text immediately after the fifth character. Special elements such as paragraph marks, non-breaking spaces etc. are assigned to their Unicode character codes.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

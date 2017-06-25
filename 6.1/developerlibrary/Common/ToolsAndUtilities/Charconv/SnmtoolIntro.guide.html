@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>About snmtool</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="SnmtoolIntro%2eabout"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CnvtoolIntro.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Character&nbsp;Conversion&nbsp;Plug-in&nbsp;Creation&nbsp;Tools&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+About&nbsp;snmtool</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>The Snm File Generator</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Introduction</h2>
+</div><div class="Bodytext"><p>
+<code class="filename">snmtool</code> is used to create plug-in data files (called <i>snm</i> files) which
+contain mappings between standard character set identifiers (which
+may either be names or MIB enums) and their corresponding Symbian UIDs.</p><p>The acronym <i>snm</i> stands for Standard Names and MIB
+enums. Snm files are used by several member functions of the
+<code>CCnvCharacterSetConverter</code> class, for instance
+<code>ConvertStandardNameOfCharacterSetToIdentifierL()</code> and
+<code>ConvertMibEnumOfCharacterSetToIdentifierL()</code>.</p><p>  snm files should be installed in the <code class="filename">\system\charconv\</code> directory. Mappings for some common character sets are already provided, but more can be created.</p><p>The following steps need to be taken to create an snm file:</p>
+<ol>
+<li>
+<p>Create the source snm file. This is a text file which defines
+the mapping between Symbian-specific character set UIDs  and one or more standard names and/or MIB enums. See the following section for how this file should be formatted.</p>
+</li>
+<li>
+<p>Create the snm file by invoking <code class="filename">snmtool</code> on the source snm file.</p>
+</li>
+<li>
+<p>Install the generated snm file in the
+<code class="filename">\system\charconv\</code> directory on any drive.</p>
+</li>
+</ol>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>The source snm file</h2>
+</div><div class="Bodytext">
+<p>The source file consists of zero, one or more blocks of
+information. The first line in each block has the format:</p>
+<p class="CodeBlock"><code>CharacterSet 0x&lt;UID-in-hexadecimal&gt;</code></p>
+<p>The remainder of each block consists of zero, one or more lines,
+each of which is either in the format:</p>
+<p class="CodeBlock"><code>StandardName &quot;&lt;standard-name&gt;&quot;</code></p>
+<p>or in the format:</p>
+<p class="CodeBlock"><code>MibEnum &lt;MIB-enum-in-decimal&gt;</code></p>
+<p>For example, the following provides the mapping information for the Shift-JIS character set:</p>
+<div class="Example"><p>CharacterSet 0x10000fbd</p><p>StandardName	&quot;Shift_JIS&quot;
+</p><p>StandardName	&quot;MS_Kanji&quot;
+</p><p>StandardName	&quot;csShiftJIS&quot;
+</p><p>MibEnum			17</p></div><p>The source snm file is case insensitive and permits comments
+beginning with a &quot;#&quot; and extending to the end of the line. It also permits
+blank lines and leading and trailing whitespace on non-blank lines.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

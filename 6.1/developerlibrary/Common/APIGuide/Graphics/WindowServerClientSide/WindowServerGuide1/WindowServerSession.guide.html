@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Window server session</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="WindowServerGuide1%2eWindowServerSession"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="WindowServerIntroduction.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="WindowServerEvents/index.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Graphics</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Window&nbsp;Server</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Window&nbsp;server&nbsp;architecture</a>&nbsp;<span class="separator">&#187;</span>
+Window&nbsp;server&nbsp;session</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Window server session</h1>
+</div><div class="Bodytext">
+<p>Each application uses a window server session to communicate with the
+window server. Through the session, the application may control and
+interrogate</p>
+<ul>
+<li>
+<p>its own windows</p>
+</li>
+<li>
+<p>which events it wishes to receive</p>
+</li>
+<li>
+<p>all other window groups connected to the window server</p>
+</li>
+</ul>
+<p>The window server session provides a low-level interface for
+application programs&#8217; use, using asynchronous services. To support an
+application framework, these services should be made higher-level, and the
+asynchronous services should be encapsulated into active objects. This function
+is performed by the UI control framework, formerly known as CONE. The control
+framework is the basis for the GUI used by a particular variant of the Symbian OS. Each
+event is then handled by the <a href="../../../../APIReference/AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aRunL%28%29" title="Handles an active object's request completion event"><code class="ApiItem">CActive::RunL()</code></a> member function of an active
+object.</p>
+<p>The <a href="../../../../APIReference/WindowServerClientSide/RWsSessionClass.html#%3a%3aRWsSession" title="Window server session"><code class="ApiItem">RWsSession</code></a> class represents a
+<em>session</em> from the client to the window server.
+Through an <code>RWsSession</code>, the client program controls all its own
+windows, issues asynchronous requests for up to three types of event, and may
+in addition control certain system-wide window server behaviour. </p>
+<p>The <code>RWsSession</code> is a client-server session derived from
+<code>RSessionBase</code>. In a typical application, an <code>RWsSession</code>
+will own a single <em>window group</em>, but the window
+server architecture allows more than one window group per session. An
+application will own several windows. See <a href="../WindowServerGuide2/WindowGroups.guide.html#WindowServerGuide2%2ewindow%2dgroup">Window Groups and applications</a>.</p>
+<p>The window server session delivers events to the application via
+three event streams. A typical application handles each stream using an active
+object. See <a href="WindowServerEvents/WindowServerEvents.guide.html#WindowServerGuide1%2eWindowServerEvents">Window Server events</a>.</p>
+<p>The application draws to its windows using a <a href="../../../../APIReference/WindowServerClientSide/CWindowGcClass.html#%3a%3aCWindowGc" title="Window graphics context"><code class="ApiItem">CWindowGc</code></a>.
+Draw functions are buffered in a client-side buffer in order to minimise
+client/server context switches: this buffer is flushed in certain circumstances
+by the window server and may also be flushed explicitly by the application. The
+<code>Flush()</code> and <code>SetAutoFlush()</code> functions are part of the
+<code>RWsSession</code> API: the <code>RWsBuffer</code> is privately owned by
+an <code>RWsSession</code> and is not as such part of the API. See <a href="ClientSideBuffer.guide.html#WindowServerGuide6%2eClientSideBuffer">Client-side buffer</a></p>
+<a name="1.10"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="../../../Base/InterProcessCommunication/AsynchronousServicesGuide/AsynchronousServicesGuide3/ActiveObjects.guide.html#AsynchronousServicesGuide3%2eactive%2dobjects">Active objects</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

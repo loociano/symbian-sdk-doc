@@ -1,0 +1,235 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to implement a simple server interface</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="ClientServerGuide%2ehow%2dto%2esimple%2dserver%2dinterface"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToSimpleClientInterface.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="InitialisingSubsession.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Inter&nbsp;Process&nbsp;Communciation</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Client/Server</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;implement&nbsp;a&nbsp;simple&nbsp;server&nbsp;interface</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to implement a simple server interface</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Handling asynchronous requests</h2>
+</div><div class="Bodytext">
+<p>The implementation of a server requires a class derived from
+<code>CServer</code>. This is the <i>active object</i> base class
+responsible for handling the asynchronous requests from the client
+program.</p>
+<a name="1.3.3"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Construction and initialisation</h3>
+</div><div class="Bodytext">
+<p>An instance of the <code>CServer</code> derived class is,
+typically, created by the server's thread function. As an active object, it
+needs a priority and this is passed as a parameter to the constructor. The
+choice of priority value depends on the server's design. If the server can have
+more than one active object, then it may be important for the
+<code>CServer</code> active object to have the highest priority.</p>
+<p>The server can now be started.</p>
+<p class="CodeBlock"><code>void CCountServServer::New()<br>&nbsp;{<br>&nbsp;CCountServServer *pS=new CCountServServer(EPriority);<br>&nbsp;__ASSERT_ALWAYS(pS!=NULL,PanicServer(ESvrCreateServer));<br>&nbsp;TInt r=pS-&gt;Start(KCountServerName);<br>&nbsp;__ASSERT_ALWAYS(r==KErrNone,PanicServer(ESvrStartServer));<br>&nbsp;}</code></p>
+<p><code>CServer::Start()</code> adds the <code>CServer</code>
+active object to the active scheduler and issues the first request for
+messages. The server is now waiting for messages.</p>
+<p>As with all active objects, the completion of requests for
+messages is handled by the <code>CServer::RunL()</code> protected member
+function.</p>
+<p><i>Note that in ER5</i>, the server name must be given
+its name as a step in the construction process. It is important this be done
+before starting the server otherwise an E32USER-CBase 55 panic is raised. The
+name is created in a heap descriptor and the pointer to this heap descriptor
+assigned to the public data member CServer::iName. The function New() in the
+above code fragment becomes:</p>
+<p class="CodeBlock"><code>void CCountServServer::New()<br>&nbsp;{<br>&nbsp;CCountServServer *pS=new CCountServServer(EPriority);<br>&nbsp;__ASSERT_ALWAYS(pS!=NULL,PanicServer(ESvrCreateServer));<br>HBufC *pN=(&amp;KCountServerName)-&gt;Alloc();<br>__ASSERT_ALWAYS(pN!=NULL,PanicServer(ESvrCreateServer));<br>pS-&gt;iName=pN;<br>&nbsp;TInt r=pS-&gt;Start();<br>&nbsp;__ASSERT_ALWAYS(r==KErrNone,PanicServer(ESvrStartServer));<br>&nbsp;}</code></p>
+<a name="1.3.4"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Handling requests</h3>
+</div><div class="Bodytext">
+<p>Requests for connection by a client thread result in the creation of
+a new session. A new <code>CSharableSession</code> object is constructed,
+initialised and added to the server&#8217;s session queue.</p>
+<p>For a non sharable session, requests for disconnection by a client
+thread cause the relevant <code>CSharableSession</code> object to be deleted.
+The <code>CSharableSession</code> destructor should perform appropriate
+cleanup.</p>
+<p>Any other message is passed to
+<code>CSharableSession::ServiceL()</code>. This function must be implemented by
+a derived class.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Server side session representation</h2>
+</div><div class="Bodytext">
+<p>The base class <code>CSharableSession</code> represents a client's
+session on the server side. This class provides the standard session behaviour.
+The <code>CSession</code> class derived from <code>CSharableSession</code> adds
+the concept of the client thread. A class derived from <code>CSession</code>
+must be defined and implemented. The following class definition, taken from
+example code, is typical:</p>
+<p class="CodeBlock"><code>class CCountServSession : public CSession<br>&nbsp;{<br>public:<br>&nbsp;CCountServSession(RThread &amp;aClient, CCountServServer * aServer);<br>&nbsp;static CCountServSession* NewL(RThread &amp;aClient, CCountServServer* aServer);<br>&nbsp;virtual void ServiceL(const RMessage &amp;aMessage);<br>&nbsp;void DispatchMessageL(const RMessage &amp;aMessage);<br>&nbsp;void SetFromStringL();<br>&nbsp;void Increase();<br>&nbsp;void Decrease();<br>&nbsp;void IncreaseBy();<br>&nbsp;void DecreaseBy();<br>&nbsp;void CounterValue();<br>&nbsp;void Reset();<br>protected:<br>&nbsp;void PanicClient(TInt aPanic) const;<br>&nbsp;void Write(const TAny* aPtr,const TDesC8&amp; aDes,TInt anOffset=0);<br>private:<br>&nbsp;CCountServServer* iCountSvr;<br>&nbsp;TInt iCount;<br>&nbsp;};</code></p>
+<p>Note the following:</p>
+<ul>
+<li>
+<p>The function <code>ServiceL()</code> is called by the server
+framework to handle all messages except requests to connect and
+disconnect.</p>
+</li>
+<li>
+<p><code>ServiceL()</code> calls <code>DispatchMessageL()</code> under
+a trap harness.</p>
+</li>
+<li>
+<p><code>DispatchMessageL()</code> determines the appropriate message
+service function to call by examining the operation code of the current
+message.</p>
+</li>
+<li>
+<p>The class provides message service functions:
+<code>Increase()</code>, <code>IncreaseBy()</code> etc to service specific
+messages from clients.</p>
+</li>
+<li>
+<p>The function <code>SetFromStringL()</code> needs a string specified
+by the client and reads the data from the client address space.</p>
+</li>
+<li>
+<p>The function <code>Write()</code> is used to write information to
+the client address space.</p>
+</li>
+</ul>
+<a name="1.4.6"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3><code>ServiceL()</code></h3>
+</div><div class="Bodytext">
+<p>This is implemented as follows:</p>
+<p class="CodeBlock"><code>void CCountServSession::ServiceL(const RMessage&amp; aMessage)<br>&nbsp;{<br>&nbsp;TRAPD(err,DispatchMessageL(aMessage));<br>&nbsp;aMessage.Complete(err);<br>&nbsp;}</code></p>
+<a name="1.4.6.4"></a>
+<h4>Note</h4>
+<ul>
+<li>
+<p>After calling the appropriate service function via
+<code>DispatchMessageL()</code>, the asynchronous request is completed with
+<code>aMessage.Complete()</code> which passes the completion code back to the
+client. Failing to do this will hang the server.</p>
+</li>
+</ul>
+<a name="1.4.7"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3><code>DispatchMessageL()</code></h3>
+</div><div class="Bodytext">
+<p>This is implemented as follows:</p>
+<p class="CodeBlock"><code>void CCountServSession::DispatchMessageL(const RMessage &amp;aMessage)<br>&nbsp;{<br>&nbsp;switch (aMessage.Function())<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;case ECountServSetFromString:<br>&nbsp;&nbsp;SetFromStringL();<br>&nbsp;&nbsp;return;<br>&nbsp;case ECountServIncrease:<br>&nbsp;&nbsp;Increase();<br>&nbsp;&nbsp;return;<br>&nbsp;case ECountServIncreaseBy:<br>&nbsp;&nbsp;IncreaseBy();<br>&nbsp;&nbsp;return;<br>&nbsp;case ECountServValue:<br>&nbsp;&nbsp;CounterValue();<br>&nbsp;&nbsp;return;<br>&nbsp;&nbsp;...............<br>&nbsp;&nbsp;default:<br>&nbsp;&nbsp;PanicClient(EBadRequest);<br>&nbsp;&nbsp;return;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;}</code></p>
+<a name="1.4.8"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3><code>IncreaseBy()</code></h3>
+</div><div class="Bodytext">
+<p>This message service function is implemented as follows:</p>
+<p class="CodeBlock"><code>void CCountServSession::IncreaseBy()<br>&nbsp;{<br>&nbsp;iCount = iCount + Message().Int0();<br>&nbsp;}</code></p>
+<a name="1.4.8.4"></a>
+<h4>Note</h4>
+<ul>
+<li>
+<p>the function <code>Message().Int0()</code> is used to obtain the
+integer specified in the client call.</p>
+</li>
+</ul>
+<a name="1.4.9"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3><code>SetFromStringL()</code></h3>
+</div><div class="Bodytext">
+<p>This message service function is implemented as follows:</p>
+<p class="CodeBlock"><code>void CCountServSession::SetFromStringL()<br>&nbsp;{<br>&nbsp;TInt res;<br>&nbsp;const TAny* pD=Message().Ptr0();<br>&nbsp;TInt desLen=Message().Client().GetDesLength(pD);<br>&nbsp;HBufC8* writeBuf=HBufC8::New(desLen);<br>&nbsp;TPtr initptr = writeBuf-&gt;Des();<br>&nbsp;TRAP(res,Message().ReadL(pD,initptr));<br>&nbsp;if (res!=KErrNone)<br>&nbsp;&nbsp;PanicClient(EBadDescriptor);<br>&nbsp;....................... <br>&nbsp;// Do rest of work to convert from string to integer, and assign.<br>&nbsp;}</code></p>
+<a name="1.4.9.4"></a>
+<h4>Note</h4>
+<ul>
+<li>
+<p><code>RMessage::ReadL()</code> reads the contents of the client
+address space as specified by the first argument in the message and copies the
+data into the descriptor specified as its second argument. The result is tested
+and the server panics the client if the read fails.</p>
+</li>
+</ul>
+<a name="1.4.10"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3><code>Write()</code></h3>
+</div><div class="Bodytext">
+<p>This is implemented as follows:</p>
+<p class="CodeBlock"><code>void CCountServSession::Write(const TAny* aPtr,const TDesC8&amp; aDes,TInt anOffset)<br>&nbsp;{<br>&nbsp;TRAPD(ret,WriteL(aPtr,aDes,anOffset);)<br>&nbsp;if (ret!=KErrNone)<br>&nbsp;&nbsp;PanicClient(EBadDescriptor);<br>&nbsp;}</code></p>
+<a name="1.4.10.4"></a>
+<h4>Notes</h4>
+<ul>
+<li>
+<p>If the write fails the server panics the client. The
+<code>PanicClient()</code> function calls
+<code>CSession::Panic()</code>.</p>
+</li>
+<li>
+<p><code>CounterValue()</code> uses this function to write the current
+counter value to the client address specified in
+<code>RCountServ::CounterValue()</code> and returned by
+<code>Message().Ptr0()</code>:</p>
+</li>
+</ul>
+<p class="CodeBlock"><code>void CCountServSession::CounterValue()<br>&nbsp;{<br>&nbsp;TPckgBuf&lt;TInt&gt; p(iCount);<br>&nbsp;Write(Message().Ptr0(),p);<br>&nbsp;}</code></p>
+<ul>
+<li>
+<p>Arguments must be packaged before they can be read from or written to
+the client.</p>
+</li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

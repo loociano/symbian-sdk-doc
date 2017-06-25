@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Storage </title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="MessagingGuide2%2estorage"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="MessageServerIntroduction.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="MessagingIndex.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Messaging</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Messaging</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">The&nbsp;Message&nbsp;Server</a>&nbsp;<span class="separator">&#187;</span>
+Storage&nbsp;</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Storage </h1>
+</div><div class="Bodytext">
+<p>The data for the items in the messaging system —attachments,
+folders, and message services as well as messages —can be stored in three
+places:</p>
+<ul>
+<li>
+<p>Index: the index records state and generic message header
+information for every item. Each index entry (and so each item) is uniquely
+identified by an ID field. </p>
+</li>
+<li>
+<p>Message Store: each entry can have an associated direct file
+stream store that holds message body text, and protocol-specific data.</p>
+</li>
+<li>
+<p>Binary files: files of any type can also be associated with an
+entry. Typically, these are message attachment files.</p>
+</li>
+</ul>
+<p>Some entry types do not usually have associated message stores or
+binary files: for example, folders, being simple, can be wholly described by an
+index entry.</p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Index</h2>
+</div><div class="Bodytext">
+<p>As the Message Server is expected to run continuously, it maintains
+the index in memory. A copy of the index is persisted in the file system, so
+that it can be restored in the event of a system reset or Message Server
+failure.</p>
+<p>Some fields only apply to particular types of entry (such as
+messages or services); other fields can be interpreted differently for
+different entry types.</p>
+<a name="1.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Message store</h2>
+</div><div class="Bodytext">
+<p>A message store contains message data in a variable number of
+streams, each of which is referenced by a unique identifier. This concept is
+known as a dictionary file store.</p>
+<p>MTMs can create additional streams in a message store to hold
+MTM-specific message data. Usually, at least one stream is devoted to
+non-generic header information, such as recipient information.</p>
+<p>The Message Server allows multiple read-only and a single
+read/write access to a message store at any one time.</p>
+<a name="1.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Binary files</h2>
+</div><div class="Bodytext">
+<p>Any entry can have binary files associated with it. These are
+stored in a directory, created by the Message Server, that is unique to the
+entry. The Message Server does not otherwise control the contents of such
+directories.</p>
+<a name="1.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Storage abstractions</h2>
+</div><div class="Bodytext">
+<p>The abstractions through which applications access the various
+types of storage are key to Messaging. Briefly:</p>
+<ul>
+<li>
+<p><code>CMsvEntry</code> is the highest level abstraction. It
+encapsulates actions to access, manipulate, create, delete, and move
+entries.</p>
+</li>
+<li>
+<p><code>CMsvServerEntry</code> is similar to
+<code>CMsvEntry</code>, but used only by Server-side MTMs</p>
+</li>
+<li>
+<p><code>TMsvEntry</code> encapsulates an index entry</p>
+</li>
+<li>
+<p><code>CMsvStore</code> encapsulates an entry’s message
+store</p>
+</li>
+<li>
+<p>binary files are manipulated through the normal file system
+APIs</p>
+</li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

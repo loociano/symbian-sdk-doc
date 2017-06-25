@@ -1,0 +1,371 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Using TDes16</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="Descriptors%2eUsing%2dTDes16"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="UsingTDes.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="UsingTDes8.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Descriptors</a>&nbsp;<span class="separator">&#187;</span>
+Using&nbsp;TDes16</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Using <code>TDes16</code> Class</h1>
+</div><div class="Bodytext">
+<a name="Descriptors%2eUsing%2dTDes16%2einterface"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Using in a function interface</h2>
+</div><div class="Bodytext">
+<p>Interfaces which take wide (Unicode) text, use descriptors in the
+specification of that interface.</p>
+<p>An interface which needs to access and modify Unicode text,
+regardless of the build variant, uses a <a href="TDes16Class.html#%3a%3aTDes16" title="Modifiable 16 bit descriptor; abstract class"><code class="ApiItem">TDes16</code></a> as the
+argument type. All 16 bit concrete descriptors are derived from
+<code>TDes16</code> which means that the interface can accept any 16 bit
+descriptor.</p>
+<p>The following code fragment shows the most common function
+prototype pattern.</p>
+<p class="CodeBlock"><code>void ClassX::foo(TDes16&amp; anArg);</code></p>
+<p>The use of <code>TDes16</code> means that data can be accessed and
+modified through the descriptor.</p>
+<p>In practice, nearly all code uses the build independent variant,
+<a href="TDesTypedef.html#%3a%3aTDes" title="Build independent modifiable descriptor"><code class="ApiItem">TDes</code></a>, unless an explicit 8 bit or 16 bit build variant is
+required.</p>
+<h4 class="subheading">See also</h4>
+<ul>
+<li>
+<p><a href="UsingTDes.guide.html#Descriptors%2eUsing%2dTDes%2einterface" title="Using TDes / Usage in a function interface">Using TDes in a function interface</a></p>
+</li>
+</ul>
+<a name="Descriptors%2eUsing%2dTDes16%2eaccess%2ditems"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Accessing individual data items</h2>
+</div><div class="Bodytext">
+<p>The code fragment illustrates the use of
+<a href="TDes16Class.html#%3a%3aTDes16%3a%3aoperator%5b%5d%28%29" title="Returns a reference to a single data item within this descriptor's data"><code class="ApiItem">operator[]()</code></a>.</p>
+<p>The behaviour is the same for the build independent variant,
+<a href="TDesTypedef.html#%3a%3aTDes" title="Build independent modifiable descriptor"><code class="ApiItem">TDes</code></a>, replacing <a href="../LiteralDescriptors/Lit16Macro.html#_LIT16" title="Constructs a constant literal descriptor of type TLitC16<TInt> with specified name and text"><code class="ApiItem">_LIT16</code></a> with <a href="../LiteralDescriptors/LitMacro.html#_LIT" title="Constructs a build independent constant literal descriptor of type TLitC<TInt> with a specified name and text"><code class="ApiItem">_LIT</code></a>.</p>
+<p class="CodeBlock"><code>_LIT16(KAtoG,&quot;abcdefg&quot;);<br>TChar ch;<br>...<br>str.Length();           // returns 7<br>ch = str[0];            // ch contains the character 'a'<br>ch = str[3];            // ch contains the character 'd'<br>...<br>str[0] = 'z';           // changes str to &quot;zbcdefg&quot;<br>str[3] = 'z';           // changes str to &quot;abczefg&quot;<br>...<br>ch = str[7];            // Panic !!<br>str[7] = 'z';           // Panic !!</code></p>
+<a name="Descriptors%2eUsing%2dTDes16%2ecopy"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Copying data</h2>
+</div><div class="Bodytext">
+<p>The code fragment shows the <a href="TDes16Class.html#%3a%3aTDes16%3a%3aCopy%28%29" title="Copies data into this descriptor replacing any existing data"><code class="ApiItem">Copy()</code></a>
+function.</p>
+<p>The behaviour is the same for the build independent variant,
+<a href="TDesTypedef.html#%3a%3aTDes" title="Build independent modifiable descriptor"><code class="ApiItem">TDes</code></a>, replacing <a href="../LiteralDescriptors/Lit16Macro.html#_LIT16" title="Constructs a constant literal descriptor of type TLitC16<TInt> with specified name and text"><code class="ApiItem">_LIT16</code></a> with <a href="../LiteralDescriptors/LitMacro.html#_LIT" title="Constructs a build independent constant literal descriptor of type TLitC<TInt> with a specified name and text"><code class="ApiItem">_LIT</code></a>, and <a href="TBuf16Class.html#%3a%3aTBuf16" title="16 bit modifiable buffer descriptor"><code class="ApiItem">TBuf16</code></a> with
+<a href="TBufClass.html#%3a%3aTBuf" title="Build-independent modifiable buffer descriptor"><code class="ApiItem">TBuf</code></a>.</p>
+<p class="CodeBlock"><code>_LIT16(Kabcdefg,&quot;abcdefg&quot;);<br>_LIT16(Kabc,&quot;abc&quot;);<br>_LIT16(Kabcdefghi,&quot;abcdefghi&quot;);<br>...<br>TBuf16&lt;8&gt; str;<br>...<br>str.Copy(Kabcdefg);     // copies &quot;abcdefg&quot; to str<br>str.Length();           // returns 7<br>str.MaxLength();        // returns 8<br>...<br>str.Copy(Kabc);         // copies &quot;abc&quot; to str<br>str.Length();           // returns 3<br>str.MaxLength();        // returns 8<br>...<br>str.Copy(Kabcdefghi));  // Panics !!</code></p>
+<a name="Descriptors%2eUsing%2dTDes16%2ecopy%2dwith%2drepeat"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Copying data with repetition</h2>
+</div><div class="Bodytext">
+<p>The code fragment shows the <a href="TDes16Class.html#%3a%3aTDes16%3a%3aRepeat%28%29" title="Copies data with repetition into this descriptor replacing any existing data"><code class="ApiItem">Repeat()</code></a>
+function.</p>
+<p>The behaviour is the same for the build independent variant,
+<a href="TDesTypedef.html#%3a%3aTDes" title="Build independent modifiable descriptor"><code class="ApiItem">TDes</code></a>, replacing <a href="../LiteralDescriptors/Lit16Macro.html#_LIT16" title="Constructs a constant literal descriptor of type TLitC16<TInt> with specified name and text"><code class="ApiItem">_LIT16</code></a> with <a href="../LiteralDescriptors/LitMacro.html#_LIT" title="Constructs a build independent constant literal descriptor of type TLitC<TInt> with a specified name and text"><code class="ApiItem">_LIT</code></a>, and <a href="TBuf16Class.html#%3a%3aTBuf16" title="16 bit modifiable buffer descriptor"><code class="ApiItem">TBuf16</code></a> with
+<a href="TBufClass.html#%3a%3aTBuf" title="Build-independent modifiable buffer descriptor"><code class="ApiItem">TBuf</code></a>.</p>
+<p class="CodeBlock"><code>_LIT16(Kab,&quot;ab&quot;);<br>_LIT16(Kabc,&quot;abc&quot;);<br>_LIT16(Kabcde,&quot;abcde&quot;);<br>...<br>TBuf16&lt;8&gt; tgt(8);            // length of tgt is the same as the<br>...                          // maximum which is 8<br>...                          // following strings generated in tgt<br>...<br>tgt.Repeat(Kab);             // &quot;abababab&quot;<br>tgt.Repeat(Kabc);            // &quot;abcabcab&quot;<br>tgt.Repeat(Kabcde);          // &quot;abcdeabc&quot;<br>...<br>...                          // changing length to 7 has the<br>...                          // following effect<br>tgt.SetLength(7);<br>tgt.Repeat(Kab);             // &quot;abababa&quot;<br>tgt.Repeat(Kabc);            // &quot;abcabca&quot;<br>tgt.Repeat(Kabcde);          // &quot;abcdeab&quot;</code></p>
+<a name="Descriptors%2eUsing%2dTDes16%2ecopy%2dand%2djustify"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Copying data and justifying</h2>
+</div><div class="Bodytext">
+<p>The code fragments show the<a href="TDes16Class.html#%3a%3aTDes16%3a%3aJustify%28%29" title="Copies data into this descriptor and justifies it, replacing any existing data"><code class="ApiItem">Justify()</code></a>function.</p>
+<p>The behaviour is the same for the build independent
+variant,<a href="TDesTypedef.html#%3a%3aTDes" title="Build independent modifiable descriptor"><code class="ApiItem">TDes</code></a>, replacing <a href="../LiteralDescriptors/Lit16Macro.html#_LIT16" title="Constructs a constant literal descriptor of type TLitC16<TInt> with specified name and text"><code class="ApiItem">_LIT16</code></a> with <a href="../LiteralDescriptors/LitMacro.html#_LIT" title="Constructs a build independent constant literal descriptor of type TLitC<TInt> with a specified name and text"><code class="ApiItem">_LIT</code></a>, and <a href="TBuf16Class.html#%3a%3aTBuf16" title="16 bit modifiable buffer descriptor"><code class="ApiItem">TBuf16</code></a>with
+<a href="TBufClass.html#%3a%3aTBuf" title="Build-independent modifiable buffer descriptor"><code class="ApiItem">TBuf</code></a>.</p>
+<p class="CodeBlock"><code>_LIT16(Kabc,&quot;abc&quot;);<br>TBuf16&lt;16&gt; tgt(Kabc);<br>...<br>tgt.Justify(_L(&quot;xyz&quot;),8,ECenter,'@');</code></p>
+<p>The descriptor <code>tgt</code> has a maximum length of 16 and initially
+holds the string &quot;abc&quot;. After the call to <code>Justify()</code>, the content
+of <code>tgt</code> changes to &quot;@@xyz@@@&quot;.</p>
+<p>The content of the source descriptor is taken to form a field of length 8
+which replaces the original content of the descriptor <code>tgt</code>. The
+characters &quot;xyz&quot; are centred within the new field and padded on both sides with
+the fill character '@'.</p>
+<p>Setting the alignment to <code>ELeft</code> would change the content
+of<code>tgt</code> to &quot;xyz@@@@@&quot; while setting the alignment
+to<code>ERight</code> would change the content of <code>tgt</code> to
+&quot;@@@@@xyz&quot;</p>
+<p>In all three cases, the length of the descriptor <code>tgt</code> changes
+from 3 to 8.</p>
+<p class="CodeBlock"><code>_LIT16(Kabc,&quot;abc&quot;);<br>_LIT16(Kxyz,&quot;xyz&quot;);<br>TBuf16&lt;8&gt; tgt(Kabc);<br>...<br>tgt.Justify(Kxyz,9,ECenter,'@');</code></p>
+<p>This call to Justify() panics because the resulting length of data
+in<code>tgt</code> exceeds the maximum length of <code>tgt</code>.</p>
+<p class="CodeBlock"><code>_LIT16(Kabc,&quot;abc&quot;);<br>_LIT16(KRtoZ,&quot;rstuvwxyz&quot;);<br>TBuf16&lt;16&gt; tgt(Kabc);<br>...<br>tgt.Justify(KRtoZ,8,ECenter,'@');</code></p>
+<p>In this call to <code>Justify()</code>, the content of <code>tgt</code>
+changes to &quot;rstuvwxy&quot;. Only eight of the nine characters in the source literal
+<code>KRtoZ</code> are copied.</p>
+<a name="Descriptors%2eUsing%2dTDes16%2econvert%2dsigned%2dinteger"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Copying conversion from signed integer to decimal
+character</h2>
+</div><div class="Bodytext">
+<p>The following code fragment illustrates the use of
+<a href="TDes16Class.html#%3a%3aTDes16%3a%3aNum%28%29" title="Converts the specified floating point number into a character representation and copies the conversion into this descriptor, replacing any existing data"><code class="ApiItem">Num()</code></a>.</p>
+<p>The behaviour is the same for the build independent
+variant,<a href="TDesTypedef.html#%3a%3aTDes" title="Build independent modifiable descriptor"><code class="ApiItem">TDes</code></a>, replacing <a href="TBuf16Class.html#%3a%3aTBuf16" title="16 bit modifiable buffer descriptor"><code class="ApiItem">TBuf16</code></a>with
+<a href="TBufClass.html#%3a%3aTBuf" title="Build-independent modifiable buffer descriptor"><code class="ApiItem">TBuf</code></a>.</p>
+<p class="CodeBlock"><code>TBuf16&lt;16&gt; tgt;<br>...<br>TInt numpos(176);<br>TInt numneg(-176);<br>..                      // generates the following strings:<br>tgt.Num(numpos);        // &quot;176&quot;<br>tgt.Num(numneg);        // &quot;-176&quot;</code></p>
+<a name="Descriptors%2eUsing%2dTDes16%2econvert%2dunsigned%2dinteger"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Copying conversion from unsigned integer to specified number
+system</h2>
+</div><div class="Bodytext">
+<p>The following code fragment illustrates the use of
+<a href="TDes16Class.html#%3a%3aTDes16%3a%3aNum%28%29" title="Converts the specified floating point number into a character representation and copies the conversion into this descriptor, replacing any existing data"><code class="ApiItem">Num()</code></a> and <a href="TDes16Class.html#%3a%3aTDes16%3a%3aNumUC%28%29" title="Converts the specified 64 bit unsigned integer into a character representation based on the specified number system and copies the conversion into this descriptor, replacing any existing data"><code class="ApiItem">NumUC()</code></a>.</p>
+<p>The behaviour is the same for the build independent
+variant,<a href="TDesTypedef.html#%3a%3aTDes" title="Build independent modifiable descriptor"><code class="ApiItem">TDes</code></a>, replacing <a href="TBuf16Class.html#%3a%3aTBuf16" title="16 bit modifiable buffer descriptor"><code class="ApiItem">TBuf16</code></a>with
+<a href="TBufClass.html#%3a%3aTBuf" title="Build-independent modifiable buffer descriptor"><code class="ApiItem">TBuf</code></a>.</p>
+<p class="CodeBlock"><code>TBuf16&lt;16&gt; tgt;    // generates the following strings:<br>...<br>TUint number(170);<br>...<br>tgt.Num(number,EBinary);     // &quot;10101010&quot;<br>tgt.Num(number,EOctal);      // &quot;252&quot;<br>tgt.Num(number,EDecimal);    // &quot;170&quot;<br>tgt.Num(number,EHex);        // &quot;aa&quot;   &lt;-NB hex value in lower case<br>tgt.NumUC(number,EHex);      // &quot;AA&quot;   &lt;-NB hex value in UPPER case<br>tgt.Num(number);             // &quot;170&quot;  &lt;--EDecimal taken as default</code></p>
+<a name="Descriptors%2eUsing%2dTDes16%2eformat"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Formatting text</h2>
+</div><div class="Bodytext">
+<p>The following code fragments illustrate the various possibilities of
+<a href="TDes16Class.html#%3a%3aTDes16%3a%3aFormat%28%29" title="Formats and copies text into this descriptor, replacing any existing data"><code class="ApiItem">Format()</code></a>.</p>
+<p>The behaviour is the same for the build independent
+variant,<a href="TDesTypedef.html#%3a%3aTDes" title="Build independent modifiable descriptor"><code class="ApiItem">TDes</code></a>, replacing <a href="../LiteralDescriptors/Lit16Macro.html#_LIT16" title="Constructs a constant literal descriptor of type TLitC16<TInt> with specified name and text"><code class="ApiItem">_LIT16</code></a> with <a href="../LiteralDescriptors/LitMacro.html#_LIT" title="Constructs a build independent constant literal descriptor of type TLitC<TInt> with a specified name and text"><code class="ApiItem">_LIT</code></a>, and <a href="TBuf16Class.html#%3a%3aTBuf16" title="16 bit modifiable buffer descriptor"><code class="ApiItem">TBuf16</code></a>with
+<a href="TBufClass.html#%3a%3aTBuf" title="Build-independent modifiable buffer descriptor"><code class="ApiItem">TBuf</code></a>.</p>
+<p class="CodeBlock"><code>TBuf16&lt;256&gt; tgt;<br>...<br>_LIT16(KFormat1,&quot;[%b %c %d %o %u %x]&quot;);<br>tgt.Format(KFormat1,65,65,65,65,65,65);//generates:<br>...                                  //[1000001 A 65 101 65 41]<br>...<br>_LIT16(KFormat2,&quot;[%04x]&quot;);           //generates:<br>tgt.Format(KFormat2,65);             //[0041]<br>...<br>_LIT16(KFormat3,&quot;[%4x]&quot;);            //generates:<br>tgt.Format(KFormat3,65);             //[  41]<br>...                                  //   Note use of blanks as<br>...                                  //   default fill chars.<br>...<br>_LIT16(KFormat4,&quot;[%*x]&quot;);            //generates:<br>tgt.Format(KFormat4,4,65);           //[  41]<br>...                                  //   width taken from the<br>...                                  //   argument list<br>...<br>_LIT16(KFormat5,&quot;[%+$4d.00 %S]&quot;);<br>_LIT16(KOver,&quot;over&quot;);                //generates:<br>tgt.Format(KFormat5,65,&amp;KOver);      //[$$65.00 over]<br>...<br>_LIT16(KFormat6,&quot;[%+4d.00 %S]&quot;);     //generates:<br>tgt.Format(KFormat6,65,&amp;KOver);      //[  65.00 over]<br>...                                  //   note no pad char<br>...                                  //   specified, defaults<br>...                                  //   to blank<br>...<br>_LIT16(KFormat7,&quot;[% 4d.00 %S]&quot;);     //generates:<br>tgt.Format(KFormat7,65,&amp;KOver);      //[  65.00 over]<br>...                                  //   note default right<br>...                                  //   hand alignment and<br>...                                  //   blank pad char<br>...<br>_LIT16(KFormat8,&quot;[%+0*S]&quot;);<br>_LIT16(KFred,&quot;fred&quot;);                //generates:<br>tgt.Format(KFormat8,10,&amp;KFred);      //[000000fred]<br>...<br>_LIT16(KFormat9,&quot;[%=*6x]&quot;);          //generates:<br>tgt.Format(KFormat9,'*',65);         //[**41**]<br>...<br>_LIT16(KFormat10,&quot;[%+**d]&quot;);         //generates:<br>tgt.Format(KFormat10,'.',10,(-65));  //[.......-65]<br>...<br>_LIT16(KFormat11,&quot;[%-A4p]&quot;);         //generates<br>tgt.Format(KFormat11,65);            //[AAAA]<br>...                                  //   and makes no use of<br>...                                  //   the argument list<br>...<br>_LIT16(KFormat12,&quot;[%m]&quot;);            //generates:<br>tgt.Format(KFormat12,4660);          //   the char '['<br>...                                  //   followed by a byte with 0x12<br>...                                  //   followed by a byte with 0x34<br>...                                  //   followed by the char ']'<br>_LIT16(KFormat13,&quot;[%M]&quot;)<br>tgt.Format(KFormat13,4660);          //generates:<br>...                                  //   the char '['<br>...                                  //   followed by a byte with 0x00<br>...                                  //   followed by a byte with 0x00<br>...                                  //   followed by a byte with 0x12<br>...                                  //   followed by a byte with 0x34<br>...                                  //   followed by the char ']'<br>...<br>_LIT16(KFormat14,&quot;[%w]&quot;);            //generates:<br>tgt.Format(KFormat14,4660);          //   the char '['<br>...                                  //   followed by a byte with 0x34<br>...                                  //   followed by a byte with 0x12<br>...                                  //   followed by the char ']'<br>..<br>_LIT16(KFormat15,&quot;[%w]&quot;);            //generates:<br>tgt.Format(KFormat15,4660);          //   the char '['<br>...                                  //   followed by a byte with 0x34<br>...                                  //   followed by a byte with 0x12<br>...                                  //   followed by a byte with 0x00<br>...                                  //   followed by a byte with 0x00<br>...                                  //   followed by the char ']'<br>...<br>_LIT16(KFormat16,&quot;[%6.2e]&quot;);         //generates:<br>tgt.Format(KFormat16,3.4555);        //[3.46E+00]<br>...<br>_LIT16(KFormat17,&quot;[%6.2f]&quot;);         //generates:<br>tgt.Format(KFormat17,3.4555);        //[  3.46]<br>...<br>_LIT16(KFormat18,&quot;[%6.2g]&quot;);         //generates:<br>tgt.Format(KFormat18,3.4555);        //[3.4555]</code></p>
+<a name="Descriptors%2eUsing%2dTDes16%2einsert"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Inserting data</h2>
+</div><div class="Bodytext">
+<p>The code fragment shows the <a href="TDes16Class.html#%3a%3aTDes16%3a%3aInsert%28%29" title="Inserts data into this descriptor"><code class="ApiItem">Insert()</code></a>
+function.</p>
+<p>The behaviour is the same for the build independent
+variant,<a href="TDesTypedef.html#%3a%3aTDes" title="Build independent modifiable descriptor"><code class="ApiItem">TDes</code></a>, replacing <a href="../LiteralDescriptors/Lit16Macro.html#_LIT16" title="Constructs a constant literal descriptor of type TLitC16<TInt> with specified name and text"><code class="ApiItem">_LIT16</code></a> with <a href="../LiteralDescriptors/LitMacro.html#_LIT" title="Constructs a build independent constant literal descriptor of type TLitC<TInt> with a specified name and text"><code class="ApiItem">_LIT</code></a>, and <a href="TBuf16Class.html#%3a%3aTBuf16" title="16 bit modifiable buffer descriptor"><code class="ApiItem">TBuf16</code></a>with
+<a href="TBufClass.html#%3a%3aTBuf" title="Build-independent modifiable buffer descriptor"><code class="ApiItem">TBuf</code></a>.</p>
+<p class="CodeBlock"><code>_LIT16(Kabc,&quot;abc&quot;)<br>_LIT16(KUVWXYZ,&quot;UVWXYZ&quot;)<br>_LIT16(KVWXYZ,&quot;VWXYZ&quot;)<br>_LIT16(KWXYZ,&quot;WXYZ&quot;)<br>_LIT16(KXYZ,&quot;XYZ)<br>...<br>TBuf16&lt;8&gt; tgt(3);<br>...                              // generates the strings:<br>tgt = Kabc;<br>tgt.Insert(0,kXYZ);              // &quot;XYZabc&quot;<br>...<br>tgt = Kabc;<br>tgt.Insert(1,KXYZ);              // &quot;aXYZbc&quot;<br>...<br>tgt = Kabc;<br>tgt.Insert(tgt.Length(),KXYZ);   // &quot;abcXYZ&quot;<br>...<br>tgt = Kabc;<br>tgt.Insert(tgt.Length()+1,KXYZ); // ----&gt; Panic !!<br>...<br>tgt = Kabc;<br>tgt.Insert(1,KWXYZ);             // &quot;aWXYZbc&quot;<br>...<br>tgt = Kabc;<br>tgt.Insert(1,KVWXYZ);            // &quot;aVWXYZbc&quot;<br>...<br>tgt = Kabc;<br>tgt.Insert(1,KUVWXYZ);           // ----&gt; Panic !!</code></p>
+<a name="Descriptors%2eUsing%2dTDes16%2ereplace"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Replacing data</h2>
+</div><div class="Bodytext">
+<p>The following code fragment illustrates the use of
+<a href="TDes16Class.html#%3a%3aTDes16%3a%3aReplace%28%29" title="Replaces data in this descriptor"><code class="ApiItem">Replace()</code></a>.</p>
+<p>The behaviour is the same for the build independent
+variant,<a href="TDesTypedef.html#%3a%3aTDes" title="Build independent modifiable descriptor"><code class="ApiItem">TDes</code></a>, replacing <a href="../LiteralDescriptors/Lit16Macro.html#_LIT16" title="Constructs a constant literal descriptor of type TLitC16<TInt> with specified name and text"><code class="ApiItem">_LIT16</code></a> with <a href="../LiteralDescriptors/LitMacro.html#_LIT" title="Constructs a build independent constant literal descriptor of type TLitC<TInt> with a specified name and text"><code class="ApiItem">_LIT</code></a>, and <a href="TBuf16Class.html#%3a%3aTBuf16" title="16 bit modifiable buffer descriptor"><code class="ApiItem">TBuf16</code></a>with
+<a href="TBufClass.html#%3a%3aTBuf" title="Build-independent modifiable buffer descriptor"><code class="ApiItem">TBuf</code></a>.</p>
+<p class="CodeBlock"><code>_LIT16(Kabcd,&quot;abcd&quot;);<br>_LIT16(Ku,&quot;u&quot;);<br>_LIT16(Kuv,&quot;uv&quot;);<br>_LIT16(Kuvw,&quot;uvw&quot;);<br>_LIT16(Kuvwxyz,&quot;uvwxyz&quot;);<br>...<br>TBuf16&lt;8&gt; tgt(4);<br>...                          // generates the strings:<br>tgt = Kabcd;<br>tgt.Replace(0,1,Ku));        // &quot;ubcd&quot;<br>...<br>tgt = Kabcd;<br>tgt.Replace(0,1,Kuv);        // &quot;uvbcd&quot;<br>...<br>tgt = Kabcd;<br>tgt.Replace(0,1,Kuvw);       // &quot;uvwbcd&quot;<br>...<br>tgt = Kabcd;<br>tgt.Replace(0,1,Kuvwxyz);    // ----&gt; Panics !!<br>...<br>tgt = Kabcd;<br>tgt.Replace(1,2,Ku);         // &quot;aud&quot;<br>...<br>tgt = Kabcd;<br>tgt.Replace(1,2,KNullDesC16);// &quot;ad&quot;<br>...<br>tgt = Kabcd;<br>tgt.Replace(1,4,Kuvw);       // ----&gt; Panics !!<br>...<br>tgt = Kabcd;<br>tgt.Replace(3,1,Kuvw);       // &quot;abcuvw&quot;<br>...<br>tgt = Kabcd;<br>tgt.Replace(4,0,Kuvw);       // &quot;abcduvw&quot;</code></p>
+<a name="Descriptors%2eUsing%2dTDes16%2eswap"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Swapping data</h2>
+</div><div class="Bodytext">
+<p>This code fragment shows the <a href="TDes16Class.html#%3a%3aTDes16%3a%3aSwap%28%29" title="Swaps the data represented by this descriptor with the data represented by the specified descriptor"><code class="ApiItem">Swap()</code></a> function.</p>
+<p>The behaviour is the same for the build independent
+variant,<a href="TDesTypedef.html#%3a%3aTDes" title="Build independent modifiable descriptor"><code class="ApiItem">TDes</code></a>, replacing <a href="../LiteralDescriptors/Lit16Macro.html#_LIT16" title="Constructs a constant literal descriptor of type TLitC16<TInt> with specified name and text"><code class="ApiItem">_LIT16</code></a> with <a href="../LiteralDescriptors/LitMacro.html#_LIT" title="Constructs a build independent constant literal descriptor of type TLitC<TInt> with a specified name and text"><code class="ApiItem">_LIT</code></a>, and <a href="TBuf16Class.html#%3a%3aTBuf16" title="16 bit modifiable buffer descriptor"><code class="ApiItem">TBuf16</code></a>with
+<a href="TBufClass.html#%3a%3aTBuf" title="Build-independent modifiable buffer descriptor"><code class="ApiItem">TBuf</code></a>.</p>
+<p class="CodeBlock"><code>_LIT16(Kabcde,&quot;abcde&quot;);<br>_LIT16(Kxyz,&quot;xyz&quot;);<br>_LIT16(K0to9,&quot;0123456789&quot;);<br>...<br>TBuf16&lt;8&gt;  buf1(Kabcde);<br>TBuf16&lt;8&gt;  buf2(Kxyz);<br>TBuf16&lt;16&gt; buf3(K0to9);<br>...<br>buf1.Swap(buf2);    // contents of buf1 and buf2 swapped OK<br>buf1.Swap(buf3);    // Panic !!</code></p>
+<a name="Descriptors%2eUsing%2dTDes16%2edelete"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Deleting data</h2>
+</div><div class="Bodytext">
+<p>The following code fragment illustrates the use of
+<a href="TDes16Class.html#%3a%3aTDes16%3a%3aDelete%28%29" title="Deletes data from this descriptor"><code class="ApiItem">Delete()</code></a>.</p>
+<p>The behaviour is the same for the build independent
+variant,<a href="TDesTypedef.html#%3a%3aTDes" title="Build independent modifiable descriptor"><code class="ApiItem">TDes</code></a>, replacing <a href="../LiteralDescriptors/Lit16Macro.html#_LIT16" title="Constructs a constant literal descriptor of type TLitC16<TInt> with specified name and text"><code class="ApiItem">_LIT16</code></a> with <a href="../LiteralDescriptors/LitMacro.html#_LIT" title="Constructs a build independent constant literal descriptor of type TLitC<TInt> with a specified name and text"><code class="ApiItem">_LIT</code></a>, and <a href="TBuf16Class.html#%3a%3aTBuf16" title="16 bit modifiable buffer descriptor"><code class="ApiItem">TBuf16</code></a>with
+<a href="TBufClass.html#%3a%3aTBuf" title="Build-independent modifiable buffer descriptor"><code class="ApiItem">TBuf</code></a>.</p>
+<p class="CodeBlock"><code>_LIT16(Kabcd,&quot;abcd&quot;);<br>...<br>TBuf16&lt;8&gt; tgt(4);<br>...                         // generates the strings:<br>tgt = Kabcd;<br>tgt.Delete(0,1);            // &quot;bcd&quot;<br>...<br>tgt = Kabcd;<br>tgt.Delete(0,2);            // &quot;cd&quot;<br>...<br>tgt = Kabcd;<br>tgt.Delete(0,4);            // &quot;&quot;<br>...<br>tgt = Kabcd;<br>tgt.Delete(1,2);            // &quot;ad&quot;<br>...<br>tgt = Kabcd;<br>tgt.Delete(2,2);            // &quot;ab&quot;<br>...<br>tgt = Kabcd;<br>tgt.Delete(2,3);            // &quot;ab&quot;<br>...<br>tgt = Kabcd;<br>tgt.Delete(2,256);          // &quot;ab&quot;<br>...<br>tgt = Kabcd;<br>tgt.Delete(5,1);            // ----&gt; Panics !!<br>...<br>tgt = Kabcd;<br>tgt.Delete(-1,1);           // ----&gt; Panics !!</code></p>
+<a name="Descriptors%2eUsing%2dTDes16%2edelete%2dleft"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Deleting leading spaces</h2>
+</div><div class="Bodytext">
+<p>The following code fragment illustrates the use of
+<a href="TDes16Class.html#%3a%3aTDes16%3a%3aTrimLeft%28%29" title="Deletes leading space characters from the descriptor's data"><code class="ApiItem">TrimLeft()</code></a>.</p>
+<p>The behaviour is the same for the build independent
+variant,<a href="TDesTypedef.html#%3a%3aTDes" title="Build independent modifiable descriptor"><code class="ApiItem">TDes</code></a>, replacing <a href="../LiteralDescriptors/Lit16Macro.html#_LIT16" title="Constructs a constant literal descriptor of type TLitC16<TInt> with specified name and text"><code class="ApiItem">_LIT16</code></a> with <a href="../LiteralDescriptors/LitMacro.html#_LIT" title="Constructs a build independent constant literal descriptor of type TLitC<TInt> with a specified name and text"><code class="ApiItem">_LIT</code></a>, and <a href="TBuf16Class.html#%3a%3aTBuf16" title="16 bit modifiable buffer descriptor"><code class="ApiItem">TBuf16</code></a>with
+<a href="TBufClass.html#%3a%3aTBuf" title="Build-independent modifiable buffer descriptor"><code class="ApiItem">TBuf</code></a>.</p>
+<p class="CodeBlock"><code>_LIT16(KData1,&quot;  abcd  &quot;);<br>_LIT16(KData2,&quot; a b &quot;);<br>...<br>TBuf16&lt;8&gt; str1(KData1);<br>TBuf16&lt;8&gt; str2(KData2);<br>...<br>str1.Length();          // returns 8<br>str1.TrimLeft();        // &quot;abcd  &quot;<br>str1.Length();          // returns 6<br>...<br>str2.Length();          // returns 5<br>str2.TrimLeft();        // &quot;a b &quot;<br>str2.Length();          // returns 4</code></p>
+<a name="Descriptors%2eUsing%2dTDes16%2edelete%2dright"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Deleting trailing spaces</h2>
+</div><div class="Bodytext">
+<p>The following code fragment illustrates the use of
+<a href="TDes16Class.html#%3a%3aTDes16%3a%3aTrimRight%28%29" title="Deletes trailing space characters from the descriptor's data"><code class="ApiItem">TrimRight()</code></a>.</p>
+<p>The behaviour is the same for the build independent
+variant,<a href="TDesTypedef.html#%3a%3aTDes" title="Build independent modifiable descriptor"><code class="ApiItem">TDes</code></a>, replacing <a href="../LiteralDescriptors/Lit16Macro.html#_LIT16" title="Constructs a constant literal descriptor of type TLitC16<TInt> with specified name and text"><code class="ApiItem">_LIT16</code></a> with <a href="../LiteralDescriptors/LitMacro.html#_LIT" title="Constructs a build independent constant literal descriptor of type TLitC<TInt> with a specified name and text"><code class="ApiItem">_LIT</code></a>, and <a href="TBuf16Class.html#%3a%3aTBuf16" title="16 bit modifiable buffer descriptor"><code class="ApiItem">TBuf16</code></a>with
+<a href="TBufClass.html#%3a%3aTBuf" title="Build-independent modifiable buffer descriptor"><code class="ApiItem">TBuf</code></a>.</p>
+<p class="CodeBlock"><code>_LIT16(KData1,&quot;  abcd  &quot;);<br>_LIT16(KData2,&quot; a b &quot;);<br>...<br>TBuf16&lt;8&gt; str1(KData1);<br>TBuf16&lt;8&gt; str2(KData2);<br>...<br>str1.Length();          // returns 8<br>str1.TrimRight();       // &quot;  abcd&quot;<br>str1.Length();          // returns 6<br>...<br>str2.Length();          // returns 5<br>str2.TrimRight();       // &quot; a b&quot;<br>str2.Length();          // returns 4</code></p>
+<a name="Descriptors%2eUsing%2dTDes16%2edeleting%2dleft%2dand%2dright"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Deleting leading and trailing spaces</h2>
+</div><div class="Bodytext">
+<p>The following code fragment illustrates the use of
+<a href="TDes16Class.html#%3a%3aTDes16%3a%3aTrim%28%29" title="Deletes leading and trailing space characters from the descriptor's data"><code class="ApiItem">Trim()</code></a>.</p>
+<p>The behaviour is the same for the build independent
+variant,<a href="TDesTypedef.html#%3a%3aTDes" title="Build independent modifiable descriptor"><code class="ApiItem">TDes</code></a>, replacing <a href="../LiteralDescriptors/Lit16Macro.html#_LIT16" title="Constructs a constant literal descriptor of type TLitC16<TInt> with specified name and text"><code class="ApiItem">_LIT16</code></a> with <a href="../LiteralDescriptors/LitMacro.html#_LIT" title="Constructs a build independent constant literal descriptor of type TLitC<TInt> with a specified name and text"><code class="ApiItem">_LIT</code></a>, and <a href="TBuf16Class.html#%3a%3aTBuf16" title="16 bit modifiable buffer descriptor"><code class="ApiItem">TBuf16</code></a>with
+<a href="TBufClass.html#%3a%3aTBuf" title="Build-independent modifiable buffer descriptor"><code class="ApiItem">TBuf</code></a>.</p>
+<p class="CodeBlock"><code>_LIT16(KData1,&quot;  abcd  &quot;);<br>_LIT16(KData2,&quot; a b &quot;);<br>...<br>TBuf16&lt;8&gt; str1(KData1);<br>TBuf16&lt;8&gt; str2(KData2);<br>...<br>str1.Length();          // returns 8<br>str1.Trim();            // &quot;abcd&quot;<br>str1.Length();          // returns 4<br>...<br>str2.Length();          // returns 5<br>str2.Trim();            // &quot;a b&quot;<br>str2.Length();          // returns 3</code></p>
+<a name="Descriptors%2eUsing%2dTDes16%2edeletion%2dleft%2dand%2dright%2dand%2dmultiple"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Deleting leading, trailing and internal spaces</h2>
+</div><div class="Bodytext">
+<p>The following code fragment illustrates the use of
+<a href="TDes16Class.html#%3a%3aTDes16%3a%3aTrimAll%28%29" title="Deletes leading and trailing space characters from the descriptor's data and replaces each contiguous set of space characters within the data by one space character"><code class="ApiItem">TrimAll()</code></a>.</p>
+<p>The behaviour is the same for the build independent
+variant,<a href="TDesTypedef.html#%3a%3aTDes" title="Build independent modifiable descriptor"><code class="ApiItem">TDes</code></a>, replacing <a href="../LiteralDescriptors/Lit16Macro.html#_LIT16" title="Constructs a constant literal descriptor of type TLitC16<TInt> with specified name and text"><code class="ApiItem">_LIT16</code></a> with <a href="../LiteralDescriptors/LitMacro.html#_LIT" title="Constructs a build independent constant literal descriptor of type TLitC<TInt> with a specified name and text"><code class="ApiItem">_LIT</code></a>, and <a href="TBuf16Class.html#%3a%3aTBuf16" title="16 bit modifiable buffer descriptor"><code class="ApiItem">TBuf16</code></a>with
+<a href="TBufClass.html#%3a%3aTBuf" title="Build-independent modifiable buffer descriptor"><code class="ApiItem">TBuf</code></a>.</p>
+<p class="CodeBlock"><code>_LIT16(KData1,&quot;  abcd  &quot;);<br>_LIT16(KData2,&quot; a b &quot;);<br>_LIT16(KData3,&quot;a  b   c&quot;);<br>...<br>TBuf16&lt;8&gt; str1(KData1);<br>TBuf16&lt;8&gt; str2(KData2);<br>TBuf16&lt;8&gt; str2(KData3);<br>...<br>str1.Length();          // returns 8<br>str1.TrimAll();         // &quot;abcd&quot;<br>str1.Length();          // returns 4<br>...<br>str2.Length();          // returns 5<br>str2.TrimAll();         // &quot;a b&quot;<br>str2.Length();          // returns 3<br>...<br>str3.Length();          // returns 8<br>str3.TrimAll();         // &quot;a b c&quot;<br>str3.Length();          // returns 5</code></p>
+<a name="Descriptors%2eUsing%2dTDes16%2eappend%2dand%2djustify"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Append and justify</h2>
+</div><div class="Bodytext">
+<p>The following code fragments illustrate the use of
+<a href="TDes16Class.html#%3a%3aTDes16%3a%3aAppendJustify%28%29" title="Appends data onto the end of this descriptor's data and justifies it"><code class="ApiItem">AppendJustify()</code></a>.</p>
+<p>The behaviour is the same for the build independent
+variant,<a href="TDesTypedef.html#%3a%3aTDes" title="Build independent modifiable descriptor"><code class="ApiItem">TDes</code></a>, replacing <a href="../LiteralDescriptors/Lit16Macro.html#_LIT16" title="Constructs a constant literal descriptor of type TLitC16<TInt> with specified name and text"><code class="ApiItem">_LIT16</code></a> with <a href="../LiteralDescriptors/LitMacro.html#_LIT" title="Constructs a build independent constant literal descriptor of type TLitC<TInt> with a specified name and text"><code class="ApiItem">_LIT</code></a>, and <a href="TBuf16Class.html#%3a%3aTBuf16" title="16 bit modifiable buffer descriptor"><code class="ApiItem">TBuf16</code></a>with
+<a href="TBufClass.html#%3a%3aTBuf" title="Build-independent modifiable buffer descriptor"><code class="ApiItem">TBuf</code></a>.</p>
+<p class="CodeBlock"><code>_LIT16(Kabc,&quot;abc&quot;);<br>_LIT16(Kxyz, &quot;xyz&quot;);<br>...<br>TBuf16&lt;16&gt; tgt(Kabc);<br>tgt.AppendJustify(Kxyz,8,ECenter,'@');</code></p>
+<p>The descriptor <code>tgt</code> has a maximum length of 16 and initially
+holds the string &quot;abc&quot;. After the call to <code>AppendJustify()</code>, the
+content of<code>tgt</code> changes to &quot;abc@@xyz@@@&quot;.</p>
+<p>The content of the source descriptor <code>Kxyz</code> is taken to form a
+field of length 8 which is appended to the content of the
+descriptor<code>tgt</code>. The characters &quot;xyz&quot; are centred within the new
+field and padded on both sides with the fill character '@'.</p>
+<p>Setting the alignment to <code>ELeft</code> would change the content
+of<code>tgt</code> to &quot;abcxyz@@@@@&quot; while setting the alignment
+to<code>ERight</code> would change the content of <code>tgt</code> to
+&quot;abc@@@@@xyz&quot;.</p>
+<p>In all three cases, the length of the descriptor <code>tgt</code> changes
+from 3 to 11.</p>
+<p class="CodeBlock"><code>_LIT16(KAtoK,&quot;abcdefghik&quot;);<br>_LIT16(K0to6,&quot;0123456&quot;);<br>...<br>TBuf16&lt;16&gt; tgt(KAtoK);<br>tgt.AppendJustify(K0to6,7,ECenter,'@');</code></p>
+<p>This call to <code>AppendJustify()</code> panics because the resulting length
+of<code>tgt</code> exceeds its maximum length.</p>
+<a name="Descriptors%2eUsing%2dTDes16%2eappend%2dand%2djustify%2dlength"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Append and justify with explicit length</h2>
+</div><div class="Bodytext">
+<p>The following code fragments illustrate the use of the overloaded version
+of <a href="TDes16Class.html#%3a%3aTDes16%3a%3aAppendJustify%28%29" title="Appends data onto the end of this descriptor's data and justifies it"><code class="ApiItem">AppendJustify()</code></a> which specifies an explicit
+length.</p>
+<p>The behaviour is the same for the build independent
+variant,<a href="TDesTypedef.html#%3a%3aTDes" title="Build independent modifiable descriptor"><code class="ApiItem">TDes</code></a>, replacing <a href="../LiteralDescriptors/Lit16Macro.html#_LIT16" title="Constructs a constant literal descriptor of type TLitC16<TInt> with specified name and text"><code class="ApiItem">_LIT16</code></a> with <a href="../LiteralDescriptors/LitMacro.html#_LIT" title="Constructs a build independent constant literal descriptor of type TLitC<TInt> with a specified name and text"><code class="ApiItem">_LIT</code></a>, and <a href="TBuf16Class.html#%3a%3aTBuf16" title="16 bit modifiable buffer descriptor"><code class="ApiItem">TBuf16</code></a>with
+<a href="TBufClass.html#%3a%3aTBuf" title="Build-independent modifiable buffer descriptor"><code class="ApiItem">TBuf</code></a>.</p>
+<p class="CodeBlock"><code>_LIT16(Kabc,&quot;abc&quot;);<br>_LIT16(Kxyz0to9,&quot;xyz0123456789&quot;);<br>...<br>TBuf16&lt;16&gt; tgt(Kabc);<br>tgt.AppendJustify(Kxyz0to9,3,8,ECenter,'@');</code></p>
+<p>The descriptor <code>tgt</code> has a maximum length of 16 and initially
+holds the string &quot;abc&quot;. After the call to AppendJustify(), the content
+of<code>tgt</code> changes to &quot;abc@@xyz@@@&quot;.</p>
+<p>In this example, the first three characters of the eleven characters
+&quot;xyz0123456789&quot; are taken to form an eight character field which is appended to
+the existing content of the descriptor <code>tgt</code>. The three characters
+&quot;xyz&quot; are centred within the new field and padded on both sides with the fill
+character '@'.</p>
+<p>Setting the alignment to <code>ELeft</code> would change the content
+of<code>tgt</code> to &quot;abcxyz@@@@@&quot; while setting the alignment
+to<code>ERight</code> would change the content of <code>tgt</code> to
+&quot;abc@@@@@xyz&quot;.</p>
+<p>In all three cases, the length of the descriptor <code>tgt</code> changes
+from 3 to 11.</p>
+<p class="CodeBlock"><code>_LIT16(Kabc,&quot;abc&quot;);<br>_LIT16(K0to9,&quot;0123456789&quot;);<br>...<br>TBuf16&lt;16&gt; tgt(Kabc);<br>tgt.AppendJustify(K0to9,9,8,ECenter,'@');</code></p>
+<p>In this example, the call to <code>AppendJustify()</code> changes the
+content of<code>tgt</code> to &quot;abc01234567&quot;. As the specified length is greater
+than the specified width, the length is truncated so that only eight characters
+are copied from the source descriptor.</p>
+<p class="CodeBlock"><code>_LIT16(KAtoK,&quot;abcdefghik&quot;);<br>_LIT16(K0to9,&quot;0123456789&quot;);<br>...<br>TBuf16&lt;16&gt; tgt(KAtoK);<br>tgt.AppendJustify(K0to9,3,7,ECenter,'@');</code></p>
+<p>This call to <code>AppendJustify()</code> panics because the resulting
+length of<code>tgt</code> exceeds its maximum length.</p>
+<a name="Descriptors%2eUsing%2dTDes16%2eappend%2ddata%2doperator"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Append data operator</h2>
+</div><div class="Bodytext">
+<p>The following code fragment illustrates the use of
+<a href="TDes16Class.html#%3a%3aTDes16%3a%3aoperator%2b%3d%28%29" title="Appends data onto the end of this descriptor's data and returns a reference to this descriptor"><code class="ApiItem">operator+=()</code></a>.</p>
+<p class="CodeBlock"><code>_LIT16(Kabc,&quot;abc&quot;);<br>TBuf16&lt;16&gt; tgt(Kabc);<br>...<br>tgt+=(_L(&quot;0123456789&quot;));         // generates &quot;abc0123456789&quot;<br>tgt+=(_L(&quot;0123456789qwerty&quot;));   // Panics !!</code></p>
+<a name="Descriptors%2eUsing%2dTDes16%2econvert%2dappend%2dsigned%2dinteger"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Append conversion from signed integer to decimal
+character</h2>
+</div><div class="Bodytext">
+<p>The following code fragment illustrates the use of
+<a href="TDes16Class.html#%3a%3aTDes16%3a%3aAppendNum%28%29" title="Converts the specified floating point number into a character representation and appends the conversion onto the end of this descriptor's data"><code class="ApiItem">AppendNum()</code></a>.</p>
+<p>The behaviour is the same for the build independent
+variant,<a href="TDesTypedef.html#%3a%3aTDes" title="Build independent modifiable descriptor"><code class="ApiItem">TDes</code></a>, replacing <a href="TBuf16Class.html#%3a%3aTBuf16" title="16 bit modifiable buffer descriptor"><code class="ApiItem">TBuf16</code></a>with
+<a href="TBufClass.html#%3a%3aTBuf" title="Build-independent modifiable buffer descriptor"><code class="ApiItem">TBuf</code></a>.</p>
+<p class="CodeBlock"><code>_LIT16(Kabc,&quot;abc&quot;);<br>TInt numpos(176);<br>TInt numneg(-176);<br>...<br>TBuf16&lt;16&gt; tgt(Kabc));       // generates the following strings:<br>tgt.AppendNum(numpos);       // &quot;abc176&quot;<br>tgt.AppendNum(numneg);       // &quot;abc-176&quot;</code></p>
+<a name="Descriptors%2eUsing%2dTDes16%2eappend%2dconvert%2dunsigned%2dinteger"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Append conversion from unsigned integer to specified number
+system</h2>
+</div><div class="Bodytext">
+<p>The following code fragment illustrates the use of
+<a href="TDes16Class.html#%3a%3aTDes16%3a%3aAppendNum%28%29" title="Converts the specified floating point number into a character representation and appends the conversion onto the end of this descriptor's data"><code class="ApiItem">AppendNum()</code></a> and<a href="TDes16Class.html#%3a%3aTDes16%3a%3aAppendNumUC%28%29" title="Converts the specified 64 bit unsigned integer into a character representation based on the specified number system and appends the conversion onto the end of this descriptor's data"><code class="ApiItem">AppendNumUC()</code></a>.</p>
+<p>The behaviour is the same for the build independent
+variant,<a href="TDesTypedef.html#%3a%3aTDes" title="Build independent modifiable descriptor"><code class="ApiItem">TDes</code></a>, replacing <a href="../LiteralDescriptors/Lit16Macro.html#_LIT16" title="Constructs a constant literal descriptor of type TLitC16<TInt> with specified name and text"><code class="ApiItem">_LIT16</code></a> with <a href="../LiteralDescriptors/LitMacro.html#_LIT" title="Constructs a build independent constant literal descriptor of type TLitC<TInt> with a specified name and text"><code class="ApiItem">_LIT</code></a>, and <a href="TBuf16Class.html#%3a%3aTBuf16" title="16 bit modifiable buffer descriptor"><code class="ApiItem">TBuf16</code></a>with
+<a href="TBufClass.html#%3a%3aTBuf" title="Build-independent modifiable buffer descriptor"><code class="ApiItem">TBuf</code></a>.</p>
+<p class="CodeBlock"><code>_LIT16(Kabc,&quot;abc&quot;);<br>TBuf16&lt;16&gt; tgt(Kabc);  // generates the following strings:<br>...<br>TUint num(170);<br>...<br>tgt.AppendNum(num,EBinary);  // &quot;abc10101010&quot;<br>tgt.AppendNum(num,EOctal);   // &quot;abc252&quot;<br>tgt.AppendNum(num,EDecimal); // &quot;abc170&quot;<br>tgt.AppendNum(num,EHex);     // &quot;abcaa&quot;   &lt;-hex value in lower case<br>tgt.AppendNumUC(num,EHex);   // &quot;abcAA&quot;   &lt;-hex value in UPPER case<br>tgt.AppendNum(num);          // &quot;abc170&quot;  &lt;-EDecimal taken as default</code></p>
+<a name="Descriptors%2eUsing%2dTDes16%2eappend%2dconvert%2dfixed%2dwidth"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Append fixed width conversion</h2>
+</div><div class="Bodytext">
+<p>The following code fragment illustrates the use of
+<a href="TDes16Class.html#%3a%3aTDes16%3a%3aAppendNumFixedWidth%28%29" title="Converts the specified unsigned integer into a fixed width character representation based on the specified number system and appends the conversion onto the end of this descriptor's data"><code class="ApiItem">AppendNumFixedWidth()</code></a>and
+<a href="TDes16Class.html#%3a%3aTDes16%3a%3aAppendNumFixedWidthUC%28%29" title="Converts the specified unsigned integer into a fixed width character representation based on the specified number system and appends the conversion onto the end of this descriptor's data"><code class="ApiItem">AppendNumFixedWidthUC()</code></a>.</p>
+<p>The behaviour is the same for the build independent
+variant,<a href="TDesTypedef.html#%3a%3aTDes" title="Build independent modifiable descriptor"><code class="ApiItem">TDes</code></a>, replacing <a href="../LiteralDescriptors/Lit16Macro.html#_LIT16" title="Constructs a constant literal descriptor of type TLitC16<TInt> with specified name and text"><code class="ApiItem">_LIT16</code></a> with <a href="../LiteralDescriptors/LitMacro.html#_LIT" title="Constructs a build independent constant literal descriptor of type TLitC<TInt> with a specified name and text"><code class="ApiItem">_LIT</code></a>, and <a href="TBuf16Class.html#%3a%3aTBuf16" title="16 bit modifiable buffer descriptor"><code class="ApiItem">TBuf16</code></a>with
+<a href="TBufClass.html#%3a%3aTBuf" title="Build-independent modifiable buffer descriptor"><code class="ApiItem">TBuf</code></a>.</p>
+<p class="CodeBlock"><code>_LIT16(Kabc,&quot;abc&quot;);<br>TBuf16&lt;16&gt; tgt(Kabc);  // generates the following strings:<br>...<br>TUint num(170)<br>...<br>tgt.AppendNumFixedWidth(num,EBinary,8);     // &quot;abc10101010&quot;<br>tgt.AppendNumFixedWidth(num,EOctal,8);      // &quot;abc00000252&quot;<br>tgt.AppendNumFixedWidth(num,EDecimal,8);    // &quot;abc00000170&quot;<br>tgt.AppendNumFixedWidth(num,EHex,8);        // &quot;abc000000aa&quot;<br>tgt.AppendNumFixedWidthUC(num,EHex,8);      // &quot;abc000000AA&quot;</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

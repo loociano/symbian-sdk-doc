@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>SQL views</title>
+<link href="../../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="DBMSRowsetsGuide%2eSQL%2eviews"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../../_index/index.html"><img
+src="../../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../../GlobalGlossary/index.html"><img src="../../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="PreEvaluationProperties.guide.html"><img src="../../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">DBMS</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">DBMS&nbsp;rowsets</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">DBMS&nbsp;SQL</a>&nbsp;<span class="separator">&#187;</span>
+SQL&nbsp;views</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>SQL views</h1>
+</div><div class="Bodytext">
+<p>An SQL view is a rowset which generates its rows from an SQL statement. DBMS supports various DDL (Schema update) statements and DML (Data update) statements.</p>
+<p>Initially a view must be prepared, passing in parameters which describe the query and how the rowset should be evaluated. This takes the form of a pre-evaluation window, which gives the user program the ability to trade off memory usage for faster navigation, or an attempt to balance both of these resources. The desired window is described by the <code>TDbWindow</code> class.</p><p>A no pre-evaluation window means  that the  rowset is  evaluated on the fly as  it is navigated using the rowset  cursor. This has the consequence  that  every cursor navigation has an unknown time cost.</p><p>With a full pre-evaluation window, the view maintains the complete set of rows following evaluation. Although this does not require a lot of memory per row, large rowsets  require significantly more memory when fully evaluated.</p><p>A partial pre-evaluation window strikes a balance between a no pre-evaluation window and a full pre-evaluation window. This can be useful when  local navigation in the rowset is important, and the rowset can also be,  potentially, very large. This is done by hinting how many rows before and after the current  row should be present in the window when the view is evaluated. As the current row changes, further evaluation changes what is in the window. This type of window is harder to program.</p>
+<p>The query evaluator allows queries to be optimised and has a significant effect on database design and use:</p>
+<ul><li><p>An <code>ORDER BY</code> clause can be evaluated without an index.</p></li>
+<li><p>A <code>WHERE</code> clause, which specifies a comparison, may be evaluated using an index, if a suitable one can be found, e.g. <code>WHERE Id = 1234</code>, when Id is an indexed column.</p></li>
+</ul><p>Both evaluation schemes require the full pre-evaluation of the query and, thus, a full pre-evaluation window. The optimiser provides such a view even when a client requests a no pre-evaluation window. In general, this means that if a no pre-evaluation window is specified on a call to  <a href="../../../../../APIReference/DBMSRowsets/RDbViewClass.html#%3a%3aRDbView%3a%3aPrepare%28%29" title="Prepares the view object for evaluating an SQL select-statement, specifies the evaluation window shape for the rowset, and sets the access specification for the rowset"><code class="ApiItem">RDbView::Prepare()</code></a>, there is no guarantee that a no pre-evaluation window is used. In effect, the <a href="../../../../../APIReference/DBMSRowsets/TDbWindowClass.html#%3a%3aTDbWindow" title="Describes the desired shape of a view's pre-evaluation window"><code class="ApiItem">TDbWindow</code></a> parameter to <code>RDbView::Prepare()</code> is a minimal specification to DBMS. DBMS may choose to use a full pre-evaluation window in order to evaluate the query  faster, resulting in full pre-evaluation window behaviour for some queries, even when a no pre-evaluation window was requested.</p>
+<p>Ordering behaviour is efficiently provided without using an index (both in terms of memory and performance); however, look-up can be extremely fast with an <i>appropriate</i> index.</p>
+<p>For example, in the following SQL query, this evaluates faster if there is an index on the <code>SupplierId</code> column in the <code>Parts</code> table, and no index on <code>Name</code>.</p>
+<p class="CodeBlock"><code>SELECT * FROM Parts WHERE SupplierId=1234 ORDER BY Name</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

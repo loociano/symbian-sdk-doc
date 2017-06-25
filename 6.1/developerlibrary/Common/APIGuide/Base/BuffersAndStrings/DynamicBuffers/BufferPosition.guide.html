@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Buffer position</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="DynamicBuffersGuide%2ebuffer%2dposition"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="DynamicBuffersVersus.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="SpaceManagement.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Buffers&nbsp;and&nbsp;Strings</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Dynamic&nbsp;Buffers</a>&nbsp;<span class="separator">&#187;</span>
+Buffer&nbsp;position</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Buffer position</h1>
+</div><div class="Bodytext">
+<p>All operations are specified in terms of a <i>buffer position</i>, which is an integer whose valid range is zero to the size of the buffer.  The buffer position is a byte offset into the buffer&#8217;s data.</p>
+<p>The <code>InsertL()</code> and <code>DeleteL()</code> functions cause data after the inserted or deleted region to be shuffled up or down the buffer as appropriate; also, <code>InsertL()</code> even at the end of a flat buffer may cause re-allocation which may move the cell&#8217;s position in memory.  Because of this, the memory address corresponding to a buffer position may change.  Therefore, any pointer references to data in a buffer&nbsp;&#8212; including pointers inside descriptors&nbsp;&#8212; must be updated (or discarded) after the buffer is updated in any way.</p>
+<p>It is recommended that all references to data in buffers be maintained in terms of the buffer position.  When data is inserted or deleted, buffer positions after the beginning of the insertion or deletion position must be adjusted (or, in the case of positions inside a deleted region, discarded).  The amount of the adjustment is the length of the inserted or deleted data.</p>
+<p>Pointers cannot be maintained as simply as buffer positions.  In the case of flat buffers, re-allocation may cause the entire buffer&#8217;s address to change.  In the case of segmented buffers, data is discontiguous and the segmentation algorithm is not straightforward.  Therefore, it is recommended that pointer references be <i>discarded</i> after any update, and that adjustments to pointer references always use the <code>CBufBase</code> programming interface, rather than user program calculations.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

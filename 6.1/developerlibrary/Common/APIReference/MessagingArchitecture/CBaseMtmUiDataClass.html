@@ -1,0 +1,1307 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CBaseMtmUiData</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CBaseMtmUiClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="CBaseServerMtmClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Messaging&nbsp;Architecture</a>&nbsp;<span class="separator">&#187;</span>
+CBaseMtmUiData</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+<p>Location: <code>
+mtudcbas.h
+</code><br>Link against: <code>
+mtur.lib
+</code></p>
+</div><div class="Head1">
+<a name="%3a%3aCBaseMtmUiData"></a>
+
+<h1>Class <code>CBaseMtmUiData</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CBaseMtmUiData</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Base class for UI Data MTM components.  </p><p><code>CBaseMtmUiData</code>-derived classes allow message client applications to customise dynamically their user interfaces for a particular message type. For example, if a message client application currently had a fax entry selected, then it could use the fax MTM&#8217;s concrete class to get information on the menus and icons that it should display. </p>
+<p>Specifically, functionality falls into the following three areas:</p>
+<ul><li><p>supplying MTM-specific icons for Message Server entries</p></li>
+<li><p>supplying user interface text, e.g. for menus, for MTM-specific operations</p></li>
+<li><p>providing checks that MTM functions are suitable for use on an entry. It is intended that client applications will use these functions to select dynamically the user interface features available dependent on the entry currently selected within the application. For example, menu items that do not apply to particular entries could be greyed out. Note that <code>OperationSupportedL()</code> performs a similar function for MTM-specific functions. Implementations should determine if the operation is supported by checking the properties of the entry, such as its type. If the operation is not appropriate on the entry, then the <code>aReasonResourceId</code> argument is set to the ID of a string in the UI Data MTM&#8217;s resource file that explains why not. Otherwise, <code>aReasonResourceId</code> is 0.</p></li>
+</ul><p>Message client applications use the class to access such functionality polymorphically. MTM implementers implement this class to provide such functionality for their message protocol.</p>
+<h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase">CBase</a></code></td><td class="Cell">Base class for all classes to be instantiated on the heap</td>
+</tr>
+<tr><td class="Cell"><code>CBaseMtmUiData</code></td><td class="Cell">Base class for UI Data MTM components</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>CBaseMtmUiData</code>:
+<br><code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aCBaseMtmUiData%28%29" title="Creates a CBaseMtmUiData and initialises its private member variables">CBaseMtmUiData()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aCBitmapArray" title="Defines an array of icon bitmaps for the UI Data MTM">CBitmapArray</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aCanCancelL%28%29" title="Tests if the current operation on the entry can be cancelled">CanCancelL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aCanCloseEntryL%28%29" title="Tests if a close operation is supported">CanCloseEntryL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aCanCopyMoveFromEntryL%28%29" title="Tests whether a copy from or move from operation is supported">CanCopyMoveFromEntryL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aCanCopyMoveToEntryL%28%29" title="Tests if a copy from or move to operation is supported">CanCopyMoveToEntryL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aCanCreateEntryL%28%29" title="Tests if an entry can be created as a child">CanCreateEntryL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aCanDeleteFromEntryL%28%29" title="Tests if a delete operation is supported">CanDeleteFromEntryL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aCanDeleteServiceL%28%29" title="Tests if the service entry can be deleted">CanDeleteServiceL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aCanEditEntryL%28%29" title="Tests if the entry can be edited">CanEditEntryL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aCanForwardEntryL%28%29" title="Tests if an entry can be forwarded">CanForwardEntryL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aCanOpenEntryL%28%29" title="Tests if an entry can be opened">CanOpenEntryL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aCanReplyToEntryL%28%29" title="Tests if an entry can be replied to">CanReplyToEntryL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aCanUnDeleteFromEntryL%28%29" title="Tests if the entry can be undeleted">CanUnDeleteFromEntryL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aCanViewEntryL%28%29" title="Tests if an entry can be viewed">CanViewEntryL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aConstructL%28%29" title="Implements two-phase construction functions (NewL(), ConstructL()) to create a new instance of the object">ConstructL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aContextIcon%28%29" title="Gets an array of bitmaps relevant to the passed context entry">ContextIcon()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aCreateBitmapsL%28%29" title="Fills the iIconArrays array with icon bitmaps from an EPOC mbm file">CreateBitmapsL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aFunctionRecognised%28%29" title="Tests if an operation with the specified ID is recognised by the UI Data MTM">FunctionRecognised()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aGetResourceFileName%28%29" title="Gets the resource file name">GetResourceFileName()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aMtmSpecificFunctions%28%29" title="Gets an array of MTM-specific operations that can be carried out through the associated User Interface MTM's CBaseMtmUi::InvokeSyncFunctionL()/InvokeAsyncFunctionL() functions">MtmSpecificFunctions()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aOperationSupportedL%28%29" title="Tests if an MTM-specific operation is appropriate to the specified entry">OperationSupportedL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aPopulateArraysL%28%29" title="Initialises bitmaps and function information">PopulateArraysL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aQueryCapability%28%29" title="Queries if the MTM supports a particular capability, specified by a UID">QueryCapability()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aReadFunctionsFromResourceFileL%28%29" title="Implementers of derived classes can call this class to fill the iMtmSpecificFunctions array with MTM-specific operation definitions from the UI Data MTM's resource file">ReadFunctionsFromResourceFileL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aStatusTextL%28%29" title="Provides status text for the sending state of the entry">StatusTextL()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aType%28%29" title="Gets the Type UID of the message type associated with the UI Data MTM">Type()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aiCoeEnv" title="CONE environment object">iCoeEnv</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aiIconArrays" title="The array that stores the arrays of icon bitmaps for the UI Data MTM">iIconArrays</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aiMtmSpecificFunctions" title="The array that stores MTM-specific function information for the UI Data MTM">iMtmSpecificFunctions</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3a%7eCBaseMtmUiData%28%29" title="Cleans up the base class">~CBaseMtmUiData()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap">CBase</a></code>:
+<br><code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase%3a%3aoperator%20new%28%29" title="Allocates the object from the heap and then initialises its contents to binary zeroes">operator new()</a></code></p>
+<a name="2.6"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction, initialisation, and destruction</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUiData%3a%3aCBaseMtmUiData%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CBaseMtmUiData()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: CBaseMtmUiData(CRegisteredMtmDll&amp; aRegisteredMtmDll);</code></p><h4 class="subheading">Description</h4>
+<p>Creates a <code>CBaseMtmUiData</code> and initialises its private member variables. Client applications do not use this function. It is relevant only to implementers of derived classes.</p>
+<p>Derived classes can implement a constructor to perform any additional MTM-specific setup that can be safely carried out in a constructor. Such constructors must call the base class constructor function.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CRegisteredMtmDll&amp; aRegisteredMtmDll
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Registration data for the DLL.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUiData%3a%3aConstructL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ConstructL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: void ConstructL();</code></p><h4 class="subheading">Description</h4>
+<p>Implements two-phase construction functions (<code>NewL()</code>, <code>ConstructL()</code>) to create a new instance of the object. Client applications do not use this function. It is relevant only to implementers of derived classes.</p>
+<p>The function should perform any necessary dynamic allocation. <code>ConstructL()</code> should be called from the <code>NewL()</code> function of the derived class.</p>
+<p>The default implementation of this function initiates the loading of required resources: </p>
+<ul><li><p>instantiates objects for the <code>iIconArrays</code> and <code>iMtmSpecificFunctions</code> protected members</p></li>
+<li><p>loads the UI Data MTM&#8217;s resource file, as specified by <code>GetResourceFileName()</code></p></li>
+<li><p>calls <code>PopulateArraysL()</code> so that the derived class can load resources</p></li>
+</ul><p>Derived classes can implement this function to perform any additional MTM-specific second stage construction tasks that they require. Implementations must call the base class <code>ConstructL()</code> function.</p>
+<p>Concrete MTMs must also implement a factory function by which a MTM registry can request an instance of the class: </p>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">Dependent on the implementation, this function may leave with system error codes.  </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="MtmUiDataFactoryFunctionLTypedef.html#%3a%3aMtmUiDataFactoryFunctionL" title="A concrete UI Data MTM must implement an exported factory function of this type"><code class="ApiItem">MtmUiDataFactoryFunctionL</code></a></li>
+</ul>
+<a name="2.6.4"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUiData%3a%3aPopulateArraysL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PopulateArraysL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: virtual void PopulateArraysL() = 0; </code></p><h4 class="subheading">Description</h4>
+<p>Initialises bitmaps and function information. Client applications do not use this function. It is relevant only to implementers of derived classes.</p>
+<p>Requirements:</p>
+<p>This function is called by the base class <code>ConstructL()</code> function. Implementations should provide this function to:</p>
+<ul><li><p>insert MTM-specific icon bitmap arrays into the <code>iIconArrays</code> array data member </p></li>
+<li><p>insert MTM-specific operation information into the <code>iMtmSpecificFunctions</code> array data member</p></li>
+</ul><h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">Dependent on the implementation, this function may leave with system error codes.  </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.5"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUiData%3a%3aGetResourceFileName%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetResourceFileName()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: virtual void GetResourceFileName(TFileName&amp; aFileName) const = 0;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the resource file name. Client applications do not use this function. It is relevant only to implementers of derived classes.</p>
+<p>Requirements:</p>
+<p>Each UI Data MTM can have a resource file associated with it. Implementations should set <code>aFilename</code> to the full path and name of this resource file. The function is called by <code>CBaseMtmUiData::ConstructL()</code>, which then loads the resource file.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TFileName&amp; aFileName
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Filename buffer to be filled with the resource file path and name
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.6"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUiData%3a%3a%7eCBaseMtmUiData%28%29"></a>
+<hr size="1" noshade>
+<h3><code>~CBaseMtmUiData()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual ~CBaseMtmUiData();</code></p><h4 class="subheading">Description</h4>
+<p>Cleans up the base class. <code>CBaseMtmUiData</code>-derived objects must be deleted by client applications when they are no longer required. Clean up includes:</p>
+<ul><li><p>cleaning up the <code>iIconArrays</code> and <code>iMtmSpecificFunctions</code></p></li>
+<li><p>unloading the UI Data MTM resource file</p></li>
+</ul><p>Derived classes can implement a destructor to do any additional clean up tasks that they require.</p>
+<a name="2.7"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Accessors</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUiData%3a%3aType%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Type()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TUid Type() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the Type UID of the message type associated with the UI Data MTM.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TUid
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+UID of the message type associated with the MTM
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Context-specific icons</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUiData%3a%3aContextIcon%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ContextIcon()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual const CBitmapArray&amp; ContextIcon(const TMsvEntry&amp; aContext) const = 0;</code></p><h4 class="subheading">Support</h4>
+<p>Withdrawn in 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Gets an array of bitmaps relevant to the passed context entry. The bitmaps within the array should be representations of the same bitmap at various sizes. </p>
+<p>Requirements:</p>
+<p>Implementations should check the type of the context, using <code>TMsvEntry::iType::iUid</code>, and on this basis return the appropriate bitmap array for that context type.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TMsvEntry&amp; aContext
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Context entry to return the icons for.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CBitmapArray&amp;
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Bitmap array for the given context..
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUiData%3a%3aContextIcon%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ContextIcon()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual const CBitmapArray&amp; ContextIcon(const TMsvEntry&amp; aContext, TInt aStateFlags) const = 0;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Gets an array of bitmaps relevant to the passed context entry. The bitmaps within the array should be representations of the same bitmap at various sizes. </p>
+<p>The <code>aStateFlags</code> argument indicates the user interface state, for example, &quot;open&quot;, of the entry.   </p>
+<p>Requirements:</p><p>Implementations should check the type of the context, using <code>TMsvEntry::iType::iUid</code>, and the passed state, and return an appropriate bitmap array.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TMsvEntry&amp; aContext
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Context entry to return the icons for.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt aStateFlags
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Flasgs indicating the user interface state of the entry.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CBitmapArray&amp;
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Bitmap array for the given context..
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="ConstantsUIDMTM.html#Messaging%2eudm%2eentrystate" title="UI Data MTM constants / UI Data MTM entry state constants">Entry state constants</a></li>
+</ul>
+<a name="2.9"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>MTM-specific function information</h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUiData%3a%3aMtmSpecificFunctions%28%29"></a>
+<hr size="1" noshade>
+<h3><code>MtmSpecificFunctions()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const CArrayFix&lt;TMtmUiFunction&gt;&amp; MtmSpecificFunctions() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets an array of MTM-specific operations that can be carried out through the associated User Interface MTM&#8217;s <code>CBaseMtmUi::InvokeSyncFunctionL()/InvokeAsyncFunctionL()</code> functions.</p>
+<p>It is intended that message client applications will use this function to add dynamically user interface features, such as menu items, dependent on the MTM type of the entry currently selected within the application. Message client applications can also use <code>OperationSupportedL()</code> to check dynamically if a particular operation is appropriate to a particular entry.</p>
+<p>Implementers should note that this function returns a pointer to the <code>iMtmSpecificFunctions</code> data member.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CArrayFix&lt;TMtmUiFunction&gt;&amp;
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Array of operations relevant to the MTM and context.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.3"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUiData%3a%3aFunctionRecognised%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FunctionRecognised()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool FunctionRecognised(TInt aFunctionId) const;</code></p><h4 class="subheading">Description</h4>
+<p>Tests if an operation with the specified ID is recognised by the UI Data MTM.</p>
+<p>Implementers should note that this function searches the <code>iMtmSpecificFunctions</code> array  for the <code>aFunctionId</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt aFunctionId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The operation to check
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TBool
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue</code>: operation <code>aFunctionId</code>  is supported by this UI Data MTM.
+<code>EFalse</code>: operation <code>aFunctionId</code> is not supported by this UI Data MTM.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Context-specific information</h2>
+</div><div class="Bodytext">
+<a name="2.10.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUiData%3a%3aCanCancelL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CanCancelL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TBool CanCancelL(const TMsvEntry&amp; aContext, TInt&amp; aReasonResourceId) const = 0;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Tests if the current operation on the entry can be cancelled.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TMsvEntry&amp; aContext
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The entry to which the operation applies.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt&amp; aReasonResourceId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+On return, a resource string ID, or 0 if operation is supported.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TBool
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code>: the operation is appropriate on the entry.
+<code>KErrNotSupported</code>: the operation is not appropriate on the entry.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.3"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUiData%3a%3aCanCloseEntryL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CanCloseEntryL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TBool CanCloseEntryL(const TMsvEntry&amp; aContext, TInt&amp; aReasonResourceId) const = 0;</code></p><h4 class="subheading">Description</h4>
+<p>Tests if a close operation is supported.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TMsvEntry&amp; aContext
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The entry to which the operation applies.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt&amp; aReasonResourceId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+On return, a resource string ID, or 0 if operation is supported.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TBool
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code>: the operation is appropriate on the entry.
+<code>KErrNotSupported</code>: the operation is not appropriate on the entry.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.4"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUiData%3a%3aCanCopyMoveFromEntryL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CanCopyMoveFromEntryL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TBool CanCopyMoveFromEntryL(const TMsvEntry&amp; aContext, TInt&amp; aReasonResourceId) const = 0;</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether a copy from or move from operation is supported.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TMsvEntry&amp; aContext
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The entry to which the operation applies.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt&amp; aReasonResourceId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+On return, a resource string ID or 0.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TBool
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code>: the operation is appropriate on the entry.
+<code>KErrNotSupported</code>: the operation is not appropriate on the entry.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.5"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUiData%3a%3aCanCopyMoveToEntryL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CanCopyMoveToEntryL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TBool CanCopyMoveToEntryL(const TMsvEntry&amp; aContext, TInt&amp; aReasonResourceId) const = 0;</code></p><h4 class="subheading">Description</h4>
+<p>Tests if a copy from or move to operation is supported.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TMsvEntry&amp; aContext
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The entry to which the operation applies.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt&amp; aReasonResourceId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+On return, a resource string ID or 0.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TBool
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code>: the operation is appropriate on the entry.
+<code>KErrNotSupported</code>: the operation is not appropriate on the entry.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.6"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUiData%3a%3aCanCreateEntryL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CanCreateEntryL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TBool CanCreateEntryL(const TMsvEntry&amp; aParent, const TMsvEntry&amp; aNewEntry, TInt&amp; aReasonResourceId) const = 0;</code></p><h4 class="subheading">Description</h4>
+<p>Tests if an entry can be created as a child.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TMsvEntry&amp; aParent
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The entry under which <code>aNewEntry</code> should be created.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TMsvEntry&amp; aNewEntry
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The entry to which the operation applies.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt&amp; aReasonResourceId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+On return, a resource string ID or 0.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TBool
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code>: the operation is appropriate on the entry.
+<code>KErrNotSupported</code>: the operation is not appropriate on the entry.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.7"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUiData%3a%3aCanDeleteFromEntryL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CanDeleteFromEntryL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TBool CanDeleteFromEntryL(const TMsvEntry&amp; aContext, TInt&amp; aReasonResourceId) const = 0;</code></p><h4 class="subheading">Description</h4>
+<p>Tests if a delete operation is supported.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TMsvEntry&amp; aContext
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The entry to which the operation applies.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt&amp; aReasonResourceId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+On return, a resource string ID or 0.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TBool
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code>: the operation is appropriate on the entry.
+<code>KErrNotSupported</code>: the operation is not appropriate on the entry.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.8"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUiData%3a%3aCanDeleteServiceL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CanDeleteServiceL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TBool CanDeleteServiceL(const TMsvEntry&amp; aService, TInt&amp; aReasonResourceId) const = 0;</code></p><h4 class="subheading">Description</h4>
+<p>Tests if the service entry can be deleted.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TMsvEntry&amp; aService
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The service entry to which the operation applies.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt&amp; aReasonResourceId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+On return, a resource string ID or 0.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TBool
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code>: the operation is appropriate on the entry.
+<code>KErrNotSupported</code>: the operation is not appropriate on the entry.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.9"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUiData%3a%3aCanEditEntryL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CanEditEntryL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TBool CanEditEntryL(const TMsvEntry&amp; aContext, TInt&amp; aReasonResourceId) const = 0;</code></p><h4 class="subheading">Description</h4>
+<p>Tests if the entry can be edited.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TMsvEntry&amp; aContext
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The entry to which the operation applies.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt&amp; aReasonResourceId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+On return, a resource string ID or 0.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TBool
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code>: the operation is appropriate on the entry.
+<code>KErrNotSupported</code>: the operation is not appropriate on the entry.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.10"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUiData%3a%3aCanForwardEntryL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CanForwardEntryL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TBool CanForwardEntryL(const TMsvEntry&amp; aContext, TInt&amp; aReasonResourceId) const = 0;</code></p><h4 class="subheading">Description</h4>
+<p>Tests if an entry can be forwarded.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TMsvEntry&amp; aContext
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The entry to which the operation applies.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt&amp; aReasonResourceId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+On return, a resource string ID or 0.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TBool
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code>: the operation is appropriate on the entry.
+<code>KErrNotSupported</code>: the operation is not appropriate on the entry.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.11"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUiData%3a%3aCanOpenEntryL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CanOpenEntryL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TBool CanOpenEntryL(const TMsvEntry&amp; aContext, TInt&amp; aReasonResourceId) const = 0;</code></p><h4 class="subheading">Description</h4>
+<p>Tests if an entry can be opened.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TMsvEntry&amp; aContext
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The entry to which the operation applies.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt&amp; aReasonResourceId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+On return, a resource string ID or 0.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TBool
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code>: the operation is appropriate on the entry.
+<code>KErrNotSupported</code>: the operation is not appropriate on the entry.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.12"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUiData%3a%3aCanReplyToEntryL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CanReplyToEntryL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TBool CanReplyToEntryL(const TMsvEntry&amp; aContext, TInt&amp; aReasonResourceId) const = 0;</code></p><h4 class="subheading">Description</h4>
+<p>Tests if an entry can be replied to.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TMsvEntry&amp; aContext
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The entry to which the operation applies.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt&amp; aReasonResourceId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+On return, a resource string ID or 0.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TBool
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code>: the operation is appropriate on the entry.
+<code>KErrNotSupported</code>: the operation is not appropriate on the entry.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.13"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUiData%3a%3aCanViewEntryL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CanViewEntryL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TBool CanViewEntryL(const TMsvEntry&amp; aContext, TInt&amp; aReasonResourceId) const = 0;</code></p><h4 class="subheading">Description</h4>
+<p>Tests if an entry can be viewed.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TMsvEntry&amp; aContext
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The entry to which the operation applies.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt&amp; aReasonResourceId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+On return, a resource string ID or 0.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TBool
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code>: the operation is appropriate on the entry.
+<code>KErrNotSupported</code>: the operation is not appropriate on the entry.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.14"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUiData%3a%3aCanUnDeleteFromEntryL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CanUnDeleteFromEntryL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TBool CanUnDeleteFromEntryL(const TMsvEntry&amp; aContext, TInt&amp; aReasonResourceId) const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Tests if the entry can be undeleted.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TMsvEntry&amp; aContext
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The entry to which the operation applies.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt&amp; aReasonResourceId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+On return, a resource string ID or 0.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TBool
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code>: the operation is appropriate on the entry.
+<code>KErrNotSupported</code>: the operation is not appropriate on the entry.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>MTM-specific functionality</h2>
+</div><div class="Bodytext">
+<a name="2.11.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUiData%3a%3aOperationSupportedL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>OperationSupportedL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt OperationSupportedL(TInt aOperationId, const TMsvEntry&amp; aContext) const = 0;  </code></p><h4 class="subheading">Description</h4>
+<p>Tests if an MTM-specific operation is appropriate to the specified entry. The operation specified must have been obtained from a call to <code>MtmSpecificFunctions()</code>. </p>
+<p>It is intended that client applications will use this function to select dynamically the MTM-specific user interface features available dependent on the entry currently selected within the application.</p>
+<p>Requirements:</p>
+<p>Implementations should check the type of the context, using <code>TMsvEntry::iType::iUid</code>, and use any other information required available from the context, to determine if the operation is supported.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt aOperationId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+ID of operation to query.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TMsvEntry&amp; aContext
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The entry to which the operation applies.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code>: operation is appropriate to User Interface MTM and entry.
+Other: if the operation is not appropriate on the entry, then this is the ID of a string in the UI Data MTM&#8217;s resource file that explains why not.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.3"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUiData%3a%3aQueryCapability%28%29"></a>
+<hr size="1" noshade>
+<h3><code>QueryCapability()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt QueryCapability(TUid aFunctionId, TInt&amp; aResponse) const = 0;</code></p><h4 class="subheading">Description</h4>
+<p>Queries if the MTM supports a particular capability, specified by a UID. </p>
+<p>Requirements:</p>
+<p>Implementations should check <code>aCapability</code> for the standard capability values and return a suitable response in <code>aResponse</code>. If <code>aFunctionId</code> is unknown, return <code>KErrNotSupported</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TUid aFunctionId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+UID of capability to be queried
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt&amp; aResponse
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Response value. The format of the response varies according to the capability.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code>: <code>aFunctionId</code> is a recognised value and a response is returned
+<code>KErrNotSupported</code>: <code>aFunctionId</code> is not a recognised value
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="ConstantsGeneralCapabilities.html#Messaging%2ecapabilities%2egeneral">Capability constants: general</a></li>
+<li><a href="ConstantsUICapabilities.html#Messaging%2eCapabilityIDsUI%2euids">Capability constants: UI and UI Data</a></li>
+</ul>
+<a name="2.11.4"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUiData%3a%3aStatusTextL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>StatusTextL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual HBufC* StatusTextL(const TMsvEntry&amp; aContext) const = 0;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Provides status text for the sending state of the entry.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TMsvEntry&amp; aContext</code></td>
+<td class="Cell"><p class="ValueDesc">Entry to query</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">HBufC*</code></td>
+<td class="Cell"><p class="ValueDesc">Descriptor containing status text.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Utility</h2>
+</div><div class="Bodytext">
+<a name="2.12.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUiData%3a%3aReadFunctionsFromResourceFileL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ReadFunctionsFromResourceFileL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: void ReadFunctionsFromResourceFileL(TInt aResourceId);</code></p><h4 class="subheading">Description</h4>
+<p>Implementers of derived classes can call this class to fill the <code>iMtmSpecificFunctions</code> array with MTM-specific operation definitions from the UI Data MTM&#8217;s resource file.  Client applications do not use this function. It is relevant only to implementers of derived classes.</p>
+<p>For each MTM-specific operation definition in the resource file, it adds a corresponding <code>TMtmUiFunction</code> object to <code>iMtmSpecificFunctions</code>. </p>
+<p>The function is typically called from <code>PopulateArraysL()</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt aResourceId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Resource ID of MTM-specific operation definition array
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">This function may leave with system error codes.  </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.3"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUiData%3a%3aCreateBitmapsL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CreateBitmapsL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>protected: void CreateBitmapsL(TInt aNumZoomStates, const TDesC&amp; aBitmapFile, TInt aStartBitmap, TInt aEndBitmap);</code></p><h4 class="subheading">Description</h4>
+<p>Fills the <code>iIconArrays</code> array with icon bitmaps from an  EPOC mbm file. Client applications do not use this function. It is relevant only to implementers of derived classes.</p>
+<p>The bitmaps to load must be contiguous within the file between the positions indicated by <code>aStartBitmap</code> and <code>aEndBitmap</code>.</p>
+<p>The function is typically called from <code>PopulateArraysL()</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt aNumZoomStates
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Number of zoom states for each icon. This is used as the array size of each element in <code>iIconArrays</code>.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TDesC&amp; aBitmapFile
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Filename of .mbm format bitmap array file.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt aStartBitmap
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+First bitmap within the file for this MTM.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt aEndBitmap
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Final bitmap within the file for this MTM.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">This function may leave with system error codes.  </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Protected data members</h2>
+</div><div class="Bodytext">
+<a name="2.13.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUiData%3a%3aiCoeEnv"></a>
+<hr size="1" noshade>
+<h3><code>iCoeEnv</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CCoeEnv* iCoeEnv</code></p><h4 class="subheading">Description</h4>
+<p>CONE environment object. It is set by the constructor.</p>
+<a name="2.13.3"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUiData%3a%3aiIconArrays"></a>
+<hr size="1" noshade>
+<h3><code>iIconArrays</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CArrayPtr&lt;CBitmapArray&gt;* iIconArrays</code></p><h4 class="subheading">Description</h4>
+<p>The array that stores the arrays of icon bitmaps for the UI Data MTM. Items are added to the array by <code>PopulateArraysL()</code>. </p>
+<a name="2.13.4"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUiData%3a%3aiMtmSpecificFunctions"></a>
+<hr size="1" noshade>
+<h3><code>iMtmSpecificFunctions</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CArrayFix&lt;TMtmUiFunction&gt;* iMtmSpecificFunctions</code></p><h4 class="subheading">Description</h4>
+<p>The array that stores MTM-specific function information for the UI Data MTM. Items are added to the array by <code>ReadFunctionsFromResourceFileL()</code>. </p>
+<a name="2.14"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Typedefs</h2>
+</div><div class="Bodytext">
+<a name="2.14.2"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUiData%3a%3aCBitmapArray"></a>
+<hr size="1" noshade>
+<h3>Typedef <code>CBitmapArray</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>typedef CArrayPtr&lt;CFbsBitmap&gt; CBitmapArray;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Defines an array of icon bitmaps for the UI Data MTM. It is used in the definition of <code>CBaseMtmUiData::iIconArrays</code>.</p>
+<a name="2.15"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><a name="%3a%3aCBaseMtmUiData%3a%3aCBaseMtmUiData%3a%3aTMtmUiFunction"></a>
+<hr size="2" noshade>
+<h2>Class <code>CBaseMtmUiData::TMtmUiFunction</code></h2>
+</div><div class="Bodytext"><p class="Prototype"><code>CBaseMtmUiData::TMtmUiFunction</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Provides the interface for clients to access MTM-specific functions, and present these functions to the user. A message client application can use this information to customise the UI.</p>
+<p>The class encapsulates information relating to an MTM-specific operation:</p>
+<ul><li><p>human-readable name: for display on the UI</p></li>
+<li><p>ID: used to invoke the operation through the CBaseMtmUi::<code>InvokeSyncFunctionL()/InvokeAsyncFunctionL()</code> functions on the associated User Interface MTM </p></li>
+<li><p>a suggested hot-key that the UI should support for the operation</p></li>
+<li><p>flags that describe further operation characteristics</p></li>
+</ul><p>Defined in <code>CBaseMtmUiData::CBaseMtmUiData::TMtmUiFunction</code>:
+<br><code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aCBaseMtmUiData%3a%3aTMtmUiFunction%3a%3aAnonymous" title="Enum to define UI Data base class constants">Anonymous</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aCBaseMtmUiData%3a%3aTMtmUiFunction%3a%3aECaptionMaxLen" title="Maximum length for operation caption">ECaptionMaxLen</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aCBaseMtmUiData%3a%3aTMtmUiFunction%3a%3aTMtmUiFunction%28%29" title="Creates a TMtmUiFunction with its values read from the resource file location specified by TResourceReader">TMtmUiFunction()</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aCBaseMtmUiData%3a%3aTMtmUiFunction%3a%3aiCaption" title="String, suitable for a menu, describing the operation">iCaption</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aCBaseMtmUiData%3a%3aTMtmUiFunction%3a%3aiFlags" title="Flags setting characteristics of the operation">iFlags</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aCBaseMtmUiData%3a%3aTMtmUiFunction%3a%3aiFunctionId" title="The ID that can be used to invoke the operation">iFunctionId</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aCBaseMtmUiData%3a%3aTMtmUiFunction%3a%3aiFunctionType" title="Flags setting location characteristics of the operation">iFunctionType</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aCBaseMtmUiData%3a%3aTMtmUiFunction%3a%3aiPreferredHotKeyKeyCode" title="Character code for a suggested hotkey for the operation">iPreferredHotKeyKeyCode</a></code>, <code class="ApiItem"><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aCBaseMtmUiData%3a%3aTMtmUiFunction%3a%3aiPreferredHotKeyModifiers" title="Suggested key modifiers for the hotkey">iPreferredHotKeyModifiers</a></code>
+</p>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aiMtmSpecificFunctions" title="The array that stores MTM-specific function information for the UI Data MTM"><code class="ApiItem">CBaseMtmUiData::iMtmSpecificFunctions</code></a></li>
+<li><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aMtmSpecificFunctions%28%29" title="Gets an array of MTM-specific operations that can be carried out through the associated User Interface MTM's CBaseMtmUi::InvokeSyncFunctionL()/InvokeAsyncFunctionL() functions"><code class="ApiItem">CBaseMtmUiData::MtmSpecificFunctions()</code></a></li>
+<li><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aReadFunctionsFromResourceFileL%28%29" title="Implementers of derived classes can call this class to fill the iMtmSpecificFunctions array with MTM-specific operation definitions from the UI Data MTM's resource file"><code class="ApiItem">CBaseMtmUiData::ReadFunctionsFromResourceFileL()</code></a></li>
+<li><a href="CBaseMtmUiDataClass.html#%3a%3aCBaseMtmUiData%3a%3aPopulateArraysL%28%29" title="Initialises bitmaps and function information"><code class="ApiItem">CBaseMtmUiData::PopulateArraysL()</code></a></li>
+<li><a href="ConstantsUIDMTM.html#Messaging%2eudmresource%2ekey%2econstants" title="UI Data MTM constants / UI Data MTM operation constants / Key flags">UI Data MTM key constants</a></li>
+<li><a href="ConstantsUIDMTM.html#Messaging%2eudmresource%2eflag%2econstants" title="UI Data MTM constants / UI Data MTM operation constants / Function flags">UI Data MTM flag constants</a></li>
+<li><a href="ConstantsUIDMTM.html#Messaging%2eudmresource%2elocation%2econstants" title="UI Data MTM constants / UI Data MTM operation constants / Function location">UI Data MTM location constants</a></li>
+</ul>
+<a name="2.15.6"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Constructors</h3>
+</div><div class="Bodytext">
+<a name="2.15.6.2"></a><a name="%3a%3aCBaseMtmUiData%3a%3aCBaseMtmUiData%3a%3aTMtmUiFunction%3a%3aTMtmUiFunction%28%29"></a>
+<h4><code>TMtmUiFunction()</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>TMtmUiFunction(const TDesC&amp; aCaption, TInt aFunctionId, TInt aHotKey, TInt aModifiers, TInt aFlags=0);</code></p><h4 class="subheading">Support</h4>
+<p>Withdrawn in 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Creates a <code>TMtmUiFunction</code> with the specified values.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TDesC&amp; aCaption
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+String, suitable for a menu, describing the operation
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt aFunctionId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The ID that can be used to invoke the operation
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt aHotKey
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Character code for a suggested hotkey for the operation
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt aModifiers
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Suggested key modifiers for the hotkey.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt aFlags=0
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Flags setting characteristics of the operation: for details
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="ConstantsUIDMTM.html#Messaging%2eudmresource%2ekey%2econstants" title="UI Data MTM constants / UI Data MTM operation constants / Key flags">UI Data MTM key constants</a></li>
+<li><a href="ConstantsUIDMTM.html#Messaging%2eudmresource%2eflag%2econstants" title="UI Data MTM constants / UI Data MTM operation constants / Function flags">UI Data MTM flag constants</a></li>
+</ul>
+<a name="2.15.6.3"></a><a name="%3a%3aCBaseMtmUiData%3a%3aCBaseMtmUiData%3a%3aTMtmUiFunction%3a%3aTMtmUiFunction%28%29"></a>
+<h4><code>TMtmUiFunction()</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>TMtmUiFunction(const TMtmUiFunction&amp; aFunc);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Creates a <code>TMtmUiFunction</code> by copying another <code>TMtmUiFunction</code>. Its action is the same as the default copy constructor, except that it will panic in debug builds if multiple location flags are set in <code>aFunc</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMtmUiFunction&amp; aFunc
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>TMtmUiFunction</code> to copy
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15.6.4"></a><a name="%3a%3aCBaseMtmUiData%3a%3aCBaseMtmUiData%3a%3aTMtmUiFunction%3a%3aTMtmUiFunction%28%29"></a>
+<h4><code>TMtmUiFunction()</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>TMtmUiFunction(TResourceReader&amp; aResourceReader);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code></p><h4 class="subheading">Description</h4>
+<p>Creates a <code>TMtmUiFunction</code> with its values read from the resource file location specified by <code>TResourceReader</code>. This position should be at a <code>MTUD_FUNCTION</code> resource.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TResourceReader&amp; aResourceReader
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Position in UI Data MTM resource file to read operation
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15.7"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Data members</h3>
+</div><div class="Bodytext">
+<a name="2.15.7.2"></a><a name="%3a%3aCBaseMtmUiData%3a%3aCBaseMtmUiData%3a%3aTMtmUiFunction%3a%3aiCaption"></a>
+<h4><code>iCaption</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>TBuf&lt;ECaptionMaxLen&gt; iCaption</code></p><h4 class="subheading">Description</h4>
+<p>String, suitable for a menu, describing the operation</p>
+<a name="2.15.7.3"></a><a name="%3a%3aCBaseMtmUiData%3a%3aCBaseMtmUiData%3a%3aTMtmUiFunction%3a%3aiPreferredHotKeyKeyCode"></a>
+<h4><code>iPreferredHotKeyKeyCode</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>TInt iPreferredHotKeyKeyCode</code></p><h4 class="subheading">Description</h4>
+<p>Character code for a suggested hotkey for the operation</p>
+<a name="2.15.7.4"></a><a name="%3a%3aCBaseMtmUiData%3a%3aCBaseMtmUiData%3a%3aTMtmUiFunction%3a%3aiPreferredHotKeyModifiers"></a>
+<h4><code>iPreferredHotKeyModifiers</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>TInt iPreferredHotKeyModifiers</code></p><h4 class="subheading">Description</h4>
+<p>Suggested key modifiers for the hotkey. </p>
+<a name="2.15.7.5"></a><a name="%3a%3aCBaseMtmUiData%3a%3aCBaseMtmUiData%3a%3aTMtmUiFunction%3a%3aiFunctionId"></a>
+<h4><code>iFunctionId</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>TInt iFunctionId</code></p><h4 class="subheading">Description</h4>
+<p>The ID that can be used to invoke the operation</p>
+<a name="2.15.7.6"></a><a name="%3a%3aCBaseMtmUiData%3a%3aCBaseMtmUiData%3a%3aTMtmUiFunction%3a%3aiFlags"></a>
+<h4><code>iFlags</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>TInt iFlags</code></p><h4 class="subheading">Description</h4>
+<p>Flags setting characteristics of the operation</p>
+<a name="2.15.7.7"></a><a name="%3a%3aCBaseMtmUiData%3a%3aCBaseMtmUiData%3a%3aTMtmUiFunction%3a%3aiFunctionType"></a>
+<h4><code>iFunctionType</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>TUint8 iFunctionType</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Flags setting location characteristics of the operation</p>
+<a name="2.15.8"></a></div><div class="Head3">
+<a name="%3a%3aCBaseMtmUiData%3a%3aCBaseMtmUiData%3a%3aTMtmUiFunction%3a%3aAnonymous"></a>
+<hr size="1" noshade>
+<h3>Enum <code>Anonymous</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>Anonymous</code></p><h4 class="subheading">Description</h4>
+<p>Enum to define UI Data base class constants.</p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCBaseMtmUiData%3a%3aCBaseMtmUiData%3a%3aTMtmUiFunction%3a%3aECaptionMaxLen"><code class="Value">ECaptionMaxLen</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Maximum length for operation caption. Used in defining <code>iCaption</code>.</para>
+</p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

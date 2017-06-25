@@ -1,0 +1,513 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Tools and file types used in build process</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="BuildGuideRef%2eToolListingandSyntax"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="BldmakeSyntax.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Build&nbsp;Tools&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+Tools&nbsp;and&nbsp;file&nbsp;types&nbsp;used&nbsp;in&nbsp;build&nbsp;process</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Tools and file types used in the build process</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Tools</h2>
+</div><div class="Bodytext">
+<p>We use tools from three suppliers:</p>
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+<p>Microsoft</p>
+</td>
+<td class="Cell">
+<p>Microsoft Visual C++ and associated development environment</p>
+<p>Microsoft Visual C++ is a leading C++ development environment, with a good integrated development environment, which is used for 95% of all Symbian software development.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>Symbian</p>
+</td>
+<td class="Cell">
+<p>Various tools for resource compilation, bitmap conversion, ROM building, downloading, project control, and organising other tools.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p> Cygnus</p>
+</td>
+<td class="Cell">
+<p>Cygnus maintains the GNU C++ compiler and associated tools.</p>
+<p>These tools support the widest variety of hardware platforms of any single compiler tool set in the industry.  GCC is a powerful C++ compiler with a generic front end and optimiser, and back-end code generators for a wide variety of CPUs.</p>
+<p>Symbian commissioned Cygnus to bring the GNU tool chain up to industrial strength for ARM development, and uses the Win32-hosted, ARM-targeted, version of the tool chain for all its target machine development.</p>
+<p>Aspects of this industrial strength include a full language implementation as found in the C++ Annotated Reference Manual, good support for DLLs, support for templates (including some complexities of the interaction between templates and DLLs), and the production of PE-format executables.</p>
+</td>
+</tr>
+</table></td></tr></table><p>The following tools are used:</p>
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+<p>Tool</p>
+</td>
+<td class="Cell">
+<p>Supplier, language</p>
+</td>
+<td class="Cell">
+<p>Description</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">bldmake</code></p>
+</td>
+<td class="Cell">
+<p>Symbian</p>
+</td>
+<td class="Cell">
+<p>This tool processes a component description file (<code class="filename">bld.inf</code>), which describes various aspects of the component, and generates a batch file called <code class="filename">abld.bat</code>. This batch file is then used to drive the rest of the component build. </p>
+<p>It also generates several build batch <code class="filename">.make</code> files.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">abld</code></p>
+</td>
+<td class="Cell">
+<p>Symbian</p>
+</td>
+<td class="Cell">
+<p>Uses the build batch <code class="filename">.make</code> files, generated by the <code class="filename">bldmake</code> tool. It is used to carry out the various stages of the building of components  which have been defined by a <code class="filename">bldmake</code> component description file (<code class="filename">bld.inf</code>).</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">makmake</code></p>
+</td>
+<td class="Cell">
+<p>Symbian, PERL</p>
+</td>
+<td class="Cell">
+<p>The <code class="filename">makmake</code> tool is used to build makefiles for use in various environments, which are then used for project development. </p>
+<p>Takes a <code class="filename">.mmp</code> project file which lists the elements of the project, and produces a makefile for the platform specified.  </p>
+<p>Uses GNU <code class="filename">cpp</code> to evaluate dependencies.  Generated headers from resource compilation and multi-bitmap compilation, etc., should be available before <code class="filename">makmake</code> is run.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">gcc</code></p>
+</td>
+<td class="Cell">
+<p>Cygnus</p>
+</td>
+<td class="Cell">
+<p>GNU C++ Compiler.  Compiles a C++ file (normally <code class="filename">.cpp</code>) and produces an object file (<code class="filename">.o</code>).</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">ar</code></p>
+</td>
+<td class="Cell">
+<p>Cygnus</p>
+</td>
+<td class="Cell">
+<p>GNU archiver.  Turns a number of <code class="filename">.o</code> object files into an archive, <code class="filename">.in</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">ranlib</code></p>
+</td>
+<td class="Cell">
+<p>Cygnus</p>
+</td>
+<td class="Cell">
+<p>Library munger.  Turns archive into an ARM PE format.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">dlltool</code></p>
+</td>
+<td class="Cell">
+<p>Cygnus</p>
+</td>
+<td class="Cell">
+<p>Extracts symbol definitions <code class="filename">.def</code> from an archive <code class="filename">.in</code>; also constructs import library <code class="filename">.lib</code> from an archive and a <code class="filename">.def</code> file</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">ld</code></p>
+</td>
+<td class="Cell">
+<p>Cygnus</p>
+</td>
+<td class="Cell">
+<p>GNU linker.  Produces an executable.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">petran</code></p>
+</td>
+<td class="Cell">
+<p>Symbian</p>
+</td>
+<td class="Cell">
+<p>Strips a PE format file for ARM target of its irrelevant symbol information.  This makes DLLs much smaller.  As a consequence, EPOC ARM targets only support linking by ordinal.</p>
+<p><code class="filename">Petran</code> is also responsible for adding UID information to executables.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">cl</code></p>
+</td>
+<td class="Cell">
+<p>Microsoft</p>
+</td>
+<td class="Cell">
+<p>MSVC C++ compiler.  Compiles C++ source (normally <code class="filename">.cpp</code>) to object <code class="filename">.obj</code>.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">link</code></p>
+</td>
+<td class="Cell">
+<p>Microsoft</p>
+</td>
+<td class="Cell">
+<p>Microsoft linker.  Links <code class="filename">.obj</code> into an executable.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">bscmake</code></p>
+</td>
+<td class="Cell">
+<p>Microsoft</p>
+</td>
+<td class="Cell">
+<p>Debug information generator.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">rcomp</code></p>
+</td>
+<td class="Cell">
+<p>Symbian</p>
+</td>
+<td class="Cell">
+<p>Resource compiler.  </p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">bmconv</code></p>
+</td>
+<td class="Cell">
+<p>Symbian</p>
+</td>
+<td class="Cell">
+<p>Bitmap converter.  Takes one or more Microsoft bitmaps <code class="filename">.bmp</code> and generates a single multi-bitmap file <code class="filename">.mbm</code>, optimised for efficient runtime loading by the EPOC GDI.  Also a header file <code class="filename">.h</code> with symbolic definitions for each bitmap in the file.</p>
+</td>
+</tr>
+</table></td></tr></table><p>More specialised EPOC tools are available for particular types of development, e.g. for generating font and printer driver libraries.</p>
+<a name="1.4"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>File types</h2>
+</div><div class="Bodytext">
+<p>The following file types are involved in the process</p>
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+<p><code class="filename">.mmp</code></p>
+</td>
+<td class="Cell">
+<p>makmake makefile project&nbsp;&#8212; specification of a project, input to <code class="filename">makmake</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">.dsp</code></p>
+</td>
+<td class="Cell">
+<p>Built by <code class="filename">makmake</code> for the Microsoft Developer Studio (Visual C++ 6.0)&nbsp;&#8212; project file generated by <code class="filename">makmake</code> from a <code class="filename">.mmp</code> file</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">.dsw</code></p>
+</td>
+<td class="Cell">
+<p>Built by <code class="filename">makmake</code> for the Microsoft Developer Studio (Visual C++ 6.0)&nbsp;&#8212; project workspace file generated by <code class="filename">makmake</code> from a <code class="filename">.mmp</code> file </p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">.wins</code></p>
+</td>
+<td class="Cell">
+<p>makefile, for use by command-line compilations for WINS, output from <code class="filename">makmake</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">.armi</code></p>
+</td>
+<td class="Cell">
+<p>makefile, for use by command-line compilations for ARMI, output from <code class="filename">makmake</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">.make</code></p>
+</td>
+<td class="Cell">
+<p>build batch makefile, for use by <code class="filename">abld</code> for the purposes of building, output from <code class="filename">bldmake bldfiles</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">.cpp</code></p>
+</td>
+<td class="Cell">
+<p>C++ source file, input to Microsoft <code class="filename">cl</code> or GNU <code class="filename">cpp</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">.h</code></p>
+</td>
+<td class="Cell">
+<p>header file, for inclusion in C++ file</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">.rss</code></p>
+</td>
+<td class="Cell">
+<p>resource source file, for input to <code class="filename">rcomp</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">.rh</code></p>
+</td>
+<td class="Cell">
+<p>resource header, for inclusion in resource file</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">.hrh</code></p>
+</td>
+<td class="Cell">
+<p>common C++ or resource header, for inclusion in either type of source file</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">.rsg</code></p>
+</td>
+<td class="Cell">
+<p>generated resource header file, output from <code class="filename">rcomp</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">.rsc</code></p>
+</td>
+<td class="Cell">
+<p>generated resource file, output from <code class="filename">rcomp</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">.bmp</code></p>
+</td>
+<td class="Cell">
+<p>bitmap file, in Microsoft Windows format, input to <code class="filename">bmconv</code> (can also be output)</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">.mbm</code></p>
+</td>
+<td class="Cell">
+<p>multi-bitmap file, generated by Symbian bitmap compiler, output from <code class="filename">bmconv</code> (can also be input)</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">.obj</code></p>
+</td>
+<td class="Cell">
+<p>object code, from MSVC++ <code class="filename">cl</code> compiler</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">.o</code></p>
+</td>
+<td class="Cell">
+<p>object code, from GNU <code class="filename">gcc</code> compiler</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">.def</code></p>
+</td>
+<td class="Cell">
+<p>linker definition file, for input to <code class="filename">link</code> and <code class="filename">dlltool</code>, and can be output by <code class="filename">deftool</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">.frz</code></p>
+</td>
+<td class="Cell">
+<p>freeze file, really a <code class="filename">.def</code> file containing the entry points which must be frozen, for input to <code class="filename">deftool</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">.lib</code></p>
+</td>
+<td class="Cell">
+<p>static library containing stubs for DLL linking, output from <code class="filename">link</code> or <code class="filename">dlltool</code>, input to <code class="filename">link</code> or <code class="filename">ld</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">.map</code></p>
+</td>
+<td class="Cell">
+<p>map of entities in an executable, output by <code class="filename">link</code> or <code class="filename">ld</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">.exe</code></p>
+</td>
+<td class="Cell">
+<p>program&nbsp;&#8212; a type of executable, output by <code class="filename">link</code> or <code class="filename">ld</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">.dll</code></p>
+</td>
+<td class="Cell">
+<p>dynamic link library or DLL&nbsp;&#8212; a type of executable, output by <code class="filename">link</code> or <code class="filename">ld</code>, dynamically loaded at run-time by the <code class="filename">.exe</code> loader, or by other executables under program control</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">.app</code></p>
+</td>
+<td class="Cell">
+<p>a GUI application&nbsp;&#8212; a DLL which implements the application architecture interface</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code class="filename">.aif</code></p>
+</td>
+<td class="Cell">
+<p>Application information file, as defined by the application architecture, output by aiftool</p>
+</td>
+</tr>
+</table></td></tr></table><a name="1.5"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Location and installation of tools</h2>
+</div><div class="Bodytext">
+<p>Tools for EPOC development are found in two directories, which you should include in your path:</p>
+<ul><li><p>tools developed by Symbian are in <code class="filename">epoc32\tools\</code> in the folder on which you installed the SDK</p></li>
+<li><p>the <code class="filename">gcc</code> compiler and its supporting programs are in <code class="filename">Shared\epoc32\gcc\bin\</code> in the folder on which you installed the SDK</p></li>
+<li><p>You should ensure that both of these directories are in your path, whenever doing EPOC development. </p></li>
+</ul><p>The SDK installation process does the path and registry settings for you.</p>
+<a name="1.6"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Syntax descriptions</h2>
+</div><div class="Bodytext">
+<p>All tools have command line syntax.  Some additionally are compilers, with source file syntax. Syntax is described in this book using a modified BNF (Backus Naur Form).</p>
+<p>Syntax fragments are given like this:</p>
+<p><code>source-file</code> :
+<code>statement-list</code></p>
+<p>At the top-left of every diagram is the construct that is being explained&nbsp;&#8212; in this case, <code>source-file</code>.  The rest of the diagram explains the way a <code>source-file</code> is constructed.</p>
+<p>In this case, a source-file is a <code>statement-list</code>. Anything followed by <code>-list</code> means zero or more items: thus, a <code>source-file</code> can be zero or more <code>statement</code>s.  You need to consult the diagram for <code>statement</code> to see what a <code>statement</code> can be:</p>
+<p><code>statement</code> :
+<code>struct-statement</code>
+|    <code>resource-statement
+</code>|    <code>name-statement</code>
+|    <code>offset-statement</code>
+|    <code>system-statement</code></p>
+<p>This illustrates the use of vertical bar to denote alternatives: a <code>statement</code> can be one of the five statement types shown.</p>
+<p><code>offset-statement</code> :
+<code>OFFSET</code>
+<code>number </code></p>
+<p>When some text is given in heavy monospaced type, it means it should be typed in literally. Thus, the <code>offset-statement</code> consists of the word <code>OFFSET</code>, followed by a number.</p>
+<p><code>struct-statement</code> :
+<code>STRUCT</code>
+<code>struct-name</code> [ <code>BYTE</code> | <code>WORD</code> ] <code>{</code>
+<code>struct-member-list</code>
+<code>}</code></p>
+<p>This diagram illustrates the use of square brackets to denote something that is optional. Also note the use of the vertical line to denote a choice to be made between mutually exclusive options.</p>
+<p><code>array-initializer</code> :
+<code>{</code>
+<code>array-initializer-item-comma-list</code>
+<code>}</code></p>
+<p>This shows the meaning of <code>-comma-list</code>: one or more items separated by commas. Thus, an <code>array-initialiser</code> could be of the form</p>
+<p class="CodeBlock"><code>{ aii , aii , aii }</code></p>
+<p>Generally, the syntax diagrams do not show punctuation, newlines, whitespace etc. Such details would make the diagrams difficult to read, and introduce little useful information.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

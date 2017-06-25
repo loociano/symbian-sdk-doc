@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to add context sensitivity to an application</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="cshelp%2ehowto%2dcontextsensitive"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToCustomise.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToCompile.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">CS&nbsp;Help&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;add&nbsp;context&nbsp;sensitivity&nbsp;to&nbsp;an&nbsp;application</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>How to add context sensitivity to an application</h1>
+</div><div class="Bodytext">
+<p>Context phrases are defined for each topic in the <code class="filename">rtf</code> source file. The CS Help compiler generates a C++ header file, which contains literal descriptors created from the context phases. This header file must be included in the C++ applications, and is used to link each control to the appropriate topic.</p>
+<p>In the <code class="filename">rtf</code> source file the process is:</p>
+<ol><li><p>Create a new line before the topic text in the source rtf file.</p></li>
+<li><p>Enter a string which describes the context for the particular topic.</p></li>
+<li><p>Mark the context in <code class="ProgramOutput">Context</code> style.</p></li>
+<li><p>Repeat the above for each topic.</p></li>
+<li><p>Generate the CS Help file and C++ header file.</p></li>
+</ol><a name="1.6"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>C++</h2>
+</div><div class="Bodytext">
+<p>In a C++ application the process is:</p>
+<ol><li><p>Create the <code>CCoeControl</code> derived view or control for each context.</p></li>
+<li><p>#include the header file from the CS Help compiler.</p></li>
+<li><p>Overload the <code>CCoeControl::GetHelpContext(TCoeHelpContext&amp; aContext)</code> function for the new control.  The function should return a <code>TCoeHelpContext</code> which contains the UID of the help file and the literal descriptor for the appropriate help topic context.  This is all that is required to link the control and the appropriate Help topic.</p></li>
+<li><p>Compile the application.</p></li>
+</ol><a name="1.7"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>OPL</h2>
+</div><div class="Bodytext">
+<p>OPL has two new key words to support CS Help—their use is discussed in the OPL SDK:</p>
+<ul><li><p>SETHELP attach a particular context Id to a menu, dialog or view.</p></li>
+<li><p>SHOWHELP - launches the CSHelp app to display the current contexts</p></li>
+</ul><p>
+</p>
+<a name="1.8"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Example</h2>
+</div><div class="Bodytext">
+<p>The three CS Help topics for the Shapes example project have the context text “This is a circle”, “This is a square” and “This is a dialog”.  When the project is compiled, a header file containing descriptors for each of these is written to \<code class="filename">epoc32\wins\c\system\help</code>\.  </p>
+<p>The descriptor for each context is created by prefixing the context string with a K, and replacing any spaces with underscores. The C++ comments are generated from text in <code class="filename">context comment</code> style in the source <code class="filename">rtf</code> file.  A listing of the header file for the shapes application—<code class="filename">Shapes.hlp.hrh</code>—is given below:</p>
+<p class="CodeBlock"><code>_LIT(KThis_is_a_circle,&quot;This_is_a_circle&quot;); //with a comment (round)<br>_LIT(KThis_is_a_square,&quot;This_is_a_square&quot;); //with a comment(square)<br>_LIT(KThis_is_a_dialog,&quot;This_is_a_dialog&quot;); //with a comment(dialog)</code></p>
+<p>Context sensitivity is added to each of the three controls by overloading their inherited <code>GetHelpContext()</code> function.  When help is requested, the function for the control which has focus is called, and hence the appropriate help topic is displayed.</p>
+<p>The overload for the square control is shown below:</p>
+<p class="CodeBlock"><code>void CShapesAppViewSquare::GetHelpContext(TCoeHelpContext&amp; aContext) const<br>&nbsp;{<br>&nbsp;aContext.iMajor   = TUid(0x01123456);<br>&nbsp;aContext.iContext = KThis_is_a_square;<br>&nbsp;}</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

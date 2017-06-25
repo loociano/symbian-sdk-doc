@@ -1,0 +1,1700 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CTextView</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CTextPaginatorClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="MFormCustomDrawClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Text&nbsp;Views</a>&nbsp;<span class="separator">&#187;</span>
+CTextView</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code> frmtview.h </code>
+<br>Link against: <code> form.lib </code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aCTextView"></a>
+
+<h1>Class <code>CTextView</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CTextView</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Lays out formatted text for display. </p>
+<p>The class provides functions to:</p>
+<ul>
+<li>
+<p>convert between document positions and x,y coordinates</p>
+</li>
+<li>
+<p>set the dimensions of the rectangle in which text can be viewed
+(the view rectangle)</p>
+</li>
+<li>
+<p>set margin widths</p>
+</li>
+<li>
+<p>do horizontal and vertical scrolling</p>
+</li>
+<li>
+<p>do text selection</p>
+</li>
+<li>
+<p>set the cursor position and appearance</p>
+</li>
+</ul>
+<p>After a change has been made to the text layout, a reformat and
+redraw should normally take place. <code>CTextView</code> provides functions
+which are optimised to reformat the minimum amount necessary. For example, when
+a global formatting parameter is changed (e.g. the wrap width), the whole
+document's layout needs to be recalculated, so
+<code>HandleGlobalChangeL()</code> should be called. If the change involves the
+insertion or deletion of a single character, only a single line may be
+affected; for this, <code>HandleCharEditL()</code> is appropriate. Most
+<code>CTextView</code> reformatting functions do scrolling (using block
+transfer), if necessary, and a redraw.</p>
+<p>For maximum responsiveness, <code>CTextView</code> uses an
+active&nbsp;object to carry out reformatting as a background task, so that
+the application can continue to receive user input. Many <code>CTextView</code>
+functions force background formatting to complete before they take
+effect.</p>
+<p>When scrolling vertically, positive numbers of pixels, lines,
+paragraphs, pages, etc., mean that the text moves down, and vice versa. When
+scrolling horizontally, positive numbers of pixels mean that the text moves
+left and vice versa.</p>
+<p>A text view can display up to two cursors and up to three margins.
+The cursors are the text cursor and the line cursor. The purpose of the line
+cursor is to make it easier to see which line the text cursor (or the selection
+extension point) is on. The three margins are the label margin (for paragraph
+labels), the line cursor margin (for the line cursor) and the left text margin
+(the gap between the edge of the page and the text). All are optional, but if
+present, they appear in that order, starting at the left edge of the view
+rectangle.</p>
+<p>An object of class <code>CTextLayout</code> is used by the text
+view to calculate changes to the layout. This object must be specified when
+constructing the text view. It is also used to set layout attributes, including
+the wrap width, the height of the visible portion of the document (the &quot;band&quot;),
+whether formatting is set to the band or to the whole document and the text
+object which is the source of the text and formatting information.</p>
+<p>The x-y pixel coordinates used by <code>CTextView</code> are called
+window coordinates. Window coordinates have their origin at the top left corner
+of the view window (unlike class <code>CTextLayout</code> whose coordinates
+have their origin at the top left corner of the area within the view rectangle
+in which text can appear). As in most bitmap graphics systems, x coordinates
+increase rightwards and y coordinates increase downwards. </p>
+<h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase">CBase</a></code></td><td class="Cell">Base class for all classes to be instantiated on the heap</td>
+</tr>
+<tr><td class="Cell"><code>CTextView</code></td><td class="Cell">Lays out formatted text for display</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>CTextView</code>:
+<br><code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aCalculateHorizontalExtremesL%28%29" title="Returns the left and right extremes, in window coordinates, of the formatted text">CalculateHorizontalExtremesL()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aCancelSelectionL%28%29" title="Removes a selection, and redraws the affected part of the screen">CancelSelectionL()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aDocPosToXyPosL%28%29" title="Gets the window coordinates of the character located at the specified document position">DocPosToXyPosL()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aDrawL%28%29" title="Draws the text to a rectangle">DrawL()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aEFCharacterAfter" title="Text cursor height is matched to following character">EFCharacterAfter</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aEFCharacterBefore" title="Text cursor height is matched to preceding character">EFCharacterBefore</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aEFViewDiscardAllFormat" title="Discard all formatting; redraw">EFViewDiscardAllFormat</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aEFViewDiscardAllNoRedraw" title="Discard all formatting; no redraw">EFViewDiscardAllNoRedraw</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aEFViewDontDiscardFormat" title="Do not discard all formatting; redraw">EFViewDontDiscardFormat</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aEFViewDontDiscardFullRedraw" title="Do not discard all formatting; redraw">EFViewDontDiscardFullRedraw</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aEnablePictureFrameL%28%29" title="Sets whether a picture frame should be displayed when the text cursor is located at a picture character">EnablePictureFrameL()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aFinishBackgroundFormattingL%28%29" title="Forces completion of background formatting">FinishBackgroundFormattingL()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aFormatTextL%28%29" title="Reformats the whole document, or just the visible text, if formatting is set to the band only (see CTextLayout::SetAmountToFormat())">FormatTextL()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aGetPictureRectangleL%28%29" title="Gets the bounding rectangle of the picture, if any, located at the document position or x,y coordinates specified, and returns it in aPictureRect">GetPictureRectangleL()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aHandleAdditionalCharactersAtEndL%28%29" title="Reformats and redraws to reflect the addition of one or more complete paragraphs at the end of the text">HandleAdditionalCharactersAtEndL()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aHandleCharEditL%28%29" title="Reformats and redraws the view in response to a single key press">HandleCharEditL()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aHandleGlobalChangeL%28%29" title="Reformats and redraws the view after a global change has been made to the layout">HandleGlobalChangeL()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aHandleGlobalChangeNoRedrawL%28%29" title="Reformats the view after a global change has been made to the layout, but without causing a redraw">HandleGlobalChangeNoRedrawL()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aHandleInsertDeleteL%28%29" title="Reformats and redraws the view after inserting, deleting or replacing a block of text">HandleInsertDeleteL()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aHandleRangeFormatChangeL%28%29" title="Reformats and redraws the view after changes to the character or paragraph formatting of a block of text">HandleRangeFormatChangeL()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aHorizontalScrollJump%28%29" title="Gets the number of pixels by which a horizontal scroll jump will cause the view to scroll">HorizontalScrollJump()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aIsPictureFrameSelected%28%29" title="Tests whether there is a picture with a picture frame at the current cursor position">IsPictureFrameSelected()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aLayout%28%29" title="Returns a pointer to the text layout object used by the text view">Layout()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aLeftTextMargin%28%29" title="Gets the left text margin width in pixels">LeftTextMargin()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aMObserver" title="Provides notification to the owner of the text view object of changes to the formatting">MObserver</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aMarginWidths%28%29" title="Gets the label and line cursor margin widths in pixels">MarginWidths()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aMatchCursorHeightL%28%29" title="Sets the height and ascent of the text cursor to the values contained in aFontSpec and redraws it">MatchCursorHeightL()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aMatchCursorHeightToAdjacentChar%28%29" title="Sets the height and ascent of the text cursor to be the same as an adjacent character and redraws it">MatchCursorHeightToAdjacentChar()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aMoveCursorL%28%29" title="Moves the text cursor in the direction and manner specified">MoveCursorL()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aNewL%28%29" title="Allocates and constructs a CTextView object">NewL()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aParagraphRectL%28%29" title="Returns the rectangle enclosing the paragraph containing aDocPos">ParagraphRectL()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aScrollDisplayL%28%29" title="Scrolls the view either horizontally or vertically and does a redraw">ScrollDisplayL()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aScrollDisplayLinesL%28%29" title="Scrolls the view vertically by a number of wholly or partially visible lines, disallowing blank space at the bottom of the visible area if aScrollBlankSpace is CTextLayout::EFDisallowScrollingBlankSpace">ScrollDisplayLinesL()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aScrollDisplayParagraphsL%28%29" title="Scrolls the view by a number of wholly or partially visible paragraphs disallowing blank space at the bottom of the visible area if aScrollBlankSpace is CTextLayout::EFDisallowScrollingBlankSpace">ScrollDisplayParagraphsL()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aScrollDisplayPixelsL%28%29" title="Scrolls the view vertically by a number of pixels, disallowing blank space from scrolling into the bottom of the visible area">ScrollDisplayPixelsL()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aSelection%28%29" title="Gets the current selection">Selection()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aSetBackgroundColor%28%29" title="Sets the background colour for the view rectangle">SetBackgroundColor()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aSetCursorFlash%28%29" title="Sets the flashing state of the text cursor and redraws it">SetCursorFlash()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aSetCursorPlacement%28%29" title="Sets the text cursor's placement (its shape and position relative to the insertion position) and redraws it">SetCursorPlacement()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aSetCursorVisibilityL%28%29" title="Sets the visibility of the line and text cursors">SetCursorVisibilityL()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aSetCursorWeight%28%29" title="Sets the weight of the text cursor and redraws it">SetCursorWeight()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aSetCursorWidthTypeL%28%29" title="Sets the text cursor's type and weight and redraws it">SetCursorWidthTypeL()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aSetCursorXorColor%28%29" title="Sets the text cursor's colour and redraws it">SetCursorXorColor()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aSetDisplayContextL%28%29" title="Changes the window server handles which the display uses">SetDisplayContextL()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aSetDocPosL%28%29" title="Moves the text cursor to a new document position">SetDocPosL()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aSetHorizontalScrollJump%28%29" title="Sets the number of pixels by which a horizontal scroll jump will cause the view to scroll">SetHorizontalScrollJump()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aSetLatentXPosition%28%29" title="Sets the pending horizontal text cursor position">SetLatentXPosition()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aSetLayout%28%29" title="Changes the text layout object used by the text view">SetLayout()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aSetLeftTextMargin%28%29" title="Sets the left text margin width in pixels">SetLeftTextMargin()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aSetLineCursorBitmap%28%29" title="Sets the bitmap to be used as a line cursor">SetLineCursorBitmap()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aSetMarginWidths%28%29" title="Sets the label and line cursor margin widths">SetMarginWidths()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aSetObserver%28%29" title="Sets a text view observer">SetObserver()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aSetParagraphFillTextOnly%28%29" title="Sets the horizontal extent of the view rectangle to fill with paragraph fill colour (CParaFormat::iFillColor)">SetParagraphFillTextOnly()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aSetPendingSelection%28%29" title="Makes a selection, but without updating the view">SetPendingSelection()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aSetSelectionL%28%29" title="Sets a selection">SetSelectionL()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aSetSelectionVisibilityL%28%29" title="Sets whether the text and pictures within a selection should be highlighted">SetSelectionVisibilityL()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aSetTextColorOverride%28%29" title="Overrides the text colour, so that when redrawn, all text has the colour specified, rather than the colour which is set in the text object">SetTextColorOverride()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aSetViewL%28%29" title="Sets the vertical position of the view, so that the line containing aDocPos is located as close as possible to the vertical window coordinate aYPos">SetViewL()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aSetViewLineAtTopL%28%29" title="Moves the view vertically and redraws, so that the top of the specified line is located flush with the top of the view rectangle">SetViewLineAtTopL()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aSetViewRect%28%29" title="Sets the rectangle in which the text is displayed">SetViewRect()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aSetXyPosL%28%29" title="Moves the text cursor to the nearest point on the screen to the x,y coordinates specified">SetXyPosL()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aTBeforeAfter" title="Cursor height matching">TBeforeAfter</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aTDiscard" title="Whether to reformat and redraw">TDiscard</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aViewRect%28%29" title="Gets the rectangle in which the text is displayed">ViewRect()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aXyPosToDocPosL%28%29" title="Gets the document position of of the nearest character edge to the window coordinates specified">XyPosToDocPosL()</a></code>, <code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3a%7eCTextView%28%29" title="This destructor frees all resources owned by the object prior to its destruction">~CTextView()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap">CBase</a></code>:
+<br><code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase%3a%3aoperator%20new%28%29" title="Allocates the object from the heap and then initialises its contents to binary zeroes">operator new()</a></code></p>
+<a name="2.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction and destruction</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aNewL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NewL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static CTextView *NewL(CTextLayout *aLayout,const TRect &amp;aDisplay,CBitmapDevice *aGd,MGraphicsDeviceMap *aDeviceMap,RWindow *aWin,RWindowGroup *aGroupWin,RWsSession *aSession);</code></p><h4 class="subheading">Description</h4>
+<p>Allocates and constructs a <code>CTextView</code>
+object.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CTextLayout *aLayout </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the layout object referenced by the text view. Must
+not be NULL or a panic occurs. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRect &amp;aDisplay </code></td>
+<td class="Cell"><p class="ValueDesc"> The rectangle in which text is displayed (the "view
+rectangle"). </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CBitmapDevice *aGd </code></td>
+<td class="Cell"><p class="ValueDesc"> Bitmapped graphics device to draw to, e.g. the screen device.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> MGraphicsDeviceMap *aDeviceMap </code></td>
+<td class="Cell"><p class="ValueDesc"> The device map used for drawing and formatting. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> RWindow *aWin </code></td>
+<td class="Cell"><p class="ValueDesc"> The window to draw to. Should not be NULL. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> RWindowGroup *aGroupWin </code></td>
+<td class="Cell"><p class="ValueDesc"> Window group. Must be provided if a text cursor is to be
+displayed. It can be NULL if you don't need a text cursor. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> RWsSession *aSession </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the window server session. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CTextView * </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the new <code>CTextView</code> object. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3a%7eCTextView%28%29"></a>
+<hr size="1" noshade>
+<h3><code>~CTextView()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>~CTextView();</code></p><h4 class="subheading">Description</h4>
+<p>This destructor frees all resources owned by the object prior to
+its destruction.</p>
+<a name="2.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Paragraph borders</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aParagraphRectL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ParagraphRectL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TRect ParagraphRectL(TInt aDocPos) const; </code></p><h4 class="subheading">Description</h4>
+<p>Returns the rectangle enclosing the paragraph containing
+<code>aDocPos</code>. If the paragraph is not formatted, returns an empty
+rectangle. If the paragraph is partially formatted, returns the rectangle
+enclosing the formatted part.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aDocPos </code></td>
+<td class="Cell"><p class="ValueDesc"> A document position within the paragraph. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TRect </code></td>
+<td class="Cell"><p class="ValueDesc"> The rectangle which encloses the paragraph containing
+<code>aDocPos</code>. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Global display parameters</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aSetDisplayContextL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetDisplayContextL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetDisplayContextL(CBitmapDevice *aGd,RWindow *aWin,RWindowGroup *aGroupWin,RWsSession *aSession);</code></p><h4 class="subheading">Description</h4>
+<p>Changes the window server handles which the display uses. Any of the
+parameters can be NULL in which case they are not changed.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CBitmapDevice *aGd </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the bitmapped graphics device to draw to. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> RWindow *aWin </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the view window. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> RWindowGroup *aGroupWin </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the window group. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> RWsSession *aSession </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the window server session. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aSetLayout%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetLayout()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetLayout(CTextLayout *aLayout);</code></p><h4 class="subheading">Description</h4>
+<p>Changes the text layout object used by the text view.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CTextLayout *aLayout </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to the text layout object used by the text view. Must not be
+NULL or a panic occurs. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.4"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aLayout%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Layout()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const CTextLayout* Layout() const;</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Returns a pointer to the text layout object used by the text
+view.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CTextLayout* </code></td>
+<td class="Cell"><p class="ValueDesc"> A pointer to the text layout object used by the text view. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.5"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aSetViewRect%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetViewRect()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetViewRect(const TRect&amp; aDisplay);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the rectangle in which the text is displayed.</p>
+<p>Does not do a redraw.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRect&amp; aDisplay </code></td>
+<td class="Cell"><p class="ValueDesc"> The view rectangle. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.6"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aViewRect%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ViewRect()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const TRect&amp; ViewRect() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the rectangle in which the text is displayed.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TRect&amp; </code></td>
+<td class="Cell"><p class="ValueDesc"> The view rectangle. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.7"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aSetMarginWidths%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetMarginWidths()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetMarginWidths(TInt aLabels,TInt aLineCursor);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the label and line cursor margin widths. </p>
+<p>Does not do a redraw.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLabels </code></td>
+<td class="Cell"><p class="ValueDesc"> The width in pixels of the label margin. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLineCursor </code></td>
+<td class="Cell"><p class="ValueDesc"> The width in pixels of the line cursor margin. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.8"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aMarginWidths%28%29"></a>
+<hr size="1" noshade>
+<h3><code>MarginWidths()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void MarginWidths(TInt&amp; aLabels,TInt&amp; aLineCursor) const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the label and line cursor margin widths in pixels.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aLabels </code></td>
+<td class="Cell"><p class="ValueDesc"> On return contains the width in pixels of the label margin. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aLineCursor </code></td>
+<td class="Cell"><p class="ValueDesc"> On return contains the width in pixels of the line cursor margin.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.9"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aSetBackgroundColor%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetBackgroundColor()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetBackgroundColor(TRgb aColor);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the background colour for the view rectangle.</p>
+<p>Does not do a redraw.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TRgb aColor </code></td>
+<td class="Cell"><p class="ValueDesc"> The background colour. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.10"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aSetTextColorOverride%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetTextColorOverride()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetTextColorOverride(const TRgb* aOverrideColor=NULL);</code></p><h4 class="subheading">Description</h4>
+<p>Overrides the text colour, so that when redrawn, all text has the colour
+specified, rather than the colour which is set in the text object. When text is
+in this overridden state, no highlighting is visible. To return the text colour
+to its original state, call this function again with an argument of NULL. This
+also has the effect that if selection visibility is set, any highlighting will
+be made visible again.</p>
+<p>Does not do a redraw.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TRgb* aOverrideColor </code></td>
+<td class="Cell"><p class="ValueDesc"> If not NULL, overrides the text colour. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.11"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aSetParagraphFillTextOnly%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetParagraphFillTextOnly()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>SetParagraphFillTextOnly(TBool aFillTextOnly);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the horizontal extent of the view rectangle to fill with paragraph
+fill colour (<code>CParaFormat::iFillColor</code>).</p>
+<p>Does not do a redraw.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool aFillTextOnly </code></td>
+<td class="Cell"><p class="ValueDesc"> If true, the region filled with paragraph fill colour is the area within
+the paragraph's bounding rectangle only (see <code>ParagraphRectL()</code>). If
+false, the filled region includes the left text margin, if one has been set. By
+default, false. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Cursors</h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aSetCursorVisibilityL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetCursorVisibilityL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetCursorVisibilityL(TUint aLineCursor,TUint aTextCursor);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the visibility of the line and text cursors.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>A group window must have been provided before a text cursor can be
+drawn.</p>
+</li>
+<li>
+<p>Before making the line cursor visible, a line cursor bitmap must have
+been provided (see <code>SetLineCursorBitmap()</code>).</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUint aLineCursor </code></td>
+<td class="Cell"><p class="ValueDesc"> Sets whether the line cursor should be displayed. For possible values,
+see the <code>TCursor::TVisibility</code> enumeration. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUint aTextCursor </code></td>
+<td class="Cell"><p class="ValueDesc"> Sets whether the text cursor should be displayed and if so, whether it
+should flash. For possible values, see
+the <code>TCursor::TVisibility</code> enumeration. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.3"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aSetLineCursorBitmap%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetLineCursorBitmap()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetLineCursorBitmap(const CFbsBitmap* aLineCursorBitmap);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the bitmap to be used as a line cursor. This function must be called
+before attempting to draw the line cursor.
+Use <code>SetCursorVisibilityL()</code> to make the line cursor visible.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CFbsBitmap* aLineCursorBitmap </code></td>
+<td class="Cell"><p class="ValueDesc"> The bitmap which represents the line cursor. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.4"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aMatchCursorHeightL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>MatchCursorHeightL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void MatchCursorHeightL(const TFontSpec&amp; aFontSpec);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the height and ascent of the text cursor to the values contained
+in <code>aFontSpec</code> and redraws it.</p>
+<p>Note:</p>
+<p>The values set by this function are temporary. If the cursor is
+subsequently moved, it reverts to being based on the preceding character
+(unless at the start of a paragraph, in which case, it is based on the
+following character).</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TFontSpec&amp; aFontSpec </code></td>
+<td class="Cell"><p class="ValueDesc"> Specifies a height and ascent to which to set the text cursor. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.5"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aMatchCursorHeightToAdjacentChar%28%29"></a>
+<hr size="1" noshade>
+<h3><code>MatchCursorHeightToAdjacentChar()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void MatchCursorHeightToAdjacentChar(TBeforeAfter aBasedOn=EFCharacterBefore);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the height and ascent of the text cursor to be the same as an
+adjacent character and redraws it. By default, the values are set to be based
+on the preceding character.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBeforeAfter aBasedOn </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>EFCharacterBefore</code> to base the height and ascent of the text
+cursor on the preceding character. <code>EFCharacterAfter</code> to base them
+on the following character. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.6"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aSetCursorWidthTypeL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetCursorWidthTypeL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetCursorWidthTypeL(TTextCursor::EType aType,TInt aWidth=0);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Sets the text cursor's type and weight and redraws it. If the cursor's placement is vertical (<code>ECursorVertical</code>), the weight is the width of the cursor. If the placement is horizontal, the weight is the height of the cursor.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TTextCursor::EType aType </code></td>
+<td class="Cell"><p class="ValueDesc"> The text cursor type: <code>ETypeRectangle</code>
+or <code>ETypeHollowRectangle</code>. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aWidth=0 </code></td>
+<td class="Cell"><p class="ValueDesc"> The weight in pixels of the text cursor. Specify zero (the default) to
+leave the current weight unchanged. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.7"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aSetCursorPlacement%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetCursorPlacement()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetCursorPlacement(TTmCursorPlacement aPlacement);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.1
+</p><h4 class="subheading">Description</h4>
+<p>Sets the text cursor's placement (its shape and position relative to the insertion position) and redraws it.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTmCursorPlacement aPlacement</code></td>
+<td class="Cell"><p class="ValueDesc"> The text cursor's placement.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="TTmCursorPlacementEnum.html#%3a%3aTTmCursorPlacement" title="Cursor placement"><code class="ApiItem">TTmCursorPlacement</code></a></li>
+</ul>
+<a name="2.9.8"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aSetCursorWeight%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetCursorWeight()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetCursorWeight(TInt aWeight);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.1
+</p><h4 class="subheading">Description</h4>
+<p>Sets the weight of the text cursor and redraws it.</p><p>If the cursor's placement is vertical (<code>ECursorVertical</code>), the weight is the width of the cursor. If the placement is horizontal, the weight is the height of the cursor. Has no effect if the weight value specified is zero or less.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aWeight</code></td>
+<td class="Cell"><p class="ValueDesc">The weight in pixels of the text cursor.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.9"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aSetCursorFlash%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetCursorFlash()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetCursorFlash(TBool aEnabled);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.1
+</p><h4 class="subheading">Description</h4>
+<p>Sets the flashing state of the text cursor and redraws it.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool aEnabled</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> for a flashing cursor, <code>EFalse</code> for a non-flashing cursor.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.10"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aSetCursorXorColor%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetCursorXorColor()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetCursorXorColor(TRgb aColor);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.1
+</p><h4 class="subheading">Description</h4>
+<p>Sets the  text cursor's colour and redraws it. The cursor is drawn using an Exclusive OR draw mode which ensures that the cursor's colour is different from the background colour.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRgb aColor</code></td>
+<td class="Cell"><p class="ValueDesc">The text cursor's colour.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Text cursor movement and selection</h2>
+</div><div class="Bodytext">
+<a name="2.10.2"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aSetSelectionL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetSelectionL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TPoint SetSelectionL(const TCursorSelection&amp; aSelection);</code></p><h4 class="subheading">Description</h4>
+<p>Sets a selection. The selection is highlighted unless selection
+visibility has been unset. Any existing selection is cancelled. If necessary,
+the view is scrolled and redrawn.</p>
+<p>Any background formatting is forced to complete first.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TCursorSelection&amp; aSelection </code></td>
+<td class="Cell"><p class="ValueDesc"> Specifies the start and end positions of the selection. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TPoint </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of pixels scrolled in the x (horizontal) and y
+(vertical) directions.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.3"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aCancelSelectionL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CancelSelectionL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void CancelSelectionL();</code></p><h4 class="subheading">Description</h4>
+<p>Removes a selection, and redraws the affected part of the screen.</p>
+<p>Any background formatting is forced to complete first.</p>
+<a name="2.10.4"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aSelection%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Selection()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TCursorSelection Selection() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the current selection.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TCursorSelection </code></td>
+<td class="Cell"><p class="ValueDesc"> The current selection. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.5"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aSetDocPosL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetDocPosL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TPoint SetDocPosL(TInt aDocPos,TBool aDragSelectOn=EFalse);</code></p><h4 class="subheading">Description</h4>
+<p>Moves the text cursor to a new document position. The view is scrolled so
+that the line containing the new cursor position is at the top, or the bottom,
+if the scroll direction was downwards.</p>
+<p>Any background formatting is forced to complete first.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aDocPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The new document position of the text cursor. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool aDragSelectOn </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue</code> if the region between the old and new cursor
+positions should be selected, <code>EFalse</code> if not. If <code>ETrue</code>,
+any existing selection remains selected, so that this function can be used to
+extend or shorten a selected region.<code>EFalse</code> cancels any existing
+selection. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TPoint </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of pixels scrolled horizontally and vertically. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.6"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aSetXyPosL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetXyPosL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TPoint SetXyPosL(TPoint aPos, TBool aDragSelectOn,TRect*&amp; aPictureRect,TInt&amp; aPictureFrameEdges);</code></p><h4 class="subheading">Description</h4>
+<p>Moves the text cursor to the nearest point on the screen to the x,y
+coordinates specified.</p>
+<p>Any background formatting is forced to complete first.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TPoint aPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The window coordinates to which to move the text cursor. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool aDragSelectOn </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue</code> if the region between the old and new cursor
+positions should be selected, <code>EFalse</code> if not. If <code>ETrue</code>,
+any existing selection remains selected, so that this function can be used to
+extend or shorten a selected region.<code>EFalse</code> cancels any existing
+selection. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TRect*&amp; aPictureRect </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, a pointer to the rectangle enclosing the picture at
+position <code>aPos</code>. If there is no picture at this position, returns
+NULL.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aPictureFrameEdges </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, indicates whether <code>aPos</code> is located within the
+active region around a picture edge. The active region is the region inside
+which the cursor can be used to resize the picture. A value of zero indicates
+that <code>aPos</code> is not within this region. Otherwise, this value
+indicates which active region <code>aPos</code> is located in. For more
+information, see <code>TFrameOverlay::TEdges</code>. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TPoint </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of pixels scrolled horizontally and vertically. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.7"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aMoveCursorL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>MoveCursorL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TPoint MoveCursorL(TCursorPosition::TMovementType&amp; aMovement,TBool aDragSelectOn);</code></p><h4 class="subheading">Description</h4>
+<p>Moves the text cursor in the direction and manner specified. If
+necessary, the view is scrolled so that the line containing the new cursor
+position is visible.</p>
+<p>Any background formatting is forced to complete first.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TCursorPosition::TMovementType&amp; aMovement </code></td>
+<td class="Cell"><p class="ValueDesc"> The direction and manner in which to move the cursor. On return set to
+the actual cursor movement. The actual cursor movement may be different from
+the one requested if for example the desired cursor movement is upwards and the
+cursor is already on the top line. In this case, this argument will
+return <code>TCursorPosition::EFLineBeg</code>. A return value
+of <code>TCursorPosition::EFNoMovement</code> indicates that no cursor movement
+took place. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool aDragSelectOn </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue</code> if the region between the old and new cursor
+positions should be selected, <code>EFalse</code> if not. If <code>ETrue</code>,
+any existing selection remains selected, so that this function can be used to
+extend or shorten a selected region. <code>EFalse</code> cancels any existing
+selection. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TPoint </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of pixels scrolled horizontally and vertically. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.8"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aSetLatentXPosition%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetLatentXPosition()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetLatentXPosition(TInt aLatentX);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the pending horizontal text cursor position. This is the horizontal
+coordinate to which the text cursor is moved after a scroll up or down by a
+line or a page.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLatentX </code></td>
+<td class="Cell"><p class="ValueDesc"> The horizontal coordinate to which the text cursor should be moved after
+a line or page scroll. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Conversion between coordinates and position</h2>
+</div><div class="Bodytext">
+<a name="2.11.2"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aXyPosToDocPosL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>XyPosToDocPosL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt XyPosToDocPosL(TPoint&amp; aPoint);</code></p><h4 class="subheading">Description</h4>
+<p>Gets the document position of of the nearest character edge to the window
+coordinates specified. The function first identifies the line which contains,
+or is nearest to, the vertical coordinate. Then it identifies the character in
+that line closest to the horizontal coordinate.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TPoint&amp; aPoint </code></td>
+<td class="Cell"><p class="ValueDesc"> Window coordinates. On return, contains the window coordinates of the
+nearest character to the point. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> Nearest document position to specified window coordinates. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11.3"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aDocPosToXyPosL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DocPosToXyPosL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool DocPosToXyPosL(TInt aDocPos,TPoint&amp; aPoint);</code></p><h4 class="subheading">Description</h4>
+<p>Gets the window coordinates of the character located at the specified
+document position. If the document position specified has not been formatted,
+the function returns a value of false.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aDocPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TPoint&amp; aPoint </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, contains the window coordinates of <code>aDocPos</code>. This
+value is undefined if the position has not been formatted. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool </code></td>
+<td class="Cell"><p class="ValueDesc"> True if the document position is formatted, false if not. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Formatting</h2>
+</div><div class="Bodytext">
+<a name="2.12.2"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aHandleGlobalChangeL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>HandleGlobalChangeL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void HandleGlobalChangeL(TViewYPosQualifier aYPosQualifier=TViewYPosQualifier());</code></p><h4 class="subheading">Description</h4>
+<p>Reformats and redraws the view after a global change has been made to the
+layout. Examples of global layout changes include changing the format mode, the
+wrap width, or the visibility of nonprinting characters.</p>
+<p>Forces any background formatting to complete.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TViewYPosQualifier aYPosQualifier </code></td>
+<td class="Cell"><p class="ValueDesc"> Specifies whether the visible area is to be filled and whether the top
+line should be made fully visible if possible. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.3"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aHandleGlobalChangeNoRedrawL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>HandleGlobalChangeNoRedrawL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void HandleGlobalChangeNoRedrawL(TViewYPosQualifier aYPosQualifier=TViewYPosQualifier());</code></p><h4 class="subheading">Description</h4>
+<p>Reformats the view after a global change has been made to the layout, but
+without causing a redraw. Examples of global layout changes include changing
+the format mode, the wrap width, or the visibility of nonprinting
+characters.</p>
+<p>Forces any background formatting to complete.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TViewYPosQualifier aYPosQualifier </code></td>
+<td class="Cell"><p class="ValueDesc"> Specifies whether the visible area is to be filled and whether the top
+line should be made fully visible if possible. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.4"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aHandleCharEditL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>HandleCharEditL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt HandleCharEditL(TUint aType=CTextLayout::EFCharacterInsert,TBool aFormatChanged=EFalse);</code></p><h4 class="subheading">Description</h4>
+<p>Reformats and redraws the view in response to a single key press. The
+precise amount of text to be reformatted is controlled by the second
+parameter.</p>
+<p>Note:</p>
+<p>A panic occurs if partial lines are excluded from the view
+(see <code>CTextLayout::ExcludingPartialLines()</code>).</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUint aType </code></td>
+<td class="Cell"><p class="ValueDesc"> Indicates the type of edit which has taken
+place. <code>CTextLayout::EFCharacterInsert</code> (the default) for a character
+insertion, <code>CTextLayout::EFParagraphDelimiter</code> for a paragraph
+delimiter insertion, <code>CTextLayout::EFLeftDelete</code> or <code>CTextLayout::EFRightDelete</code>
+for a character or paragraph delimiter deletion to the left or right of the
+cursor position. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool aFormatChanged </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue</code> if text is to be reformatted from the start of the
+paragraph the cursor was on before the edit, <code>EFalse</code> if from the
+start of the line the cursor was on before the edit. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of pixels by which the text had to be scrolled vertically
+(positive means text moved down). </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.5"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aSetPendingSelection%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetPendingSelection()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetPendingSelection(const TCursorSelection&amp; aSelection);</code></p><h4 class="subheading">Description</h4>
+<p>Makes a selection, but without updating the view.</p>
+<p>This function would only be used before
+calling <code>CTextView::HandleRangeFormatChangeL()</code> or <code>HandleInsertDeleteL()</code>
+to make a selection which will become visible (if selection visibility is on)
+after the change handling function has returned.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TCursorSelection&amp; aSelection </code></td>
+<td class="Cell"><p class="ValueDesc"> The range to be selected after
+calling <code>CTextView::HandleRangeFormatChangeL()</code> or <code>HandleInsertDeleteL()</code>.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.6"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aHandleInsertDeleteL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>HandleInsertDeleteL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TPoint HandleInsertDeleteL(TCursorSelection aSelection,TInt aDeletedChars,TBool aFormatChanged=EFalse);</code></p><h4 class="subheading">Description</h4>
+<p>Reformats and redraws the view after inserting, deleting or replacing a
+block of text.</p>
+<p>Can be used in combination with <code>SetPendingSelection()</code> to set
+a selection which should remain after the function has returned.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>If inserting or deleting a single character,
+use <code>CTextView::HandleCharEditL()</code> instead.</p>
+</li>
+<li>
+<p>A panic occurs if partial lines are excluded from the view
+(see <code>CTextLayout::ExcludingPartialLines()</code>).</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TCursorSelection aSelection </code></td>
+<td class="Cell"><p class="ValueDesc"> The start and new length of the changed block. If this function is being
+used to handle deletion only, this argument should be of length zero and its
+start position should be the beginning of the deletion. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aDeletedChars </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of deleted characters. Specify zero if this function is being
+used to handle insertion only. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool aFormatChanged </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue</code> if text is to be reformatted from the start of the
+paragraph the cursor was on before the edit, <code>EFalse</code> if from the
+start of the line the cursor was on before the edit. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TPoint </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of pixels scrolled horizontally and vertically. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.7"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aHandleRangeFormatChangeL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>HandleRangeFormatChangeL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TPoint HandleRangeFormatChangeL(TCursorSelection aSelection, TBool aFormatChanged=EFalse);</code></p><h4 class="subheading">Description</h4>
+<p>Reformats and redraws the view after changes to the character or
+paragraph formatting of a block of text. Reformatting can take place either
+from the start of the line or the start of the paragraph containing the cursor
+position, depending on <code>aFormatChanged</code>.</p>
+<p>Can be used in combination with <code>SetPendingSelection()</code> to set
+a selection which should remain after the function has returned.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>A panic occurs if partial lines are excluded from the view
+(see <code>CTextLayout::ExcludingPartialLines()</code>).</p>
+</li>
+<li>
+<p>Any background formatting is forced to complete first.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TCursorSelection aSelection </code></td>
+<td class="Cell"><p class="ValueDesc"> Indicates the text range which has been reformatted. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool aFormatChanged </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue</code> if text is to be reformatted from the start of the
+paragraph the cursor was on before the edit, <code>EFalse</code> if from the
+start of the line the cursor was on before the edit. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TPoint </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of pixels scrolled horizontally and vertically. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.8"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aHandleAdditionalCharactersAtEndL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>HandleAdditionalCharactersAtEndL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void HandleAdditionalCharactersAtEnd();</code></p><h4 class="subheading">Description</h4>
+<p>Reformats and redraws to reflect the addition of one or more complete
+paragraphs at the end of the text. For instance, it may be used where
+information is being found by an active object and appended to the end of a
+document; see for example the Agenda application's Find view.</p>
+<p>Note:</p>
+<p>This function should not be used to handle the situation where text is
+added to the final paragraph. In this case,
+use <code>HandleInsertDeleteL()</code>
+or <code>HandleCharEditL()</code> instead.</p>
+<a name="2.12.9"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aFinishBackgroundFormattingL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FinishBackgroundFormattingL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void FinishBackgroundFormattingL();</code></p><h4 class="subheading">Description</h4>
+<p>Forces completion of background formatting.</p>
+<p>This is called automatically by all <code>CTextView</code> functions
+which depend on the formatting being up to date.</p>
+<a name="2.12.10"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aFormatTextL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FormatTextL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void FormatTextL();</code></p><h4 class="subheading">Description</h4>
+<p>Reformats the whole document, or just the visible text, if formatting is
+set to the band only (see <code>CTextLayout::SetAmountToFormat()</code>).</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>Reformatting the entire document may be time consuming, so only use this
+function if necessary.</p>
+</li>
+<li>
+<p>This function does not do a redraw.</p>
+</li>
+</ul>
+<a name="2.12.11"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aSetObserver%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetObserver()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetObserver(MObserver* aObserver);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Sets a text view observer. This provides notification to the owner of the
+text view object of changes to the formatting.
+Its <code>OnReformatL()</code> function is called after reformatting but before
+redisplay, so that edit windows etc. can be resized.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> MObserver* aObserver </code></td>
+<td class="Cell"><p class="ValueDesc"> Pointer to text view observer object. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Drawing and focus control</h2>
+</div><div class="Bodytext">
+<a name="2.13.2"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aDrawL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DrawL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void DrawL(TRect aRect);</code></p><h4 class="subheading">Description</h4>
+<p>Draws the text to a rectangle.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TRect aRect </code></td>
+<td class="Cell"><p class="ValueDesc"> Rectangle to which the text is drawn, normally the view
+rectangle.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.3"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aSetSelectionVisibilityL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetSelectionVisibilityL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetSelectionVisibilityL(TBool aSelectionVisible);</code></p><h4 class="subheading">Description</h4>
+<p>Sets whether the text and pictures within a selection should be
+highlighted. If necessary, the view is redrawn.</p>
+<p>An example of when this function may need to be used is when a control
+loses or gains focus.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool aSelectionVisible </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue</code> for highlighted selection. <code>EFalse</code> for
+unhighlighted selection. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Scrolling</h2>
+</div><div class="Bodytext">
+<a name="2.14.2"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aSetHorizontalScrollJump%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetHorizontalScrollJump()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetHorizontalScrollJump(TInt aScrollJump);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the number of pixels by which a horizontal scroll jump will cause
+the view to scroll. To carry out a horizontal scroll,
+use <code>ScrollDisplayL()</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aScrollJump </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of pixels by which a horizontal scroll jump will cause the
+view to scroll. Must be a positive value or a panic occurs. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.3"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aHorizontalScrollJump%28%29"></a>
+<hr size="1" noshade>
+<h3><code>HorizontalScrollJump()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt HorizontalScrollJump() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the number of pixels by which a horizontal scroll jump will cause
+the view to scroll. On construction, the default horizontal scroll jump value
+is set to 20 pixels.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of pixels by which a horizontal scroll jump will cause the
+view to scroll. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.4"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aSetLeftTextMargin%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetLeftTextMargin()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetLeftTextMargin(TInt aLeftMargin);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the left text margin width in pixels.</p>
+<p>The left text margin width is the distance between the text and the left
+edge of the page. Increasing the left text margin width causes text to move
+leftwards and decreasing the left text margin width causes text to move
+rightwards.</p>
+<p>Does not do a redraw.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLeftMargin </code></td>
+<td class="Cell"><p class="ValueDesc"> The left text margin width in pixels. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.5"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aSetViewLineAtTopL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetViewLineAtTopL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TPoint SetViewLineAtTopL(TInt aLineNo);</code></p><h4 class="subheading">Description</h4>
+<p>Moves the view vertically and redraws, so that the top of the specified
+line is located flush with the top of the view rectangle.</p>
+<p>Note:</p>
+<p>Line numbering is relative to formatted text only and the first formatted
+line is numbered one.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aLineNo </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of the line to be displayed at the top of the view
+rectangle.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TPoint </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of pixels the text was scrolled, may be positive or negative.
+A value of <code>CTextLayout::EFScrollRedrawWholeScreen</code> indicates that
+the entire visible area, at least, was scrolled. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.6"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aScrollDisplayL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ScrollDisplayL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt ScrollDisplayL(TCursorPosition::TMovementType aMovement,CTextLayout::TAllowDisallow aScrollBlankSpace= CTextLayout::EFDisallowScrollingBlankSpace);</code></p><h4 class="subheading">Description</h4>
+<p>Scrolls the view either horizontally or vertically and does a
+redraw.</p>
+<p>Any background formatting is forced to complete first.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TCursorPosition::TMovementType aMovement </code></td>
+<td class="Cell"><p class="ValueDesc"> Controls the direction and the amount of scroll. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CTextLayout::TAllowDisallow aScrollBlankSpace </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>CTextLayout::EFAllowScrollingBlankSpace</code> allows blank space
+to scroll into the visible area (applies when scrolling horizontally as well as
+vertically), <code>CTextLayout::EFDisallowScrollingBlankSpace</code> prevents
+blank space from scrolling into the visible area. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of pixels scrolled </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.7"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aScrollDisplayPixelsL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ScrollDisplayPixelsL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ScrollDisplayPixelsL(TInt&amp; aDeltaY);</code></p><h4 class="subheading">Description</h4>
+<p>Scrolls the view vertically by a number of pixels, disallowing blank
+space from scrolling into the bottom of the visible area. Redraws the newly
+visible lines.</p>
+<p>Any background formatting is forced to complete first.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aDeltaY </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of pixels to scroll; may be a positive or negative value. On
+return, contains the number of pixels actually scrolled. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.8"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aScrollDisplayLinesL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ScrollDisplayLinesL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt ScrollDisplayLinesL(TInt&amp; aDeltaLines,CTextLayout::TAllowDisallow aScrollBlankSpace=CTextLayout::EFDisallowScrollingBlankSpace);</code></p><h4 class="subheading">Description</h4>
+<p>Scrolls the view vertically by a number of wholly or partially visible
+lines, disallowing blank space at the bottom of the visible area
+if <code>aScrollBlankSpace</code> is <code>CTextLayout::EFDisallowScrollingBlankSpace</code>.
+Redraws the newly visible lines.</p>
+<p>Any background formatting is forced to complete first.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aDeltaLines </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of lines to scroll; may be a positive or negative value. On
+return, contains the number of lines not scrolled; that is, the requested
+number, minus the number actually scrolled. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CTextLayout::TAllowDisallow aScrollBlankSpace </code></td>
+<td class="Cell"><p class="ValueDesc"> Only relevant when scrolling
+downwards. <code>CTextLayout::EFAllowScrollingBlankSpace</code> allows blank
+space to scroll into the visible area. <code>CTextLayout::EFDisallowScrollingBlankSpace</code> prevents
+blank space from scrolling into the visible area. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of pixels scrolled. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.9"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aScrollDisplayParagraphsL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ScrollDisplayParagraphsL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt ScrollDisplayParagraphsL(TInt&amp; aDeltaParas,CTextLayout::TAllowDisallow aScrollBlankSpace= CTextLayout::EFDisallowScrollingBlankSpace);</code></p><h4 class="subheading">Description</h4>
+<p>Scrolls the view by a number of wholly or partially visible paragraphs
+disallowing blank space at the bottom of the visible area
+if <code>aScrollBlankSpace</code> is <code>CTextLayout::EFDisallowScrollingBlankSpace</code>.
+Redraws the newly visible paragraphs.</p>
+<p>Any background formatting is forced to complete first.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aDeltaParas </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of paragraphs to scroll; may be a positive or negative value.
+On return, contains the number of paragraphs not scrolled; that is the
+difference between the requested number and the number of paragraphs actually
+scrolled. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CTextLayout::TAllowDisallow aScrollBlankSpace </code></td>
+<td class="Cell"><p class="ValueDesc"> Only relevant when scrolling
+downwards. <code>CTextLayout::EFAllowScrollingBlankSpace</code> allows blank
+space to scroll into the visible area. <code>CTextLayout::EFDisallowScrollingBlankSpace</code> prevents
+blank space from scrolling into the visible area. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of pixels scrolled. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.14.10"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aSetViewL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetViewL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TPoint SetViewL(TInt aDocPos,TInt&amp; aYPos,TViewYPosQualifier aYPosQualifier=TViewYPosQualifier(),CTextView::TDiscard aDiscardFormat=EFViewDontDiscardFormat);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the vertical position of the view, so that the line
+containing <code>aDocPos</code> is located as close as possible to the vertical
+window coordinate <code>aYPos</code>. Which part of the line is set to appear
+at <code>aYPos</code> (top, baseline, or bottom) is controlled
+by <code>aYPosQualifier</code>, which also specifies whether the visible area is
+to be filled and whether the line should be made fully visible if
+possible.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aDocPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position. Must be valid or a panic occurs. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aYPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The y coordinate at which to position the character
+at <code>aDocPos</code>. On return, contains the actual vertical window
+coordinate at which the document position has been set. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TViewYPosQualifier aYPosQualifier </code></td>
+<td class="Cell"><p class="ValueDesc"> Controls which part of the line should appear
+at <code>aYPos</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CTextView::TDiscard aDiscardFormat </code></td>
+<td class="Cell"><p class="ValueDesc"> If <code>EFViewDiscardAllFormat</code>,
+or <code>EFViewDiscardAllNoRedraw</code> the text is reformatted to
+include <code>aDocPos</code>, otherwise text is formatted only as necessary when
+bringing new lines into the visible area. If <code>EFViewDiscardAllNoRedraw</code>,
+no redraw takes place. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TPoint </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of pixels scrolled horizontally and vertically. The vertical
+coordinate may have a value of <code>CTextLayout::EFScrollRedrawWholeScreen</code>.
+This indicates that the entire visible area, at least, was scrolled, and so a
+full redraw was needed. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Layout enquiry</h2>
+</div><div class="Bodytext">
+<a name="2.15.2"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aLeftTextMargin%28%29"></a>
+<hr size="1" noshade>
+<h3><code>LeftTextMargin()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt LeftTextMargin() const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the left text margin width in pixels.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The left text margin width in pixels. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.15.3"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aCalculateHorizontalExtremesL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CalculateHorizontalExtremesL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void CalculateHorizontalExtremesL(TInt&amp; aLeftX,TInt&amp; aRightX,TBool aOnlyVisibleLines);</code></p><h4 class="subheading">Description</h4>
+<p>Returns the left and right extremes, in window coordinates, of the
+formatted text.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aLeftX </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, contains the x coordinate of the leftmost point of the
+formatted text. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aRightX </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, contains the x coordinate of the rightmost point of the
+formatted text. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool aOnlyVisibleLines </code></td>
+<td class="Cell"><p class="ValueDesc"> If <code>ETrue</code>, only scans partially or fully visible lines.
+If <code>EFalse</code>, scans all the formatted text. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Picture frames</h2>
+</div><div class="Bodytext">
+<a name="2.16.2"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aGetPictureRectangleL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetPictureRectangleL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool GetPictureRectangleL(TInt aDocPos,TRect&amp; aPictureRect,TBool* const aCanScaleOrCrop=NULL) const;<br>TBool GetPictureRectangleL(TPoint aXyPos,TRect&amp; aPictureRect,TBool* const aCanScaleOrCrop=NULL);</code></p><h4 class="subheading">Description</h4>
+<p>Gets the bounding rectangle of the picture, if any, located at the
+document position or x,y coordinates specified, and returns it
+in <code>aPictureRect</code>. If <code>aCanScaleOrCrop</code> is non-null,
+sets <code>aCanScaleOrCrop</code> to indicate whether the picture can be scaled
+or cropped. Returns true if the operation was successful. Returns false
+otherwise; that is, if there is no picture at the position, or if the position
+is unformatted.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aDocPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The document position of interest. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TPoint aXyPos </code></td>
+<td class="Cell"><p class="ValueDesc"> The window coordinates of interest. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TRect&amp; aPictureRect </code></td>
+<td class="Cell"><p class="ValueDesc"> On return, contains the rectangle which encloses the picture located at
+the position specified. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool* const aCanScaleOrCrop </code></td>
+<td class="Cell"><p class="ValueDesc"> If non NULL and the function returns true, indicates whether the picture
+can be scaled or cropped. By default, NULL. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool </code></td>
+<td class="Cell"><p class="ValueDesc"> True if the operation was successful, (i.e. there is a picture character
+at the position, it has been loaded into memory, and the position is
+formatted). False if any of these conditions are not met. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16.3"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aIsPictureFrameSelected%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IsPictureFrameSelected()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool IsPictureFrameSelected(TRect&amp; aPictureFrameRect,TInt&amp; aDocPos) const;</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether there is a picture with a picture frame at the current
+cursor position. If there is, the <code>aPictureFrameRect</code> and <code>aDocPos</code>
+arguments are set to contain the picture frame rectangle and the document
+position of the picture, respectively.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TRect&amp; aPictureFrameRect </code></td>
+<td class="Cell"><p class="ValueDesc"> If the function returns true, on return contains the picture frame
+rectangle. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt&amp; aDocPos </code></td>
+<td class="Cell"><p class="ValueDesc"> If the function returns true, on return contains the document position
+of the picture. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue</code> if there is a picture with a picture frame at the
+current cursor position. <code>EFalse</code> if not. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.16.4"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aEnablePictureFrameL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>EnablePictureFrameL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void EnablePictureFrameL(TBool aEnabled);</code></p><h4 class="subheading">Description</h4>
+<p>Sets whether a picture frame should be displayed when the text cursor is
+located at a picture character.</p>
+<p>Note:</p>
+<p>If a picture frame is currently displayed, and
+<code>aEnabled</code> is <code>EFalse</code>, a redraw takes place, so that the
+frame is removed.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool aEnabled </code></td>
+<td class="Cell"><p class="ValueDesc"> True to enable picture frames, false to disable them. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.17"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Enumerations </h2>
+</div><div class="Bodytext">
+<a name="2.17.2"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aTBeforeAfter"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TBeforeAfter</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBeforeAfter</code></p><h4 class="subheading">Description</h4>
+<p>Cursor height matching.</p><p>Passed as an argument to <code>MatchCursorHeightToAdjacentChar()</code>.</p>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCTextView%3a%3aEFCharacterBefore"><code class="Value">EFCharacterBefore</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Text cursor height is matched to preceding character.</para>
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCTextView%3a%3aEFCharacterAfter"><code class="Value">EFCharacterAfter</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Text cursor height is matched to following character.</para>
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.17.3"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aTDiscard"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TDiscard</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TDiscard</code></p><h4 class="subheading">Description</h4>
+<p>Whether to reformat and redraw.</p><p>Argument to <code>SetViewL()</code>.</p>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCTextView%3a%3aEFViewDiscardAllFormat"><code class="Value">EFViewDiscardAllFormat</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Discard all formatting; redraw.</para>
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCTextView%3a%3aEFViewDontDiscardFormat"><code class="Value">EFViewDontDiscardFormat</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Do not discard all formatting; redraw.</para>
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCTextView%3a%3aEFViewDiscardAllNoRedraw"><code class="Value">EFViewDiscardAllNoRedraw</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Discard all formatting; no redraw.</para>
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aCTextView%3a%3aEFViewDontDiscardFullRedraw"><code class="Value">EFViewDontDiscardFullRedraw</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Do not discard all formatting; redraw.</para>
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.18"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Classes</h2>
+</div><div class="Bodytext">
+<a name="2.18.2"></a></div><div class="Head3">
+<a name="%3a%3aCTextView%3a%3aMObserver"></a>
+<hr size="1" noshade>
+<h3>Class <code>MObserver</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>MObserver</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Provides notification to the owner of the text view object of changes to
+the formatting.</p><p>Its <code>OnReformatL()</code> function is called after
+reformatting but before redisplay, so that edit windows etc. can be
+resized.</p>
+<p>Defined in <code>CTextView::MObserver</code>:
+<br><code class="ApiItem"><a href="CTextViewClass.html#%3a%3aCTextView%3a%3aMObserver%3a%3aOnReformatL%28%29" title="Called after reformatting but before redisplay, so that edit windows, etc., can be resized">OnReformatL()</a></code>
+</p>
+<a name="2.18.2.5"></a><a name="%3a%3aCTextView%3a%3aMObserver%3a%3aOnReformatL%28%29"></a>
+<h4><code>OnReformatL()</code></h4><hr size="8" noshade>
+<p class="Prototype"><code>virtual void OnReformatL(const CTextView* aTextView) = 0;</code></p><h4 class="subheading">Description</h4>
+<p>Called after reformatting but before redisplay, so that edit windows,
+etc., can be resized.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CTextView* aTextView </code></td>
+<td class="Cell"><p class="ValueDesc"> A pointer to the current text view object.</p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

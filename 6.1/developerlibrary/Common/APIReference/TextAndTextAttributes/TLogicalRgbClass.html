@@ -1,0 +1,265 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>TLogicalRgb</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="TFontPresentationClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="TPageTableTypedef.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Text&nbsp;and&nbsp;Text&nbsp;Attributes</a>&nbsp;<span class="separator">&#187;</span>
+TLogicalRgb</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code> txtfrmat.h </code>
+<br>Link against: <code> etext.lib </code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aTLogicalRgb"></a>
+
+<h1>Class <code>TLogicalRgb</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>TLogicalRgb</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Provides support for system colours, in addition to literal
+colours, in text formatting.</p>
+<p>The base class <code>TRgb</code> stores the 24-bit literal colour
+value using a <code>TUint32</code>. <code>TLogicalRgb</code> uses the unused
+(top) byte as an 8-bit index. The purpose of the index is to allow applications
+to use logical colours. If the index is zero, the value is not a logical
+colour; it is treated as an ordinary <code>TRgb</code> value. If the index is
+non zero (1-255), the colour should be translated by the application into a
+system colour. Indices 254 and 255 are reserved for the system foreground and
+background colours, respectively and should be translated into them.
+Translation from index to RGB colour occurs in the implementation of
+<code>MFormParam::SystemColor()</code>.</p>
+<p>All colours in the Text and text attributes API are stored using
+<code>TLogicalRgb</code> values and are initialised to either
+<code>TLogicalRgb::ESystemForegroundColor</code> or
+<code>TLogicalRgb::ESystemBackgroundColor</code>.</p>
+<p>This system allows an application to set its text colours once,
+perhaps using the system-wide colour scheme, rather than having to set the
+colours each time a text object is created. It is also compatible with legacy
+code which expects <code>TRgb</code> rather than <code>TLogicalRgb</code>
+values&nbsp;&#8212; for example, the logical foreground and background
+colours have their bottom three bytes filled with black and white respectively
+so that code which expects <code>TRgb</code> values can still use them.</p>
+<h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code>TLogicalRgb</code></td><td class="Cell">Provides support for system colours, in addition to literal colours, in text formatting</td>
+</tr>
+<tr><td class="Cell"><code><a href="../Graphics/TRgbClass.html#%3a%3aTRgb">TRgb</a></code></td><td class="Cell">24-bit RGB colour value with 8 bits each for red, green and blue</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>TLogicalRgb</code>:
+<br><code class="ApiItem"><a href="TLogicalRgbClass.html#%3a%3aTLogicalRgb%3a%3aAnonymous" title="Miscellaneous constants">Anonymous</a></code>, <code class="ApiItem"><a href="TLogicalRgbClass.html#%3a%3aTLogicalRgb%3a%3aESystemBackgroundColor" title="The system background colour">ESystemBackgroundColor</a></code>, <code class="ApiItem"><a href="TLogicalRgbClass.html#%3a%3aTLogicalRgb%3a%3aESystemBackgroundIndex" title="Index reserved for the system background colour (=255)">ESystemBackgroundIndex</a></code>, <code class="ApiItem"><a href="TLogicalRgbClass.html#%3a%3aTLogicalRgb%3a%3aESystemForegroundColor" title="The system foreground colour">ESystemForegroundColor</a></code>, <code class="ApiItem"><a href="TLogicalRgbClass.html#%3a%3aTLogicalRgb%3a%3aESystemForegroundIndex" title="Index reserved for the system foreground colour (=254)">ESystemForegroundIndex</a></code>, <code class="ApiItem"><a href="TLogicalRgbClass.html#%3a%3aTLogicalRgb%3a%3aSetSystemColorIndex%28%29" title="Sets the logical colour's index value">SetSystemColorIndex()</a></code>, <code class="ApiItem"><a href="TLogicalRgbClass.html#%3a%3aTLogicalRgb%3a%3aSystemColorIndex%28%29" title="Returns the logical colour's index value">SystemColorIndex()</a></code>, <code class="ApiItem"><a href="TLogicalRgbClass.html#%3a%3aTLogicalRgb%3a%3aTLogicalRgb%28%29" title="Constructs a new TLogicalRgb object from an existing one">TLogicalRgb()</a></code>, <code class="ApiItem"><a href="TLogicalRgbClass.html#%3a%3aTLogicalRgb%3a%3aTSystemColor" title="Used to construct TLogicalRgb objects which should use either the system foreground or background colour">TSystemColor</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../Graphics/TRgbClass.html#%3a%3aTRgb" title="24-bit RGB colour value with 8 bits each for red, green and blue">TRgb</a></code>:
+<br><code class="ApiItem"><a href="../Graphics/TRgbClass.html#%3a%3aTRgb%3a%3aBlue%28%29" title="Gets the blue component">Blue()</a></code>,
+<code class="ApiItem"><a href="../Graphics/TRgbClass.html#%3a%3aTRgb%3a%3aColor16%28%29" title="Gets a 4 bit index into a colour palette from this TRgb">Color16()</a></code>,
+<code class="ApiItem"><a href="../Graphics/TRgbClass.html#%3a%3aTRgb%3a%3aColor16M%28%29" title="Gets a 16 bit index into a colour palette from this TRgb">Color16M()</a></code>,
+<code class="ApiItem"><a href="../Graphics/TRgbClass.html#%3a%3aTRgb%3a%3aColor256%28%29" title="Gets an 8 bit index into a colour palette from this TRgb">Color256()</a></code>,
+<code class="ApiItem"><a href="../Graphics/TRgbClass.html#%3a%3aTRgb%3a%3aColor4K%28%29" title="Gets a 12 bit index into a colour palette from this TRgb">Color4K()</a></code>,
+<code class="ApiItem"><a href="../Graphics/TRgbClass.html#%3a%3aTRgb%3a%3aColor64K%28%29" title="Gets a 24 bit index into a colour palette from this TRgb">Color64K()</a></code>,
+<code class="ApiItem"><a href="../Graphics/TRgbClass.html#%3a%3aTRgb%3a%3aDifference%28%29" title="Gets the difference between two TRgbs">Difference()</a></code>,
+<code class="ApiItem"><a href="../Graphics/TRgbClass.html#%3a%3aTRgb%3a%3aExternalizeL%28%29" title="Externalises a TRgb object to a stream">ExternalizeL()</a></code>,
+<code class="ApiItem"><a href="../Graphics/TRgbClass.html#%3a%3aTRgb%3a%3aGray16%28%29" title="Gets a 16 level grayscale value from this TRgb">Gray16()</a></code>,
+<code class="ApiItem"><a href="../Graphics/TRgbClass.html#%3a%3aTRgb%3a%3aGray2%28%29" title="Gets a 2 level grayscale value from this TRgb">Gray2()</a></code>,
+<code class="ApiItem"><a href="../Graphics/TRgbClass.html#%3a%3aTRgb%3a%3aGray256%28%29" title="Gets a 256 level grayscale value from this TRgb">Gray256()</a></code>,
+<code class="ApiItem"><a href="../Graphics/TRgbClass.html#%3a%3aTRgb%3a%3aGray4%28%29" title="Gets a 4 level grayscale value from this TRgb">Gray4()</a></code>,
+<code class="ApiItem"><a href="../Graphics/TRgbClass.html#%3a%3aTRgb%3a%3aGreen%28%29" title="Gets the green component">Green()</a></code>,
+<code class="ApiItem"><a href="../Graphics/TRgbClass.html#%3a%3aTRgb%3a%3aInternalizeL%28%29" title="Internalises a TRgb object from a stream">InternalizeL()</a></code>,
+<code class="ApiItem"><a href="../Graphics/TRgbClass.html#%3a%3aTRgb%3a%3aRed%28%29" title="Gets the red component">Red()</a></code>,
+<code class="ApiItem"><a href="../Graphics/TRgbClass.html#%3a%3aTRgb%3a%3aSetBlue%28%29" title="Sets the blue component">SetBlue()</a></code>,
+<code class="ApiItem"><a href="../Graphics/TRgbClass.html#%3a%3aTRgb%3a%3aSetGreen%28%29" title="Sets the green component">SetGreen()</a></code>,
+<code class="ApiItem"><a href="../Graphics/TRgbClass.html#%3a%3aTRgb%3a%3aSetRed%28%29" title="Sets the red component">SetRed()</a></code>,
+<code class="ApiItem"><a href="../Graphics/TRgbClass.html#%3a%3aTRgb%3a%3aValue%28%29" title="Gets the 24-bit value of the TRgb as a 32-bit integer">Value()</a></code>,
+<code class="ApiItem"><a href="../Graphics/TRgbClass.html#%3a%3aTRgb%3a%3aoperator%21%3d%28%29" title="Compares this colour with the specified colour for inequality">operator!=()</a></code>,
+<code class="ApiItem"><a href="../Graphics/TRgbClass.html#%3a%3aTRgb%3a%3aoperator%26%28%29" title="Bitwise logical AND operator">operator&amp;()</a></code>,
+<code class="ApiItem"><a href="../Graphics/TRgbClass.html#%3a%3aTRgb%3a%3aoperator%26%3d%28%29" title="Logical AND assignment operator">operator&amp;=()</a></code>,
+<code class="ApiItem"><a href="../Graphics/TRgbClass.html#%3a%3aTRgb%3a%3aoperator%3d%3d%28%29" title="Compares this colour with the specified colour for equality">operator==()</a></code>,
+<code class="ApiItem"><a href="../Graphics/TRgbClass.html#%3a%3aTRgb%3a%3aoperator%5e%28%29" title="Bitwise EXCLUSIVE OR operator">operator^()</a></code>,
+<code class="ApiItem"><a href="../Graphics/TRgbClass.html#%3a%3aTRgb%3a%3aoperator%5e%3d%28%29" title="Logical EXCLUSIVE OR assignment operator">operator^=()</a></code>,
+<code class="ApiItem"><a href="../Graphics/TRgbClass.html#%3a%3aTRgb%3a%3aoperator%7c%28%29" title="Bitwise logical OR operator">operator|()</a></code>,
+<code class="ApiItem"><a href="../Graphics/TRgbClass.html#%3a%3aTRgb%3a%3aoperator%7c%3d%28%29" title="Logical OR assignment operator">operator|=()</a></code>,
+<code class="ApiItem"><a href="../Graphics/TRgbClass.html#%3a%3aTRgb%3a%3aoperator%7e%28%29" title="Bitwise logical inversion operator">operator~()</a></code></p>
+<a name="2.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aTLogicalRgb%3a%3aTLogicalRgb%28%29"></a>
+<hr size="1" noshade>
+<h3><code>TLogicalRgb()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TLogicalRgb()</code></p><h4 class="subheading">Description</h4>
+<p>Allows an uninitialised object to be constructed.</p>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aTLogicalRgb%3a%3aTLogicalRgb%28%29"></a>
+<hr size="1" noshade>
+<h3><code>TLogicalRgb()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TLogicalRgb(TUint32 aValue)</code></p><h4 class="subheading">Description</h4>
+<p>Constructs the object with a 32-bit integer. The index is stored
+in the top byte. A <code>TRgb</code> value may be stored in the bottom three
+bytes. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUint32 aValue </code></td>
+<td class="Cell"><p class="ValueDesc"> Integer holding the logical colour index. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.4"></a></div><div class="Head3">
+<a name="%3a%3aTLogicalRgb%3a%3aTLogicalRgb%28%29"></a>
+<hr size="1" noshade>
+<h3><code>TLogicalRgb()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TLogicalRgb(TSystemColor aValue)</code></p><h4 class="subheading">Description</h4>
+<p>Constructs the object with a <code>TSystemColor</code>
+value.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TSystemColor aValue </code></td>
+<td class="Cell"><p class="ValueDesc"> Identifies whether the colour is the system foreground or system
+background colour. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.5"></a></div><div class="Head3">
+<a name="%3a%3aTLogicalRgb%3a%3aTLogicalRgb%28%29"></a>
+<hr size="1" noshade>
+<h3><code>TLogicalRgb()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TLogicalRgb(const TRgb&amp; aRgb)</code></p><h4 class="subheading">Description</h4>
+<p>Constructs a new <code>TLogicalRgb</code> object from an existing
+one.</p>
+<a name="2.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Colour index</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aTLogicalRgb%3a%3aSystemColorIndex%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SystemColorIndex()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TUint SystemColorIndex() const </code></p><h4 class="subheading">Description</h4>
+<p>Returns the logical colour's index value. Zero indicates that the value
+is not a logical colour; it is an ordinary <code>TRgb</code> value. 254 and 255
+indicate the system foreground and background colours, respectively.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUint </code></td>
+<td class="Cell"><p class="ValueDesc"> The index: between zero and 255 inclusive. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aTLogicalRgb%3a%3aSetSystemColorIndex%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetSystemColorIndex()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetSystemColorIndex(TUint aIndex)</code></p><h4 class="subheading">Description</h4>
+<p>Sets the logical colour's index value.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TUint aIndex </code></td>
+<td class="Cell"><p class="ValueDesc"> The new index value (between 1 and 253 inclusive). </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Enumerations</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aTLogicalRgb%3a%3aAnonymous"></a>
+<hr size="1" noshade>
+<h3>Enum <code>Anonymous</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>Anonymous</code></p><h4 class="subheading">Description</h4>
+<p>Miscellaneous constants.</p>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aTLogicalRgb%3a%3aESystemForegroundIndex"><code class="Value">ESystemForegroundIndex</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Index reserved for the system foreground colour (=254).</para>
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aTLogicalRgb%3a%3aESystemBackgroundIndex"><code class="Value">ESystemBackgroundIndex</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Index reserved for the system background colour (=255).</para>
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aTLogicalRgb%3a%3aTSystemColor"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TSystemColor</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TSystemColor</code></p><h4 class="subheading">Description</h4>
+<p>Used to construct <code>TLogicalRgb</code> objects which should use
+either the system foreground or background colour.</p>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aTLogicalRgb%3a%3aESystemForegroundColor"><code class="Value">ESystemForegroundColor</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>The system foreground colour.</para>
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aTLogicalRgb%3a%3aESystemBackgroundColor"><code class="Value">ESystemBackgroundColor</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>The system background colour.</para>
+</p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

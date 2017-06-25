@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>TCallBack</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CIdleClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="TRequestStatusClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Asynchronous&nbsp;Services</a>&nbsp;<span class="separator">&#187;</span>
+TCallBack</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code> e32std.h </code>
+<br>Link against: <code> euser.lib </code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aTCallBack"></a>
+
+<h1>Class <code>TCallBack</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>TCallBack</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Encapsulates a general call-back function.</p>
+<p>Although widely applicable, it simplifies the programming interface
+of:</p>
+<ul>
+<li>
+<p>the <code>CIdle</code> class, the Idle time active
+object</p>
+</li>
+<li>
+<p>the <code>CPeriodic</code> class, the regular timer event
+generator.</p>
+</li>
+</ul>
+<p>The class encapsulates:</p>
+<ul>
+<li>
+<p>a pointer to a function which takes an argument of type
+<code>TAny*</code> and returns a <code>TInt</code>.</p>
+</li>
+<li>
+<p>a pointer which is passed to the function every time it is
+called. The pointer can point to any object. It can also be NULL.</p>
+</li>
+</ul>
+<p>The callback function can be a static function of a class, e.g.
+<code>TInt X::Foo(TAny *)</code> or it can be a function which is not a member
+of any class, e.g. <code>TInt Foo(TAny *)</code>.</p>
+<p>When used with the <code>CIdle</code> and the
+<code>CPeriodic</code> classes, the callback function is intended to be called
+repeatedly; the encapsulated pointer is passed on each call. Typically, the
+pointer refers to an object which records the state of the task across each
+call. The callback function should also return a true (non-zero) value if it is
+intended to be called again, otherwise it should return a false (zero)
+value.</p>
+<p>Defined in <code>TCallBack</code>:
+<br><code class="ApiItem"><a href="TCallBackClass.html#%3a%3aTCallBack%3a%3aCallBack%28%29" title="Calls the callback function">CallBack()</a></code>, <code class="ApiItem"><a href="TCallBackClass.html#%3a%3aTCallBack%3a%3aTCallBack%28%29" title="Constructs the callback object with the specified callback function and, optionally, a pointer to an object">TCallBack()</a></code>
+</p>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="CIdleClass.html#%3a%3aCIdle" title="An active object that performs low-priority processing when no higher-priority active objects are ready to run"><code class="ApiItem">CIdle</code></a></li>
+<li><a href="../TimersAndTimingServices/CPeriodicClass.html#%3a%3aCPeriodic" title="Periodic timer active object"><code class="ApiItem">CPeriodic</code></a></li>
+<li><a href="UsingTCallBack.guide.html#AsynchronousServices%2eUsing%2dTCallBack">Using TCallBack</a></li>
+</ul>
+<a name="2.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction and destruction</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aTCallBack%3a%3aTCallBack%28%29"></a>
+<hr size="1" noshade>
+<h3><code>TCallBack()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TCallBack(TInt (*aFunction)(TAny* aPtr));<br>TCallBack(TInt (*aFunction)(TAny* aPtr),TAny* aPtr);</code></p><h4 class="subheading">Description</h4>
+<p>Constructs the callback object with the specified callback
+function and, optionally, a pointer to an object.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt (*aFunction)(TAny *aPtr) </code></td>
+<td class="Cell"><p class="ValueDesc"> A pointer to the callback function. It takes an argument of
+type <code>TAny*</code> and returns a <code>TInt</code>. It must be either a
+static function of a class or a function which is not a member of any class.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TAny *aPtr </code></td>
+<td class="Cell"><p class="ValueDesc"> A pointer which is always passed to the callback function. If
+not specified, defaults to <code>NULL</code>. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Callback</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aTCallBack%3a%3aCallBack%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CallBack()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt CallBack() const;</code></p><h4 class="subheading">Description</h4>
+<p>Calls the callback function.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The value returned by the callback function. A true (non-zero)
+value indicates that the callback function should be called again. A false
+(zero) value indicates that the callback function should not be called again.
+This is particularly important when the callback is used with the
+<code>CIdle</code> and <code>CPeriodic</code> classes </p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,324 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CFormatLayer</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CFileNameFieldClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="CGlobalTextClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Text&nbsp;and&nbsp;Text&nbsp;Attributes</a>&nbsp;<span class="separator">&#187;</span>
+CFormatLayer</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code> txtfmlyr.h </code>
+<br>Link against: <code> etext.lib </code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aCFormatLayer"></a>
+
+<h1>Class <code>CFormatLayer</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CFormatLayer</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Abstract base class for the paragraph and character format layers
+(<code>CParaFormatLayer</code> and <code>CCharFormatLayer</code>).</p>
+<p>A format layer is a set of character or paragraph format attributes
+which may own a pointer to another format layer. This pointer is called a
+based-on link. The effective formatting of a text object may be built up from a
+chain of format layers&nbsp;&#8212; the final layer in the chain has a NULL
+based-on link. In case of conflict, attribute values set in upper layers
+(layers furthest from the layer with the NULL based-on link) override those set
+in lower layers. In rich text, additional formatting may be applied on top of
+these format layers.</p>
+<p>The system of based-on links is implemented by the
+<code>CFormatLayer</code> class. It also implements persistence for chains of
+format layers.</p>
+<p>When setting or sensing the attributes of a
+<code>CParaFormatLayer</code> or <code>CCharFormatLayer</code>, a format mask
+and container are specified as parameters. The container has data members for
+every format attribute, which may be set independently. When setting the layer,
+the mask indicates the attributes which will be taken from the container. Any
+attributes not specified in the mask will be taken from the system-provided
+default values.</p>
+<p>When sensing a layer, on return, the mask indicates which
+attributes have been explicitly set in the layer, (i.e. not taken from the
+default values). In addition, a layer&#8217;s effective format may be sensed.
+In this case, no mask is used because the format container will, on return,
+contain a value for every attribute.</p>
+<h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase">CBase</a></code></td><td class="Cell">Base class for all classes to be instantiated on the heap</td>
+</tr>
+<tr><td class="Cell"><code>CFormatLayer</code></td><td class="Cell">Abstract base class for the paragraph and character format layers (CParaFormatLayer and CCharFormatLayer)</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>CFormatLayer</code>:
+<br><code class="ApiItem"><a href="CFormatLayerClass.html#%3a%3aCFormatLayer%3a%3aChainCount%28%29" title="Gets the number of format layers in the chain, inclusive of itself">ChainCount()</a></code>, <code class="ApiItem"><a href="CFormatLayerClass.html#%3a%3aCFormatLayer%3a%3aExternalizeChainL%28%29" title="Stores a chain of format layers">ExternalizeChainL()</a></code>, <code class="ApiItem"><a href="CFormatLayerClass.html#%3a%3aCFormatLayer%3a%3aExternalizeL%28%29" title="Pure virtual function">ExternalizeL()</a></code>, <code class="ApiItem"><a href="CFormatLayerClass.html#%3a%3aCFormatLayer%3a%3aInternalizeChainL%28%29" title="Restores a chain of format layers from a read stream">InternalizeChainL()</a></code>, <code class="ApiItem"><a href="CFormatLayerClass.html#%3a%3aCFormatLayer%3a%3aInternalizeL%28%29" title="Pure virtual function">InternalizeL()</a></code>, <code class="ApiItem"><a href="CFormatLayerClass.html#%3a%3aCFormatLayer%3a%3aIsEmpty%28%29" title="Tests whether any formatting is stored in the format layer">IsEmpty()</a></code>, <code class="ApiItem"><a href="CFormatLayerClass.html#%3a%3aCFormatLayer%3a%3aIsIdentical%28%29" title="Pure virtual function">IsIdentical()</a></code>, <code class="ApiItem"><a href="CFormatLayerClass.html#%3a%3aCFormatLayer%3a%3aReset%28%29" title="Deletes the contents of the format layer">Reset()</a></code>, <code class="ApiItem"><a href="CFormatLayerClass.html#%3a%3aCFormatLayer%3a%3aSenseBase%28%29" title="Gets the format layer which this layer's based-on link points to">SenseBase()</a></code>, <code class="ApiItem"><a href="CFormatLayerClass.html#%3a%3aCFormatLayer%3a%3aSetBase%28%29" title="Sets the format layer which this layer's based-on link points to">SetBase()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap">CBase</a></code>:
+<br><code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase%3a%3aoperator%20new%28%29" title="Allocates the object from the heap and then initialises its contents to binary zeroes">operator new()</a></code></p>
+<a name="2.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Based-on links</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aCFormatLayer%3a%3aSetBase%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetBase()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void SetBase(const CFormatLayer* aBaseFormatLayer);</code></p><h4 class="subheading">Description</h4>
+<p>Sets the format layer which this layer's based-on link points
+to.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CFormatLayer* aBaseFormatLayer </code></td>
+<td class="Cell"><p class="ValueDesc"> The format layer which this layer's based-on link points to.
+Specify NULL if this is the final layer in the chain (the layer on which all
+other layers are based). </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aCFormatLayer%3a%3aSenseBase%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SenseBase()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const CFormatLayer* SenseBase()const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the format layer which this layer's based-on link points to.
+If NULL, this layer is the final layer in the chain.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CFormatLayer* </code></td>
+<td class="Cell"><p class="ValueDesc"> The format layer on which this layer is based. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.4"></a></div><div class="Head3">
+<a name="%3a%3aCFormatLayer%3a%3aChainCount%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ChainCount()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt ChainCount()const;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the number of format layers in the chain, inclusive of itself.
+Assumes that the format layer chain has been correctly set up to terminate with
+a NULL based-on link.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of format layers in the chain, counting from the
+current layer. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Enquiry</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aCFormatLayer%3a%3aIsIdentical%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IsIdentical()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TBool IsIdentical(CFormatLayer* aLayer,TBool aCheckBasedOnLink=ETrue)const=0;</code></p><h4 class="subheading">Description</h4>
+<p>Pure virtual function. Implementations of this function compare
+another format layer with the current object. For the two layers to be equal,
+they must have the same contents and (if the second parameter is
+<code>ETrue</code>), their based-on links must point to the same format
+layer.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> CFormatLayer* aLayer </code></td>
+<td class="Cell"><p class="ValueDesc"> The layer to compare to this format layer. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool aCheckBasedOnLink </code></td>
+<td class="Cell"><p class="ValueDesc"> If <code>ETrue</code>, both layers' based-on links must point to the
+same format layer. If <code>EFalse</code>, the based-on links are not used in
+the comparison. By default, <code>ETrue</code>. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue</code> if the two layers are identical, otherwise
+<code>EFalse</code>. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aCFormatLayer%3a%3aIsEmpty%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IsEmpty()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool IsEmpty()const; </code></p><h4 class="subheading">Description</h4>
+<p>Tests whether any formatting is stored in the format layer.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TBool </code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue</code> if no formatting is stored in the format layer,
+otherwise returns <code>EFalse</code>. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Reset</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aCFormatLayer%3a%3aReset%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Reset()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void Reset(); </code></p><h4 class="subheading">Description</h4>
+<p>Deletes the contents of the format layer. The based-on link is not
+affected.</p>
+<a name="2.9"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Stream persistence</h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aCFormatLayer%3a%3aExternalizeL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ExternalizeL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void ExternalizeL(RWriteStream&amp; aStream)const=0;</code></p><h4 class="subheading">Description</h4>
+<p>Pure virtual function. Implementations of this function externalise the
+format layer but not its based-on link to a write stream. The presence of this
+function means that the standard
+templated<code>operator&lt;&lt;()</code>(defined in s32strm.h) is available to
+externalise objects of the derived class.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> RWriteStream&amp; aStream </code></td>
+<td class="Cell"><p class="ValueDesc"> Stream to which the format layer should be externalised. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.3"></a></div><div class="Head3">
+<a name="%3a%3aCFormatLayer%3a%3aExternalizeChainL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ExternalizeChainL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ExternalizeChainL(RWriteStream&amp; aStream,TInt aExcludeCount=0)const;</code></p><h4 class="subheading">Description</h4>
+<p>Stores a chain of format layers. By default an entire chain is stored
+unless an exclude count is provided. In this case, the length of the chain
+stored is the <code>ChainCount()</code> minus the exclude count. The excluded
+layers are the ones starting with the layer with the NULL based-on link.</p>
+<p>Note</p>
+<p>The exclude count must be zero or greater but must be less than the total
+number of layers in the chain, otherwise a panic occurs.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> RWriteStream&amp; aStream </code></td>
+<td class="Cell"><p class="ValueDesc"> Stream to which the format layer chain should be externalised. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> TInt aExcludeCount </code></td>
+<td class="Cell"><p class="ValueDesc"> The number of layers to be excluded. By default, zero. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.4"></a></div><div class="Head3">
+<a name="%3a%3aCFormatLayer%3a%3aInternalizeL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>InternalizeL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void InternalizeL(RReadStream&amp; aStream,const CFormatLayer* aBase=NULL)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Pure virtual function. Implementations of this function internalise the
+format layer but not its based-on link from a read stream. The presence of this
+function means that the standard templated <code>operator&gt;&gt;()</code>
+(defined in s32strm.h) is available to internalise objects of the derived
+class. The internalised layer is set to be based on the layer
+specified.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> RReadStream&amp; aStream </code></td>
+<td class="Cell"><p class="ValueDesc"> Stream from which the format layer should be internalised. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CFormatLayer* aBase </code></td>
+<td class="Cell"><p class="ValueDesc"> The based-on link to assign to the layer. By default, NULL. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.5"></a></div><div class="Head3">
+<a name="%3a%3aCFormatLayer%3a%3aInternalizeChainL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>InternalizeChainL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void InternalizeChainL(RReadStream&amp; aStream,const CFormatLayer* aBase=NULL);</code></p><h4 class="subheading">Description</h4>
+<p>Restores a chain of format layers from a read stream. The layer at the
+end of the chain (the one furthest from this layer) is set to be based on the
+specified layer <code>aBase</code>, which may be NULL. This layer is set to be
+at the head of the restored chain (i.e. no other layers are based on
+it).</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> RReadStream&amp; aStream </code></td>
+<td class="Cell"><p class="ValueDesc"> Stream from which the format layer chain should be internalised. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const CFormatLayer* aBase </code></td>
+<td class="Cell"><p class="ValueDesc"> The format layer at the end of the chain (furthest from this layer). May
+be NULL. </p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

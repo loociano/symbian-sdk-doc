@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Bitmaps Overview</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="GraphicsOverview%2eBitmapsOverview%2emain"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="AnimationOverview.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="EmbeddingOverview.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Graphics</a>&nbsp;<span class="separator">&#187;</span>
+Bitmaps&nbsp;Overview</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Bitmaps Overview</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Purpose</h2>
+</div><div class="Bodytext">
+<p>Provides handling of bitmaps and bitmap devices.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Architectural relationships</h2>
+</div><div class="Bodytext">
+<p>The Bitmaps API provides concrete implementations for bitmap devices
+of the abstract drawing device and context interfaces defined in the Graphics
+API. These are normally only directly accessed by applications to draw to
+in-memory bitmaps. Applications access the screen itself through the window
+server. </p>
+<p>The API also provides handling of bitmaps themselves. These are
+stored for fast access in a shared-memory heap and are directly accessible to
+all graphics programs, and the window server. The font and bitmap server
+manages sharing of fonts and bitmaps between clients, though the client/server
+access is hidden by the API. </p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Description</h2>
+</div><div class="Bodytext">
+<p>The API has four key concepts: bitmap graphics context
+(<code>CGraphicsContext</code>), bitmap graphics
+device (<code>CBitmapDevice</code>), bitmap (<code>CFbsBitmap</code>), and
+bitmap utilities (<code>TBitmapUtil</code>).</p>
+<a name="1.5.3"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Bitmap graphics context</h3>
+</div><div class="Bodytext">
+<p>This specialises a graphics context
+(<code>CGraphicsContext</code>) for bitmaps graphics. It provides additional
+operations for clearing and copying rectangular areas, and bitmap block
+transfer. </p>
+<p>The abstract interface is defined by <code>CBitmapContext</code>.
+The Window Server Client-Side API provides one implementation,
+<code>CWindowGc</code>, used for screen drawing. Another implementation,
+<code>CFbsBitGc</code>, is used for drawing to in-memory bitmaps.</p>
+<a name="1.5.4"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Bitmap graphics device</h3>
+</div><div class="Bodytext">
+<p>This specialises a graphics device (<code>CGraphicsDevice</code>)
+for bitmaps graphics. </p>
+<p>The abstract interface is defined by <code>CBitmapDevice</code>.
+The Window Server Client-Side API provides one implementation,
+<code>CWsScreenDevice</code>, for screen drawing. Another implementation,
+<code>CFbsBitmapDevice</code>, is used for drawing to in-memory bitmaps. A
+third, <code>CFbsScreenDevice</code>, is used (rarely) to access the screen
+directly, without the mediation of the window server.</p>
+<a name="1.5.5"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Bitmap</h3>
+</div><div class="Bodytext">
+<p>The <code>CFbsBitmap</code> class provides facilities for creating, loading,
+saving, and resizing bitmaps. It is used to encapsulate bitmaps in all graphics
+operations. Bitmaps are commonly either loaded from a multi-bitmap file
+(<code class="filename">.mbm</code>) file, or created and drawn to off-screen, and then blitted
+to a window.</p>
+<p>Note that the <code>CFbsBitmap</code> format is internal to Symbian, but the <a href="../../APIReference/ImageConverter/index.html#imageconverter%2etoc">Image Converter API</a> can be used to convert them to standard formats.</p>
+<a name="1.5.6"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Bitmap utilities</h3>
+</div><div class="Bodytext">
+<p>The bitmap utilities class provides functions to operate on the
+individual bits within a bitmap. It is provided by
+<code>TBitMapUtil</code>.</p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="FontsOverview.guide.html#GraphicsOverview%2eFontsOverview%2emain">Fonts Overview</a></p>
+<p><a href="GraphicsOverview.guide.html#GraphicsOverview%2eGraphicsOverview%2emain">Graphics Overview</a></p>
+<p><a href="WindowServerClientSideOverview.guide.html#WindowServerClientSideOverview%2emain" title="Window Server Client-Side overview">Window Server Client Side Overview</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

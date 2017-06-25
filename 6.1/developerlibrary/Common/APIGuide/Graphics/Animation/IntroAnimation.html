@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Introduction to Animation</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="WindowServerGuide%2eAnimation"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="ImplementingTheClientSide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Graphics</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Animation</a>&nbsp;<span class="separator">&#187;</span>
+Introduction&nbsp;to&nbsp;Animation</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Animation</h1>
+</div><div class="Bodytext">
+<p>An animation DLL performs drawing from within the window server thread. This makes continuous updating of graphics possible, since the window server thread has high priority and is unlikely to be pre-empted by other threads. This means that animation effects which rely on continual and fast graphic updates are possible. This could be used for example to make a clock second hand sweep smoothly, and might even be exploited for video-style animations although its intended use is for drawn rather than bitmap graphics.
+</p><p>A distinction between animated graphics and animated bitmaps is worth making. The animation classes are intended primarily for line drawing based animation. Bitmaps can be animated using either the animation classes or sprites, but sprites will usually be preferred. Sprites animate arbitrary bitmaps. Typical uses are for cursors, PacMan style games, and so on. Because the window server handles much of the complexity sprites can be thought of as bulletproof. The animation classes on the other hand provide server side speed and great flexibility, but are probably a little more complex to use.</p><p>It is possible to create animation effects using ordinary window server clients, for example using active objects on the client side to schedule graphics updates, but these would suffer from the (relatively) lower priority of the client thread, and from the fact that active objects are non-pre-emptively scheduled, so that the window update might be delayed by another already-running client-side active object.
+</p>
+<p>An animation DLL also provides  accurate clock ticks.  If you worked on the client side and just required a one second timer to move the second hand on on a clock, then  drift occurs with the clock loosing very gradually.  The animation DLL provides access to timers that do not suffer from this problem.</p><p>The Animation classes form two pairs across the client/server boundary, one pair providing functions at DLL level and the other at the level of individual animation classes.
+To create an animation requires a DLL class, and a class for each animated object. More accurately, a pair of classes is required in each case, with each pair comprising one server side class and one client side class.</p><p>This general mechanism allows client/server separation while also allowing client side classes to benefit from server side privilege — in this case fast graphical updates made possible by the high priority of the server thread.
+</p><p>For efficiency reasons, it makes sense to collect multiple animation classes into a single DLL, even if they are otherwise logically quite separate classes.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to use IAS queries</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="IrDAGuide3%2ehowto%2dIAS%2dqueries"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToSetIrLAPOptions.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToIASRegistration.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Infrared</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;IrDA&nbsp;Sockets</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Advanced&nbsp;IrDA&nbsp;Sockets&nbsp;API</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;use&nbsp;IAS&nbsp;queries</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to use IAS queries</h1>
+</div><div class="Bodytext">
+<p>The following example code illustrates successive IAS queries from
+the client side and subsequent closing of the <code>RNetDatabase</code>
+instance, <code>ias</code>. Note that the <code>IASQuery()</code> function
+employs two status words (one for the timeout and the other for the query). A
+much better way of handling the asynchroneity would be to use an active
+scheduler and queue the IAS request and timer on separate active
+objects.</p>
+<p class="CodeBlock"><code>// it is assumed here that addr is filled in from a successful<br>// discovery<br>//<br>// IAS QUERY<br>//<br>&nbsp;RNetDatabase ias;<br>&nbsp;ret=ias.Open(ss,protoInfo.addrFamily,protoInfo.protocol);<br><br>&nbsp;if (ret==KErrNone)<br>&nbsp;&nbsp;{<br>&nbsp;&nbsp;// Successfully opened RNetDB<br>&nbsp;&nbsp;}<br>&nbsp;else<br>&nbsp;&nbsp;{<br>&nbsp;&nbsp;// Failed to open RNetDB<br>&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;_LIT8(KTxtDevice,&quot;Device&quot;);<br>&nbsp;_LIT8(KTxtDeviceName,&quot;DeviceName&quot;);<br>&nbsp;_LIT8(KTxtIrDAIrCOMM,&quot;IrDA:IrCOMM&quot;);<br>&nbsp;_LIT8(KTxtParameters,&quot;Parameters&quot;);<br>&nbsp;_LIT8(KTxtIrDATinyTP,&quot;IrDA:TinyTP:LsapSel&quot;);<br><br>&nbsp;TUint remDevAddr=addr.GetRemoteDevAddr();<br>&nbsp;IASQuery(ias,KTxtDevice,KTxtDeviceName,remDevAddr);<br>&nbsp;IASQuery(ias,KTxtIrDAIrCOMM,KTxtParameters,remDevAddr);<br>&nbsp;IASQuery(ias,KTxtIrDAIrCOMM,KTxtIrDATinyTP,remDevAddr); <br><br>&nbsp;ias.Close();     // Close RNetDB<br>&nbsp;...</code></p>
+<p class="CodeBlock"><code>void IASQuery(RNetDatabase &amp;aIAS,const TDesC8 &amp;aClassName,<br>&nbsp;&nbsp;const TDesC8 &amp;aAttributeName,TUint aRemDevAddr)<br>//<br>// Synchronous IAS query.  RTimer timeout of 5 seconds on the query.<br>//<br>&nbsp;{<br>&nbsp;TBuf&lt;64&gt;       res;<br>&nbsp;TIASQuery      querybuf(aClassName,aAttributeName,aRemDevAddr);<br>&nbsp;TRequestStatus stat1,stat2;<br>&nbsp;TIASResponse   results;<br><br>&nbsp;aIAS.Query(querybuf,results,stat2);<br>&nbsp;RTimer tim;<br>&nbsp;tim.CreateLocal();<br>&nbsp;tim.After(stat1,5000000L);<br>&nbsp;User::WaitForRequest(stat1,stat2);<br><br>&nbsp;if (stat1.Int()==KErrNone)          // TIMER COMPLETED - IAS QUERY <br>&nbsp;&nbsp;{                              // REQUEST HAS TIMED OUT.<br>&nbsp;&nbsp;aIAS.Cancel();<br>&nbsp;&nbsp;return;<br>&nbsp;&nbsp;} <br><br>&nbsp;else if (stat2.Int()==KErrNone)     // IAS QUERY COMPLETED OK.<br>&nbsp;&nbsp;{<br>&nbsp;&nbsp;switch(results.Type())<br>&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;case EIASDataMissing:          // Missing<br>&nbsp;&nbsp;&nbsp;break;<br><br>&nbsp;&nbsp;case EIASDataInteger:          // Integer<br>&nbsp;&nbsp;&nbsp;TInt num;<br>&nbsp;&nbsp;&nbsp;if (results.GetInteger(num)==KErrNone)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;TinyTPPort=TUint8(num);<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;else<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;// Bad type<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;break;<br><br>&nbsp;&nbsp;case EIASDataOctetSequence:     // Byte sequence<br>&nbsp;&nbsp;&nbsp;results.GetOctetSeq(res);<br>&nbsp;&nbsp;&nbsp;DumpBuf(res);<br>&nbsp;&nbsp;&nbsp;break;<br><br>&nbsp;&nbsp;case EIASDataUserString:        // String. Use<br>&nbsp;&nbsp;&nbsp;break;                     // results.GetCharString8()<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// to get string<br><br>&nbsp;&nbsp;default:                        // Bad type<br>&nbsp;&nbsp;&nbsp;break;<br>&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;tim.Cancel();<br>&nbsp;&nbsp;}<br><br>&nbsp;else if (stat2.Int()!=KErrNone)      // IAS QUERY COMPLETED <br>&nbsp;&nbsp;{                               // UNSUCCESSFULLY.<br>&nbsp;&nbsp;switch (stat2.Int())<br>&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;case KErrUnknown:               // No such attribute<br>&nbsp;&nbsp;&nbsp;break;<br><br>&nbsp;&nbsp;case KErrBadName:               // No such class<br>&nbsp;&nbsp;&nbsp;break;<br><br>&nbsp;&nbsp;default:                        // Unknown error<br>&nbsp;&nbsp;&nbsp;break;<br>&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;tim.Cancel();<br>&nbsp;&nbsp;}<br>&nbsp;else<br>&nbsp;&nbsp;{<br>&nbsp;&nbsp;tim.Cancel();                   // Unknown error on IAS query<br>&nbsp;&nbsp;}<br><br>&nbsp;};</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

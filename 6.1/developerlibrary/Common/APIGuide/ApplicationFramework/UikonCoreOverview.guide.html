@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Uikon Core overview</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="ApplicationFrameworkOverview%2eUikonOverview%2eUikonCoreOverview%2emain"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="UikonOverview.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="UikonCoreControlsOverview.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Application&nbsp;Framework</a>&nbsp;<span class="separator">&#187;</span>
+Uikon&nbsp;Core&nbsp;overview</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Uikon Core Overview</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Purpose</h2>
+</div><div class="Bodytext">
+<p>Provides the top-layer of the framework for applications, plus
+various user interface utility classes. The framework is fundamental to all GUI
+applications.</p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Architectural relationships</h2>
+</div><div class="Bodytext">
+<p>The Uikon application framework extends two lower
+frameworks:</p>
+<ul>
+<li>
+<p>the Application Architecture Framework: handles application
+start-up and accessing the application data (its <em>document</em>).
+</p>
+</li>
+<li>
+<p>UI Control Framework: provides the framework for drawing and
+handling input to screen controls</p>
+</li>
+</ul>
+<p>The Uikon Core ties these two frameworks together to provide the
+framework for the standard application design.</p>
+<p>Uikon's framework classes are extended in turn by:</p>
+<ul>
+<li>
+<p>applications, to implement appropriate behaviour for their type
+of data, and for their types of command</p>
+</li>
+<li>
+<p>possibly by device family UI libraries, to add device
+family-specific behaviour to the application framework</p>
+</li>
+</ul>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Description</h2>
+</div><div class="Bodytext">
+<p>The API has five key concepts: application (<code>CEikApplication</code>), document (<code>CEikDocument</code>), app UI (<code>CEikAppUi</code>), UI
+Environment (<code>CEikonEnv</code>), and utilities (<code>EikFileUtils</code>).</p>
+<a name="1.5.3"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Application</h3>
+</div><div class="Bodytext">
+<p>The application class defines properties of the application, such
+as UID and caption, and creates a new document.</p>
+<p>The application base class is provided by
+<a href="../../APIReference/UikonCore/class_CEikApplication.html#%3a%3aCEikApplication" title="The root of all Uikon applications"><code class="ApiItem">CEikApplication</code></a>.</p>
+<a name="1.5.4"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Document</h3>
+</div><div class="Bodytext">
+<p>The document class represents the data model for the application.
+In file-based applications, it stores and restores the application's data. It
+handles requests to edit a document by creating an app UI.</p>
+<p>The document base class is provided by
+<a href="../../APIReference/UikonCore/class_CEikDocument.html#%3a%3aCEikDocument" title="The base for all Uikon applications' documents"><code class="ApiItem">CEikDocument</code></a>.</p>
+<a name="1.5.5"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>App UI</h3>
+</div><div class="Bodytext">
+<p>The app UI is the central user interface class. It creates and
+owns controls to display the application data, and centralises handling of
+command input from standard controls such as menus and toolbars.</p>
+<p>The app UI base class is provided by
+<a href="../../APIReference/UikonCore/class_CEikAppUi.html#%3a%3aCEikAppUi" title="Handles application-wide aspects of the application's user interface such as toolbar pop-up menus, opening and closing files and exiting the application cleanly"><code class="ApiItem">CEikAppUi</code></a>, which can be customised by using the resource
+structure <code class="ApiItem">EIK_APP_INFO</code>.</p>
+<a name="1.5.6"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>UI Environment</h3>
+</div><div class="Bodytext">
+<p>The UI Environment provides a large number of assorted UI
+functionality, particularly simple access to information and query dialogs, and
+access to standard system UI resources (bitmaps and fonts). Every object in a
+GUI application can access a UI Environment (through
+<a href="../../APIReference/UikonCore/class_CEikonEnv.html#%3a%3aCEikonEnv%3a%3aStatic%28%29" title="Gets the CEikonEnv maintained by the framework for the application"><code class="ApiItem">CEikonEnv::Static()</code></a>), as a pointer to it is stored in
+thread-local storage.</p>
+<p>The UI Environment is provided by
+<a href="../../APIReference/UikonCore/class_CEikonEnv.html#%3a%3aCEikonEnv" title="An environment for creating Uikon controls and utility functions for manipulating those controls"><code class="ApiItem">CEikonEnv</code></a>.</p>
+<a name="1.5.7"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Utilities</h3>
+</div><div class="Bodytext">
+<p>Utility classes provide easy access for applications to
+frequently-used functionality. Notable are <a href="../../APIReference/UikonCore/class_EikFileUtils.html#%3a%3aEikFileUtils" title="This class provides a set of drive, path and file utility functions"><code class="ApiItem">EikFileUtils</code></a>
+for file access, and <a href="../../APIReference/UikonCore/class_EikResourceUtils.html#%3a%3aEikResourceUtils" title="This class provides utilities for reading standard resources"><code class="ApiItem">EikResourceUtils</code></a> for resource
+access.</p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="UIControlFrameworkOverview.guide.html#ApplicationFrameworkOverview%2eUIControlFrameworkOverview%2emain">UI Control Framework Overview</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

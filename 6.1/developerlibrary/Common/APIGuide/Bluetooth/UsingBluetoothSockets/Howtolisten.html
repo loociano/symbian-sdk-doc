@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to listen for connections from remote devices</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="bt%2eguide%2esockets%2elisten"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToFindAndConnectToADevice/index.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="Howtolocalname.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Bluetooth</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Bluetooth&nbsp;Sockets</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;listen&nbsp;for&nbsp;connections&nbsp;from&nbsp;remote&nbsp;devices</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>How to listen for connections from remote devices</h1>
+</div><div class="Bodytext">
+<p>For some Bluetooth profiles, a  device needs to allow remote devices to connect in.  Examples  are the Audio Gateway role in HSP, the Gateway in DUNP, or one end of a chat application.
+Like outgoing connections, incoming requests to connect from other Bluetooth devices are handled through EPOC's generic sockets API.  To receive an incoming connection, a service must open a listening socket on which it can then accept connections. The steps are given below:</p><ol><li><p>Connect to the Sockets Server and select the protocol to be used</p>
+</li><li><p>Open a socket for that protocol</p></li><li><p>Create a Bluetooth socket address object (<a href="../../../APIReference/BluetoothSockets/TBTSockAddrClass.html#%3a%3aTBTSockAddr" title="Base class for Bluetooth socket address classes"><code class="ApiItem">TBTSockAddr</code></a>) and set its port to the PSM or server channel (for L2CAP or RFCOMM respectively) and bind the socket to this address. Note you do not have to set the local Bluetooth device address in the address.</p></li><li><p>Tell the socket to listen for incoming connections using <a href="../../../APIReference/SocketsClient/RSocketClass.html#%3a%3aRSocket%3a%3aListen%28%29" title="Sets up a socket to listen for incoming connections"><code class="ApiItem">RSocket::Listen()</code></a>.</p></li><li><p>Create a blank socket and pass it to the listening socket through <a href="../../../APIReference/SocketsClient/RSocketClass.html#%3a%3aRSocket%3a%3aAccept%28%29" title="Facilitates a client/server connection from a remote socket"><code class="ApiItem">RSocket::Accept()</code></a>.  When this call completes, the socket passed in a parameter is now fully connected and can be used to send and receive data.  The listening socket remains in place, ready for another socket to be passed in when the program can handle another connection.</p></li></ol><p>When the receiver wishes to shutdown, it must ensure that it closes the listening socket as well as any connected ones.</p><p>Before accepting incoming connections, you may need to set the security requirements for incoming connections to the service, as described in <a href="../UsingSecurityManager/index.html#bt%2eguide%2esecman%2eindex">Using Bluetooth Security Manager</a>, and advertise the service's availability, explained in <a href="../UsingServiceDiscoveryDatabase/index.html#bt%2eguide%2esdp%2ddb%2eindex">Using Bluetooth Service Discovery Database</a>.</p><h4 class="subheading">Example</h4><p class="CodeBlock"><code>// 1. Connect to the socket server<br>RSocketServ socketServ;<br>socketServ.Connect();<br>TProtocolDesc pInfo;<br>_LIT(KL2Cap, &quot;L2CAP&quot;); // or RFCOMM as appropriate<br><br>// 2. Open a socket<br>RSocket listen;<br>listen.Open(ss,KL2Cap);<br><br>// 3. Set up address object<br>TBTSockAddr addr;<br>addr.SetPort(KListeningPSM);<br>User::LeaveIfError(listen.Bind(addr));<br><br>// 4. Begin to listen<br>User::LeaveIfError(listen.Listen(2));<br><br>// 5. Wait for connection<br>RSocket accept;<br>TRequestStatus status;<br>User::LeaveIfError(accept.Open(socketServ));<br>listen.Accept(accept,status);<br>User::WaitForRequest(status);<br><br>// if status == KErrNone, accept is now fully connected</code></p><h4 class="subheading">Notes</h4><p>If the channel is already in use, as indicated if <code>Bind()</code> returns an error, you can find a free channel using the <a href="../../../APIReference/BluetoothSockets/ConstantsRFCOMMOptions.html#%3a%3aKRFCOMMGetAvailableServerChannel" title="Gets the next available RFCOMM server channel, for use before binding an address to an RFCOMM socket intended for listening"><code class="ApiItem">KRFCOMMGetAvailableServerChannel</code></a> ioctl.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

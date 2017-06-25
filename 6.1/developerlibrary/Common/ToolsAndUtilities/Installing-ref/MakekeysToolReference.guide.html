@@ -1,0 +1,199 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Certification Generator syntax: makekeys.exe</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="Installing%2dref%2emakekeys%2dsyntax"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="MakesisToolReference.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="PackageFileFormatReference.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Installation&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+Certification&nbsp;Generator&nbsp;syntax:&nbsp;makekeys.exe</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Certification Generator syntax:  <code class="filename">makekeys.exe</code></h1>
+</div><div class="Bodytext">
+<a name="1.3"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Purpose</h2>
+</div><div class="Bodytext">
+<p>The Certification Generator is a PC based command line tool which creates a private/public key pair and issues certificate requests. The resultant private key is used to digitally sign installation files, enabling the install system to authenticate them. It carries out the following tasks:</p>
+<ul><li><p>Creation of a private/public key pair, where the public key is in the form of a self signed certificate.</p></li>
+<li><p>Construction of a certificate request.</p></li>
+<li><p>Optional viewing of certificate details.</p></li>
+</ul><a name="1.3.4"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>See also </h3>
+</div><div class="Bodytext">
+<p><a href="PackageFileFormatReference.guide.html#Installing%2dref%2epkg%2dformat">Package file format .pkg</a></p>
+<a name="1.4"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Command line syntax</h2>
+</div><div class="Bodytext">
+<a name="1.4.2"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Create a private key and self signed certificate</h3>
+</div><div class="Bodytext">
+<p><code>makekeys -cert [-v] [-len</code>
+<code>key-length</code><code> ] [-password</code>
+<code>password</code><code> ] -dname</code>
+<code>distinguished-name-string private-key-file public-key-cert</code></p>
+<p>For example:</p>
+<p class="CodeBlock"><code>makekeys -cert -dname &quot;CN=Symbian OU=Development OR=Symbian Ltd CO=GB&quot; mykey.key mycert.cer</code></p>
+<a name="1.4.2.5"></a><h4>Note:</h4>
+<ul><li><p>The Certification Generator uses a mouse input mechanism to generate the private key. The <code class="filename">MSDOS</code> property <code class="ProgramOutput">QuickEdit</code> must be turned off in order for sampling of random data from the mouse to work. </p></li>
+</ul><a name="1.4.3"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Create a certificate request given a self-signed certificate. </h3>
+</div><div class="Bodytext">
+<p><code>makekeys&#0160;&#8211; req [-v][-password</code>
+<code>password</code><code>]</code>
+<code>-dname </code>
+<code>distinguished-name-string private-key-file public-key-cert</code>
+<code>cert-request-file</code></p>
+<p>For example:</p>
+<p class="CodeBlock"><code>&#8211;makekeys req -dname &quot;CN=Symbian OU=Development OR=Symbian Ltd CO=GB&quot; mykey.key mycert.cer myreq.p10</code></p>
+<p>It is then up to the developer to send the certificate request to be signed by a trusted third party, i.e. a Certificate Authority.  The CA uses various means to establish that the originator of the certificate request is who they claim to be. The developer&#8217;s public key is signed by the CA, using the CA&#8217;s private key, creating a certificate, which is then sent back to the applicant. The CA may return a single certificate, or a file containing a chain of certificates.</p>
+<p>It is important that certificates returned by CA's are in the base64 encoded ASCII format.  The Certification Generator generates base 64 encoded certificate files and expects certificates which come back from a CA to be in the same format.</p>
+<p>The CA may return a file containing a certificate chain.  These are supported, and are needed if intermediate certificates are required between the CA&#8217;s root certificate on the EPOC device and the developer certificate. </p>
+<a name="1.4.4"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>View certificate details</h3>
+</div><div class="Bodytext">
+<p><code>makekeys&#0160;&#8211; view </code><code>public-key-cert</code></p>
+<p>Displays details of a certificate or certificate chain file. The <code>-view</code> command should be used with an existing certificate file (which should be in base 64 encoded format).</p>
+<p>For example:</p>
+<p class="CodeBlock"><code>makekeys&#0160;&#8211; view mycert.cer</code></p>
+<a name="1.4.5"></a></div><div class="Head3">
+<hr size="1" noshade>
+<h3>Arguments</h3>
+</div><div class="Bodytext">
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+<p><code>-cert</code></p>
+</td>
+<td class="Cell">
+<p>Create the private key (<code>private-key-file</code>) and self signed certificate (<code>public-key-cert</code>).  If the private key file already exists it will be used to create the self signed certificate.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>-req</code></p>
+</td>
+<td class="Cell">
+<p>Create a certificate request.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>-view</code></p>
+</td>
+<td class="Cell">
+<p>View certificate details.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>-<code>v</code></p>
+</td>
+<td class="Cell">
+<p>Verbose mode&nbsp;&#8212; displays additional diagnostic information.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>-<code>dname</code><code> distinguished-name-string</code></p>
+</td>
+<td class="Cell">
+<p>The <code>distinguished-name-string</code> specifies the distinguished name parameters required for the self-signed public key certificate file. This command line option should be constructed of a string of white space separated key/value pairs as follows:</p>
+<ul><li><p><i>CN</i>=common name</p></li>
+<li><p><i>OU</i>=organisational unit</p></li>
+<li><p><i>OR</i>=organisation</p></li>
+<li><p><i>LO=</i>locality</p></li>
+<li><p><i>ST=</i>state</p></li>
+<li><p><i>CO=</i>country</p></li>
+<li><p><i>EM=</i>e-mail address</p></li>
+</ul></td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>-<code>password</code><code> password</code></p>
+</td>
+<td class="Cell">
+<p>Password (optional).  After creation, the <code>password</code> must be supplied to subsequently use the private key.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>-<code>len </code><code>key-length</code></p>
+</td>
+<td class="Cell">
+<p>The <code>key-length</code>. The minimum is 512, maximum is 4096. The key length defaults to 1024.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>private-key-file </code></p>
+</td>
+<td class="Cell">
+<p>The file containing the private key. The private key should kept secret by the developer, whereas the public key is usually made generally available. Has a <code class="filename">.key</code> extension</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><code>public-key-cert</code></p>
+</td>
+<td class="Cell">
+<p>A self-signed certificate containing the public key. Has a <code class="filename">.cer</code> extension</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p><i>cert-request-file</i></p>
+</td>
+<td class="Cell">
+<p>A self-contained file which is sent to the CA. The Certification Generator will create this file given a private and public key. It is then up to the developer to send the file to the CA and arrange for the application for the certificate. Has a <code class="filename">.p10</code> extension.</p>
+</td>
+</tr>
+</table></td></tr></table>
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

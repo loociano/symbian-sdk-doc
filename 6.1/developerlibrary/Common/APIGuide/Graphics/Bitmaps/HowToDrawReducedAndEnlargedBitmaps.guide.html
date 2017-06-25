@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to draw reduced and enlarged bitmaps</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="BitmapsGuide%2estretch%2dcompress%2dbitmaps%2dexample"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToDrawBitmaps.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToCreateAndDrawToOffScreen.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Graphics</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Bitmaps</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;draw&nbsp;reduced&nbsp;and&nbsp;enlarged&nbsp;bitmaps</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to draw reduced and enlarged bitmaps</h1>
+</div><div class="Bodytext">
+<p>The bitmap blitting functions of the bitmapped graphics context
+(<code>CBitmapContext</code>) cannot be used to perform scaling of the bitmap,
+but always draws the bitmap using its dimensions in pixels. The overloaded GDI
+<code>CGraphicsContext::DrawBitmap()</code> function, however, can be used to
+draw a bitmap:</p>
+<ul>
+<li>
+<p>stretched or compressed to a set size in twips</p>
+</li>
+<li>
+<p>stretched and/or compressed to fit a given rectangle</p>
+</li>
+</ul>
+<p>Note that <code>DrawBitmap()</code> is slower than
+<code>BitBlt()</code>, so <code>BitBlt()</code> should be used in preference
+wherever possible.</p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Draw a bitmap at a set size in twips</h2>
+</div><div class="Bodytext">
+<p>A bitmap can have a real world size in twips set for it, and be
+drawn scaled that size.</p>
+<ol>
+<li>
+<p>Construct a <code>TSize</code> with the required dimensions in
+twips.</p>
+</li>
+<li>
+<p>Set the size of the bitmap using
+<code>CFbsBitmap::SetSizeInTwips()</code>. The default size in twips of a
+bitmap when loaded is <code>(0,0)</code>.</p>
+</li>
+<li>
+<p>Draw the bitmap using <code>DrawBitmap()</code></p>
+</li>
+</ol>
+<p>The example assumes <code>bitmap</code> is a pointer to a valid
+<code>CFbsBitmap</code>.</p>
+<p class="CodeBlock"><code>// Set twips size <br>TSize bmpSizeInTwips(2000,2000);<br>bitmap-&gt;SetSizeInTwips(bmpSizeInTwips);<br>gc.DrawBitmap(TPoint(50,50), bitmap);</code></p>
+<a name="1.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Draw a bitmap in a given rectangle</h2>
+</div><div class="Bodytext">
+<p><code>DrawBitmap()</code> can also draw a bitmap by stretching it to
+fit a given rectangle. </p>
+<p>The example assumes <code>bitmap</code> is a pointer to a valid
+<code>CFbsBitmap</code>.</p>
+<p class="CodeBlock"><code>// Draw bitmap stretched from the origin to 100,100<br>TRect rect(0,0,100,100);<br>gc.DrawBitmap(rect, bitmap);</code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

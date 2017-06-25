@@ -1,0 +1,187 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>MFileManObserver</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CFileManClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="RDirClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">File&nbsp;Server&nbsp;Client&nbsp;Side</a>&nbsp;<span class="separator">&#187;</span>
+MFileManObserver</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>f32file.h</code>
+<br>Link against: <code>efsrv.lib</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aMFileManObserver"></a>
+
+<h1>Class <code>MFileManObserver</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>MFileManObserver</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Notification of the progress of synchronous or asynchronous file
+management operations&nbsp;&#8212; interface class. It should be inherited
+by classes which implement this protocol.</p>
+<p>The enquiry functions provided by <code>CFileBase</code> and
+<code>CFileMan</code> may be used by the observer to display information about
+the progress of the operation such as error messages, the names of the target
+and destination files, and the number of bytes transferred during a copy
+operation. Notification may take place before or after an entry has been
+processed, or during a file copy or move. Each notification function returns a
+value which can be used to enable the user to control the progress of the
+operation, for instance to cancel a long-running multiple file copy. To use
+this class, pass a pointer to an instance of the class to the
+<code>CFileMan</code> constructor, or use <code>SetObserver()</code>, defined
+in <code>CFileBase</code>.</p><p>Defined in <code>MFileManObserver</code>:
+<br><code class="ApiItem"><a href="MFileManObserverClass.html#%3a%3aMFileManObserver%3a%3aEAbort" title="Abort operation, causes function to return KErrCancel">EAbort</a></code>, <code class="ApiItem"><a href="MFileManObserverClass.html#%3a%3aMFileManObserver%3a%3aECancel" title="Cancel processing current entry">ECancel</a></code>, <code class="ApiItem"><a href="MFileManObserverClass.html#%3a%3aMFileManObserver%3a%3aEContinue" title="Proceed with current or next entry">EContinue</a></code>, <code class="ApiItem"><a href="MFileManObserverClass.html#%3a%3aMFileManObserver%3a%3aERetry" title="Retry processing previous entry">ERetry</a></code>, <code class="ApiItem"><a href="MFileManObserverClass.html#%3a%3aMFileManObserver%3a%3aNotifyFileManEnded%28%29" title="Notifies immediately after a directory entry has been processed">NotifyFileManEnded()</a></code>, <code class="ApiItem"><a href="MFileManObserverClass.html#%3a%3aMFileManObserver%3a%3aNotifyFileManOperation%28%29" title="Notifies during a file copy or move">NotifyFileManOperation()</a></code>, <code class="ApiItem"><a href="MFileManObserverClass.html#%3a%3aMFileManObserver%3a%3aNotifyFileManStarted%28%29" title="Notifies immediately before each entry is processed">NotifyFileManStarted()</a></code>, <code class="ApiItem"><a href="MFileManObserverClass.html#%3a%3aMFileManObserver%3a%3aTControl" title="Control for current CFileMan operation">TControl</a></code>
+</p>
+<a name="2.5"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>File management notification</h2>
+</div><div class="Bodytext">
+<a name="2.5.2"></a></div><div class="Head3">
+<a name="%3a%3aMFileManObserver%3a%3aNotifyFileManStarted%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NotifyFileManStarted()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TControl NotifyFileManStarted();</code></p><h4 class="subheading">Description</h4>
+<p>Notifies immediately before each entry is
+processed.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TControl</code></td>
+<td class="Cell"><p class="ValueDesc"><code>MFileManObserver::EContinue</code> proceeds with
+processing the current file, <code>MFileManObserver::ECancel</code> skips
+processing the current file, moving to the next file,
+<code>MFileManObserver::EAbort</code> aborts the entire operation.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.5.3"></a></div><div class="Head3">
+<a name="%3a%3aMFileManObserver%3a%3aNotifyFileManOperation%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NotifyFileManOperation()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TControl NotifyFileManOperation();</code></p><h4 class="subheading">Description</h4>
+<p>Notifies during a file copy or move. Large files are copied and
+moved in stages. After each portion of the source file has been copied to the
+target, this function is called.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>It may be useful to call
+<code>CFileMan::BytesTransferredByCopyStep()</code> from this function to
+retrieve the current status of the operation.</p>
+</li>
+</ul><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TControl</code></td>
+<td class="Cell"><p class="ValueDesc"><code>MFileManObserver::ECancel</code> stops the operation,
+closing the source and target files. The current target file is not deleted.
+<code>MFileManObserver::EContinue</code> continues with the operation.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.5.4"></a></div><div class="Head3">
+<a name="%3a%3aMFileManObserver%3a%3aNotifyFileManEnded%28%29"></a>
+<hr size="1" noshade>
+<h3><code>NotifyFileManEnded()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TControl NotifyFileManEnded();</code></p><h4 class="subheading">Description</h4>
+<p>Notifies immediately after a directory entry has been
+processed.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>It may be useful to call <code>CFileBase::GetLastError()</code>
+and <code>GetMoreInfoAboutError()</code> from this function to retrieve
+information about how the operation ended.</p>
+</li>
+</ul><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TControl</code></td>
+<td class="Cell"><p class="ValueDesc"><code>EContinue</code> and <code>ECancel</code> proceed with
+processing the next entry, <code>ERetry</code> re-attempts to process the
+previous file, <code>EAbort</code> aborts the entire operation.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Enumerations</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aMFileManObserver%3a%3aTControl"></a>
+<hr size="1" noshade>
+<h3>Enum <code>TControl</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TControl</code></p><h4 class="subheading">Description</h4>
+<p>Control for current CFileMan operation.</p><table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aMFileManObserver%3a%3aEContinue"><code class="Value">EContinue</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Proceed with current or next entry</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aMFileManObserver%3a%3aERetry"><code class="Value">ERetry</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Retry processing previous entry</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aMFileManObserver%3a%3aEAbort"><code class="Value">EAbort</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Abort operation, causes function to return
+KErrCancel.</para></p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><a name="%3a%3aMFileManObserver%3a%3aECancel"><code class="Value">ECancel</code></a></td>
+<td class="Cell"><p class="ValueDesc">
+<para>Cancel processing current entry</para></p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

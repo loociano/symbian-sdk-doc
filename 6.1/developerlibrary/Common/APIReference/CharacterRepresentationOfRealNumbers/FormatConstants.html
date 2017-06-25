@@ -1,0 +1,221 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Constants</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="CharacterRepresentationOfRealNumbers%2econstants"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="TRealFormatClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Character&nbsp;Representation&nbsp;of&nbsp;Real&nbsp;Numbers</a>&nbsp;<span class="separator">&#187;</span>
+Constants</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>e32std.h</code>
+</p>
+
+</div><div class="Head1">
+
+<h1>Constants</h1>
+</div><div class="Bodytext">
+<h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Constants which define the format of the character representation
+of a real number.</p>
+<p>These values are set into the <code>iType</code> data member of
+<code>TRealFormat</code>.</p>
+<a name="2.5"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Format types</h2>
+</div><div class="Bodytext"><h4 class="subheading">Description</h4>
+<p>These constants define the general format of the character
+representation of a real number. The <code>iType</code> data member of
+<code>TRealFormat</code> is set to one of these:</p>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="TRealFormatClass.html#%3a%3aTRealFormat" title="Defines the character representation of a real number type such as a TReal or a TRealX"><code class="ApiItem">TRealFormat</code></a></li>
+</ul>
+<a name="2.5.4"></a></div><div class="Head3">
+<a name="%3a%3aKRealFormatFixed"></a>
+<hr size="1" noshade>
+<h3><code>KRealFormatFixed</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const TInt KRealFormatFixed</code></p><h4 class="subheading">Description</h4>
+<p>The real number is converted to fixed format which has the
+general pattern: &quot;nnn.ddd&quot;, where nnn is the integer portion and ddd is the
+decimal portion. A negative value is prefixed by a minus sign.</p>
+<p>The number of decimal places generated is defined by the
+value of <code>TRealFormat::iPlaces</code>. Trailing zeroes are generated as
+required. If necessary, the decimal portion is rounded to fit the
+specification. If this value is zero, no decimal point and no decimal portion
+is generated.</p>
+<p>Triad separation is available&nbsp;&#8212; defined by
+<code>TRealFormat::iTriad</code> and <code>TRealFormat::iTriLen</code>.</p>
+<p>(N.B. a zero value is converted either to the form &quot;0.000...&quot;
+with <code>iPlaces</code> '0' characters after the decimal point, if
+<code>iPlaces</code> is greater than zero, or to &quot;0&quot; if <code>iPlaces</code> is
+zero.)</p>
+<a name="2.5.5"></a></div><div class="Head3">
+<a name="%3a%3aKRealFormatExponent"></a>
+<hr size="1" noshade>
+<h3><code>KRealFormatExponent</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const TInt KRealFormatExponent</code></p><h4 class="subheading">Description</h4>
+<p>The real number is converted to scientific format with one
+non-zero digit before the decimal point and a number of digits after the
+decimal point. Hence the number has the general pattern: &quot;n.dddE+ee&quot; or
+&quot;n.dddE-ee&quot;, or &quot;n.dddE+eee&quot; or &quot;n.dddE-eee&quot;.</p>
+<p>The decimal portion is followed by the character 'E', a sign
+('+' or '-') and the exponent as two digits, including leading zeroes, if
+necessary. If necessary, the decimal portion is rounded. </p>
+<p>A negative value is prefixed by a minus sign.</p>
+<p>If the flag <code>KUseSigFigs</code> is not set,
+<code>TRealFormat::iPlaces</code> defines the number of digits which follow the
+decimal point. If the flag <code>KUseSigFigs</code> is set,
+<code>iPlaces</code> defines the maximum number of significant digits to be
+generated.</p>
+<p>Note that, by default, exponents are limited to two digits.
+Those numbers that require three digits must have the flag
+<code>KAllowThreeDigitExp</code> set. If <code>iPlaces</code> is zero, the
+value is rounded to one digit of precision and no decimal point is
+included.</p>
+<p>Triad separation is not available.</p>
+<p>(N.B. a zero value is converted either to the form
+&quot;0.000...E+00&quot; with <code>iPlaces</code> '0' characters after the decimal
+point, if <code>iPlaces</code> is greater than zero, or to &quot;0E+00&quot; if
+<code>iPlaces</code> is zero.)</p>
+<a name="2.5.6"></a></div><div class="Head3">
+<a name="%3a%3aKRealFormatGeneral"></a>
+<hr size="1" noshade>
+<h3><code>KRealFormatGeneral</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const TInt KRealFormatGeneral</code></p><h4 class="subheading">Description</h4>
+<p>The real number is converted either to fixed or scientific
+format. The format chosen is the one which can present the greater number of
+significant digits. Where both formats can present the same number of
+significant digits, fixed format is used.</p>
+<p>The number of decimal places generated depends only on the
+value of <code>TRealFormat::iWidth</code>; the value of the
+<code>iPlaces</code> member is ignored.</p>
+<p>Trailing zeroes in the decimal portion are discarded.</p>
+<p>Triad separation is not available.</p>
+<p>(N.B. a zero value is converted to &quot;0&quot;)</p>
+<a name="2.5.7"></a></div><div class="Head3">
+<a name="%3a%3aKRealFormatNoExponent"></a>
+<hr size="1" noshade>
+<h3><code>KRealFormatNoExponent</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const TInt KRealFormatNoExponent</code></p><h4 class="subheading">Description</h4>
+<p>The same as <code>KRealFormatFixed</code> but the
+<code>TRealFormat::iPlaces</code> is interpreted as specifying the maximum
+number of significant digits.</p>
+<p>Trailing zeroes in the decimal portion are
+discarded.</p>
+<a name="2.5.8"></a></div><div class="Head3">
+<a name="%3a%3aKRealFormatCalculator"></a>
+<hr size="1" noshade>
+<h3><code>KRealFormatCalculator</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const TInt KRealFormatCalculator</code></p><h4 class="subheading">Description</h4>
+<p>The same as <code>KRealFormatGeneral</code> but
+<code>TRealFormat::iPlaces</code> is interpreted as specifying the maximum
+number of significant digits, and the number is displayed without an exponent
+whenever possible.</p>
+<p>Trailing zeroes in the decimal portion are
+discarded.</p>
+<a name="2.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Format flags</h2>
+</div><div class="Bodytext"><h4 class="subheading">Description</h4>
+<p>These flags modify the format of the character representation
+of a real number as defined by the format types. One of more of these flags
+should be set into the <code>iType</code> data member of
+<code>TRealFormat</code> after setting one of the format
+types.</p>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aKExtraSpaceForSign"></a>
+<hr size="1" noshade>
+<h3><code>KExtraSpaceForSign</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const TInt KExtraSpaceForSign</code></p><h4 class="subheading">Description</h4>
+<p>This flag reduces the effective width by one character. This
+forces a large enough value for <code>TRealFormat::iWidth</code> to be chosen
+to guarantee that positive and negative numbers can be shown to the same
+precision.</p>
+<p>Applies when <code>TRealFormat::iType</code> is set to
+<code>KRealFormatFixed</code> or
+<code>KRealFormatGeneral</code>.</p>
+<a name="2.6.4"></a></div><div class="Head3">
+<a name="%3a%3aKAllowThreeDigitExp"></a>
+<hr size="1" noshade>
+<h3><code>KAllowThreeDigitExp</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const TInt KAllowThreeDigitExp</code></p><h4 class="subheading">Description</h4>
+<p>Setting this flag allows an exponent to be formatted whose
+magnitude is greater than 100. If this flag is not set, an attempt to format
+such a number fails.</p>
+<p>If set, three digit exponents are allowed. If not set, only
+two digit exponents are allowed.</p>
+<p>Applies when <code>TRealFormat::iType</code> is set
+to<code>KRealFormatExponent</code>
+or<code>KRealFormatGeneral</code>.</p>
+<a name="2.6.5"></a></div><div class="Head3">
+<a name="%3a%3aKDoNotUseTriads"></a>
+<hr size="1" noshade>
+<h3><code>KDoNotUseTriads</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const TInt KDoNotUseTriads</code></p><h4 class="subheading">Description</h4>
+<p>Disables triad separation.</p>
+<p>Applies when <code>TRealFormat::iType</code> is set
+to<code>KRealFormatFixed</code>or<code>KRealFormatNoExponent</code>.</p>
+<a name="2.6.6"></a></div><div class="Head3">
+<a name="%3a%3aKGeneralLimit"></a>
+<hr size="1" noshade>
+<h3><code>KGeneralLimit</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const TInt KGeneralLimit</code></p><h4 class="subheading">Description</h4>
+<p>If set, this flag limits the precision to
+<code>KPrecisionLimit</code> digits. If not set, the precision defaults to
+<code>KMaxPrecision</code> digits.</p>
+<a name="2.6.7"></a></div><div class="Head3">
+<a name="%3a%3aKUseSigFigs"></a>
+<hr size="1" noshade>
+<h3><code>KUseSigFigs</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>const TInt KUseSigFigs</code></p><h4 class="subheading">Description</h4>
+<p>If set, the <code>TRealFormat::iPlaces</code> member is
+interpreted as the maximum number of significant digits to be generated.</p>
+<p>Applies when <code>TRealFormat::iType</code> is set
+to<code>KRealFormatExponent</code>.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

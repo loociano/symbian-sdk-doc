@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to use a change notifier</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="NotificationServicesGuide%2ehow%2dto%2echange"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="Notifier.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToThreadDeath.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Inter&nbsp;Process&nbsp;Communciation</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Notification&nbsp;Services</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;use&nbsp;a&nbsp;change&nbsp;notifier</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to use a change notifier</h1>
+</div><div class="Bodytext">
+<p>To use a change notifier, a thread:</p>
+<ul>
+<li>
+<p>constructs an <code>RChangeNotifier</code> handle and then calls
+its <code>Create()</code> member function to create the associated Kernel side
+object. The <code>RChangeNotifier</code> handle is
+<em>thread-relative</em> which means that the handle is
+closed if the thread dies. </p>
+</li>
+<li>
+<p>issues a request to be notified when the next change occurs,
+passing a <code>TRequestStatus</code> object. This is a call to the
+<code>Logon()</code> function.</p>
+</li>
+</ul>
+<p>When a change occurs, the change information is made available to the
+thread through the <code>TRequestStatus</code> object and the thread's
+<em>request semaphore</em> is signalled to indicate that
+the request is complete.</p>
+<p>The following code fragments demonstrates this:</p>
+<p class="CodeBlock"><code>{<br>...<br>RChangeNotifier the_notifier;<br>TRequestStatus  the_status;<br>...<br>the_notifier.Create();<br>the_notifier.Logon(the_status);<br>User::WaitForRequest(the_status);<br>...<br>...// prepare for a long wait<br>...<br>TInt changes = the_status.Int();<br>if (changes &amp; EChangesSystemTime)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;// handle a change to system time<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>if (changes &amp; EChanges EChangesLocale)<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;// handle a change to locale<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>...<br>the_notifier.Close();<br>...<br>}</code></p>
+<p>In practical code, an <code>RChangeNotifier</code> would be part of
+an active object.</p>
+<p>The <code>RChangeNotifier</code> handle also offers the
+<code>LogonCancel()</code> function. Calling this function, causes the thread's
+<em>request semaphore</em> to be signalled and any wait
+to complete. The <code>TRequestStatus</code> is set to
+<code>KErrCancel</code>.</p>
+<p>The above technique for checking changes is used because, at the
+completion of a notification request, any, or all, changes may be reported.
+Code should make no assumptions about the other bits in the returned value. In
+other words, code should be prepared for a notification request to complete
+without an 'interesting' change.</p>
+<p>Users should also note that the <em>first</em> notification
+request <em>after</em> creation of an <code>RChangeNotifier</code>,
+completes <em>immediately</em>; the changes reported are <em>all</em>
+those defined by the <code>TChanges</code> enum.</p>
+<p>Also note that after a notification request completes, other changes
+may occur before the user of the <code>RChangeNotifier</code> can issue the
+next notification request. If this occurs, any change events are collected by
+the change notifier; they are not lost; in this situation, the next
+notification request completes immediately.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

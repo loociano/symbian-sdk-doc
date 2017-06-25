@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Error codes</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="InterfaceToDBMSDatabasesGuide%2eerror%2dcodes"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="DatabaseCompression.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="Transactions.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">DBMS</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Interface&nbsp;to&nbsp;DBMS&nbsp;databases</a>&nbsp;<span class="separator">&#187;</span>
+Error&nbsp;codes</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Error codes</h1>
+</div><div class="Bodytext">
+<p>The Store database makes full use of file store functionality, and  any errors produced by <code>CPermanentFileStore</code>, its stream objects and particularly the underlying file system may be returned by a DBMS function where indicated. Also many of the functions require memory to be dynamically allocated, and so can fail with <code>KErrNoMemory</code>.</p>
+<p>The errors returned by DBMS functions are mostly documented with those functions. There are a few general errors which can be returned by most of the API to indicate certain states that the database or rowsets have encountered.</p>
+<ul><li><p><code>KErrAccessDenied</code> - The database cannot mix data definition and data manipulation, or combine them in a single transaction. i.e.</p><ul><li><p>
+A rowset or data manipulation transaction is open on the database when attempting data definition or
+recovery.</p></li><li><p>
+A data definition transaction is still open when attempting to create a rowset.
+</p></li><li><p>Any incremental operation is open on the database.</p></li></ul><p><code> KErrDied</code> - A transaction has been aborted, because an update or commit failed. In this state, the database and all
+associated rowsets become unusable. In this situation, all rowsets which are currently updating or inserting a
+row must be cancelled, and, if the transaction was begun explicitly, it must be rolled back. The database is
+now ready for use again.</p></li><li><p><code>KErrNotReady</code> - This is returned by all rowsets following a rollback on the database. The rowset is invalid and must at least be
+reset and re-evaluated if necessary, but can be closed and re-opened if preferred.</p></li><li><p><code>KErrCorrupt</code> - 	This is returned when an attempt is made to use an index which has been damaged due to a rollback. Rowsets
+which were using such an index  fail on the first attempt to navigate their cursor. The database continues
+to be operational, but must be recovered to regain use of damaged indexes.</p><p>This can also be returned in the unlikely event that corruption is detected in any of the streams which make
+up the database. Such damage cannot have been caused by DBMS itself, and cannot be repaired.</p></li></ul>
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

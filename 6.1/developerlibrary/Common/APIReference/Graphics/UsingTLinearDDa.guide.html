@@ -1,0 +1,455 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Using TLinearDDA</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="graphics%2eusing%2dTLinearDDA"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="GraphicsMacros.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="UsingTRect.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Graphics</a>&nbsp;<span class="separator">&#187;</span>
+Using&nbsp;TLinearDDA</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Using TLinearDDA</h1>
+</div><div class="Bodytext">
+<p>These examples show how the TLinearDDA functions are used to obtain
+the pixels which most closely correspond to a line's specified start and
+end points.</p>
+<p>Line A has a start point (3,10) and end point (22,6). The x-delta is
+therefore 22-3+1=20. The y-delta is 10-6+1=5. 5 goes into 20 exactly four
+times, so each step of the pixel line has four pixels in it.</p>
+<div class="Figure">
+<p class="Image"><img src="LDDA.gif" alt=""  border="0"></p>
+</div>
+<p><code>SingleStep()</code> begins with <code>aPosition</code> set to
+the start pixel <code>aStart</code>. The move is in the direction from
+<code>aStart</code> to <code>aFinish</code>. Thus for line A the values given
+after each use of <code>SingleStep()</code> are: </p>
+<p>start point (3,10) </p>
+<p>second point (4,10) </p>
+<p>third point (5,10) </p>
+<p>fourth point (6,10) </p>
+<p>fifth point (7,11), etc. </p>
+<p><code>SingleScanline()</code> repeatedly moves one scan line at a
+time up/down the pixel line, giving the co-ordinates of the left most and right
+most pixels of the pixel line that are on the scan line moved to. It begins on
+the scan line containing <code>aStart</code>. The move is in the direction from
+<code>aStart</code> to <code>aFinish</code>. </p>
+<p>For line A the values given after each use of
+<code>SingleScanline()</code> are:</p>
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+</td>
+<td class="Cell">
+<p><code>aStartPosition</code>
+</p>
+</td>
+<td class="Cell">
+<p><code>aEndPosition </code></p>
+</td>
+<td class="Cell">
+<p><code>TBool</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>1.</p>
+</td>
+<td class="Cell">
+<p>start point (3,10)</p>
+</td>
+<td class="Cell">
+<p>fourth point (6,10)</p>
+</td>
+<td class="Cell">
+<p><code>EFalse </code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>2.</p>
+</td>
+<td class="Cell">
+<p>fifth point (7,9)</p>
+</td>
+<td class="Cell">
+<p>eighth point (10,9) </p>
+</td>
+<td class="Cell">
+<p><code>EFalse</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>3.</p>
+</td>
+<td class="Cell">
+<p>ninth point (11,8)</p>
+</td>
+<td class="Cell">
+<p>twelfth point (14,8)</p>
+</td>
+<td class="Cell">
+<p><code>EFalse </code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>4.</p>
+</td>
+<td class="Cell">
+<p>thirteenth point (15,7) </p>
+</td>
+<td class="Cell">
+<p>sixteenth point (18,7)</p>
+</td>
+<td class="Cell">
+<p><code>EFalse </code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>5.</p>
+</td>
+<td class="Cell">
+<p>seventeenth point (19,6) </p>
+</td>
+<td class="Cell">
+<p>finish point (22,6)</p>
+</td>
+<td class="Cell">
+<p><code>ETrue </code></p>
+</td>
+</tr>
+</table></td></tr></table>
+<p>For line B the values given after each use of
+<code>SingleScanline()</code> are:</p>
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+</td>
+<td class="Cell">
+<p><code>aStartPosition</code>
+</p>
+</td>
+<td class="Cell">
+<p><code>aEndPosition </code></p>
+</td>
+<td class="Cell">
+<p><code>TBool</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>1.</p>
+</td>
+<td class="Cell">
+<p>start point (24,17)</p>
+</td>
+<td class="Cell">
+<p>start point (24,17)</p>
+</td>
+<td class="Cell">
+<p><code>EFalse </code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>2.</p>
+</td>
+<td class="Cell">
+<p>second point (24,16)</p>
+</td>
+<td class="Cell">
+<p>second point (24,16)</p>
+</td>
+<td class="Cell">
+<p><code>EFalse </code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>3.</p>
+</td>
+<td class="Cell">
+<p>third point (24,15)</p>
+</td>
+<td class="Cell">
+<p>third point (24,15)</p>
+</td>
+<td class="Cell">
+<p><code>EFalse </code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>4.</p>
+</td>
+<td class="Cell">
+<p>fourth point (24,14)</p>
+</td>
+<td class="Cell">
+<p>fourth point (24,14)</p>
+</td>
+<td class="Cell">
+<p><code>EFalse </code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>5.</p>
+</td>
+<td class="Cell">
+<p>fifth point (25,13)</p>
+</td>
+<td class="Cell">
+<p>fifth point (25,13)</p>
+</td>
+<td class="Cell">
+<p><code>EFalse </code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>
+</p>
+</td>
+<td class="Cell">
+<p>etc.</p>
+</td>
+<td class="Cell">
+<p>etc. </p>
+</td>
+<td class="Cell">
+<p>etc.</p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>13.</p>
+</td>
+<td class="Cell">
+<p>thirteenth point (27,5) </p>
+</td>
+<td class="Cell">
+<p>thirteenth point (27,5)</p>
+</td>
+<td class="Cell">
+<p><code>EFalse </code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>14.</p>
+</td>
+<td class="Cell">
+<p>finish point (27,4)</p>
+</td>
+<td class="Cell">
+<p>finish point (27,4)</p>
+</td>
+<td class="Cell">
+<p><code>ETrue </code></p>
+</td>
+</tr>
+</table></td></tr></table>
+<p><code>NextStep()</code> repeatedly moves along the pixel line one
+step of pixels at a time, giving the pixel coordinates of the start of each
+step. It begins on the step of pixels containing <code>aStart</code>. The move
+is in the direction from <code>aStart</code> to <code>aFinish</code>. </p>
+<p>For line A the values given after each use of <code>NextStep()</code>
+are: </p>
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+</td>
+<td class="Cell">
+<p><code>aPosition </code></p>
+</td>
+<td class="Cell">
+<p><code>TBool</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>1.</p>
+</td>
+<td class="Cell">
+<p>start point (3,10)</p>
+</td>
+<td class="Cell">
+<p><code>EFalse</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>2.</p>
+</td>
+<td class="Cell">
+<p>fifth point (7,9)</p>
+</td>
+<td class="Cell">
+<p><code>EFalse </code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>3.</p>
+</td>
+<td class="Cell">
+<p>ninth point (11,8)</p>
+</td>
+<td class="Cell">
+<p><code>EFalse</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>4.</p>
+</td>
+<td class="Cell">
+<p>thirteenth point (15,7) </p>
+</td>
+<td class="Cell">
+<p><code>EFalse</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>5.</p>
+</td>
+<td class="Cell">
+<p>seventeenth point (19,6) </p>
+</td>
+<td class="Cell">
+<p><code>EFalse</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>6.</p>
+</td>
+<td class="Cell">
+<p>finish point (22,6)</p>
+</td>
+<td class="Cell">
+<p><code>ETrue</code></p>
+</td>
+</tr>
+</table></td></tr></table>
+<p>For line B the values given after each use of <code>NextStep()</code>
+are: </p>
+<table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top">
+<td class="Cell">
+</td>
+<td class="Cell">
+<p><code>aPosition </code></p>
+</td>
+<td class="Cell">
+<p><code>TBool</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>1.</p>
+</td>
+<td class="Cell">
+<p>start point (24,17)</p>
+</td>
+<td class="Cell">
+<p><code>EFalse</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>2.</p>
+</td>
+<td class="Cell">
+<p>fifth point (25,13)</p>
+</td>
+<td class="Cell">
+<p><code>EFalse</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>3.</p>
+</td>
+<td class="Cell">
+<p>eighth point (26,10)</p>
+</td>
+<td class="Cell">
+<p><code>EFalse</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>4.</p>
+</td>
+<td class="Cell">
+<p>twelfth point (27,6)</p>
+</td>
+<td class="Cell">
+<p><code>EFalse</code></p>
+</td>
+</tr>
+<tr valign="top">
+<td class="Cell">
+<p>5.</p>
+</td>
+<td class="Cell">
+<p>finish point (27,4)</p>
+</td>
+<td class="Cell">
+<p><code>ETrue</code></p>
+</td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

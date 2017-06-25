@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Transactions on a store database</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="InterfaceToDBMSDatabasesGuide%2etransactions"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="ErrorCodes.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="Indexes.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">DBMS</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Interface&nbsp;to&nbsp;DBMS&nbsp;databases</a>&nbsp;<span class="separator">&#187;</span>
+Transactions&nbsp;on&nbsp;a&nbsp;store&nbsp;database</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Transactions on store   databases</h1>
+</div><div class="Bodytext">
+<p>As the store database, <code>RDbStoreDatabase</code>, runs completely client side and requires the user program to provide a store for its operations, isolation, concurrency and serializability are not issues for the transaction model. However, support for multiple rowsets concurrently updating the same table is provided, and the rowset cursors  attempt to maintain their current position through such (potentially conflicting) updates.</p>
+<p>Transactions on a store database do guarantee atomicity of updates. As <code>RDbStoreDatabase</code> is designed to be a small-scale relational database, it does not make sense for it to use transaction systems more suited to large server hosted databases.  Instead of using a logfile, the store database provides transaction support by using the commit and revert functionality of <code>CStreamStore</code>. If the actual store class does not support this protocol, then it cannot be used as a basis for a DBMS store database. Practically, this means that store databases are permanent file stores, i.e. <code>CPermanentFileStore</code>.</p>
+<p>Successful transaction support by <code>RDbStoreDatabase</code> requires that <em>the client must not call </em><code>CommitL</code><em>() and </em><code>Revert</code><em>() on the store while the database is open</em>. Should a client need to modify its own stream data using the store's commit/revert protocol while a database is open, it can enclose the stream operations within a database transaction, using rollback on error; this  achieves an equivalent result. Such store operations can be combined with database updates within a transaction to ensure that the separate updates are treated atomically.</p>
+<p>Committing a transaction leaves all open rowsets in a valid state. How and when updates are reflected within those rowsets depends on how they have been evaluated. </p>
+<p>Rolling back a transaction  causes all rowsets on the database to lose their current place, they must be reset and possibly re-evaluated before they can be used again: however, they do not need to be opened or prepared again.</p>
+<p>Indexes cannot be recovered easily on rollback, so they are marked as unusable, and the database is marked as damaged. Tables and untouched indexes  continue to operate as before. Recovering the database  restores the damaged indexes fully. </p>
+<p>For multiple updates, explicitly using a transaction can also reduce the time required by a factor of more than 50. It also reduces the transient store size requirement by a factor of more than 6&nbsp;&#8212; compaction of the store results in similar sizes for updates whether or not a transaction was used.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

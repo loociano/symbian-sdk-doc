@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to register a service in the database</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="bt%2eguide%2esdpdb%2eregister"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="Howtoattributes.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="Howtosetattribute.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Bluetooth</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Bluetooth&nbsp;Service&nbsp;Discovery&nbsp;Database</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;register&nbsp;a&nbsp;service&nbsp;in&nbsp;the&nbsp;database</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>How to register a service in the database</h1>
+</div><div class="Bodytext">
+<p>After the database has been opened, a service record can be created. You do this by supplying the UUID for the service class of the record. As the service class may be a single UUID or a list of UUIDs in the form of a DES, there are two overloaded functions.
+</p><p>The steps to register a service are as follows:</p><ol><li><p>Create a blank service record object, <a href="../../../APIReference/BluetoothServiceDiscoveryDatabase/TSdpServRecordHandleTypedef.html#%3a%3aTSdpServRecordHandle" title="Handle to a service record"><code class="ApiItem">TSdpServRecordHandle</code></a>.</p></li><li><p>If the service class attribute should be a single UUID, create and set a <a href="../../../APIReference/BluetoothServiceDiscoveryDatabase/TUUIDClass.html#%3a%3aTUUID" title="A Bluetooth Universally Unique Identifier"><code class="ApiItem">TUUID</code></a> object. If the attribute should be a list of UUIDs, create a attribute list object, <a href="../../../APIReference/BluetoothServiceDiscoveryDatabase/CSdpAttrValueDESClass.html#%3a%3aCSdpAttrValueDES" title="A Data element sequence (DES) value of an attribute"><code class="ApiItem">CSdpAttrValueDES</code></a> or <a href="../../../APIReference/BluetoothServiceDiscoveryDatabase/CSdpAttrValueDEAClass.html#%3a%3aCSdpAttrValueDEA" title="A Data element alternative (DEA) value of an attribute: this is an attribute whose value is a sequence of data elements from which one data element is to be selected"><code class="ApiItem">CSdpAttrValueDEA</code></a>, and call  <a href="../../../APIReference/BluetoothServiceDiscoveryDatabase/MSdpElementBuilderClass.html#%3a%3aMSdpElementBuilder%3a%3aBuildUUIDL%28%29" title="Adds a UUID element"><code class="ApiItem">MSdpElementBuilder::BuildUUIDL()</code></a> repeatedly to add UUIDs to the list.</p></li><li><p> Call <a href="../../../APIReference/BluetoothServiceDiscoveryDatabase/RSdpDatabaseClass.html#%3a%3aRSdpDatabase%3a%3aCreateServiceRecordL%28%29" title="Creates a new service record, with multiple service classes, in the SDP database"><code class="ApiItem">RSdpDatabase::CreateServiceRecordL()</code></a> on an open subsession. On return, the record handle object  holds a handle to the service record.</p></li></ol><h4 class="subheading">Example: single service class</h4><p>The following example creates a service record with a single service class.</p><p class="CodeBlock"><code>// Assumes sdpSession is an open session to the database<br>// 1. Create blank record handle<br>TSdpServRecordHandle recordHandle = 0;<br><br>// 2. Create the service class UUIDs<br>TUUID uuid(0x20000);<br><br>// 3. Enter record into the database<br>sdpSubSession.CreateServiceRecordL(uuid, recordHandle);</code></p><h4 class="subheading">Example: service class list</h4><p>The following example creates a service record with a  list of service classes.</p><p class="CodeBlock"><code>// 1. Create a blank record handle<br>TSdpServRecordHandle recordHandle = 0;<br><br>// 2. Create a list of service class UUIDs<br>CSdpAttrValueDES* UUIDlist = CSdpAttrValueDES::NewDESL(NULL);<br>CleanupStack::PushL(UUIDlist);<br>UUIDlist<br>&nbsp;&nbsp;&nbsp;&nbsp;-&gt;StartListL()<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&gt;BuildUUIDL(TUUID(TUint32(0x20002000)))<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&gt;BuildUUIDL(TUUID(TUint32(0x11112222), TUint32(0x33334444), <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TUint32(0x55556666), TUint32(0x77778888)))<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&gt;BuildUUIDL(TUUID(TUint32(0x40000)))<br>&nbsp;&nbsp;&nbsp;&nbsp;-&gt;EndListL();<br><br>// 3. Enter record into the database<br>sdpSubSession.CreateServiceRecordL(*UUIDlist, recordHandle);<br>CleanupStack::PopL(); // UUIDlist</code></p>
+<h4 class="subheading">Note</h4><p>The examples shows UUIDs of varying length. Both 16- and 32-bit integers may be used, which are assumed to be offsets from the Bluetooth base UUID.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

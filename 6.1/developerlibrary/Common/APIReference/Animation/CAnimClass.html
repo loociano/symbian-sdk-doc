@@ -1,0 +1,359 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CAnim</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="AboutAnimation.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="CAnimDllClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Animation</a>&nbsp;<span class="separator">&#187;</span>
+CAnim</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>w32adll.h</code>
+<br>Link against: <code>N/A</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aCAnim"></a>
+
+<h1>Class <code>CAnim</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CAnim</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Server side animated object base interface.</p>
+<p>Animations implement this interface, which is called by the window
+server to pass commands from clients, perform a step in the animation, or to
+pass window server events (if required) — so that the animation
+can handle them before the application.</p>
+<p>The class functions are all pure virtual, and must be implemented
+by the user in the derived class to provide server side behaviour. The
+functions will be called by the window server with optional arguments passed in
+from the client side animation class <code>RAnim</code>.</p>
+<p>ER5 developer's should derive animation classes directly
+from this class. Developers for releases after ER5,  should derive from <code>CWindowAnim</code>,
+<code>CFreeTimerWindowAnim</code> or <code>CSpriteAnim</code> —
+depending on whether the animation is to draw to a sprite or a window.</p>
+<p>The derived class is constructed in the DLL factory class
+<code>CAnimDll::CreateInstanceL()</code> function, as explained in its
+description.</p>
+<p>The operation to perform an animation step is called by the window
+server on a timer. The timing properties are set through an
+<code>MAnimGeneralFunctions</code> member, which also provides other utility
+functions. In ER5, the timer and utility functions are accessed via the
+<code>CAnimFunctions</code> member.</p><h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code>CAnim</code></td><td class="Cell">Server side animated object base interface</td>
+</tr>
+<tr><td class="Cell"><code><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase">CBase</a></code></td><td class="Cell">Base class for all classes to be instantiated on the heap</td>
+</tr>
+<tr><td class="Cell"><code><a href="MEventHandlerClass.html#%3a%3aMEventHandler">MEventHandler</a></code></td><td class="Cell">Event handler interface</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>CAnim</code>:
+<br><code class="ApiItem"><a href="CAnimClass.html#%3a%3aCAnim%3a%3aAnimate%28%29" title="Main animation function — called by the window server">Animate()</a></code>, <code class="ApiItem"><a href="CAnimClass.html#%3a%3aCAnim%3a%3aCommand%28%29" title="Implements client-side initiated commands">Command()</a></code>, <code class="ApiItem"><a href="CAnimClass.html#%3a%3aCAnim%3a%3aCommandReplyL%28%29" title="Implements client-side initiated commands, returning a value">CommandReplyL()</a></code>, <code class="ApiItem"><a href="CAnimClass.html#%3a%3aCAnim%3a%3aConstructL%28%29" title="Server side construction and initialisation of an animation class">ConstructL()</a></code>, <code class="ApiItem"><a href="CAnimClass.html#%3a%3aCAnim%3a%3aFocusChanged%28%29" title="Notifies change of focus">FocusChanged()</a></code>, <code class="ApiItem"><a href="CAnimClass.html#%3a%3aCAnim%3a%3aRedraw%28%29" title="Redraws the object">Redraw()</a></code>, <code class="ApiItem"><a href="CAnimClass.html#%3a%3aCAnim%3a%3aiFunctions" title="Pointer to a class containing functions implemented by the window server">iFunctions</a></code>, <code class="ApiItem"><a href="CAnimClass.html#%3a%3aCAnim%3a%3aiGc" title="Pointer to the graphics context">iGc</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap">CBase</a></code>:
+<br><code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase%3a%3aoperator%20new%28%29" title="Allocates the object from the heap and then initialises its contents to binary zeroes">operator new()</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="MEventHandlerClass.html#%3a%3aMEventHandler" title="Event handler interface">MEventHandler</a></code>:
+<br><code class="ApiItem"><a href="MEventHandlerClass.html#%3a%3aMEventHandler%3a%3aOfferRawEvent%28%29" title="Handles raw events">OfferRawEvent()</a></code></p>
+<a name="2.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Construction and destruction</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aCAnim%3a%3aConstructL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ConstructL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void ConstructL(TAny* aArgs, TBool aHasFocus)=0;</code></p><h4 class="subheading">Support</h4>
+<p>Withdrawn in 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Server side construction and initialisation of an animation
+class.</p>
+<p>Implementations of this function should call
+<code>CAnimFunctions::SetRect()</code> or
+<code>MAnimWindowFunctions::SetRect()</code> to inform the window server of the
+area in which the animation will be operating.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>The <code>aHasFocus</code> argument allows the animation to
+start in a known focus state. For example, an animation may or may not have
+focus, depending on how it was started. Together with the
+<code>FocusChanged()</code> function this allows an animation to always know
+its focus state.</p>
+</li>
+<li>
+<p>Post ER5, animations are not derived from
+<code>CAnim</code>, but from its derived classes: <code>CSpriteAnim</code>,
+<code>CWindowAnim</code>, <code>CFreeTimerWindowAnim</code>. As a result, the
+responsibility for the construction of animation objects, and hence this
+function, have been moved to the derived classes.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAny* aArgs</code></td>
+<td class="Cell"><p class="ValueDesc">Packaged arguments which may be required during construction.
+These are transferred from <code>aParams</code> argument of the client side
+constructor&#0160;&#8212;  <code>RAnim::Construct()</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool aHasFocus</code></td>
+<td class="Cell"><p class="ValueDesc">Specifies whether or not the animation has window server focus.
+This is set by the animation framework.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Member functions</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aCAnim%3a%3aAnimate%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Animate()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void Animate(TDateTime* aDateTime)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Main animation function — called by the window server. </p><p>The drawing
+code which implements a given animation should be provided here.</p>
+<p>This function is called at a frequency determined by the
+<code>SetSync()</code> helper function. Note that if synch is not set, then
+this function will never be called. This effect can be exploited to use the
+animation framework — with its server side speed —
+for what are strictly not animations, e.g. for streaming video images.</p>
+<p>The <code>aDateTime</code> parameter will be null if the current
+time (as determined by the window server) matches the time implied by the synch
+period, modulo normalisation, otherwise it will contain a valid
+(non-normalised) time.</p>
+<p>Normalisation is to some specified granularity, for example if
+one minute is specified as the animation frequency, then in effect the window
+server will decide whether the implied time is correct to the minute, but not
+to the second.</p>
+<p>Implied time is the time implied by the (normalised) actual time
+of the previous animation call plus the synch interval. For example if the last
+call was at time 't' and the synch interval is 1 second then if
+the time at this call is t + 1 second, then actual time and implied time match
+and the value placed into <code>aDateTime</code> will be NULL.</p>
+<p>Cases in which the two may not match include, for example, system
+time having been reset between animation calls (perhaps British Summer Time or
+other daylight saving time has just come into effect). The intention is that
+when system time changes, a mechanism is provided to alert the animation code
+and allow it to reset itself. The assumption is that somewhere in its
+initialisation code, the animation will have performed a
+<code>CAnimFunctions</code> utility call to set a base time, which is then
+implicitly tracked by incrementing by a suitable interval; when
+<code>aDateTime</code> is non-NULL after a call to <code>Animate()</code>, base
+time should be reset.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDateTime* aDateTime</code></td>
+<td class="Cell"><p class="ValueDesc">Null if the current time w.r.t. the window server matches the
+time implied by the synch period. Otherwise a valid (non-normalised)
+time.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aCAnim%3a%3aCommand%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Command()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void Command(TInt aOpcode, TAny *aArgs)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Implements client-side initiated commands. </p>
+<p>The window server calls this function in response to application
+calls to the client side command function <code>RAnim::Command()</code>. The
+arguments passed to the function by the window server are the same as were used
+on the client side function call.</p>
+<p>Because this function does not return errors, it is not safe for
+commands which might leave.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aOpcode</code></td>
+<td class="Cell"><p class="ValueDesc">Opcode understood by the class</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAny *aArgs</code></td>
+<td class="Cell"><p class="ValueDesc">Arguments packaged on the client side, for example as a struct of a
+type determined by the <code>aOpcode</code> argument. These mirror the
+<code>aArgs</code> argument passed in to <code>RAnim::Command()</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../WindowServerClientSide/RAnimClass.html#%3a%3aRAnim" title="Client-side handle to a server-side animation class"><code class="ApiItem">RAnim</code></a></li>
+</ul>
+<a name="2.7.4"></a></div><div class="Head3">
+<a name="%3a%3aCAnim%3a%3aCommandReplyL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CommandReplyL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt CommandReplyL(TInt aOpcode, TAny *aArgs)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Implements client-side initiated commands, returning a value. </p>
+<p>The window server calls this function in response to application
+calls to the client side command function <code>RAnim::CommandReplyL()</code>.
+The arguments passed to the function by the window server are the same as were
+used on the client side function call.</p>
+<p>This function returns values to the client side, and should be used
+to return error codes for commands which might leave.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aOpcode</code></td>
+<td class="Cell"><p class="ValueDesc">Opcode understood by the class.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TAny *aArgs</code></td>
+<td class="Cell"><p class="ValueDesc">Arguments packaged on the client side, for example as a struct of a
+type determined by the <code>aOpcode</code> argument. These mirror the
+<code>aArgs</code> argument passed in to
+<code>RAnim::CommandReply()</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">Value passed back to client side function when this function
+completes. Typically this would be<code> KErrNone</code> or another of the
+system-wide error codes&#0160;&#8212;  however any value may be returned to
+the client side.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../WindowServerClientSide/RAnimClass.html#%3a%3aRAnim" title="Client-side handle to a server-side animation class"><code class="ApiItem">RAnim</code></a></li>
+</ul>
+<a name="2.7.5"></a></div><div class="Head3">
+<a name="%3a%3aCAnim%3a%3aFocusChanged%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FocusChanged()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void FocusChanged(TBool aState)=0;</code></p><h4 class="subheading">Support</h4>
+<p>Withdrawn in 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Notifies change of focus. </p><p>The function is called by the window server
+to notify a change of focus — allowing the animation code to
+track whether it does or does not have focus.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>After ER5 this function moved to the derived class
+<code>CWindowAnim</code>.</p>
+</li>
+</ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool aState</code></td>
+<td class="Cell"><p class="ValueDesc">Focus has or has not changed.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.6"></a></div><div class="Head3">
+<a name="%3a%3aCAnim%3a%3aRedraw%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Redraw()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void Redraw()=0;</code></p><h4 class="subheading">Support</h4>
+<p>Withdrawn in 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Redraws the object.</p><p>The function is called by the window server when it
+needs to redraw the object — the object must provide all the low
+level drawing code.</p>
+<p>Note:</p>
+<ul>
+<li>
+<p>After ER5 this function moved to the derived class
+<code>CWindowAnim</code>.</p>
+</li>
+</ul>
+<a name="2.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Protected data members</h2>
+</div><div class="Bodytext"><h4 class="subheading">Description</h4>
+<p>These data members point to a graphics context and utility functions
+maintained by the server. They are automatically pointed to the correct
+location, by the animation framework, when this object is
+created.</p>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aCAnim%3a%3aiFunctions"></a>
+<hr size="1" noshade>
+<h3><code>iFunctions</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CAnimFunctions* iFunctions</code></p><h4 class="subheading">Support</h4>
+<p>Withdrawn in 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Pointer to a class containing functions implemented by the window server.
+These are available to any <code>CAnim</code> derived class.</p>
+<p>Note that this value is automatically set for you by the animation
+framework — you do not need to assign a value to this
+pointer.</p>
+<a name="2.8.4"></a></div><div class="Head3">
+<a name="%3a%3aCAnim%3a%3aiGc"></a>
+<hr size="1" noshade>
+<h3><code>iGc</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CAnimGc* iGc</code></p><h4 class="subheading">Support</h4>
+<p>Withdrawn in 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Pointer to the graphics context.</p>
+<p>Note that this value is automatically set for you by the animation
+framework — you do not need to assign a value to this
+pointer.</p>
+<a name="2.8.5"></a></div><div class="Head3">
+<a name="%3a%3aCAnim%3a%3aiFunctions"></a>
+<hr size="1" noshade>
+<h3><code>iFunctions</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>MAnimGeneralFunctions* iFunctions</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Pointer to a class containing functions implemented by the window server.
+These are available to any <code>CAnim</code> derived class.</p>
+<p>Note that this value is automatically set for you by the animation
+framework — you do not need to assign a value to this
+pointer.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

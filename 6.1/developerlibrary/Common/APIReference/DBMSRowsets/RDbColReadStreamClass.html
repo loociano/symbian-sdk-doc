@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>RDbColReadStream</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="AboutDBMSRowsets.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="RDbColWriteStreamClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">DBMS&nbsp;Rowsets</a>&nbsp;<span class="separator">&#187;</span>
+RDbColReadStream</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>d32dbms.h</code>
+<br>Link against: <code>edbms.lib</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aRDbColReadStream"></a>
+
+<h1>Class <code>RDbColReadStream</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>RDbColReadStream</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Allows any column value to be read as stream data.</p>
+<p>Note that this is the only way to extract the contents of a Long
+column from a rowset.</p>
+<p>Only one column in a rowset object can be opened for reading as a
+stream at a time, and while it is open no column in the same rowset object may
+be set using <code>RDbColWriteStream</code>.</p>
+<p>Null columns result in a read stream with no data. Small numeric
+columns are maintained in memory as 32-bit values; hence reading a
+<code>Uint8</code> column as a stream results in 4 bytes of stream data, not
+1.</p><h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code>RDbColReadStream</code></td><td class="Cell">Allows any column value to be read as stream data</td>
+</tr>
+<tr><td class="Cell"><code><a href="../Streaming/RReadStreamClass.html#%3a%3aRReadStream">RReadStream</a></code></td><td class="Cell">The read stream interface</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>RDbColReadStream</code>:
+<br><code class="ApiItem"><a href="RDbColReadStreamClass.html#%3a%3aRDbColReadStream%3a%3aOpenL%28%29" title="Opens the column with the specified ordinal in the specified current row in the rowset">OpenL()</a></code>, <code class="ApiItem"><a href="RDbColReadStreamClass.html#%3a%3aRDbColReadStream%3a%3aOpenLC%28%29" title="Opens the column with the specified ordinal in the specified current row in the rowset and puts a pointer to the column on the cleanup stack">OpenLC()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../Streaming/RReadStreamClass.html#%3a%3aRReadStream" title="The read stream interface">RReadStream</a></code>:
+<br><code class="ApiItem"><a href="../Streaming/RReadStreamClass.html#%3a%3aRReadStream%3a%3aAttach%28%29" title="Sets the stream buffer source for this read stream">Attach()</a></code>,
+<code class="ApiItem"><a href="../Streaming/RReadStreamClass.html#%3a%3aRReadStream%3a%3aClose%28%29" title="Frees resources used by the stream">Close()</a></code>,
+<code class="ApiItem"><a href="../Streaming/RReadStreamClass.html#%3a%3aRReadStream%3a%3aDetach%28%29" title="Sets the stream buffer source for this read stream to NULL">Detach()</a></code>,
+<code class="ApiItem"><a href="../Streaming/RReadStreamClass.html#%3a%3aRReadStream%3a%3aPop%28%29" title="Removes the cleanup item for this read stream object from the cleanup stack">Pop()</a></code>,
+<code class="ApiItem"><a href="../Streaming/RReadStreamClass.html#%3a%3aRReadStream%3a%3aPushL%28%29" title="Puts a cleanup item for this read stream object onto the cleanup stack">PushL()</a></code>,
+<code class="ApiItem"><a href="../Streaming/RReadStreamClass.html#%3a%3aRReadStream%3a%3aReadInt16L%28%29" title="Internalises a TInt16 value">ReadInt16L()</a></code>,
+<code class="ApiItem"><a href="../Streaming/RReadStreamClass.html#%3a%3aRReadStream%3a%3aReadInt32L%28%29" title="Internalises a TInt32 value">ReadInt32L()</a></code>,
+<code class="ApiItem"><a href="../Streaming/RReadStreamClass.html#%3a%3aRReadStream%3a%3aReadInt8L%28%29" title="Internalises a TInt8 value The function reads an 8 bit value from this stream and interprets it as a TInt8">ReadInt8L()</a></code>,
+<code class="ApiItem"><a href="../Streaming/RReadStreamClass.html#%3a%3aRReadStream%3a%3aReadL%28%29" title="Discards data of specified length read from this stream">ReadL()</a></code>,
+<code class="ApiItem"><a href="../Streaming/RReadStreamClass.html#%3a%3aRReadStream%3a%3aReadReal32L%28%29" title="Internalises a TReal32 value">ReadReal32L()</a></code>,
+<code class="ApiItem"><a href="../Streaming/RReadStreamClass.html#%3a%3aRReadStream%3a%3aReadReal64L%28%29" title="Internalises a TReal64 value">ReadReal64L()</a></code>,
+<code class="ApiItem"><a href="../Streaming/RReadStreamClass.html#%3a%3aRReadStream%3a%3aReadUint16L%28%29" title="Internalises a TUint16 value">ReadUint16L()</a></code>,
+<code class="ApiItem"><a href="../Streaming/RReadStreamClass.html#%3a%3aRReadStream%3a%3aReadUint32L%28%29" title="Internalises a TUint32 value">ReadUint32L()</a></code>,
+<code class="ApiItem"><a href="../Streaming/RReadStreamClass.html#%3a%3aRReadStream%3a%3aReadUint8L%28%29" title="Internalises a TUint8 value">ReadUint8L()</a></code>,
+<code class="ApiItem"><a href="../Streaming/RReadStreamClass.html#%3a%3aRReadStream%3a%3aRelease%28%29" title="Frees resources before abandoning the stream">Release()</a></code>,
+<code class="ApiItem"><a href="../Streaming/RReadStreamClass.html#%3a%3aRReadStream%3a%3aSource%28%29" title="Gets the underlying stream buffer for the read stream">Source()</a></code></p>
+<a name="2.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Reading a column</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aRDbColReadStream%3a%3aOpenL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>OpenL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void OpenL(const RDbRowSet&amp; aView,TDbColNo aCol);</code></p><h4 class="subheading">Description</h4>
+<p>Opens the column with the specified ordinal in the specified
+current row in the rowset. The row must have previously been read into the
+rowset using <code>RDbRowSet::GetL()</code>.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const RDbRowSet&amp; aView</code></td>
+<td class="Cell"><p class="ValueDesc">The rowset which has the row and column to be read.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDbColNo aCol</code></td>
+<td class="Cell"><p class="ValueDesc">The column ordinal of the column to be read</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">The function can leave with one of the DBMS database error
+codes. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="DBMSErrorCodes.guide.html#DBMSRowsets%2eDBMS%2derror%2dcodes">Additional DBMS database error codes</a></li>
+</ul>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aRDbColReadStream%3a%3aOpenLC%28%29"></a>
+<hr size="1" noshade>
+<h3><code>OpenLC()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void OpenLC(const RDbRowSet&amp; aView,TDbColNo aCol);</code></p><h4 class="subheading">Description</h4>
+<p>Opens the column with the specified ordinal in the specified
+current row in the rowset and puts a pointer to the column on the cleanup
+stack.</p>
+<p>The row must have previously been read into the rowset using
+<code>RDbRowSet::GetL()</code>.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const RDbRowSet&amp; aView</code></td>
+<td class="Cell"><p class="ValueDesc">The rowset which has the row and column to be read.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDbColNo aCol</code></td>
+<td class="Cell"><p class="ValueDesc">The column ordinal of the column to be read.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">&nbsp;</code></td>
+<td class="Cell"><p class="ValueDesc">The function can leave with one of the DBMS database error
+codes. </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="DBMSErrorCodes.guide.html#DBMSRowsets%2eDBMS%2derror%2dcodes">Additional DBMS database error codes</a></li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to implement a server interface with subsessions</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="ClientServerGuide%2ehow%2dto%2eserver%2dsubsession"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToClientSideSubsessions.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToSimpleClientInterface.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Inter&nbsp;Process&nbsp;Communciation</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Client/Server</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;implement&nbsp;a&nbsp;server&nbsp;interface&nbsp;with&nbsp;subsessions</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to implement a server interface with
+subsessions</h1>
+</div><div class="Bodytext">
+<p>A server side subsession is represented by an instance of a class
+derived from <code>CObject</code>.</p>
+<p>The following sections refer to an example server, known as the count
+server.</p>
+<p>In the example, a count server session is represented by the
+<code>CSession</code> derived class <code>CCountServSession</code>. The server
+session can have any number of subsessions, referred to as counters in the
+example. The subsessions are instances of the <code>CCounter</code> class and
+these are derived from <code>CObject</code>.</p>
+<p>Unlike the implementation for a simple server interface, the
+functions to service client requests, i.e. <code>Increase()</code>, are in
+class <code>CCounter</code> rather than <code>CCountServSession</code>.</p>
+<p>The important points to note are:</p>
+<ul>
+<li>
+<p>the <code>CCountServSession</code> class contains the object
+container for all the subsession objects which belong to this session.</p>
+</li>
+<li>
+<p>the <code>CCountServServer</code> class contains the <i>one
+and only</i> object container index through which all object containers
+within the server are produced.</p>
+</li>
+<li>
+<p>the <code>CCountServSession</code> class contains an object index
+through which a handle number can be generated for the subsesssion.</p>
+</li>
+</ul>
+<a name="1.9"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<a name="1.10"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Server session representation</h2>
+</div><div class="Bodytext">
+<p>The <code>CCountServSession</code> class is defined as:</p>
+<p class="CodeBlock"><code>class CCountServSession : public CSession<br>&nbsp;{<br>public:<br>&nbsp;static CCountServSession* NewL(RThread&amp; aClient, CCountServServer* aServer);<br>&nbsp;CCountServSession(RThread&amp; aClient);<br>&nbsp;void ConstructL(CCountServServer* aServer);<br>&nbsp;void CloseSession();<br>&nbsp;CCounter* CounterFromHandle(TUint aHandle);<br>&nbsp;void ServiceL(const RMessage&amp; aMessage);<br>&nbsp;void DispatchMessageL(const RMessage&amp; aMessage);<br>&nbsp;void NewCounterL();<br>&nbsp;void DeleteCounter(TUint aHandle);<br>&nbsp;void NumResources();<br>&nbsp;TInt CountResources();<br>&nbsp;void Write(const TAny* aPtr,const TDesC8&amp; aDes,TInt anOffset=0);<br>&nbsp;void PanicClient(TInt aPanic) const;<br>private:<br>&nbsp;CObjectCon *iContainer; <br>&nbsp;CObjectIx* iCounters;<br>&nbsp;CCountServServer *iCountSvr; <br>&nbsp;TInt iResourceCount;<br>&nbsp;};</code></p>
+<a name="1.10.4"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Notes</h3>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>The data member <code>iCounters</code> is a pointer to an
+<i>object index</i>. Once a counter (a <i>subsession
+object</i>) has been created and stored in its <i>object
+container</i>, it is then added to the <i>object index</i> to
+generate a unique handle number for the counter (<em>subsession
+object</em>).</p>
+</li>
+<li>
+<p>The <code>CCounterFromHandle()</code> function returns the
+counter (the <i>subsession object</i>) corresponding to a specified
+handle number.</p>
+</li>
+<li>
+<p>The <code>NewCounterL()</code> function creates a new counter
+(a <i>subsession object</i>).</p>
+</li>
+<li>
+<p>The <code>DeleteCounter()</code> function deletes a counter
+(a <i>subsession object</i>). This is called when the client program
+requests to close a subsession.</p>
+</li>
+</ul>
+<p>The function <code>NewCounterL()</code> has the following
+implementation:</p>
+<p class="CodeBlock"><code>void CCountServSession::NewCounterL()<br>&nbsp;{<br>&nbsp;CCounter* counter=CCounter::NewL(this);<br>&nbsp;iContainer-&gt;AddL(counter);<br>&nbsp;TInt handle=iCounters-&gt;AddL(counter);<br>&nbsp;TPckg&lt;TInt&gt; handlePckg(handle);<br>&nbsp;TRAPD(res,WriteL(Message().Ptr3(),handlePckg));<br>&nbsp;if (res!=KErrNone)<br>&nbsp;&nbsp;{<br>&nbsp;&nbsp;iCounters-&gt;Remove(handle);<br>&nbsp;&nbsp;PanicClient(EBadDescriptor);<br>&nbsp;&nbsp;return;<br>&nbsp;&nbsp;}<br>&nbsp;iResourceCount++;<br>&nbsp;}</code></p>
+<a name="1.10.6"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Notes</h3>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p><code>iContainer-&gt;AddL(counter)</code> adds the new
+counter to the object container.</p>
+</li>
+<li>
+<p><code>iCounters-&gt;AddL(counter)</code> adds the new counter
+to the object index which returns this subsession object's handle
+number.</p>
+</li>
+<li>
+<p>The handle number is written back to the client address space
+using <code>CSession::WriteL()</code>. The important point is that the
+<i>fourth</i> parameter of the message argument is the location
+within the client address space where the handle number is to be
+written.</p>
+</li>
+</ul>
+<a name="1.11"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Subsession object representation</h2>
+</div><div class="Bodytext">
+<p>The <code>CCounter</code> class which represents the subsession is
+defined as:</p>
+<p class="CodeBlock"><code>class CCounter : public CObject<br>&nbsp;{<br>public:<br>&nbsp;static CCounter * NewL(CCountServSession* aSession);<br>&nbsp;void ConstructL(CCountServSession *aSession);<br>&nbsp;void SetFromString(const RMessage &amp;aMessage);<br>&nbsp;void Increase();<br>&nbsp;void IncreaseBy();<br>&nbsp;void Decrease();<br>&nbsp;void DecreaseBy();<br>&nbsp;void Reset();<br>&nbsp;void CounterValue();<br>&nbsp;void CloseCounter();<br>&nbsp;const RMessage&amp; Message() const;<br>protected:<br>&nbsp;CCountServSession *iSession; <br>private: <br>&nbsp;&nbsp;TInt iCount; <br>&nbsp;};</code></p>
+<a name="1.11.4"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Notes</h3>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>The <code>NewL()</code> function creates and returns a new
+instance of the subsession object. This is called when the client requests the
+creation of a new subsession.</p>
+</li>
+<li>
+<p>The <code>CloseCounter()</code> function deletes the subsession
+object from the server session&#8217;s <i>object index</i>. This is
+called when a client program requests the termination of a subsession. Deleting
+the subsession object also has the effect of removing it from its
+<i>object container</i>.</p>
+</li>
+<li>
+<p>The <i>message service functions</i>
+<code>Increase()</code>, <code>IncreaseBy()</code> etc. respond appropriately
+to client requests.</p>
+</li>
+</ul>
+<a name="1.12"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Implementing a subsession request</h2>
+</div><div class="Bodytext">
+<p>Subsession requests are handled in a similar way to session
+requests.</p>
+<p>A subsession request is initially handled by the associated session, i.e.
+it is passed to the appropriate <code>CSession::ServiceL()</code>.</p>
+<p class="CodeBlock"><code>void CCountServSession::ServiceL(const RMessage&amp; aMessage)<br>&nbsp;{<br>&nbsp;TRAPD(err,DispatchMessageL(aMessage));<br>&nbsp;aMessage.Complete(err);<br>&nbsp;}</code></p>
+<p>The appropriate service function is called via
+<code>DispatchMessageL()</code> and the asynchronous request is completed with
+<code>aMessage.Complete()</code>. This applies to messages targeted at sessions
+and subsessions.</p>
+<a name="1.12.6"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3><code>DispatchMessageL()</code></h3>
+</div><div class="Bodytext">
+<p>The following code fragment shows important parts of this
+function:</p>
+<p class="CodeBlock"><code>void CCountServSession::DispatchMessageL(const RMessage&amp; aMessage)<br>&nbsp;{<br>&nbsp;switch (aMessage.Function())<br>&nbsp;&nbsp;{<br>&nbsp;case ECountServCreateSubSession:// Request to create a subsession<br>&nbsp;&nbsp;NewCounterL();<br>&nbsp;&nbsp;return;<br>&nbsp;case ECountServCloseSession:    // Request to delete a subsession<br>&nbsp;&nbsp;CloseSession();<br>&nbsp;&nbsp;return;<br>&nbsp;&nbsp;...<br>&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Must be a subsession request<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Find out Which subsession and<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// forward the request to it.<br>&nbsp;CCounter* counter=CounterFromHandle(aMessage.Int3());<br>&nbsp;switch (aMessage.Function())<br>&nbsp;&nbsp;{<br>&nbsp;&nbsp;...<br>&nbsp;case ECountServValue:<br>&nbsp;&nbsp;counter-&gt;CounterValue();<br>&nbsp;&nbsp;return;<br>&nbsp;default:<br>&nbsp;&nbsp;PanicClient(EBadRequest);<br>&nbsp;&nbsp;return;<br>&nbsp;&nbsp;}</code></p>
+<p class="CodeBlock"><code> }</code></p>
+<p class="CodeBlock"><code>CCounter* CCountServSession::CounterFromHandle(TUint aHandle)<br>&nbsp;{<br>&nbsp;CCounter* counter = (CCounter*)iCounters-&gt;At(aHandle);<br>&nbsp;if (counter == NULL)<br>&nbsp;&nbsp;{<br>&nbsp;&nbsp;... // bad subsession handle<br>&nbsp;&nbsp;}<br>&nbsp;return counter;<br>&nbsp;}</code></p>
+<a name="1.12.6.6"></a>
+<h4>Notes</h4>
+<ul>
+<li>
+<p>The function first checks for messages which are specific to a
+session and this includes those requests to create and delete a
+subsession.</p>
+</li>
+<li>
+<p>After deciding that messages must be forwarded to a subsession,
+the function uses the handle number supplied through the fourth parameter in
+the message argument array and the <code>CounterFromHandle()</code> function to
+retrieve the appropriate subsession object.</p>
+</li>
+<li>
+<p>It then invokes the appropriate message service function on that
+subsession to deal with the client request.</p>
+</li>
+<li>
+<p>The <code>At()</code> function is provided by the
+<code>CObject</code> base class.</p>
+</li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

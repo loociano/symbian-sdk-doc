@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Locating a DLL</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="DynamicallyLoadingLinkLibrariesGuide%2eLocating"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="ModuleDefinitionFile.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToDefineInterfacePolymorphic.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Dynamically&nbsp;Loading&nbsp;Link&nbsp;Libraries</a>&nbsp;<span class="separator">&#187;</span>
+Locating&nbsp;a&nbsp;DLL</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Locating a DLL</h1>
+</div><div class="Bodytext">
+<p>A polymorphic DLL is loaded by calling one of the <code>Load()</code> member functions of an <code>RLibrary</code> object.</p>
+<p><code>Load()</code> has  three overloaded variants but they all behave in  a similar way. They are prototyped:</p>
+<p class="CodeBlock"><code>TInt Load(const TDesC&amp; aFileName,const TDesC&amp; aPath,const TUidType&amp; aType);<br>TInt Load(const TDesC&amp; aFileName,const TUidType&amp; aType);<br>TInt Load(const TDesC&amp; aFileName,const TDesC&amp; aPath=_L(&quot;&quot;));</code></p><p>The arguments  determine how the DLL is to be found. The rules are summarised as follows:</p><ul><li><p>If <code>aFileName</code> is a fully defined filename, i.e it includes a path specification, then the content of <code>aPath</code> is ignored and an attempt is made to load <code>aFileName</code>, if specified; if this DLL cannot be found, then the load operation fails and no further searching is done.</p></li>
+<li><p>if <code>aFileName</code> does not have an extension, an extension of <code class="filename">.DLL</code> is assumed.</p></li>
+<li><p>If <code>aFileName</code> contains a file name but does <em>not</em> include a path specification (e.g. _L(&quot;<code class="filename">EULIBDR1.DLL</code>&quot;), then a search is done in the following locations in the order given:</p><ul><li><p>the path defined in <code>aPath</code>, if specified</p></li><li><p>the system path <code class="filename">\system\libs\</code> on each attached drive. Drives are searched in the order: <code class="filename">C:</code>(the RAM drive), <code class="filename">A:</code>, <code class="filename">B:</code>, <code class="filename">D:</code> , <code class="filename">E:</code>, <code class="filename">F:</code>,...<code class="filename">Y:</code> and finally, drive <code class="filename">Z:</code> (the ROM).</p></li></ul></li>
+<li><p>If <code>aType</code> is specified, then the UIDType of the loaded DLL must match <code>aType</code>. If <code>aType</code> is <code>KNullUid</code>, or the   variant of <code>Load()</code> that does not take <code>aType</code> is called, then the loaded DLL will have the name <code>aFileName</code> and  may have any UIDType.</p></li></ul>
+<p>Note that in WINS debug mode, the system path is <code class="filename">\epoc32\release\wins\udeb\</code> on the current PC drive; in WINS release mode, the system path is <code class="filename">\epoc32\release\wins\urel\</code> on the current PC drive.</p>
+<p>Note also that, in contrast with the usual convention, <code>aPath</code> specifies a list of directories, each one separated by a semicolon.</p>
+<p>See also:</p><ul><li><p><a href="../../../APIReference/FileServerClientSide/TFindFileClass.html#%3a%3aTFindFile" title="Searches for files"><code class="ApiItem">TFindFile</code></a></p></li></ul>
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

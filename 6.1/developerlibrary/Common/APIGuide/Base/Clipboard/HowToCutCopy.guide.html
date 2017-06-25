@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to copy or cut to the clipboard</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="ClipboardGuide%2ehow%2dto%2ecut%2dcopy"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="Clipboard.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToPaste.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Clipboard</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;copy&nbsp;or&nbsp;cut&nbsp;to&nbsp;the&nbsp;clipboard</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to copy or cut to the clipboard</h1>
+</div><div class="Bodytext">
+<p>To put data onto the clipboard, first construct a
+<code>CClipboard</code> object and prepare it for writing using the
+<code>NewForWritingLC</code>() static member function. The following code
+fragment shows this.</p>
+<p class="CodeBlock"><code>CClipboard* cb = CClipboard::NewForWritingLC(fsSession);</code></p>
+<p>The function needs a file server session.</p>
+<p>The file associated with the clipboard's store may or may not exist.
+If it already exists, any existing content is discarded; if the file does not
+exist, it is created. In either event, <code>NewForWritingLC()</code> results
+in an empty clipboard.</p>
+<p>Once the <code>CClipboard</code> object has been created, data is
+stored into the clipboard 's store. Both the store (<code>CStreamStore</code>)
+and the stream dictionary (<code>CStreamDictionary</code>), which the example
+needs to access, are encapsulated by <code>CClipboard</code>. The class,
+therefore, provides the <code>Store()</code> and
+<code>StreamDictionary()</code> member functions to return suitable
+references.</p>
+<p>In this example, the data to be put into the clipboard's store is a
+single object <code>item</code>.</p>
+<p class="CodeBlock"><code>RStoreWriteStream  stream;<br>TStreamId stid = stream.CreateLC(cb-&gt;Store());<br>stream &lt;&lt; *item;<br>stream.CommitL();<br>(cb-&gt;StreamDictionary()).AssignL(KExampleClipUid,stid);<br>CleanupStack::PopAndDestroy(); // stream<br>cb-&gt;CommitL();<br>CleanupStack::PopAndDestroy(); // cb</code></p>
+<p>The steps are as follows:</p>
+<ol>
+<li>
+<p>A new stream is prepared for writing using the
+<code>CreateLC()</code> member function of <code>RStoreWriteStream</code>; the
+<code>CClipboard</code>'s store is to contain the new stream and so
+<code>cb-&gt;Store()</code> is passed as a parameter to
+<code>CreateLC()</code>.</p>
+</li>
+<li>
+<p>The <code>item</code> object is externalised.</p>
+</li>
+<li>
+<p>The stream is committed. </p>
+</li>
+<li>
+<p>The resulting streamid and the UID, which identifies the data
+type, i.e. <code>stid</code> and <code>KExampleClipUid</code>, respectively,
+are placed in the stream dictionary using the stream dictionary's
+<code>AssignL()</code> member function.</p>
+</li>
+<li>
+<p>The process concludes by calling <code>CClipboard</code>'s
+<code>CommitL()</code> member function to store the dictionary store as the
+root stream of the store and to commit all changes to the store.</p>
+</li>
+<li>
+<p>Deleting the <code>CClipboard</code> object causes the file
+associated with the clipboard's store to be closed, allowing other applications
+to access it.</p>
+</li>
+</ol>
+<a name="1.12"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="../FileServerClientSide/FileServerClientSideGuide1/FileServerSession.guide.html#FileServerClientSideGuide1%2efile%2dserver%2dsession">File server session</a></p>
+<p><a href="../Streaming/index.html#StreamingOverview%2etoc">Streaming</a></p>
+<p><a href="../Stores/StoresGuide6/index.html#StoreGuide6%2etoc">Commit and revert</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

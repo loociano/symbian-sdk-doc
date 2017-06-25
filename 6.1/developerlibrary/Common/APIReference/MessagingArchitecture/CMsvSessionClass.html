@@ -1,0 +1,946 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CMsvSession</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="CMsvServerEntryClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="CMsvStoreClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Messaging&nbsp;Architecture</a>&nbsp;<span class="separator">&#187;</span>
+CMsvSession</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+<p>Location: <code>
+msvapi.h
+</code><br>Link against: <code>
+msgs.lib
+</code></p>
+</div><div class="Head1">
+<a name="%3a%3aCMsvSession"></a>
+
+<h1>Class <code>CMsvSession</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CMsvSession</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.0
+</p><h4 class="subheading">Description</h4>
+<p>Represents a channel of communication between a client thread (Client-side MTM, User Interface MTM, or message client application) and the Message Server thread. </p><p>A single instance of this class exists for each such client thread. The class provides the means by which clients are notified when important Message Server events occur.</p>
+<p>In pre-Unicode releases, this class had an import library mcld.lib.</p>
+<p>Note the following significant groups of functions:</p><p>Creation functions: a message client application must use <code>OpenSyncL()</code> or <code>OpenASyncL()</code> to create a session object, before it can instantiate any MTM or <code>CMsvEntry</code> object. Only a single session should be created within a thread. As Client-side MTM, User Interface MTM, and <code>CMsvEntry</code> objects are created in the client thread, these use the client session, and do not create their own. Note that to close a session, delete all objects relying on that session, and then the session object itself.</p>
+<p>Cleanup functions: <code>CMsvSession</code> provides the ability to handle the cleanup of entries in the event of a leave occurring, in a very similar manner to the standard EPOC cleanup stack. The difference is that, on a leave, any entries that are on the entry cleanup stack are removed from the Message Server. The implementation uses the standard cleanup stack, so entry push and pop functions should be used in the same order as all other types of push and pop. The functions can be used both by MTM implementations and message client applications.</p>
+<h4 class="subheading">Derivation</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr><td class="Cell"><code><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive">CActive</a></code></td><td class="Cell">The core class of the active object abstraction</td>
+</tr>
+<tr><td class="Cell"><code><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase">CBase</a></code></td><td class="Cell">Base class for all classes to be instantiated on the heap</td>
+</tr>
+<tr><td class="Cell"><code>CMsvSession</code></td><td class="Cell">Represents a channel of communication between a client thread (Client-side MTM, User Interface MTM, or message client application) and the Message Server thread</td>
+</tr>
+</table></td></tr></table>
+<p>Defined in <code>CMsvSession</code>:
+<br><code class="ApiItem"><a href="CMsvSessionClass.html#%3a%3aCMsvSession%3a%3aAddObserverL%28%29" title="Registers a new session observer">AddObserverL()</a></code>, <code class="ApiItem"><a href="CMsvSessionClass.html#%3a%3aCMsvSession%3a%3aChangeAttributesL%28%29" title="Provides a quick way to set or clear multiple fields in a selection of entries">ChangeAttributesL()</a></code>, <code class="ApiItem"><a href="CMsvSessionClass.html#%3a%3aCMsvSession%3a%3aChangeDriveL%28%29" title="Moves the Message Server index to the specified drive">ChangeDriveL()</a></code>, <code class="ApiItem"><a href="CMsvSessionClass.html#%3a%3aCMsvSession%3a%3aCleanupEntryPop%28%29" title="Pops one or more entries from the entry cleanup stack">CleanupEntryPop()</a></code>, <code class="ApiItem"><a href="CMsvSessionClass.html#%3a%3aCMsvSession%3a%3aCleanupEntryPushL%28%29" title="Pushes the specified entry ID to the entry cleanup stack">CleanupEntryPushL()</a></code>, <code class="ApiItem"><a href="CMsvSessionClass.html#%3a%3aCMsvSession%3a%3aCloseMessageServer%28%29" title="Closes down the Message Server">CloseMessageServer()</a></code>, <code class="ApiItem"><a href="CMsvSessionClass.html#%3a%3aCMsvSession%3a%3aDeInstallMtmGroup%28%29" title="Removes an installed MTM">DeInstallMtmGroup()</a></code>, <code class="ApiItem"><a href="CMsvSessionClass.html#%3a%3aCMsvSession%3a%3aDecPcSyncCountL%28%29" title="Decreases the PC synchronisation index field for a selection of entries">DecPcSyncCountL()</a></code>, <code class="ApiItem"><a href="CMsvSessionClass.html#%3a%3aCMsvSession%3a%3aFileSession%28%29" title="Allows a Server-side MTM to access the file session handle created by the Message Server">FileSession()</a></code>, <code class="ApiItem"><a href="CMsvSessionClass.html#%3a%3aCMsvSession%3a%3aGetChildIdsL%28%29" title="Gets filtered list of children of a specified message entry">GetChildIdsL()</a></code>, <code class="ApiItem"><a href="CMsvSessionClass.html#%3a%3aCMsvSession%3a%3aGetEntry%28%29" title="Gets the index entry for the specified entry ID">GetEntry()</a></code>, <code class="ApiItem"><a href="CMsvSessionClass.html#%3a%3aCMsvSession%3a%3aGetEntryL%28%29" title="Accesses the entry with the specified ID">GetEntryL()</a></code>, <code class="ApiItem"><a href="CMsvSessionClass.html#%3a%3aCMsvSession%3a%3aIncPcSyncCountL%28%29" title="Increases the PC synchronisation index field for a selection of entries">IncPcSyncCountL()</a></code>, <code class="ApiItem"><a href="CMsvSessionClass.html#%3a%3aCMsvSession%3a%3aInstallMtmGroup%28%29" title="Installs a new group of MTMs">InstallMtmGroup()</a></code>, <code class="ApiItem"><a href="CMsvSessionClass.html#%3a%3aCMsvSession%3a%3aOpenASyncL%28%29" title="Creates a session asynchronously">OpenASyncL()</a></code>, <code class="ApiItem"><a href="CMsvSessionClass.html#%3a%3aCMsvSession%3a%3aOpenSyncL%28%29" title="Creates a session synchronously">OpenSyncL()</a></code>, <code class="ApiItem"><a href="CMsvSessionClass.html#%3a%3aCMsvSession%3a%3aOutstandingOperationsL%28%29" title="Gets the number of outstanding operations">OutstandingOperationsL()</a></code>, <code class="ApiItem"><a href="CMsvSessionClass.html#%3a%3aCMsvSession%3a%3aRemoveEntry%28%29" title="Deletes the specified entry from the Message Server">RemoveEntry()</a></code>, <code class="ApiItem"><a href="CMsvSessionClass.html#%3a%3aCMsvSession%3a%3aRemoveObserver%28%29" title="Deregisters a previously registered observer">RemoveObserver()</a></code>, <code class="ApiItem"><a href="CMsvSessionClass.html#%3a%3aCMsvSession%3a%3aServiceActive%28%29" title="Tests whether a Server-side MTM for a particular service is loaded by the Message Server">ServiceActive()</a></code>, <code class="ApiItem"><a href="CMsvSessionClass.html#%3a%3aCMsvSession%3a%3aServiceProgress%28%29" title="Gets the current progress information from the Server-side MTM for the specified service">ServiceProgress()</a></code>, <code class="ApiItem"><a href="CMsvSessionClass.html#%3a%3aCMsvSession%3a%3aStopService%28%29" title="Stops any operations that a Server-side MTM for the specified service is running, and then unloads the Server-side MTM">StopService()</a></code>, <code class="ApiItem"><a href="CMsvSessionClass.html#%3a%3aCMsvSession%3a%3aTransferCommandL%28%29" title="Passes MTM-specific operations asynchronously to the associated Server-side MTM by means of the Message Server">TransferCommandL()</a></code>
+</p>
+<p>Inherited from <code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive" title="The core class of the active object abstraction">CActive</a></code>:
+<br><code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aCancel%28%29" title="Cancels the wait for completion of an outstanding request">Cancel()</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aDeque%28%29" title="Removes the active object from the active scheduler's list of active objects">Deque()</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aDoCancel%28%29" title="Implements cancellation of an outstanding request">DoCancel()</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aEPriorityHigh" title="A priority higher than EPriorityUserInput">EPriorityHigh</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aEPriorityIdle" title="A low priority, useful for active objects representing background processing">EPriorityIdle</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aEPriorityLow" title="A priority higher than EPriorityIdle but lower thanEPriorityStandard">EPriorityLow</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aEPriorityStandard" title="Most active objects will have this priority">EPriorityStandard</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aEPriorityUserInput" title="A priority higher than EPriorityStandard; useful for active objects handling user input">EPriorityUserInput</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aIsActive%28%29" title="Determines whether the active object has a request outstanding">IsActive()</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aIsAdded%28%29" title="Determines whether the active object has been added to the active scheduler's list of active objects">IsAdded()</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aPriority%28%29" title="Returns the priority of the active object">Priority()</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aRunError%28%29" title="Handles a leave occurring in the request completion event handlerRunL()">RunError()</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aRunL%28%29" title="Handles an active object's request completion event">RunL()</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aSetActive%28%29" title="Indicates that the active object has issued a request and that it is now outstanding">SetActive()</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aSetPriority%28%29" title="Sets the priority of the active object">SetPriority()</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aTPriority" title="Defines standard priorities for active objects">TPriority</a></code>,
+<code class="ApiItem"><a href="../AsynchronousServices/CActiveClass.html#%3a%3aCActive%3a%3aiStatus" title="The request status associated with an asynchronous request">iStatus</a></code></p>
+<p>Inherited from <code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase" title="Base class for all classes to be instantiated on the heap">CBase</a></code>:
+<br><code class="ApiItem"><a href="../BasicTypes/CBaseClass.html#%3a%3aCBase%3a%3aoperator%20new%28%29" title="Allocates the object from the heap and then initialises its contents to binary zeroes">operator new()</a></code></p>
+<a name="2.6"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Creation</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aCMsvSession%3a%3aOpenSyncL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>OpenSyncL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static CMsvSession* OpenSyncL(MMsvSessionObserver&amp; aObserver);</code></p><h4 class="subheading">Description</h4>
+<p>Creates a session synchronously. </p><p>The session can be used once the function returns. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+MMsvSessionObserver&amp; aObserver
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+A reference to a session observer, through which the program can be notified of important events regarding entries, MTMs, and the Message Server.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvSession*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+New session object
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNoMemory
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Not enough memory to create object.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aCMsvSession%3a%3aOpenASyncL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>OpenASyncL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static CMsvSession* OpenAsyncL(MMsvSessionObserver&amp; aObserver);</code></p><h4 class="subheading">Description</h4>
+<p>Creates a session asynchronously. </p><p>The session cannot be used until the passed <code>MMsvSessionObserver</code> observer has been informed that the message server is ready with <code>TMsvSessionEvent::EMsvServerReady</code>. If any functions are called before this, they will fail with <code>KErrNotReady</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+MMsvSessionObserver&amp; aObserver
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+A reference to a session observer, through which the program can be notified of important events regarding entries, MTMs, and the Message Server.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvSession*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+New session object
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNoMemory
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Not enough memory to create object.
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Session observers</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aCMsvSession%3a%3aAddObserverL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>AddObserverL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void AddObserverL(MMsvSessionObserver&amp; aObserver);</code></p><h4 class="subheading">Description</h4>
+<p>Registers a new session observer. </p><p><code>CMsvSession</code> objects can call back observer objects that implement the <code>MMsvSessionObserver::HandleSessionEvent()</code> when certain events occur.  Any number of observers can be registered.</p>
+<p>For details of when observers are called, see <code>TMsvSessionEvent::TMsvEntryEvent</code>.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+MMsvSessionObserver&amp; aObserver
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+A reference to an observer to be registered for events
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNoMemory
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Not enough memory to register the observer
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aCMsvSession%3a%3aRemoveObserver%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RemoveObserver()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void RemoveObserver(MMsvSessionObserver&amp; aObserver);</code></p><h4 class="subheading">Description</h4>
+<p>Deregisters a previously registered observer. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+MMsvSessionObserver&amp; aObserver
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+A reference to an observer to be unregistered for events
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Entries</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aCMsvSession%3a%3aChangeAttributesL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ChangeAttributesL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void ChangeAttributesL(const CMsvEntrySelection&amp; aSelection, <br>TUint aSetAttributes, TUint aClearAttributes);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Provides a quick way to set or clear multiple fields in
+a selection of entries.</p><p>Fields to change are specified using a bitmask of <code>TMsvAttribute</code> values. Possible fields that can be changed using this function are:</p><ul><li><p>PC synchronisation</p></li><li><p>Visibility flag</p></li><li><p>Read flag</p></li><li><p>In-preparation flag</p></li><li><p>Connected flag</p></li><li><p>New flag</p></li></ul><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CMsvEntrySelection&amp; aSelection</code></td>
+<td class="Cell"><p class="ValueDesc">The entries to change</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aSetAttributes</code></td>
+<td class="Cell"><p class="ValueDesc">A bitmask of the fields to set</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TUint aClearAttributes</code></td>
+<td class="Cell"><p class="ValueDesc">A bitmask of the fields to clear</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="TMsvAttributeEnum.html#%3a%3aTMsvAttribute" title="Supplies values for bitmasks that allows the rapid setting or clearing of a number of TMsvEntry fields"><code class="ApiItem">TMsvAttribute</code></a></li>
+</ul>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aCMsvSession%3a%3aGetEntryL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetEntryL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CMsvEntry* GetEntryL(TMsvId aId);</code></p><h4 class="subheading">Description</h4>
+<p>Accesses the entry with the specified ID.</p>
+<p>If a client is unaware of the entries that exist, it can set <code>aId</code> to <code>KMsvRootIndexEntryId</code> to obtain the root entry, from where all other entries can be obtained.</p>
+<p>The <code>CMsvEntry</code> object must be deleted by the client when it is no longer required. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId aId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The ID of the entry to access
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvEntry*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+A new entry object
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotFound
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The requested entry does not exist
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.4"></a></div><div class="Head3">
+<a name="%3a%3aCMsvSession%3a%3aGetEntry%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetEntry()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt GetEntry(TMsvId aId, TMsvId&amp; aService, TMsvEntry&amp; aEntry);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Gets the index entry for the specified entry ID.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId aId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The ID of the entry to access
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId&amp; aService
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+On return, the ID of the service that owns the entry</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TMsvEntry&amp; aEntry</code></td>
+<td class="Cell"><p class="ValueDesc">On return, the index entry</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>KErrNone</code> if successful, otherwise one of the system-wide error codes</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.5"></a></div><div class="Head3">
+<a name="%3a%3aCMsvSession%3a%3aGetChildIdsL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetChildIdsL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void GetChildIdsL(TMsvId aId, const CMsvEntryFilter&amp; aFilter, CMsvEntrySelection&amp; aSelection);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Gets filtered list of children of a specified message entry.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TMsvId aId</code></td>
+<td class="Cell"><p class="ValueDesc">Message entry of which to get children</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const CMsvEntryFilter&amp; aFilter</code></td>
+<td class="Cell"><p class="ValueDesc">Filter by which various message entries can be excluded</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">CMsvEntrySelection&amp; aSelection</code></td>
+<td class="Cell"><p class="ValueDesc">On return, a list of message entry IDs</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.6"></a></div><div class="Head3">
+<a name="%3a%3aCMsvSession%3a%3aRemoveEntry%28%29"></a>
+<hr size="1" noshade>
+<h3><code>RemoveEntry()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void RemoveEntry(TMsvId aId);</code></p><h4 class="subheading">Description</h4>
+<p>Deletes the specified entry from the Message Server. </p>
+<p>The call is guaranteed not to fail. If the entry cannot be deleted immediately, it will be deleted later. This call should only be used in preference to the normal deleting mechanism when no error reporting is required, typically in a destructor.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId aId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The ID of the entry to remove
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Cleanup</h2>
+</div><div class="Bodytext">
+<a name="2.9.2"></a></div><div class="Head3">
+<a name="%3a%3aCMsvSession%3a%3aCleanupEntryPushL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CleanupEntryPushL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void CleanupEntryPushL(TMsvId aId);</code></p><h4 class="subheading">Description</h4>
+<p>Pushes the specified entry ID to the entry cleanup stack.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId aId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The ID of the entry to push onto the entry cleanup stack
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+ErrNoMemory
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The entry will have been pushed onto the entry cleanup stack before the leave occurs
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.9.3"></a></div><div class="Head3">
+<a name="%3a%3aCMsvSession%3a%3aCleanupEntryPop%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CleanupEntryPop()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void CleanupEntryPop(TInt aCount=1);</code></p><h4 class="subheading">Description</h4>
+<p>Pops one or more entries from the entry cleanup stack.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt aCount
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The number of entries to pop off the entry cleanup stack
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>MTM functions</h2>
+</div><div class="Bodytext">
+<a name="2.10.2"></a></div><div class="Head3">
+<a name="%3a%3aCMsvSession%3a%3aServiceActive%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ServiceActive()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBool ServiceActive(TMsvId aServiceId);</code></p><h4 class="subheading">Description</h4>
+<p>Tests whether a Server-side MTM for a particular service is loaded by the Message Server.</p><p> The Server-side MTM does not have to be executing a command&#0160;&#8212;  it may be waiting for another command.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId aServiceId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The ID of the relevant service
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TBool
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+<code>ETrue</code> if the Server-side MTM for the service is loaded, otherwise <code>EFalse</code>
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.3"></a></div><div class="Head3">
+<a name="%3a%3aCMsvSession%3a%3aServiceProgress%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ServiceProgress()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt ServiceProgress(TMsvId aServiceId, TDes8&amp; aProgress);</code></p><h4 class="subheading">Description</h4>
+<p>Gets the current progress information from the Server-side MTM for the specified service.</p><p> It is typically used by User Interface MTMs. The format of the progress information returned in the <code>aProgress</code> buffer is MTM-specific.</p>
+<p>Calling this function results in the Message Server calling <code>CBaseServerMtm::</code>Progress<code>()</code> on the relevant Server-side MTM. </p>
+<p>Note that the progress information is independent of which message client application started the current operation. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId aServiceId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The ID of the service from which to get the progress information
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TDes8&amp; aProgress
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+On return, a descriptor holding progress information. It is the caller's responsibility to ensure the descriptor is large enough for this information.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNone
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Success
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNotFound
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The service is not active (the relevant Server-side MTM is not loaded by the Message Server)
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrOverflow
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The descriptor was too small for the progress information
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.4"></a></div><div class="Head3">
+<a name="%3a%3aCMsvSession%3a%3aStopService%28%29"></a>
+<hr size="1" noshade>
+<h3><code>StopService()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt StopService(TMsvId aServiceId);</code></p><h4 class="subheading">Description</h4>
+<p>Stops any operations that a Server-side MTM for the specified service is running, and then unloads the Server-side MTM. </p><p>The current operation and any queued operations are cancelled.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TMsvId aServiceId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The ID of the service to stop
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNone
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Success
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.5"></a></div><div class="Head3">
+<a name="%3a%3aCMsvSession%3a%3aTransferCommandL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>TransferCommandL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void TransferCommandL(const CMsvEntrySelection&amp; aSelection, TInt aCommandId, const TDesC8&amp; aParameter, TDes8&amp; aProgress);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Passes MTM-specific operations synchronously to the associated Server-side MTM by means of the Message Server. </p><p>It is typically used in the implementation of <code>CBaseMtm::InvokeSyncFunctionL()</code> and <code>CBaseMtmUi::InvokeSyncFunctionL()</code>. It is not used by message client applications. How the passed <code>aSelection</code> and <code>aParameter</code> parameters are used is specific to the operation. </p>
+<p>Calling this function results in the Message Server calling <code>CBaseServerMtm::StartCommandL()</code> on the relevant Server-side MTM. If the Server-side MTM is not already loaded, then the Message Server loads it. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const CMsvEntrySelection&amp; aSelection
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+A selection of entries that may be relevant to the operation
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt aCommandId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The command ID. The interpretation of the command is MTM-specific.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TDesC8&amp; aParameter
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+A descriptor containing operation-specific parameters
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TDes8&amp; aProgress
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Progress information returned from the Message Server
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNoMemory
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Not enough memory
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.10.6"></a></div><div class="Head3">
+<a name="%3a%3aCMsvSession%3a%3aTransferCommandL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>TransferCommandL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CMsvOperation* TransferCommandL(const CMsvEntrySelection&amp; aSelection, TInt aCommandId, const TDesC8&amp; aParameter, TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Description</h4>
+<p>Passes MTM-specific operations asynchronously to the associated Server-side MTM by means of the Message Server. </p><p>It is typically used in the implementation of <code>CBaseMtm::InvokeSyncFunctionL()/InvokeAsyncFunctionL()</code> and <code>CBaseMtmUi::InvokeSyncFunctionL()/InvokeAsyncFunctionL()</code>. It is not used by message client applications. How the passed <code>aSelection</code> and <code>aParameter</code> parameters are used is specific to the operation. </p>
+<p>Calling this function results in the Message Server calling <code>CBaseServerMtm::StartCommandL()</code> on the relevant Server-side MTM. If the Server-side MTM is not already loaded, then the Message Server loads it. </p>
+<p>The returned <code>CMsvOperation</code> object completes when the operation is complete.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const CMsvEntrySelection&amp; aSelection
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+A selection of entries that may be relevant to the operation
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TInt aCommandId
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The command ID. The interpretation of the command is MTM-specific.
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TDesC8&amp; aParameter
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+A descriptor containing operation-specific parameters
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+TRequestStatus&amp; aStatus
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The request status to be completed when the operation has finished
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+CMsvOperation*
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The <code>CMsvOperation</code> object used to control the operation.
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNoMemory
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Not enough memory
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.11"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Close Message Server</h2>
+</div><div class="Bodytext">
+<a name="2.11.2"></a></div><div class="Head3">
+<a name="%3a%3aCMsvSession%3a%3aCloseMessageServer%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CloseMessageServer()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void CloseMessageServer();</code></p><h4 class="subheading">Description</h4>
+<p>Closes down the Message Server.</p>
+<p>Normal clients should not use this function, as it will affect other message clients.</p><p>The function results in the session sending a shutdown session notification  (<code>TMsvSessionEvent::EMsvCloseSession</code>) to all current sessions. The Message Server  closes when all sessions have been closed.</p>
+<a name="2.12"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Installation</h2>
+</div><div class="Bodytext">
+<a name="2.12.2"></a></div><div class="Head3">
+<a name="%3a%3aCMsvSession%3a%3aInstallMtmGroup%28%29"></a>
+<hr size="1" noshade>
+<h3><code>InstallMtmGroup()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt InstallMtmGroup(const TDesC&amp; aFullName);</code></p><h4 class="subheading">Description</h4>
+<p>Installs a new group of MTMs. </p><p>It is used by specialised MTM-installation programs. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TDesC&amp; aFullName
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The full path name of the MTM group file
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrNone
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Success
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrAlreadyExists
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+MTM already installed
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.12.3"></a></div><div class="Head3">
+<a name="%3a%3aCMsvSession%3a%3aDeInstallMtmGroup%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DeInstallMtmGroup()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt DeInstallMtmGroup(const TDesC&amp; aFullName);</code></p><h4 class="subheading">Description</h4>
+<p>Removes an installed MTM. </p><p>It is used by specialised MTM-deinstallation programs. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const TDesC&amp; aFullName
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The full path name of the MTM group file
+</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">KErrNone</code></td>
+<td class="Cell"><p class="ValueDesc">
+Success
+</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+KErrInUse
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+The MTM is currently being used
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13"></a></div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Miscellaneous</h2>
+</div><div class="Bodytext">
+<a name="2.13.2"></a></div><div class="Head3">
+<a name="%3a%3aCMsvSession%3a%3aChangeDriveL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>ChangeDriveL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>CMsvOperation* ChangeDriveL(TInt aDrive, TRequestStatus&amp; aStatus);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Moves the Message Server index to the specified drive.</p><p>Progress information is provided by a <code>TMsvIndexLoadProgress</code> object.</p><p>If an error occurs, the index is unchanged.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aDrive</code></td>
+<td class="Cell"><p class="ValueDesc">The drive to which to move the Message Server index, specified by a <code>TDriveNumber</code> value</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TRequestStatus&amp; aStatus</code></td>
+<td class="Cell"><p class="ValueDesc">Asynchronous completion status </p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CMsvOperation*</code></td>
+<td class="Cell"><p class="ValueDesc">Asynchronous operation used to control the move. The operation's MTM value is set to <code>KUidMsvServerMtm</code>, which can be used to distinguish it from a local operation.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Leave codes</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">KErrServerBusy</code></td>
+<td class="Cell"><p class="ValueDesc">Cannot change drive because there are outstanding Message Server operations.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">See also:</h4>
+<ul>
+<li><a href="../FileServerClientSide/TDriveNumberEnum.html#%3a%3aTDriveNumber" title="Drive number enumeration"><code class="ApiItem">TDriveNumber</code></a></li>
+<li><a href="TMsvIndexLoadProgressClass.html#%3a%3aTMsvIndexLoadProgress" title="Progress information for an operation controlling the Message Server loading its index"><code class="ApiItem">TMsvIndexLoadProgress</code></a></li>
+</ul>
+<a name="2.13.3"></a></div><div class="Head3">
+<a name="%3a%3aCMsvSession%3a%3aDecPcSyncCountL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DecPcSyncCountL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void DecPcSyncCountL(const CMsvEntrySelection&amp; aSelection);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Decreases the PC synchronisation index field for a selection of entries. </p><p>If an entry has its Deleted flag set, and this call causes its PC synchronisation field to become zero, then the entry is permanently deleted. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const CMsvEntrySelection&amp; aSelection
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Entries for which to decrease the PC synchronisation index field
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.4"></a></div><div class="Head3">
+<a name="%3a%3aCMsvSession%3a%3aFileSession%28%29"></a>
+<hr size="1" noshade>
+<h3><code>FileSession()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>RFs&amp; FileSession();</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Allows a Server-side MTM to access the file session handle created by the Message Server. </p><p>This is preferable, as more efficient, to creating another handle.</p>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+RFs&amp;
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+File session handle
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.5"></a></div><div class="Head3">
+<a name="%3a%3aCMsvSession%3a%3aIncPcSyncCountL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>IncPcSyncCountL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void IncPcSyncCountL(const CMsvEntrySelection&amp; aSelection);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 5.1
+</p><h4 class="subheading">Description</h4>
+<p>Increases the PC synchronisation index field for a selection of entries. </p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">
+const CMsvEntrySelection&amp; aSelection
+</code></td>
+<td class="Cell"><p class="ValueDesc">
+Entries for which to increase the PC synchronisation index field
+</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.13.6"></a></div><div class="Head3">
+<a name="%3a%3aCMsvSession%3a%3aOutstandingOperationsL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>OutstandingOperationsL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt OutstandingOperationsL();</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Gets the number of outstanding operations.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The number of outstanding operations</p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

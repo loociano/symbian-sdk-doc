@@ -1,0 +1,444 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>MCoeFepAwareTextEditor</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="MCoeCaptionRetrieverForFepClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="MCoeFepAwareTextEditor_Extension1Class.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Front&nbsp;End&nbsp;Processors</a>&nbsp;<span class="separator">&#187;</span>
+MCoeFepAwareTextEditor</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>fepbase.h</code>
+<br>Link against: <code>fepbase.lib</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aMCoeFepAwareTextEditor"></a>
+
+<h1>Class <code>MCoeFepAwareTextEditor</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>MCoeFepAwareTextEditor</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Specifies a protocol for FEP-aware text editors.</p><p>An
+implementation of this class is provided by UIKON&#8217;s
+<code>CEikEdwin</code> class which is used in text editors.</p>
+<p><code>TCoeInputCapabilities::FepAwareTextEditor()</code> returns a
+pointer to an object of this class. A NULL return value indicates that the
+interface is not supported by any of the currently focused controls.</p>
+<p>Inline editing:</p>
+<p> Inline editing means composing text directly in the
+target text editor&nbsp;control rather than in the FEP's edit window first. The
+target text editor must implement the <code>MCoeFepAwareTextEditor</code> interface in order to support inline text. The
+inline text may be differentiated from the surrounding text by the use of
+different formatting. These differences are removed when the inline text
+transaction is committed (causing the inline text to become a real part of the
+document). Cancelling the inline text transaction deletes the inline text and
+restores any previously selected text. A benefit of inline editing is that the
+user only has to concentrate on one area of the screen rather than two. </p>
+<p>An inline editing transaction consists of the following sequence of
+function calls:</p>
+<ul>
+<li>
+<p>a call to <code>StartFepInlineEditL()</code></p>
+</li>
+<li>
+<p>zero, one or more calls to
+<code>UpdateFepInlineTextL()</code></p>
+</li>
+<li>
+<p>a call to either <code>CommitFepInlineEditL()</code> or
+<code>CancelFepInlineEdit()</code></p>
+</li>
+</ul><p>Defined in <code>MCoeFepAwareTextEditor</code>:
+<br><code class="ApiItem"><a href="MCoeFepAwareTextEditorClass.html#%3a%3aMCoeFepAwareTextEditor%3a%3aCancelFepInlineEdit%28%29" title="Cancels the inline editing transaction">CancelFepInlineEdit()</a></code>, <code class="ApiItem"><a href="MCoeFepAwareTextEditorClass.html#%3a%3aMCoeFepAwareTextEditor%3a%3aCommitFepInlineEditL%28%29" title="Commits the inline text to the document">CommitFepInlineEditL()</a></code>, <code class="ApiItem"><a href="MCoeFepAwareTextEditorClass.html#%3a%3aMCoeFepAwareTextEditor%3a%3aDoCommitFepInlineEditL%28%29" title="Private function called by CommitFepInlineEditL()">DoCommitFepInlineEditL()</a></code>, <code class="ApiItem"><a href="MCoeFepAwareTextEditorClass.html#%3a%3aMCoeFepAwareTextEditor%3a%3aDocumentLengthForFep%28%29" title="Returns the total number of characters in the text editor">DocumentLengthForFep()</a></code>, <code class="ApiItem"><a href="MCoeFepAwareTextEditorClass.html#%3a%3aMCoeFepAwareTextEditor%3a%3aDocumentMaximumLengthForFep%28%29" title="Returns the upper limit (if any) on the length of text that the text editor can hold">DocumentMaximumLengthForFep()</a></code>, <code class="ApiItem"><a href="MCoeFepAwareTextEditorClass.html#%3a%3aMCoeFepAwareTextEditor%3a%3aExtension1%28%29" title="This private function should be overridden by text editors which support the MCoeFepAwareTextEditor_Extension1 interface">Extension1()</a></code>, <code class="ApiItem"><a href="MCoeFepAwareTextEditorClass.html#%3a%3aMCoeFepAwareTextEditor%3a%3aGetCursorSelectionForFep%28%29" title="Gets the range of characters in the text editor which are selected">GetCursorSelectionForFep()</a></code>, <code class="ApiItem"><a href="MCoeFepAwareTextEditorClass.html#%3a%3aMCoeFepAwareTextEditor%3a%3aGetEditorContentForFep%28%29" title="Copies a portion of the text editor's text content into a descriptor">GetEditorContentForFep()</a></code>, <code class="ApiItem"><a href="MCoeFepAwareTextEditorClass.html#%3a%3aMCoeFepAwareTextEditor%3a%3aGetFormatForFep%28%29" title="Gets the character formatting which applies to the document position specified">GetFormatForFep()</a></code>, <code class="ApiItem"><a href="MCoeFepAwareTextEditorClass.html#%3a%3aMCoeFepAwareTextEditor%3a%3aGetScreenCoordinatesForFepL%28%29" title="Gets the x,y screen coordinates for the left hand side of the baseline of the character located at a specified document position">GetScreenCoordinatesForFepL()</a></code>, <code class="ApiItem"><a href="MCoeFepAwareTextEditorClass.html#%3a%3aMCoeFepAwareTextEditor%3a%3aSetCursorSelectionForFepL%28%29" title="Sets the range of characters in the text editor which should be selected">SetCursorSelectionForFepL()</a></code>, <code class="ApiItem"><a href="MCoeFepAwareTextEditorClass.html#%3a%3aMCoeFepAwareTextEditor%3a%3aSetInlineEditingCursorVisibilityL%28%29" title="Sets the visibility of the text cursor in the text editor">SetInlineEditingCursorVisibilityL()</a></code>, <code class="ApiItem"><a href="MCoeFepAwareTextEditorClass.html#%3a%3aMCoeFepAwareTextEditor%3a%3aStartFepInlineEditL%28%29" title="Starts a FEP inline editing transaction">StartFepInlineEditL()</a></code>, <code class="ApiItem"><a href="MCoeFepAwareTextEditorClass.html#%3a%3aMCoeFepAwareTextEditor%3a%3aUpdateFepInlineTextL%28%29" title="Updates the inline text">UpdateFepInlineTextL()</a></code>
+</p>
+<a name="2.5"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Inline editing</h2>
+</div><div class="Bodytext">
+<a name="2.5.2"></a></div><div class="Head3">
+<a name="%3a%3aMCoeFepAwareTextEditor%3a%3aStartFepInlineEditL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>StartFepInlineEditL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void StartFepInlineEditL(const TDesC&amp; aInitialInlineText, TInt aPositionOfInsertionPointInInlineText, TBool aCursorVisibility, const MFormCustomDraw* aCustomDraw, MFepInlineTextFormatRetriever&amp; aInlineTextFormatRetriever, MFepPointerEventHandlerDuringInlineEdit&amp; aPointerEventHandlerDuringInlineEdit)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Starts a FEP inline editing transaction. Inserts a descriptor
+containing the initial inline text into the text editor. The inline text should
+normally replace any selected text.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aInitialInlineText</code></td>
+<td class="Cell"><p class="ValueDesc">The inline text to insert into the text editor.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aPositionOfInsertionPointInInlineText</code></td>
+<td class="Cell"><p class="ValueDesc">An insertion position within the inline text. This is an offset
+from the start of the inline text.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool aCursorVisibility</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> for visible text cursor, <code>EFalse</code>
+for invisible text cursor in the text editor.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">const MFormCustomDraw* aCustomDraw</code></td>
+<td class="Cell"><p class="ValueDesc">Pointer to a custom drawing object. May be used to do advanced formatting of the  inline text. This parameter is optional&#0160;&#8212;  a <code>NULL</code> pointer may be specified.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">MFepInlineTextFormatRetriever&amp;
+aInlineTextFormatRetriever</code></td>
+<td class="Cell"><p class="ValueDesc">Defines a single member function,
+<code>GetFormatOfFepInlineText()</code> which is used by the text editor to
+find out the formatting to apply to the inline text. It is also possible to apply different formatting to different parts of the inline text.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">MFepPointerEventHandlerDuringInlineEdit&amp;
+aPointerEventHandlerDuringInlineEdit</code></td>
+<td class="Cell"><p class="ValueDesc">Defines a single function,
+<code>HandlePointerEventInInlineTextL</code>() which is called when a pointer
+event is received within the inline text. This function might update the cursor
+position within the inline text and do text selection.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Notes:</h4>
+<ul>
+<li><note>The final three parameters are instances of abstract classes,
+so that the caller of this function must create and instantiate classes
+deriving from them. These instances must remain in existence for the
+entire duration of the inline editing transaction.</note></li>
+<li><note>Inline editing should not already be taking place when this
+function is called.</note></li>
+</ul>
+<a name="2.5.3"></a></div><div class="Head3">
+<a name="%3a%3aMCoeFepAwareTextEditor%3a%3aUpdateFepInlineTextL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>UpdateFepInlineTextL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void UpdateFepInlineTextL(const TDesC&amp; aNewInlineText, TInt aPositionOfInsertionPointInInlineText)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Updates the inline text. Called when a character is added to or
+deleted from the inline text. </p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TDesC&amp; aNewInlineText</code></td>
+<td class="Cell"><p class="ValueDesc">Descriptor which holds the entire new inline text
+string.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aPositionOfInsertionPointInInlineText</code></td>
+<td class="Cell"><p class="ValueDesc">The position of the insertion point (i.e. the cursor) within
+the inline text string <code>aNewInlineText</code>. This is an offset from the
+start of the string.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Notes:</h4>
+<ul>
+<li><note>The descriptor <code>aNewInlineText</code>
+contains the entire new inline text string, not just  the new text to be combined with the old inline text.</note></li>
+<li><note>FEP inline editing should already be taking place, i.e.
+<code>StartFepInlineEditL()</code> should have been called
+beforehand.</note></li>
+</ul>
+<a name="2.5.4"></a></div><div class="Head3">
+<a name="%3a%3aMCoeFepAwareTextEditor%3a%3aSetInlineEditingCursorVisibilityL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetInlineEditingCursorVisibilityL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void SetInlineEditingCursorVisibilityL(TBool aCursorVisibility)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Sets the visibility of the text cursor in the text
+editor.</p>
+<h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool aCursorVisibility</code></td>
+<td class="Cell"><p class="ValueDesc"><code>ETrue</code> for visible text cursor, <code>EFalse</code>
+for invisible text cursor.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Notes:</h4>
+<ul>
+<li><note>The cursor visibility is initialised using
+<code>StartFepInlineEditL()</code>.
+<code>SetInlineEditingCursorVisibilityL()</code> is provided for FEPs which
+need to change the visibility of the cursor during the inline editing
+transaction.</note></li>
+</ul>
+<a name="2.5.5"></a></div><div class="Head3">
+<a name="%3a%3aMCoeFepAwareTextEditor%3a%3aCommitFepInlineEditL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CommitFepInlineEditL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void CommitFepInlineEditL(CCoeEnv&amp; aConeEnvironment);</code></p><h4 class="subheading">Description</h4>
+<p>Commits the inline text to the document. This function's
+implementation calls the text editor's implementation of
+<code>DoCommitFepInlineEditL()</code> then calls
+<code>HandleCompletionOfTransactionL()</code> for each FEP observer which has
+been added to the cone environment's FEP observer list (see
+<code>CCoeEnv::AddFepObserverL()</code>).</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">CCoeEnv&amp; aConeEnvironment</code></td>
+<td class="Cell"><p class="ValueDesc">The control's environment.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.5.6"></a></div><div class="Head3">
+<a name="%3a%3aMCoeFepAwareTextEditor%3a%3aDoCommitFepInlineEditL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DoCommitFepInlineEditL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>private: virtual void DoCommitFepInlineEditL()=0;</code></p><h4 class="subheading">Description</h4>
+<p>Private function called by <code>CommitFepInlineEditL()</code>.
+Implementations should commit the inline text to the document. This ends the
+inline editing transaction and causes the inline text to become a &quot;real&quot; part
+of the document.</p>
+<a name="2.5.7"></a></div><div class="Head3">
+<a name="%3a%3aMCoeFepAwareTextEditor%3a%3aCancelFepInlineEdit%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CancelFepInlineEdit()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void CancelFepInlineEdit()=0;</code></p><h4 class="subheading">Description</h4>
+<p>Cancels the inline editing transaction. The edit window should
+be rolled back to the state it was in before the FEP transaction started, i.e.
+any inline text in the document which has not yet been committed should be
+removed. If the inline text has replaced existing text, (e.g. a selection) the
+replaced text should be reinstated.</p>
+<a name="2.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>General enquiry functions</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aMCoeFepAwareTextEditor%3a%3aDocumentLengthForFep%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DocumentLengthForFep()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt DocumentLengthForFep() const=0;</code></p><h4 class="subheading">Description</h4>
+<p>Returns the total number of characters in the text
+editor.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The total number of characters in the text editor.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aMCoeFepAwareTextEditor%3a%3aDocumentMaximumLengthForFep%28%29"></a>
+<hr size="1" noshade>
+<h3><code>DocumentMaximumLengthForFep()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual TInt DocumentMaximumLengthForFep() const=0;</code></p><h4 class="subheading">Description</h4>
+<p>Returns the upper limit (if any) on the length of  text that the text editor can hold.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt</code></td>
+<td class="Cell"><p class="ValueDesc">The maximum number of characters that the text editor can hold.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.4"></a></div><div class="Head3">
+<a name="%3a%3aMCoeFepAwareTextEditor%3a%3aGetEditorContentForFep%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetEditorContentForFep()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void GetEditorContentForFep(TDes&amp; aEditorContent, TInt aDocumentPosition, TInt aLengthToRetrieve) const=0;</code></p><h4 class="subheading">Description</h4>
+<p>Copies a portion of the text editor's text content into a
+descriptor.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TDes&amp; aEditorContent</code></td>
+<td class="Cell"><p class="ValueDesc">A descriptor; on return contains a copy of a portion of the
+text.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aDocumentPosition</code></td>
+<td class="Cell"><p class="ValueDesc">The document position in the text editor from which to
+copy.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aLengthToRetrieve</code></td>
+<td class="Cell"><p class="ValueDesc">The number of characters to copy.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.5"></a></div><div class="Head3">
+<a name="%3a%3aMCoeFepAwareTextEditor%3a%3aGetFormatForFep%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetFormatForFep()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void GetFormatForFep(TCharFormat&amp; aFormat, TInt aDocumentPosition) const=0;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the character formatting which applies to the document
+position specified. This function allows FEPs to find out the ambient
+formatting so that the FEP can choose a format for the inline text that will
+clearly differentiate it from the surrounding text.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TCharFormat&amp; aFormat</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the character formatting which applies to
+the character at <code>aDocumentPosition</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aDocumentPosition</code></td>
+<td class="Cell"><p class="ValueDesc">The document position of interest.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6.6"></a></div><div class="Head3">
+<a name="%3a%3aMCoeFepAwareTextEditor%3a%3aGetScreenCoordinatesForFepL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetScreenCoordinatesForFepL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void GetScreenCoordinatesForFepL(TPoint&amp; aLeftSideOfBaseLine, TInt&amp; aHeight, TInt&amp; aAscent, TInt aDocumentPosition) const=0;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the x,y screen coordinates for the left hand side of the
+baseline of the character located at a specified document position. Also gets
+the height (ascent + descent) and ascent of the font of the character. This function could
+be used to position the FEP window as close as possible to the insertion point in the text editor.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TPoint&amp; aLeftSideOfBaseLine</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the x,y coordinates of the left side of the
+baseline of the character located at <code>aDocumentPosition</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aHeight</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the height (ascent + descent) of the font
+of the character at <code>aDocumentPosition</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt&amp; aAscent</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the ascent of the font of the character at
+<code>aDocumentPosition</code>.</p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aDocumentPosition</code></td>
+<td class="Cell"><p class="ValueDesc">The document position of interest.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Text selection</h2>
+</div><div class="Bodytext">
+<a name="2.7.2"></a></div><div class="Head3">
+<a name="%3a%3aMCoeFepAwareTextEditor%3a%3aSetCursorSelectionForFepL%28%29"></a>
+<hr size="1" noshade>
+<h3><code>SetCursorSelectionForFepL()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void SetCursorSelectionForFepL(const TCursorSelection&amp; aCursorSelection)=0;</code></p><h4 class="subheading">Description</h4>
+<p>Sets the range of characters in the text editor which should be
+selected.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">const TCursorSelection&amp; aCursorSelection</code></td>
+<td class="Cell"><p class="ValueDesc">Contains the cursor and anchor positions for the
+selection.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.7.3"></a></div><div class="Head3">
+<a name="%3a%3aMCoeFepAwareTextEditor%3a%3aGetCursorSelectionForFep%28%29"></a>
+<hr size="1" noshade>
+<h3><code>GetCursorSelectionForFep()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>virtual void GetCursorSelectionForFep(TCursorSelection&amp; aCursorSelection) const=0;</code></p><h4 class="subheading">Description</h4>
+<p>Gets the range of characters in the text editor which are
+selected.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TCursorSelection&amp; aCursorSelection</code></td>
+<td class="Cell"><p class="ValueDesc">On return, contains the cursor and anchor positions of the
+selection.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>State information</h2>
+</div><div class="Bodytext">
+<a name="2.8.2"></a></div><div class="Head3">
+<a name="%3a%3aMCoeFepAwareTextEditor%3a%3aExtension1%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Extension1()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>MCoeFepAwareTextEditor_Extension1* Extension1();</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.1
+</p><h4 class="subheading">Description</h4>
+<p>Returns a pointer to an instance of the interface class <code>MCoeFepAwareTextEditor_Extension1</code>, or NULL, if the interface is not supported. Calls the private virtual function of the same name.</p><h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">MCoeFepAwareTextEditor_Extension1*</code></td>
+<td class="Cell"><p class="ValueDesc">A pointer to an instance of the interface class <code>MCoeFepAwareTextEditor_Extension1</code>, or NULL, if the interface is not supported.</p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.8.3"></a></div><div class="Head3">
+<a name="%3a%3aMCoeFepAwareTextEditor%3a%3aExtension1%28%29"></a>
+<hr size="1" noshade>
+<h3><code>Extension1()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>private: virtual MCoeFepAwareTextEditor_Extension1* Extension1(TBool&amp; aSetToTrue);</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.1
+</p><h4 class="subheading">Description</h4>
+<p>This private function should be overridden by text editors which support the <code>MCoeFepAwareTextEditor_Extension1</code> interface. </p><p>The implementation of this function should simply return a pointer to itself (<code>this</code>), and set <code>aSetToTrue</code> to <code>ETrue</code>. If not overridden, the function returns NULL to indicate that the interface is not supported. Called by the public overload of <code>MCoeFepAwareTextEditor::Extension1()</code>. </p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">TBool&amp; aSetToTrue</code></td>
+<td class="Cell"><p class="ValueDesc">This should always be set to <code>ETrue</code>.</p></td>
+</tr>
+</table></td></tr></table>
+<h4 class="subheading">Return value</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value">MCoeFepAwareTextEditor_Extension1*</code></td>
+<td class="Cell"><p class="ValueDesc">A pointer to the object for which the function is invoked (<code>this</code>).</p></td>
+</tr>
+</table></td></tr></table>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

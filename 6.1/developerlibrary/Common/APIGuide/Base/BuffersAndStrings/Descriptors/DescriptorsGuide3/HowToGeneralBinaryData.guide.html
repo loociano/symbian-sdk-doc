@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to represent general binary data</title>
+<link href="../../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="DescriptorsGuide3%2ehow%2dto%2egeneral%2dbinary%2ddata"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../../_index/index.html"><img
+src="../../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../../GlobalGlossary/index.html"><img src="../../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="DescriptorsForFunctionInterfaces.guide.html"><img src="../../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Buffers&nbsp;and&nbsp;Strings</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Descriptors</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">How&nbsp;to&nbsp;Use&nbsp;Descriptors</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;represent&nbsp;general&nbsp;binary&nbsp;data</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to represent general binary data</h1>
+</div><div class="Bodytext">
+<p>The kind of data represented or contained by descriptors is not
+restricted to text. Descriptors can also handle general binary data.</p>
+<p>To deal with general binary data, always explicitly construct an
+8&nbsp;bit variant descriptor. Binary data should always be treated as
+8&nbsp;bit data regardless of the build.</p>
+<p>For example, starting with an area in memory initialised with binary
+data as follows:</p>
+<p class="CodeBlock"><code>TUint8 data[6] = {0x00,0x01,0x02,0xAD,0xAE,0xAF};</code></p>
+<p>construct a modifiable buffer descriptor using the default
+constructor as follows:</p>
+<p class="CodeBlock"><code>TBuf8&lt;32&gt; buffer;</code></p>
+<p>The following code fragment puts the binary data into the descriptor
+and appends a number of single byte values. The length of the buffer is 9, the
+maximum length is 32 and the size is 9 regardless of the build.</p>
+<p class="CodeBlock"><code>TInt index;<br>TInt counter;</code></p>
+<p>Text and general binary data can be freely mixed and the following
+code is acceptable:</p>
+<p class="CodeBlock"><code>buffer.Append('A');<br>buffer.Append('B');<br>buffer.Append(0x11);</code></p>
+<p>Note that fixed length C++ arrays such as <code>data</code> above can
+be packaged inside a thin wrapper class, a <code>TFixedArray&lt;class T,TInt
+S&gt;</code> type, to guarantee that all array accesses are safe.</p>
+<a name="1.14"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="../../../ArraysAndLists/FixedSizeArrays/index.html#FixedSizeArraysGuide%2etoc">Using wrappers</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

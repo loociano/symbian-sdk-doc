@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Database storage overhead</title>
+<link href="../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="InterfaceToDBMSDatabasesGuide%2estorage%2doverhead"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../_index/index.html"><img
+src="../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../GlobalGlossary/index.html"><img src="../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="ImplemetationLimits.guide.html"><img src="../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="DataSafetyAndRecovery.guide.html"><img src="../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">DBMS</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Interface&nbsp;to&nbsp;DBMS&nbsp;databases</a>&nbsp;<span class="separator">&#187;</span>
+Database&nbsp;storage&nbsp;overhead</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1>Database storage overhead</h1>
+</div><div class="Bodytext">
+<p>Space utilization is efficient</p>
+<ul><li><p>the underlying permanent file store adds minimal overhead to maintain its structure: store imposes a fixed 46 bytes + 2 bytes per additional 16K; each stream requires 7 bytes.</p></li>
+<li><p>the database has minimal space requirements to store its schema and data structure.</p></li>
+<li><p>including the stream overhead, row storage overhead can be less than 2 bytes per row in ideal clustering conditions, even with lower clustering the overhead is usually below 1% of the data volume.</p></li>
+</ul><p>The storage required for a row can be determined as follows:</p>
+<ul><li><p>each non-null value requires the storage for fixed width columns, and the raw storage plus 1 byte for variable width columns.</p></li>
+<li><p>long columns are stored embedded in the row data when they are small enough, and otherwise they are stored in a separate stream: this makes more efficient use of the both space and speed. When embedded they require just 1 bit more than the short columns, when separated they require 8 bytes in the row data plus any stream overhead.</p></li>
+<li><p>each nullable column requires an extra 1 bit.</p></li>
+<li><p>bits are packed into bytes in the row storage.</p></li>
+</ul><a name="1.7"></a></div><div class="Head2">
+<hr size="2" noshade>
+<h2>Indexes</h2>
+</div><div class="Bodytext">
+<p>Indexes are implemented using STORE B+trees. Note in particular that indexes use fixed length keys, so that indexes on longer text fields can consume significant space.</p>
+<p>If the key for the index is <em>k</em> bytes, the number of rows to index is <em>n</em>, the index page size is <em>P</em>, and the B-tree packing density is <em>r</em>:</p>
+<p><em>a = [(P-8)/(k+4)] * r</em></p>
+<p>Where <em>[x]</em> is the largest integer &lt;= <em>x</em>. Then the number of pages required, <em>N</em>, is</p>
+<p><em>N = n * (1/a + 1/(a*a))</em></p>
+<p>Each page requires <em>P+7</em> bytes in the store, so the total indexing overhead, <em>S</em>,  is</p>
+<p><em>S = N * (P+7)</em></p>
+<p>For DBMS <em>P=512</em> and <em>r=0.86</em>.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

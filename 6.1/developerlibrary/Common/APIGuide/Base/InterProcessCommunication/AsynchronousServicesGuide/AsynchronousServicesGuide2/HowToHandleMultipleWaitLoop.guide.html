@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to handle multiple asynchronous requests with a wait loop</title>
+<link href="../../../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="AsynchronousServices2%2ehow%2dto%2ewait%2dloop"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../../../_index/index.html"><img
+src="../../../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../../../GlobalGlossary/index.html"><img src="../../../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="HowToHandleASingleRequest.guide.html"><img src="../../../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="CancelAsyncRequest.guide.html"><img src="../../../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../index.html">Base</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Inter&nbsp;Process&nbsp;Communciation</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Using&nbsp;Asynchronous&nbsp;Services</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Low&nbsp;Level&nbsp;Asynchronous&nbsp;Service&nbsp;Handling</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;handle&nbsp;multiple&nbsp;asynchronous&nbsp;requests&nbsp;with&nbsp;a&nbsp;wait&nbsp;loop</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to handle multiple asynchronous requests with a wait
+loop</h1>
+</div><div class="Bodytext">
+<p>A user thread which requires asynchronous services from more than one
+asynchronous service provider uses a <i>wait loop</i>.</p>
+<p>The allows a thread to issue as many request as are necessary and to
+handle their completion. This construction forms the heart of almost all
+programs that run under EPOC.</p>
+<p>A typical program:</p>
+<ul>
+<li>
+<p>waits for any request to complete by waiting on the
+thread&#8217;s request semaphore.</p>
+</li>
+<li>
+<p>scans in turn through the asynchronous service providers for
+which a request is known to have been issued and tests the relevant
+<code>TRequestStatus</code> for completion; this is identified by a value other
+than <code>KRequestPending</code>.</p>
+</li>
+<li>
+<p>when the first such completed request has been identified,
+handles the completed request, possibly by issuing a further request to an
+asynchronous service provider.</p>
+</li>
+<li>
+<p>goes back to the top of the wait loop and waits again.</p>
+</li>
+</ul>
+<p>As an example, a terminal emulator must work with multiple requests
+simultaneously, to deal with:</p>
+<ul>
+<li>
+<p>key presses and user input in general, to control the action of
+the program and put characters on the emulated terminal screen and/or send them
+to the remote host</p>
+</li>
+<li>
+<p>received data and to put characters on the emulated terminal
+screen or perform some control function.</p>
+</li>
+<li>
+<p>the completion of any transmit operation that was in progress; if
+successful, there may be more data to transmit; if unsuccessful, some recovery
+action may be necessary</p>
+</li>
+</ul>
+<a name="1.9"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Typical wait loop protocol</h2>
+</div><div class="Bodytext">
+<p>The typical protocol of a wait loop is:</p>
+<ul>
+<li>
+<p>The initialisation phase which issues the first asynchronous
+requests.</p>
+</li>
+<li>
+<p>Entry into the main loop which waits for <i>any</i>
+of these requests to complete and then handles the completion of one of
+them.</p>
+</li>
+<li>
+<p>Detection of conditions which imply termination of the program.
+Typically, one of the request completion handlers sets appropriate flags and
+the wait loop terminates.</p>
+</li>
+<li>
+<p>Cleanup and final termination.</p>
+</li>
+</ul>
+<p class="CodeBlock"><code>initialize;<br>while (!finished())<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;wait for one or more requests to complete<br>&nbsp;&nbsp;&nbsp;&nbsp;decide which request completed, and handle it<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>terminate;</code></p>
+<p>Note that only one request should be handled per iteration of the
+loop. As part of the request completion handling process, the request may be
+re-issued, or new requests issued or existing ones cancelled. If the request
+cannot be identified, then the thread&#8217;s request semaphore has been
+signalled invalidly; this is indicative of a programming error, a condition is
+known as a stray signal - the wait loop should raise a panic.</p>
+<a name="1.10"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Multiple outstanding requests</h2>
+</div><div class="Bodytext">
+<p>In the case of a terminal emulator which works with multiple
+outstanding requests, it must be able to service whichever request completes
+and must be able to re-issue a request, if necessary. For example, when one key
+has been processed, a request for the next key must be issued.</p>
+<p>In the following example:</p>
+<ul>
+<li>
+<p>Call <code>Initialize()</code> to initialise the emulator.</p>
+</li>
+<li>
+<p>Implement <code>while()</code> to handle events.</p>
+</li>
+<li>
+<p>Call the function <code>User::WaitForAnyRequest()</code> to wait
+for any request to complete instead of waiting for a specific request to
+complete.</p>
+</li>
+<li>
+<p>Identify the particular request that completed by checking the
+request status objects for a value not equal to
+<code>KRequestPending</code>.</p>
+</li>
+</ul>
+<p class="CodeBlock"><code>class TerminalEmulator<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>public:<br>&nbsp;&nbsp;&nbsp;&nbsp;void MainLoop(); // main loop<br>private:<br>&nbsp;&nbsp;&nbsp;&nbsp;void Initialize(); // initialize<br>&nbsp;&nbsp;&nbsp;&nbsp;void Terminate(); // clean up and terminate<br>&nbsp;&nbsp;&nbsp;&nbsp;TBool IsFinished(); // whether finished<br>private:<br>&nbsp;&nbsp;&nbsp;&nbsp;// request status objects<br>&nbsp;&nbsp;&nbsp;&nbsp;TRequestStatus iKeyPressed; // whether key pressed<br>&nbsp;&nbsp;&nbsp;&nbsp;...                         // ...etc for other request status<br>&nbsp;&nbsp;&nbsp;&nbsp;// handler functions<br>&nbsp;&nbsp;&nbsp;&nbsp;void HandleKeyPressed();    // handle key pressed<br>&nbsp;&nbsp;&nbsp;&nbsp;...                         // ... etc other handlers<br>&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;};</code></p>
+<p class="CodeBlock"><code>void TerminalEmulator::MainLoop()<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;Initialize();         // Initialize emulator<br>&nbsp;&nbsp;&nbsp;&nbsp;while (!IsFinished()) // Handle events until finished<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// wait for any request to complete<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;User::WaitForAnyRequest();<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// identify and handle the completed request<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (iKeyPressed!=KRequestPending)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HandleKeyPressed();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else if (iReceiveCompleted!=KRequestPending)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HandleReceiveCompleted();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else if (iTransmitCompleted!=KRequestPending)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HandleTransmitCompleted();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// something we weren&#8217;t expecting<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// panic !<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code></p>
+<a name="1.10.7"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Note</h3>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>The request status is set by the service provider to
+<code>KRequestPending</code> when a request is issued. When the request is
+complete, the service provider uses an operating system call to set the request
+status value to some other value&nbsp;&#8212; usually a standard error
+code&nbsp;&#8212; and then to wake up the thread that requested the service,
+causing its <code>WaitForAnyRequest()</code> to complete.</p>
+</li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

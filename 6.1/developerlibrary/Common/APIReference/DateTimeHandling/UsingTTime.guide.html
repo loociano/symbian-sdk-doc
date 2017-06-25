@@ -1,0 +1,191 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Using TTime</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="DateTimeHandling%2eusing%2eTTime"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="UsingTDateTime.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="index.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Date&nbsp;and&nbsp;Time&nbsp;Handling</a>&nbsp;<span class="separator">&#187;</span>
+Using&nbsp;TTime</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Using <code>TTime</code></h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2><code>Set()</code></h2>
+</div><div class="Bodytext">
+<p>This function is used to assign a date and time string contained in
+a descriptor to this <code>TTime</code>. The code below gives examples of
+invalid input strings, causing an error to be returned. When there is an error,
+the date/time remains unchanged. Note that when specifying the month and day in
+the input string, both values start at zero, so that 19940102 indicates 3rd
+February 1994.</p>
+<p class="CodeBlock"><code>_LIT(KDateCorrect1,&quot;19940102:&quot;); <br>TBuf &lt;24&gt; theDate=KDateCorrect1; // theDate = 3rd February 1994 00:00:00 am<br>TInt err=time.Set(theDate); // No error<br>_LIT(KDateCorrect2,&quot;19940102:.000001&quot;);<br>theDate=KDateCorrect2; // theDate = 3rd February 1994 00:00:00.000001<br>err=time.Set(theDate); // No error<br>_LIT(KDateWrongColonPos,&quot;1994012:100000.000001&quot;);<br>theDate=KDateWrongColonPos;<br>err=time.Set(theDate); // KErrGeneral error - time is unchanged<br>&nbsp;&nbsp;&nbsp;&nbsp;// Error&nbsp;&#8212; colon in wrong position (position 7). If present, must<br>&nbsp;&nbsp;&nbsp;&nbsp;// be either at position zero or position eight<br>_LIT(KDateWrongDotPos,&quot;19940102.000001&quot;);<br>theDate=KDateWrongDotPos;<br>err=time.Set(theDate); // KErrGeneral error - time is unchanged<br>&nbsp;&nbsp;&nbsp;&nbsp;// Error&nbsp;&#8212; dot in wrong position. If no colon present, dot must be<br>&nbsp;&nbsp;&nbsp;&nbsp;// at position zero (indicating that both YYYYMMDD and HHMMSS     <br>&nbsp;&nbsp;&nbsp;&nbsp;// omitted), or position six (indicating that YYYYMMDD omitted)<br>_LIT(KDateNoDotOrColon,&quot;19940102&quot;);<br>theDate=KDateNoDotOrColon;<br>err=time.Set(theDate);    // Error&nbsp;&#8212; either or both dot and colon must be present</code></p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2><code>MonthsFrom()</code></h2>
+</div><div class="Bodytext">
+<p>This function is used to calculate the number of months between two
+date/times. The result may be positive or negative. A positive value means that
+this time is later than the time contained in the argument and a negative value
+means that this time is earlier than the time in the argument.</p>
+<p>The following code shows how intervals are calculated between dates
+in months which have different numbers of days. This <code>TTime</code>
+(<code>time</code>) is initialized to 10:00:00 AM on the 31st October. The code
+demonstrates that counting forwards, one month elapses when the same time on
+the 30th November is reached. When counting backwards, one month elapses when
+the last microsecond in the previous month (30/09/1997 23:59:59:999999) is
+reached.</p>
+<p class="CodeBlock"><code>_LIT(KMiddleDateTime,&quot;19970930:100000.000000&quot;);<br>TTime time(KMiddleDateTime);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// time=31/10/1997 10:00:00:000000<br>_LIT(KEarlierDateTime,&quot;19970829:235959.999999&quot;);<br>TTime earlierTime(KEarlierDateTime);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// earlierTime=30/09/1997 23:59:59:999999<br>_LIT(KLaterDateTime,&quot;19971029:100000.000000&quot;);<br>TTime laterTime(KLaterDateTime);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// laterTime=30/11/1997 10:00:00:000000<br>TTimeIntervalMonths result=time.MonthsFrom(earlierTime);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// result == +1<br>result=time.MonthsFrom(laterTime); // result == -1<br>TTimeIntervalMicroSeconds interval(1);<br>earlierTime+=interval; // earlierTime=01/10/1997 00:00:00:000000<br>laterTime-=interval; // laterTime=30/11/1997 09:59:59:999999<br>result=time.MonthsFrom(earlierTime); // result == zero<br>result=time.MonthsFrom(laterTime);    // result == zero</code></p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2><code>YearsFrom()</code></h2>
+</div><div class="Bodytext">
+<p>This function is used to calculate the number of years between two
+date/times. The result may be positive or negative. In the following piece of
+code, this <code>TTime</code> (<code>leapYear</code>) is set to the 29th
+February 1996. It demonstrates that from 10:00:00 29th February 1996 to
+10:00:00 28th February 1997 is an interval of one year.</p>
+<p class="CodeBlock"><code>TTimeIntervalYears result;<br>TDateTime dateTime(1996,EFebruary,28,10,00,00,000000);<br>TTime leapYear(dateTime); // leapYear==29/02/1996 10:00:00:000000 <br>TTime nextYear(dateTime);<br>TTimeIntervalYears intervalInYears(1);<br>nextYear+=intervalInYears; // nextYear==28/02/1997 10:00:00:000000<br>result=leapYear.YearsFrom(nextYear); // as expected, result==&#8211;1</code></p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2><code>WeekNoInYear()</code></h2>
+</div><div class="Bodytext">
+<p>These functions are used to find the number of the current week in
+the year. Variants are provided to allow the user to specify the date which is
+to be considered as the start of the year and to set the rule governing which
+week is the first week in the year.</p>
+<p>Assuming that the first day in the week is Monday, the first day in
+the year is January 1st and the current date is Monday 6th January 1997 and
+<code>time</code> is an instance of <code>TTime</code>:</p>
+<ul>
+<li>
+<p><code>time.WeekNoInYear()==2</code> because Monday 6th is the
+first day in week 2.</p>
+</li>
+<li>
+<p><code>time.WeekNoInYear(EFirstFullWeek)==1</code> because
+Monday 6th is the first day in the first week entirely in 1997.</p>
+</li>
+<li>
+<p><code>time.WeekNoInYear(EFirstWeek)==2</code> because the first
+week in the year was the week containing the 1st January (Wednesday 1st to
+Sunday 5th).</p>
+</li>
+<li>
+<p><code>time.WeekNoInYear(EFirstFourDayWeek)==2</code> because
+the first four days of the year, representing the first week in the year, were
+Wednesday 1st to Saturday 4th.</p>
+</li>
+</ul>
+<a name="1.7"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2><code>FormatL()</code></h2>
+</div><div class="Bodytext">
+<p>The examples below demonstrate how to format a descriptor which
+holds a date/time string, locale-dependently and independently.</p>
+<p>The following code fragment is locale-dependent. It assumes the
+current date and time (<code>TTime</code>
+<code>time</code>) is 2nd January
+1997 23:59:59.999999, and uses the system default date and time settings for a
+UK locale, including the default date and time separators, a 12 hour clock,
+trailing am/pm text and assumes a point for the decimal separator;</p>
+<p class="CodeBlock"><code>TBuf&lt;30&gt; dateString;<br>_LIT(KDateString1,&quot;%E%D%X%N%Y %1 %2 %3&quot;);<br>time.FormatL(dateString,KDateString1);<br>// dateString contains &quot;Thursday 02nd January 1997&quot; - no abbreviation<br><br>_LIT(KDateString2,&quot;%*E%*D%X%*N%*Y %1 %2 '%3&quot;);<br>time.FormatL(dateString,KDateString2);<br>// dateString contains &quot;Thu 2nd Jan '97&quot; - everything abbreviated<br><br>_LIT(KDateString3,&quot;%D%M%Y%/0%1%/1%2%/2%3%/3&quot;);<br>time.FormatL(dateString,KDateString3);<br>// dateString contains &quot;02/01/1997&quot; - no abbreviation; first and third <br>// date separators are both '\0'<br><br>_LIT(KDateString4,&quot;%-B%:0%J%:1%T%:2%S%.%*C4%:3%+B&quot;);<br>time.FormatL(dateString,KDateString4);<br>// dateString contains &quot;11:59:59.9999 pm&quot; - first and third time <br>// separators are both '\0'; locale dependent decimal separator      <br>// separates seconds and microseconds<br><br>_LIT(KDateString5,&quot;%-B%:0%J%:1%T%:2%S%:3%+B&quot;);<br>time.FormatL(dateString,KDateString5);<br>// dateString contains &quot;11:59:59 pm - as above, but no microseconds</code></p>
+<p>The following code demonstrates formatting two component dates and
+times.</p>
+<p class="CodeBlock"><code>_LIT(KDateString6,&quot;%-B%:0%J%:1%T%:3%+B&quot;);<br>time.FormatL(dateString,KDateString6); <br>// dateString contains &quot;11:59 pm&quot; - Two component time (hour:minute).<br>// Third time delimiter omitted as it separates minutes and seconds<br><br>_LIT(KDateString7,&quot;%M%Y%/0%4%/1%5%/3&quot;);<br>time.FormatL(dateString,KDateString7); <br>// dateString contains &quot;02/01&quot; - Two component date (day/month). <br>// Third date delimiter omitted</code></p>
+<p>The following code demonstrates that the ordering of the
+<code>%D</code>
+<code>%M</code>
+<code>%Y</code> is irrelevant when using
+locale-dependent formatting. The ordering of the date components is determined
+by the order of the <code>%1</code>, <code>%2</code>, and <code>%3</code>
+formatting commands.</p>
+<p class="CodeBlock"><code>_LIT(KDateString8,&quot;%M%Y%D%/0%1%/1%2%/2%3%/3&quot;);<br>time.FormatL(dateString,KDateString8);<br>&nbsp;&nbsp;&nbsp;&nbsp;// dateString contains 02/01/1997<br><br>_LIT(KDateString9,&quot;%Y%D%M%/0%1%/1%2%/2%3%/3&quot;);<br>time.FormatL(dateString,KDateString9);<br>&nbsp;&nbsp;&nbsp;&nbsp;// dateString contains 02/01/1997<br><br>_LIT(KDateString10,&quot;%D%M%Y%/0%3%/1%1%/2%2%/3&quot;);<br>time.FormatL(dateString,KDateString10);<br>&nbsp;&nbsp;&nbsp;&nbsp;// dateString contains 1997/02/01</code></p>
+<p>However, when using locale-independent formatting, the
+<code>%1</code>, <code>%2</code> and <code>%3</code> are not required. The
+ordering of the date components is determined by the ordering of the
+<code>%D</code>, <code>%M</code> and <code>%Y</code>.</p>
+<p class="CodeBlock"><code>_LIT(KDateString11,&quot;%F%/0%M%/1%Y%/2%D%/3&quot;);<br>time.FormatL(dateString,KDateString11);<br>// dateString contains 01/1997/02</code></p>
+<a name="1.8"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2><code>Parse()</code></h2>
+</div><div class="Bodytext">
+<p>This function is used to parse a descriptor containing either or
+both a date and time, setting this <code>TTime</code> to the value of the
+parsed descriptor.</p>
+<p>The following example code demonstrates setting the time alone. The
+following four calls to <code>TTime::Parse()</code> give the same result;
+23:34.56. Because no date is specified, the date is set to January 1st year
+zero, and all return a value of <code>EParseTimePresent</code>. Different time
+separators may be used in the same string</p>
+<p class="CodeBlock"><code>TTime time;<br>_LIT(KTimeString1,&quot;23:34.56&quot;);<br>TInt returnvalue=time.Parse(KTimeString1); // 11 pm<br>_LIT(KTimeString2,&quot;0023:0034.056&quot;);<br>returnvalue=time.Parse(KTimeString2); // Leading zeros ignored<br>_LIT(KTimeString3,&quot;23:34.56am&quot;);<br>returnvalue=time.Parse(KTimeString3); // &quot;am&quot; ignored<br>_LIT(KTimeString4,&quot;11:34.56p&quot;);<br>returnvalue=time.Parse(KTimeString4); // 11 pm</code></p>
+<p>The following example code demonstrates setting the date alone.
+Because no time is specified, the time is set to midnight (00:00:00), and all
+except the final call return a value of <code>EParseDatePresent</code>.
+Different date separators may be used in the same string, and the month may be
+specified as text or numbers.</p>
+<p class="CodeBlock"><code>_LIT(KDateString1, &quot;5-6-1996&quot;); // 5 June 1996<br>returnvalue=time.Parse(KDateString1); // 5 June 1996<br>_LIT(KDateString2,&quot;5 jun, 00&quot;);<br>returnvalue=time.Parse(KDateString2,00); // 5 June 2000<br>_LIT(KDateString3, &quot;5/june/00&quot;);<br>returnvalue=time.Parse(KDateString3,00); // 5 June 2000<br>_LIT(KDateString4, &quot;june 5&quot;);<br>returnvalue=time.Parse(KDateString4); <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// error - two component dates not supported</code></p>
+<p>The following example code demonstrates setting both the time and
+date. Either date or time component may occur first in the descriptor. Both
+return a value of <code>EParseDatePresent</code> and
+<code>EParseTimePresent</code>.</p>
+<p class="CodeBlock"><code>_LIT(KDateTimeString1, &quot;20-feb/00  12:40.01am&quot;);<br>returnvalue=time.Parse(KDateTimeString1);<br>&nbsp;&nbsp;&nbsp;&nbsp;// 20 Feb 2000 00:40:01<br>_LIT(KDateTimeString2, &quot;12:40.01pm 20 FEBRUARY 00&quot;);<br>returnvalue=time.Parse(KDateTimeString2); <br>&nbsp;&nbsp;&nbsp;&nbsp;// 12:40:01 20 Feb 2000</code></p>
+<p>The following code sets two of the locale settings which are
+honoured by <code>TTime::Parse()</code>: the date and time separator
+characters. The first call to <code>TTime::Parse()</code> returns a date/time
+of midnight 20th April 2018 because the hyphen is interpreted as a date
+separator character. The second call returns a date/time of January 1st year
+zero, at 20:04.18 because the dot is interpreted as a time separator
+character.</p>
+<p class="CodeBlock"><code>TLocale locale;<br>locale.SetDateSeparator('-',1); // set first date separator<br>locale.SetDateSeparator('-',2); // set second date separator<br>locale.SetTimeSeparator('.',1); // set first time separator<br>locale.SetTimeSeparator('.',2); // set second time separator<br>locale.Set(); // transfer the new locale settings to the system<br>_LIT(KParseLocaleString1,&quot;20-04-18&quot;); // DD/MM/YYYY<br>returnvalue=time.Parse(KParseLocaleString1); // 20th April 2018 00:00:00.0000<br>_LIT(KParseLocaleString2,&quot;20.04.18&quot;);<br>returnvalue=time.Parse(KParseLocaleString2); // 01 Jan 0000 20:04.18 </code></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>abld command syntax overview</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="PracticalGuide%2esyntax%2dabld"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="index.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="build.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../index.html">Tools&nbsp;And&nbsp;Utilities</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Build&nbsp;Tools&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">abld&nbsp;command&nbsp;syntax</a>&nbsp;<span class="separator">&#187;</span>
+abld&nbsp;command&nbsp;syntax&nbsp;overview</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+</div><div class="Head1">
+
+<h1><code class="filename">abld</code> command syntax overview</h1>
+</div><div class="Bodytext">
+<p>
+The <code class="filename">abld</code> batch file is used to control all aspects of
+building a project. The batch file is created using <code class="filename">bldmake</code> from a
+component description file.</p><h4 class="subheading">Invocation syntax</h4><p><code>abld [ test ]</code>
+<em class="metasyntactic">command</em>
+[ <em class="metasyntactic">options</em> ] [ <em class="metasyntactic">platform</em> [ <em class="metasyntactic">build</em> [ <em class="metasyntactic">program</em> ] ] ]</p>
+<p>A summary of <em class="metasyntactic">command</em>, <em class="metasyntactic">options</em>, <em class="metasyntactic">platform</em>, <em class="metasyntactic">build</em>, <em class="metasyntactic">program</em>, and <code>test</code> are given below.</p>
+<p>Note that, for certain <code class="filename">abld</code> commands, not all the
+parameters&#8212; <em class="metasyntactic">platform</em>, <em class="metasyntactic">build</em>
+and <em class="metasyntactic">program</em>&#8212;apply. For example, <code>abld export</code> does not take these parameters, as exports do not depend on any of build,
+platform or program.</p><h4 class="subheading"><em class="metasyntactic">command</em></h4><p>Possible commands are as follows:</p><table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top"><td class="Cell">
+<p><code>build</code></p></td><td class="Cell">
+<p>Combines commands <code>export</code>, <code>makefile</code>,
+<code>library</code>, <code>resource</code>,
+<code>target</code>, and <code>final</code><code class="filename">.</code></p></td></tr><tr valign="top"><td class="Cell">
+<p><code>clean</code></p></td><td class="Cell">
+<p>Removes everything built with <code>abld
+target</code></p></td></tr><tr valign="top"><td class="Cell">
+<p><code>cleanexport</code></p></td><td class="Cell">
+<p>Removes files created by <code>abld</code>
+<code>export</code></p></td></tr><tr valign="top"><td class="Cell">
+<p><code>export</code></p></td><td class="Cell">
+<p>Copies the exported files to their
+destinations</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>final</code></p></td><td class="Cell">
+<p>Allows extension makefiles to execute final
+commands</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>freeze</code></p></td><td class="Cell">
+<p>Freezes exported functions in a <code class="filename">.def</code>
+file</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>help</code></p></td><td class="Cell">
+<p>Displays commands, options or help about a particular
+command</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>library</code></p></td><td class="Cell">
+<p>Creates import libraries from the frozen <code class="filename">.def</code>
+files</p></td></tr><tr valign="top"><td class="Cell"><p><code>listing</code></p></td><td class="Cell"><p>Creates an assembler listing file for a particular source file
+</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>makefile</code></p></td><td class="Cell">
+<p>Creates makefiles or IDE workspaces</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>reallyclean</code></p></td><td class="Cell">
+<p>As <code>clean</code>, but also removes
+exported files and makefiles</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>resource</code></p></td><td class="Cell">
+<p>Creates resources files, bitmaps and
+<code class="filename">aif</code>s</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>target</code></p></td><td class="Cell">
+<p>Creates the main executable and also the
+resources</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>tidy</code></p></td><td class="Cell">
+<p>Removes executables which need not be
+released</p></td></tr></table></td></tr></table>
+<h4 class="subheading"><em class="metasyntactic">options</em></h4><p>Possible options are as follows:</p><table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top"><td class="Cell">
+<p><code>-check or
+-c</code></p></td><td class="Cell">
+<p>Check that the releasables are
+present</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>-keepgoing or
+-k</code></p></td><td class="Cell">
+<p>build unrelated targets on error</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>-savespace or
+-s</code></p></td><td class="Cell">
+<p>Delete intermediate files on success</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>-verbose or
+-v</code></p></td><td class="Cell">
+<p>Display tools calls as they happen</p></td></tr><tr valign="top"><td class="Cell">
+<p><code>-what or -w</code></p></td><td class="Cell">
+<p>List the releasables</p></td></tr></table></td></tr></table><p>Note also that not all the options apply for all the commands.
+Where they do apply, they can be specified in either their long or abbreviated
+forms. For example,</p>
+<p><code>-keepgoing (</code>long form)</p>
+<p>or</p>
+<p><code>-k </code>(abbreviated form)</p><h4 class="subheading"><em class="metasyntactic">platform</em></h4><p>This specifies the target platform. Possible platforms are:</p><table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top"><td class="Cell"><p><code>armi</code></p></td><td class="Cell"><p>ARMI</p></td></tr><tr valign="top"><td class="Cell"><p><code>wins</code></p></td><td class="Cell"><p>WINS</p></td></tr><tr valign="top"><td class="Cell"><p><code>vc6</code></p></td><td class="Cell"><p>Microsoft VC++ 6 (for creating IDE workspaces)</p></td></tr><tr valign="top"><td class="Cell"><p><code>all</code></p></td><td class="Cell"><p>All platforms</p></td></tr></table></td></tr></table><p>If <em class="metasyntactic">platform</em> is not
+specified, or is specified as <code class="filename">all</code>, then <code class="filename">abld</code> will
+carry out the specified command for all the platforms specified in the
+component description file. </p><p>Basenames of .<code class="filename">mmp</code> files or extension
+makefiles must not be platform names. </p><h4 class="subheading"><em class="metasyntactic">build</em></h4><p>This specifies the build type. Possible types are:</p><table cellpadding="1" border="0" cellspacing="0"><tr><td
+class="TableWrap"><table cellpadding="5" cellspacing="1"
+border="0"><tr valign="top"><td class="Cell"><p><code>udeb</code></p></td><td class="Cell"><p>Debug build</p></td></tr><tr valign="top"><td class="Cell"><p><code>urel</code></p></td><td class="Cell"><p>Release build</p></td></tr><tr valign="top"><td class="Cell"><p><code>all</code></p></td><td class="Cell"><p>Debug and release builds</p></td></tr></table></td></tr></table><p>If <em class="metasyntactic">build</em> is
+unspecified, or specified as <code class="filename">all</code>, then <code class="filename">abld</code> will carry out
+the specified command for both builds: <code class="filename">udeb</code> and then
+<code class="filename">urel</code>. </p>
+<p>Basenames of .<code class="filename">mmp</code> files or extension
+makefiles must not be build type names. </p><h4 class="subheading"><em class="metasyntactic">program</em></h4><p>This specifies the basename of a particular <code class="filename">.mmp</code> file
+or extension makefile, in order to limit the command to a single project within a component. </p>
+<p>If <em class="metasyntactic">program</em> is unspecified, the specified command will be carried out for all
+projects within the component.</p><h4 class="subheading">test</h4><p>Where test is specified before <code>command</code>,
+the <code>command</code> will operate on all the
+projects defined by <code class="filename">.mmp</code> files listed in the <code>prj_testmmpfiles</code>
+section of the component description file, rather than those projects defined
+by <code class="filename">.mmp</code> files listed in the <code>prj_mmpfiles</code>
+section. </p>
+<p>Note that the test parameter is irrelevant for some commands
+and, in those cases, cannot be specified.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

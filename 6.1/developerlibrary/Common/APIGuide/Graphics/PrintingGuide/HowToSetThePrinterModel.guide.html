@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>How to set the printer model</title>
+<link href="../../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="PrintingGuide%2eHowToSetThePrinterModel"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../../_index/index.html"><img
+src="../../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../../GlobalGlossary/index.html"><img src="../../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="PrintClasses.guide.html"><img src="../../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="HowToSetThePageSpecification.guide.html"><img src="../../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../index.html">Graphics</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Using&nbsp;Printing</a>&nbsp;<span class="separator">&#187;</span>
+How&nbsp;to&nbsp;set&nbsp;the&nbsp;printer&nbsp;model</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>How to set the printer model</h1>
+</div><div class="Bodytext">
+<p>A printer device must be selected before printing can begin.</p>
+<ol>
+<li>
+<p>You must have added at least one directory to the list of printer
+driver search paths and a printer model list must have been created before you
+can select a model. For more information on the search path, see
+<code>CPrintSetup</code>.</p>
+</li>
+<li>
+<p>Retrieve the list of all supported printer models using
+<code>CPrintSetup::ModelNameListL().</code> A printer model is identified by
+its UID and also has an associated model name. </p>
+</li>
+<li>
+<p>Select the target printer device using
+<code>CPrintSetup::CreatePrinterDeviceL().</code></p>
+</li>
+<li>
+<p>The model list is deleted in the destructor for
+<code>CPrintSetup</code>, but if it is no longer needed, it may be deleted
+beforehand using <code>FreeModelList().</code></p>
+</li>
+</ol>
+<p class="CodeBlock"><code>// Provide search path for printer drivers<br>_LIT(KSearchPath,&quot;\\system\\printers\\*&quot;);<br>iPrintSetup-&gt;AddPrinterDriverDirL(KSearchPath); <br><br>// Get list of models - causes list to be allocated<br>CPrinterModelList* modelList = iPrintSetup-&gt;ModelNameListL(iFs);<br><br>// Create a printer device. Select first in list (random choice)<br>iPrintSetup-&gt;CreatePrinterDeviceL(modelList-&gt;NumToUid(0));<br><br>// Free models list<br>iPrintSetup-&gt;FreeModelList();</code></p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Notes</h2>
+</div><div class="Bodytext">
+<ul>
+<li>
+<p>In a real application program, the list of all supported
+printer models would be displayed in a suitable dialog box from which the user
+could make their choice. In the example above, the first model in the list is
+chosen arbitrarily, and its UID is passed to
+<code>CPrintSetup::CreatePrinterDeviceL().</code>
+</p>
+</li>
+<li>
+<p>Note that <code>CPrintSetup</code> does not create a default
+printer device on construction so <code>CreatePrinterDeviceL()</code> must have
+been called before printing can take place. If no printer device with the UID
+specified exists, a default printer device will be created.</p>
+</li>
+</ul>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

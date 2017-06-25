@@ -1,0 +1,208 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>CoeSoundPlayer</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="2"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="BaSystemSoundClass.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="TBaSystemSoundInfoClass.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIReference/index.html">API&nbsp;Reference</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">System&nbsp;Sounds</a>&nbsp;<span class="separator">&#187;</span>
+CoeSoundPlayer</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+<p>Location:
+<code>coesndpy.h</code>
+<br>Link against: <code>bafl.lib</code>
+</p>
+</div><div class="Head1">
+<a name="%3a%3aCoeSoundPlayer"></a>
+
+<h1>Class <code>CoeSoundPlayer</code></h1>
+</div><div class="Bodytext"><p class="Prototype"><code>CoeSoundPlayer</code></p><h4 class="subheading">Support</h4>
+<p>Supported from 6.0
+</p><h4 class="subheading">Description</h4>
+<p>Utility class for simple sound playing. Must be used in the same
+thread as an active UI Control Framework environment (<code>CCoeEnv</code>).
+</p>
+<p>This class plays the sound specified by a
+<code>TBaSystemSoundType</code> object. The caller can request the sound to be
+repeated, and the time between repeats. If the exact sound cannot be found on a
+particular device, a match only by category (first UID) is used. A default
+sound is used if no match at all is found. </p>
+<p>Defined in <code>CoeSoundPlayer</code>:
+<br><code class="ApiItem"><a href="CoeSoundPlayerClass.html#%3a%3aCoeSoundPlayer%3a%3aCancelSound%28%29" title="Stops playing the specified sound">CancelSound()</a></code>, <code class="ApiItem"><a href="CoeSoundPlayerClass.html#%3a%3aCoeSoundPlayer%3a%3aPlaySound%28%29" title="Plays the specified sound for the specifed number of times with the specified interval">PlaySound()</a></code>, <code class="ApiItem"><a href="CoeSoundPlayerClass.html#%3a%3aCoeSoundPlayer%3a%3aPlaySoundNow%28%29" title="Plays the specified sound for the specifed number of times with the specified interval, interrupting any other sound that is currently playing">PlaySoundNow()</a></code>, <code class="ApiItem"><a href="CoeSoundPlayerClass.html#%3a%3aCoeSoundPlayer%3a%3aiGap" title="Specifies the interval in microseconds between each time the sound is played">iGap</a></code>, <code class="ApiItem"><a href="CoeSoundPlayerClass.html#%3a%3aCoeSoundPlayer%3a%3aiObserver" title="Specifies the sound player's observer">iObserver</a></code>, <code class="ApiItem"><a href="CoeSoundPlayerClass.html#%3a%3aCoeSoundPlayer%3a%3aiPlayCount" title="Specifies the number of times the sound is played">iPlayCount</a></code>, <code class="ApiItem"><a href="CoeSoundPlayerClass.html#%3a%3aCoeSoundPlayer%3a%3aiSoundInfo" title="Specifies the system sound's information">iSoundInfo</a></code>
+</p>
+<a name="2.5"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Member functions</h2>
+</div><div class="Bodytext">
+<a name="2.5.2"></a></div><div class="Head3">
+<a name="%3a%3aCoeSoundPlayer%3a%3aPlaySound%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PlaySound()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void PlaySound(const TBaSystemSoundType&amp; aType);</code></p><h4 class="subheading">Description</h4>
+<p>Plays the specified sound. This function only interrupts
+another, currently playing, sound if the new sound has a higher priority than
+the currently playing sound. If you wish to interrupt any currently playing
+sound and play a new one, use <code>PlaySoundNow()</code> instead of
+<code>PlaySound()</code>. </p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TBaSystemSoundType&amp; aType </code></td>
+<td class="Cell"><p class="ValueDesc">The sound to play. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.5.3"></a></div><div class="Head3">
+<a name="%3a%3aCoeSoundPlayer%3a%3aPlaySound%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PlaySound()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void PlaySound(const TBaSystemSoundType&amp; aType,TInt aPlayCount,TTimeIntervalMicroSeconds32 aGap);</code></p><h4 class="subheading">Description</h4>
+<p>Plays the specified sound for the specifed number of times with
+the specified interval. This function only interrupts another, currently
+playing, sound if the new sound has a higher priority than the currently
+playing sound. If you wish to interrupt any currently playing sound and play a
+new one, use <code>PlaySoundNow()</code> instead of
+<code>PlaySound()</code>.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TBaSystemSoundType&amp; aType </code></td>
+<td class="Cell"><p class="ValueDesc">The sound to play. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aPlayCount</code></td>
+<td class="Cell"><p class="ValueDesc">The number of times the sound is played. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTimeIntervalMicroSeconds32 aGap</code></td>
+<td class="Cell"><p class="ValueDesc">The interval in microseconds between each time the sound is
+played. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.5.4"></a></div><div class="Head3">
+<a name="%3a%3aCoeSoundPlayer%3a%3aPlaySoundNow%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PlaySoundNow()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void PlaySoundNow(const TBaSystemSoundType&amp; aType);</code></p><h4 class="subheading">Description</h4>
+<p>Plays the specified sound, interrupting any other sound that is
+currently playing.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TBaSystemSoundType&amp; aType </code></td>
+<td class="Cell"><p class="ValueDesc">The sound to play. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.5.5"></a></div><div class="Head3">
+<a name="%3a%3aCoeSoundPlayer%3a%3aPlaySoundNow%28%29"></a>
+<hr size="1" noshade>
+<h3><code>PlaySoundNow()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>void PlaySoundNow(const TBaSystemSoundType&amp; aType,TInt aPlayCount,TTimeIntervalMicroSeconds32 aGap);</code></p><h4 class="subheading">Description</h4>
+<p>Plays the specified sound for the specifed number of times with
+the specified interval, interrupting any other sound that is currently
+playing.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TBaSystemSoundType&amp; aType </code></td>
+<td class="Cell"><p class="ValueDesc">The sound to play. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TInt aPlayCount</code></td>
+<td class="Cell"><p class="ValueDesc">The number of times the sound is played. </p></td>
+</tr>
+<tr valign="top">
+<td class="Cell" ><code class="Value">TTimeIntervalMicroSeconds32 aGap</code></td>
+<td class="Cell"><p class="ValueDesc">The interval in microseconds between each time the sound is
+played. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.5.6"></a></div><div class="Head3">
+<a name="%3a%3aCoeSoundPlayer%3a%3aCancelSound%28%29"></a>
+<hr size="1" noshade>
+<h3><code>CancelSound()</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>static void CancelSound(const TBaSystemSoundType&amp; aType);</code></p><h4 class="subheading">Description</h4>
+<p>Stops playing the specified sound.</p><h4 class="subheading">Parameters</h4>
+<table cellpadding="0" border="0"
+cellspacing="0"><tr><td class="ValueTableWrap"><table border="0"
+cellpadding="5" cellspacing="1">
+<tr valign="top">
+<td class="Cell" ><code class="Value"> const TBaSystemSoundType&amp; aType </code></td>
+<td class="Cell"><p class="ValueDesc">The sound to stop playing. </p></td>
+</tr>
+</table></td></tr></table>
+<a name="2.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Protected data members</h2>
+</div><div class="Bodytext">
+<a name="2.6.2"></a></div><div class="Head3">
+<a name="%3a%3aCoeSoundPlayer%3a%3aiObserver"></a>
+<hr size="1" noshade>
+<h3><code>iObserver</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>MCoeSoundPlayerObserver&amp; iObserver;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies the sound player's observer.</p>
+<a name="2.6.3"></a></div><div class="Head3">
+<a name="%3a%3aCoeSoundPlayer%3a%3aiSoundInfo"></a>
+<hr size="1" noshade>
+<h3><code>iSoundInfo</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TBaSystemSoundInfo iSoundInfo;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies the system sound's information.</p>
+<a name="2.6.4"></a></div><div class="Head3">
+<a name="%3a%3aCoeSoundPlayer%3a%3aiPlayCount"></a>
+<hr size="1" noshade>
+<h3><code>iPlayCount</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TInt iPlayCount;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies the number of times the sound is played.</p>
+<a name="2.6.5"></a></div><div class="Head3">
+<a name="%3a%3aCoeSoundPlayer%3a%3aiGap"></a>
+<hr size="1" noshade>
+<h3><code>iGap</code></h3>
+</div><div class="Bodytext"><p class="Prototype"><code>TTimeIntervalMicroSeconds32 iGap;</code></p><h4 class="subheading">Description</h4>
+<p>Specifies the interval in microseconds between each time the
+sound is played.</p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>

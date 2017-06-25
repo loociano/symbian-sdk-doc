@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Clock overview</title>
+<link href="../../../_stock/sysdoc.css" type="text/css" rel="stylesheet" media="screen">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="screen"><!--
+.ButtonBox { background-image: url(../../../_stock/gradient.jpg); }
+--></style>
+</head>
+<body><a name="_top"></a><a name="ApplicationFrameworkOverview%2eClockOverview%2emain"></a>
+<table width="100%" border="0" cellspacing="0"
+cellpadding="0"><tbody><tr><td colspan=2 class="LogoBox"><a><img
+src="../../../_stock/symbian.gif" alt="Symbian" width="121"
+height="46" border="0"></a><img src="../../../_stock/mainheading.gif"
+alt=" Developer Library" height="46" width="183"></td></tr><tr><td
+class="DocSetBox" width="33%">
+<p><a href="../../../Product/Generic/index.html">SYMBIAN OS V6.1 EDITION FOR C++</a></p>
+</td><td class="ButtonBox" align="right" width="67%">
+<p><a href="../../../_index/index.html"><img
+src="../../../_stock/btn_index.gif" alt="[Index]" width="53"
+height="22" border="0"></a> <a href="../../GlobalGlossary/index.html"><img src="../../../_stock/btn_glossary.gif"
+alt="[Glossary]" border="0" width="81" height="22"></a> <img src="../../../_stock/btn_spacer.gif"
+alt="" width="60" height="22"> <a href="ApplicationFrameworkOverview.guide.html"><img src="../../../_stock/btn_prev.gif"
+alt="[Previous]" border="0" width="85" height="22"></a> <a href="FrontEndProcessorOverview.guide.html"><img src="../../../_stock/btn_next.gif" alt="[Next]"
+border="0" width="58" height="22"></a></p>
+</td></tr></table>
+<hr noshade size="1">
+<p class="breadcrumbNav">&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/index.html">Symbian&nbsp;OS&nbsp;v6.1&nbsp;Edition&nbsp;for&nbsp;C++</a>&nbsp;<span class="separator">&#187;</span>
+<a href="../../../Product/Generic/APIGuide/index.html">API&nbsp;Guide</a>&nbsp;<span class="separator">&#187;</span>
+<a href="index.html">Application&nbsp;Framework</a>&nbsp;<span class="separator">&#187;</span>
+Clock&nbsp;overview</p>
+
+<hr noshade size="1">
+<div class="AuthoredContent">
+
+
+</div><div class="Head1">
+
+<h1>Clock Overview</h1>
+</div><div class="Bodytext">
+<a name="1.3"></a>
+</div><div class="Head2">
+<hr size="2" noshade>
+<h2>Purpose</h2>
+</div><div class="Bodytext">
+<p>Provides the graphical display of digital and analogue clocks. </p>
+<p>The clocks are animated to change with system time. </p>
+<a name="1.4"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Architectural relationships</h2>
+</div><div class="Bodytext">
+<p>The animation of the clocks is performed by an animation DLL that plugs-in to the Window Server. The key classes in this API are client-side animation classes, derived from the animation client-side class <a href="../../APIReference/WindowServerClientSide/RAnimClass.html#%3a%3aRAnim" title="Client-side handle to a server-side animation class"><code class="ApiItem">RAnim</code></a>.</p>
+<a name="1.5"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>Description</h2>
+</div><div class="Bodytext">
+<p>The API has three key concepts: clock base classes, analogue clock, and digital clock.</p>
+<a name="1.5.3"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Clock base classes</h3>
+</div><div class="Bodytext">
+<p>A number of base classes provide shared functionality for the clocks, including basic display control, and time setting. They derive ultimately from <a href="../../APIReference/WindowServerClientSide/RAnimClass.html#%3a%3aRAnim" title="Client-side handle to a server-side animation class"><code class="ApiItem">RAnim</code></a>, and are, in inheritance order, <a href="../../APIReference/Clock/RAnimWithUtilsClass.html#%3a%3aRAnimWithUtils" title="Utility class to support clock animation"><code class="ApiItem">RAnimWithUtils</code></a>, <a href="../../APIReference/Clock/RTimeDeviceClass.html#%3a%3aRTimeDevice" title="Sets display parameters for clocks"><code class="ApiItem">RTimeDevice</code></a>, and <a href="../../APIReference/Clock/RClockClass.html#%3a%3aRClock" title="Sets the time for clocks"><code class="ApiItem">RClock</code></a>.</p>
+<a name="1.5.4"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Analogue clock</h3>
+</div><div class="Bodytext">
+<p>Derived from <a href="../../APIReference/Clock/RClockClass.html#%3a%3aRClock" title="Sets the time for clocks"><code class="ApiItem">RClock</code></a>, the  class <a href="../../APIReference/Clock/RAnalogClockClass.html#%3a%3aRAnalogClock" title="An analogue clock"><code class="ApiItem">RAnalogClock</code></a> provides an analogue clock with configurable colour, size, position, and number of hands. </p><p>How a hand is drawn is specified by a <a href="../../APIReference/Clock/TAnalogDisplayHandClass.html#%3a%3aTAnalogDisplayHand" title="A hand for an analogue clock (RAnalogClock)"><code class="ApiItem">TAnalogDisplayHand</code></a> object. The settings for displaying an AM/PM indicator is provided  by <a href="../../APIReference/Clock/SAnalogDisplayAmPmStruct.html#%3a%3aSAnalogDisplayAmPm" title="Defines the display parameters of the AM/PM display for an analogue clock"><code class="ApiItem">SAnalogDisplayAmPm</code></a>.</p>
+<a name="1.5.5"></a>
+</div><div class="Head3">
+<hr size="1" noshade>
+<h3>Digital clock</h3>
+</div><div class="Bodytext">
+<p>Derived from <a href="../../APIReference/Clock/RClockClass.html#%3a%3aRClock" title="Sets the time for clocks"><code class="ApiItem">RClock</code></a>, the  class <a href="../../APIReference/Clock/RDigitalClockClass.html#%3a%3aRDigitalClock" title="A digital clock"><code class="ApiItem">RDigitalClock</code></a> provides a digital clock with configurable colour, size, position, and font. What time information is displayed is configured through one or more  <a href="../../APIReference/Clock/TDigitalDisplayTextSectionClass.html#%3a%3aTDigitalDisplayTextSection" title="A text section for a digital clock (RDigitalClock)"><code class="ApiItem">TDigitalDisplayTextSection</code></a> objects.</p>
+<a name="1.6"></a>
+</div><div class="Head2">
+<table cellpadding="0" cellspacing="0" border="0" width="97%"><tr valign="bottom"><td align="right"><p><a href="#_top"><img alt="[Top]" src="../../../_stock/arrow_up_2.gif" border="0"align="bottom"></a></p></td></tr></table><hr size="2" noshade>
+<h2>See also</h2>
+</div><div class="Bodytext">
+<p><a href="../Graphics/AnimationOverview.guide.html#AnimationOverview%2emain">Animation</a></p><p><a href="../Graphics/WindowServerClientSideOverview.guide.html#WindowServerClientSideOverview%2emain">Window server</a></p>
+
+</div><div class="Footer">
+<hr noshade size="1">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="bottom">
+<td><p class="copyrightStatement">Copyright &copy;2002&nbsp; Symbian Ltd. &nbsp; &nbsp; &nbsp;	6.1-00174
+</p></td>
+<td align="right"><p><a href="#_top"><img
+alt="[Top]" src="../../../_stock/arrow_up.gif" border="0"
+align="bottom"></a></p></td>
+</table>
+</div>
+</body>
+</html>
